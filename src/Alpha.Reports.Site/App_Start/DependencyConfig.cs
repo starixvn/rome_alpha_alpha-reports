@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
+    using Alpha.Reports.Features.BonusDetail;
     using Alpha.NetThrottling;
     using Alpha.NetThrottling.Models;
     using Alpha.NetThrottling.Resolvers;
@@ -161,6 +162,8 @@
             container.RegisterSingleton<RiskAnalysisIPMatchingService, RiskAnalysisIPMatchingServiceImpl>();
             container.RegisterSingleton<BetChoiceMatchingService, BetChoiceMatchingServiceImpl>();
             container.Register<BetChoiceMatchingWorkbook, BetChoiceMatchingWorkbookImpl>();
+
+            container.Register<BonusDetailService, BonusDetailServiceImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

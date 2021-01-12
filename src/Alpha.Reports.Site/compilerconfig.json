@@ -54,5 +54,9 @@
   {
     "outputFile": "Features/Shared/Styles/result-winloss-mobile-07.css",
     "inputFile": "Features/Shared/Styles/result-winloss-mobile-07.scss"
+  },
+  {
+    "outputFile": "Features/BonusDetail/Styles/bonus-detail.css",
+    "inputFile": "Features/BonusDetail/Styles/bonus-detail.scss"
   }
 ]

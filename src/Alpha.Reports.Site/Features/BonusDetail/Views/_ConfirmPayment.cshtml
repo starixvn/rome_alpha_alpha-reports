@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+<div class="modal fade message-modal in" id="report-legend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="icon icon-close close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                <h4 class="modal-title">@Resources.ConfirmPayment</h4>
+            </div>
+            <div class="modal-body">
+                @Alert.Render()
+                <p>@Resources.ConfirmPaymentNote</p>
+                @using (Html.BeginForm("ConfirmPayment", "BonusDetail", FormMethod.Post, new { @class = "form-horizontal", id = "form-confirmPayment" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="custId" id="hidden-custId" />
+                    <input type="hidden" name="transId" id="hidden-transId" />
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">@Resources.PaymentDate</label>
+                        <div class="col-xs-9">
+                            <div class="control date">
+                                <div id="payment-date-container" class="input-group date paymentdate">
+                                    <input type="text"
+                                           id="payment-date"
+                                           name="paymentDate"
+                                           readonly="readonly"
+                                           autocomplete="off"
+                                           class="ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate form-control"
+                                           value="@SystemTime.Today.ToShortDateWithSlash()" />
+                                    <span class="input-group-addon">
+                                        <label class="icon-calendar" for="payment-date"></label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">@Resources.ToMember</label>
+                        <label class="col-xs-9 control-label" id="lbl-toMember"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">@Resources.Amount</label>
+                        <label class="col-xs-9 control-label" id="lbl-amount"></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">@Resources.BonusDetailRefNo</label>
+                        <label class="col-xs-9 control-label" id="lbl-transId"></label>
+                    </div>
+                    <div class="form-group list-button">
+                        <button type="submit" class="btn-submit" id="btn-submit">@Resources.Submit</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

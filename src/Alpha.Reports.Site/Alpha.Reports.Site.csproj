@@ -415,6 +415,7 @@
     <TypeScriptCompile Include="assets\scripts\betchoicematching\betchoicematching.ts" />
     <TypeScriptCompile Include="assets\scripts\betchoicematching\global.d.ts" />
     <TypeScriptCompile Include="assets\scripts\commissionbybettype\commissionbybettype.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\alert.ts" />
     <TypeScriptCompile Include="assets\scripts\components\currency-selection.ts" />
     <TypeScriptCompile Include="assets\scripts\components\link-builder.ts" />
     <TypeScriptCompile Include="assets\scripts\components\league-multiselection.ts" />
@@ -427,6 +428,8 @@
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
+    <TypeScriptCompile Include="Features\BonusDetail\Scripts\bonus-detail.ts" />
+    <TypeScriptCompile Include="Features\BonusDetail\Scripts\confirm-payment.ts" />
     <TypeScriptCompile Include="Features\EnteredResult\Scripts\enteredresult-new.ts" />
     <TypeScriptCompile Include="Features\Outstanding\Scripts\outstanding-new.ts" />
     <TypeScriptCompile Include="Features\Outstanding\Scripts\outstanding.ts" />
@@ -473,6 +476,11 @@
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
     <Compile Include="Controllers\ConsolidationController.cs" />
     <Compile Include="Controllers\PlayForFunController.cs" />
+    <Compile Include="Features\BonusDetail\BonusDetailController.cs" />
+    <Compile Include="Features\BonusDetail\BonusDetailHandler.cs" />
+    <Compile Include="Features\BonusDetail\Requests\BonusDetailQuery.cs" />
+    <Compile Include="Features\BonusDetail\Requests\ConfirmPaymentCommand.cs" />
+    <Compile Include="Features\BonusDetail\ViewModels\BonusDetailViewModel.cs" />
     <Compile Include="Features\Outstanding\OutstandingController.cs" />
     <Compile Include="Controllers\MatchWinLossController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
@@ -695,6 +703,7 @@
     <Content Include="App_Data\activitytracking.uat.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
+    <Content Include="App_Data\SPNames\Internal\DBTXN.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBCust.CustDB.DownlineNetView.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -723,6 +732,7 @@
     <Content Include="App_Data\SPNames\Local\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBARC.bodb_Archive.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBRPT.bodb_report.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Local\DBTXN.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBBOF.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBAGE.bodb02.BODBDownlineNet.xml" />
@@ -734,6 +744,7 @@
     <Content Include="App_Data\SPNames\Pro\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBRPT.bodb_report.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Pro\DBTXN.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBARC.bodb_Archive.BODBDownlineNet.xml" />
@@ -744,6 +755,7 @@
     <Content Include="App_Data\SPNames\SIT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBRPT.bodb_report.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\SIT\DBTXN.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBBOF.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBAGE.bodb02.BODBDownlineNet.xml" />
@@ -798,6 +810,7 @@
     <Content Include="App_Data\SPNames\UAT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBRPT.bodb_report.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\UAT\DBTXN.bodb02.BODBDownlineNet.xml" />
     <Content Include="assets\bundles\betchoicematching\betchoicematching.css" />
     <Content Include="assets\bundles\betchoicematching\betchoicematching.js" />
     <Content Include="assets\bundles\betchoicematching\betchoicematching.min.css">
@@ -949,6 +962,21 @@
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
+    <Content Include="Features\BonusDetail\Bundles\bonusdetail.css" />
+    <Content Include="Features\BonusDetail\Bundles\bonusdetail.js" />
+    <Content Include="Features\BonusDetail\Bundles\bonusdetail.min.css">
+      <DependentUpon>bonusdetail.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BonusDetail\Bundles\bonusdetail.min.js">
+      <DependentUpon>bonusdetail.js</DependentUpon>
+    </Content>
+    <Content Include="Features\BonusDetail\Styles\bonus-detail.css">
+      <DependentUpon>bonus-detail.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BonusDetail\Styles\bonus-detail.min.css">
+      <DependentUpon>bonus-detail.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BonusDetail\Styles\Images\payment.svg" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-mobile-calculate-07.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-mobile-calculate-07.min.css">
       <DependentUpon>enteredresult-mobile-calculate-07.css</DependentUpon>
@@ -1012,6 +1040,7 @@
     <Content Include="App_Data\ExcelTemplates\Consolidation\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\Consolidation\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\Consolidation\Member.xls" />
+    <Content Include="App_Code\Components\Alert.cshtml" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
@@ -1220,6 +1249,13 @@
     <Content Include="Features\Shared\Styles\datepicker-mobile-07.scss" />
     <Content Include="Features\Shared\Styles\monthpicker-mobile-07.scss" />
     <Content Include="Features\Shared\Styles\result-winloss-mobile-07.scss" />
+    <Content Include="Features\BonusDetail\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Features\BonusDetail\Views\Index.cshtml" />
+    <Content Include="Features\BonusDetail\Views\_Filter.cshtml" />
+    <Content Include="Features\BonusDetail\Styles\bonus-detail.scss" />
+    <Content Include="Features\BonusDetail\Views\_ConfirmPayment.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

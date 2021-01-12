@@ -609,4 +609,7 @@
   <data name="SuperWinLossNew" xml:space="preserve">
     <value>Super Win/Loss</value>
   </data>
+  <data name="NotAuthorized" xml:space="preserve">
+    <value>해당 기능에 대한 권한이 없습니다.</value>
+  </data>
 </root>
