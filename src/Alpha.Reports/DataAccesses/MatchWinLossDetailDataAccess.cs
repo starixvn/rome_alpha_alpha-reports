@@ -15,7 +15,7 @@
 
     public class MatchWinLossDetailDataAccessImpl : MatchWinLossDetailDataAccess
     {
-        private const int ParlayBetGroupId = 3;
+        private readonly List<int> ParlayBetGroupId = new List<int> { 3, 4 };
 
         public IEnumerable<MatchWinLossDetailModel> GetData(MatchWinLossDetailCriteria criteria)
         {
@@ -51,7 +51,7 @@
         public MatchWinLossDetailModel BuildMatchWinLossDetailModel(IDataReader reader, bool isAgent, bool isSuper)
         {
             return new MatchWinLossDetailModel(
-                isParlay: reader.ToInt("BetGroup") == ParlayBetGroupId,
+                isParlay: ParlayBetGroupId.Contains(reader.ToInt("BetGroup")),
                 matchId: reader.ToInt("MatchId"),
                 homeId: reader.ToInt("homeId"),
                 awayId: reader.ToInt("awayId"),

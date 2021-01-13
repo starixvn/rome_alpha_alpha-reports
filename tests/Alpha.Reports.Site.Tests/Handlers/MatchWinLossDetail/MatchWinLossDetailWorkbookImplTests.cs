@@ -8,7 +8,7 @@
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using Reports.Constants;
-    using Reports.Models.MatchWinLossDetail;    
+    using Reports.Models.MatchWinLossDetail;
     using Site.Handlers.MatchWinLossDetail;
     using Site.ViewModels.MatchWinLossDetail;
     using Utils;
@@ -46,10 +46,11 @@
             var mixParlay = anyValueCreatorFixture.Create<BetTypeWinLossViewModel>();
             var systemParlay = anyValueCreatorFixture.Create<BetTypeWinLossViewModel>();
             var leapGamingsystemParlay = anyValueCreatorFixture.Create<BetTypeWinLossViewModel>();
+            var parlayWinLossDetail = anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>();
             var grandTotal = anyValueCreatorFixture.Create<BetTypeWinLossViewModel>();
 
             // Act
-            matchWinLossDetailWorkbookImpl.SetData(noParlayMatchWinLossDetail, noParlayWinLossTotal, mixParlay, systemParlay, leapGamingsystemParlay, grandTotal);
+            matchWinLossDetailWorkbookImpl.SetData(noParlayMatchWinLossDetail, noParlayWinLossTotal, mixParlay, systemParlay, parlayWinLossDetail, grandTotal);
 
             // Assert
             Assert.True(matchWinLossDetailWorkbookImpl.NoParlayMatchWinLossDetail == noParlayMatchWinLossDetail
@@ -90,7 +91,7 @@
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>(),
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
-                new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1,(byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
+                new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, (byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
                 "Team 1",
                 "Team 1");
 
@@ -243,7 +244,7 @@
             var systemParlayRowTemplate = Substitute.For<Row>();
             matchWinLossDetailWorkbookImpl.SystemParlayRowTemplate = systemParlayRowTemplate;
             matchWinLossDetailWorkbookImpl.BetTypeRowMapper = anyValueCreatorFixture.Create<Mapper<BetTypeWinLossViewModel>>();
-            matchWinLossDetailWorkbookImpl.LeapGamingSystemParlay = anyValueCreatorFixture.Create<BetTypeWinLossViewModel>();
+            matchWinLossDetailWorkbookImpl.ParlayWinLoss = anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>();
 
             // Act
             matchWinLossDetailWorkbookImpl.FillSystemParlayWinLoss(sheet, rowIndex);

@@ -168,7 +168,7 @@
                 CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
                 CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, 1),
                 CreateBetTypeWinLossViewModel(29, "Bet Type 29", 1, 1, 1),
-                CreateBetTypeWinLossViewModel(5301, "Bet Type 5301", 1, 1, 1),
+                new List<BetTypeWinLossViewModel> { CreateBetTypeWinLossViewModel(5301, "Bet Type 5301", 1, 1, 1) },
                 CreateBetTypeWinLossViewModel(0, null, 5, 5, 0),
                 query,
                 new MatchWinLossDetailParam(
@@ -277,7 +277,7 @@
                 CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
                 CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, 1),
                 CreateBetTypeWinLossViewModel(29, "Bet Type 29", 1, 1, 1),
-                CreateBetTypeWinLossViewModel(5301, "Bet Type 5301", 1, 1, 1),
+                new List<BetTypeWinLossViewModel> { CreateBetTypeWinLossViewModel(5301, "Bet Type 5301", 1, 1, 1) },
                 CreateBetTypeWinLossViewModel(0, null, 5, 5, 0),
                 query,
                 new MatchWinLossDetailParam(

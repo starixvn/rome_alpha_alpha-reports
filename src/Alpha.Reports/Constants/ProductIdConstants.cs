@@ -17,6 +17,7 @@ namespace Alpha.Reports.Constants
         public const int GTCasino = 46;
         public const int WM = 51;
         public const int ION = 52;
+        public const int BigGame = 57;
         public const int BBin = 47;
         public const int PP = 32;
         public const int GDG = 59;
@@ -29,7 +30,8 @@ namespace Alpha.Reports.Constants
                 ProductIdConstants.BBin,
                 ProductIdConstants.ION,
                 ProductIdConstants.WM,
-                ProductIdConstants.GDG
+                ProductIdConstants.GDG,
+                ProductIdConstants.BigGame
             };
     }
 }
