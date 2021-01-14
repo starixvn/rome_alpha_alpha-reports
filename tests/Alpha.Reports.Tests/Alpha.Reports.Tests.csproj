@@ -273,6 +273,12 @@
     <Compile Include="DataAccesses\WinLossByProductDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
     <Compile Include="Extensions\DecimalExtensionsTests.cs" />
+    <Compile Include="Features\BonusDetail\BonusDetailServiceTests.cs" />
+    <Compile Include="Features\BonusDetail\Criteria\ConfirmPaymentCriteriaTests.cs" />
+    <Compile Include="Features\BonusDetail\Criteria\GetAgentBonusCriteriaTests.cs" />
+    <Compile Include="Features\BonusDetail\Criteria\GetMasterBonusCriteriaTests.cs" />
+    <Compile Include="Features\BonusDetail\Criteria\GetSuperBonusCriteriaTests.cs" />
+    <Compile Include="Features\BonusDetail\Models\BonusEntityTests.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingEventModelTests.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingTicketModelTests.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingUserModelTests.cs" />

@@ -40,7 +40,7 @@ class ConfirmPayment {
         this.$paymentDatePicker = this.$("#payment-date");
         this.$paymentDatePicker.datepicker({
             allowInputToggle: true,
-            maxDate: this.$paymentDatePicker.val()
+            maxDate: new Date(this.$paymentDatePicker.val())
         });
     }
 

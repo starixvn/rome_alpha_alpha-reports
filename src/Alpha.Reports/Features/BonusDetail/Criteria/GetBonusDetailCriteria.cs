@@ -5,7 +5,7 @@
     using Alpha.Reports.Features.BonusDetail.Params;
     using Fanex.Data.Repository;
 
-    abstract class GetBonusDetailCriteria : CriteriaBase
+    public class GetBonusDetailCriteria : CriteriaBase
     {
         protected GetBonusDetailCriteria(BonusDetailParam param)
         {
