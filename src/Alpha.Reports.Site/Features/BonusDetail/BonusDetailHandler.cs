@@ -59,6 +59,7 @@
                 message.CustId,
                 message.TransId,
                 message.PaymentDate,
-                message.IP);
+                message.IP,
+                message.Language);
     }
 }

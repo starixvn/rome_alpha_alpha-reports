@@ -14,6 +14,7 @@
             PaymentDate = param.PaymentDate;
             UserId = param.ViewerId;
             LoginIP = param.LoginIP;
+            Language = param.Language;
         }
 
         public int CustId { get; }
@@ -27,6 +28,8 @@
         public int UserId { get; }
 
         public string LoginIP { get; }
+
+        public string Language { get; }
 
         public int ErrCode { get; set; }
 

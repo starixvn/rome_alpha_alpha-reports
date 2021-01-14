@@ -10,7 +10,8 @@
             int custId,
             long transId,
             DateTime paymentDate,
-            string loginIP)
+            string loginIP,
+            string language)
         {
             ViewerId = viewerId;
             SubAccId = subAccId;
@@ -18,6 +19,7 @@
             TransId = transId;
             PaymentDate = paymentDate;
             LoginIP = loginIP;
+            Language = language;
         }
 
         public int ViewerId { get; }
@@ -31,5 +33,7 @@
         public DateTime PaymentDate { get; }
 
         public string LoginIP { get; }
+
+        public string Language { get; }
     }
 }

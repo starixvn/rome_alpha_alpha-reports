@@ -27,6 +27,10 @@
 }
 
 #report-legend {
+    &.modal {
+        z-index: 999;
+    }
+
     .modal-dialog {
         width: 480px;
 
@@ -57,10 +61,16 @@
     }
 }
 
+#form-confirmPayment {
+    .control.date {
+        position: absolute;
+        top: -10px;
+    }
 
-#payment-date-container {
-    position: fixed;
-    z-index: 2000;
-    width: 120px;
-    top: 88px;
+    .input-group.paymentdate {
+        position: fixed;
+        z-index: 2000;
+        width: 130px;
+    }
 }
+

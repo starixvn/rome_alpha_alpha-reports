@@ -12,6 +12,7 @@
             SubAccId = viewer.SubAccId;
             IP = viewer.IP;
             IsInternal = viewer.IsInternal;
+            LanguageKey = viewer.LanguageKey;
         }
 
         public long TransId { get; set; }
@@ -23,6 +24,8 @@
         public string IP { get; }
 
         public bool IsInternal { get; }
+
+        public string LanguageKey { get; }
 
         public override bool IsValid()
             => base.IsValid() && TransId > 0 && ViewerLevel.IsAgentLevel() && !IsInternal;
