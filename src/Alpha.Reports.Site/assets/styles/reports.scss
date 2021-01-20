@@ -613,3 +613,13 @@ table.dataTable {
         }
     }
 }
+
+@media only screen and (max-device-width: 375px) and (orientation: portrait) {
+    .filter {
+        .product-detail-multiselect-container {
+            .multiselect-container.dropdown-menu {
+                width: auto !important;
+            }
+        }
+    }
+}
