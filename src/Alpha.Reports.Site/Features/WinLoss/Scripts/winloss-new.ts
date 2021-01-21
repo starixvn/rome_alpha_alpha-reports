@@ -72,12 +72,6 @@ class WinLossViewNew extends BaseHistoricReport {
         this.$isDescendingSort.val(String(this.isDescendingSort()));
     };
 
-    doAdjustFilter = () => {
-        if (alphaReports.screenSmallThan768() && this.$(".product-detail-multiselect-container").length === 0) {
-            this.$(".product-multiselect-container").css("grid-column", "1/5");
-        }
-    };
-
     cacheDOMElements = () => {
         super.cacheDOMElements();
 
@@ -87,9 +81,8 @@ class WinLossViewNew extends BaseHistoricReport {
 
     bindFilter = () => {
         this.productMultiSelectionComponent.render();
-        this.doAdjustFilter();
-
         this.$multiSelectButton = this.$('#dropdown-product').parent().find('.multiselect.btn');
+
         if (alphaReports.screenSmallThan768()) {
             this.reportTooltip.show(
                 new ReportTooltipOption('icon-normal-column', parseInt(this.$('#CustId').val(), 0))
