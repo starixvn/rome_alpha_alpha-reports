@@ -1,5 +1,4 @@
 ﻿class BaseHistoricReport extends BaseReportNew {
-    $dateRangePickerEl: JQuery;
     $excelIcon: JQuery;
     $exportExcelForm: JQuery;
     $fromDate: JQuery;
@@ -8,15 +7,15 @@
     $toDate: JQuery;
     $userSelectedDateRangeOption: JQuery;
 
-    dateRangePickerNewComponent: DateRangePickerNewComponent;
+    dateRangePickerComponent: DateRangePickerComponent;
 
     constructor(
         $: JQueryStatic,
-        dateRangePickerNewComponent: DateRangePickerNewComponent,
+        dateRangePickerComponent: DateRangePickerComponent,
         linkBuilderComponent: LinkBuilderComponent) {
         super($, linkBuilderComponent);
 
-        this.dateRangePickerNewComponent = dateRangePickerNewComponent;
+        this.dateRangePickerComponent = dateRangePickerComponent;
     }
 
     public cacheDOMElements() {
@@ -34,12 +33,27 @@
     public initDataTable(options = {}) {
         super.initDataTable(options);
 
-        if (this.$tableReport.width() > this.$(window).width()) {
+        this.doAdjustDataTable();
+    }
+
+    public doAdjustDataTable() {
+        const browserWidth = this.$(window).width(),
+            deviceWidth = screen.width || window.outerWidth,
+            columnCount = this.$dataTable.columns()[0].length;
+
+        if (deviceWidth < 768 && browserWidth >= 768) {
+            for (let i = 3; i < columnCount - 1; i++) {
+                this.$(this.$dataTable.column(i).header()).removeClass("desktop min-tablet-l mobile").addClass("mobile");
+            }
+        }
+
+        if (this.$tableReport.width() > browserWidth) {
             this.$tableReport.find("tbody tr td:first-child").css("white-space", "nowrap");
             this.$(this.$dataTable.column(2).header()).removeClass("all").addClass("min-tablet-l");
-            this.$dataTable.responsive.rebuild();
-            this.$dataTable.responsive.recalc();
         }
+
+        this.$dataTable.responsive.rebuild();
+        this.$dataTable.responsive.recalc();
     }
 
     public registerEvents() {
@@ -48,11 +62,17 @@
         this.$excelIcon.on("click", () => this.onExportExcelEvent());
         this.$historicReport.on("click", () => this.onSubmitHistoricReportEvent());
         this.$reportForm.submit(event => this.onSubmitReportEvent(event));
-        if (this.$dateRangePickerEl && this.$dateRangePickerEl.length > 0) {
-            this.$dateRangePickerEl.on('cancel.daterangepicker', () => this.doAdjustHeader());
-            this.$dateRangePickerEl.on('apply.daterangepicker', () => this.doAdjustHeader());
-        }
+        this.$fromDate.parent().on("dp.show", this.doAdjustDatePickerCalendar);
+        this.$toDate.parent().on("dp.show", this.doAdjustDatePickerCalendar);
     }
+
+    public doAdjustDatePickerCalendar = () => {
+        if (alphaReports.screenSmallThan768() && !alphaReports.screenLandscapeMode()) {
+            let width = this.$(window).width(),
+                widget = this.$(".bootstrap-datetimepicker-widget.dropdown-menu");
+            widget.css({ width });
+        }
+    };
 
     public checkReady = () => this.$("#IsHistoricReport").length > 0;
 

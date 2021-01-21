@@ -992,6 +992,24 @@
     <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.min.css">
       <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
     </Content>
+    <Content Include="Features\Shared\Styles\datepicker-mobile-07.css">
+      <DependentUpon>datepicker-mobile-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\datepicker-mobile-07.min.css">
+      <DependentUpon>datepicker-mobile-07.css</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\monthpicker-mobile-07.css">
+      <DependentUpon>monthpicker-mobile-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\monthpicker-mobile-07.min.css">
+      <DependentUpon>monthpicker-mobile-07.css</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\result-winloss-mobile-07.css">
+      <DependentUpon>result-winloss-mobile-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\result-winloss-mobile-07.min.css">
+      <DependentUpon>result-winloss-mobile-07.css</DependentUpon>
+    </Content>
     <Content Include="Features\WinLoss\Bundles\winloss-mobile-calculate-07.css" />
     <Content Include="Features\WinLoss\Bundles\winloss-mobile-calculate-07.min.css">
       <DependentUpon>winloss-mobile-calculate-07.css</DependentUpon>
@@ -1170,20 +1188,9 @@
     </Content>
     <Content Include="App_Code\Components\ProductDetailMultiSelection.cshtml" />
     <Content Include="Features\WinLoss\Styles\winloss.scss" />
-    <Content Include="Features\Shared\Styles\shared-report-mobile-calculate-07.scss" />
-    <Content Include="Features\Shared\Styles\shared-report-mobile-calculate-07.css">
-      <DependentUpon>shared-report-mobile-calculate-07.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\Shared\Styles\shared-report-mobile-calculate-07.min.css">
-      <DependentUpon>shared-report-mobile-calculate-07.css</DependentUpon>
-    </Content>
-    <Content Include="Features\Shared\Styles\historic-report-mobile-calculate-07.scss" />
-    <Content Include="Features\Shared\Styles\historic-report-mobile-calculate-07.css">
-      <DependentUpon>historic-report-mobile-calculate-07.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\Shared\Styles\historic-report-mobile-calculate-07.min.css">
-      <DependentUpon>historic-report-mobile-calculate-07.css</DependentUpon>
-    </Content>
+    <Content Include="Features\Shared\Styles\datepicker-mobile-07.scss" />
+    <Content Include="Features\Shared\Styles\monthpicker-mobile-07.scss" />
+    <Content Include="Features\Shared\Styles\result-winloss-mobile-07.scss" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

@@ -1,0 +1,74 @@
+﻿@function calculateScale($num, $scale: 0.7) {
+    @return $num / $scale;
+}
+
+.monpickr-wrap-parent, .daypickr-wrap-parent {
+    height: calculateScale(36px) !important;
+
+    .monpickr-wrap, .daypickr-wrap {
+        @extend %full-space;
+        z-index: 99 !important;
+
+        .monpickr, .daypickr {
+            @extend %full-space;
+        }
+
+        .monpickr-selected-month, .daypickr-selected-day {
+            @extend %full-space;
+        }
+
+        .daypickr-selected-day {
+            pointer-events: none;
+        }
+
+        .monpickr-dropdown, .daypickr-dropdown {
+            width: 100% !important;
+        }
+
+        .monpickr-selected-month, .daypickr-selected-day, .monpickr-dropdown, .daypickr-dropdown {
+            font-size: calculateScale(16px);
+        }
+    }
+}
+
+.daypickr-wrap-parent .ui-widget-header .ui-icon {
+    background-image: unset !important;
+    height: unset !important;
+    width: 0 !important;
+    display: inline-block;
+    border-left: calculateScale(4px) solid transparent;
+    border-right: calculateScale(4px) solid transparent;
+    border-bottom: calculateScale(4px) solid transparent;
+    border-top: calculateScale(4px) solid #212121;
+    margin-right: 8px;
+    position: relative;
+    top: 4px;
+}
+
+.monpickr-arrows {
+    .monpickr-prev, .monpickr-next, .monpickr-down {
+        top: calc(50% - 9px);
+    }
+}
+
+.monpickr-wrap-parent {
+    width: calc(50% - 21px) !important;
+}
+
+.daypickr-wrap-parent {
+    width: calc(25% - 10px) !important;
+}
+
+.ui-monpickr li a {
+    font-size: 100%;
+}
+
+.monpickr-label.separator {
+    line-height: calculateScale(36px) !important;
+    margin: 0 6px !important;
+}
+
+%full-space {
+    width: 100% !important;
+    height: 100% !important;
+}

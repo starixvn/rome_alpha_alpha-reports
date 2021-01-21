@@ -31,6 +31,7 @@ class AlphaReports {
 
         return currentWindowWidth < 768;
     };
+    screenLandscapeMode = () => screen.width > screen.height || this.$(window).width() > this.$(window).height();
 
     splitCell = (firstCell: string, cellClass: string = "", lastCellStyle: string = "bold") => {
         var this$ = this.$;

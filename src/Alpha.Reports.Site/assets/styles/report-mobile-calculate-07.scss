@@ -98,7 +98,7 @@ table.dataTable tbody > tr {
     }
 
     .input-group.date .form-control {
-        font-size: calculateScale(13px);
+        font-size: calculateScale(16px);
     }
 
     .btn-group button.multiselect {
@@ -113,6 +113,12 @@ table.dataTable tbody > tr {
             border-width: calculateScale(4px);
             border-top: calculateScale(4px) solid;
         }
+    }
+
+    button .caret {
+        top: calculateScale(16px);
+        border-width: calculateScale(4px);
+        border-top: calculateScale(4px) solid;
     }
 
     .icon-excel, .icon-back {

@@ -32,14 +32,6 @@
     "inputFile": "assets/styles/report-mobile-calculate-07.scss"
   },
   {
-    "outputFile": "Features/Shared/Styles/shared-report-mobile-calculate-07.css",
-    "inputFile": "Features/Shared/Styles/shared-report-mobile-calculate-07.scss"
-  },
-  {
-    "outputFile": "Features/Shared/Styles/historic-report-mobile-calculate-07.css",
-    "inputFile": "Features/Shared/Styles/historic-report-mobile-calculate-07.scss"
-  },
-  {
     "outputFile": "Features/EnteredResult/Styles/enteredresult-mobile-calculate-07.css",
     "inputFile": "Features/EnteredResult/Styles/enteredresult-mobile-calculate-07.scss"
   },
@@ -50,5 +42,17 @@
   {
     "outputFile": "Features/WinLoss/Styles/winloss.css",
     "inputFile": "Features/WinLoss/Styles/winloss.scss"
+  },
+  {
+    "outputFile": "Features/Shared/Styles/datepicker-mobile-07.css",
+    "inputFile": "Features/Shared/Styles/datepicker-mobile-07.scss"
+  },
+  {
+    "outputFile": "Features/Shared/Styles/monthpicker-mobile-07.css",
+    "inputFile": "Features/Shared/Styles/monthpicker-mobile-07.scss"
+  },
+  {
+    "outputFile": "Features/Shared/Styles/result-winloss-mobile-07.css",
+    "inputFile": "Features/Shared/Styles/result-winloss-mobile-07.scss"
   }
 ]

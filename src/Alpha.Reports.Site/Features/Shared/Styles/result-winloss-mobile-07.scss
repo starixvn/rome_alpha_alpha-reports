@@ -1,0 +1,153 @@
+﻿@import "../../../assets/styles/_mixins.scss"; 
+
+$filter-padding-right: 10px;
+
+.filter {
+    display: grid;
+    grid-template-columns: 50% 1fr 1fr auto;
+    grid-gap: 15px 16px;
+    align-items: center;
+    padding-right: #{$filter-padding-right};
+    padding-bottom: 12px;
+
+    @media (orientation: landscape) {
+        .daterange-dropdown {
+            width: 100%;
+        }
+    }
+
+    .note {
+        grid-column: 1/5;
+    }
+
+    &:not(.hide) + [class*="level-"] {
+        margin-top: -10px;
+    }
+
+    .form-group {
+        margin: 0;
+
+        .input-group.date {
+            position: relative;
+
+            .form-control {
+                box-shadow: none;
+                border: 1px solid #cfcfcf;
+                border-radius: 4px;
+            }
+
+            .input-group-addon {
+                width: auto;
+                position: absolute;
+                right: 8px;
+                z-index: 99;
+                top: 12px;
+
+                @media (orientation: landscape) {
+                    padding: 0;
+                }
+            }
+        }
+
+        &.to-date-box {
+            grid-column: 2/5;
+        }
+
+        &.submit-container {
+            grid-column: 2/4;
+        }
+
+        &.daterange-container {
+            grid-row: 2;
+        }
+
+        .daterange-dropdown .dropdown-toggle {
+            border: 1px solid #cfcfcf;
+            box-shadow: none;
+            border-radius: 4px;
+            background-color: #EDEDED;
+            color: #333;
+
+            .caret {
+                border-width: 6px;
+            }
+        }
+
+        label {
+            display: none;
+            margin-bottom: 3px;
+        }
+
+        .control {
+            margin: 0;
+        }
+
+        .date {
+            width: 100% !important;
+        }
+
+        .btn-submit {
+            width: 100%;
+        }
+    }
+
+    .icon-excel {
+        font-size: 30px;
+    }
+}
+
+.fromdate {
+    .bootstrap-datetimepicker-widget {
+        &.dropdown-menu {
+            @media (orientation: landscape) {
+                width: 100%;
+            }
+
+            &.pull-right {
+                left: 0 !important;
+
+                &:before {
+                    left: 6px;
+                    right: auto;
+                }
+
+                &:after {
+                    left: 7px;
+                    right: auto;
+                }
+            }
+        }
+    }
+}
+
+.todate {
+    .bootstrap-datetimepicker-widget {
+        right: #{-$filter-padding-right} !important;
+
+        @media (orientation: landscape) {
+            width: calc(100% + #{$filter-padding-right});
+        }
+    }
+}
+
+@mixin scaleHighResolutions($ratio) {
+    body, .filter .btn-group button.multiselect .multiselect-selected-text {
+        font-size: calculateScaleRatio(13px, $ratio);
+    }
+
+    .note {
+        line-height: 26px;
+    }
+
+    .tblRpt thead th, .tblRpt tbody td, .tblRpt tfoot td {
+        height: calculateScaleRatio(34px, $ratio);
+    }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2.625) {
+    @include scaleHighResolutions(1.2);
+}
+
+@media only screen and (-webkit-device-pixel-ratio: 3) {
+    @include scaleHighResolutions(1);
+}
