@@ -480,7 +480,9 @@
     <Compile Include="Features\BonusDetail\BonusDetailHandler.cs" />
     <Compile Include="Features\BonusDetail\Requests\BonusDetailQuery.cs" />
     <Compile Include="Features\BonusDetail\Requests\ConfirmPaymentCommand.cs" />
+    <Compile Include="Features\BonusDetail\Requests\ConfirmPaymentQuery.cs" />
     <Compile Include="Features\BonusDetail\ViewModels\BonusDetailViewModel.cs" />
+    <Compile Include="Features\BonusDetail\ViewModels\ConfirmPaymentViewModel.cs" />
     <Compile Include="Features\Outstanding\OutstandingController.cs" />
     <Compile Include="Controllers\MatchWinLossController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
@@ -970,11 +972,26 @@
     <Content Include="Features\BonusDetail\Bundles\bonusdetail.min.js">
       <DependentUpon>bonusdetail.js</DependentUpon>
     </Content>
+    <Content Include="Features\BonusDetail\Bundles\confirmpayment.css" />
+    <Content Include="Features\BonusDetail\Bundles\confirmpayment.js" />
+    <Content Include="Features\BonusDetail\Bundles\confirmpayment.min.css">
+      <DependentUpon>confirmpayment.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BonusDetail\Bundles\confirmpayment.min.js">
+      <DependentUpon>confirmpayment.js</DependentUpon>
+    </Content>
+    
     <Content Include="Features\BonusDetail\Styles\bonus-detail.css">
-      <DependentUpon>bonus-detail.scss</DependentUpon>
+      <DependentUpon>confirm-payment.scss</DependentUpon>
     </Content>
     <Content Include="Features\BonusDetail\Styles\bonus-detail.min.css">
       <DependentUpon>bonus-detail.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BonusDetail\Styles\confirm-payment.css">
+      <DependentUpon>confirm-payment.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BonusDetail\Styles\confirm-payment.min.css">
+      <DependentUpon>confirm-payment.css</DependentUpon>
     </Content>
     <Content Include="Features\BonusDetail\Styles\Images\payment.svg" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-mobile-calculate-07.css" />
@@ -1254,8 +1271,9 @@
     </Content>
     <Content Include="Features\BonusDetail\Views\Index.cshtml" />
     <Content Include="Features\BonusDetail\Views\_Filter.cshtml" />
+    <Content Include="Features\BonusDetail\Styles\confirm-payment.scss" />
+    <Content Include="Features\BonusDetail\Views\ConfirmPayment.cshtml" />
     <Content Include="Features\BonusDetail\Styles\bonus-detail.scss" />
-    <Content Include="Features\BonusDetail\Views\_ConfirmPayment.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

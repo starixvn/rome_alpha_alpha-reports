@@ -1,18 +1,21 @@
 ﻿"use strict";
 class BonusDetail {
     private $: JQueryStatic;
+    private topWindow: any;
     private dateRangePickerComponent: DateRangePickerComponent;
     private pagerComponent: PagerComponent;
     private $reportForm: JQuery;
     private $pageTitle: JQuery;
     private $isFilterVisible: JQuery;
-    private confirmPayment: ConfirmPayment;
+    private confirmPaymentURL: string;
 
     constructor(
         $: JQueryStatic,
+        topWindow: any,
         dateRangePickerComponent: DateRangePickerComponent,
         pagerComponent: PagerComponent) {
         this.$ = $;
+        this.topWindow = topWindow;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.pagerComponent = pagerComponent;
     }
@@ -31,13 +34,14 @@ class BonusDetail {
         this.$reportForm = this.$("#report-form");
         this.$pageTitle = this.$(".page-title");
         this.$isFilterVisible = this.$("#IsFilterVisible");
+        this.confirmPaymentURL = this.$("#hidden-confirmPaymentURL").val();
     }
 
     public initComponents() {
         this.dateRangePickerComponent.render(
             new DateRangePickerOption("daterange-picker", "report-form", null, () => this.$("#PageIndex").val("1")));
 
-        const dropdownOptions = { numberDisplayed: 1, buttonWidth: "140px" };
+        const dropdownOptions = { numberDisplayed: 1 };
         this.$("#dropdown-statusId").multiselect(dropdownOptions);
         this.$("#dropdown-isComplained").multiselect(dropdownOptions);
 
@@ -45,15 +49,30 @@ class BonusDetail {
         this.pagerComponent.render();
 
         this.$("#tbl-report").stickyTableHeaders();
-        this.confirmPayment = new ConfirmPayment(this.$, new Alert(this.$), () => this.$reportForm.submit());
-        this.confirmPayment.init();
     }
 
     public bindEvents() {
         this.$(".icon-filter").click(this.onClickIconFilter);
         this.$reportForm.submit(this.onSubmitReport);
         this.$("#btn-submit").click(() => this.$("#PageIndex").val("1"));
-        this.confirmPayment.registerIconPaymentDateClick(this.$(".icon-payment"));
+
+        if (this.confirmPaymentURL) {
+            const self = this;
+            this.$(".icon-payment").click(function () {
+                const $this = self.$(this);
+                const url = self.buildConfirmPaymentURL($this);
+                self.topWindow.popupManager.open(url, undefined, 470, 450);
+            });
+        }
+    }
+
+    public buildConfirmPaymentURL(element: JQuery) {
+        return this.confirmPaymentURL
+            + "?custId=" + element.data("custid")
+            + "&custName=" + element.data("username")
+            + "&transId=" + element.data("transid")
+            + "&amount=" + element.data("amount")
+            + "&paymentDate=" + element.data("createddate"); 
     }
 
     onClickIconFilter = () => {
@@ -78,6 +97,7 @@ class BonusDetail {
 $(function () {
     const bonusDetail = new BonusDetail(
         $,
+        window.top,
         new DateRangePickerComponent($),
         new PagerComponent($));
     bonusDetail.init();

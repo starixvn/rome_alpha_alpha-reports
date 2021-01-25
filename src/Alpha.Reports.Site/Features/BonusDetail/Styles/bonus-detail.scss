@@ -1,10 +1,4 @@
-﻿@import '../../../assets/styles/_mixins.scss';
-
-.width-140 {
-    width: 140px;
-}
-
-.text-danger {
+﻿.text-danger {
     color: #e92819;
 }
 
@@ -23,53 +17,5 @@
             float: left;
             padding: 3px 10px 0 0;
         }
-    }
-}
-
-#report-legend {
-    &.modal {
-        z-index: 999;
-    }
-
-    .modal-dialog {
-        width: 480px;
-
-        .modal-content .modal-body p {
-            margin: 10px 0 16px 0;
-        }
-    }
-
-    .form-horizontal {
-        .form-group {
-            margin-bottom: 8px;
-        }
-
-        .control-label {
-            margin-bottom: 0;
-            padding-top: 0;
-            font-weight: normal;
-            text-align: left;
-        }
-
-        .list-button {
-            text-align: right;
-        }
-
-        .icon-calendar:hover {
-            cursor: pointer;
-        }
-    }
-}
-
-#form-confirmPayment {
-    .control.date {
-        position: absolute;
-        top: -10px;
-    }
-
-    .input-group.paymentdate {
-        position: fixed;
-        z-index: 2000;
-        width: 130px;
     }
 }

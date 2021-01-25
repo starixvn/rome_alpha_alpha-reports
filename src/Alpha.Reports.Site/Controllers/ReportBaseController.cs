@@ -17,7 +17,7 @@
     [SessionState(SessionStateBehavior.ReadOnly)]
     public abstract class ReportBaseController : BaseController
     {
-        private const string InvalidReportViewPath = "~/Views/Shared/InvalidReport.cshtml";
+        protected const string InvalidReportViewPath = "~/Views/Shared/InvalidReport.cshtml";
         private const string InvalidReportExcelFileName = "InvalidReport";
 
         protected readonly IMediator mediator;

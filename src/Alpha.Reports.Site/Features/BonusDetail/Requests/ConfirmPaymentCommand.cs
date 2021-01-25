@@ -1,11 +1,9 @@
 ﻿namespace Alpha.Reports.Site.Features.BonusDetail.Requests
 {
-    using System;
     using Alpha.Reports.Models;
-    using Alpha.Reports.Site.Requests;
     using MediatR;
 
-    public class ConfirmPaymentCommand : ReportBaseQuery, IAsyncRequest<Result>
+    public class ConfirmPaymentCommand : ConfirmPaymentQuery, IAsyncRequest<Result>
     {
         public ConfirmPaymentCommand(IUser viewer) : base(viewer)
         {
@@ -14,10 +12,6 @@
             IsInternal = viewer.IsInternal;
             LanguageKey = viewer.LanguageKey;
         }
-
-        public long TransId { get; set; }
-
-        public DateTime PaymentDate { get; set; }
 
         public int SubAccId { get; }
 
@@ -28,6 +22,6 @@
         public string LanguageKey { get; }
 
         public override bool IsValid()
-            => base.IsValid() && TransId > 0 && ViewerLevel.IsAgentLevel() && !IsInternal;
+            => base.IsValid() && !IsInternal;
     }
 }
