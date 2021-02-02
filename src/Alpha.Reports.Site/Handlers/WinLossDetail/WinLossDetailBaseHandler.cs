@@ -30,14 +30,16 @@
 
         protected WinLossDetailParam CreateParameter(
             WinLossDetailQuery message,
-            UserLevel userLevel)
+            UserLevel userLevel,
+            bool isEnableSabaPromotion = false)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.Site,
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate);
+                message.MinDate,
+                message.IsEnableSabaPromotion);
             var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
                 message.CustId,
                 message.Site,

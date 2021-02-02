@@ -8,8 +8,11 @@
          ReportDefaultDateRangeQuery,
          IRequest<WinLossViewModel>
     {
+        private readonly IUser viewer;
+
         public WinLossQuery(IUser viewer) : base(viewer)
         {
+            this.viewer = viewer;
         }
 
         public string UserSelectedProductIds { get; set; }
@@ -27,5 +30,7 @@
         public int UserSelectedDateRangeOption { get; set; }
 
         public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
+
+        public bool IsEnableSabaPromotion => viewer.IsEnableSabaPromotion;
     }
 }
