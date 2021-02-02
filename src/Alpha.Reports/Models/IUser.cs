@@ -32,5 +32,7 @@
         DateTime LimitedDateToShowInfo { get; }
 
         bool IsAdminCanViewVNIP { get; }
+
+        bool IsEnableSabaPromotion { get; }
     }
 }

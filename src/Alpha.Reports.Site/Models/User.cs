@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Configurations;
     using Constants;
     using Reports.Constants;
     using Reports.Models;
@@ -49,6 +50,9 @@
         public DateTime LimitedDateToShowInfo => userSession.GetProperty<DateTime>(SessionKey.CustomerDatelimit);
 
         public bool IsAdminCanViewVNIP => userSession.IsAdminCanViewVNIP;
+
+        public bool IsEnableSabaPromotion 
+            => SiteSettings.OfferSabaPromotionSites.Any(site => site == "*" || site.Equals(userSession.Site, StringComparison.OrdinalIgnoreCase));
 
         internal virtual IList<int> GetEnableProductsForGame(string gameName)
             => userSession.GetProperty<IList<int>>(SessionKey.GameEnable + gameName) ?? new List<int>();
