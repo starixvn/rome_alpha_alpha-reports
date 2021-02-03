@@ -276,7 +276,7 @@
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 message,
                 new WinLossDetailParam(
-                    0, string.Empty, 1, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), Enumerable.Empty<int>(), message.CustLevel, sortPropertyName, false, false, string.Empty),
+                    0, string.Empty, 1, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), Enumerable.Empty<int>(), message.CustLevel, sortPropertyName, false, false, string.Empty, false),
                 new PagedReportData<WinLossDetailModel>(reportData, 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
                 Enumerable.Empty<GroupProductViewModel>(),
@@ -307,7 +307,7 @@
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 message,
                 new WinLossDetailParam(
-                    0, string.Empty, 1, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), Enumerable.Empty<int>(), message.CustLevel, "CustName", isDescendingSort, false, string.Empty),
+                    0, string.Empty, 1, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), Enumerable.Empty<int>(), message.CustLevel, "CustName", isDescendingSort, false, string.Empty, false),
                 new PagedReportData<WinLossDetailModel>(reportData, 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
                 Enumerable.Empty<GroupProductViewModel>(),
@@ -334,7 +334,7 @@
         private static WinLossDetailViewModel CreateWinLossDetailViewModel(DateTime fromDate, DateTime toDate, WinLossDetailQuery message)
             => Substitute.ForPartsOf<WinLossDetailViewModel>(
                 message,
-                new WinLossDetailParam(0, string.Empty, 1, 0, 0, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, new List<int> { 1 }, message.CustLevel, "CustName", false, false, string.Empty),
+                new WinLossDetailParam(0, string.Empty, 1, 0, 0, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, new List<int> { 1 }, message.CustLevel, "CustName", false, false, string.Empty, false),
                 new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
                 new List<GroupProductViewModel>

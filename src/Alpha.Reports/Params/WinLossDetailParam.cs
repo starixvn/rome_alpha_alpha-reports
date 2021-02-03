@@ -22,7 +22,8 @@
             string sortByPropertyName,
             bool isDescendingSort,
             bool isHistoricReport,
-            string productDetailsXML)
+            string productDetailsXML,
+            bool isEnableSabaPromotion)
             : base(custId, site, currencyId, fromDate, toDate, limitedDate, userSelectedProductIds, userSelectedResourceIds, reportLevel, isHistoricReport, productDetailsXML)
         {
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
@@ -30,6 +31,7 @@
             SortByPropertyName = sortByPropertyName;
 
             IsDescendingSort = isDescendingSort;
+            IsEnableSabaPromotion = isEnableSabaPromotion;
         }
 
         public int PageIndex { get; }
@@ -39,5 +41,7 @@
         public string SortByPropertyName { get; }
 
         public bool IsDescendingSort { get; }
+
+        public bool IsEnableSabaPromotion { get; }
     }
 }

@@ -39,7 +39,8 @@
                 string.Empty,
                 false,
                 false,
-                string.Empty);
+                string.Empty,
+                false);
 
             // Act
             var actual = winLossDetailParam.CustId;
@@ -67,7 +68,8 @@
                 string.Empty,
                 false,
                 false,
-                string.Empty);
+                string.Empty,
+                false);
             var expectedDate = DefaultVariablesTest.CurrentDate;
 
             // Act
@@ -96,7 +98,8 @@
                 string.Empty,
                 false,
                 true,
-                string.Empty);
+                string.Empty,
+                false);
             var expectedDate = DefaultVariablesTest.CurrentDate.FirstDayOfMonth();
 
             // Act
@@ -129,7 +132,8 @@
                 string.Empty,
                 false,
                 isHistoricReport,
-                string.Empty);
+                string.Empty,
+                false);
             var expectedDate = fromDate;
 
             // Act
@@ -160,7 +164,8 @@
                     string.Empty,
                     false,
                     isHistoricReport,
-                    string.Empty);
+                    string.Empty,
+                    false);
 
             var expectedDate = DefaultVariablesTest.CurrentDate;
 
@@ -194,7 +199,8 @@
                 string.Empty,
                 false,
                 isHistoricReport,
-                string.Empty);
+                string.Empty,
+                false);
             var expectedDate = toDate;
 
             // Act
@@ -224,7 +230,8 @@
                 string.Empty,
                 false,
                 false,
-                string.Empty);
+                string.Empty,
+                false);
             var expectedReportLevel = custLevel;
 
             // Act
@@ -255,7 +262,8 @@
                 string.Empty,
                 isDescendingSort,
                 false,
-                string.Empty);
+                string.Empty,
+                false);
             var expectedIsDescendingSort = isDescendingSort;
 
             // Act
@@ -289,7 +297,8 @@
                 string.Empty,
                 false,
                 false,
-                string.Empty);
+                string.Empty,
+                false);
             var expectedUserSelectedProductIds = userSelectedProductIdList;
 
             // Act
@@ -318,7 +327,8 @@
                 string.Empty,
                 false,
                 false,
-                string.Empty);
+                string.Empty,
+                false);
             var expectedPageIndex = DefaultVariablesTest.PageIndex;
 
             // Act
@@ -353,7 +363,8 @@
                 string.Empty,
                 false,
                 false,
-                string.Empty);
+                string.Empty,
+                false);
             var expectedPageIndex = pageIndex;
 
             // Act
@@ -382,7 +393,8 @@
                 string.Empty,
                 false,
                 false,
-                string.Empty);
+                string.Empty,
+                false);
             var expectedPageSize = DefaultVariablesTest.PageSize;
 
             // Act
@@ -417,7 +429,8 @@
                 string.Empty,
                 false,
                 false,
-                string.Empty);
+                string.Empty,
+                false);
             var expectedPageSize = pageSize;
 
             // Act
@@ -446,7 +459,8 @@
                 "SortByPropertyName",
                 false,
                 false,
-                string.Empty);
+                string.Empty,
+                false);
 
             // Act
             var actual = winLossDetailParam.SortByPropertyName;
