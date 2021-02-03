@@ -34,5 +34,7 @@
         bool IsAdminCanViewVNIP { get; }
 
         bool IsEnableSabaPromotion { get; }
+
+        bool IsEnableSabaPromotionForHeadline { get; }
     }
 }
