@@ -21,9 +21,9 @@
     {
         IEnumerable<CurrencyModel> GetCurrencies(GetCurrencyParam param);
 
-        IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param);
+        IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param, bool isEnableSabaPromotion);
 
-        IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate);
+        IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate, bool isEnableSabaPromotion);
 
         IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(GetConsolidationParam param);
 
@@ -31,11 +31,11 @@
 
         IEnumerable<ConsolidationByProduct> GetConsolidationByProduct(GetConsolidationParam param);
 
-        ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, DateTime minReportDate);
+        ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, DateTime minReportDate, bool isEnableSabaPromotion);
 
         PagedReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param);
 
-        IEnumerable<int> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, DateTime minReportDate);
+        IEnumerable<int> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, DateTime minReportDate, bool isEnableSabaPromotion);
     }
 
     public class ConsolidationServiceImpl : ConsolidationService
@@ -46,18 +46,23 @@
         private readonly CacheRefService cacheRefService;
         private readonly WinLossDetailDataAccess winLossDetailDataAccess;
 
+        private readonly Func<int, string> getProductName;
+        private const int SabaPromotionProductId = 37;
+
         public ConsolidationServiceImpl(
             IDynamicRepository dynamicRepository,
             ReportDateService reportDateService,
             CacheRefService cacheRefService,
             WinLossDetailDataAccess winLossDetailDataAccess,
-            ProductService productService)
+            ProductService productService,
+            Func<int, string> getProductName)
         {
             this.dynamicRepository = dynamicRepository;
             this.reportDateService = reportDateService;
             this.cacheRefService = cacheRefService;
             this.winLossDetailDataAccess = winLossDetailDataAccess;
             this.productService = productService;
+            this.getProductName = getProductName;
         }
 
         public IEnumerable<CurrencyModel> GetCurrencies(GetCurrencyParam param)
@@ -67,10 +72,21 @@
             return data;
         }
 
-        public IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param)
-            => dynamicRepository.Fetch<ConsolidationProduct>(new GetConsolidationReportProductsCriteria(param.CustId))
-                .Where(product => IsRemainSupportProduct(product, param.MinDate))
-                .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, cacheRefService.GetProductName));
+        public IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param, bool isEnableSabaPromotion)
+        {
+            var products = dynamicRepository.Fetch<ConsolidationProduct>(new GetConsolidationReportProductsCriteria(param.CustId))
+                  .Where(product => IsRemainSupportProduct(product, param.MinDate))
+                  .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, cacheRefService.GetProductName));
+
+            if (isEnableSabaPromotion)
+            {
+                var sabaProduct = new Product(SabaPromotionProductId, null, products.Max(product => product.EndOfSupportDate), 0, 0, getProductName);
+                var sabaProducts = new List<Product> { sabaProduct };
+                products = sabaProducts.Concat(products);
+            }
+
+            return products;
+        }
 
         public IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(GetConsolidationParam param)
         {
@@ -114,18 +130,22 @@
             return data;
         }
 
-        public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate)
-            => GetProducts(new GetConslidationReportProductsParam(custId, minReportDate))
-                .Select(product => product.Id)
-                .Where(id => productIds == null || !productIds.Any() || productIds.Contains(id));
+        public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate, bool isEnableSabaPromotion)
+        {
+            var products = GetProducts(new GetConslidationReportProductsParam(custId, minReportDate), isEnableSabaPromotion)
+                  .Select(product => product.Id)
+                  .Where(id => productIds == null || !productIds.Any() || productIds.Contains(id));
+
+            return products;
+        }
 
         private static bool IsRemainSupportProduct(ConsolidationProduct product, DateTime minReportDate)
             => product.IsEnable
             && (!product.EndOfSupportDate.HasValue || minReportDate <= product.EndOfSupportDate.Value);
 
-        public ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, DateTime minReportDate)
+        public ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, DateTime minReportDate, bool isEnableSabaPromotion)
         {
-            var products = GetProducts(new GetConslidationReportProductsParam(custId, minReportDate)).ToList();
+            var products = GetProducts(new GetConslidationReportProductsParam(custId, minReportDate), isEnableSabaPromotion).ToList();
 
             return new ConsolidationExcludeProduct(products);
         }
@@ -154,11 +174,11 @@
             return winLossDetailData;
         }
 
-        public IEnumerable<int> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, DateTime minReportDate)
+        public IEnumerable<int> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, DateTime minReportDate, bool isEnableSabaPromotion)
         {
             var data = productService.GetProductsNeedDelayTimeToSumarizeData();
 
-            return FilterProductIdsByCustomer(custId, data.Select(i => (int)i.ProductId), minReportDate);
+            return FilterProductIdsByCustomer(custId, data.Select(i => (int)i.ProductId), minReportDate, isEnableSabaPromotion);
         }
     }
 }

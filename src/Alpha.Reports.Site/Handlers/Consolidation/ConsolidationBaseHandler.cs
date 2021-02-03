@@ -37,12 +37,13 @@
             this.productDetailService = productDetailService;
         }
 
-        protected GetConsolidationParam CreateParameter(GetConsolidationQuery message, IEnumerable<Product> products)
+        protected GetConsolidationParam CreateParameter(GetConsolidationQuery message, IEnumerable<Product> products, bool isEnableSabaPromotion)
         {
             var validUserSelectedProductIds = reportService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate);
+                message.MinDate,
+                message.IsEnableSabaPromotion);
             var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomerForConsolidationReport(
                 message.CustId,
                 !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds,
@@ -133,10 +134,10 @@
                 BreadcrumbLevel = message.BreadcrumbLevel
             };
 
-        protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query, IEnumerable<Product> products)
+        protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query, IEnumerable<Product> products, bool isEnableSabaPromotion)
         {
             var validUserSelectedProductIds =
-               reportService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate);
+               reportService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate, isEnableSabaPromotion);
             var validUserSelectedResourceIds =
                 productDetailService.FilterResourceIdsByCustomerForConsolidationReport(query.ViewerId, query.UserSelectedResourceIds, products);
 

@@ -8,11 +8,9 @@
          ReportDefaultDateRangeQuery,
          IRequest<WinLossViewModel>
     {
-        private readonly IUser viewer;
-
         public WinLossQuery(IUser viewer) : base(viewer)
         {
-            this.viewer = viewer;
+            this.IsEnableSabaPromotion = viewer.IsEnableSabaPromotion;
         }
 
         public string UserSelectedProductIds { get; set; }
@@ -31,6 +29,6 @@
 
         public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
 
-        public bool IsEnableSabaPromotion => viewer.IsEnableSabaPromotion;
+        public bool IsEnableSabaPromotion { get; }
     }
 }

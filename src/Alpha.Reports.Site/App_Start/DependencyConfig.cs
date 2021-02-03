@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
+    using System;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
@@ -143,6 +144,7 @@
             container.RegisterSingleton<RiskAnalysisIPMatchingService, RiskAnalysisIPMatchingServiceImpl>();
             container.RegisterSingleton<BetChoiceMatchingService, BetChoiceMatchingServiceImpl>();
             container.Register<BetChoiceMatchingWorkbook, BetChoiceMatchingWorkbookImpl>();
+            container.RegisterSingleton<Func<int, string>>(() => new CacheRefServiceImpl(new RemotingRefService()).GetProductName);
         }
 
         private static void RegisterDataAccesses(Container container)

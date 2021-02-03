@@ -8,6 +8,9 @@
     {
         public ConsolidationLegendQuery(IUser viewer) : base(viewer)
         {
+            IsEnableSabaPromotion = viewer.IsEnableSabaPromotion;
         }
+
+        public bool IsEnableSabaPromotion { get; }
     }
 }
