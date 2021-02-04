@@ -25,6 +25,6 @@
 
         public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
 
-        public bool IsEnableSabaPromotion => viewer.IsEnableSabaPromotionForHeadline;
+        public bool IsEnableSabaPromotionForHeadline => viewer.IsEnableSabaPromotionForHeadline;
     }
 }

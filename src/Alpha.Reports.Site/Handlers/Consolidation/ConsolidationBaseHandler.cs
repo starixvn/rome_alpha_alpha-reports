@@ -37,13 +37,13 @@
             this.productDetailService = productDetailService;
         }
 
-        protected GetConsolidationParam CreateParameter(GetConsolidationQuery message, IEnumerable<Product> products, bool isEnableSabaPromotion)
+        protected GetConsolidationParam CreateParameter(GetConsolidationQuery message, IEnumerable<Product> products)
         {
             var validUserSelectedProductIds = reportService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate,
-                message.IsEnableSabaPromotion);
+                message.IsEnableSabaPromotionForHeadline);
             var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomerForConsolidationReport(
                 message.CustId,
                 !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds,

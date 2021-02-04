@@ -51,11 +51,12 @@
 
         public bool IsAdminCanViewVNIP => userSession.IsAdminCanViewVNIP;
 
-        public bool IsEnableSabaPromotion 
+        public bool IsEnableSabaPromotion
             => SiteSettings.OfferSabaPromotionSites.Any(site => site == "*" || site.Equals(userSession.Site, StringComparison.OrdinalIgnoreCase));
 
         public bool IsEnableSabaPromotionForHeadline 
-            => SiteSettings.OfferSabaPromotionHeadlineSites.Any(site => site == "*" || site.Equals(userSession.Site, StringComparison.OrdinalIgnoreCase));
+            => SiteSettings.OfferSabaPromotionHeadlineSites.Any(site => site == "*" || site.Equals(userSession.Site, StringComparison.OrdinalIgnoreCase))
+            || IsEnableSabaPromotion;
 
         internal virtual IList<int> GetEnableProductsForGame(string gameName)
             => userSession.GetProperty<IList<int>>(SessionKey.GameEnable + gameName) ?? new List<int>();

@@ -10,7 +10,8 @@
     {
         public WinLossQuery(IUser viewer) : base(viewer)
         {
-            this.IsEnableSabaPromotion = viewer.IsEnableSabaPromotion;
+            IsEnableSabaPromotion = viewer.IsEnableSabaPromotion;
+            IsEnableSabaPromotionForHeadline = viewer.IsEnableSabaPromotionForHeadline;
         }
 
         public string UserSelectedProductIds { get; set; }
@@ -30,5 +31,7 @@
         public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
 
         public bool IsEnableSabaPromotion { get; }
+
+        public bool IsEnableSabaPromotionForHeadline { get; }
     }
 }

@@ -39,11 +39,11 @@
 
         public ConsolidationReportByUsernameViewModel Handle(ConsolidationByUsernameQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotion);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
-            var param = CreateParameter(message, consolidationExcludeProduct.Products, message.IsEnableSabaPromotion);
+            var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var data = reportService.GetConsolidationByUsername(param);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
@@ -59,11 +59,11 @@
 
         public ConsolidationReportByDateViewModel Handle(ConsolidationByDateQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotion);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
-            var param = CreateParameter(message, consolidationExcludeProduct.Products, message.IsEnableSabaPromotion);
+            var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var data = reportService.GetConsolidationByDate(param);
 
             var viewModel = new ConsolidationReportByDateViewModel(
@@ -79,11 +79,11 @@
 
         public ConsolidationReportByProductViewModel Handle(ConsolidationByProductQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotion);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
-            var param = CreateParameter(message, consolidationExcludeProduct.Products, message.IsEnableSabaPromotion);
+            var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var data = reportService.GetConsolidationByProduct(param);
 
             var viewModel = new ConsolidationReportByProductViewModel(
@@ -121,7 +121,7 @@
 
             var products = reportService.GetProducts(
                 new GetConslidationReportProductsParam(consolidationQuery.ViewerId, consolidationQuery.MinDate),
-                message.IsEnableSabaPromotion);
+                message.IsEnableSabaPromotionForHeadline);
             var filterViewModel = GetConsolidationFilterViewModel(consolidationQuery, products);
 
             return new ConsolidationDetailViewModel(
@@ -177,7 +177,7 @@
 
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(query.ViewerId, products);
 
-            var param = CreateParameter(query, products, query.IsEnableSabaPromotion);
+            var param = CreateParameter(query, products);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 query,
@@ -192,7 +192,7 @@
 
         private WinLossDetailViewModel GetWinLossDetailViewModel(WinLossDetailQuery query, IEnumerable<Product> products)
         {
-            var param = CreateWinLossDetailParam(query, products, query.IsEnableSabaPromotion);
+            var param = CreateWinLossDetailParam(query, products, query.IsEnableSabaPromotionForHeadline);
 
             var reportData = reportService.GetWinLossDetail(param);
 

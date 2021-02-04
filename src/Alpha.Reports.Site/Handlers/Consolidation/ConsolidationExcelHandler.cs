@@ -52,9 +52,9 @@
 
         public ExcelFileViewModel Handle(ConsolidationByUsernameExcelQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotion);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
-            var param = CreateParameter(message, consolidationExcludeProduct.Products, message.IsEnableSabaPromotion);
+            var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = reportService.GetConsolidationByUsername(param);
             var currencies = reportService
                 .GetCurrencies(new GetCurrencyParam(message.ViewerId))
@@ -74,9 +74,9 @@
 
         public ExcelFileViewModel Handle(ConsolidationByDateExcelQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotion);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
-            var param = CreateParameter(message, consolidationExcludeProduct.Products, message.IsEnableSabaPromotion);
+            var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = reportService.GetConsolidationByDate(param);
             var currencies = reportService
                 .GetCurrencies(new GetCurrencyParam(message.ViewerId))
@@ -96,9 +96,9 @@
 
         public ExcelFileViewModel Handle(ConsolidationByProductExcelQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotion);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
-            var param = CreateParameter(message, consolidationExcludeProduct.Products, message.IsEnableSabaPromotion);
+            var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = reportService.GetConsolidationByProduct(param);
             var currencies = reportService
                 .GetCurrencies(new GetCurrencyParam(message.ViewerId))
@@ -122,8 +122,8 @@
 
             var products = reportService.GetProducts(
                 new GetConslidationReportProductsParam(winLossDetailQuery.ViewerId, winLossDetailQuery.MinDate),
-                message.IsEnableSabaPromotion);
-            var param = CreateWinLossDetailParam(winLossDetailQuery, products, message.IsEnableSabaPromotion);
+                message.IsEnableSabaPromotionForHeadline);
+            var param = CreateWinLossDetailParam(winLossDetailQuery, products, message.IsEnableSabaPromotionForHeadline);
 
             var reportData = reportService.GetWinLossDetail(param);
 
