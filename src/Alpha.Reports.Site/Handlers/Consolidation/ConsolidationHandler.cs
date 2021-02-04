@@ -134,7 +134,7 @@
         public IEnumerable<string> Handle(ConsolidationLegendQuery message)
         {
             var result = new List<string>();
-            var products = reportService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate, message.IsEnableSabaPromotion);
+            var products = reportService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
             if (products.Any())
             {
@@ -148,7 +148,7 @@
         {
             var result = new List<string> { Resources.Tooltip_NetTurnover };
 
-            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.MinDate, message.IsEnableSabaPromotion);
+            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
             if (!string.IsNullOrEmpty(liveCasinoTooltips))
             {
                 result.Add(liveCasinoTooltips);
@@ -192,7 +192,7 @@
 
         private WinLossDetailViewModel GetWinLossDetailViewModel(WinLossDetailQuery query, IEnumerable<Product> products)
         {
-            var param = CreateWinLossDetailParam(query, products, query.IsEnableSabaPromotionForHeadline);
+            var param = CreateWinLossDetailParam(query, products);
 
             var reportData = reportService.GetWinLossDetail(param);
 

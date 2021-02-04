@@ -123,7 +123,7 @@
             var products = reportService.GetProducts(
                 new GetConslidationReportProductsParam(winLossDetailQuery.ViewerId, winLossDetailQuery.MinDate),
                 message.IsEnableSabaPromotionForHeadline);
-            var param = CreateWinLossDetailParam(winLossDetailQuery, products, message.IsEnableSabaPromotionForHeadline);
+            var param = CreateWinLossDetailParam(winLossDetailQuery, products);
 
             var reportData = reportService.GetWinLossDetail(param);
 

@@ -134,10 +134,10 @@
                 BreadcrumbLevel = message.BreadcrumbLevel
             };
 
-        protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query, IEnumerable<Product> products, bool isEnableSabaPromotion)
+        protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query, IEnumerable<Product> products)
         {
             var validUserSelectedProductIds =
-               reportService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate, isEnableSabaPromotion);
+               reportService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate, query.IsEnableSabaPromotionForHeadline);
             var validUserSelectedResourceIds =
                 productDetailService.FilterResourceIdsByCustomerForConsolidationReport(query.ViewerId, query.UserSelectedResourceIds, products);
 
@@ -157,7 +157,7 @@
                 query.IsDescendingSort,
                 query.IsHistoricReport,
                 productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds),
-                query.IsEnableSabaPromotion);
+                query.IsEnableSabaPromotionForHeadline);
         }
     }
 }
