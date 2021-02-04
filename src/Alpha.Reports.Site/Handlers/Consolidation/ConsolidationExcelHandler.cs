@@ -52,7 +52,7 @@
 
         public ExcelFileViewModel Handle(ConsolidationByUsernameExcelQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = reportService.GetConsolidationByUsername(param);
@@ -74,7 +74,7 @@
 
         public ExcelFileViewModel Handle(ConsolidationByDateExcelQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = reportService.GetConsolidationByDate(param);
@@ -96,7 +96,7 @@
 
         public ExcelFileViewModel Handle(ConsolidationByProductExcelQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = reportService.GetConsolidationByProduct(param);
@@ -121,7 +121,8 @@
             var winLossDetailQuery = CreateWinLossDetailQuery(message);
 
             var products = reportService.GetProducts(
-                new GetConslidationReportProductsParam(winLossDetailQuery.ViewerId, winLossDetailQuery.MinDate));
+                new GetConslidationReportProductsParam(winLossDetailQuery.ViewerId, winLossDetailQuery.MinDate),
+                message.IsEnableSabaPromotionForHeadline);
             var param = CreateWinLossDetailParam(winLossDetailQuery, products);
 
             var reportData = reportService.GetWinLossDetail(param);

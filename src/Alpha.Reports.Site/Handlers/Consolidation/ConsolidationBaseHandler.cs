@@ -42,7 +42,8 @@
             var validUserSelectedProductIds = reportService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate);
+                message.MinDate,
+                message.IsEnableSabaPromotionForHeadline);
             var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomerForConsolidationReport(
                 message.CustId,
                 !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds,
@@ -136,7 +137,7 @@
         protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query, IEnumerable<Product> products)
         {
             var validUserSelectedProductIds =
-               reportService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate);
+               reportService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate, query.IsEnableSabaPromotionForHeadline);
             var validUserSelectedResourceIds =
                 productDetailService.FilterResourceIdsByCustomerForConsolidationReport(query.ViewerId, query.UserSelectedResourceIds, products);
 
@@ -155,7 +156,8 @@
                 query.SortPropertyName,
                 query.IsDescendingSort,
                 query.IsHistoricReport,
-                productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
+                productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds),
+                query.IsEnableSabaPromotionForHeadline);
         }
     }
 }

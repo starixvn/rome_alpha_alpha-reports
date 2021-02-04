@@ -34,7 +34,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+            var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, message.MinDate, message.IsEnableSabaPromotion);
             var productDetails = productDetailService.GetProductDetails(message.CustId, message.Site, message.CurrencyId);
 
             var winLossDetailParam = CreateParameter(message, message.CustLevel);

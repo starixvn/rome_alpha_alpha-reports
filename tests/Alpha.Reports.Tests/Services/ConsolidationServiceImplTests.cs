@@ -27,6 +27,7 @@
         private readonly CacheRefService cacheRefService;
         private readonly WinLossDetailDataAccess winLossDetailDataAccess;
         private readonly ProductService productService;
+        private readonly Func<int, string> getProductName;
 
         public ConsolidationServiceImplTests(AnyValueCreatorFixture anyValueCreatorFixture)
         {
@@ -57,9 +58,10 @@
 
             winLossDetailDataAccess = Substitute.For<WinLossDetailDataAccess>();
             productService = Substitute.For<ProductService>();
-            consolidationServiceImpl = new ConsolidationServiceImpl(dynamicRepository, reportDateService, cacheRefService, winLossDetailDataAccess, productService);
+            consolidationServiceImpl = new ConsolidationServiceImpl(dynamicRepository, reportDateService, cacheRefService, winLossDetailDataAccess, productService, getProductName);
 
             compareLogic = new CompareLogic();
+            getProductName = Substitute.For<Func<int, string>>();
         }
 
         [Fact]
@@ -98,7 +100,7 @@
             };
 
             // Act
-            var actualProducts = consolidationServiceImpl.GetProducts(param);
+            var actualProducts = consolidationServiceImpl.GetProducts(param, isEnableSabaPromotion: false);
 
             // Assert
             Assert.True(compareLogic.Compare(expectedProducts, actualProducts.ToList()).AreEqual);
@@ -178,7 +180,7 @@
             var expectedProductIds = new List<int> { 1, 2, 5, 11 };
 
             // Act
-            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate);
+            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate, isEnableSabaPromotion: false);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -192,7 +194,7 @@
             var expectedProductIds = new List<int> { 1, 2, 5, 11 };
 
             // Act
-            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate);
+            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate, isEnableSabaPromotion: false);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -206,7 +208,7 @@
             var expectedProductIds = new List<int> { 1, 5 };
 
             // Act
-            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate);
+            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate, isEnableSabaPromotion: false);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -228,7 +230,7 @@
             var expectedValue = new ConsolidationExcludeProduct(products);
 
             // Act
-            var actualValue = consolidationServiceImpl.GetConsolidationExcludeProduct(0, DefaultVariablesTest.CurrentDate);
+            var actualValue = consolidationServiceImpl.GetConsolidationExcludeProduct(0, DefaultVariablesTest.CurrentDate, isEnableSabaPromotion: false);
 
             // Assert
             Assert.True(compareLogic.Compare(expectedValue, actualValue).AreEqual);

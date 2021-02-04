@@ -384,7 +384,8 @@
                 winLossDetailQuery.SortPropertyName,
                 winLossDetailQuery.IsDescendingSort,
                 winLossDetailQuery.IsHistoricReport,
-                string.Empty);
+                string.Empty,
+                winLossDetailQuery.IsEnableSabaPromotion);
 
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 winLossDetailQuery,

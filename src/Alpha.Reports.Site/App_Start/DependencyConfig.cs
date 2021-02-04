@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
+    using System;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
@@ -105,14 +106,22 @@
 
             container.RegisterSingleton<MatchWinLossDetailService, MatchWinLossDetailServiceImpl>();
             container.RegisterSingleton<UserPermissionService, UserPermissionServiceImpl>();
-            container.RegisterSingleton<ConsolidationService, ConsolidationServiceImpl>();
-
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
                     UserPermission.HasPermissionOnProduct,
                     new CacheRefServiceImpl(new RemotingRefService()).GetProductName),
                 Lifestyle.Singleton);
+
+            container.Register<ConsolidationService>(() => new ConsolidationServiceImpl(
+                container.GetInstance<IDynamicRepository>(),
+                container.GetInstance<ReportDateService>(),
+                container.GetInstance<CacheRefService>(),
+                container.GetInstance<WinLossDetailDataAccess>(),
+                container.GetInstance<ProductService>(),
+                new CacheRefServiceImpl(new RemotingRefService()).GetProductName),
+                Lifestyle.Singleton);
+            
             container.Register<ProductDetailService>(
                 () => new ProductDetailServiceImpl(
                     container.GetInstance<IDynamicRepository>(),

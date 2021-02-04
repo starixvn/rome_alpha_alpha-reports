@@ -13,11 +13,11 @@
     {
         IEnumerable<Product> GetProgressiveJackpotProduct(int custId, IEnumerable<int> progressiveJackpotproductIds);
 
-        IEnumerable<Product> GetProductsForCustomer(int custId, string site, int currencyId, DateTime? minReportDate = null);
+        IEnumerable<Product> GetProductsForCustomer(int custId, string site, int currencyId, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
 
-        IEnumerable<int> FilterProductIdsByCustomer(int custId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null);
+        IEnumerable<int> FilterProductIdsByCustomer(int custId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
 
-        IEnumerable<Product> FilterProductsByCustomer(int custId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null);
+        IEnumerable<Product> FilterProductsByCustomer(int custId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
 
         IEnumerable<string> GetProductNames(IEnumerable<int> productIds);
 
@@ -41,6 +41,7 @@
         private readonly Func<int, bool> canViewProduct;
         private readonly Func<int, string> getProductName;
         private readonly IDynamicRepository dynamicRepository;
+        private const int SabaPromotionProductId = 37;
 
         public ProductServiceImpl(
             IDynamicRepository dynamicRepository,
@@ -59,9 +60,9 @@
             return offeredProducts.Select(i => new Product(i, getProductName(i), null, 0, i, getProductName));
         }
 
-        public IEnumerable<int> FilterProductIdsByCustomer(int custId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null)
+        public IEnumerable<int> FilterProductIdsByCustomer(int custId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false)
         {
-            var customerProductIds = GetProductsForCustomer(custId, site, currencyId, minReportDate).Select(product => product.Id);
+            var customerProductIds = GetProductsForCustomer(custId, site, currencyId, minReportDate, isEnableSabaPromotion).Select(product => product.Id);
 
             var productIdList = productIds == null || !productIds.Any()
                 ? customerProductIds
@@ -70,10 +71,10 @@
             return productIdList;
         }
 
-        public IEnumerable<Product> FilterProductsByCustomer(int custId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null)
-            => GetProductsForCustomer(custId, site, currencyId, minReportDate).Where(product => productIds.Contains(product.Id));
+        public IEnumerable<Product> FilterProductsByCustomer(int custId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false)
+            => GetProductsForCustomer(custId, site, currencyId, minReportDate, isEnableSabaPromotion).Where(product => productIds.Contains(product.Id));
 
-        public IEnumerable<Product> GetProductsForCustomer(int custId, string site, int currencyId, DateTime? minReportDate = null)
+        public IEnumerable<Product> GetProductsForCustomer(int custId, string site, int currencyId, DateTime? minReportDate = null, bool isEnableSabaPromotion = false)
         {
             if (custId <= 0)
             {
@@ -91,6 +92,13 @@
             {
                 custProducts = custProducts
                     .Where(product => IsRemainSupportProduct(product, minReportDate));
+            }
+
+            if (isEnableSabaPromotion)
+            {
+                var sabaProduct = new Product(SabaPromotionProductId, null, custProducts.Max(product => product.EndOfSupportDate), 0, 0, getProductName);
+                var sabaProducts = new List<Product> { sabaProduct };
+                custProducts = sabaProducts.Concat(custProducts);
             }
 
             return custProducts;

@@ -39,7 +39,7 @@
 
         public ConsolidationReportByUsernameViewModel Handle(ConsolidationByUsernameQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
@@ -59,7 +59,7 @@
 
         public ConsolidationReportByDateViewModel Handle(ConsolidationByDateQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
@@ -79,7 +79,7 @@
 
         public ConsolidationReportByProductViewModel Handle(ConsolidationByProductQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
@@ -120,7 +120,8 @@
             var winLossDetailQuery = CreateWinLossDetailQuery(message);
 
             var products = reportService.GetProducts(
-                new GetConslidationReportProductsParam(consolidationQuery.ViewerId, consolidationQuery.MinDate));
+                new GetConslidationReportProductsParam(consolidationQuery.ViewerId, consolidationQuery.MinDate),
+                message.IsEnableSabaPromotionForHeadline);
             var filterViewModel = GetConsolidationFilterViewModel(consolidationQuery, products);
 
             return new ConsolidationDetailViewModel(
@@ -133,7 +134,7 @@
         public IEnumerable<string> Handle(ConsolidationLegendQuery message)
         {
             var result = new List<string>();
-            var products = reportService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate);
+            var products = reportService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
             if (products.Any())
             {
@@ -147,7 +148,7 @@
         {
             var result = new List<string> { Resources.Tooltip_NetTurnover };
 
-            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.MinDate);
+            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
             if (!string.IsNullOrEmpty(liveCasinoTooltips))
             {
                 result.Add(liveCasinoTooltips);
@@ -158,9 +159,9 @@
             return result;
         }
 
-        private string BuildTooltipsForLiveCasino(int custId, DateTime minDate)
+        private string BuildTooltipsForLiveCasino(int custId, DateTime minDate, bool isEnableSabaPromotion)
         {
-            var offeredLiveCasino = reportService.FilterProductIdsByCustomer(custId, ProductIdConstants.ProductListForTooltipsLiveCasino, minDate);
+            var offeredLiveCasino = reportService.FilterProductIdsByCustomer(custId, ProductIdConstants.ProductListForTooltipsLiveCasino, minDate, isEnableSabaPromotion);
             var liveCasinoNames = string.Join(", ", productService.GetProductNames(offeredLiveCasino));
 
             return offeredLiveCasino != null && offeredLiveCasino.Any() ?

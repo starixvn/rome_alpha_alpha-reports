@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Configurations
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Configuration;
 
@@ -55,5 +56,11 @@
                 return settingStatus;
             }
         }
+
+        public static IEnumerable<string> OfferSabaPromotionSites
+            => GetConfigValue("EnableProduct-37:Sites")?.Split(new[] { ",", ";" }, StringSplitOptions.RemoveEmptyEntries);
+
+        public static IEnumerable<string> OfferSabaPromotionHeadlineSites
+            => GetConfigValue("EnableProduct-37:HLSites")?.Split(new[] { ",", ";" }, StringSplitOptions.RemoveEmptyEntries);
     }
 }

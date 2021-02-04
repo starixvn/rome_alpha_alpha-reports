@@ -4,8 +4,11 @@
 
     public class GetConsolidationQuery : ReportDefaultDateRangeQuery
     {
+        private readonly IUser viewer;
+
         internal GetConsolidationQuery(IUser viewer) : base(viewer)
         {
+            this.viewer = viewer;
         }
 
         public int UserSelectedCurrencyId { get; set; }
@@ -21,5 +24,7 @@
         public int UserSelectedDateRangeOption { get; set; }
 
         public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
+
+        public bool IsEnableSabaPromotionForHeadline => viewer.IsEnableSabaPromotionForHeadline;
     }
 }
