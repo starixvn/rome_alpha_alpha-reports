@@ -9,6 +9,7 @@ class ConfirmPayment {
     private alert: Alert;
     private $confirmPaymentForm: JQuery;
     private $paymentDatePicker: JQuery;
+    private $submitButton: JQuery;
 
     constructor($: JQueryStatic, topWindow: any, alert: Alert) {
         this.$ = $;
@@ -27,8 +28,10 @@ class ConfirmPayment {
         this.$paymentDatePicker.datepicker({
             allowInputToggle: true,
             maxDate: new Date(this.$("#hidden-maxPaymentDate").val()),
-            minDate: new Date(this.$paymentDatePicker.val())
+            minDate: new Date(this.$paymentDatePicker.val()),
+            debug: true
         });
+        this.$submitButton = this.$("#btn-submit");
     }
 
     public bindEvents() {
@@ -41,6 +44,7 @@ class ConfirmPayment {
 
     public confirmPaymentPost() {
         this.$.blockUI();
+        this.$submitButton.prop("disabled", true);
         this.$.ajax({
             type: this.$confirmPaymentForm.attr("method"),
             url: this.$confirmPaymentForm.attr("action"),
@@ -55,9 +59,14 @@ class ConfirmPayment {
     confirmPaymentPostSuccess = (data) => {
         if (data.ErrCode) {
             this.alert.showError(data.ErrMsg);
+            this.$submitButton.prop("disabled", false);
         } else {
             this.alert.show(data.Code, data.Message);
-            data.IsOk && this.topWindow.closePopupAndReloadMainFrameAfterUpdateSuccess(3000);
+            if (data.IsOk) {
+                this.topWindow.closePopupAndReloadMainFrameAfterUpdateSuccess(3000);
+            } else {
+                this.$submitButton.prop("disabled", false);
+            }
         }
     }
 }

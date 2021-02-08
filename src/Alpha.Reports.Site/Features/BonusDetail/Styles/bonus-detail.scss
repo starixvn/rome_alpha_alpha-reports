@@ -12,10 +12,11 @@
 }
 
 .filter {
-    .dropdown-container {
-        label {
-            float: left;
-            padding: 3px 10px 0 0;
-        }
+    .form-group .btn-group {
+        float: unset;
+    }
+
+    .multiselect-container .radio {
+        display: block;
     }
 }
