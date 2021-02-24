@@ -635,6 +635,7 @@
     <Compile Include="ViewModels\Components\CurrencySelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
     <Compile Include="ViewModels\Components\GroupProductViewModel.cs" />
+    <Compile Include="ViewModels\Components\InfoIconWithTargetURLViewModel.cs" />
     <Compile Include="ViewModels\Components\LeagueMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\MonthPickerViewModel.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModel.cs" />
@@ -980,7 +981,6 @@
     <Content Include="Features\BonusDetail\Bundles\confirmpayment.min.js">
       <DependentUpon>confirmpayment.js</DependentUpon>
     </Content>
-    
     <Content Include="Features\BonusDetail\Styles\bonus-detail.css">
       <DependentUpon>confirm-payment.scss</DependentUpon>
     </Content>

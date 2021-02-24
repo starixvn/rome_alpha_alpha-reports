@@ -28,8 +28,7 @@ class ConfirmPayment {
         this.$paymentDatePicker.datepicker({
             allowInputToggle: true,
             maxDate: new Date(this.$("#hidden-maxPaymentDate").val()),
-            minDate: new Date(this.$paymentDatePicker.val()),
-            debug: true
+            minDate: new Date(this.$paymentDatePicker.val())
         });
         this.$submitButton = this.$("#btn-submit");
     }

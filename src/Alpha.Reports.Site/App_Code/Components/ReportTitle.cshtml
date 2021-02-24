@@ -17,6 +17,11 @@
             @Breadcrumb.Render(model.BreadcrumbLevelViewModel, currentRequestQuery, breadcrumbParamByLevel)
         }
 
+        @if (model.InfoIcon != null)
+        {
+            <a href="@model.InfoIcon.Href" @(string.IsNullOrWhiteSpace(model.InfoIcon.Target) ? string.Empty : $"target={model.InfoIcon.Target}")><span class="icon icon-information-outline"></span></a>
+        }
+
         @if (model.IsShowActionIcons)
         {
             <div class="list-icon">

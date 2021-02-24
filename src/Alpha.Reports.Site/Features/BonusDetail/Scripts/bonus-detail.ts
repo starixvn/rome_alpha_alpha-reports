@@ -61,7 +61,18 @@ class BonusDetail {
             this.$(".icon-payment").click(function () {
                 const $this = self.$(this);
                 const url = self.buildConfirmPaymentURL($this);
-                self.topWindow.popupManager.open(url, undefined, 470, 450);
+                self.topWindow.popupManager.open(
+                    url,
+                    undefined,
+                    470,
+                    380,
+                    "confirm-payment-modal",
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    { isIgnoreAutoHeightOniOS: true });
             });
         }
     }
@@ -72,7 +83,7 @@ class BonusDetail {
             + "&custName=" + element.data("username")
             + "&transId=" + element.data("transid")
             + "&amount=" + element.data("amount")
-            + "&paymentDate=" + element.data("createddate"); 
+            + "&paymentDate=" + element.data("createddate");
     }
 
     onClickIconFilter = () => {
