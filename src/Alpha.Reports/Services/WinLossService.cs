@@ -28,6 +28,7 @@
         private readonly WinLossDataAccess dataAccess;
         private readonly IDynamicRepository dynamicRepository;
         private readonly CacheRefService cacheRefService;
+        private readonly ICacheService cacheService;
 
         public WinLossServiceImpl(
             ReportDateService reportDateService,
@@ -35,9 +36,11 @@
             ProductDetailService productDetailService,
             WinLossDataAccess dataAccess,
             IDynamicRepository dynamicRepository,
-            CacheRefService cacheRefService)
+            CacheRefService cacheRefService,
+            ICacheService cacheService)
         {
             this.dynamicRepository = dynamicRepository;
+            this.cacheService = cacheService;
             this.reportDateService = reportDateService;
             this.productService = productService;
             this.productDetailService = productDetailService;
@@ -49,7 +52,7 @@
         {
             bool includeTestData = SiteSettings.LocalTest;
 
-            var reportData = ConfiguredCacheService
+            var reportData = cacheService
                  .GetOrSet(
                  EnteredResultsCacheKey,
                  () => GetDataEnteredSportResults(includeTestData),

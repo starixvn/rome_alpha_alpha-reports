@@ -25,20 +25,23 @@
         private readonly CacheRefService cacheRefService;
         private readonly IUser user;
         private readonly IDynamicRepository repository;
+        private readonly ICacheService cacheService;
 
         public PlayForFunServiceImpl(
             CacheRefService cacheRefService,
             IUser user,
-            IDynamicRepository dynamicRepository)
+            IDynamicRepository dynamicRepository,
+            ICacheService cacheService)
         {
             this.cacheRefService = cacheRefService;
             this.user = user;
             repository = dynamicRepository;
+            this.cacheService = cacheService;
         }
 
         public IEnumerable<Product> SupportedProduct(int custId)
         {
-            var playForFunProducts = ConfiguredCacheService.GetOrSet(
+            var playForFunProducts = cacheService.GetOrSet(
                 $"PlayForFunProductsCacheKey-{custId}",
                 () => repository.Fetch<PlayForFunProduct>(new PlayForFunProductCriteria(custId)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));

@@ -1,30 +1,27 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Constants;
     using Extensions;
     using Fanex.Caching;
     using Fanex.Data.Repository;
-    using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria;
     using Reports.Extensions;
     using Reports.Models;
     using Reports.Services;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Xunit;
 
     [Trait("Category", "BaseFunction")]
-    [Collection("FanexCacheCollection")]
     public class ProductServiceImplTests
     {
         private const string ProductCacheKey = "Alpha.Reports.Services.Impl.ProductsForCustomer";
         private const string ProductsNeedDelayTimeToSumarizeDataCacheKey = "Alpha.Reports.Services.Impl.ProductsNeedDelayTimeToSumarizeData";
 
         private readonly IDynamicRepository dynamicRepository;
-        private readonly FanexCacheFixture fanexCacheFixture;
+        private readonly ICacheService cacheService;
         private readonly CompareLogic compareLogic;
 
         private readonly IEnumerable<Product> allCustomerProductIds = new List<Product>()
@@ -37,13 +34,13 @@
         private ProductServiceImpl productServiceImpl;
         private IEnumerable<ProductsByRefTable> productsNeedDelayTimeToSumarizeDataInCache;
 
-        public ProductServiceImplTests(FanexCacheFixture fanexCacheFixture)
+        public ProductServiceImplTests()
         {
-            this.fanexCacheFixture = fanexCacheFixture;
             Func<int, bool> canViewProduct = (productId) => true;
             Func<int, string> getProductName = (productId) => $"Product {productId}";
+            cacheService = Substitute.For<ICacheService>();
             dynamicRepository = Substitute.For<IDynamicRepository>();
-            productServiceImpl = new ProductServiceImpl(dynamicRepository, canViewProduct, getProductName);
+            productServiceImpl = new ProductServiceImpl(dynamicRepository, cacheService, canViewProduct, getProductName);
 
             dynamicRepository.Fetch<ProductsByRefTable>(Arg.Any<GetProductsByRefTableCriteria>()).Returns(new List<ProductsByRefTable>
             {
@@ -53,14 +50,14 @@
 
             IEnumerable<ProductsByRefTable> productsNeedDelayTimeToSumarizeData;
 
-            fanexCacheFixture.CacheForTesting.TryGet(ProductsNeedDelayTimeToSumarizeDataCacheKey, out productsNeedDelayTimeToSumarizeData).Returns(x =>
+            cacheService.TryGet(ProductsNeedDelayTimeToSumarizeDataCacheKey, out productsNeedDelayTimeToSumarizeData).Returns(x =>
             {
                 x[1] = productsNeedDelayTimeToSumarizeDataInCache;
 
                 return productsNeedDelayTimeToSumarizeDataInCache != null;
             });
 
-            ConfiguredCacheService.Set(ProductsNeedDelayTimeToSumarizeDataCacheKey, productsNeedDelayTimeToSumarizeDataInCache);
+            cacheService.Set(ProductsNeedDelayTimeToSumarizeDataCacheKey, productsNeedDelayTimeToSumarizeDataInCache);
 
             compareLogic = new CompareLogic();
         }
@@ -74,7 +71,7 @@
             // Arrange
             IEnumerable<int> productIds = null;
             var expectedProductIds = Enumerable.Empty<int>();
-            productServiceImpl = new ProductServiceImpl(dynamicRepository, null, null);
+            productServiceImpl = new ProductServiceImpl(dynamicRepository, cacheService, null, null);
 
             // Act
             var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
@@ -93,9 +90,13 @@
             var expectedProductIds = allCustomerProductIds.Select(product => product.Id);
 
             IEnumerable<Product> cachedProducts;
-            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
-
+            cacheService.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<Product>>>(1);
+                return func();
+            });
 
             // Act
             var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
@@ -131,9 +132,13 @@
             var expectedProductIds = new List<int> { 1, 2, 3 };
 
             IEnumerable<Product> cachedProducts;
-            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
-
+            cacheService.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<Product>>>(1);
+                return func();
+            });
 
             // Act
             var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
@@ -151,9 +156,13 @@
             var custId = 3;
 
             IEnumerable<Product> cachedProducts;
-            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
-
+            cacheService.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<Product>>>(1);
+                return func();
+            });
 
             // Act
             var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
@@ -233,11 +242,11 @@
             var custId = 2;
             var customerProductIds = "1,2,3,5";
             IEnumerable<Product> customerProducts = customerProductIds.ToListInt().Select(id => new Product(id, string.Empty, null, 0, 0));
-            IEnumerable<Product> cachedProducts;
-            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(x =>
+            dynamicRepository.Fetch<Product>(Arg.Any<ICriteria>()).Returns(customerProducts);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
             {
-                x[1] = customerProducts;
-                return true;
+                var func = x.ArgAt<Func<IEnumerable<Product>>>(1);
+                return func();
             });
 
             // Act
@@ -253,6 +262,11 @@
             // Arrange
             productsNeedDelayTimeToSumarizeDataInCache = null;
             var expectProducts = new List<byte> { 1, 2 };
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<ProductsByRefTable>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<ProductsByRefTable>>>(1);
+                return func();
+            });
 
             // Act
             var actualProducts = productServiceImpl.GetProductsNeedDelayTimeToSumarizeDataByCustomer(1, string.Empty, 1);
@@ -270,7 +284,7 @@
                 new Product(1, string.Empty, null, 0, 0)
             };
 
-            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-1", out cachedProducts).Returns(true);
+            cacheService.TryGet($"{ProductCacheKey}-1", out cachedProducts).Returns(true);
 
             // Act
             var actualValue = productServiceImpl.IsShowProduct(1, "", 1, 33);
@@ -288,7 +302,7 @@
                 new Product(33, string.Empty, null, 0, 0)
             };
 
-            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-2", out cachedProducts).Returns(true);
+            cacheService.TryGet($"{ProductCacheKey}-2", out cachedProducts).Returns(true);
 
             // Act
             var actualValue = productServiceImpl.IsShowProduct(2, "", 1, 33);
@@ -304,7 +318,7 @@
             var site = "IBCINdo";
             var products = new List<ProductBySiteModel>() { new ProductBySiteModel(22), new ProductBySiteModel(23) };
             IEnumerable<ProductBySiteModel> cachedProducts;
-            fanexCacheFixture.CacheForTesting.TryGet($"Alpha.Reports.Services.Impl.ProductsBySite-{site}", out cachedProducts).Returns(false);
+            cacheService.TryGet($"Alpha.Reports.Services.Impl.ProductsBySite-{site}", out cachedProducts).Returns(false);
 
             dynamicRepository.Fetch<ProductBySiteModel>(Arg.Any<GetOfferedProductsBySiteCriteria>()).Returns(products);
 
@@ -321,9 +335,11 @@
             // Arrange
             var site = "IBCINdo";
             var products = new List<ProductBySiteModel>() { new ProductBySiteModel(22), new ProductBySiteModel(23) };
-            IEnumerable<ProductBySiteModel> cachedProducts;
-            fanexCacheFixture.CacheForTesting.TryGet($"Alpha.Reports.Services.Impl.ProductsBySite-{site}", out cachedProducts).Returns(false);
-
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<ProductBySiteModel>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<ProductBySiteModel>>>(1);
+                return func();
+            });
             dynamicRepository.Fetch<ProductBySiteModel>(Arg.Any<GetOfferedProductsBySiteCriteria>()).Returns(products);
 
             // Act

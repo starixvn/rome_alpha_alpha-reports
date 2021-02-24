@@ -41,14 +41,17 @@
         private readonly Func<int, bool> canViewProduct;
         private readonly Func<int, string> getProductName;
         private readonly IDynamicRepository dynamicRepository;
+        private readonly ICacheService cacheService;
         private const int SabaPromotionProductId = 37;
 
         public ProductServiceImpl(
             IDynamicRepository dynamicRepository,
+            ICacheService cacheService,
             Func<int, bool> canViewProduct,
             Func<int, string> getProductName)
         {
             this.dynamicRepository = dynamicRepository;
+            this.cacheService = cacheService;
             this.canViewProduct = canViewProduct;
             this.getProductName = getProductName;
         }
@@ -81,7 +84,7 @@
                 return Enumerable.Empty<Product>();
             }
 
-            var custProducts = ConfiguredCacheService
+            var custProducts = cacheService
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
                 () => GetProductsForReport()
@@ -131,7 +134,7 @@
 
         public IEnumerable<ProductsByRefTable> GetProductsNeedDelayTimeToSumarizeData()
         {
-            var data = ConfiguredCacheService
+            var data = cacheService
               .GetOrSet(
               "Alpha.Reports.Services.Impl.ProductsNeedDelayTimeToSumarizeData",
               () => dynamicRepository.Fetch<ProductsByRefTable>(new GetProductsByRefTableCriteria(null)),
@@ -152,7 +155,7 @@
 
         public bool CanViewBySite(int custId, string site, int currencyId, int productId)
         {
-            var custProducts = ConfiguredCacheService
+            var custProducts = cacheService
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsBySite-{custId}-{site}",
                 () => dynamicRepository.Fetch<ProductBySiteModel>(new GetOfferedProductsBySiteCriteria(custId, site, currencyId)),
@@ -168,7 +171,7 @@
 
         private IEnumerable<Product> GetProductsForReport()
         {
-            var products = ConfiguredCacheService
+            var products = cacheService
                 .GetOrSet(
                 ProductsCacheKey,
                 () => dynamicRepository.Fetch<Product>(new GetProductsCriteria()),

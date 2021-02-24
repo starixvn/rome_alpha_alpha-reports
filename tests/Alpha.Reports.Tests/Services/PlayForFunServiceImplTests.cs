@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
-    using System.Collections.Generic;
     using Extensions;
+    using Fanex.Caching;
     using Fanex.Data.Repository;
     using Fixtures;
     using NSubstitute;
@@ -11,6 +11,8 @@
     using Reports.Models.PlayForFun;
     using Reports.Params;
     using Reports.Services;
+    using System;
+    using System.Collections.Generic;
     using Xunit;
 
     [Trait("Category", "PlayForFun")]
@@ -21,6 +23,7 @@
         private readonly CacheRefService cacheRefService;
         private readonly IUser user;
         private readonly IDynamicRepository repository;
+        private readonly ICacheService cacheService;
         private readonly PlayForFunServiceImpl service;
 
         public PlayForFunServiceImplTests(AnyValueCreatorFixture anyValueCreatorFixture)
@@ -32,7 +35,8 @@
             cacheRefService.GetProductName(Arg.Any<int>()).Returns(callInfo => "Product " + callInfo.Args()[0]);
 
             repository = Substitute.For<IDynamicRepository>();
-            service = new PlayForFunServiceImpl(cacheRefService, user, repository);
+            cacheService = Substitute.For<ICacheService>();
+            service = new PlayForFunServiceImpl(cacheRefService, user, repository, cacheService);
 
             repository.Fetch<PlayForFunProduct>(Arg.Any<PlayForFunProductCriteria>()).Returns(new List<PlayForFunProduct>
             {
@@ -47,6 +51,11 @@
         {
             // Arrange
             var custId = anyValueCreatorFixture.Create<int>();
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<PlayForFunProduct>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<PlayForFunProduct>>>(1);
+                return func();
+            });
             user.GetHideProduct(ProductIdConstants.FishingWorld).Returns(true);
             var expectedProductList = new List<Product>
             {
@@ -67,6 +76,11 @@
             // Arrange
             var custId = anyValueCreatorFixture.Create<int>();
             user.GetHideProduct(ProductIdConstants.FishingWorld).Returns(false);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<PlayForFunProduct>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<PlayForFunProduct>>>(1);
+                return func();
+            });
             var expectedProductList = new List<Product>
             {
                 new Product(6, string.Empty, null, 0, 0, cacheRefService.GetProductName),

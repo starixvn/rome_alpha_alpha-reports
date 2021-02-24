@@ -1,21 +1,19 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
-    using System;
-    using System.Collections.Generic;
     using Constants;
     using Extensions;
     using Fanex.Caching;
     using Fanex.Data.Repository;
-    using Fixtures;
     using NSubstitute;
     using Reports.Criteria;
     using Reports.Models;
     using Reports.Services;
     using Reports.Utils;
+    using System;
+    using System.Collections.Generic;
     using Xunit;
 
     [Trait("Category", "BaseFunction")]
-    [Collection("FanexCacheCollection")]
     public class ReportDateServiceImplTests
     {
         private const string BalanceUpDayAndMoveBetsDayCacheKey = "Alpha.Reports.BalanceUpDayAndMoveBetsDay";
@@ -23,18 +21,17 @@
         private readonly ReportDateServiceImpl service;
         private readonly DateTime balanceUpDay;
         private readonly DateTime moveBetsDay;
-        private readonly FanexCacheFixture fanexCacheFixture;
+        private readonly ICacheService cacheService;
         private BalanceUpDayAndMoveBetsDay dataInCache;
 
-        public ReportDateServiceImplTests(FanexCacheFixture fanexCacheFixture)
+        public ReportDateServiceImplTests()
         {
-            this.fanexCacheFixture = fanexCacheFixture;
-
+            cacheService = Substitute.For<ICacheService>();
             BalanceUpDayAndMoveBetsDay balanceUpDayAndMoveBetsDay;
             balanceUpDay = new DateTime(2010, 1, 1);
             moveBetsDay = new DateTime(2010, 1, 5);
             dataInCache = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
-            fanexCacheFixture.CacheForTesting.TryGet(BalanceUpDayAndMoveBetsDayCacheKey, out balanceUpDayAndMoveBetsDay).Returns(x =>
+            cacheService.TryGet(BalanceUpDayAndMoveBetsDayCacheKey, out balanceUpDayAndMoveBetsDay).Returns(x =>
             {
                 x[1] = dataInCache;
 
@@ -42,40 +39,28 @@
             });
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
 
-            ConfiguredCacheService.Remove(BalanceUpDayAndMoveBetsDayCacheKey);
+            cacheService.Remove(BalanceUpDayAndMoveBetsDayCacheKey);
 
             repository = Substitute.For<IDynamicRepository>();
             repository
                 .Get<BalanceUpDayAndMoveBetsDay>(Arg.Any<GetBalanceUpDayAndMoveBetsDayCriteria>())
                 .Returns(new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay));
 
-            service = Substitute.For<ReportDateServiceImpl>(repository);
+            service = Substitute.For<ReportDateServiceImpl>(repository, cacheService);
         }
 
         [Fact]
         public void GetBalanceUpDayAndMoveBetsDay_DataInCache_ReturnsDataGetFromCache()
         {
             // Arrange
-            ConfiguredCacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<BalanceUpDayAndMoveBetsDay>>(), Arg.Any<CacheItemOptions>())
+                .Returns(dataInCache);
 
             // Act
             var actual = service.GetBalanceUpDayAndMoveBetsDay();
 
             // Assert
             Assert.True(balanceUpDay == actual.BalanceUpDay && moveBetsDay == actual.MoveBetsDay);
-        }
-
-        [Fact]
-        public void GetBalanceUpDayAndMoveBetsDay_NoDataInCache_DynamicRepositoryGetWasCalled()
-        {
-            // Arrange
-            dataInCache = null;
-
-            // Act
-            service.GetBalanceUpDayAndMoveBetsDay();
-
-            // Assert
-            repository.Received().Get<BalanceUpDayAndMoveBetsDay>(Arg.Any<GetBalanceUpDayAndMoveBetsDayCriteria>());
         }
 
         [Fact]
@@ -88,9 +73,9 @@
             service.GetBalanceUpDayAndMoveBetsDay();
 
             // Assert
-            fanexCacheFixture.CacheForTesting.Received().Set(
+            cacheService.Received().GetOrSet(
                 Arg.Is(BalanceUpDayAndMoveBetsDayCacheKey),
-                Arg.Is<BalanceUpDayAndMoveBetsDay>(data => data.BalanceUpDay == balanceUpDay && data.MoveBetsDay == moveBetsDay),
+                Arg.Is<Func<BalanceUpDayAndMoveBetsDay>>((x) => x.Invoke().BalanceUpDay == balanceUpDay && x.Invoke().MoveBetsDay == moveBetsDay),
                 Arg.Any<CacheItemOptions>());
         }
 
@@ -98,7 +83,8 @@
         public void GetMoveBetsDay_Always_ReturnsTheSameDateSetInCache()
         {
             // Arrange
-            ConfiguredCacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<BalanceUpDayAndMoveBetsDay>>(), Arg.Any<CacheItemOptions>())
+                .Returns(dataInCache);
 
             // Act
             var actual = service.GetMoveBetsDay();
@@ -111,7 +97,8 @@
         public void GetBalanceUpDay_Always_ReturnsTheSameDateSetInCache()
         {
             // Arrange
-            ConfiguredCacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<BalanceUpDayAndMoveBetsDay>>(), Arg.Any<CacheItemOptions>())
+                .Returns(dataInCache);
 
             // Act
             var actual = service.GetBalanceUpDay();
@@ -124,6 +111,8 @@
         public void GetTimeRanges_BothLessThanBalanceUpDay_ReturnFromToDate()
         {
             // Arrange
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<BalanceUpDayAndMoveBetsDay>>(), Arg.Any<CacheItemOptions>())
+                .Returns(dataInCache);
             var fromDate = balanceUpDay.AddDays(-1);
             var toDate = balanceUpDay.AddDays(-1);
             var expectedTimeRange = new List<TimeRange> { new TimeRange(fromDate, toDate) };
@@ -139,6 +128,8 @@
         public void GetTimeRanges_FromDateLessThanBalanceUpdateAndToDateNotGreaterThanMoveBetsDate_ReturnCorrectRanges()
         {
             // Arrange
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<BalanceUpDayAndMoveBetsDay>>(), Arg.Any<CacheItemOptions>())
+                .Returns(dataInCache);
             var fromDate = balanceUpDay.AddDays(-1);
             var toDate = moveBetsDay;
             var expectedTimeRange = new List<TimeRange>
@@ -158,6 +149,8 @@
         public void GetTimeRanges_FromDateLessThanBalanceUpdateAndToDateGreaterThanMoveBetsDate_ReturnCorrectRanges()
         {
             // Arrange
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<BalanceUpDayAndMoveBetsDay>>(), Arg.Any<CacheItemOptions>())
+                .Returns(dataInCache);
             var fromDate = balanceUpDay.AddDays(-1);
             var toDate = moveBetsDay.AddDays(1);
             var expectedTimeRange = new List<TimeRange>
@@ -178,6 +171,8 @@
         public void GetTimeRanges_FromDateNotGreaterThanMoveBetsDateAndToDateNotGreaterThanMoveBetsDate_ReturnCorrectRanges()
         {
             // Arrange
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<BalanceUpDayAndMoveBetsDay>>(), Arg.Any<CacheItemOptions>())
+                .Returns(dataInCache);
             var fromDate = balanceUpDay;
             var toDate = moveBetsDay;
             var expectedTimeRange = new List<TimeRange> { new TimeRange(fromDate, toDate) };
@@ -193,6 +188,8 @@
         public void GetTimeRanges_FromDateNotGreaterThanMoveBetsDateAndToDateGreaterThanMoveBetsDate_ReturnCorrectRanges()
         {
             // Arrange
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<BalanceUpDayAndMoveBetsDay>>(), Arg.Any<CacheItemOptions>())
+                .Returns(dataInCache);
             var fromDate = balanceUpDay;
             var toDate = moveBetsDay.AddDays(1);
             var expectedTimeRange = new List<TimeRange>
@@ -212,6 +209,8 @@
         public void GetTimeRanges_FromDateGreaterThanMoveBetsDateAndToDateGreaterThanMoveBetsDate_ReturnCorrectRanges()
         {
             // Arrange
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<BalanceUpDayAndMoveBetsDay>>(), Arg.Any<CacheItemOptions>())
+                .Returns(dataInCache);
             var fromDate = moveBetsDay.AddDays(1);
             var toDate = moveBetsDay.AddDays(1);
             var expectedTimeRange = new List<TimeRange> { new TimeRange(fromDate, toDate) };
@@ -227,6 +226,8 @@
         public void GetStoreMappingSuffix_GreaterThanMoveBetsDay_ReturnsEmpty()
         {
             // Arrange
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<BalanceUpDayAndMoveBetsDay>>(), Arg.Any<CacheItemOptions>())
+                .Returns(dataInCache);
             var expectedSuffix = string.Empty;
             var fromDate = new DateTime(2010, 1, 6);
 
@@ -244,6 +245,8 @@
         public void GetStoreMappingSuffix_LessThanMoveBetsDayAndNotLessThanBalanceUpDay_Returns_14(int date)
         {
             // Arrange
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<BalanceUpDayAndMoveBetsDay>>(), Arg.Any<CacheItemOptions>())
+                .Returns(dataInCache);
             var expectedSuffix = "_14";
             var fromDate = new DateTime(2010, 1, date);
 
@@ -258,6 +261,8 @@
         public void GetStoreMappingSuffix_LessThanBalanceUpDay_Returns_WH()
         {
             // Arrange
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<BalanceUpDayAndMoveBetsDay>>(), Arg.Any<CacheItemOptions>())
+                .Returns(dataInCache);
             var expectedSuffix = "_WH";
             var fromDate = new DateTime(2009, 12, 1);
 
