@@ -476,10 +476,10 @@
                 ["CustLevelId"] = viewModel.CustLevelId,
                 ["BetType"] = betType.Id,
                 ["LiveIndicator"] = liveIndicator ? 1 : 0,
-                ["MatchId"] = match.MatchId,
                 ["LeagueId"] = match.LeagueId,
                 ["FromDate"] = fromDate,
-                ["ToDate"] = toDate
+                ["ToDate"] = toDate,
+                ["MatchId"] = match.MatchId
             };
 
             // Act
@@ -509,7 +509,10 @@
                 ["CustLevelId"] = viewModel.CustLevelId,
                 ["BetType"] = betType.Id,
                 ["LiveIndicator"] = betType.IsLive ? 1 : 0,
-                ["MatchId"] = match.MatchId
+                ["LeagueId"] = match.LeagueId,
+                ["FromDate"] = fromDate,
+                ["ToDate"] = toDate,
+                ["MatchId"] = match.MatchId                
             };
 
             // Act
