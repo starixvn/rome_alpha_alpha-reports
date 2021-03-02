@@ -1,10 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Handlers.MatchWinLossDetail
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using Alpha.Reports.Constants;
-    using Alpha.Reports.Models.MatchWinLossDetail;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Extensions;
     using MediatR;
     using Params;
@@ -15,7 +13,8 @@
 
     public class MatchWinLossDetailHandler :
         MatchWinLossDetailBaseHandler,
-        IRequestHandler<MatchWinLossDetailQuery, MatchWinLossDetailReportViewModel>
+        IRequestHandler<MatchWinLossDetailQuery, MatchWinLossDetailReportViewModel>,
+        IRequestHandler<ReportLegendQuery, ReportLegendViewModel>
     {
         public MatchWinLossDetailHandler(
             ProductService productService,
@@ -70,6 +69,8 @@
                 BuildProductSelectListItems(matchWinLossDetailParam.UserSelectedProductIds, products),
                 BuildLeagueSelectListItems(userSelectedLeagueIds, leagues));
         }
-        
+
+        public ReportLegendViewModel Handle(ReportLegendQuery message)
+            => new ReportLegendViewModel(Enumerable.Empty<string>(), GetGrossCommNotes(message.ViewerLevel));
     }
 }

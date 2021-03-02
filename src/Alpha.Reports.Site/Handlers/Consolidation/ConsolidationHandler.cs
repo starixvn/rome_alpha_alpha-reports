@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Alpha.Reports.Constants;
+    using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
     using MediatR;
     using Params.Consolidation;
@@ -21,8 +22,8 @@
         IRequestHandler<ConsolidationByDateQuery, ConsolidationReportByDateViewModel>,
         IRequestHandler<ConsolidationByProductQuery, ConsolidationReportByProductViewModel>,
         IRequestHandler<ConsolidationDetailQuery, ConsolidationDetailViewModel>,
-        IRequestHandler<ConsolidationLegendQuery, IEnumerable<string>>,
-        IRequestHandler<ConsolidationDetailLegendQuery, IEnumerable<string>>
+        IRequestHandler<ConsolidationLegendQuery, ReportLegendViewModel>,
+        IRequestHandler<ConsolidationDetailLegendQuery, ReportLegendViewModel>
     {
         private readonly ProductService productService;
 
@@ -131,7 +132,7 @@
                 GetWinLossDetailViewModel(winLossDetailQuery, products));
         }
 
-        public IEnumerable<string> Handle(ConsolidationLegendQuery message)
+        public ReportLegendViewModel Handle(ConsolidationLegendQuery message)
         {
             var result = new List<string>();
             var products = reportService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
@@ -141,10 +142,10 @@
                 result.Add(string.Format(Resources.DelayIssueLegend, string.Join(", ", productService.GetProductNames(products))));
             }
 
-            return result;
+            return new ReportLegendViewModel(result, GetConsolidationReportGrossCommNotes());
         }
 
-        public IEnumerable<string> Handle(ConsolidationDetailLegendQuery message)
+        public ReportLegendViewModel Handle(ConsolidationDetailLegendQuery message)
         {
             var result = new List<string> { Resources.Tooltip_NetTurnover };
 
@@ -154,9 +155,10 @@
                 result.Add(liveCasinoTooltips);
             }
 
-            result.AddRange(Handle((ConsolidationLegendQuery)message));
+            var consolidationReportLegend = Handle((ConsolidationLegendQuery)message);
+            result.AddRange(consolidationReportLegend.Legends);
 
-            return result;
+            return new ReportLegendViewModel(result, GetGrossCommNotes(message.CustLevel));
         }
 
         private string BuildTooltipsForLiveCasino(int custId, DateTime minDate, bool isEnableSabaPromotion)
@@ -231,5 +233,13 @@
 
             return breadcrumbLevel;
         }
+
+        private IEnumerable<string> GetConsolidationReportGrossCommNotes()
+            => new List<string>
+            {
+                Resources.GrossCommNoteForConsolidationReportSuper,
+                Resources.GrossCommNoteForConsolidationReportMaster,
+                Resources.GrossCommNoteForConsolidationReportAgent
+            };
     }
 }

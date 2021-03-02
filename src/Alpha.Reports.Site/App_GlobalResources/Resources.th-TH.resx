@@ -829,4 +829,22 @@
   <data name="NotAuthorized" xml:space="preserve">
     <value>คุณไม่มีอำนาจในการเข้าใช้งานฟังก์ชันนี้</value>
   </data>
+  <data name="GrossCommNoteForMember" xml:space="preserve">
+    <value>การดูรายงานในระดับสมาชิก: ค่าคอมมิชชั่นรวมคือจำนวนเงิน (โดยไม่มี PT) ที่เอเจนต์สามารถได้รับจากอัพไลน์ในสมาชิกแต่ละราย</value>
+  </data>
+  <data name="GrossCommNoteForAgent" xml:space="preserve">
+    <value>การดูรายงานที่ระดับเอเจนต์ ค่าคอมมิชชั่นรวมคือจำนวนเงิน (โดยไม่มี PT) ที่มาสเตอร์สามารถได้รับจากอัพไลน์ในเอเจนต์แต่ละราย</value>
+  </data>
+  <data name="GrossCommNoteForMaster" xml:space="preserve">
+    <value>การดูรายงานในระดับ มาสเตอร์: ค่าคอมมิชชั่นรวมคือจำนวนเงิน (โดยไม่มี PT) ที่ ซุปเปอร์สามารถได้รับจากอัพไลน์ในมาสเตอร์แต่ละราย</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportAgent" xml:space="preserve">
+    <value>Viewing report at Agent level: Gross comm is the amount (without PT) that Agent can receive from upline.</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportMaster" xml:space="preserve">
+    <value>Viewing report at Master level: Gross comm is the amount (without PT) that Master can receive from upline.</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
+    <value>Viewing report at Super level: Gross comm is the amount (without PT) that Super can receive from upline.</value>
+  </data>
 </root>

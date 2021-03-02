@@ -584,6 +584,7 @@
     <Compile Include="Requests\FromLast3MonthDateRangeQuery.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailExcelQuery.cs" />
     <Compile Include="Features\Outstanding\Requests\ReportLegendQuery.cs" />
+    <Compile Include="Requests\MatchWinLossDetail\ReportLegendQuery.cs" />
     <Compile Include="Requests\ProgressiveContribution\ProgressiveContributionExcelQuery.cs" />
     <Compile Include="Requests\ProgressiveContribution\ProgressiveContributionQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBettypeExcelQuery.cs" />
@@ -606,6 +607,7 @@
     <Compile Include="Requests\FromLast3YearDateRangeQuery.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
     <Compile Include="Requests\Consolidation\ConsolidationLegendQuery.cs" />
+    <Compile Include="Requests\ReportLegendGrossCommQuery.cs" />
     <Compile Include="Requests\ReportLegendQuery.cs" />
     <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingQuery.cs" />
     <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelQuery.cs" />
@@ -643,6 +645,7 @@
     <Compile Include="ViewModels\Components\ProductDetailViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductDetailMultiSelectionViewModel.cs" />
+    <Compile Include="ViewModels\Components\ReportLegendViewModel.cs" />
     <Compile Include="ViewModels\Components\StatusSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\DualAxisChartViewModel.cs" />
     <Compile Include="ViewModels\Consolidation\ConsolidationByDateViewModel.cs" />
@@ -1324,6 +1327,8 @@
     <Content Include="typings\globals\numeral\typings.json" />
     <Content Include="Views\Consolidation\ReportLegend.cshtml" />
     <Content Include="Views\Consolidation\ReportDetailLegend.cshtml" />
+    <Content Include="Views\ReportLegend\IndexGrossComm.cshtml" />
+    <Content Include="Views\MatchWinLossDetail\ReportLegend.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

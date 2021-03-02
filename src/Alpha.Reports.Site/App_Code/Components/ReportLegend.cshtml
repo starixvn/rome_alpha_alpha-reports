@@ -1,9 +1,10 @@
 ﻿@using Alpha.Reports.Site.App_GlobalResources;
+@using Alpha.Reports.Site.ViewModels.Components;
 
 @helper Render(IEnumerable<string> legends)
 {
-if (legends.Any())
-{
+    if (legends.Any())
+    {
         <div class="modal fade message-modal" id="report-legend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
@@ -26,5 +27,50 @@ if (legends.Any())
                 </div>
             </div>
         </div>
+    }
 }
+
+@helper Render(ReportLegendViewModel viewModel)
+{
+    var isShowLegends = viewModel.Legends.Any();
+    var isShowGrossComm = viewModel.GrossCommNotes.Any();
+
+    if (isShowLegends || isShowGrossComm)
+    {
+        <div class="modal fade message-modal" id="report-legend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="icon icon-close close" data-dismiss="modal" aria-label="@Resources.Close"><span aria-hidden="true"></span></button>
+                        <h4 class="modal-title">&nbsp;</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="msg-content">
+                            <ul class="list-msg">
+                                @if (isShowLegends)
+                                {
+                                    foreach (var legend in viewModel.Legends)
+                                    {
+                                        <li>@legend</li>
+                                    }
+                                }
+                                @if (isShowGrossComm)
+                                {
+                                    <li>
+                                        - @Resources.GrossComm:
+                                        <ul class="gross-comm">
+                                            @foreach (var note in viewModel.GrossCommNotes)
+                                            {
+                                                <li>@note</li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 }

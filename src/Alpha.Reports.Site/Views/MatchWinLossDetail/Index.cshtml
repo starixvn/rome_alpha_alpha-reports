@@ -21,6 +21,10 @@
         new List<HelperResult> { LeagueMultiSelection.Render(Model.FilterViewModel.LeagueMultiSelectionViewModel) })
 
     <div class="form-group">
+        <span id="icon-information" class="icon-information-outline"></span>
+    </div>
+
+    <div class="form-group">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
 
@@ -108,73 +112,73 @@
 
     @if (Model.HasData)
     {
-    <tbody>
-        <tr class="tbl-footer">
-            @RenderBetTypeRow(Model.GrandTotal, Resources.GrandTotal)
-        </tr>
-        @foreach (var data in Model.NoParlayMatchWinLossDetail)
-        {
-            <tr class="match-title-row">
-                <td class="text-left col-username" colspan="@Model.ReportColumnsCount">
-                    <span class="league-title" title="@data.LeagueName">@data.LeagueName</span>
-                    @if (!string.IsNullOrWhiteSpace(data.MatchName))
-                    {
-                        <span class="match-title">@data.MatchName</span>
-                    }
-                </td>
-            </tr>
-
-            var isEvenRow = false;
-            foreach (var betType in data.BetTypeWinLoss)
-            {
-                <tr class="@(isEvenRow? "even-row":string.Empty)">
-                    @RenderBetTypeRow(
-                        betType,
-                        "<a href=\"" + Model.GetBetListLink(Model.GetBetListLinkRouteValues(data, betType, Model.FromDate, Model.ToDate)) + "\">" + betType.Name + "</a>",
-                        isEvenRow)
-                </tr>
-                isEvenRow = !isEvenRow;
-            }
-
-            if (data.RenderSubTotal)
-            {
-                <tr class="sub-total-row">
-                    @RenderBetTypeRow(data.Total, Resources.SubTotal)
-                </tr>
-            }
-        }
-        @if (Model.ShowTotalRow)
-        {
+        <tbody>
             <tr class="tbl-footer">
-                @RenderBetTypeRow(Model.NoParlayWinLossTotal, Resources.Total)
+                @RenderBetTypeRow(Model.GrandTotal, Resources.GrandTotal)
             </tr>
-        }
-        @if (Model.MixParlay != null)
-        {
-            <tr>
-                @RenderBetTypeRow(
-                    Model.MixParlay,
-                    "<a href=\"" + Model.GetParlayBetListLink(Model.MixParlay.Id, Model.FromDate, Model.ToDate) + "\">" + Model.MixParlay.Name + "</a>")
-            </tr>
-        }
-        @if (Model.SystemParlay != null)
-        {
-            <tr>
-                @RenderBetTypeRow(
-                    Model.SystemParlay,
-                    "<a href=\"" + Model.GetParlayBetListLink(Model.SystemParlay.Id, Model.FromDate, Model.ToDate) + "\">" + Model.SystemParlay.Name + "</a>")
-            </tr>
-        }
-        @foreach (var parlay in Model.ParlayMatchWinLossDetail)
-        {
-            <tr>
-                @RenderBetTypeRow(
-                    parlay,
-                    "<a href=\"" + Model.GetBetListLinkByBetType(parlay.Id, Model.FromDate, Model.ToDate) + "\">" + parlay.Name + "</a>")
-            </tr>
-        }
+            @foreach (var data in Model.NoParlayMatchWinLossDetail)
+            {
+                <tr class="match-title-row">
+                    <td class="text-left col-username" colspan="@Model.ReportColumnsCount">
+                        <span class="league-title" title="@data.LeagueName">@data.LeagueName</span>
+                        @if (!string.IsNullOrWhiteSpace(data.MatchName))
+                        {
+                            <span class="match-title">@data.MatchName</span>
+                        }
+                    </td>
+                </tr>
 
-    </tbody>
+                var isEvenRow = false;
+                foreach (var betType in data.BetTypeWinLoss)
+                {
+                    <tr class="@(isEvenRow? "even-row":string.Empty)">
+                        @RenderBetTypeRow(
+                            betType,
+                            "<a href=\"" + Model.GetBetListLink(Model.GetBetListLinkRouteValues(data, betType, Model.FromDate, Model.ToDate)) + "\">" + betType.Name + "</a>",
+                            isEvenRow)
+                    </tr>
+                    isEvenRow = !isEvenRow;
+                }
+
+                if (data.RenderSubTotal)
+                {
+                    <tr class="sub-total-row">
+                        @RenderBetTypeRow(data.Total, Resources.SubTotal)
+                    </tr>
+                }
+            }
+            @if (Model.ShowTotalRow)
+            {
+                <tr class="tbl-footer">
+                    @RenderBetTypeRow(Model.NoParlayWinLossTotal, Resources.Total)
+                </tr>
+            }
+            @if (Model.MixParlay != null)
+            {
+                <tr>
+                    @RenderBetTypeRow(
+                        Model.MixParlay,
+                        "<a href=\"" + Model.GetParlayBetListLink(Model.MixParlay.Id, Model.FromDate, Model.ToDate) + "\">" + Model.MixParlay.Name + "</a>")
+                </tr>
+            }
+            @if (Model.SystemParlay != null)
+            {
+                <tr>
+                    @RenderBetTypeRow(
+                        Model.SystemParlay,
+                        "<a href=\"" + Model.GetParlayBetListLink(Model.SystemParlay.Id, Model.FromDate, Model.ToDate) + "\">" + Model.SystemParlay.Name + "</a>")
+                </tr>
+            }
+            @foreach (var parlay in Model.ParlayMatchWinLossDetail)
+            {
+                <tr>
+                    @RenderBetTypeRow(
+                        parlay,
+                        "<a href=\"" + Model.GetBetListLinkByBetType(parlay.Id, Model.FromDate, Model.ToDate) + "\">" + parlay.Name + "</a>")
+                </tr>
+            }
+
+        </tbody>
         <tfoot>
             <tr class="tbl-footer">
                 @RenderBetTypeRow(Model.GrandTotal, Resources.GrandTotal)
@@ -188,6 +192,7 @@
 </table>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
 @Html.Hidden("LoadLeagueURL", Url.Action("LeaguesByCustomer", "League"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "MatchWinLossDetail"))
 <form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", "MatchWinLossDetail")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("FromDate", Model.FromDate)
@@ -202,45 +207,45 @@
 @helper RenderBetTypeRow(BetTypeWinLossViewModel data, string betType, bool isEvenRow = false)
 {
     <td class="text-left">@Html.Raw(betType)</td>
-if (Model.IsStackMode)
-{
+    if (Model.IsStackMode)
+    {
         @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.GrossComm)
         @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
         @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss)
         @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss)
         @RenderStackNetWinLoss(UserLevel.Super, data.SuperNetWinLoss)
         @HtmlHelpers.RenderStackCell("col-company-winloss-combined", 1, data.CompanyNetWinLoss.Comm.Value, data.CompanyNetWinLoss.Total)
-}
-else
-{
+    }
+    else
+    {
         <td class="hidden-stack-mode col-turnover">@HtmlHelpers.FormatNumber(data.Turnover)</td>
         <td class="hidden-stack-mode">@HtmlHelpers.FormatNumber(data.GrossComm)</td>
         @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
         @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, true)
 
-    if (Model.CustLevel.IsMasterOrSuperLevel())
-    {
+        if (Model.CustLevel.IsMasterOrSuperLevel())
+        {
             @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss)
-    }
+        }
 
-    if (Model.CustLevel.IsSuperLevel())
-    {
+        if (Model.CustLevel.IsSuperLevel())
+        {
             @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, true)
-    }
+        }
         <td class="hidden-stack-mode col-company-winloss">@HtmlHelpers.FormatNumber(data.CompanyNetWinLoss.Comm.Value)</td>
         <td class="hidden-stack-mode">@HtmlHelpers.FormatNumber(data.CompanyNetWinLoss.Total)</td>
 
-}
+    }
 }
 
 @helper RenderNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
-if (netWinLoss == null)
-{
-    return;
-}
+    if (netWinLoss == null)
+    {
+        return;
+    }
 
-var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+    var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
     @HtmlHelpers.RenderNumberCell(netWinLoss.WinLoss.Value, $"col-{level.DisplayName.ToLower()}-winloss {highlightCellClass}")
     @HtmlHelpers.RenderNumberCell(netWinLoss.Comm.Value, highlightCellClass)
@@ -248,12 +253,12 @@ var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 }
 @helper RenderStackNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
-if (netWinLoss == null)
-{
-    return;
-}
+    if (netWinLoss == null)
+    {
+        return;
+    }
 
-var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+    var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
     @HtmlHelpers.RenderStackCell(
         $"col-{level.DisplayName.ToLower()}-winloss-combined {highlightCellClass}",

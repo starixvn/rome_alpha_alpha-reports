@@ -854,4 +854,23 @@
   <data name="NotAuthorized" xml:space="preserve">
     <value>Bạn không được cho phép sử dụng chức năng này.</value>
   </data>
+  <data name="GrossCommNoteForMember" xml:space="preserve">
+    <value>Xem báo cáo ở cấp Member: Tổng hoa hồng là số tiền mà Agent nhận được từ cấp trên (không bao gồm Position Taking) ứng với từng Member.</value>
+  </data>
+  <data name="GrossCommNoteForAgent" xml:space="preserve">
+    <value>Xem báo cáo ở cấp Agent: Tổng hoa hồng là số tiền mà Master nhận được từ cấp trên (không bao gồm Position Taking) ứng với từng Agent.</value>
+  </data>
+  <data name="GrossCommNoteForMaster" xml:space="preserve">
+    <value>Xem báo cáo ở cấp Master: Tổng hoa hồng là số tiền mà Super nhận được từ cấp trên (không bao gồm Position Taking) ứng với từng Master</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportAgent" xml:space="preserve">
+    <value>Viewing report at Agent level: Gross comm is the amount (without PT) that Agent can receive from upline.</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportMaster" xml:space="preserve">
+    <value>Viewing report at Master level: Gross comm is the amount (without PT) that Master can receive from upline.</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
+    <value>Viewing report at Super level: Gross comm is the amount (without PT) that Super can receive from upline.</value>
+  </data>
+
 </root>

@@ -115,7 +115,7 @@
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", "ReportLegend"))
 
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/winlossbyproduct/winlossbyproduct")

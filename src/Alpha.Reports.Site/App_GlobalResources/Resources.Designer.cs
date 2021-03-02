@@ -889,6 +889,60 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Viewing report at Agent level: Gross comm is the amount (without PT) that Master can receive from upline on each Agent..
+        /// </summary>
+        public static string GrossCommNoteForAgent {
+            get {
+                return ResourceManager.GetString("GrossCommNoteForAgent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viewing report at Agent level: Gross comm is the amount (without PT) that Agent can receive from upline..
+        /// </summary>
+        public static string GrossCommNoteForConsolidationReportAgent {
+            get {
+                return ResourceManager.GetString("GrossCommNoteForConsolidationReportAgent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viewing report at Master level: Gross comm is the amount (without PT) that Master can receive from upline..
+        /// </summary>
+        public static string GrossCommNoteForConsolidationReportMaster {
+            get {
+                return ResourceManager.GetString("GrossCommNoteForConsolidationReportMaster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viewing report at Super level: Gross comm is the amount (without PT) that Super can receive from upline..
+        /// </summary>
+        public static string GrossCommNoteForConsolidationReportSuper {
+            get {
+                return ResourceManager.GetString("GrossCommNoteForConsolidationReportSuper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viewing report at Master level: Gross comm is the amount (without PT) that Super can receive from upline on each Master..
+        /// </summary>
+        public static string GrossCommNoteForMaster {
+            get {
+                return ResourceManager.GetString("GrossCommNoteForMaster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viewing report at Member level: Gross comm is the amount (without PT) that Agent can receive from upline on each Member..
+        /// </summary>
+        public static string GrossCommNoteForMember {
+            get {
+                return ResourceManager.GetString("GrossCommNoteForMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to member closing balance of each day within selected date range..
         /// </summary>
         public static string Guidelines_AccumulatedTotal_Member {
