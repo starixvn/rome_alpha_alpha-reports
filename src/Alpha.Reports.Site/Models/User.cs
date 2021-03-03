@@ -58,6 +58,12 @@
             => SiteSettings.OfferSabaPromotionHeadlineSites.Any(site => site == "*" || site.Equals(userSession.Site, StringComparison.OrdinalIgnoreCase))
             || IsEnableSabaPromotion;
 
+        public int SubAccId => userSession.SubAccId;
+
+        public string IP => userSession.UserLoginIp;
+
+        public bool IsInternal => userSession.IsInternal;
+
         internal virtual IList<int> GetEnableProductsForGame(string gameName)
             => userSession.GetProperty<IList<int>>(SessionKey.GameEnable + gameName) ?? new List<int>();
     }

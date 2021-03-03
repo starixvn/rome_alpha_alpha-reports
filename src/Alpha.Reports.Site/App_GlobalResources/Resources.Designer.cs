@@ -331,11 +331,47 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bonus Detail.
+        /// </summary>
+        public static string BonusDetail {
+            get {
+                return ResourceManager.GetString("BonusDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ref. No..
+        /// </summary>
+        public static string BonusDetailRefNo {
+            get {
+                return ResourceManager.GetString("BonusDetailRefNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bonus Status.
+        /// </summary>
+        public static string BonusStatus {
+            get {
+                return ResourceManager.GetString("BonusStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancelled.
+        /// </summary>
+        public static string Cancelled {
+            get {
+                return ResourceManager.GetString("Cancelled", resourceCulture);
             }
         }
         
@@ -448,6 +484,42 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Completed.
+        /// </summary>
+        public static string Completed {
+            get {
+                return ResourceManager.GetString("Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Payment.
+        /// </summary>
+        public static string ConfirmPayment {
+            get {
+                return ResourceManager.GetString("ConfirmPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submitting this form will record your payment&apos;s date in the system..
+        /// </summary>
+        public static string ConfirmPaymentNote {
+            get {
+                return ResourceManager.GetString("ConfirmPaymentNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The payment date has been successfully recorded..
+        /// </summary>
+        public static string ConfirmPaymentSuccessfully {
+            get {
+                return ResourceManager.GetString("ConfirmPaymentSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Consolidation.
         /// </summary>
         public static string Consolidation {
@@ -507,6 +579,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string ContributionShare {
             get {
                 return ResourceManager.GetString("ContributionShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created Date.
+        /// </summary>
+        public static string CreatedDate {
+            get {
+                return ResourceManager.GetString("CreatedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created From.
+        /// </summary>
+        public static string CreatedFrom {
+            get {
+                return ResourceManager.GetString("CreatedFrom", resourceCulture);
             }
         }
         
@@ -1267,6 +1357,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member Feedback.
+        /// </summary>
+        public static string MemberFeedback {
+            get {
+                return ResourceManager.GetString("MemberFeedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member Outstanding.
         /// </summary>
         public static string MemberOutstanding {
@@ -1447,6 +1546,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are not authorized on this function..
+        /// </summary>
+        public static string NotAuthorized {
+            get {
+                return ResourceManager.GetString("NotAuthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Received.
+        /// </summary>
+        public static string NotReceived {
+            get {
+                return ResourceManager.GetString("NotReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to November.
         /// </summary>
         public static string November {
@@ -1591,6 +1708,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment Date.
+        /// </summary>
+        public static string PaymentDate {
+            get {
+                return ResourceManager.GetString("PaymentDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending.
+        /// </summary>
+        public static string Pending {
+            get {
+                return ResourceManager.GetString("Pending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Place.
         /// </summary>
         public static string Place {
@@ -1659,6 +1794,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Race {
             get {
                 return ResourceManager.GetString("Race", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Received.
+        /// </summary>
+        public static string Received {
+            get {
+                return ResourceManager.GetString("Received", resourceCulture);
             }
         }
         
@@ -2028,6 +2172,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Today {
             get {
                 return ResourceManager.GetString("Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To Member.
+        /// </summary>
+        public static string ToMember {
+            get {
+                return ResourceManager.GetString("ToMember", resourceCulture);
             }
         }
         

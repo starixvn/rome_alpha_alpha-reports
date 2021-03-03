@@ -10,10 +10,12 @@ class DateRangePickerOption {
     constructor(
         public selectorId: string = "daterange-picker",
         public reportFormId: string = "report-form",
-        public onChange: Function = null) {
+        public onChange: Function = null,
+        public onBeforeQuickChooseChange: Function = null) {
         this.selectorId = selectorId;
         this.reportFormId = reportFormId;
         this.onChange = onChange;
+        this.onBeforeQuickChooseChange = onBeforeQuickChooseChange;
     }
 }
 
@@ -54,6 +56,8 @@ class DateRangePickerComponent {
                 }
             },
             onQuickChooseChange: (selectValue: number) => {
+                this.options.onBeforeQuickChooseChange && this.options.onBeforeQuickChooseChange();
+
                 if (this.isCompleteInitDateRangePicker && selectValue !== this.quickChooseType.specificDates) {
                     this.$reportForm.submit();
                 }

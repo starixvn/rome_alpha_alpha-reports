@@ -1,0 +1,168 @@
+﻿@import '../_variables.scss';
+@import '../_mixins.scss';
+
+#tbl-report {
+    .row-bet-choice {
+        background-color: #F3F5E0;
+
+        .col-bet-choice {
+            border-right: none;
+            font-weight: bold;
+
+            .text-handicap {
+                color: #606060;
+            }
+
+            .text-live-score {
+                color: #B50000;
+            }
+
+            .text-bet-type {
+                color: #003399;
+            }
+        }
+
+        .col-event {
+            border-left: none;
+            border-right: none;
+
+            .text-event {
+                color: #000000;
+            }
+
+            .text-league {
+                color: #666666;
+            }
+
+            .text-sport-type {
+                color: #0066CC;
+            }
+        }
+
+        .col-global-time {
+            border-left: none;
+            color: #000000;
+        }
+    }
+
+    .row-total {
+        font-weight: bold;
+    }
+
+    .row-even {
+        background-color: #eae9ee;
+    }
+
+    tbody {
+        .col-superwinloss {
+            background-color: #F6F2D7;
+        }
+    }
+
+    tfoot {
+        .col-superwinloss {
+            background-color: #432616;
+        }
+    }
+
+    .text-username {
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    .icon-table-filter {
+        cursor: pointer;
+        margin-top: 3px;
+        float: right;
+
+        &.has-filter {
+            &:before {
+                color: red;
+            }
+        }
+    }
+
+    .icon-ip-share {
+        cursor: pointer;
+        margin-top: 3px;
+        float: right;
+    }
+
+    .favorite {
+        color: #B50000;
+    }
+
+    .underdog {
+        color: #000000;
+    }
+
+    .loading-icon {
+        height: 16px;
+        background: url(../../styles/images/ajax-loader-small.gif) no-repeat center;
+    }
+
+    .ip-tooltip {
+        .tooltip-body {
+            max-height: 300px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+    }
+
+    .simple-tooltip {
+        .form-label {
+            margin-left: 10px;
+        }
+
+        .btn-filter {
+            margin: 0;
+            margin-top: 5px;
+        }
+
+        #inputTotalStake {
+            margin-left: 5px;
+            width: 100px;
+        }
+
+        #selectMemberWL {
+            margin: 0 5px;
+        }
+
+        #inputMemberWL {
+            width: 100px;
+        }
+    }
+}
+
+.simple-tooltip {
+    font-weight: normal;
+    position: absolute;
+    background: white;
+    color: black;
+    text-align: left;
+    border: $border-color solid 1px;
+    padding: 0 5px;
+    z-index: 1;
+    @include border-radius();
+
+    .tooltip-header {
+        padding: 5px 0;
+        border-bottom: 1px solid rgb(206, 206, 206);
+
+        .tooltip-title {
+            font-weight: bold;
+            margin-right: 30px;
+        }
+
+        .close {
+            margin-right: 0;
+            opacity: 1;
+            top: 2px;
+        }
+    }
+
+    .tooltip-body {
+        padding: 5px 0;
+        color: #333333;
+    }
+}

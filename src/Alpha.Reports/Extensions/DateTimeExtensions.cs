@@ -6,6 +6,7 @@
     {
         private const string ShortDateWithSlash = "MM/dd/yyyy";
         private const string LongDateWithSlash = "MM/dd/yyyy hh:mm:ss tt";
+        private const string LongDateWithoutSecondWithSlash = "MM/dd/yyyy hh:mm tt";
 
         private const string LongTime = "hh:mm:ss tt";
         private const string FullDateName = "dddd";
@@ -14,8 +15,14 @@
         public static string ToShortDateWithSlash(this DateTime dateTime)
             => dateTime.ToString(ShortDateWithSlash);
 
+        public static string ToShortDateWithSlash(this DateTime? dateTime)
+            => dateTime.HasValue ? dateTime.Value.ToShortDateWithSlash() : string.Empty;
+
         public static string ToLongDateWithSlash(this DateTime dateTime)
             => dateTime.ToString(LongDateWithSlash);
+
+        public static string ToLongDateWithoutSecondWithSlash(this DateTime dateTime)
+            => dateTime.ToString(LongDateWithoutSecondWithSlash);
 
         public static string ToLongTime(this DateTime dateTime)
             => dateTime.ToString(LongTime);

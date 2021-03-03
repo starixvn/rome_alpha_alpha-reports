@@ -12,7 +12,8 @@
             bool isStackMode,
             bool isFilterVisible,
             IEnumerable<CustInfo> breadcrumbLevel,
-            string breadcrumbLevelJson)
+            string breadcrumbLevelJson,
+            InfoIconWithTargetURLViewModel infoIcon = null)
         {
             Title = title;
             HasStackIcon = hasStackIcon;
@@ -20,6 +21,7 @@
             IsStackMode = isStackMode;
             IsFilterVisible = isFilterVisible;
             BreadcrumbLevelViewModel = new BreadcrumbLevelViewModel(breadcrumbLevel, breadcrumbLevelJson);
+            InfoIcon = infoIcon;
         }
 
         public string Title { get; }
@@ -35,5 +37,7 @@
         public bool IsFilterVisible { get; }
 
         public BreadcrumbLevelViewModel BreadcrumbLevelViewModel { get; set; }
+
+        public InfoIconWithTargetURLViewModel InfoIcon { get; }
     }
 }

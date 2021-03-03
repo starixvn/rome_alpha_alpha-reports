@@ -36,5 +36,11 @@
         bool IsEnableSabaPromotion { get; }
 
         bool IsEnableSabaPromotionForHeadline { get; }
+        
+        int SubAccId { get; }
+
+        string IP { get; }
+
+        bool IsInternal { get; }
     }
 }

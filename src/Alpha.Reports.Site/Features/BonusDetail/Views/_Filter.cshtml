@@ -1,0 +1,100 @@
+﻿@{
+    Layout = null;
+}
+@model BonusDetailViewModel
+@using (Html.BeginForm("Index", "BonusDetail", FormMethod.Get, new { @class = "form-inline filter" + (Model.IsFilterVisible ? string.Empty : " hide"), role = "form", id = "report-form" }))
+{
+    <input type="hidden" value="@Model.IsFilterVisible.ToString().ToLowerInvariant()" name="IsFilterVisible" id="IsFilterVisible" />
+    <div class="form-group">
+        <label>@Resources.Member</label>
+        <input type="text" class="width-140" maxlength="50" autocomplete="off" name="member" value="@Model.Member" />
+    </div>
+    @RenderDateRangePicker(Model.DateRangePickerViewModel);
+    <div class="form-group dropdown-container">
+        @RenderDropdown(Model.BonusStatus, Resources.BonusStatus, "statusId")
+    </div>
+    <div class="form-group dropdown-container">
+        @RenderDropdown(Model.MemberFeedback, Resources.MemberFeedback, "isComplained")
+    </div>
+    <div class="form-group submit-container">
+        <button type="submit" class="btn-submit" id="btn-submit">@Resources.Submit</button>
+    </div>
+    @RenderDateRangeSelection(Model.DateRangePickerViewModel)
+}
+
+@helper RenderDateRangePicker(DateRangePickerViewModel viewModel)
+{
+    <div id="daterange-picker"
+         class="daterange-picker"
+         data-currentdate="@SystemTime.Today"
+         data-mindate="@viewModel.MinDate.ToShortDateWithSlash()"
+         data-maxdate=" @viewModel.MaxDate.ToShortDateWithSlash()"></div>
+    <div class="form-group from-date-box">
+        <label>@Resources.CreatedFrom</label>
+        <div class="control date">
+            <div id="from-date-container"
+                 class="input-group date fromdate">
+                <input type="text"
+                       id="from-date"
+                       name="FromDate"
+                       readonly="readonly"
+                       autocomplete="off"
+                       class="ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate form-control"
+                       value="@viewModel.FromDate.ToShortDateWithSlash()" />
+                <span class="input-group-addon">
+                    <span class="icon-calendar" id="fdate_trigger"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group to-date-box">
+        <label>@Resources.To</label>
+        <div class="control date">
+            <div id="to-date-container"
+                 class="input-group date todate">
+                <input type="text"
+                       id="to-date"
+                       name="ToDate"
+                       readonly="readonly"
+                       autocomplete="off"
+                       class="ui_nexdatepicker_datetextbox ui_nexdatepicker_todate form-control"
+                       value="@viewModel.ToDate.ToShortDateWithSlash()" />
+                <span class="input-group-addon">
+                    <span class="icon-calendar" id="tdate_trigger"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+}
+
+@helper RenderDateRangeSelection(DateRangePickerViewModel viewModel)
+{
+    <div class="form-group daterange-container">
+        <div class="dropdown daterange-dropdown" id="dropdown-daterange">
+            <input type="hidden" name="UserSelectedDateRangeOption" id="hidden-range-option" value="@viewModel.SelectedRangeOption.Value" />
+            <button class="btn-submit dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span id="range-label">
+                    @viewModel.SelectedRangeOption.Text
+                </span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="range-label">
+                @foreach (var rangeOption in viewModel.RangeOptions)
+                {
+                    <li><a href="javascript:;" class="range-option" data-value="@rangeOption.Value">@rangeOption.Text</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+
+@helper RenderDropdown(IEnumerable<SelectListItem> selectListItems, string lable, string name)
+{
+    <label for="dropdown-@name">@lable</label>
+    <select id="dropdown-@name" name="@name">
+        @foreach (var item in selectListItems)
+        {
+            <option value="@item.Value" @(item.Selected ? "selected=selected" : string.Empty)>@item.Text</option>
+        }
+    </select>
+}

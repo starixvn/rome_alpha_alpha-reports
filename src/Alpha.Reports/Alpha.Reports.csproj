@@ -182,6 +182,17 @@
     <Compile Include="Criteria\GetProductsByRefTableCriteria.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\ProductsForMatchWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\MatchWinLoss\GetMatchWinLossCriteria.cs" />
+    <Compile Include="Features\BonusDetail\BonusDetailService.cs" />
+    <Compile Include="Features\BonusDetail\Constants\BonusStatusIdConst.cs" />
+    <Compile Include="Features\BonusDetail\Criteria\ConfirmPaymentCriteria.cs" />
+    <Compile Include="Features\BonusDetail\Criteria\GetMasterBonusCriteria.cs" />
+    <Compile Include="Features\BonusDetail\Criteria\GetBonusDetailCriteria.cs" />
+    <Compile Include="Features\BonusDetail\Criteria\GetAgentBonusCriteria.cs" />
+    <Compile Include="Features\BonusDetail\Criteria\GetSuperBonusCriteria.cs" />
+    <Compile Include="Features\BonusDetail\Models\BonusEntity.cs" />
+    <Compile Include="Features\BonusDetail\Models\GroupBonus.cs" />
+    <Compile Include="Features\BonusDetail\Params\BonusDetailParam.cs" />
+    <Compile Include="Features\BonusDetail\Params\ConfirmPaymentParam.cs" />
     <Compile Include="Features\Outstanding\OutstandingCriteria.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\MatchWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\PagingReportProductCriteria.cs" />
@@ -225,6 +236,7 @@
     <Compile Include="Models\IPRange.cs" />
     <Compile Include="Models\ProductBySiteModel.cs" />
     <Compile Include="Models\ProductDetail.cs" />
+    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\SportBetType.cs" />
     <Compile Include="Models\SportType.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingExcelParam.cs" />

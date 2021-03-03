@@ -158,7 +158,6 @@
       "assets/styles/matchwinlossdetail/matchwinlossdetail.css"
     ]
   },
-
   {
     "outputFileName": "assets/bundles/commissionbybettype/commissionbybettype.js",
     "inputFiles": [
@@ -357,6 +356,35 @@
       "assets/scripts/components/link-builder.js",
       "assets/scripts/components/pager.js",
       "assets/scripts/risk-analysis-ip-matching/index.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/BonusDetail/Bundles/bonusdetail.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/pager.js",
+      "Features/BonusDetail/Scripts/bonus-detail.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/BonusDetail/Bundles/bonusdetail.css",
+    "inputFiles": [
+      "Features/BonusDetail/Styles/bonus-detail.css"
+    ]
+  },
+  {
+    "outputFileName": "Features/BonusDetail/Bundles/confirmpayment.js",
+    "inputFiles": [
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/alert.js",
+      "Features/BonusDetail/Scripts/confirm-payment.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/BonusDetail/Bundles/confirmpayment.css",
+    "inputFiles": [
+      "Features/BonusDetail/Styles/confirm-payment.css"
     ]
   }
 ]

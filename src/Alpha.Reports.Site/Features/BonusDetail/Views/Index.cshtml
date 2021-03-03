@@ -1,0 +1,260 @@
+﻿@using Alpha.Reports.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Resources.BonusDetail;
+}
+@model BonusDetailViewModel
+@section Styles {
+    @StaticResources.RenderStyles("~/Features/BonusDetail/Bundles/bonusdetail")
+}
+@section Scripts {
+    @StaticResources.RenderScripts("~/Features/BonusDetail/Bundles/bonusdetail")
+}
+@{
+    @ReportTitle.Render(new PageHeaderViewModel(Resources.BonusDetail, false, true, false, Model.IsFilterVisible, null, null, new InfoIconWithTargetURLViewModel(Model.GuidelineURL(), "_blank")));
+    Html.RenderPartial("~/Features/BonusDetail/Views/_Filter.cshtml", Model);
+}
+<table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover">
+    <thead>
+        <tr>
+            <th rowspan="2">@Resources.CreatedDate</th>
+            <th rowspan="2">@Resources.BonusDetailRefNo</th>
+            @if (Model.ViewerLevel.IsSuperLevel())
+            {
+                <th>@Resources.Super</th>
+                <th colspan="2">@Resources.Master</th>
+                <th colspan="2">@Resources.Agent</th>
+            }
+            else if (Model.ViewerLevel.IsMasterLevel())
+            {
+                <th>@Resources.Master</th>
+                <th colspan="2">@Resources.Agent</th>
+            }
+            else
+            {
+                <th>@Resources.Agent</th>
+            }
+            <th colspan="3">@Resources.Member</th>
+            <th rowspan="2">@Resources.BonusStatus</th>
+            <th rowspan="2">@Resources.MemberFeedback</th>
+        </tr>
+        <tr>
+            <th>@Resources.Amount</th>
+            @if (Model.ViewerLevel.IsSuperLevel())
+            {
+                <th>@Resources.Username</th>
+                <th>@Resources.Amount</th>
+            }
+            @if (Model.ViewerLevel.IsMasterOrSuperLevel())
+            {
+                <th>@Resources.Username</th>
+                <th>@Resources.Amount</th>
+            }
+            <th>@Resources.Username</th>
+            <th>@Resources.Amount</th>
+            <th>@Resources.PaymentDate</th>
+        </tr>
+    </thead>
+    @if (Model.ReportData.Any())
+    {
+        <tbody>
+            @if (Model.ViewerLevel.IsSuperLevel())
+            {
+                @BuildReportDataSuper(Model.ReportData.DataSource)
+            }
+            else if (Model.ViewerLevel.IsMasterLevel())
+            {
+                @BuildReportDataMaster(Model.ReportData.DataSource)
+            }
+            else
+            {
+                @BuildReportDataAgent(Model.ReportData.DataSource)
+            }
+        </tbody>
+        <tfoot>
+            <tr class="tbl-footer">
+                <td class="text-left">@Resources.Total</td>
+                <td></td>
+                <td>@HtmlHelpers.FormatNumber(Model.ReportData.TotalData.TotalAmount)</td>
+                <td></td>
+                <td>@HtmlHelpers.FormatNumber(Model.ReportData.TotalData.TotalAmount)</td>
+                @if (Model.ViewerLevel.IsSuperLevel())
+                {
+                    <td></td>
+                    <td>@HtmlHelpers.FormatNumber(Model.ReportData.TotalData.TotalAmount)</td>
+                }
+                @if (Model.ViewerLevel.IsMasterOrSuperLevel())
+                {
+                    <td></td>
+                    <td>@HtmlHelpers.FormatNumber(Model.ReportData.TotalData.TotalAmount)</td>
+                }
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(Model.ViewerLevel.IsSuperLevel() ? 12 : (Model.ViewerLevel.IsMasterLevel() ? 10 : 8))
+    }
+</table>
+@{
+    @Pager.Render(Model.PagerViewModel)
+    if (Model.ViewerLevel.IsAgentLevel())
+    {
+        <input type="hidden" value="@Url.Content("~/BonusDetail/ConfirmPayment")" id="hidden-confirmPaymentURL" />
+    }
+}
+
+@helper BuildReportDataSuper(IEnumerable<GroupBonus> dataSource)
+{
+    foreach (var super in dataSource)
+    {
+        for (int i = 0, superLength = super.GroupBonusList.Count; i < superLength; i++)
+        {
+            var master = super.GroupBonusList[i];
+
+            for (int j = 0, masterLength = master.GroupBonusList.Count; j < masterLength; j++)
+            {
+                var agent = master.GroupBonusList[j];
+                var mergeRows = agent.Bonus.Count;
+
+                for (var k = 0; k < mergeRows; k++)
+                {
+                    var bonus = agent.Bonus[k];
+                    <tr>
+                        @BuildCreatedDateRefNoColumns(bonus)
+                        @if (k == 0)
+                        {
+                            if (j == 0)
+                            {
+                                if (i == 0)
+                                {
+                                    <td rowspan="@super.ColSpan">@HtmlHelpers.FormatNumber(super.TotalAmount)</td>
+                                }
+                                <td class="text-left" rowspan="@master.ColSpan">@master.GroupBy</td>
+                                <td rowspan="@master.ColSpan">@HtmlHelpers.FormatNumber(master.TotalAmount)</td>
+                            }
+                            <td class="text-left" rowspan="@mergeRows">@agent.GroupBy</td>
+                            <td rowspan="@mergeRows">@HtmlHelpers.FormatNumber(agent.TotalAmount)</td>
+                        }
+                        @BuildMemberDataColumns(bonus, Model.ViewerLevel)
+                    </tr>
+                }
+            }
+        }
+    }
+}
+
+@helper BuildReportDataMaster(IEnumerable<GroupBonus> dataSource)
+{
+    foreach (var master in dataSource)
+    {
+        for (int i = 0, masterLength = master.GroupBonusList.Count; i < masterLength; i++)
+        {
+            var agent = master.GroupBonusList[i];
+            var mergeRows = agent.Bonus.Count;
+
+            for (var j = 0; j < mergeRows; j++)
+            {
+                var bonus = agent.Bonus[j];
+                <tr>
+                    @BuildCreatedDateRefNoColumns(bonus)
+                    @if (j == 0)
+                    {
+                        if (i == 0)
+                        {
+                            <td rowspan="@master.ColSpan">@HtmlHelpers.FormatNumber(master.TotalAmount)</td>
+                        }
+                        <td class="text-left" rowspan="@mergeRows">@agent.GroupBy</td>
+                        <td rowspan="@mergeRows">@HtmlHelpers.FormatNumber(agent.TotalAmount)</td>
+                    }
+                    @BuildMemberDataColumns(bonus, Model.ViewerLevel)
+                </tr>
+            }
+        }
+    }
+}
+
+@helper BuildReportDataAgent(IEnumerable<GroupBonus> dataSource)
+{
+    foreach (var agent in dataSource)
+    {
+        var mergeRows = agent.Bonus.Count;
+
+        for (var i = 0; i < mergeRows; i++)
+        {
+            var bonus = agent.Bonus[i];
+            <tr>
+                @BuildCreatedDateRefNoColumns(bonus)
+                @if (i == 0)
+                {
+                    <td rowspan="@mergeRows">@HtmlHelpers.FormatNumber(agent.TotalAmount)</td>
+                }
+                @BuildMemberDataColumns(bonus, Model.ViewerLevel)
+            </tr>
+        }
+    }
+}
+
+@helper BuildCreatedDateRefNoColumns(BonusEntity bonus)
+{
+    <td class="text-center">@bonus.CreatedDateString</td>
+    <td>@bonus.TransId</td>
+}
+
+@helper BuildMemberDataColumns(BonusEntity bonus, UserLevel userLevel)
+{
+    <td class="text-left">@bonus.Username</td>
+    <td @(bonus.IsCancelled ? "class=text-danger" : string.Empty)>@HtmlHelpers.FormatNumber(bonus.Amount)</td>
+    <td class="text-center">@BuildPaymentDateCell(bonus, userLevel)</td>
+    <td class="text-center">@DisplayBonusStatusText(bonus)</td>
+    <td class="text-center">@DisplayMemberFeedbackText(bonus)</td>
+}
+
+@helper BuildPaymentDateCell(BonusEntity bonus, UserLevel userLevel)
+{
+    if (userLevel.IsAgentLevel() && bonus.CanConfirmPaymentDate)
+    {
+        <span class="icon-payment"
+              data-custid="@bonus.CustId"
+              data-transid="@bonus.TransId"
+              data-username="@bonus.Username"
+              data-amount="@bonus.Amount"
+              data-createddate="@bonus.MinConfirmPaymentDate"></span>
+    }
+    else
+    {
+        @bonus.PaymentDateString
+    }
+}
+
+@helper DisplayBonusStatusText(BonusEntity bonus)
+{
+    var bonusStatus = string.Empty;
+    switch (bonus.StatusId)
+    {
+        case BonusStatusIdConst.Pending:
+            bonusStatus = Resources.Pending;
+            break;
+        case BonusStatusIdConst.Cancelled:
+            bonusStatus = Resources.Cancelled;
+            break;
+        case BonusStatusIdConst.Completed:
+            bonusStatus = Resources.Completed;
+            break;
+        default:
+            break;
+    }
+    <span @(bonus.IsCancelled ? "class=text-danger" : string.Empty)>@bonusStatus</span>
+}
+
+@helper DisplayMemberFeedbackText(BonusEntity bonus)
+{
+    if (bonus.PaymentDate.HasValue)
+    {
+        var memberFeedback = bonus.IsComplained ? Resources.NotReceived : Resources.Received;
+        <span @(bonus.IsComplained ? "class=text-danger" : string.Empty)>@memberFeedback</span>
+    }
+}

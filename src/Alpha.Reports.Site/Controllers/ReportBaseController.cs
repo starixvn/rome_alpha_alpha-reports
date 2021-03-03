@@ -1,12 +1,15 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
+    using System.Diagnostics.CodeAnalysis;
+    using System.Net;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+    using System.Web.SessionState;
+    using Alpha.Reports.Models;
     using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Helpers;
     using MediatR;
     using Requests;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Web.Mvc;
-    using System.Web.SessionState;
     using ViewModels;
     using Web;
 
@@ -14,7 +17,7 @@
     [SessionState(SessionStateBehavior.ReadOnly)]
     public abstract class ReportBaseController : BaseController
     {
-        private const string InvalidReportViewPath = "~/Views/Shared/InvalidReport.cshtml";
+        protected const string InvalidReportViewPath = "~/Views/Shared/InvalidReport.cshtml";
         private const string InvalidReportExcelFileName = "InvalidReport";
 
         protected readonly IMediator mediator;
@@ -49,6 +52,17 @@
             return View(viewName, mediator.Send(message));
         }
 
+        protected async Task<ActionResult> ViewAsync<TResponse>(string viewName, IAsyncRequest<TResponse> message)
+        {
+            var baseQuery = message as ReportBaseQuery;
+            if (baseQuery != null && !baseQuery.IsValid())
+            {
+                return View(InvalidReportViewPath);
+            }
+
+            return View(viewName, await mediator.SendAsync(message));
+        }
+
         protected FileContentResult ExcelView(IRequest<ExcelFileViewModel> message)
         {
             var baseQuery = message as ReportBaseQuery;
@@ -69,6 +83,17 @@
             }
 
             return new JsonNetResult(mediator.Send(message));
+        }
+
+        protected async Task<ActionResult> JsonAsync<TResponse>(IAsyncRequest<TResponse> message)
+        {
+            var baseQuery = message as ReportBaseQuery;
+            if (baseQuery != null && !baseQuery.IsValid())
+            {
+                return Json(new Result((int)HttpStatusCode.Forbidden, Resources.NotAuthorized));
+            }
+
+            return new JsonNetResult(await mediator.SendAsync(message));
         }
     }
 }
