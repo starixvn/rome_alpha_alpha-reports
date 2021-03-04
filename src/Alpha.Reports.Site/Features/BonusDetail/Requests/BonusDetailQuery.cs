@@ -1,7 +1,9 @@
 ﻿namespace Alpha.Reports.Site.Features.BonusDetail.Requests
 {
     using System;
+    using System.Linq;
     using System.Web.Mvc;
+    using Alpha.Reports.Configurations;
     using Alpha.Reports.Models;
     using Alpha.Reports.Site.Features.BonusDetail.ViewModels;
     using Alpha.Reports.Site.Requests;
@@ -47,6 +49,8 @@
         public bool IsFilterVisible { get; set; } = true;
 
         public override bool IsValid()
-            => base.IsValid() && FromDate <= ToDate && FromDate >= MinDate;
+            => base.IsValid()
+            && FromDate <= ToDate && FromDate >= MinDate
+            && SiteSettings.AllowedSitesToViewBonusDetail.Contains(Site.ToUpperInvariant());
     }
 }

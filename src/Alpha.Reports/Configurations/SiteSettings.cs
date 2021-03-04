@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Configuration;
+    using System.Linq;
 
     public static class SiteSettings
     {
@@ -62,5 +63,26 @@
 
         public static IEnumerable<string> OfferSabaPromotionHeadlineSites
             => GetConfigValue("EnableProduct-37:HLSites")?.Split(new[] { ",", ";" }, StringSplitOptions.RemoveEmptyEntries);
+
+        private static string[] allowedSitesToViewBonusDetail;
+        public static string[] AllowedSitesToViewBonusDetail
+        {
+            get
+            {
+                if (allowedSitesToViewBonusDetail == null)
+                {
+                    var allowedSites = GetConfigValue("AllowedSitesToViewBonusDetail");
+
+                    allowedSitesToViewBonusDetail = string.IsNullOrWhiteSpace(allowedSites)
+                        ? Array.Empty<string>()
+                        : allowedSites
+                            .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(s => s.Trim().ToUpperInvariant())
+                            .ToArray();
+                }
+
+                return allowedSitesToViewBonusDetail;
+            }
+        }
     }
 }
