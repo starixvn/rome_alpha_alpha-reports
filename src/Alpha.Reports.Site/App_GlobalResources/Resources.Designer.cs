@@ -889,7 +889,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Viewing report at Agent level: Gross comm is the amount (without PT) that Master can receive from upline on each Agent..
+        ///   Looks up a localized string similar to In Agent&apos;s view: the commission (without PT) that Master can receive from upline on each Agent..
         /// </summary>
         public static string GrossCommNoteForAgent {
             get {
@@ -898,7 +898,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Viewing report at Agent level: Gross comm is the amount (without PT) that Agent can receive from upline..
+        ///   Looks up a localized string similar to Viewing at Agent level: the commission (without PT) that Agent can receive from upline..
         /// </summary>
         public static string GrossCommNoteForConsolidationReportAgent {
             get {
@@ -907,7 +907,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Viewing report at Master level: Gross comm is the amount (without PT) that Master can receive from upline..
+        ///   Looks up a localized string similar to Viewing at Master level: the commission (without PT) that Master can receive from upline..
         /// </summary>
         public static string GrossCommNoteForConsolidationReportMaster {
             get {
@@ -916,7 +916,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Viewing report at Super level: Gross comm is the amount (without PT) that Super can receive from upline..
+        ///   Looks up a localized string similar to Viewing at Super level: the commission (without PT) that Super can receive from upline..
         /// </summary>
         public static string GrossCommNoteForConsolidationReportSuper {
             get {
@@ -925,7 +925,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Viewing report at Master level: Gross comm is the amount (without PT) that Super can receive from upline on each Master..
+        ///   Looks up a localized string similar to In Master&apos;s view: the commission (without PT) that Super can receive from upline on each Master..
         /// </summary>
         public static string GrossCommNoteForMaster {
             get {
@@ -934,7 +934,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Viewing report at Member level: Gross comm is the amount (without PT) that Agent can receive from upline on each Member..
+        ///   Looks up a localized string similar to In Member&apos;s view: the commission (without PT) that Agent can receive from upline on each Member..
         /// </summary>
         public static string GrossCommNoteForMember {
             get {
