@@ -345,9 +345,9 @@
 
             var expectedViewModel = new List<string>
             {
-                "Viewing report at Master level: Gross comm is the amount (without PT) that Super can receive from upline on each Master.",
-                "Viewing report at Agent level: Gross comm is the amount (without PT) that Master can receive from upline on each Agent.",
-                "Viewing report at Member level: Gross comm is the amount (without PT) that Agent can receive from upline on each Member."
+                "In Master's view: the commission (without PT) that Super can receive from upline on each Master.",
+                "In Agent's view: the commission (without PT) that Master can receive from upline on each Agent.",
+                "In Member's view: the commission (without PT) that Agent can receive from upline on each Member."
             };
 
             // Act

@@ -844,12 +844,12 @@
     <value>在總代理級別查看報告：總佣金是超級總代理可以從上線獲取的數額(不包括占成)予每一個總代理</value>
   </data>
   <data name="GrossCommNoteForConsolidationReportAgent" xml:space="preserve">
-    <value>Viewing report at Agent level: Gross comm is the amount (without PT) that Agent can receive from upline.</value>
+    <value>在代理級別查看報告：總佣金是代理可以從上線獲取的總額(不包括占成)</value>
   </data>
   <data name="GrossCommNoteForConsolidationReportMaster" xml:space="preserve">
-    <value>Viewing report at Master level: Gross comm is the amount (without PT) that Master can receive from upline.</value>
+    <value>在總代理級別查看報告：總佣金是總代理可以從上線獲取的總額(不包括占成)</value>
   </data>
   <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
-    <value>Viewing report at Super level: Gross comm is the amount (without PT) that Super can receive from upline.</value>
+    <value>在超級代理級別查看報告：總佣金是超級代理可以從上線獲取的總額(不包括占成)</value>
   </data>
 </root>
