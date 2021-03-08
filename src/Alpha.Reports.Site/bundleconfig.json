@@ -144,6 +144,7 @@
     "outputFileName": "assets/bundles/matchwinlossdetail/matchwinlossdetail.js",
     "inputFiles": [
       "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/league-multiselection.js",

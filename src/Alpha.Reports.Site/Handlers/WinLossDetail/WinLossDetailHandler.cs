@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
     using MediatR;
     using Reports.Constants;
@@ -14,7 +15,7 @@
     public class WinLossDetailHandler :
         WinLossDetailBaseHandler,
         IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>,
-        IRequestHandler<ReportLegendQuery, IEnumerable<string>>
+        IRequestHandler<ReportLegendQuery, ReportLegendViewModel>
     {
         private readonly IUser viewer;
 
@@ -50,7 +51,7 @@
             return viewModel;
         }
 
-        public IEnumerable<string> Handle(ReportLegendQuery message)
+        public ReportLegendViewModel Handle(ReportLegendQuery message)
         {
             message.CustId = viewer.Id;
             var result = new List<string>();
@@ -71,7 +72,7 @@
                     string.Join(", ", productService.GetProductNames(productsNeedDelayTimeToSumarizeData))));
             }
 
-            return result;
+            return new ReportLegendViewModel(result, GetGrossCommNotes(message.ViewerLevel));
         }
 
         private string BuildTooltipsForLiveCasino(int custId, string site, int currencyId)

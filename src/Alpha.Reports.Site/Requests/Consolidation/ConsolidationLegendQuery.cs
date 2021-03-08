@@ -1,10 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Requests.Consolidation
 {
-    using System.Collections.Generic;
     using Alpha.Reports.Models;
+    using Alpha.Reports.Site.ViewModels.Components;
     using MediatR;
 
-    public class ConsolidationLegendQuery : ReportDefaultDateRangeQuery, IRequest<IEnumerable<string>>
+    public class ConsolidationLegendQuery : ReportDefaultDateRangeQuery, IRequest<ReportLegendViewModel>
     {
         public ConsolidationLegendQuery(IUser viewer) : base(viewer)
         {

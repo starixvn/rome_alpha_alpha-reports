@@ -834,4 +834,22 @@
   <data name="NotAuthorized" xml:space="preserve">
     <value>您沒有使用此功能的權限</value>
   </data>
+  <data name="GrossCommNoteForMember" xml:space="preserve">
+    <value>在會員級別查看報告：總佣金是代理可以從上線獲取的數額(不包括占成)予每一個會員</value>
+  </data>
+  <data name="GrossCommNoteForAgent" xml:space="preserve">
+    <value>在代理級別查看報告：總佣金是總代理可以從上線獲取的數額(不包括占成)予每一個代理</value>
+  </data>
+  <data name="GrossCommNoteForMaster" xml:space="preserve">
+    <value>在總代理級別查看報告：總佣金是超級總代理可以從上線獲取的數額(不包括占成)予每一個總代理</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportAgent" xml:space="preserve">
+    <value>在代理級別查看報告：總佣金是代理可以從上線獲取的總額(不包括占成)</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportMaster" xml:space="preserve">
+    <value>在總代理級別查看報告：總佣金是總代理可以從上線獲取的總額(不包括占成)</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
+    <value>在超級代理級別查看報告：總佣金是超級代理可以從上線獲取的總額(不包括占成)</value>
+  </data>
 </root>

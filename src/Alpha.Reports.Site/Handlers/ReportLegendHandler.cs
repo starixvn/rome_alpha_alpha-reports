@@ -2,14 +2,17 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
     using MediatR;
-    using Reports.Constants;
     using Reports.Models;
     using Requests;
     using Services;
 
-    public class ReportLegendHandler : IRequestHandler<ReportLegendQuery, IEnumerable<string>>
+    public class ReportLegendHandler :
+        BaseHandler,
+        IRequestHandler<ReportLegendQuery, IEnumerable<string>>,
+        IRequestHandler<ReportLegendGrossCommQuery, ReportLegendViewModel>
     {
         private readonly ProductService productService;
 
@@ -19,9 +22,19 @@
         }
 
         public IEnumerable<string> Handle(ReportLegendQuery message)
+            => GetReportLegends(message.CustId, message.Site, message.CurrencyId);
+
+        public ReportLegendViewModel Handle(ReportLegendGrossCommQuery message)
+        {
+            var legends = GetReportLegends(message.CustId, message.Site, message.CurrencyId);
+
+            return new ReportLegendViewModel(legends, GetGrossCommNotes(message.ViewerLevel));
+        }
+
+        private IEnumerable<string> GetReportLegends(int custId, string site, int currencyId)
         {
             var result = new List<string>();
-            var products = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId).Select(product => (int)product);
+            var products = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(custId, site, currencyId).Select(product => (int)product);
 
             if (products.Any())
             {

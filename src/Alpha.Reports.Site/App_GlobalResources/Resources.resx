@@ -918,4 +918,22 @@
   <data name="NotAuthorized" xml:space="preserve">
     <value>You are not authorized on this function.</value>
   </data>
+  <data name="GrossCommNoteForMember" xml:space="preserve">
+    <value>In Member's view: the commission (without PT) that Agent can receive from upline on each Member.</value>
+  </data>
+  <data name="GrossCommNoteForAgent" xml:space="preserve">
+    <value>In Agent's view: the commission (without PT) that Master can receive from upline on each Agent.</value>
+  </data>
+  <data name="GrossCommNoteForMaster" xml:space="preserve">
+    <value>In Master's view: the commission (without PT) that Super can receive from upline on each Master.</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportAgent" xml:space="preserve">
+    <value>Viewing at Agent level: the commission (without PT) that Agent can receive from upline.</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportMaster" xml:space="preserve">
+    <value>Viewing at Master level: the commission (without PT) that Master can receive from upline.</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
+    <value>Viewing at Super level: the commission (without PT) that Super can receive from upline.</value>
+  </data>
 </root>
