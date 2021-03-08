@@ -127,7 +127,7 @@
             var actualViewModel = winLossDetailHandler.Handle(message);
 
             // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
+            Assert.Equal(expectedViewModel, actualViewModel.Legends);
         }
 
         [Fact]
@@ -152,7 +152,7 @@
             var actualViewModel = winLossDetailHandler.Handle(message);
 
             // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
+            Assert.Equal(expectedViewModel, actualViewModel.Legends);
         }
 
         [Fact]
@@ -177,7 +177,7 @@
             var actualViewModel = winLossDetailHandler.Handle(message);
 
             // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
+            Assert.Equal(expectedViewModel, actualViewModel.Legends);
         }
 
         [Fact]
@@ -202,7 +202,7 @@
             var actualViewModel = winLossDetailHandler.Handle(message);
 
             // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
+            Assert.Equal(expectedViewModel, actualViewModel.Legends);
         }
 
         [Fact]
@@ -227,7 +227,7 @@
             var actualViewModel = winLossDetailHandler.Handle(message);
 
             // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
+            Assert.Equal(expectedViewModel, actualViewModel.Legends);
         }
 
         [Fact]
@@ -252,7 +252,7 @@
             var actualViewModel = winLossDetailHandler.Handle(message);
 
             // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
+            Assert.Equal(expectedViewModel, actualViewModel.Legends);
         }
 
         [Fact]
@@ -277,7 +277,7 @@
             var actualViewModel = winLossDetailHandler.Handle(message);
 
             // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
+            Assert.Equal(expectedViewModel, actualViewModel.Legends);
         }
 
         [Fact]
@@ -302,7 +302,7 @@
             var actualViewModel = winLossDetailHandler.Handle(message);
 
             // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
+            Assert.Equal(expectedViewModel, actualViewModel.Legends);
         }
 
         [Fact]
@@ -333,7 +333,28 @@
             var actualViewModel = winLossDetailHandler.Handle(message);
 
             // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
+            Assert.Equal(expectedViewModel, actualViewModel.Legends);
+        }
+
+        [Fact]
+        public void HandleReportLegendQuery_Super_ReturnsCorrectGrossComm()
+        {
+            // Arrange
+            var message = new ReportLegendQuery(userFixture.User);
+            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>());
+
+            var expectedViewModel = new List<string>
+            {
+                "In Master's view: the commission (without PT) that Super can receive from upline on each Master.",
+                "In Agent's view: the commission (without PT) that Master can receive from upline on each Agent.",
+                "In Member's view: the commission (without PT) that Agent can receive from upline on each Member."
+            };
+
+            // Act
+            var actualViewModel = winLossDetailHandler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel.GrossCommNotes);
         }
     }
 }

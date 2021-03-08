@@ -854,4 +854,22 @@
   <data name="NotAuthorized" xml:space="preserve">
     <value>Bạn không được cho phép sử dụng chức năng này.</value>
   </data>
+  <data name="GrossCommNoteForMember" xml:space="preserve">
+    <value>Góc nhìn của Member: khoản hoa hồng (không bao gồm Position Taking) mà Agent có thể nhận từ cấp trên ứng với từng Member.</value>
+  </data>
+  <data name="GrossCommNoteForAgent" xml:space="preserve">
+    <value>Góc nhìn của Agent: khoản hoa hồng (không bao gồm Position Taking) mà Master có thể nhận từ cấp trên ứng với từng Agent.</value>
+  </data>
+  <data name="GrossCommNoteForMaster" xml:space="preserve">
+    <value>Góc nhìn của Master: khoản hoa hồng (không bao gồm Position Taking) mà Super có thể nhận từ cấp trên ứng với từng Master.</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportAgent" xml:space="preserve">
+    <value>Xem ở cấp Agent: khoản hoa hồng (không bao gồm Position Taking) mà Agent có thể nhận từ cấp trên.</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportMaster" xml:space="preserve">
+    <value>Xem ở cấp Master: khoản hoa hồng (không bao gồm Position Taking) mà Master có thể nhận từ cấp trên.</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
+    <value>Xem ở cấp Super: khoản hoa hồng (không bao gồm Position Taking) mà Super có thể nhận từ cấp trên.</value>
+  </data>
 </root>

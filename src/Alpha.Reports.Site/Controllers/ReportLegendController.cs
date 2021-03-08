@@ -11,5 +11,7 @@
         }
 
         public ActionResult Index(ReportLegendQuery message) => View(message);
+
+        public ActionResult IndexGrossComm(ReportLegendGrossCommQuery message) => View(message);
     }
 }

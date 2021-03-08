@@ -156,5 +156,46 @@
 
             return result;
         }
+
+        protected internal IEnumerable<string> GetGrossCommNotes(UserLevel viewerLevel)
+        {
+            if (viewerLevel.IsSuperLevel())
+            {
+                return GetSuperGrossCommNotes();
+            }
+
+            if (viewerLevel.IsMasterLevel())
+            {
+                return GetMasterGrossCommNotes();
+            }
+
+            if (viewerLevel.IsAgentLevel())
+            {
+                return GetAgentGrossCommNotes();
+            }
+
+            return Enumerable.Empty<string>();
+        }
+
+        private IEnumerable<string> GetSuperGrossCommNotes()
+            => new List<string>
+            {
+                Resources.GrossCommNoteForMaster,
+                Resources.GrossCommNoteForAgent,
+                Resources.GrossCommNoteForMember
+            };
+
+        private IEnumerable<string> GetMasterGrossCommNotes()
+            => new List<string>
+            {
+                Resources.GrossCommNoteForAgent,
+                Resources.GrossCommNoteForMember
+            };
+
+        private IEnumerable<string> GetAgentGrossCommNotes()
+            => new List<string>
+            {
+                Resources.GrossCommNoteForMember
+            };
     }
 }

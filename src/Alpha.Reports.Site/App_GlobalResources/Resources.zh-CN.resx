@@ -834,4 +834,22 @@
   <data name="NotAuthorized" xml:space="preserve">
     <value>您没有使用此功能的权限</value>
   </data>
+  <data name="GrossCommNoteForMember" xml:space="preserve">
+    <value>在会员级别查看报告：总佣金是代理可以从上线获取的数额(不包括占成)予每一个会员</value>
+  </data>
+  <data name="GrossCommNoteForAgent" xml:space="preserve">
+    <value>在代理级别查看报告：总佣金是总代理可以从上线获取的数额(不包括占成)予每一个代理</value>
+  </data>
+  <data name="GrossCommNoteForMaster" xml:space="preserve">
+    <value>在总代理级别查看报告：总佣金是超级总代理可以从上线获取的数额(不包括占成)予每一个总代理</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportAgent" xml:space="preserve">
+    <value>在代理级别查看报告：总佣金是代理可以从上线获取的总额(不包括占成)</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportMaster" xml:space="preserve">
+    <value>在总代理级别查看报告：总佣金是总代理可以从上线获取的总额(不包括占成)</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
+    <value>在超级代理级别查看报告：总佣金是超级代理可以从上线获取的总额(不包括占成)</value>
+  </data>
 </root>

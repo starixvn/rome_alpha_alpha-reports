@@ -40,6 +40,7 @@
         renderLeagueMultiSelectionComponent.and.callThrough();
 
         spyOn(dateRangePickerComponent, "render");
+        spyOn(matchWinLossDetailView, "initHelp");
     });
 
     describe("_init_Always", () => {

@@ -3,7 +3,7 @@
 /// <reference path="../components/league-multiselection.ts" />
 
 "use strict";
-class MatchWinLossDetailView {
+class MatchWinLossDetailView extends BaseReport {
     $: JQueryStatic;
     dateRangePickerComponent: DateRangePickerComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
@@ -46,6 +46,8 @@ class MatchWinLossDetailView {
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         leagueMultiSelectionComponent: LeagueMultiSelectionComponent,
         reportTooltip: ReportTooltip) {
+        super($, new LinkBuilderComponent($));
+
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
@@ -88,6 +90,7 @@ class MatchWinLossDetailView {
         this.registerEvents();
 
         this.getLeaguesByCustomerParam = this.getLeagueParam();
+        this.initHelp();
 
         this.$.unblockUI();
         this.isLoading = false;
