@@ -1,21 +1,5 @@
 ﻿namespace Alpha.Reports.Site
 {
-    using Alpha.Logging;
-    using Alpha.NetThrottling.Mvc;
-    using Alpha.NetThrottling.Utils;
-    using App_Start;
-    using Auth.Configurations;
-    using Auth.Filters;
-    using Configurations;
-    using Fanex.Data;
-    using Fanex.Data.CrossCutting.WrappingException;
-    using Fanex.Data.OldConnectionStringProvider;
-    using Fanex.Logging.Extensions.Database;
-    using Fanex.Logging.Extensions.Web;
-    using Fanex.RemotingRef;
-    using Helpers;
-    using ONEbook.UM.Filters;
-    using Sunplus.Agent.Model.Entities;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -24,6 +8,29 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using Alpha.Logging;
+    using Alpha.NetThrottling.Mvc;
+    using Alpha.NetThrottling.Utils;
+    using App_Start;
+    using Auth.Configurations;
+    using Auth.Filters;
+    using Configurations;
+    using Fanex.Caching;
+    using Fanex.Data;
+    using Fanex.Data.CrossCutting.WrappingException;
+    using Fanex.Data.OldConnectionStringProvider;
+    using Fanex.Logging.Extensions.Database;
+    using Fanex.Logging.Extensions.Web;
+    using Fanex.RemotingRef;
+    using Helpers;
+    using ONEbook.UM;
+    using ONEbook.UM.AspNetMVC.Filters;
+    using ONEbook.UM.Configurations;
+    using ONEbook.UM.Helpers;
+    using ONEbook.UM.NETFramework;
+    using ONEbook.UM.Services;
+    using ONEbook.UM.Transport;
+    using Sunplus.Agent.Model.Entities;
     using Web;
     using Web.Filters;
     using Web.Helpers;
@@ -53,7 +60,16 @@
             LoggingConfig.Init(getDbExceptionInfo: DatabaseInfoGetters.GetDbExceptionInfo);
 
             GlobalFilters.Filters.Add(new NetThrottlingFilterAttribute());
-            GlobalFilters.Filters.Add(new CheckUMFilter());
+
+            var umConfig = new UMClientConfiguration().Initialize();
+            UMClientManager
+                .UseConfig(umConfig)
+                .UseCacheService(new UMCacheService(new CacheService()))
+                .UseRestClient(new UMRestClient(umConfig))
+                .UseHttpContext(new HttpContextHelper());
+            GlobalFilters.Filters.Add(new CheckUMFilterAttribute(
+                new MaintenanceService(UMClientManager.RestClient, UMClientManager.CacheService, UMClientManager.UMClientConfigs, UMClientManager.HttpContext), null));
+
             GlobalFilters.Filters.Add(new CheckBelongingFilter());
             GlobalFilters.Filters.Add(new NoCacheFilter());
             GlobalFilters.Filters.Add(new AfterLoginFlowFilter());
