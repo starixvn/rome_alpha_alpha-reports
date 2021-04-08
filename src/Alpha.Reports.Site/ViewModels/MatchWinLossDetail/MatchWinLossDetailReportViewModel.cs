@@ -146,59 +146,52 @@
                 ["CustName"] = CustName,
                 ["CustLevelId"] = CustLevelId,
                 ["BetType"] = betType.Id,
-                ["LiveIndicator"] = betType.IsLive ? 1 : 0
-            };
+                ["LiveIndicator"] = betType.IsLive ? 1 : 0,
+                ["LeagueId"] = match.LeagueId,
+                ["FromDate"] = fromDate,
+                ["ToDate"] = toDate
+        };
 
             if (match.Race > 0)
-            {
-                result["LeagueId"] = match.LeagueId;
-                result["FromDate"] = fromDate;
-                result["ToDate"] = toDate;
+            {   
                 result["Race"] = betType.Race;
             }
             else
             {
-                result["MatchId"] = match.MatchId;
-
-                if (betType.Id == BetTypeIdConstants.Outright)
-                {
-                    result["LeagueId"] = match.LeagueId;
-                    result["FromDate"] = fromDate;
-                    result["ToDate"] = toDate;
-                }
+                result["MatchId"] = match.MatchId;                
             }
 
             return result;
         }
 
         public string GetParlayBetListLink(int betType, DateTime fromDate, DateTime toDate)
-        {
-            var routeValues = new Dictionary<string, object>
-            {
-                ["CustId"] = CustId,
-                ["CustName"] = CustName,
-                ["CustLevelId"] = CustLevelId,
-                ["FromDate"] = fromDate,
-                ["ToDate"] = toDate,
-                ["BetType"] = betType
-            };
+{
+    var routeValues = new Dictionary<string, object>
+    {
+        ["CustId"] = CustId,
+        ["CustName"] = CustName,
+        ["CustLevelId"] = CustLevelId,
+        ["FromDate"] = fromDate,
+        ["ToDate"] = toDate,
+        ["BetType"] = betType
+    };
 
-            return ReportHelpers.UrlHelper.AddQueryStringParamsFunc(Helpers.UrlHelper.MapBetListPath("~/ParlayWinLossByMatch/Index"), routeValues);
-        }
+    return ReportHelpers.UrlHelper.AddQueryStringParamsFunc(Helpers.UrlHelper.MapBetListPath("~/ParlayWinLossByMatch/Index"), routeValues);
+}
 
-        public string GetBetListLinkByBetType(int bettype, DateTime fromDate, DateTime toDate)
-        {
-            var routeValues = new Dictionary<string, object>
-            {
-                ["CustId"] = CustId,
-                ["CustName"] = CustName,
-                ["CustLevelId"] = CustLevelId,
-                ["FromDate"] = fromDate,
-                ["ToDate"] = toDate,
-                ["BetType"] = bettype
-            };
+public string GetBetListLinkByBetType(int bettype, DateTime fromDate, DateTime toDate)
+{
+    var routeValues = new Dictionary<string, object>
+    {
+        ["CustId"] = CustId,
+        ["CustName"] = CustName,
+        ["CustLevelId"] = CustLevelId,
+        ["FromDate"] = fromDate,
+        ["ToDate"] = toDate,
+        ["BetType"] = bettype
+    };
 
-            return ReportHelpers.UrlHelper.AddQueryStringParamsFunc(Helpers.UrlHelper.MapBetListPath(BetListPath), routeValues);
-        }
+    return ReportHelpers.UrlHelper.AddQueryStringParamsFunc(Helpers.UrlHelper.MapBetListPath(BetListPath), routeValues);
+}
     }
 }
