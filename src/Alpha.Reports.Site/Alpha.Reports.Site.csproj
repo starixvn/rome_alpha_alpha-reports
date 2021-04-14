@@ -67,7 +67,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Alpha.NetThrottling, Version=1.0.17.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.NetThrottling.1.0.17-beta01\lib\net461\Alpha.NetThrottling.dll</HintPath>
+      <HintPath>..\..\packages\Alpha.NetThrottling.1.0.17\lib\net461\Alpha.NetThrottling.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.NetThrottling.Mvc, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.NetThrottling.Mvc.1.0.14\lib\net461\Alpha.NetThrottling.Mvc.dll</HintPath>
@@ -290,7 +290,7 @@
       <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.3.3\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
     </Reference>
     <Reference Include="Sunplus.Agent.Utilities, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Utilities.3.0.2-removeCouchbase\lib\net461\Sunplus.Agent.Utilities.dll</HintPath>
+      <HintPath>..\..\packages\Sunplus.Agent.Utilities.3.0.2\lib\net461\Sunplus.Agent.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Sunplus.Core.Common, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sunplus.Core.Common.1.2.0.1\lib\net40\Sunplus.Core.Common.dll</HintPath>
