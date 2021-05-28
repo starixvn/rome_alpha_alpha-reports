@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Web.Helpers;
     using Criteria.WinLossAnalysis;
     using DataAccesses;
     using Extensions;
@@ -19,15 +20,18 @@
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly WinLossAnalysisDataAccess dataAccess;
+        private readonly PartialUMService partialUMService;
 
         public WinLossAnalysisServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
-            WinLossAnalysisDataAccess dataAccess)
+            WinLossAnalysisDataAccess dataAccess,
+            PartialUMService partialUMService)
         {
             this.reportDateService = reportDateService;
             this.productService = productService;
             this.dataAccess = dataAccess;
+            this.partialUMService = partialUMService;
         }
 
         public IEnumerable<WinLossAnalysisModel> GetWinLossAnalysis(WinLossAnalysisParam param)
@@ -49,6 +53,8 @@
                                     reportDateService.GetMoveBetsDay(),
                                     validUserSelectedProductIds,
                                     param.CustLevel);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
 
             var winlossAnalysisData = dataAccess.GetWinLossAnalysis(criteria);
 

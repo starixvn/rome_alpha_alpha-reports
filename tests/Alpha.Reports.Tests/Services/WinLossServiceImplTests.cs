@@ -1,7 +1,10 @@
 ﻿namespace Alpha.Reports.Tests.Services.WinLoss
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Alpha.Web.Helpers;
     using Fanex.Caching;
-    using Fanex.Caching.Memory;
     using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
@@ -11,9 +14,6 @@
     using Reports.Models.Winloss;
     using Reports.Params;
     using Reports.Services;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using TestCases;
     using Xunit;
 
@@ -31,6 +31,7 @@
         private readonly DateTime currentDate = new DateTime(2016, 12, 28);
         private readonly CompareLogic compareLogic;
         private readonly ReportDateService reportDateService;
+        private readonly PartialUMService partialUMService;
 
         public WinLossServiceImplTests()
         {
@@ -41,7 +42,8 @@
             dataAccess = Substitute.For<WinLossDataAccess>();
             cacheRefService = Substitute.For<CacheRefService>();
             reportDateService = Substitute.For<ReportDateService>();
-            winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, productDetailService, dataAccess, dynamicRepository, cacheRefService, cacheService);
+            partialUMService = Substitute.For<PartialUMService>();
+            winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, productDetailService, dataAccess, dynamicRepository, cacheRefService, cacheService, partialUMService);
             compareLogic = new CompareLogic();
         }
 

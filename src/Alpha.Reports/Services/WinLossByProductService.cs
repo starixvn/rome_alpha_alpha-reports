@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Web.Helpers;
     using Criteria.WinLossByProductCriteria;
     using DataAccesses;
     using Models.WinlossByBetType;
@@ -19,15 +20,18 @@
         private readonly ReportDateService reportDateService;
         private readonly WinLossByProductDataAccess dataAccess;
         private readonly CacheRefService cacheRefService;
+        private readonly PartialUMService partialUMService;
 
         public WinLossByProductServiceImpl(
             ReportDateService reportDateService,
-             WinLossByProductDataAccess dataAccess,
-             CacheRefService cacheRefService)
+            WinLossByProductDataAccess dataAccess,
+            CacheRefService cacheRefService,
+            PartialUMService partialUMService)
         {
             this.reportDateService = reportDateService;
             this.dataAccess = dataAccess;
             this.cacheRefService = cacheRefService;
+            this.partialUMService = partialUMService;
         }
 
         public IEnumerable<WinLossByProductModel> GetWinLossByProduct(WinLossByProductParam param)
@@ -46,6 +50,8 @@
                 param.UserSelectedProductIds,
                 param.CustLevel,
                 param.ProductDetailsXML);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
 
             var winLossByBetTypeData = dataAccess.GetWinLossByBetType(criteria);
             var result = new List<WinLossByProductModel>();

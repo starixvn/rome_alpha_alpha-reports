@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Web.Helpers;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLossAnalysis;
@@ -17,6 +18,7 @@
     public class WinLossAnalysisServiceImplTests
     {
         private readonly WinLossAnalysisDataAccess dataAccess;
+        private readonly PartialUMService partialUMService;
         private readonly WinLossAnalysisServiceImpl winLossAnalysisServiceImpl;
         private readonly CompareLogic compareLogic;
         private readonly ReportDateService reportDateService;
@@ -28,7 +30,8 @@
             var productService = Substitute.For<ProductService>();
             dataAccess = Substitute.For<WinLossAnalysisDataAccess>();
             reportDateService = Substitute.For<ReportDateService>();
-            winLossAnalysisServiceImpl = new WinLossAnalysisServiceImpl(reportDateService, productService, dataAccess);
+            partialUMService = Substitute.For<PartialUMService>();
+            winLossAnalysisServiceImpl = new WinLossAnalysisServiceImpl(reportDateService, productService, dataAccess, partialUMService);
             compareLogic = new CompareLogic();
 
             param = new WinLossAnalysisParam(0, "", 1, 2, currentDate, currentDate, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);

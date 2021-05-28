@@ -6,6 +6,7 @@
     using Alpha.Reports.DataAccesses;
     using Alpha.Reports.Models.Statement;
     using Alpha.Reports.Params.Statement;
+    using Alpha.Web.Helpers;
     using Extensions;
     using Fanex.Data.Repository;
 
@@ -21,15 +22,18 @@
         private readonly ReportDateService reportDateService;
         private readonly IDynamicRepository repository;
         private readonly StatementDataAccess statementRepository;
+        private readonly PartialUMService partialUMService;
 
         public StatementServiceImpl(
             ReportDateService reportDateService,
             IDynamicRepository repository,
-            StatementDataAccess statementRepository)
+            StatementDataAccess statementRepository,
+            PartialUMService partialUMService)
         {
             this.reportDateService = reportDateService;
             this.repository = repository;
             this.statementRepository = statementRepository;
+            this.partialUMService = partialUMService;
         }
 
         public IEnumerable<StatementModel> GetStatements(GetStatementParam param)
@@ -40,12 +44,16 @@
 
             foreach (var timeRange in timeRanges)
             {
-                var rawData = statementRepository.GetStatements(new GetStatementCriteria(
+                var criteria = new GetStatementCriteria(
                     param.CustId,
                     timeRange.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
                     timeRange.ToDate,
                     balanceUpDay,
-                    reportDateService.GetStoreMappingSuffix(timeRange.FromDate)));
+                    reportDateService.GetStoreMappingSuffix(timeRange.FromDate));
+
+                partialUMService.CheckPartialUM(criteria.GetSettingKey());
+
+                var rawData = statementRepository.GetStatements(criteria);
 
                 result = Enumerable.Concat(result, rawData);
             }

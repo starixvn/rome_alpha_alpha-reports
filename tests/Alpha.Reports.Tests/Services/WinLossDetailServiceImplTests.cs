@@ -2,7 +2,7 @@
 {
     using System;
     using System.Linq;
-    using Extensions;
+    using Alpha.Web.Helpers;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
@@ -20,6 +20,7 @@
         private readonly WinLossDetailServiceImpl winLossDetailServiceImpl;
         private readonly CompareLogic compareLogic;
         private readonly ReportDateService reportDateService;
+        private readonly PartialUMService partialUMService;
 
         public WinLossDetailServiceImplTests()
         {
@@ -27,7 +28,8 @@
             var productDetailService = Substitute.For<ProductDetailService>();
             dataAccess = Substitute.For<WinLossDetailDataAccess>();
             reportDateService = Substitute.For<ReportDateService>();
-            winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, productDetailService, dataAccess);
+            partialUMService = Substitute.For<PartialUMService>();
+            winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, productDetailService, dataAccess, partialUMService);
             compareLogic = new CompareLogic();
         }
 

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Web.Helpers;
     using Fanex.Data.Repository;
     using NSubstitute;
     using Reports.Criteria.Outstanding;
@@ -22,8 +23,9 @@
             UserLevel userLevel = UserLevel.Agent;
             UserLevel custLevel = UserLevel.Master;
             var repository = GetFakeRepository(new List<OutstandingModel>());
+            var partialUMService = GetFakePartialUMService();
             var param = new OutstandingParam(userLevel, custLevel, 1, null);
-            var outstandingService = new OutstandingServiceImpl(repository);
+            var outstandingService = new OutstandingServiceImpl(repository, partialUMService);
 
             // Act
             var outstandings = outstandingService.GetMemberOutstanding(param);
@@ -41,8 +43,9 @@
             var userLevel = Enumeration.FromValue<UserLevel>(userLevelId);
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
             var repository = GetFakeRepository(new List<OutstandingModel> { null });
+            var partialUMService = GetFakePartialUMService();
             var param = new OutstandingParam(userLevel, custLevel, 1, null);
-            var outstandingService = new OutstandingServiceImpl(repository);
+            var outstandingService = new OutstandingServiceImpl(repository, partialUMService);
 
             // Act
             var outstandings = outstandingService.GetMemberOutstanding(param);
@@ -58,7 +61,7 @@
         {
             // Arrange
             var param = new OutstandingParam(null, null, custId, null);
-            var outstandingService = new OutstandingServiceImpl(null);
+            var outstandingService = new OutstandingServiceImpl(null, GetFakePartialUMService());
 
             // Act
             var outstandings = outstandingService.GetMemberOutstanding(param);
@@ -74,5 +77,8 @@
 
             return repository;
         }
+
+        private static PartialUMService GetFakePartialUMService()
+            => Substitute.For<PartialUMService>();
     }
 }

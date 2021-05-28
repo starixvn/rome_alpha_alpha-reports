@@ -1,9 +1,8 @@
 ﻿namespace Alpha.Reports.Services
 {
-    using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
+    using Alpha.Web.Helpers;
     using Criteria.WinLossAnalysisChart;
     using Extensions;
     using Fanex.Data.Repository;
@@ -20,16 +19,19 @@
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly IDynamicRepository dynamicRepository;
+        private readonly PartialUMService partialUMService;
         private const int DefaultLoadingMonths = 2;
 
         public WinLossAnalysisChartServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
-            IDynamicRepository dynamicRepository)
+            IDynamicRepository dynamicRepository,
+            PartialUMService partialUMService)
         {
             this.reportDateService = reportDateService;
             this.productService = productService;
             this.dynamicRepository = dynamicRepository;
+            this.partialUMService = partialUMService;
         }
 
         public IEnumerable<WinLossAnalysisChartModel> GetWinLossAnalysisChart(WinLossAnalysisChartParam param)
@@ -48,6 +50,8 @@
                                         reportDateService.GetMoveBetsDay(),
                                         validUserSelectedProductIds,
                                         param.CustLevel);
+
+                partialUMService.CheckPartialUM(criteria.GetSettingKey());
 
                 winlossAnalysisChartData = dynamicRepository.Fetch<WinLossAnalysisChartModel>(criteria);
                 winlossAnalysisChartData = AddEmptyWinlossInLimitedDate(winlossAnalysisChartData, param);
