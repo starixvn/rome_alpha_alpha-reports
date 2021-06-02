@@ -38,15 +38,18 @@
         private readonly IDynamicRepository dynamicRepository;
         private readonly CacheRefService cacheRefService;
         private readonly Func<int, string, int, int, bool> canViewBySite;
+        private readonly Func<int, bool> canViewProduct;
 
         public ProductDetailServiceImpl(
             IDynamicRepository dynamicRepository,
             CacheRefService cacheRefService,
-            Func<int, string, int, int, bool> canViewBySite)
+            Func<int, string, int, int, bool> canViewBySite,
+            Func<int, bool> canViewProduct)
         {
             this.dynamicRepository = dynamicRepository;
             this.cacheRefService = cacheRefService;
             this.canViewBySite = canViewBySite;
+            this.canViewProduct = canViewProduct;
         }
 
         public IEnumerable<int> FilterResourceIdsByCustomer(int custId, string site, int currencyId, string resourceIds)
@@ -126,7 +129,7 @@
                 .ToList()
                 .ForEach(group =>
                 {
-                    if (group.Key == ProductIdConstants.PP)
+                    if (ProductIdConstants.ProductListHasProductDetail.Any(i => i == group.Key))
                     {
                         validProductDetails.AddRange(
                             SiteSettings.IsOfferJackpotProductDetails ? group.Where(p => validResourceIds.Contains(p.ResourceId)) : group);
@@ -158,10 +161,13 @@
         {
             var canViewProductDetails = new Dictionary<int, bool>();
 
-            if (SiteSettings.IsOfferJackpotProductDetails
-                && canViewBySite(custId, site, currencyId, ProductIdConstants.PP))
+            foreach(var product in ProductIdConstants.ProductListHasProductDetail)
             {
-                canViewProductDetails[ProductIdConstants.PP] = true;
+                if (SiteSettings.IsOfferJackpotProductDetails
+                && (canViewBySite(custId, site, currencyId, product) || canViewProduct(product)))
+                {
+                    canViewProductDetails[product] = true;
+                }
             }
 
             return canViewProductDetails;
@@ -175,7 +181,7 @@
                 .ToList()
                 .ForEach(product =>
                 {
-                    if (product.Id == ProductIdConstants.PP && SiteSettings.IsOfferJackpotProductDetails)
+                    if (IsSupportProductDetail(product.Id))
                     {
                         canViewProductDetails[product.Id] = true;
                     }
@@ -193,7 +199,7 @@
                 .ToList()
                 .ForEach(group =>
                 {
-                    if (group.Key == ProductIdConstants.PP && SiteSettings.IsOfferJackpotProductDetails)
+                    if (IsSupportProductDetail(group.Key))
                     {
                         var allResourceIds = group.Select(p => p.ResourceId).ToList();
                         var intersectResourceIds = selectedResourceIds.Intersect(allResourceIds).ToList();
@@ -219,7 +225,7 @@
                 .ToList()
                 .ForEach(group =>
                 {
-                    if (group.Key == ProductIdConstants.PP && SiteSettings.IsOfferJackpotProductDetails)
+                    if (IsSupportProductDetail(group.Key))
                     {
                         var intersectResourceIds = group.Select(p => p.ResourceId).Intersect(userSelectedResourceIds);
 
@@ -232,5 +238,9 @@
 
             return removedProductIds;
         }
+
+        private static bool IsSupportProductDetail(int productId)
+            => ProductIdConstants.ProductListHasProductDetail.Any(i => i == productId) 
+            && SiteSettings.IsOfferJackpotProductDetails;
     }
 }

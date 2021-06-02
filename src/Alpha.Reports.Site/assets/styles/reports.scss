@@ -470,6 +470,10 @@ a {
     padding-top: 12px;
 }
 
+.multiselect-container > li.disabled {
+    display: none;
+}
+
 // For mobile
 @media only screen and (max-device-width : $screen-device-greater1024) {
     .page-title .list-icon {
