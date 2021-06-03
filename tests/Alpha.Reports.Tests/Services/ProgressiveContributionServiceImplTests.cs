@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Web.Helpers;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.ProgressiveContribution;
@@ -20,6 +21,7 @@
         private readonly ReportDateService reportDateService;
         private readonly CacheRefService cacheRefService;
         private readonly ProgressiveContributionDataAccess progressiveContributionDataAccess;
+        private readonly PartialUMService partialUMService;
         private readonly ProgressiveContributionServiceImpl progressiveContributionService;
 
         public ProgressiveContributionServiceImplTests()
@@ -29,11 +31,13 @@
             reportDateService = Substitute.For<ReportDateService>();
             cacheRefService = Substitute.For<CacheRefService>();
             progressiveContributionDataAccess = Substitute.For<ProgressiveContributionDataAccess>();
+            partialUMService = Substitute.For<PartialUMService>();
 
             progressiveContributionService = new ProgressiveContributionServiceImpl(
                 progressiveContributionDataAccess,
                 reportDateService,
-                cacheRefService);
+                cacheRefService,
+                partialUMService);
         }
 
         [Fact]

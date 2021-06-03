@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System;
+    using Alpha.Web.Helpers;
     using Criteria.WinLossDetail;
     using DataAccesses;
     using Extensions;
@@ -19,17 +20,20 @@
         private readonly ProductService productService;
         private readonly ProductDetailService productDetailService;
         private readonly WinLossDetailDataAccess dataAccess;
+        private readonly PartialUMService partialUMService;
 
         public WinLossDetailServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
             ProductDetailService productDetailService,
-            WinLossDetailDataAccess dataAccess)
+            WinLossDetailDataAccess dataAccess,
+            PartialUMService partialUMService)
         {
             this.reportDateService = reportDateService;
             this.productService = productService;
             this.productDetailService = productDetailService;
             this.dataAccess = dataAccess;
+            this.partialUMService = partialUMService;
         }
 
         public PagedReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param)
@@ -54,6 +58,8 @@
                 validUserSelectedProductIds,
                 param.ReportLevel,
                 param.ProductDetailsXML);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
 
             var winLossDetailData = dataAccess.GetData(criteria);
 

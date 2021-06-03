@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Web.Helpers;
     using Configurations;
     using Criteria.WinLoss;
     using DataAccesses;
@@ -29,6 +30,7 @@
         private readonly IDynamicRepository dynamicRepository;
         private readonly CacheRefService cacheRefService;
         private readonly ICacheService cacheService;
+        private readonly PartialUMService partialUMService;
 
         public WinLossServiceImpl(
             ReportDateService reportDateService,
@@ -37,7 +39,8 @@
             WinLossDataAccess dataAccess,
             IDynamicRepository dynamicRepository,
             CacheRefService cacheRefService,
-            ICacheService cacheService)
+            ICacheService cacheService,
+            PartialUMService partialUMService)
         {
             this.dynamicRepository = dynamicRepository;
             this.cacheService = cacheService;
@@ -46,6 +49,7 @@
             this.productDetailService = productDetailService;
             this.dataAccess = dataAccess;
             this.cacheRefService = cacheRefService;
+            this.partialUMService = partialUMService;
         }
 
         public IEnumerable<EnteredSportResult> GetEnteredSportResults()
@@ -82,6 +86,8 @@
                 param.ReportLevel,
                 param.ProductDetailsXML);
 
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+
             var winlossData = dataAccess.GetWinLoss(criteria);
 
             return winlossData;
@@ -89,7 +95,11 @@
 
         internal IEnumerable<EnteredSportResult> GetDataEnteredSportResults(bool includeTestData)
         {
-            var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(new DailyEnteredSportCriteria(includeTestData));
+            var criteria = new DailyEnteredSportCriteria(includeTestData);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+
+            var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(criteria);
 
             if (dailyEnteredSportData.Any())
             {

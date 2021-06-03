@@ -11,6 +11,7 @@
     using Alpha.Reports.Tests.Constants;
     using Alpha.Reports.Tests.Extensions;
     using Alpha.Reports.Tests.Fixtures;
+    using Alpha.Web.Helpers;
     using Fanex.Data.Repository;
     using NSubstitute;
     using Xunit;
@@ -24,6 +25,7 @@
         private readonly IDynamicRepository repository;
         private readonly StatementServiceImpl serviceImpl;
         private readonly StatementDataAccess statementRepository;
+        private readonly PartialUMService partialUMService;
 
         public StatementServiceImplTests(AnyValueCreatorFixture anyValueCreator)
         {
@@ -57,8 +59,9 @@
                     new StatementModel(new DateTime(2017, 3, 30), 0, 20, null, null, null, null, null, null, null, null),
                     new StatementModel(new DateTime(2017, 3, 31), 0, 20, null, null, null, null, null, null, null, null)
                 });
+            partialUMService = Substitute.For<PartialUMService>();
 
-            serviceImpl = new StatementServiceImpl(reportDateService, repository, statementRepository);
+            serviceImpl = new StatementServiceImpl(reportDateService, repository, statementRepository, partialUMService);
         }
 
         [Fact]

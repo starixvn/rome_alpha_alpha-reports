@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Alpha.Reports.DataAccesses;
+    using Alpha.Web.Helpers;
     using Constants;
     using Fanex.Data.Repository;
     using Fixtures;
@@ -22,6 +23,7 @@
     {
         private readonly AnyValueCreatorFixture anyValueCreatorFixture;
         private readonly IDynamicRepository dynamicRepository;
+        private readonly PartialUMService partialUMService;
         private readonly ConsolidationServiceImpl consolidationServiceImpl;
         private readonly CompareLogic compareLogic;
         private readonly CacheRefService cacheRefService;
@@ -58,7 +60,8 @@
 
             winLossDetailDataAccess = Substitute.For<WinLossDetailDataAccess>();
             productService = Substitute.For<ProductService>();
-            consolidationServiceImpl = new ConsolidationServiceImpl(dynamicRepository, reportDateService, cacheRefService, winLossDetailDataAccess, productService, getProductName);
+            partialUMService = Substitute.For<PartialUMService>();
+            consolidationServiceImpl = new ConsolidationServiceImpl(dynamicRepository, reportDateService, cacheRefService, winLossDetailDataAccess, productService, getProductName, partialUMService);
 
             compareLogic = new CompareLogic();
             getProductName = Substitute.For<Func<int, string>>();

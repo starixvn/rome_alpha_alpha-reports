@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Alpha.Web.Helpers;
     using Constants;
     using Extensions;
     using Fanex.Data.Repository;
@@ -27,6 +28,7 @@
         private readonly MatchWinLossDetailDataAccess dataAccess;
         private readonly IDynamicRepository dynamicRepository;
         private readonly MatchWinLossDetailServiceImpl matchWinLossDetailServiceImpl;
+        private readonly PartialUMService partialUMService;
 
         public MatchWinLossDetailServiceImplTests(AnyValueCreatorFixture anyValueCreatorFixture)
         {
@@ -36,7 +38,8 @@
             productService = Substitute.For<ProductService>();
             dataAccess = Substitute.For<MatchWinLossDetailDataAccess>();
             dynamicRepository = Substitute.For<DynamicRepository>();
-            matchWinLossDetailServiceImpl = new MatchWinLossDetailServiceImpl(reportDateService, productService, dataAccess, dynamicRepository);
+            partialUMService = Substitute.For<PartialUMService>();
+            matchWinLossDetailServiceImpl = new MatchWinLossDetailServiceImpl(reportDateService, productService, dataAccess, dynamicRepository, partialUMService);
         }
 
         [Fact]

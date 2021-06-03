@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Web.Helpers;
     using Criteria.ProgressiveContribution;
     using DataAccesses;
     using Extensions;
@@ -19,15 +20,18 @@
         private readonly ReportDateService reportDateService;
         private readonly CacheRefService cacheRefService;
         private readonly ProgressiveContributionDataAccess progressiveContributionDataAccess;
+        private readonly PartialUMService partialUMService;
 
         public ProgressiveContributionServiceImpl(
             ProgressiveContributionDataAccess progressiveContributionDataAccess,
             ReportDateService reportDateService,
-            CacheRefService cacheRefService)
+            CacheRefService cacheRefService,
+            PartialUMService partialUMService)
         {
             this.progressiveContributionDataAccess = progressiveContributionDataAccess;
             this.reportDateService = reportDateService;
             this.cacheRefService = cacheRefService;
+            this.partialUMService = partialUMService;
         }
 
         public IEnumerable<ProgressiveContributionByProductModel> GetProgressiveContributions(ProgressiveContributionParam param)
@@ -45,6 +49,8 @@
                 reportDateService.GetMoveBetsDay(),
                 param.UserSelectedProductIds,
                 param.ReportLevel);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
 
             var contributionByBetTypes = progressiveContributionDataAccess.GetProgressiveContributions(criteria);
             var result = new List<ProgressiveContributionByProductModel>();

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Web.Helpers;
     using Criteria.MatchWinLossDetail;
     using DataAccesses;
     using Extensions;
@@ -24,17 +25,20 @@
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly MatchWinLossDetailDataAccess dataAccess;
+        private readonly PartialUMService partialUMService;
 
         public MatchWinLossDetailServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
             MatchWinLossDetailDataAccess dataAccess,
-            IDynamicRepository dynamicRepository)
+            IDynamicRepository dynamicRepository,
+            PartialUMService partialUMService)
         {
             this.reportDateService = reportDateService;
             this.productService = productService;
             this.dataAccess = dataAccess;
             this.dynamicRepository = dynamicRepository;
+            this.partialUMService = partialUMService;
         }
 
         public IEnumerable<MatchWinLossDetailModel> GetMatchWinLossDetail(MatchWinLossDetailParam param)
@@ -58,6 +62,8 @@
                 validUserSelectedProductIds,
                 param.ReportLevel,
                 param.UserSelectedLeagueIds);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
 
             var winLossData = dataAccess.GetData(criteria);
 

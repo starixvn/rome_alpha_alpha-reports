@@ -3,15 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.Reports.Criteria;
     using Alpha.Reports.Criteria.WinLossDetail;
     using Alpha.Reports.DataAccesses;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Models.WinLossDetail;
     using Alpha.Reports.Params;
+    using Alpha.Web.Helpers;
     using Constants;
     using Criteria.Consolidation;
-    using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models;
     using Models.Consolidation;
@@ -47,6 +46,8 @@
         private readonly WinLossDetailDataAccess winLossDetailDataAccess;
 
         private readonly Func<int, string> getProductName;
+        private readonly PartialUMService partialUMService;
+
         private const int SabaPromotionProductId = 37;
 
         public ConsolidationServiceImpl(
@@ -55,7 +56,8 @@
             CacheRefService cacheRefService,
             WinLossDetailDataAccess winLossDetailDataAccess,
             ProductService productService,
-            Func<int, string> getProductName)
+            Func<int, string> getProductName,
+            PartialUMService partialUMService)
         {
             this.dynamicRepository = dynamicRepository;
             this.reportDateService = reportDateService;
@@ -63,18 +65,27 @@
             this.winLossDetailDataAccess = winLossDetailDataAccess;
             this.productService = productService;
             this.getProductName = getProductName;
+            this.partialUMService = partialUMService;
         }
 
         public IEnumerable<CurrencyModel> GetCurrencies(GetCurrencyParam param)
         {
-            var data = dynamicRepository.Fetch<CurrencyModel>(new GetCurrencyCriteria(param.CustId));
+            var criteria = new GetCurrencyCriteria(param.CustId);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+
+            var data = dynamicRepository.Fetch<CurrencyModel>(criteria);
 
             return data;
         }
 
         public IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param, bool isEnableSabaPromotion)
         {
-            var products = dynamicRepository.Fetch<ConsolidationProduct>(new GetConsolidationReportProductsCriteria(param.CustId))
+            var criteria = new GetConsolidationReportProductsCriteria(param.CustId);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+
+            var products = dynamicRepository.Fetch<ConsolidationProduct>(criteria)
                   .Where(product => IsRemainSupportProduct(product, param.MinDate))
                   .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, cacheRefService.GetProductName));
 
@@ -96,6 +107,8 @@
                 reportDateService.GetMoveBetsDay(),
                 ConsolidationReportTypeConstants.Username,
                 param.ProductDetailsXML);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
 
             var data = dynamicRepository.Fetch<ConsolidationByUsername>(criteria);
 

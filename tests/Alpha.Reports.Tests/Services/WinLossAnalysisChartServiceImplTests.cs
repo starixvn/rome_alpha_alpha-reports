@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Web.Helpers;
     using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
@@ -23,13 +24,16 @@
         private readonly ReportDateService reportDateService;
         private readonly WinLossAnalysisChartParam param;
         private readonly List<int> ProductIds;
+        private readonly PartialUMService partialUMService;
+
         public WinLossAnalysisChartServiceImplTests()
         {
             ProductIds = new List<int> { 1, 2 };
             productService = Substitute.For<ProductService>();
             reportDateService = Substitute.For<ReportDateService>();
             dynamicRepository = Substitute.For<IDynamicRepository>();
-            winLossAnalysisChartServiceImpl = new WinLossAnalysisChartServiceImpl(reportDateService, productService, dynamicRepository);
+            partialUMService = Substitute.For<PartialUMService>();
+            winLossAnalysisChartServiceImpl = new WinLossAnalysisChartServiceImpl(reportDateService, productService, dynamicRepository, partialUMService);
             compareLogic = new CompareLogic();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(ProductIds);
             param = new WinLossAnalysisChartParam(1, "", 1, DateTime.Now.AddMonths(-3), DateTime.Now, DateTime.MinValue, ProductIds, UserLevel.Super);
