@@ -1,10 +1,11 @@
 ﻿namespace Alpha.Reports.Services
 {
+    using System.Collections.Generic;
     using Alpha.Reports.Criteria.RiskAnalysisIPMatching;
     using Alpha.Reports.Models;
     using Alpha.Reports.Params;
+    using Alpha.Web.Helpers;
     using Fanex.Data.Repository;
-    using System.Collections.Generic;
 
     public interface RiskAnalysisIPMatchingService
     {
@@ -14,18 +15,27 @@
     public class RiskAnalysisIPMatchingServiceImpl : RiskAnalysisIPMatchingService
     {
         private readonly IDynamicRepository dynamicRepository;
+        private readonly PartialUMService partialUMService;
 
-        public RiskAnalysisIPMatchingServiceImpl(IDynamicRepository dynamicRepository)
+        public RiskAnalysisIPMatchingServiceImpl(
+            IDynamicRepository dynamicRepository,
+            PartialUMService partialUMService)
         {
             this.dynamicRepository = dynamicRepository;
+            this.partialUMService = partialUMService;
         }
 
         public IEnumerable<RiskAnalysisIPMatchingModel> GetRiskAnalysisIPMatchingModel(RiskAnalysisIPMatchingParam param)
-            => dynamicRepository.Fetch<RiskAnalysisIPMatchingModel>(
-                new RiskAnalysisIPMatchingCriteria(
-                    param.CustId,
-                    param.WinlostDate,
-                    param.MoveBetsDay,
-                    param.MemberCount));
+        {
+            var criteria = new RiskAnalysisIPMatchingCriteria(
+                param.CustId,
+                param.WinlostDate,
+                param.MoveBetsDay,
+                param.MemberCount);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+
+            return dynamicRepository.Fetch<RiskAnalysisIPMatchingModel>(criteria);
+        }
     }
 }

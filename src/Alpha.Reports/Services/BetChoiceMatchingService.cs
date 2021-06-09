@@ -1,15 +1,16 @@
 ﻿namespace Alpha.Reports.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Alpha.Reports.Criteria.BetChoiceMatching;
     using Alpha.Reports.Models.BetChoiceMatching;
     using Alpha.Reports.Params.BetChoiceMatching;
     using Alpha.Utilities.IP;
+    using Alpha.Web.Helpers;
     using Fanex.BetList.Core.Constants;
     using Fanex.Data.Repository;
     using Sunplus.Agent.Model.Entities;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public interface BetChoiceMatchingService
     {
@@ -37,18 +38,27 @@
         private readonly IUserSession userSession;
         private readonly IPService ipService;
         private readonly CacheRefService cacheRefService;
+        private readonly PartialUMService partialUMService;
 
-        public BetChoiceMatchingServiceImpl(IDynamicRepository dynamicRepository, IUserSession userSession, IPService ipService, CacheRefService cacheRefService)
-            => (this.dynamicRepository, this.userSession, this.ipService, this.cacheRefService) = (dynamicRepository, userSession, ipService, cacheRefService);
+        public BetChoiceMatchingServiceImpl(
+            IDynamicRepository dynamicRepository,
+            IUserSession userSession,
+            IPService ipService,
+            CacheRefService cacheRefService,
+            PartialUMService partialUMService)
+            => (this.dynamicRepository, this.userSession, this.ipService, this.cacheRefService, this.partialUMService) = (dynamicRepository, userSession, ipService, cacheRefService, partialUMService);
 
         public Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceMatchingSharedIPModel>> Query(BetChoiceMatchingParam param)
         {
             var criteria = new BetChoiceMatchingCriteria(
-                    param.CustId,
-                    param.WinlostDate,
-                    param.MoveBetsDay,
-                    param.BetCount,
-                    param.IsExportExcel);
+                param.CustId,
+                param.WinlostDate,
+                param.MoveBetsDay,
+                param.BetCount,
+                param.IsExportExcel);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+
             var tuple = dynamicRepository.FetchMultiple<BetChoiceMatchingTicketModel, BetChoiceMatchingSharedIPModel>(criteria);
             var tickets = tuple.Item1;
             var vnIPs = userSession.IsAdminCanViewVNIP ? new List<string>() : BuildListVNIPs(tickets);
@@ -128,7 +138,13 @@
         }
 
         public BetChoiceMatchingUplinesModel QueryUplines(BetChoiceUplinesParam param)
-            => dynamicRepository.Get<BetChoiceMatchingUplinesModel>(new BetChoiceUplinesCriteria(param.SearchAccountId));
+        {
+            var criteria = new BetChoiceUplinesCriteria(param.SearchAccountId);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+
+            return dynamicRepository.Get<BetChoiceMatchingUplinesModel>(criteria);
+        }
 
         public IEnumerable<BetChoiceMatchingEventModel> ExcelQuery(BetChoiceMatchingExcelParam param)
         {

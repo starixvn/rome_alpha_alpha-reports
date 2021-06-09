@@ -81,11 +81,7 @@
 
         public IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param, bool isEnableSabaPromotion)
         {
-            var criteria = new GetConsolidationReportProductsCriteria(param.CustId);
-
-            partialUMService.CheckPartialUM(criteria.GetSettingKey());
-
-            var products = dynamicRepository.Fetch<ConsolidationProduct>(criteria)
+            var products = dynamicRepository.Fetch<ConsolidationProduct>(new GetConsolidationReportProductsCriteria(param.CustId))
                   .Where(product => IsRemainSupportProduct(product, param.MinDate))
                   .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, cacheRefService.GetProductName));
 
