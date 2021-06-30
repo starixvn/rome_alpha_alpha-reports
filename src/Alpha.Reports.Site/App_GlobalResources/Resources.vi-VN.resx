@@ -872,4 +872,7 @@
   <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
     <value>Xem ở cấp Super: khoản hoa hồng (không bao gồm Position Taking) mà Super có thể nhận từ cấp trên.</value>
   </data>
+  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
+    <value>- Đối với {0}, Tiền Cược Thực là Tiền Cược không bao gồm các vé cược bị Vô hiệu/Huỷ/Hoàn lại.</value>
+  </data>
 </root>

@@ -936,4 +936,7 @@
   <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
     <value>Viewing at Super level: the commission (without PT) that Super can receive from upline.</value>
   </data>
+  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
+    <value>- For {0}, Net Turnover is Turnover which excludes the Void/Reject/Refund tickets.</value>
+  </data>
 </root>

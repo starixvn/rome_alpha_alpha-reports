@@ -852,4 +852,7 @@
   <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
     <value>在超級代理級別查看報告：總佣金是超級代理可以從上線獲取的總額(不包括占成)</value>
   </data>
+  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
+    <value>- 對於 {0}，淨投注額 也是 總投注額 但不包括 作廢/取消/退款 的 注單。</value>
+  </data>
 </root>
