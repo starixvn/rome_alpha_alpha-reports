@@ -426,6 +426,7 @@
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
+    <TypeScriptCompile Include="assets\scripts\superwinlossdetailbypt\superwinlossdetailbypt.ts" />
     <TypeScriptCompile Include="Features\BonusDetail\Scripts\bonus-detail.ts" />
     <TypeScriptCompile Include="Features\BonusDetail\Scripts\confirm-payment.ts" />
     <TypeScriptCompile Include="Features\EnteredResult\Scripts\enteredresult-new.ts" />
@@ -474,6 +475,7 @@
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
     <Compile Include="Controllers\ConsolidationController.cs" />
     <Compile Include="Controllers\PlayForFunController.cs" />
+    <Compile Include="Controllers\SuperWinLossDetailByPTController.cs" />
     <Compile Include="Features\BonusDetail\BonusDetailController.cs" />
     <Compile Include="Features\BonusDetail\BonusDetailHandler.cs" />
     <Compile Include="Features\BonusDetail\Requests\BonusDetailQuery.cs" />
@@ -524,6 +526,10 @@
     <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingHandler.cs" />
     <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelHandler.cs" />
     <Compile Include="Handlers\Statement\MemberStatementWorkbook.cs" />
+    <Compile Include="Handlers\SuperWinLossDetailByPT\SuperWinLossDetailByPTBaseHandler.cs" />
+    <Compile Include="Handlers\SuperWinLossDetailByPT\SuperWinLossDetailByPTExcelHandler.cs" />
+    <Compile Include="Handlers\SuperWinLossDetailByPT\SuperWinLossDetailByPTHandler.cs" />
+    <Compile Include="Handlers\SuperWinLossDetailByPT\SuperWinLossDetailByPTWorkbook.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbook.cs" />
     <Compile Include="Handlers\Statement\MemberStatementExcelHandler.cs" />
     <Compile Include="Handlers\Statement\StatementDetailExcelHandler.cs" />
@@ -609,6 +615,8 @@
     <Compile Include="Requests\ReportLegendQuery.cs" />
     <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingQuery.cs" />
     <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelQuery.cs" />
+    <Compile Include="Requests\SuperWinLossDetailByPT\SuperWinLossDetailByPTExcelQuery.cs" />
+    <Compile Include="Requests\SuperWinLossDetailByPT\SuperWinLossDetailByPTQuery.cs" />
     <Compile Include="Requests\WinLossByProduct\WinLossByProductQuery.cs" />
     <Compile Include="Requests\WinLossByProduct\WinLossByProductExcelQuery.cs" />
     <Compile Include="Requests\Statement\MemberStatementExcelQuery.cs" />
@@ -664,6 +672,9 @@
     <Compile Include="ViewModels\RiskAnalysisIPMatching\RiskAnalysisIPMatchingViewModel.cs" />
     <Compile Include="ViewModels\Statement\MemberStatementViewModel.cs" />
     <Compile Include="ViewModels\Statement\SMAStatementViewModel.cs" />
+    <Compile Include="ViewModels\SuperWinLossDetailByPT\SuperPtProductViewModel.cs" />
+    <Compile Include="ViewModels\SuperWinLossDetailByPT\SuperWinLossDetailByPTFilterViewModel.cs" />
+    <Compile Include="ViewModels\SuperWinLossDetailByPT\SuperWinLossDetailByPTViewModel.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
@@ -859,6 +870,10 @@
     <Content Include="assets\bundles\RiskAnalysisIPMatching\index.js" />
     <Content Include="assets\bundles\RiskAnalysisIPMatching\index.min.js">
       <DependentUpon>index.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\superwinlossdetailbypt\superwinlossdetailbypt.js" />
+    <Content Include="assets\bundles\superwinlossdetailbypt\superwinlossdetailbypt.min.js">
+      <DependentUpon>superwinlossdetailbypt.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.js" />
     <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.min.js">
@@ -1059,6 +1074,7 @@
     <Content Include="App_Data\ExcelTemplates\Consolidation\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\Consolidation\Member.xls" />
     <Content Include="App_Code\Components\Alert.cshtml" />
+    <Content Include="App_Data\ExcelTemplates\SuperWinLossDetailByPT\Super.xls" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
@@ -1327,6 +1343,10 @@
     <Content Include="Views\Consolidation\ReportDetailLegend.cshtml" />
     <Content Include="Views\ReportLegend\IndexGrossComm.cshtml" />
     <Content Include="Views\MatchWinLossDetail\ReportLegend.cshtml" />
+    <Content Include="Views\SuperWinLossDetailByPT\Index.cshtml" />
+    <Content Include="Views\SuperWinLossDetailByPT\Filter.cshtml" />
+    <Content Include="Views\SuperWinLossDetailByPT\ReportData.cshtml" />
+    <Content Include="Views\SuperWinLossDetailByPT\ViewProductPTList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

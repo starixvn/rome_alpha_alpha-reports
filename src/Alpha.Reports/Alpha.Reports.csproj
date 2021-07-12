@@ -199,6 +199,8 @@
     <Compile Include="Criteria\GetProductsDetailCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
+    <Compile Include="Criteria\SuperWinLossDetailByPT\SuperPTCriteria.cs" />
+    <Compile Include="Criteria\SuperWinLossDetailByPT\SuperWinLossDetailByPTCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
     <Compile Include="Enumerations\LeagueType.cs" />
     <Compile Include="Constants\BetTypeIdConstants.cs" />
@@ -273,6 +275,11 @@
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\SportBetType.cs" />
     <Compile Include="Models\SportType.cs" />
+    <Compile Include="Models\SuperWinLossDetailByPT\SuperPTModel.cs" />
+    <Compile Include="Models\SuperWinLossDetailByPT\SuperPtProductModel.cs" />
+    <Compile Include="Models\SuperWinLossDetailByPT\SuperWinLossDetailByProductModel.cs" />
+    <Compile Include="Models\SuperWinLossDetailByPT\SuperWinLossDetailModel.cs" />
+    <Compile Include="Models\SuperWinLossDetailByPT\SuperWinLossDetailByPTModel.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingExcelParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceUplinesParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingParam.cs" />
@@ -329,6 +336,8 @@
     <Compile Include="Params\RiskAnalysisIPMatchingParam.cs" />
     <Compile Include="Params\Statement\GetStatementParam.cs" />
     <Compile Include="Params\Statement\StatementDetailsParam.cs" />
+    <Compile Include="Params\SuperWinLossDetailByPT\SuperPTParam.cs" />
+    <Compile Include="Params\SuperWinLossDetailByPT\SuperWinLossDetailByPTParam.cs" />
     <Compile Include="Params\SupportedHistoryReportParam.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\MatchWinLossDetailParam.cs" />
@@ -351,6 +360,7 @@
     <Compile Include="Services\MatchWinLossService.cs" />
     <Compile Include="Services\RiskAnalysisIPMatchingService.cs" />
     <Compile Include="Services\ProductDetailService.cs" />
+    <Compile Include="Services\SuperWinLossDetailByPTService.cs" />
     <Compile Include="Services\WinLossByProductService.cs" />
     <Compile Include="Services\WinLossAnalysisChartService.cs" />
     <Compile Include="Services\WinLossAnalysisService.cs" />
@@ -383,6 +393,7 @@
       <Link>SonarLint.xml</Link>
     </AdditionalFiles>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets" Condition="Exists('..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

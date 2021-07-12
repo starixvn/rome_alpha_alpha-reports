@@ -102,4 +102,11 @@
     </Setting>
     <Setting Key="Age_Customer_Upline_Sel" SpName="Age_Customer_Upline_Sel" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
+
+  <Function Name="Super Win Loss Detail By PT">
+    <Setting Key="Age_Rpt_WinLossDetailByPT_Super" SpName="Age_Rpt_WinLossDetailByPT_Super_xtest" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+      <Mapping DataField="TurnoverNoDraw" ObjectProperty="NetTurnover" />
+      <Mapping DataField="PlayerComm" ObjectProperty="MemberComm" />
+    </Setting>
+  </Function>
 </Functions>

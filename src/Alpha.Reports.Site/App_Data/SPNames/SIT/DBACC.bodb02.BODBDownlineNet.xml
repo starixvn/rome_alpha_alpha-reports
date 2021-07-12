@@ -36,4 +36,8 @@
     <Setting Key="Age_Rpt_BonusDetail_Master" SpName="Age_Rpt_BonusDetail_Master" DbName="DBACC.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_BonusDetail_Agent" SpName="Age_Rpt_BonusDetail_Agent" DbName="DBACC.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
+
+  <Function Name="Super Win Loss Detail By PT">
+    <Setting Key="EAS_GetPTProductBySuper" SpName="EAS_GetPTProductBySuper" DbName="DBACC.bodb02.BODBDownlineNet" />
+  </Function>
 </Functions>

@@ -1,0 +1,159 @@
+﻿@model SuperWinLossDetailByPTViewModel
+
+<div class="table-responsive">
+    <table class="tblRpt tblRpt-bordered width-100per tablesorter tblRpt-hover tbl-win-loss-detail-by-pt
+       @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report">
+        <thead>
+            <tr>
+                <th rowspan="2">@Resources.PT/@Resources.Product</th>
+
+                <th rowspan="2" class="hidden-stack-mode">@Resources.Turnover</th>
+                <th rowspan="2" class="hidden-stack-mode">@Resources.NetTurnover</th>
+                <th rowspan="2" class="hidden-stack-mode">@Resources.GrossComm</th>
+                <th rowspan="2" class="visible-stack-mode col-combine">
+                    @(string.Join("/", Resources.TurnoverAbbr, Resources.NetTurnover, Resources.GrossComm))
+                </th>
+
+                <th colspan="3" class="col-level hidden-stack-mode">@Resources.Member</th>
+                <th class="visible-stack-mode col-combine" rowspan="2">
+                    @Resources.Member
+                    <br />
+                    (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                </th>
+
+                <th colspan="3" class="col-level hidden-stack-mode">@Resources.Agent</th>
+                <th class="visible-stack-mode col-combine" rowspan="2">
+                    @Resources.Agent
+                    <br />
+                    (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                </th>
+
+                <th colspan="3" class="col-level hidden-stack-mode">@Resources.Master</th>
+                <th class="visible-stack-mode col-combine" rowspan="2">
+                    @Resources.Master
+                    <br />
+                    (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                </th>
+
+                <th colspan="3" class="col-level hidden-stack-mode">@Resources.Super</th>
+                <th class="visible-stack-mode col-combine" rowspan="2">
+                    @Resources.Super
+                    <br />
+                    (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                </th>
+
+                <th class="hidden-stack-mode" rowspan="2">@Resources.Company</th>
+                <th class="visible-stack-mode" rowspan="2">@Resources.Company</th>
+            </tr>
+            <tr class="thead-row2">
+                <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode">@Resources.Comm</th>
+                <th class="hidden-stack-mode">@Resources.Total</th>
+
+                <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode">@Resources.Comm</th>
+                <th class="hidden-stack-mode">@Resources.Total</th>
+
+                <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode">@Resources.Comm</th>
+                <th class="hidden-stack-mode">@Resources.Total</th>
+
+                <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode">@Resources.Comm</th>
+                <th class="hidden-stack-mode">@Resources.Total</th>
+            </tr>
+        </thead>
+        @if (Model.ReportData.Any())
+        {
+            <tbody>
+                @{
+                    var isExpanded = true;
+                    foreach (var winLossDetailByPT in Model.ReportData)
+                    {
+                        @RenderBodyRows(winLossDetailByPT, isExpanded)
+                        isExpanded = false;
+                    }
+                }
+            </tbody>
+            <tfoot>
+                @RenderWinLossDetailByProduct(Model.GrandTotal, true)
+            </tfoot>
+        }
+        else
+        {
+            @NoInformation.Render(colspan: 18)
+        }
+    </table>
+</div>
+
+@helper RenderBodyRows(SuperWinLossDetailByPTModel winLossDetailByPT, bool isExpanded)
+{
+    @RenderWinLossDetailByPT(winLossDetailByPT, isExpanded)
+
+    foreach (var winLossDetailByProduct in winLossDetailByPT.SuperWinLossDetails)
+    {
+        @RenderWinLossDetailByProduct(winLossDetailByProduct, false, isExpanded)
+    }
+}
+
+@helper RenderWinLossDetailByPT(SuperWinLossDetailByPTModel winLossDetailByPT, bool isExpanded)
+{
+    <tr class="pt-row" data-pt-value="@winLossDetailByPT.PositionTaking" data-is-hide="@(isExpanded? "false": "true")">
+        <td class="text-left col-username bold @(isExpanded ? "active" : string.Empty)">
+            <span class="@(isExpanded ?"icon-arrow-down":"icon-arrow-right")"></span>
+            @(string.Format(winLossDetailByPT.PositionTakingText, Resources.PT))
+        </td>
+        @RenderWinLossDetail(winLossDetailByPT.Total)
+    </tr>
+}
+
+@helper RenderWinLossDetailByProduct(SuperWinLossDetailModel winLossDetailByProduct, bool isTotalRow, bool isExpanded = false)
+{
+    var ptProudctRowClass = isExpanded ? "pt-product-row" : "pt-product-row hide";
+    var rowClass = isTotalRow ? "tbl-footer" : ptProudctRowClass;
+
+    <tr class="@rowClass" data-pt-value="@winLossDetailByProduct.PositionTaking">
+        <td class="text-left col-username">
+            @(isTotalRow ? Resources.Total : winLossDetailByProduct.ProductName)
+        </td>
+        @RenderWinLossDetail(winLossDetailByProduct)
+    </tr>
+}
+
+@helper RenderWinLossDetail(SuperWinLossDetailModel winLossDetail)
+{
+    if (Model.IsStackMode)
+    {
+        @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, winLossDetail.Turnover, winLossDetail.NetTurnover, winLossDetail.GrossComm)
+
+        @RenderStackNetWinLoss("member", winLossDetail.MemberWinLost, winLossDetail.MemberComm, winLossDetail.MemberTotal)
+        @RenderStackNetWinLoss("agent", winLossDetail.AgWinLost, winLossDetail.AgComm, winLossDetail.AgTotal)
+        @RenderStackNetWinLoss("master", winLossDetail.MAgWinLost, winLossDetail.MAgComm, winLossDetail.MAgTotal)
+        @RenderStackNetWinLoss("super", winLossDetail.SAgWinLost, winLossDetail.SAgComm, winLossDetail.SAgTotal)
+    }
+    else
+    {
+        @HtmlHelpers.RenderNumberCell(winLossDetail.Turnover, "col-turnover")
+        @HtmlHelpers.RenderNumberCell(winLossDetail.NetTurnover, "col-net-turnover")
+        @HtmlHelpers.RenderNumberCell(winLossDetail.GrossComm, "col-gross-com")
+
+        @RenderNetWinLoss("member", winLossDetail.MemberWinLost, winLossDetail.MemberComm, winLossDetail.MemberTotal)
+        @RenderNetWinLoss("agent", winLossDetail.AgWinLost, winLossDetail.AgComm, winLossDetail.AgTotal)
+        @RenderNetWinLoss("master", winLossDetail.MAgWinLost, winLossDetail.MAgComm, winLossDetail.MAgTotal)
+        @RenderNetWinLoss("super", winLossDetail.SAgWinLost, winLossDetail.SAgComm, winLossDetail.SAgTotal)
+    }
+
+    <td class="text-right col-company">@HtmlHelpers.FormatNumber(winLossDetail.Company)</td>
+}
+
+@helper RenderStackNetWinLoss(string levelName, decimal winLoss, decimal comm, decimal total)
+{
+    @HtmlHelpers.RenderStackCell($"col-{levelName}-winloss-combined", 1, winLoss, comm, total);
+}
+
+@helper RenderNetWinLoss(string levelName, decimal winLoss, decimal comm, decimal total)
+{
+    @HtmlHelpers.RenderNumberCell(winLoss, $"col-{levelName}-winloss")
+    @HtmlHelpers.RenderNumberCell(comm)
+    @HtmlHelpers.RenderNumberCell(total, $"bold col-cust-total")
+}

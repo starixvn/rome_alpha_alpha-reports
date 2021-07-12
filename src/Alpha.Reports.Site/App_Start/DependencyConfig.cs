@@ -1,8 +1,5 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Web.Mvc;
     using Alpha.NetThrottling;
     using Alpha.NetThrottling.Models;
     using Alpha.NetThrottling.Resolvers;
@@ -28,6 +25,7 @@
     using Handlers.MatchWinLossDetail;
     using Handlers.ProgressiveContribution;
     using Handlers.Statement;
+    using Handlers.SuperWinLossDetailByPT;
     using Handlers.WinLossByProduct;
     using MediatR;
     using Models;
@@ -43,6 +41,9 @@
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
     using Sunplus.Agent.Model.Entities.Permission;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Web.Mvc;
     using IPServiceImpl = Services.IPServiceImpl;
 
     public static class DependencyConfig
@@ -132,7 +133,7 @@
                 new CacheRefServiceImpl(new RemotingRefService()).GetProductName,
                 container.GetInstance<PartialUMService>()),
                 Lifestyle.Singleton);
-            
+
             container.Register<ProductDetailService>(
                 () => new ProductDetailServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
@@ -165,9 +166,13 @@
             container.RegisterSingleton<BetChoiceMatchingService, BetChoiceMatchingServiceImpl>();
             container.Register<BetChoiceMatchingWorkbook, BetChoiceMatchingWorkbookImpl>();
 
+            container.Register<SuperWinLossDetailByPTWorkbook, SuperWinLossDetailByPTWorkbookImpl>();
+
             container.Register<BonusDetailService, BonusDetailServiceImpl>();
 
             container.RegisterSingleton<PartialUMService, PartialUMServiceImpl>();
+
+            container.RegisterSingleton<SuperWinLossDetailByPTService, SuperWinLossDetailByPTServiceImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

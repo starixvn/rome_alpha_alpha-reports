@@ -185,6 +185,21 @@ a {
         }
     }
 
+    &.tbl-win-loss-detail-by-pt {
+        .pt-row {
+            background-color: #fbe0c5;
+            cursor: pointer;
+
+            .col-username {
+                text-transform: uppercase;
+            }
+        }
+
+        .pt-product-row .col-username {
+            padding-left: 39px;
+        }
+    }
+
     .note-opening-balance {
         background-color: #f6a4a4;
     }
@@ -634,4 +649,9 @@ table.dataTable {
             }
         }
     }
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: scroll;
 }

@@ -1,0 +1,32 @@
+﻿@model SuperWinLossDetailByPTViewModel
+
+@ReportTitle.Render(
+    new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty),
+    Request.Url.Query)
+
+@Html.Partial("Filter", Model.FilterViewModel,
+    new ViewDataDictionary
+    {
+        { "IsStackMode", Model.IsStackMode }
+    })
+
+@Html.Partial("ReportData", Model)
+
+@Html.Partial("ViewProductPTList", Model)
+
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("Excel", "SuperWinLossDetailByPT")">
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+    @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds)
+    @Html.Hidden("UserSelectedResourceIds", Model.UserSelectedResourceIds)
+    @Html.Hidden("IsPostBack", "true")
+</form>
+
+@Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "WinLossDetail"))
+
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/superwinlossdetailbypt/superwinlossdetailbypt")
+}

@@ -1843,6 +1843,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PT.
+        /// </summary>
+        public static string PT {
+            get {
+                return ResourceManager.GetString("PT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Race.
         /// </summary>
         public static string Race {
@@ -2109,6 +2118,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string SuperWinLoss {
             get {
                 return ResourceManager.GetString("SuperWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Super Win Loss Detail By PT.
+        /// </summary>
+        public static string SuperWinLossDetailByPT {
+            get {
+                return ResourceManager.GetString("SuperWinLossDetailByPT", resourceCulture);
             }
         }
         
@@ -2388,6 +2406,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string ViewHistoryReport {
             get {
                 return ResourceManager.GetString("ViewHistoryReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Product/PT List.
+        /// </summary>
+        public static string ViewProductPTList {
+            get {
+                return ResourceManager.GetString("ViewProductPTList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PT values shown in the report are the Super Max PT.
+        /// </summary>
+        public static string ViewProductPTListNoteMessage {
+            get {
+                return ResourceManager.GetString("ViewProductPTListNoteMessage", resourceCulture);
             }
         }
         
