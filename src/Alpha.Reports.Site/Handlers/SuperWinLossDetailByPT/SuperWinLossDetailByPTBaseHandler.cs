@@ -4,9 +4,9 @@
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Models;
     using Alpha.Reports.Models.SuperWinLossDetailByPT;
+    using Alpha.Reports.Services;
     using Params.SuperWinLossDetailByPT;
     using Requests.SuperWinLossDetailByPT;
-    using Services;
     using System.Collections.Generic;
     using System.Linq;
     using ViewModels.SuperWinLossDetailByPT;
@@ -86,14 +86,15 @@
                 positionTakings,
                 product => product.Id,
                 positionTaking => positionTaking.ProductId,
-                (product, positionTaking) => new SuperPtProductModel(
-                    positionTaking.SuperPT,
-                    product.DisplayName))
+                (product, positionTaking) => new SuperPtProductModel(positionTaking.SuperPT, product.DisplayName))
                 .GroupBy(
                 ptProduct => ptProduct.PositionTaking,
-                (positionTaking, ptProducts) => new SuperPtProductViewModel(
-                    positionTaking,
-                    string.Join(", ", ptProducts.Select(product => product.ProductName))));
+                (positionTaking, ptProducts) =>
+                {
+                    var productNames = string.Join(", ", ptProducts.Select(product => product.ProductName));
+                    return new SuperPtProductViewModel(positionTaking, productNames);
+                })
+                .OrderBy(viewModel => viewModel.PositionTaking);
         }
     }
 }

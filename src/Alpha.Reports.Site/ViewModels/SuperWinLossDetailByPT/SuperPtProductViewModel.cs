@@ -6,15 +6,15 @@
     {
         public SuperPtProductViewModel(
             decimal positionTaking,
-            string products)
+            string productNames)
         {
             PositionTaking = positionTaking;
-            Products = products;
+            ProductNames = productNames;
         }
 
         public decimal PositionTaking { get; }
 
-        public string Products { get; }
+        public string ProductNames { get; }
 
         public string Message
         {
@@ -26,7 +26,7 @@
 
                 return string.Concat(
                     string.Format(positionTakingText, Resources.PT),
-                    $": {Products}");
+                    $": {ProductNames}");
             }
         }
     }

@@ -397,7 +397,7 @@ a {
 }
 
 // report-legend
-#report-legend {
+#report-legend, #product-pt-list-popup {
     overflow: hidden;
     width: 100%;
     height: auto;
@@ -455,6 +455,7 @@ a {
     overflow: auto;
 }
 
+#product-pt-list-popup .modal-content .modal-header .modal-title,
 #report-legend .modal-content .modal-header .modal-title {
     cursor: default;
 }

@@ -1,34 +1,38 @@
 ﻿@model SuperWinLossDetailByPTViewModel
 
-@{
-    if (Model.PtProducts.Any())
-    {
-        <div class="modal fade message-modal" id="product-pt-list-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="icon icon-close close" data-dismiss="modal" aria-label="@Resources.Close">
-                            <span aria-hidden="true"></span>
-                        </button>
-                        <h4 class="modal-title">@Resources.ViewProductPTList</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div id="msg-content">
-                            <ul class="list-msg">
-                                @foreach (var data in Model.PtProducts)
+<div class="modal fade message-modal" id="product-pt-list-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="icon icon-close close" data-dismiss="modal" aria-label="@Resources.Close">
+                    <span aria-hidden="true"></span>
+                </button>
+                <h4 class="modal-title">@Resources.ViewProductPTList</h4>
+            </div>
+            <div class="modal-body">
+                <div id="msg-content">
+                    <ul class="list-msg">
+                        @{
+                            if (Model.PtProducts.Any())
+                            {
+                                foreach (var data in Model.PtProducts)
                                 {
                                     <li>@data.Message</li>
                                 }
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="note text-left">
-                            <span class="star">*</span>@Resources.ViewProductPTListNoteMessage
-                        </div>
-                    </div>
+                            }
+                            else
+                            {
+                                <li>@Resources.NoInformationIsAvailable</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="note text-left">
+                    <span class="star">*</span>@Resources.ViewProductPTListNoteMessage
                 </div>
             </div>
         </div>
-    }
-}
+    </div>
+</div>
