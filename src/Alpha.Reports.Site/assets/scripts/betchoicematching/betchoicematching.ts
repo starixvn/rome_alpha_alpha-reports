@@ -277,8 +277,15 @@ class BetChoiceUplines {
                 this.uplinesCache[custId] = data;
                 callback(data);
             })
-            .fail(() => {
-                callback(null);
+            .fail((jqXHR) => {
+                const jsonData = JSON.parse(jqXHR.responseText);
+                if (jsonData.UMFrom && jsonData.UMTo) {
+                    location.href = top["alpha"].urls.mainRootPath
+                        + "PartialUM/Index?umfrom=" + jsonData.UMFrom
+                        + "&umto=" + jsonData.UMTo;
+                } else {
+                    callback(null);
+                }
             });
     };
 }
@@ -409,6 +416,14 @@ class BetChoiceMatching {
                 this.data = data;
                 this.groupIPs(data.IPs);
                 this.filterAndRender();
+            })
+            .fail((jqXHR) => {
+                const jsonData = JSON.parse(jqXHR.responseText);
+                if (jsonData.UMFrom && jsonData.UMTo) {
+                    location.href = top["alpha"].urls.mainRootPath
+                        + "PartialUM/Index?umfrom=" + jsonData.UMFrom
+                        + "&umto=" + jsonData.UMTo;
+                }
             })
             .always(() => {
                 this.$table.show();
