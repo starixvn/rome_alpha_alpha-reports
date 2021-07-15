@@ -90,6 +90,8 @@ class ProductDetailMultiSelectionComponent {
             } else if (!this.$dropdownProductDetail.find("option:enabled").length) {
                 this.$dropdownProductDetail.multiselect("disable");
             }
+
+            this.onChange();
         }
     };
 

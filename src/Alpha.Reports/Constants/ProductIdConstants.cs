@@ -35,5 +35,11 @@ namespace Alpha.Reports.Constants
                 ProductIdConstants.BigGame,
                 ProductIdConstants.PPLiveCasino
             };
+
+        public static readonly List<int> ProductListHasProductDetail = new List<int>
+        {
+            ProductIdConstants.PP,
+            ProductIdConstants.SexyGaming
+        };
     }
 }
