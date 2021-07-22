@@ -5,7 +5,7 @@
     using ViewModels.SuperWinLossDetailByPT;
 
     public class SuperWinLossDetailByPTQuery
-        : FromBalanceUpDateDateRangeQuery, IRequest<SuperWinLossDetailByPTViewModel>
+        : FromLast3MonthDateRangeQuery, IRequest<SuperWinLossDetailByPTViewModel>
     {
         public SuperWinLossDetailByPTQuery(IUser viewer) : base(viewer)
         {
