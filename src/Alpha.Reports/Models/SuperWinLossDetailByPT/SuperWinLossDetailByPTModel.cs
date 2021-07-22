@@ -20,7 +20,7 @@
             {
                 const decimal percentage = 100.0m;
                 decimal positionTakingPercentage = PositionTaking * percentage;
-                return string.Concat(positionTakingPercentage.ToString("##0"), "% {0}");
+                return string.Concat(positionTakingPercentage.ToString("#,##0.0"), "% {0}");
             }
         }
 
