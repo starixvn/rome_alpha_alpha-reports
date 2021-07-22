@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.SuperWinLossDetailByPT
 {
+    using Alpha.Web.Helpers;
     using MediatR;
     using Requests.SuperWinLossDetailByPT;
     using Services;
@@ -9,12 +10,16 @@
         : SuperWinLossDetailByPTBaseHandler,
         IRequestHandler<SuperWinLossDetailByPTQuery, SuperWinLossDetailByPTViewModel>
     {
+        private readonly BrowserHelper browserHelper;
+
         public SuperWinLossDetailByPTHandler(
             ProductService productService,
             ProductDetailService productDetailService,
-            SuperWinLossDetailByPTService reportService)
+            SuperWinLossDetailByPTService reportService,
+            BrowserHelper browserHelper)
             : base(productService, productDetailService, reportService)
         {
+            this.browserHelper = browserHelper;
         }
 
         public SuperWinLossDetailByPTViewModel Handle(SuperWinLossDetailByPTQuery message)
@@ -32,6 +37,8 @@
             var grandTotal = AccumulateGrandTotal(reportData);
             var ptProducts = GeneratePtProducts(positionTakings, products);
 
+            var isOnlyMobile = browserHelper.IsMobile(isOnlyTablet: false) && !browserHelper.IsMobile(isOnlyTablet: true);
+
             return new SuperWinLossDetailByPTViewModel(
                 reportData,
                 grandTotal,
@@ -39,7 +46,8 @@
                 winLossDetailByPTParam,
                 ptProducts,
                 BuildProductSelectListItems(winLossDetailByPTParam.UserSelectedProductIds, products),
-                BuildProductDetailViewModels(winLossDetailByPTParam.UserSelectedResourceIds, productDetails));
+                BuildProductDetailViewModels(winLossDetailByPTParam.UserSelectedResourceIds, productDetails),
+                isOnlyMobile);
         }
     }
 }

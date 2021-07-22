@@ -67,11 +67,9 @@
         {
             <tbody>
                 @{
-                    var isExpanded = true;
                     foreach (var winLossDetailByPT in Model.ReportData)
                     {
-                        @RenderBodyRows(winLossDetailByPT, isExpanded)
-                        isExpanded = false;
+                        @RenderBodyRows(winLossDetailByPT, !Model.IsMobileView)
                     }
                 }
             </tbody>

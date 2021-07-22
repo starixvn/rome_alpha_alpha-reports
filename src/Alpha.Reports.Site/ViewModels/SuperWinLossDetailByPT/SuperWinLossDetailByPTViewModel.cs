@@ -22,7 +22,8 @@
             SuperWinLossDetailByPTParam param,
             IEnumerable<SuperPtProductViewModel> ptProducts,
             IEnumerable<GroupProductViewModel> groupProducts,
-            IEnumerable<ProductDetailViewModel> productDetails)
+            IEnumerable<ProductDetailViewModel> productDetails,
+            bool isMobile)
         {
             this.message = message;
             this.param = param;
@@ -32,6 +33,8 @@
             ProductDetails = productDetails;
             ReportData = reportData;
             GrandTotal = grandTotal;
+
+            IsMobileView = isMobile;
         }
 
         public int CustId => message.CustId;
@@ -73,6 +76,8 @@
         public bool IsStackMode => message.IsStackMode;
 
         public bool IsFilterVisible => message.IsFilterVisible;
+
+        public bool IsMobileView { get; }
 
         public string Title { get; } = Resources.SuperWinLossDetailByPT;
 
