@@ -33,7 +33,7 @@
             var positionTakings = reportService.GetSuperPositionTakings(superPTParam);
             var winLossDetailByProducts = reportService.GetSuperWinLossDetailByProducts(winLossDetailByPTParam);
 
-            var reportData = GenerateReportData(positionTakings, winLossDetailByProducts);
+            var reportData = GenerateReportData(positionTakings, winLossDetailByProducts, message.SortPropertyName, message.IsDescendingSort);
             var grandTotal = AccumulateGrandTotal(reportData);
             var ptProducts = GeneratePtProducts(positionTakings, products);
 

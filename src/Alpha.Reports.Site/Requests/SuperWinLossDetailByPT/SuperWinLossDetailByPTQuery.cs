@@ -17,6 +17,10 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
+        public string SortPropertyName { get; set; } = "Turnover";
+
+        public bool IsDescendingSort { get; set; } = true;
+
         public bool IsStackMode { get; set; }
 
         public bool IsFilterVisible { get; set; } = true;

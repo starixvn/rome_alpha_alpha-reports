@@ -66,7 +66,9 @@
 
         protected IEnumerable<SuperWinLossDetailByPTModel> GenerateReportData(
             IEnumerable<SuperPTModel> positionTakings,
-            IEnumerable<SuperWinLossDetailByProductModel> winLossDetailByProducts)
+            IEnumerable<SuperWinLossDetailByProductModel> winLossDetailByProducts,
+            string sortPropertyName,
+            bool isDescendingSort)
         {
             return winLossDetailByProducts.Join(
                 positionTakings,
@@ -74,8 +76,13 @@
                 postionTaking => postionTaking.ProductId,
                 (winLossDetailByProduct, positionTaking) => new SuperWinLossDetailModel(winLossDetailByProduct, positionTaking))
                 .GroupBy(
-                winLossDetailByPT => winLossDetailByPT.PositionTaking,
-                (positionTaking, winLossDetailByPTs) => new SuperWinLossDetailByPTModel(positionTaking, winLossDetailByPTs));
+                winLossDetail => winLossDetail.PositionTaking,
+                (positionTaking, winLossDetails) =>
+                {
+                    var orderedWinLossDetails = winLossDetails.OrderBy(sortPropertyName, isDescendingSort);
+                    return new SuperWinLossDetailByPTModel(positionTaking, orderedWinLossDetails);
+                })
+                .OrderBy("Total." + sortPropertyName, isDescendingSort);
         }
 
         protected IEnumerable<SuperPtProductViewModel> GeneratePtProducts(

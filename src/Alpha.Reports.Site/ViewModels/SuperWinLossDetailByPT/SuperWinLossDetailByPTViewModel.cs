@@ -79,6 +79,10 @@
 
         public bool IsMobileView { get; }
 
+        public bool IsDescendingSort => message.IsDescendingSort;
+
+        public string SortPropertyName => message.SortPropertyName;
+
         public string Title { get; } = Resources.SuperWinLossDetailByPT;
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
