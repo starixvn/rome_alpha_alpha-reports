@@ -15,5 +15,7 @@
 
         public ActionResult Excel(SuperWinLossDetailByPTExcelQuery message)
             => ExcelView(message);
+
+        public ActionResult ReportLegend(ReportLegendQuery message) => View(message);
     }
 }

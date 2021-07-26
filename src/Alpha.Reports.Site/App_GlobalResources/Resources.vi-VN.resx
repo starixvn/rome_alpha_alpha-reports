@@ -755,6 +755,9 @@
   <data name="Tooltip_NetTurnover_livecasino" xml:space="preserve">
     <value>- Đối với {0}, Tiền Cược Thực là tổng số tiền cược có giá trị dùng để tính toán hoa hồng.</value>
   </data>
+  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
+    <value>- For {0}, Net Turnover is Turnover which excludes the Void/Reject/Refund tickets.</value>
+  </data>
   <data name="SelectAll" xml:space="preserve">
     <value>Chọn tất cả</value>
   </data>

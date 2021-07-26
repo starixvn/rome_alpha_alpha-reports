@@ -727,6 +727,9 @@
   <data name="Tooltip_NetTurnover_livecasino" xml:space="preserve">
     <value>- สำหรับ {0}, เงินหมุนเวียนสุทธิทั้งหมดจะใช้เพื่อคำนวนค่าคอมมิชชั่น</value>
   </data>
+  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
+    <value>- For {0}, Net Turnover is Turnover which excludes the Void/Reject/Refund tickets.</value>
+  </data>
   <data name="SelectAll" xml:space="preserve">
     <value>เลือกทั้งหมด</value>
   </data>

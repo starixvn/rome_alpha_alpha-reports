@@ -648,6 +648,7 @@
     <Compile Include="Requests\ReportLegendQuery.cs" />
     <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingQuery.cs" />
     <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelQuery.cs" />
+    <Compile Include="Requests\SuperWinLossDetailByPT\ReportLegendQuery.cs" />
     <Compile Include="Requests\SuperWinLossDetailByPT\SuperWinLossDetailByPTExcelQuery.cs" />
     <Compile Include="Requests\SuperWinLossDetailByPT\SuperWinLossDetailByPTQuery.cs" />
     <Compile Include="Requests\WinLossByProduct\WinLossByProductQuery.cs" />
@@ -1380,6 +1381,7 @@
     <Content Include="Views\SuperWinLossDetailByPT\Filter.cshtml" />
     <Content Include="Views\SuperWinLossDetailByPT\ReportData.cshtml" />
     <Content Include="Views\SuperWinLossDetailByPT\ViewProductPTList.cshtml" />
+    <Content Include="Views\SuperWinLossDetailByPT\ReportLegend.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

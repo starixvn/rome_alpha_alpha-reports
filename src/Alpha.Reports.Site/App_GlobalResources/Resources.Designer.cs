@@ -2284,6 +2284,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to - For {0}, Net Turnover is Turnover which excludes the Void/Reject/Refund tickets..
+        /// </summary>
+        public static string Tooltip_NetTurnover_RNGCasino {
+            get {
+                return ResourceManager.GetString("Tooltip_NetTurnover_RNGCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total.
         /// </summary>
         public static string Total {

@@ -729,6 +729,9 @@
   <data name="Tooltip_NetTurnover_livecasino" xml:space="preserve">
     <value>- {0}，淨投注額是總有效的投注注單來計算佣金。</value>
   </data>
+  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
+    <value>- For {0}, Net Turnover is Turnover which excludes the Void/Reject/Refund tickets.</value>
+  </data>
   <data name="SelectAll" xml:space="preserve">
     <value>全選</value>
   </data>
