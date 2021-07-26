@@ -32,6 +32,7 @@
 
         protected ActionResult View<TResponse>(IRequest<TResponse> message)
         {
+            AssignDarkModeViewData();
             var baseQuery = message as ReportBaseQuery;
             if (baseQuery != null && !baseQuery.IsValid())
             {
@@ -43,6 +44,7 @@
 
         protected ActionResult View<TResponse>(string viewName, IRequest<TResponse> message)
         {
+            AssignDarkModeViewData();
             var baseQuery = message as ReportBaseQuery;
             if (baseQuery != null && !baseQuery.IsValid())
             {
@@ -54,6 +56,7 @@
 
         protected async Task<ActionResult> ViewAsync<TResponse>(string viewName, IAsyncRequest<TResponse> message)
         {
+            AssignDarkModeViewData();
             var baseQuery = message as ReportBaseQuery;
             if (baseQuery != null && !baseQuery.IsValid())
             {

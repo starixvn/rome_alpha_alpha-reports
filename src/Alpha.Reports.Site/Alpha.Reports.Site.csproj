@@ -85,8 +85,8 @@
     <Reference Include="Alpha.Utilities.IP, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.Utilities.IP.1.0.3.2\lib\net461\Alpha.Utilities.IP.dll</HintPath>
     </Reference>
-    <Reference Include="Alpha.Web, Version=1.0.8.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Web.1.0.8.7\lib\net461\Alpha.Web.dll</HintPath>
+    <Reference Include="Alpha.Web, Version=1.0.8.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.Web.1.0.8.6-dark05\lib\net461\Alpha.Web.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
@@ -320,8 +320,8 @@
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\..\packages\StackExchange.Redis.2.0.519\lib\net461\StackExchange.Redis.dll</HintPath>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.5.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.5.8\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.5.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.5.6-dark02\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.3.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.3.3\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
@@ -884,6 +884,14 @@
     <Content Include="App_Data\SPNames\UAT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBRPT.bodb_report.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBTXN.bodb02.BODBDownlineNet.xml" />
+    <Content Include="assets\bundles\agent-dark.css" />
+    <Content Include="assets\bundles\agent-dark.min.css">
+      <DependentUpon>agent-dark.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\agent.css" />
+    <Content Include="assets\bundles\agent.min.css">
+      <DependentUpon>agent.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\betchoicematching\betchoicematching.css" />
     <Content Include="assets\bundles\betchoicematching\betchoicematching.js" />
     <Content Include="assets\bundles\betchoicematching\betchoicematching.min.css">
@@ -908,34 +916,22 @@
     <Content Include="assets\bundles\consolidation\consolidation.min.js">
       <DependentUpon>consolidation.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\master-dark.css" />
+    <Content Include="assets\bundles\master-dark.min.css">
+      <DependentUpon>master-dark.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\master.css" />
+    <Content Include="assets\bundles\master.min.css">
+      <DependentUpon>master.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail-dark.css" />
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail-dark.min.css">
+      <DependentUpon>matchwinlossdetail-dark.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.css" />
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.js" />
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.css" />
-    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.js" />
-    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.css">
-      <DependentUpon>progressivecontribution.css</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.js">
-      <DependentUpon>progressivecontribution.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\report-mobile-calculate-07.css" />
-    <Content Include="assets\bundles\report-mobile-calculate-07.min.css">
-      <DependentUpon>report-mobile-calculate-07.css</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\RiskAnalysisIPMatching\index.js" />
-    <Content Include="assets\bundles\RiskAnalysisIPMatching\index.min.js">
-      <DependentUpon>index.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.js" />
-    <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.min.js">
-      <DependentUpon>winlossanalysischart.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.js" />
-    <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.min.js">
-      <DependentUpon>winlossbyproduct.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.js">
       <DependentUpon>matchwinlossdetail.js</DependentUpon>
@@ -952,6 +948,18 @@
     <Content Include="assets\bundles\playforfun\playforfun-member.min.js">
       <DependentUpon>playforfun-member.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.js" />
+    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.js">
+      <DependentUpon>progressivecontribution.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\report-mobile-calculate-07.css" />
+    <Content Include="assets\bundles\report-mobile-calculate-07.min.css">
+      <DependentUpon>report-mobile-calculate-07.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\RiskAnalysisIPMatching\index.js" />
+    <Content Include="assets\bundles\RiskAnalysisIPMatching\index.min.js">
+      <DependentUpon>index.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\statement\member-statement.js" />
     <Content Include="assets\bundles\statement\member-statement.min.js">
       <DependentUpon>member-statement.js</DependentUpon>
@@ -964,21 +972,25 @@
     <Content Include="assets\bundles\statement\statement-details.min.js">
       <DependentUpon>statement-details.js</DependentUpon>
     </Content>
-    <Content Include="assets\bundles\statement\statement.css" />
-    <Content Include="assets\bundles\default.css" />
-    <Content Include="assets\bundles\default.min.css">
-      <DependentUpon>default.css</DependentUpon>
+    <Content Include="assets\bundles\super-dark.css" />
+    <Content Include="assets\bundles\super-dark.min.css">
+      <DependentUpon>super-dark.css</DependentUpon>
     </Content>
-    <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.js" />
-    <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.min.js">
-      <DependentUpon>winlossbyproduct.js</DependentUpon>
+    <Content Include="assets\bundles\super.css" />
+    <Content Include="assets\bundles\super.min.css">
+      <DependentUpon>super.css</DependentUpon>
     </Content>
-    <Content Include="assets\bundles\statement\statement.min.css">
-      <DependentUpon>statement.css</DependentUpon>
+    <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.js" />
+    <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.min.js">
+      <DependentUpon>winlossanalysischart.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossanalysis\winlossanalysis.js" />
     <Content Include="assets\bundles\winlossanalysis\winlossanalysis.min.js">
       <DependentUpon>winlossanalysis.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.js" />
+    <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.min.js">
+      <DependentUpon>winlossbyproduct.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
     <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
@@ -1016,6 +1028,12 @@
     <Content Include="assets\scripts\tests\libs\store.js" />
     <Content Include="assets\scripts\tests\libs\tablesorter.js" />
     <Content Include="assets\scripts\tests\libs\tiny-draggable.js" />
+    <Content Include="assets\styles\betchoicematching\betchoicematching-dark.css">
+      <DependentUpon>betchoicematching-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\betchoicematching\betchoicematching-dark.min.css">
+      <DependentUpon>betchoicematching-dark.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\betchoicematching\betchoicematching.css">
       <DependentUpon>betchoicematching.scss</DependentUpon>
     </Content>
@@ -1030,11 +1048,59 @@
     </Content>
     <Content Include="assets\styles\images\ajax-loader-small.gif" />
     <Content Include="assets\styles\images\percent.svg" />
+    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail-dark.css">
+      <DependentUpon>matchwinlossdetail-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail-dark.min.css">
+      <DependentUpon>matchwinlossdetail-dark.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.css">
       <DependentUpon>matchwinlossdetail.scss</DependentUpon>
     </Content>
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\reports-dark.css">
+      <DependentUpon>reports-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\reports-dark.min.css">
+      <DependentUpon>reports-dark.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\themes\page-title-agent-dark.css">
+      <DependentUpon>page-title-agent-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\themes\page-title-agent-dark.min.css">
+      <DependentUpon>page-title-agent-dark.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\themes\page-title-agent.css">
+      <DependentUpon>page-title-agent.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\themes\page-title-agent.min.css">
+      <DependentUpon>page-title-agent.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\themes\page-title-master-dark.css">
+      <DependentUpon>page-title-master-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\themes\page-title-master-dark.min.css">
+      <DependentUpon>page-title-master-dark.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\themes\page-title-master.css">
+      <DependentUpon>page-title-master.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\themes\page-title-master.min.css">
+      <DependentUpon>page-title-master.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\themes\page-title-super-dark.css">
+      <DependentUpon>page-title-super-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\themes\page-title-super-dark.min.css">
+      <DependentUpon>page-title-super-dark.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\themes\page-title-super.css">
+      <DependentUpon>page-title-super.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\themes\page-title-super.min.css">
+      <DependentUpon>page-title-super.css</DependentUpon>
     </Content>
     <Content Include="Features\BonusDetail\Bundles\bonusdetail.css" />
     <Content Include="Features\BonusDetail\Bundles\bonusdetail.js" />
@@ -1131,6 +1197,16 @@
     <Content Include="App_Code\Components\Alert.cshtml" />
     <Content Include="App_Data\ExcelTemplates\SuperWinLossDetailByPT\Super.xls" />
     <Content Include="App_Data\securitycode.json" />
+    <Content Include="assets\styles\_variables-dark.scss" />
+    <Content Include="assets\styles\reports-dark.scss" />
+    <Content Include="assets\styles\betchoicematching\betchoicematching-dark.scss" />
+    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail-dark.scss" />
+    <Content Include="assets\styles\themes\page-title-agent.scss" />
+    <Content Include="assets\styles\themes\page-title-master.scss" />
+    <Content Include="assets\styles\themes\page-title-super.scss" />
+    <Content Include="assets\styles\themes\page-title-agent-dark.scss" />
+    <Content Include="assets\styles\themes\page-title-master-dark.scss" />
+    <Content Include="assets\styles\themes\page-title-super-dark.scss" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>

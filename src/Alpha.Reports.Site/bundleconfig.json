@@ -1,8 +1,23 @@
 ﻿[
   {
-    "outputFileName": "assets/bundles/default.css",
+    "outputFileName": "assets/bundles/super.css",
     "inputFiles": [
-      "assets/styles/reports.css"
+      "assets/styles/reports.css",
+      "assets/styles/themes/page-title-super.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/master.css",
+    "inputFiles": [
+      "assets/styles/reports.css",
+      "assets/styles/themes/page-title-master.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/agent.css",
+    "inputFiles": [
+      "assets/styles/reports.css",
+      "assets/styles/themes/page-title-agent.css"
     ]
   },
   {
@@ -386,6 +401,40 @@
     "outputFileName": "Features/BonusDetail/Bundles/confirmpayment.css",
     "inputFiles": [
       "Features/BonusDetail/Styles/confirm-payment.css"
+    ]
+  },
+  /************************** Dark Mode ************************/
+  {
+    "outputFileName": "assets/bundles/super-dark.css",
+    "inputFiles": [
+      "assets/styles/reports-dark.css",
+      "assets/styles/themes/page-title-super-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/master-dark.css",
+    "inputFiles": [
+      "assets/styles/reports-dark.css",
+      "assets/styles/themes/page-title-master-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/agent-dark.css",
+    "inputFiles": [
+      "assets/styles/reports-dark.css",
+      "assets/styles/themes/page-title-agent-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/matchwinlossdetail/matchwinlossdetail-dark.css",
+    "inputFiles": [
+      "assets/styles/matchwinlossdetail/matchwinlossdetail-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/betchoicematching/betchoicematching-dark.css",
+    "inputFiles": [
+      "assets/styles/betchoicematching/betchoicematching-dark.css"
     ]
   },
   {

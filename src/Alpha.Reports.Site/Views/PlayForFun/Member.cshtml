@@ -5,7 +5,7 @@
     var total = (MemberPlayForFunModel)Model.ReportData.TotalData;
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Resources.MemberPlayForFunDetail, false, true, false, Model.FilterViewModel.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query, Model.BreadcrumbActions)
+@ReportTitle.Render(new PageHeaderViewModel(Resources.MemberPlayForFunDetail, (string)ViewData["TitleLevel"], false, true, false, Model.FilterViewModel.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query, Model.BreadcrumbActions)
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
     {

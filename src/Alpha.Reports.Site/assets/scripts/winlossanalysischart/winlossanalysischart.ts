@@ -14,6 +14,7 @@ class WinLossAnalysisChartView extends BaseReport {
     $fromDate: JQuery;
     $toDate: JQuery;
     $msgError: JQuery;
+    isDarkMode: boolean;
 
     monthRangePickerComponent: MonthRangePickerComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
@@ -39,7 +40,7 @@ class WinLossAnalysisChartView extends BaseReport {
     init = () => {
         this.cacheDOMElements();
         this.bindFilter();
-        this.dualAxisChartComponent.render();
+        this.dualAxisChartComponent.render(new DualAxisChartOption(this.isDarkMode));
 
         this.registerEvents();
 
@@ -53,6 +54,7 @@ class WinLossAnalysisChartView extends BaseReport {
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
         this.$msgError = this.$("#msg-error");
+        this.isDarkMode = this.$("#hidden-isDarkMode").val() === "1";
     };
 
     bindFilter = () => {

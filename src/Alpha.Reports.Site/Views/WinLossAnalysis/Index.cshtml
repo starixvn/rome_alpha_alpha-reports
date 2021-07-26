@@ -3,7 +3,7 @@
     ViewBag.Title = "Win Loss Analysis Report";
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty), Request.Url.Query)
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, (string)ViewData["TitleLevel"], true, true, Model.IsStackMode, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty), Request.Url.Query)
 
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary

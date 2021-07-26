@@ -3,7 +3,7 @@
     ViewBag.Title = "IP MATCHING";
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Resources.IPMatching, false, true, false, false, Enumerable.Empty<CustInfo>(), null), Request.Url.Query)
+@ReportTitle.Render(new PageHeaderViewModel(Resources.IPMatching, (string)ViewData["TitleLevel"], false, true, false, false, Enumerable.Empty<CustInfo>(), null), Request.Url.Query)
 
 <form class="form-inline filter" role="form" id="report-form">
     <div class="form-group">

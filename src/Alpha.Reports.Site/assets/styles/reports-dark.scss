@@ -1,0 +1,629 @@
+﻿@import '_variables-dark.scss';
+@import '_mixins.scss';
+
+@include keyframes-ripple;
+
+body {
+    background-color: transparent;
+    font-size: $font-size;
+    font-family: $font-family;
+    line-height: 20px;
+}
+
+a {
+    color: $link-color;
+
+    &:hover {
+        color: $link-hover-color;
+        text-decoration: none;
+    }
+}
+
+.page-title {
+    display: table;
+    width: 100%;
+    position: relative;
+
+    .hidefilter-element {
+        display: none;
+    }
+
+    &.hide-filter {
+        .showfilter-element {
+            display: none;
+        }
+
+        .hidefilter-element {
+            display: block;
+        }
+    }
+
+    .stackcolumnview-element {
+        display: none;
+    }
+
+    &.stack-mode {
+        .normalview-element {
+            display: none;
+        }
+
+        .stackcolumnview-element {
+            display: block;
+        }
+    }
+
+    .icon-switchmode:before {
+        position: relative;
+        left: -5px;
+    }
+
+    .list-icon {
+        float: right;
+
+        ul li {
+            cursor: pointer;
+            color: $icon-color;
+            float: left;
+
+            [class^='icon'] {
+                font-size: 16px;
+                padding: 0 10px;
+                vertical-align: middle;
+                position: relative;
+                top: -2px;
+            }
+
+            .icon-filter {
+                font-size: 22px;
+            }
+        }
+    }
+
+    .breadcrumb {
+        border-bottom: none;
+        float: left;
+        padding: 0 12px;
+
+        a:hover {
+            color: $link-color;
+            text-decoration: underline;
+        }
+
+        &:before, &:after {
+            color: #a9a9a9;
+        }
+
+        &:before {
+            content: '(';
+        }
+
+        &:after {
+            content: ')';
+        }
+    }
+}
+
+// Tables
+#tbl-report {
+    margin-top: 12px;
+    text-align: right;
+
+    .visible-stack-mode {
+        display: none;
+    }
+
+    .width-15per {
+        width: 15%;
+    }
+
+    .width-17per {
+        width: 17%;
+    }
+
+    .padding-left-30px {
+        padding-left: 30px;
+    }
+
+    .downline-link {
+        color: $link-color;
+        cursor: pointer;
+
+        &:hover {
+            color: $link-hover-color;
+        }
+    }
+
+    &.stack-mode {
+        .col-level {
+            border-bottom: none;
+            height: 24px;
+            padding-bottom: 0;
+        }
+
+        .col-combine {
+            border-top: none;
+            background-color: $table-header-bg-color;
+            height: 24px;
+            padding-top: 0;
+        }
+
+        .hidden-stack-mode {
+            display: none;
+        }
+
+        .visible-stack-mode {
+            display: table-cell;
+
+            ul {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .combinedcell li:last-child {
+        font-weight: bold;
+    }
+
+    .product-row, .sport-row {
+        background-color: #56533C;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    &.tbl-win-loss-by-product {
+        .sport-row .icon-arrow-right,
+        .sport-row .icon-arrow-down {
+            margin-left: 13px;
+        }
+
+        .product-row .col-username,
+        .sport-row .col-username {
+            text-transform: uppercase;
+        }
+
+        .bet-type-row .col-username {
+            padding-left: 39px;
+        }
+    }
+
+    .note-opening-balance {
+        background-color: #f6a4a4;
+    }
+
+    .format-negative {
+        color: #b50000;
+    }
+
+    .col-insurance-gems-win-loss {
+        max-width: 120px;
+        white-space: normal;
+    }
+}
+
+// Filter
+.note {
+    .star {
+        color: #ff0101;
+        padding-right: 8px;
+    }
+}
+
+.filter {
+    display: table;
+    width: 100%;
+    clear: both;
+
+    #historicreport-switch {
+        text-decoration: none !important;
+    }
+
+    .multiselect .multiselect-selected-text {
+        width: 130px;
+    }
+
+    .icon-excel, .icon-back {
+        cursor: pointer;
+        color: #2E9E60;
+        font-size: 19px;
+        vertical-align: middle;
+        height: $height-normal;
+        float: left;
+
+        &:before {
+            position: relative;
+            top: 5px;
+        }
+    }
+
+    .icon-back {
+        margin-left: 20px;
+        font-size: 20px;
+    }
+
+    select.select-multiple {
+        height: $height-normal;
+        width: 160px;
+    }
+
+    .error, .btn-group button.multiselect.error {
+        border: 1px solid $filter-error-border-color;
+        padding: 4px 10px;
+    }
+
+    select.dropdown-daterange {
+        width: 160px;
+    }
+
+    .input-group.date .form-control {
+        -webkit-appearance: none;
+    }
+
+    .daterange-picker .input-group.date {
+        width: 128px;
+    }
+
+    .daterange-container {
+        vertical-align: top;
+    }
+
+    .form-group {
+        .btn-submit, .btn-group {
+            float: left;
+        }
+
+        &.daterange-picker {
+            //margin-bottom: 0;
+            .ui_nexdatepicker_edit_field, .ui_nexdatepicker_lbl_field {
+                margin-bottom: 15px;
+            }
+        }
+
+        .control.month-range-picker-element {
+            width: 150px;
+        }
+
+        .control.date.datenew {
+            width: 200px;
+        }
+    }
+
+    label[for="dropdown-statuses"] {
+        float: left;
+        padding: 3px 10px 0 0;
+    }
+
+    .report-by {
+        padding-top: 15px;
+
+        span {
+            padding-left: 10px;
+        }
+
+        input {
+            margin-right: 0px;
+        }
+
+        label {
+            font-weight: normal;
+        }
+    }
+
+    .radio input[type="radio"] {
+        position: relative;
+    }
+
+    #report-by-username {
+        margin-left: 10px;
+    }
+
+    label[for] {
+        cursor: pointer;
+    }
+}
+
+// Ripple effect
+.icon-excel {
+    @include ripple-effect-icon($margin-left: -11px, $height: 36px, $width: 36px, $top: 0);
+}
+
+.icon-back {
+    @include ripple-effect-icon($margin-left: -8px, $height: 36px, $width: 36px, $top: 0);
+}
+
+.icon-switchmode {
+    @include ripple-effect-icon($margin-left: -4px, $height: 36px, $width: 36px, $top: -5px);
+}
+
+.icon-filter {
+    @include ripple-effect-icon($margin-left: 2px, $height: 36px, $width: 36px, $top: -2px);
+}
+
+@media only screen and (max-device-width: 767px) and (orientation: portrait) {
+    #icon-information {
+        position: relative;
+        top: 10px;
+    }
+
+    .control.month-range-picker-element {
+        height: 34px;
+        margin-top: 2px;
+    }
+
+    .form-inline .checkbox .exclude-product {
+        position: relative;
+        margin-left: 0;
+    }
+}
+// netturnover tooltip
+#netturnovertooltip {
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    @include box-shadow-multiple(none);
+
+    .modal-dialog {
+        width: 850px;
+        margin: 0 auto;
+        padding: 16px;
+
+        .modal-body {
+            padding-bottom: 0;
+        }
+
+        #msg-content {
+            padding: 12px 0;
+        }
+
+        .list-msg {
+            line-height: 28px;
+            margin-bottom: 0;
+        }
+    }
+}
+
+// report-legend
+#report-legend {
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    @include box-shadow-multiple(none);
+
+    .modal-dialog {
+        width: 800px;
+        margin: 0;
+        padding: 10px 0;
+
+        @media only screen and (max-device-width : 767px) {
+            width: 90%;
+        }
+
+        @media only screen and (max-device-width : 767px) and (orientation: landscape) {
+            width: 70%;
+        }
+
+        .modal-body {
+            padding-bottom: 0;
+        }
+
+        #msg-content {
+            padding: 12px 0;
+        }
+
+        .list-msg {
+            line-height: 28px;
+            margin-bottom: 0;
+        }
+
+        ul.gross-comm {
+            list-style-type: circle;
+
+            li {
+                margin-left: 30px;
+            }
+        }
+    }
+}
+
+#dropdown-league-container {
+    .multiselect-container > li {
+        vertical-align: top;
+
+        > a {
+            white-space: normal;
+        }
+    }
+}
+
+// Modals
+.modal-open {
+    overflow: auto;
+}
+
+#report-legend .modal-content .modal-header .modal-title {
+    cursor: default;
+}
+
+// month picker
+.monpickr-label {
+    &.separator {
+        margin-right: 12px;
+    }
+}
+
+// chart
+.chart-container {
+    max-height: 780px;
+    max-width: 1024px;
+    padding: 10px;
+    border-radius: 5px;
+    border: #3E3F41 solid 1px;
+    background: $chart-bg-color;
+}
+
+.report-content {
+    padding-top: 12px;
+}
+
+// For mobile
+@media only screen and (max-device-width : $screen-device-greater1024) {
+    .page-title .list-icon {
+        float: left;
+        margin-left: 20px;
+    }
+}
+
+// For mobile
+@media only screen and (max-device-width : $screen-device-lower768) {
+    body {
+        background-color: #171717;
+        font-size: $font-size-mobile;
+    }
+
+    .filter {
+        padding-left: 6px;
+        padding-right: 6px;
+
+        select, input[type='text'], [class^='btn-submit'], .input-group.date .form-control {
+            height: 36px;
+            @include box-shadow-multiple('0px 1px 3px rgba(0, 0, 0, 0.3)');
+        }
+
+        .ui_nexdatepicker_datetextbox.form-control {
+            -webkit-appearance: none;
+        }
+
+        .ui_nexdatepicker_lbl_field {
+            padding: 8px 6px 8px 0px;
+        }
+
+        .input-group.date .form-control {
+            font-size: $font-size-mobile;
+        }
+
+        .btn-group button.multiselect {
+            height: 36px;
+            line-height: 26px;
+            @include box-shadow-multiple('0px 1px 3px rgba(0, 0, 0, 0.3)');
+
+            .caret {
+                top: 16px;
+            }
+        }
+
+        .icon-excel, .icon-back {
+            font-size: 22px;
+            height: $height-mobile;
+
+            &:hover:after {
+                top: 4px;
+            }
+        }
+
+        select.select-multiple {
+            height: $height-mobile;
+        }
+    }
+
+    #netturnovertooltip .modal-dialog {
+        width: 100%;
+    }
+
+    .tooltip {
+        border: none;
+
+        .tooltip-inner {
+            font-size: $font-size-mobile;
+            padding: 6px 12px;
+        }
+
+        &.bottom {
+            padding-bottom: 0;
+        }
+    }
+
+    .table-container {
+        padding-top: 20px;
+    }
+}
+
+@media only screen and (max-device-width : $screen-device-lower768) and (orientation: landscape) {
+    .filter {
+        .daterange-picker {
+            margin-right: 16px;
+        }
+
+        .date {
+            width: 135px !important;
+        }
+
+        .daterange-dropdown {
+            display: inline-block;
+            float: left;
+            width: auto;
+        }
+    }
+}
+
+@media only screen and (max-device-width : $screen-device-lower768) and (orientation: portrait) {
+    .filter {
+        .date {
+            width: 135px !important;
+        }
+
+        .form-group {
+            vertical-align: top;
+        }
+
+        .daterange-dropdown {
+            display: inline-block;
+            float: none;
+            width: 100%;
+            clear: both;
+        }
+    }
+}
+
+#tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
+    @extend #tbl-report;
+    width: 60%;
+}
+
+@media only screen and (max-device-width : $screen-device-lower768) {
+    #tbl-enteredresult-report, .tbl-small-width {
+        width: 100%;
+    }
+
+    .tbl-outstanding {
+        width: 80%;
+    }
+}
+
+table.dataTable {
+    [class*='sorting_'].col-first {
+        background-color: #ffefde !important;
+    }
+
+    thead, tfoot {
+        th {
+            font-weight: 400 !important;
+        }
+    }
+
+    @media only screen and (min-device-width: $screen-device-greater768) {
+        .width-17per {
+            width: 17% !important;
+        }
+    }
+}
+
+@media only screen and (max-device-width: 375px) and (orientation: portrait) {
+    .filter {
+        .product-detail-multiselect-container {
+            .multiselect-container.dropdown-menu {
+                width: auto !important;
+            }
+        }
+    }
+}

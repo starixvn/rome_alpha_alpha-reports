@@ -19,17 +19,17 @@
         [Route("outstanding/master")]
         [Route("outstanding/agent")]
         [Route("outstanding/member")]
-        public ActionResult Index(OutstandingQuery message) 
-            => View(outstandingPath, mediator.Send(message));
+        public ActionResult Index(OutstandingQuery message)
+            => View(outstandingPath, message);
 
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed")]
         [Route("outstanding/masternew")]
         [Route("outstanding/agentnew")]
         [Route("outstanding/membernew")]
-        public ActionResult IndexNew(OutstandingQuery message) 
-            => View(outstandingNewPath, mediator.Send(message));
+        public ActionResult IndexNew(OutstandingQuery message)
+            => View(outstandingNewPath, message);
 
-        public ActionResult ReportLegend(ReportLegendQuery message) 
+        public ActionResult ReportLegend(ReportLegendQuery message)
             => View(ReportLegendPath, mediator.Send(message));
     }
 }

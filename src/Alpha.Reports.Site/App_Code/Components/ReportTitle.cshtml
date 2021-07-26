@@ -3,7 +3,7 @@
 
 @helper Render(PageHeaderViewModel model, string currentRequestQuery = null, IEnumerable<string> breadcrumbParamByLevel = null)
 {
-    <div class="page-title
+    <div class="page-title title-@model.TitleLevel
          @(model.IsStackMode ? "stack-mode" : string.Empty)
          @(model.IsFilterVisible ? string.Empty : "hide-filter")">
 

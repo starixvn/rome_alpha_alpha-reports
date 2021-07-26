@@ -7,7 +7,7 @@
     @StaticResources.RenderStyles("~/assets/bundles/consolidation/consolidation")
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
+@ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, (string)ViewData["TitleLevel"], true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
 
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
