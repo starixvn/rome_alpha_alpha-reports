@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Services
 {
+    using Alpha.Web.Helpers;
     using CasinoLibrary.Model.UserException;
     using CasinoLibrary.SBAgent;
     using Constants;
@@ -27,15 +28,18 @@
         private readonly IDynamicRepository repository;
         private readonly ReportDateService reportDateService;
         private readonly CacheRefService refService;
+        private readonly PartialUMService partialUMService;
 
         public SuperWinLossDetailByPTServiceImpl(
             IDynamicRepository repository,
             ReportDateService reportDateService,
-            CacheRefService refService)
+            CacheRefService refService,
+            PartialUMService partialUMService)
         {
             this.repository = repository;
             this.reportDateService = reportDateService;
             this.refService = refService;
+            this.partialUMService = partialUMService;
         }
 
         public IEnumerable<SuperPTModel> GetSuperPositionTakings(SuperPTParam param)
@@ -44,15 +48,20 @@
             .Concat(GetSuperPositionTakingsByRnG(param.SuperId));
 
         public IEnumerable<SuperWinLossDetailByProductModel> GetSuperWinLossDetailByProducts(SuperWinLossDetailByPTParam param)
-            => repository.Fetch<SuperWinLossDetailByProductModel>(
-                new SuperWinLossDetailByPTCriteria(
-                    param.CustId,
-                    param.FromDate,
-                    param.ToDate,
-                    reportDateService.GetBalanceUpDay(),
-                    reportDateService.GetMoveBetsDay(),
-                    param.UserSelectedProductIds,
-                    param.ProductDetailsXML));
+        {
+            var criteria = new SuperWinLossDetailByPTCriteria(
+                param.CustId,
+                param.FromDate,
+                param.ToDate,
+                reportDateService.GetBalanceUpDay(),
+                reportDateService.GetMoveBetsDay(),
+                param.UserSelectedProductIds,
+                param.ProductDetailsXML);
+
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+
+            return repository.Fetch<SuperWinLossDetailByProductModel>(criteria);
+        }
 
         private IEnumerable<SuperPTModel> GetSuperPositionTakingsByRnG(string superId)
         {
