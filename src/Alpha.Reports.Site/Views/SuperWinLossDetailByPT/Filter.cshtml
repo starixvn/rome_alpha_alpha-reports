@@ -25,12 +25,11 @@
 
     @helper RenderHiddenFields()
     {
-        @Html.Hidden("IsFilterVisible", Model.Visible)
-
-        @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
-
         @Html.Hidden("CustId", Model.CustId)
-
+        @Html.Hidden("IsFilterVisible", Model.Visible)
+        @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
+        @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
+        @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
         @Html.Hidden("IsPostBack", "true")
     }
 </form>

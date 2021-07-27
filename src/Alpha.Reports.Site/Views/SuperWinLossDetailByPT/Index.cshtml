@@ -7,7 +7,9 @@
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
     {
-        { "IsStackMode", Model.IsStackMode }
+        { "IsStackMode", Model.IsStackMode },
+        { "IsDescendingSort", Model.IsDescendingSort },
+        { "SortPropertyName", Model.SortPropertyName }
     })
 
 @Html.Partial("ReportData", Model)

@@ -397,6 +397,7 @@
       "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/productdetail-multiselection.js",
       "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/sort.js",
       "assets/scripts/components/link-builder.js",
       "assets/scripts/superwinlossdetailbypt/superwinlossdetailbypt.js"
     ]

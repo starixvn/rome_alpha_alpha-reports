@@ -9,6 +9,8 @@ class SuperWinLossDetailByPTView extends BaseReport {
     $multiSelectButton: JQuery;
     $isFilterVisible: JQuery;
     $isStackMode: JQuery;
+    $isDescendingSort: JQuery;
+    $sortPropertyName: JQuery;
     $reportForm: JQuery;
     $userSelectedDateRangeOption: JQuery;
     $exportExcelForm: JQuery;
@@ -22,19 +24,21 @@ class SuperWinLossDetailByPTView extends BaseReport {
     $viewProductPTList: JQuery;
     $viewProductPTListPopup: JQuery;
 
+    hasAllDataOnClient = true;
     isFirstSwitchMode = true;
     isSwitchView = false;
     levels = ["member", "agent", "master", "super"];
 
     dateRangePickerComponent: DateRangePickerComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
+    sortComponent: SortComponent;
     reportTooltip: ReportTooltip;
-    linkBuilderComponent: LinkBuilderComponent;
 
     constructor(
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
+        sortComponent: SortComponent,
         reportTooltip: ReportTooltip,
         linkBuilderComponent: LinkBuilderComponent) {
         super($, linkBuilderComponent);
@@ -42,7 +46,7 @@ class SuperWinLossDetailByPTView extends BaseReport {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
-
+        this.sortComponent = sortComponent;
         this.reportTooltip = reportTooltip;
     }
 
@@ -54,12 +58,11 @@ class SuperWinLossDetailByPTView extends BaseReport {
         this.$.blockUI();
 
         this.cacheDOMElements();
-
         this.bindFilter();
-        this.$tableReport.stickyTableHeaders();
+        this.bindSorter();
         this.registerEvents();
-
         this.initHelp();
+
         this.$.unblockUI();
     };
 
@@ -69,6 +72,8 @@ class SuperWinLossDetailByPTView extends BaseReport {
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
         this.$exportExcelForm = this.$("#export-excel-form");
+        this.$isDescendingSort = this.$("#IsDescendingSort");
+        this.$sortPropertyName = this.$("#SortPropertyName");
         this.$reportForm = this.$("#report-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$filterIcon = this.$(".icon-filter");
@@ -108,6 +113,33 @@ class SuperWinLossDetailByPTView extends BaseReport {
         }
     };
 
+    bindSorter = () => {
+        let canSort = JSON.parse(this.$tableReport.data("cansort"));
+        this.sortComponent.render(new SortOption(
+            this.$tableReport,
+            canSort,
+            this.hasAllDataOnClient,
+            this.afterSort,
+            { 0: { sorter: "text" } },
+            this.$reportForm));
+
+        this.$tableReport.stickyTableHeaders();
+    };
+
+    afterSort = () => {
+        this.sortComponent.afterSort();
+
+        if (this.hasAllDataOnClient) {
+            this.$tableReport.find("tbody > tr.pt-row").each((index, element) => {
+                let parent = this.$(element);
+                let ptValue = parent.data("pt-value");
+                let children = this.$tableReport.find(`tbody > tr.pt-product-row[data-pt-value="${ptValue}"]`);
+
+                children.insertAfter(parent);
+            });
+        }
+    };
+
     public registerEvents() {
         this.$reportForm.submit(this.onSubmitReportEvent);
         this.$filterIcon.on("click", this.onFilterEvent);
@@ -140,6 +172,8 @@ class SuperWinLossDetailByPTView extends BaseReport {
             this.renderAtFirstSwitchMode(isStackMode);
             this.isFirstSwitchMode = false;
         }
+
+        this.sortComponent.bindTableSorter(this.getSortedColumnName());
     };
 
     onClickViewProductPTList = () => {
@@ -216,13 +250,16 @@ class SuperWinLossDetailByPTView extends BaseReport {
     };
 
     getParams = () => {
-        var tableReport = this.$tableReport;
+        let tableReport = this.$tableReport;
+        let sortInfo = this.sortComponent.getSortInfo();
         let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
 
         return {
+            CustId: tableReport.data("custid"),
+            SortPropertyName: sortInfo.sortPropertyName,
+            IsDescendingSort: sortInfo.isDescendingSort,
             IsAnyProductSelected: selectedProducts.length > 0,
             IsAnyProductDetailSelected: this.productMultiSelectionComponent.isAnyEnabledProductDetailSelected(),
-            CustId: tableReport.data("custid"),
             IsStackMode: tableReport.hasClass("stack-mode"),
             HideFilter: this.$reportForm.is(":hidden"),
         };
@@ -248,6 +285,8 @@ class SuperWinLossDetailByPTView extends BaseReport {
             return;
         }
 
+        this.$sortPropertyName.val(params.SortPropertyName);
+        this.$isDescendingSort.val(String(params.IsDescendingSort));
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
         this.$isStackMode.val(String(params.IsStackMode));
     };
@@ -260,15 +299,47 @@ class SuperWinLossDetailByPTView extends BaseReport {
     showValidaProductDetailError = () => {
         this.productMultiSelectionComponent.addErrorToProductDetailComponent();
     };
+
+    getSortedColumnName = () => {
+        let sortedColumn = this.$tableReport.data("sortedcolumn");
+        if (!this.$tableReport.hasClass("stack-mode")) {
+            return sortedColumn;
+        }
+
+        if (sortedColumn === "NetTurnover" || sortedColumn === "GrossComm") {
+            return "Turnover";
+        }
+
+        if (sortedColumn === "MemberComm" || sortedColumn === "MemberTotal") {
+            return "MemberWinLost";
+        }
+
+        if (sortedColumn === "AgComm" || sortedColumn === "AgTotal") {
+            return "AgWinLost";
+        }
+
+        if (sortedColumn === "MAgComm" || sortedColumn === "MAgTotal") {
+            return "MAgWinLost";
+        }
+
+        if (sortedColumn === "SAgComm" || sortedColumn === "SAgTotal") {
+            return "SAgWinLost";
+        }
+
+        return sortedColumn;
+    };
 }
 
 $(function () {
+    const linkBuilderComponent = new LinkBuilderComponent($);
+    const productDetailMultiSelectionComponent = new ProductDetailMultiSelectionComponent($);
     const superWinLossDetailByPTView = new SuperWinLossDetailByPTView(
         $,
         new DateRangePickerComponent($),
-        new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
+        new ProductMultiSelectionComponent($, productDetailMultiSelectionComponent),
+        new SortComponent($, linkBuilderComponent),
         new ReportTooltip($),
-        new LinkBuilderComponent($));
+        linkBuilderComponent);
 
     superWinLossDetailByPTView.init();
 });

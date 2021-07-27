@@ -7,6 +7,7 @@
     using Alpha.Reports.Services;
     using Params.SuperWinLossDetailByPT;
     using Requests.SuperWinLossDetailByPT;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using ViewModels.SuperWinLossDetailByPT;
@@ -70,6 +71,10 @@
             string sortPropertyName,
             bool isDescendingSort)
         {
+            var sortPropertyNameOnTotal = sortPropertyName.Equals("ProductName", StringComparison.OrdinalIgnoreCase)
+                ? "PositionTaking"
+                : "Total." + sortPropertyName;
+
             return winLossDetailByProducts.Join(
                 positionTakings,
                 winLossDetailByProduct => winLossDetailByProduct.ProductId,
@@ -82,7 +87,7 @@
                     var orderedWinLossDetails = winLossDetails.OrderBy(sortPropertyName, isDescendingSort);
                     return new SuperWinLossDetailByPTModel(positionTaking, orderedWinLossDetails);
                 })
-                .OrderBy("Total." + sortPropertyName, isDescendingSort);
+                .OrderBy(sortPropertyNameOnTotal, isDescendingSort);
         }
 
         protected IEnumerable<SuperPtProductViewModel> GeneratePtProducts(

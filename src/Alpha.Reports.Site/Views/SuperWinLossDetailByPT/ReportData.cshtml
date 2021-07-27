@@ -1,65 +1,69 @@
 ﻿@model SuperWinLossDetailByPTViewModel
 
 <table class="tblRpt tblRpt-bordered width-100per tablesorter tblRpt-hover tbl-win-loss-detail-by-pt
-       @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report">
+       @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
+       data-cansort="@(Model.ReportData.Count() > 1 ? "true" : "false")"
+       data-custid="@Model.CustId"
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
-            <th rowspan="2">@Resources.PT/@Resources.Product</th>
+            <th rowspan="2" class="sorting" data-sortedname="ProductName" data-colindex="0">@Resources.PT/@Resources.Product</th>
 
-            <th rowspan="2" class="hidden-stack-mode">@Resources.Turnover</th>
-            <th rowspan="2" class="hidden-stack-mode">@Resources.NetTurnover</th>
-            <th rowspan="2" class="hidden-stack-mode">@Resources.GrossComm</th>
-            <th rowspan="2" class="visible-stack-mode col-combine">
-                @(string.Join("/", Resources.TurnoverAbbr, Resources.NetTurnover, Resources.GrossComm))
+            <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="1">@Resources.Turnover</th>
+            <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="NetTurnover" data-colindex="2">@Resources.NetTurnover</th>
+            <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="3">@Resources.GrossComm</th>
+            <th rowspan="2" class="visible-stack-mode  col-netturnover-header col-combine sorting" data-sortedname="Turnover" data-colindex="1">
+                <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>@Resources.NetTurnoverAndGrossComm
             </th>
 
-            <th colspan="3" class="col-level hidden-stack-mode">@Resources.Member</th>
-            <th class="visible-stack-mode col-combine" rowspan="2">
+            <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Member</th>
+            <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="MemberWinLost" data-colindex="2">
                 @Resources.Member
                 <br />
-                (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
-            <th colspan="3" class="col-level hidden-stack-mode">@Resources.Agent</th>
-            <th class="visible-stack-mode col-combine" rowspan="2">
+            <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Agent</th>
+            <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="AgWinLost" data-colindex="3">
                 @Resources.Agent
                 <br />
-                (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
-            <th colspan="3" class="col-level hidden-stack-mode">@Resources.Master</th>
-            <th class="visible-stack-mode col-combine" rowspan="2">
+            <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Master</th>
+            <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="MAgWinLost" data-colindex="4">
                 @Resources.Master
                 <br />
-                (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
-            <th colspan="3" class="col-level hidden-stack-mode">@Resources.Super</th>
-            <th class="visible-stack-mode col-combine" rowspan="2">
+            <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Super</th>
+            <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="SAgWinLost" data-colindex="5">
                 @Resources.Super
                 <br />
-                (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
-            <th class="hidden-stack-mode" rowspan="2">@Resources.Company</th>
-            <th class="visible-stack-mode" rowspan="2">@Resources.Company</th>
+            <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Company" data-colindex="16">@Resources.Company</th>
+            <th rowspan="2" class="visible-stack-mode sorting" data-sortedname="Company" data-colindex="6">@Resources.Company</th>
         </tr>
         <tr class="thead-row2">
-            <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode">@Resources.Comm</th>
-            <th class="hidden-stack-mode">@Resources.Total</th>
+            <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MemberWinLost" data-colindex="4">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode sorting" data-sortedname="MemberComm" data-colindex="5">@Resources.Comm</th>
+            <th class="hidden-stack-mode sorting" data-sortedname="MemberTotal" data-colindex="6">@Resources.Total</th>
 
-            <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode">@Resources.Comm</th>
-            <th class="hidden-stack-mode">@Resources.Total</th>
+            <th class="hidden-stack-mode col-winloss sorting" data-sortedname="AgWinLost" data-colindex="7">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode sorting" data-sortedname="AgComm" data-colindex="8">@Resources.Comm</th>
+            <th class="hidden-stack-mode sorting" data-sortedname="AgTotal" data-colindex="9">@Resources.Total</th>
 
-            <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode">@Resources.Comm</th>
-            <th class="hidden-stack-mode">@Resources.Total</th>
+            <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MAgWinLost" data-colindex="10">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode sorting" data-sortedname="MAgComm" data-colindex="11">@Resources.Comm</th>
+            <th class="hidden-stack-mode sorting" data-sortedname="MAgTotal" data-colindex="12">@Resources.Total</th>
 
-            <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode">@Resources.Comm</th>
-            <th class="hidden-stack-mode">@Resources.Total</th>
+            <th class="hidden-stack-mode col-winloss sorting" data-sortedname="SAgWinLost" data-colindex="13">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode sorting" data-sortedname="SAgComm" data-colindex="14">@Resources.Comm</th>
+            <th class="hidden-stack-mode sorting" data-sortedname="SAgTotal" data-colindex="15">@Resources.Total</th>
         </tr>
     </thead>
     @if (Model.ReportData.Any())
