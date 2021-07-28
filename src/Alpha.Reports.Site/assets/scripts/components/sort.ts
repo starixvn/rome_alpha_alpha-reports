@@ -147,6 +147,10 @@ class SortComponent {
             return $node.find("a").html();
         }
 
+        if ($node.data("sortedvalue")) {
+            return String($node.data("sortedvalue"));
+        }
+
         var html = $node.hasClass("combinedcell") ?
             $node.find("ul>li:first-child").html() :
             $node.html();

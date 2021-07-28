@@ -71,7 +71,7 @@
             string sortPropertyName,
             bool isDescendingSort)
         {
-            var sortPropertyNameOnTotal = sortPropertyName.Equals("ProductName", StringComparison.OrdinalIgnoreCase)
+            var sortPropertyNameOnTotal = sortPropertyName.Equals("ProductId", StringComparison.OrdinalIgnoreCase)
                 ? "PositionTaking"
                 : "Total." + sortPropertyName;
 

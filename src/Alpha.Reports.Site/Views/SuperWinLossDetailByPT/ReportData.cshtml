@@ -8,7 +8,7 @@
        data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
-            <th rowspan="2" class="sorting" data-sortedname="ProductName" data-colindex="0">@Resources.PT/@Resources.Product</th>
+            <th rowspan="2" class="sorting" data-sortedname="ProductId" data-colindex="0">@Resources.PT/@Resources.Product</th>
 
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="1">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="NetTurnover" data-colindex="2">@Resources.NetTurnover</th>
@@ -113,7 +113,7 @@
     var rowClass = isTotalRow ? "tbl-footer" : ptProudctRowClass;
 
     <tr class="@rowClass" data-pt-value="@winLossDetailByProduct.PositionTaking">
-        <td class="text-left col-username">
+        <td class="text-left col-username" @(isTotalRow ? string.Empty : "data-sortedvalue=" + winLossDetailByProduct.ProductId)>
             @(isTotalRow ? Resources.Total : winLossDetailByProduct.ProductName)
         </td>
         @RenderWinLossDetail(winLossDetailByProduct)
