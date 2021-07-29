@@ -5,7 +5,8 @@
        data-cansort="@(Model.ReportData.Count() > 1 ? "true" : "false")"
        data-custid="@Model.CustId"
        data-sortedcolumn="@Model.SortPropertyName"
-       data-descendingsort="@Model.IsDescendingSort">
+       data-descendingsort="@Model.IsDescendingSort"
+       style="opacity: 0;">
     <thead>
         <tr>
             <th rowspan="2" class="sorting" data-sortedname="ProductId" data-colindex="0">@Resources.PT/@Resources.Product</th>

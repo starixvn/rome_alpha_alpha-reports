@@ -24,9 +24,9 @@ class SuperWinLossDetailByPTView extends BaseReport {
     $viewProductPTList: JQuery;
     $viewProductPTListPopup: JQuery;
 
+    canSort: boolean;
     hasAllDataOnClient = true;
     isFirstSwitchMode = true;
-    isSwitchView = false;
     levels = ["member", "agent", "master", "super"];
 
     dateRangePickerComponent: DateRangePickerComponent;
@@ -58,6 +58,7 @@ class SuperWinLossDetailByPTView extends BaseReport {
         this.$.blockUI();
 
         this.cacheDOMElements();
+        this.cacheData();
         this.bindFilter();
         this.bindSorter();
         this.registerEvents();
@@ -84,6 +85,10 @@ class SuperWinLossDetailByPTView extends BaseReport {
         this.$isSetDefaultStackMode = this.$("#IsSetDefaultStackMode");
         this.$viewProductPTList = this.$("#view-product-pt-list");
         this.$viewProductPTListPopup = this.$("#product-pt-list-popup");
+    };
+
+    cacheData = () => {
+        this.canSort = JSON.parse(this.$tableReport.data("cansort"));
     };
 
     checkReady = () => {
@@ -114,10 +119,13 @@ class SuperWinLossDetailByPTView extends BaseReport {
     };
 
     bindSorter = () => {
-        let canSort = JSON.parse(this.$tableReport.data("cansort"));
+        this.canSort && this.hasAllDataOnClient
+            ? this.$tableReport.find("tbody > tr.hide").removeClass("hide")
+            : this.$tableReport.css("opacity", "");
+
         this.sortComponent.render(new SortOption(
             this.$tableReport,
-            canSort,
+            this.canSort,
             this.hasAllDataOnClient,
             this.afterSort,
             { 0: { sorter: "text" } },
@@ -132,11 +140,14 @@ class SuperWinLossDetailByPTView extends BaseReport {
         if (this.hasAllDataOnClient) {
             this.$tableReport.find("tbody > tr.pt-row").each((index, element) => {
                 let parent = this.$(element);
+                let isHide = alphaReports.convertAttributeToBool(parent.data("is-hide"));
                 let ptValue = parent.data("pt-value");
                 let children = this.$tableReport.find(`tbody > tr.pt-product-row[data-pt-value="${ptValue}"]`);
 
                 children.insertAfter(parent);
+                isHide && children.addClass("hide");
             });
+            this.$tableReport.css("opacity", "");
         }
     };
 
@@ -171,6 +182,11 @@ class SuperWinLossDetailByPTView extends BaseReport {
         if (this.isFirstSwitchMode) {
             this.renderAtFirstSwitchMode(isStackMode);
             this.isFirstSwitchMode = false;
+        }
+
+        if (this.canSort && this.hasAllDataOnClient) {
+            this.$tableReport.css("opacity", 0);
+            this.$tableReport.find("tbody > tr.hide").removeClass("hide");
         }
 
         this.sortComponent.bindTableSorter(this.getSortedColumnName());
