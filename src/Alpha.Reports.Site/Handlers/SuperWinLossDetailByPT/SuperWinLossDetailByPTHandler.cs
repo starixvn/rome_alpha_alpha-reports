@@ -19,11 +19,12 @@
         private readonly BrowserHelper browserHelper;
 
         public SuperWinLossDetailByPTHandler(
+            CacheRefService refService,
             ProductService productService,
             ProductDetailService productDetailService,
             SuperWinLossDetailByPTService reportService,
             BrowserHelper browserHelper)
-            : base(productService, productDetailService, reportService)
+            : base(refService, productService, productDetailService, reportService)
         {
             this.browserHelper = browserHelper;
         }

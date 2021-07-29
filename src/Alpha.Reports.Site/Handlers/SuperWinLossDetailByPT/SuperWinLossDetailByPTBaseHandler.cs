@@ -14,15 +14,18 @@
 
     public class SuperWinLossDetailByPTBaseHandler : BaseHandler
     {
+        private readonly CacheRefService refService;
         protected readonly ProductService productService;
         protected readonly ProductDetailService productDetailService;
         protected readonly SuperWinLossDetailByPTService reportService;
 
         public SuperWinLossDetailByPTBaseHandler(
+            CacheRefService refService,
             ProductService productService,
             ProductDetailService productDetailService,
             SuperWinLossDetailByPTService reportService)
         {
+            this.refService = refService;
             this.productService = productService;
             this.productDetailService = productDetailService;
             this.reportService = reportService;
@@ -79,7 +82,17 @@
                 positionTakings,
                 winLossDetailByProduct => winLossDetailByProduct.ProductId,
                 postionTaking => postionTaking.ProductId,
-                (winLossDetailByProduct, positionTaking) => new SuperWinLossDetailModel(winLossDetailByProduct, positionTaking))
+                (winLossDetailByProduct, positionTaking) =>
+                {
+                    var productName = refService.GetProductName(positionTaking.ProductId);
+                    return new SuperWinLossDetailModel(
+                        winLossDetailByProduct,
+                        new SuperPTModel(
+                            positionTaking.CustId,
+                            positionTaking.SuperPT,
+                            positionTaking.ProductId,
+                            productName));
+                })
                 .GroupBy(
                 winLossDetail => winLossDetail.PositionTaking,
                 (positionTaking, winLossDetails) =>

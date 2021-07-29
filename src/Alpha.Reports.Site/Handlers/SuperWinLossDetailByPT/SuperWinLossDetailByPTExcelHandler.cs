@@ -27,11 +27,12 @@
         private readonly SuperWinLossDetailByPTWorkbook workbook;
 
         public SuperWinLossDetailByPTExcelHandler(
+            CacheRefService refService,
             ProductService productService,
             ProductDetailService productDetailService,
             SuperWinLossDetailByPTService reportService,
             SuperWinLossDetailByPTWorkbook workbook)
-            : base(productService, productDetailService, reportService)
+            : base(refService, productService, productDetailService, reportService)
         {
             this.workbook = workbook;
         }
