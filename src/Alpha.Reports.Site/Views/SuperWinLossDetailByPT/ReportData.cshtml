@@ -100,7 +100,7 @@
 @helper RenderWinLossDetailByPT(SuperWinLossDetailByPTModel winLossDetailByPT, bool isExpanded)
 {
     <tr class="pt-row" data-pt-value="@winLossDetailByPT.PositionTaking" data-is-hide="@(isExpanded? "false": "true")">
-        <td class="text-left col-username bold @(isExpanded ? "active" : string.Empty)">
+        <td class="text-left col-username bold @(isExpanded ? "active" : string.Empty)" data-sortedvalue="@winLossDetailByPT.PositionTaking">
             <span class="@(isExpanded ?"icon-arrow-down":"icon-arrow-right")"></span>
             @(string.Format(winLossDetailByPT.PositionTakingText, Resources.PT))
         </td>

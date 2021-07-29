@@ -128,7 +128,7 @@ class SuperWinLossDetailByPTView extends BaseReport {
             this.canSort,
             this.hasAllDataOnClient,
             this.afterSort,
-            { 0: { sorter: "text" } },
+            { 0: { sorter: "digit" } },
             this.$reportForm));
 
         this.$tableReport.stickyTableHeaders();
