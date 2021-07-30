@@ -6,16 +6,20 @@
 
     public class SuperWinLossDetailByPTController : ReportBaseController
     {
+        private const string indexViewPath = "~/Features/SuperWinLossDetailByPT/Views/Index.cshtml";
+        private const string reportLegendViewPath = "~/Features/SuperWinLossDetailByPT/Views/ReportLegend.cshtml";
+
         public SuperWinLossDetailByPTController(IMediator mediator) : base(mediator)
         {
         }
 
         public ActionResult Index(SuperWinLossDetailByPTQuery message)
-            => View(message);
+            => View(indexViewPath, message);
 
         public ActionResult Excel(SuperWinLossDetailByPTExcelQuery message)
             => ExcelView(message);
 
-        public ActionResult ReportLegend(ReportLegendQuery message) => View(message);
+        public ActionResult ReportLegend(ReportLegendQuery message)
+            => View(reportLegendViewPath, message);
     }
 }

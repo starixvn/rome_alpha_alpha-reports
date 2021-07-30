@@ -1,10 +1,15 @@
 ﻿@model SuperWinLossDetailByPTViewModel
 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Super Win Loss Detail By PT";
+}
+
 @ReportTitle.Render(
     new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty),
     Request.Url.Query)
 
-@Html.Partial("Filter", Model.FilterViewModel,
+@Html.Partial("~/Features/SuperWinLossDetailByPT/Views/Filter.cshtml", Model.FilterViewModel,
     new ViewDataDictionary
     {
         { "IsStackMode", Model.IsStackMode },
@@ -12,9 +17,9 @@
         { "SortPropertyName", Model.SortPropertyName }
     })
 
-@Html.Partial("ReportData", Model)
+@Html.Partial("~/Features/SuperWinLossDetailByPT/Views/ReportData.cshtml", Model)
 
-@Html.Partial("ViewProductPTList", Model)
+@Html.Partial("~/Features/SuperWinLossDetailByPT/Views/ViewProductPTList.cshtml", Model)
 
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", "SuperWinLossDetailByPT")">
@@ -30,5 +35,5 @@
 @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "SuperWinLossDetailByPT"))
 
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/superwinlossdetailbypt/superwinlossdetailbypt")
+    @StaticResources.RenderScripts("~/Features/SuperWinLossDetailByPT/Bundles/superwinlossdetailbypt")
 }

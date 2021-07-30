@@ -389,7 +389,7 @@
     ]
   },
   {
-    "outputFileName": "assets/bundles/superwinlossdetailbypt/superwinlossdetailbypt.js",
+    "outputFileName": "Features/SuperWinLossDetailByPT/Bundles/superwinlossdetailbypt.js",
     "inputFiles": [
       "assets/scripts/core.js",
       "assets/scripts/base-report.js",
@@ -399,7 +399,7 @@
       "assets/scripts/components/tooltip.js",
       "assets/scripts/components/sort.js",
       "assets/scripts/components/link-builder.js",
-      "assets/scripts/superwinlossdetailbypt/superwinlossdetailbypt.js"
+      "Features/SuperWinLossDetailByPT/Scripts/superwinlossdetailbypt.js"
     ]
   }
 ]

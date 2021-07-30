@@ -232,8 +232,8 @@
     <Compile Include="Criteria\GetProductsDetailCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
-    <Compile Include="Criteria\SuperWinLossDetailByPT\SuperPTCriteria.cs" />
-    <Compile Include="Criteria\SuperWinLossDetailByPT\SuperWinLossDetailByPTCriteria.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperPTCriteria.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperWinLossDetailByPTCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
     <Compile Include="Enumerations\LeagueType.cs" />
     <Compile Include="Constants\BetTypeIdConstants.cs" />
@@ -308,11 +308,11 @@
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\SportBetType.cs" />
     <Compile Include="Models\SportType.cs" />
-    <Compile Include="Models\SuperWinLossDetailByPT\SuperPTModel.cs" />
-    <Compile Include="Models\SuperWinLossDetailByPT\SuperPtProductModel.cs" />
-    <Compile Include="Models\SuperWinLossDetailByPT\SuperWinLossDetailByProductModel.cs" />
-    <Compile Include="Models\SuperWinLossDetailByPT\SuperWinLossDetailModel.cs" />
-    <Compile Include="Models\SuperWinLossDetailByPT\SuperWinLossDetailByPTModel.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperPTModel.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperPtProductModel.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailByProductModel.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailModel.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailByPTModel.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingExcelParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceUplinesParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingParam.cs" />
@@ -369,8 +369,8 @@
     <Compile Include="Params\RiskAnalysisIPMatchingParam.cs" />
     <Compile Include="Params\Statement\GetStatementParam.cs" />
     <Compile Include="Params\Statement\StatementDetailsParam.cs" />
-    <Compile Include="Params\SuperWinLossDetailByPT\SuperPTParam.cs" />
-    <Compile Include="Params\SuperWinLossDetailByPT\SuperWinLossDetailByPTParam.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Params\SuperPTParam.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Params\SuperWinLossDetailByPTParam.cs" />
     <Compile Include="Params\SupportedHistoryReportParam.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\MatchWinLossDetailParam.cs" />
@@ -393,7 +393,7 @@
     <Compile Include="Services\MatchWinLossService.cs" />
     <Compile Include="Services\RiskAnalysisIPMatchingService.cs" />
     <Compile Include="Services\ProductDetailService.cs" />
-    <Compile Include="Services\SuperWinLossDetailByPTService.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTService.cs" />
     <Compile Include="Services\WinLossByProductService.cs" />
     <Compile Include="Services\WinLossAnalysisChartService.cs" />
     <Compile Include="Services\WinLossAnalysisService.cs" />
