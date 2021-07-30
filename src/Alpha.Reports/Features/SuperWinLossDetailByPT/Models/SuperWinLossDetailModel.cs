@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Models.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Features.SuperWinLossDetailByPT.Models
 {
     public class SuperWinLossDetailModel
     {

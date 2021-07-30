@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Params.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Features.SuperWinLossDetailByPT.Params
 {
     using System;
 

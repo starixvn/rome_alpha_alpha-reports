@@ -38,6 +38,15 @@
     <Reference Include="Alpha.Web, Version=1.0.8.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.Web.1.0.8.5\lib\net461\Alpha.Web.dll</HintPath>
     </Reference>
+    <Reference Include="CasinoLibrary, Version=2.1.0.18354, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CasinoLibrary.2.1.0.18354\lib\net40\CasinoLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="CasinoSetting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CasinoLibrary.2.1.0.18354\lib\net40\CasinoSetting.dll</HintPath>
+    </Reference>
+    <Reference Include="CasinoUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CasinoLibrary.2.1.0.18354\lib\net40\CasinoUtility.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
       <Private>True</Private>
@@ -72,6 +81,9 @@
     </Reference>
     <Reference Include="Fanex.RemotingRef, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.RemotingRef.1.4.0\lib\net461\Fanex.RemotingRef.dll</HintPath>
+    </Reference>
+    <Reference Include="HandHistoryLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CasinoLibrary.2.1.0.18354\lib\net40\HandHistoryLibrary.dll</HintPath>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
@@ -145,6 +157,9 @@
     </Reference>
     <Reference Include="Sunplus.Core.Common, Version=1.2.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sunplus.Core.Common.1.2.0.2\lib\net40\Sunplus.Core.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Sunplus.Libraries.AOP, Version=1.0.4218.28561, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Libraries.AOP.1.0.4218.28561\lib\net40\Sunplus.Libraries.AOP.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -279,6 +294,16 @@
     <Compile Include="Features\BonusDetail\Criteria\GetMasterBonusCriteriaTests.cs" />
     <Compile Include="Features\BonusDetail\Criteria\GetSuperBonusCriteriaTests.cs" />
     <Compile Include="Features\BonusDetail\Models\BonusEntityTests.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperPTCriteriaTests.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperWinLossDetailByPTCriteriaTests.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperPTModelTests.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperPtProductModelTests.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailByProductModelTests.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailByPTModelTests.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailModelTests.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Params\SuperPTParamTests.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Params\SuperWinLossDetailByPTParamTests.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTServiceTests.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingEventModelTests.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingTicketModelTests.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingUserModelTests.cs" />

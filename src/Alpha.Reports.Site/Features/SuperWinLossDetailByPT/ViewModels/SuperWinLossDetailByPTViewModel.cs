@@ -1,14 +1,14 @@
-﻿namespace Alpha.Reports.Site.ViewModels.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Site.Features.SuperWinLossDetailByPT.ViewModels
 {
-    using Alpha.Reports.Extensions;
-    using Alpha.Reports.Models.SuperWinLossDetailByPT;
-    using Alpha.Reports.Params.SuperWinLossDetailByPT;
-    using App_GlobalResources;
-    using Components;
-    using Requests.SuperWinLossDetailByPT;
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Alpha.Reports.Extensions;
+    using Alpha.Reports.Features.SuperWinLossDetailByPT.Models;
+    using Alpha.Reports.Features.SuperWinLossDetailByPT.Params;
+    using Alpha.Reports.Site.Features.SuperWinLossDetailByPT.Requests;
+    using Alpha.Reports.Site.ViewModels.Components;
+    using App_GlobalResources;
 
     public class SuperWinLossDetailByPTViewModel
     {

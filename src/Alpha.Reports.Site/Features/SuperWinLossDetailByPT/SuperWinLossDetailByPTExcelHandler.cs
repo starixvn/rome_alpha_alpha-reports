@@ -1,14 +1,14 @@
-﻿namespace Alpha.Reports.Site.Handlers.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Site.Features.SuperWinLossDetailByPT
 {
     using Alpha.Reports.Extensions;
-    using Alpha.Reports.Models.SuperWinLossDetailByPT;
-    using Alpha.Reports.Params.SuperWinLossDetailByPT;
+    using Alpha.Reports.Features.SuperWinLossDetailByPT.Models;
+    using Alpha.Reports.Features.SuperWinLossDetailByPT.Params;
     using Alpha.Reports.Services;
+    using Alpha.Reports.Site.Features.SuperWinLossDetailByPT.Requests;
+    using Alpha.Reports.Site.ViewModels;
     using App_GlobalResources;
     using MediatR;
     using ONEbook.SpreadSheets;
-    using Requests.SuperWinLossDetailByPT;
-    using ViewModels;
     using static ONEbook.SpreadSheets.Column;
 
     public class SuperWinLossDetailByPTExcelHandler :
@@ -61,13 +61,13 @@
             return new ExcelFileViewModel(GetExcelFileName(message, winLossDetailByPTParam), fileContent);
         }
 
-        private Mapper<SuperWinLossDetailModel> GetBodyRowMapper()
-          => GetRowMapper(isTotal: false);
+        private static Mapper<SuperWinLossDetailModel> GetBodyRowMapper()
+            => GetRowMapper(isTotal: false);
 
-        private Mapper<SuperWinLossDetailModel> GetTotalRowMapper()
+        private static Mapper<SuperWinLossDetailModel> GetTotalRowMapper()
             => GetRowMapper(isTotal: true);
 
-        internal Mapper<SuperWinLossDetailModel> GetRowMapper(bool isTotal)
+        internal static Mapper<SuperWinLossDetailModel> GetRowMapper(bool isTotal)
         {
             var mapper = new Mapper<SuperWinLossDetailModel>()
                 .Map(A, data => isTotal ? Resources.Total : data.ProductName)
@@ -122,7 +122,7 @@
                 productNames);
         }
 
-        private string GetExcelFileName(
+        private static string GetExcelFileName(
             SuperWinLossDetailByPTExcelQuery message,
             SuperWinLossDetailByPTParam param)
             => string.Join(

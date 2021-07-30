@@ -1,7 +1,8 @@
-﻿namespace Alpha.Reports.Criteria.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Features.SuperWinLossDetailByPT.Criteria
 {
     using System;
     using System.Collections.Generic;
+    using Alpha.Reports.Criteria;
 
     public class SuperWinLossDetailByPTCriteria : ReportProductCriteria
     {

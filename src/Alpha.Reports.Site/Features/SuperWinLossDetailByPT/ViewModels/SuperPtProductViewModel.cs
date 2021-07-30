@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.ViewModels.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Site.Features.SuperWinLossDetailByPT.ViewModels
 {
     using App_GlobalResources;
 

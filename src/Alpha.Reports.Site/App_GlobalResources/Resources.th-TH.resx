@@ -728,7 +728,7 @@
     <value>- สำหรับ {0}, เงินหมุนเวียนสุทธิทั้งหมดจะใช้เพื่อคำนวนค่าคอมมิชชั่น</value>
   </data>
   <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
-    <value>- For {0}, Net Turnover is Turnover which excludes the Void/Reject/Refund tickets.</value>
+    <value>- สำหรับ {0} ยอดเดิมพันสุทธิ คือจำนวนของการเดิมพันทั้งหมดโดยไม่รวมรายการเดิมพันที่เป็นโมฆะ/ยกเลิก/คืนเงิน</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
     <value>เลือกทั้งหมด</value>
@@ -851,15 +851,15 @@
     <value>ดูรายงานที่ระดับซุปเปอร์: ค่าคอมมิชชั่น (โดยไม่มี PT) ที่ซุปเปอร์สามารถได้รับจากอัพไลน์</value>
   </data>
   <data name="SuperWinLossDetailByPT" xml:space="preserve">
-    <value>Super Win Loss Detail By PT</value>
+    <value>รายละเอียดการชนะหรือแพ้ของซุปเปอร์นั้นขึ้นอยู่กับค่าความเสี่ยง</value>
   </data>
   <data name="PT" xml:space="preserve">
-    <value>PT</value>
+    <value>ค่าความเสี่ยง</value>
   </data>
   <data name="ViewProductPTList" xml:space="preserve">
-    <value>View Product/PT List</value>
+    <value>ดูรายการผลิตภัณฑ์/ รายการค่าความเสี่ยง</value>
   </data>
   <data name="ViewProductPTListNoteMessage" xml:space="preserve">
-    <value>PT values shown in the report are the Super Max PT</value>
+    <value>ค่าความเสี่ยงที่แสดงในรายงานคือค่าความเสี่ยงสูงสุดของระดับซูเปอร์</value>
   </data>
 </root>

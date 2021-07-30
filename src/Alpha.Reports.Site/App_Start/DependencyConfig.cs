@@ -1,10 +1,14 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Web.Mvc;
     using Alpha.NetThrottling;
     using Alpha.NetThrottling.Models;
     using Alpha.NetThrottling.Resolvers;
     using Alpha.NetThrottling.Utils;
     using Alpha.Reports.Features.BonusDetail;
+    using Alpha.Reports.Site.Features.SuperWinLossDetailByPT;
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
     using Alpha.Utilities.IP;
     using Alpha.Web.Helpers;
@@ -25,7 +29,6 @@
     using Handlers.MatchWinLossDetail;
     using Handlers.ProgressiveContribution;
     using Handlers.Statement;
-    using Handlers.SuperWinLossDetailByPT;
     using Handlers.WinLossByProduct;
     using MediatR;
     using Models;
@@ -41,9 +44,6 @@
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
     using Sunplus.Agent.Model.Entities.Permission;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Web.Mvc;
     using IPServiceImpl = Services.IPServiceImpl;
 
     public static class DependencyConfig

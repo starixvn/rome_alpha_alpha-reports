@@ -1,8 +1,9 @@
-﻿namespace Alpha.Reports.Site.Requests.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Site.Features.SuperWinLossDetailByPT.Requests
 {
+    using Alpha.Reports.Site.Features.SuperWinLossDetailByPT.ViewModels;
+    using Alpha.Reports.Site.Requests;
     using MediatR;
     using Reports.Models;
-    using ViewModels.SuperWinLossDetailByPT;
 
     public class SuperWinLossDetailByPTQuery
         : FromLast3MonthDateRangeQuery, IRequest<SuperWinLossDetailByPTViewModel>

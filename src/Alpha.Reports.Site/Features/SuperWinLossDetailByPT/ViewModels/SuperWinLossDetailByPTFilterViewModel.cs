@@ -1,9 +1,9 @@
-﻿namespace Alpha.Reports.Site.ViewModels.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Site.Features.SuperWinLossDetailByPT.ViewModels
 {
-    using Alpha.Reports.Extensions;
-    using App_GlobalResources;
-    using Components;
     using System;
+    using Alpha.Reports.Extensions;
+    using Alpha.Reports.Site.ViewModels.Components;
+    using App_GlobalResources;
 
     public class SuperWinLossDetailByPTFilterViewModel
     {

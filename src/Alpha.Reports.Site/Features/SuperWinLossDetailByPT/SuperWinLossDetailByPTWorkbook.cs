@@ -1,12 +1,12 @@
-﻿namespace Alpha.Reports.Site.Handlers.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Site.Features.SuperWinLossDetailByPT
 {
-    using Alpha.Reports.Models.SuperWinLossDetailByPT;
-    using App_GlobalResources;
-    using ONEbook.SpreadSheets;
-    using ONEbook.SpreadSheets.NPOI;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Features.SuperWinLossDetailByPT.Models;
+    using App_GlobalResources;
+    using ONEbook.SpreadSheets;
+    using ONEbook.SpreadSheets.NPOI;
 
     public interface SuperWinLossDetailByPTWorkbook
     {

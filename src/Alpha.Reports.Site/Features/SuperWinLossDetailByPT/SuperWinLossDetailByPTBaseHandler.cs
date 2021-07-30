@@ -1,16 +1,17 @@
-﻿namespace Alpha.Reports.Site.Handlers.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Site.Features.SuperWinLossDetailByPT
 {
-    using Alpha.Reports.Constants;
-    using Alpha.Reports.Extensions;
-    using Alpha.Reports.Models;
-    using Alpha.Reports.Models.SuperWinLossDetailByPT;
-    using Alpha.Reports.Services;
-    using Params.SuperWinLossDetailByPT;
-    using Requests.SuperWinLossDetailByPT;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using ViewModels.SuperWinLossDetailByPT;
+    using Alpha.Reports.Constants;
+    using Alpha.Reports.Extensions;
+    using Alpha.Reports.Features.SuperWinLossDetailByPT.Models;
+    using Alpha.Reports.Features.SuperWinLossDetailByPT.Params;
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Services;
+    using Alpha.Reports.Site.Features.SuperWinLossDetailByPT.Requests;
+    using Alpha.Reports.Site.Features.SuperWinLossDetailByPT.ViewModels;
+    using Alpha.Reports.Site.Handlers;
 
     public class SuperWinLossDetailByPTBaseHandler : BaseHandler
     {
@@ -31,7 +32,7 @@
             this.reportService = reportService;
         }
 
-        protected SuperPTParam CreateSuperPTParam(int superId) => new SuperPTParam(superId);
+        protected static SuperPTParam CreateSuperPTParam(int superId) => new SuperPTParam(superId);
 
         protected SuperWinLossDetailByPTParam CreateSuperWinLossDetailByPTParam(SuperWinLossDetailByPTQuery message)
         {
@@ -54,10 +55,11 @@
                 message.ToDate,
                 validUserSelectedProductIds,
                 validUserSelectedResourceIds,
-                productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
+                productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds),
+                message.LimitedDateToShowInfo);
         }
 
-        protected SuperWinLossDetailModel AccumulateGrandTotal(IEnumerable<SuperWinLossDetailByPTModel> reportData)
+        protected static SuperWinLossDetailModel AccumulateGrandTotal(IEnumerable<SuperWinLossDetailByPTModel> reportData)
         {
             var grandTotal = new SuperWinLossDetailModel();
             foreach (var winLossDetailByPT in reportData)
@@ -103,7 +105,7 @@
                 .OrderBy(sortPropertyNameOnTotal, isDescendingSort);
         }
 
-        protected IEnumerable<SuperPtProductViewModel> GeneratePtProducts(
+        protected static IEnumerable<SuperPtProductViewModel> GeneratePtProducts(
             IEnumerable<SuperPTModel> positionTakings,
             IEnumerable<Product> products)
         {

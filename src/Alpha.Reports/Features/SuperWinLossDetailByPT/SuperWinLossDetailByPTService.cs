@@ -1,20 +1,22 @@
 ﻿namespace Alpha.Reports.Services
 {
-    using Alpha.Web.Helpers;
-    using CasinoLibrary.Model.UserException;
-    using CasinoLibrary.SBAgent;
-    using Constants;
-    using Criteria.SuperWinLossDetailByPT;
-    using Fanex.Common;
-    using Fanex.Data.Repository;
-    using Fanex.Logging.Extensions.Web;
-    using Models.SuperWinLossDetailByPT;
-    using Params.SuperWinLossDetailByPT;
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics;
     using System.Linq;
+    using Alpha.Reports.Extensions;
+    using Alpha.Reports.Features.SuperWinLossDetailByPT;
+    using Alpha.Reports.Features.SuperWinLossDetailByPT.Criteria;
+    using Alpha.Reports.Features.SuperWinLossDetailByPT.Models;
+    using Alpha.Reports.Features.SuperWinLossDetailByPT.Params;
+    using Alpha.Web.Helpers;
+    using CasinoLibrary.Model.UserException;
+    using CasinoLibrary.SBAgent;
+    using Constants;
+    using Fanex.Common;
+    using Fanex.Data.Repository;
+    using Fanex.Logging.Extensions.Web;
 
     public interface SuperWinLossDetailByPTService
     {
@@ -51,7 +53,7 @@
         {
             var criteria = new SuperWinLossDetailByPTCriteria(
                 param.CustId,
-                param.FromDate,
+                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
@@ -86,13 +88,13 @@
             catch (ErrorException casinoEx)
             {
                 ExceptionHandler.Handle(new Exception(casinoEx.Message, casinoEx), TraceEventType.Information);
-                return Enumerable.Empty<SuperPTModel>();
             }
             catch (Exception ex)
             {
                 ExceptionHandler.Handle(ex);
-                return Enumerable.Empty<SuperPTModel>();
             }
+
+            return Enumerable.Empty<SuperPTModel>();
         }
     }
 }

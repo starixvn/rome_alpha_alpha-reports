@@ -730,7 +730,7 @@
     <value>- {0}，淨投注額是總有效的投注注單來計算佣金。</value>
   </data>
   <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
-    <value>- For {0}, Net Turnover is Turnover which excludes the Void/Reject/Refund tickets.</value>
+    <value>- 對於 {0}，淨投注額 也是 總投注額 但不包括 作廢/取消/退款 的 注單。</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
     <value>全選</value>
@@ -856,15 +856,15 @@
     <value>在超級代理級別查看報告：總佣金是超級代理可以從上線獲取的總額(不包括占成)</value>
   </data>
   <data name="SuperWinLossDetailByPT" xml:space="preserve">
-    <value>Super Win Loss Detail By PT</value>
+    <value>超級總代理的輸贏細節根據佔成數</value>
   </data>
   <data name="PT" xml:space="preserve">
-    <value>PT</value>
+    <value>占成數</value>
   </data>
   <data name="ViewProductPTList" xml:space="preserve">
-    <value>View Product/PT List</value>
+    <value>查看產品/占成數列表</value>
   </data>
   <data name="ViewProductPTListNoteMessage" xml:space="preserve">
-    <value>PT values shown in the report are the Super Max PT</value>
+    <value>報告中顯示的占成數值是超級總代理的最高占成數</value>
   </data>
 </root>

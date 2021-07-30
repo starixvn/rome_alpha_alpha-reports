@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Criteria.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Features.SuperWinLossDetailByPT
 {
     using Configurations;
     using Fanex.Data;

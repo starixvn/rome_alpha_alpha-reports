@@ -1,15 +1,15 @@
-﻿namespace Alpha.Reports.Site.Handlers.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Site.Features.SuperWinLossDetailByPT
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Alpha.Reports.Constants;
+    using Alpha.Reports.Site.Features.SuperWinLossDetailByPT.Requests;
+    using Alpha.Reports.Site.Features.SuperWinLossDetailByPT.ViewModels;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Alpha.Web.Helpers;
     using App_GlobalResources;
     using MediatR;
-    using Requests.SuperWinLossDetailByPT;
     using Services;
-    using System.Collections.Generic;
-    using System.Linq;
-    using ViewModels.Components;
-    using ViewModels.SuperWinLossDetailByPT;
 
     public class SuperWinLossDetailByPTHandler
         : SuperWinLossDetailByPTBaseHandler,

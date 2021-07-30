@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Params.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Features.SuperWinLossDetailByPT.Params
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,8 @@
             DateTime toDate,
             IEnumerable<int> userSelectedProductIds,
             IEnumerable<int> userSelectedResourceIds,
-            string productDetailsXML)
+            string productDetailsXML,
+            DateTime limitedDateToShowInfo)
         {
             CustId = custId;
             UserSelectedProductIds = userSelectedProductIds;
@@ -22,6 +23,8 @@
             ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate;
 
             ProductDetailsXML = productDetailsXML;
+
+            LimitedDateToShowInfo = limitedDateToShowInfo;
         }
 
         public int CustId { get; }
@@ -35,5 +38,7 @@
         public IEnumerable<int> UserSelectedResourceIds { get; }
 
         public string ProductDetailsXML { get; }
+
+        public DateTime LimitedDateToShowInfo { get; }
     }
 }

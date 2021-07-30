@@ -1,8 +1,8 @@
-﻿namespace Alpha.Reports.Site.Requests.SuperWinLossDetailByPT
+﻿namespace Alpha.Reports.Site.Features.SuperWinLossDetailByPT.Requests
 {
+    using Alpha.Reports.Site.ViewModels;
     using MediatR;
     using Reports.Models;
-    using ViewModels;
 
     public class SuperWinLossDetailByPTExcelQuery
         : SuperWinLossDetailByPTQuery, IRequest<ExcelFileViewModel>
