@@ -63,6 +63,12 @@
                 result.Add(liveCasinoTooltips);
             }
 
+            var rngCasinoTooltips = BuildTooltipsForRNGCasino(message.CustId, message.Site, message.CurrencyId);
+            if (!string.IsNullOrEmpty(rngCasinoTooltips))
+            {
+                result.Add(rngCasinoTooltips);
+            }
+
             var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId).Select(product => (int)product);
 
             if (productsNeedDelayTimeToSumarizeData.Any())
@@ -76,12 +82,23 @@
         }
 
         private string BuildTooltipsForLiveCasino(int custId, string site, int currencyId)
-        {            
+        {
             var offeredLiveCasino = productService.FilterProductsByCustomer(custId, site, currencyId, ProductIdConstants.ProductListForTooltipsLiveCasino);
             var liveCasinoNames = string.Join(", ", offeredLiveCasino.Select(i => i.Name));
 
             return offeredLiveCasino != null && offeredLiveCasino.Any() ?
                 string.Format(Resources.Tooltip_NetTurnover_livecasino, liveCasinoNames) :
+                string.Empty;
+        }
+
+        private string BuildTooltipsForRNGCasino(int custId, string site, int currencyId)
+        {
+            var offeredRNGCasino = productService.GetProductsForCustomer(custId, site, currencyId)
+                .Where(i => i.Type == ProductIdConstants.DummyRNGProductId || ProductIdConstants.ProductListForTooltipsRNGCasino.Contains(i.Id));
+            var rngCasinoNames = string.Join(", ", offeredRNGCasino.Select(i => i.DisplayName));
+
+            return offeredRNGCasino != null && offeredRNGCasino.Any() ?
+                string.Format(Resources.Tooltip_NetTurnover_RNGCasino, rngCasinoNames) :
                 string.Empty;
         }
     }

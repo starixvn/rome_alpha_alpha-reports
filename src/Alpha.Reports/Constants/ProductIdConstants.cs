@@ -25,8 +25,6 @@ namespace Alpha.Reports.Constants
 
         public const int ArcadiaGaming = 34;
         public const int SG = 36;
-        public const int SabaClub = 42;
-        public const int RNGWar = 50;
         public const int PGSoft = 55;
         public const int Joker = 56;
         public const int MaxGame = 60;
@@ -35,6 +33,9 @@ namespace Alpha.Reports.Constants
         public const int VGaming = 66;
         public const int AdvantPlay = 67;
         public const int AdvantPlayMini = 68;
+        public const int RNGWar = 50;
+        public const int SabaClub = 42;
+        public const int DummyRNGProductId = 53;
 
         public static readonly List<int> ProductListForTooltipsLiveCasino = new List<int>
             {
@@ -51,23 +52,11 @@ namespace Alpha.Reports.Constants
             };
 
         public static readonly List<int> ProductListForTooltipsRNGCasino = new List<int>
-        {
-            RNGWar,
-            SabaClub,
-            VGaming,
-            MacauGames,
-            RNGCasino,
-            ArcadiaGaming,
-            SG,
-            PP,
-            PGSoft,
-            Joker,
-            MaxGame,
-            Habanero,
-            CG,
-            AdvantPlay,
-            AdvantPlayMini
-        };
+            {
+                ProductIdConstants.RNGWar,
+                ProductIdConstants.SabaClub,
+                ProductIdConstants.VGaming
+            };
 
         public static readonly List<int> ProductListHasProductDetail = new List<int>
         {

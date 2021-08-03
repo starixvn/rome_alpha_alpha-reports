@@ -729,9 +729,6 @@
   <data name="Tooltip_NetTurnover_livecasino" xml:space="preserve">
     <value>- {0}，净投注额是总有效的投注注单来计算佣金。</value>
   </data>
-  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
-    <value>- 对于 {0}，净投注额 也是 总投注额 但不包括 作废/取消/退款 的 注单。</value>
-  </data>
   <data name="SelectAll" xml:space="preserve">
     <value>全选</value>
   </data>
@@ -866,5 +863,8 @@
   </data>
   <data name="ViewProductPTListNoteMessage" xml:space="preserve">
     <value>报告中显示的占成数值是超级总代理的最高占成数</value>
+  </data>
+  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
+    <value>- 对于 {0}，净投注额 也是 总投注额 但不包括 作废/取消/退款 的 注单。</value>
   </data>
 </root>

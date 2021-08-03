@@ -727,9 +727,6 @@
   <data name="Tooltip_NetTurnover_livecasino" xml:space="preserve">
     <value>- สำหรับ {0}, เงินหมุนเวียนสุทธิทั้งหมดจะใช้เพื่อคำนวนค่าคอมมิชชั่น</value>
   </data>
-  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
-    <value>- สำหรับ {0} ยอดเดิมพันสุทธิ คือจำนวนของการเดิมพันทั้งหมดโดยไม่รวมรายการเดิมพันที่เป็นโมฆะ/ยกเลิก/คืนเงิน</value>
-  </data>
   <data name="SelectAll" xml:space="preserve">
     <value>เลือกทั้งหมด</value>
   </data>
@@ -861,5 +858,8 @@
   </data>
   <data name="ViewProductPTListNoteMessage" xml:space="preserve">
     <value>ค่าความเสี่ยงที่แสดงในรายงานคือค่าความเสี่ยงสูงสุดของระดับซูเปอร์</value>
+  </data>
+  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
+    <value>- สำหรับ {0} ยอดเดิมพันสุทธิ คือจำนวนของการเดิมพันทั้งหมดโดยไม่รวมรายการเดิมพันที่เป็นโมฆะ/ยกเลิก/คืนเงิน</value>
   </data>
 </root>
