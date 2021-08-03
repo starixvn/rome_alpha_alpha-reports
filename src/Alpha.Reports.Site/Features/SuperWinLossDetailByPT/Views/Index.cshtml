@@ -32,7 +32,7 @@
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "SuperWinLossDetailByPT"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "WinLossDetail"))
 
 @section Scripts {
     @StaticResources.RenderScripts("~/Features/SuperWinLossDetailByPT/Bundles/superwinlossdetailbypt")
