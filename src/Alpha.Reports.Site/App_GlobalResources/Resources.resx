@@ -936,4 +936,19 @@
   <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
     <value>Viewing at Super level: the commission (without PT) that Super can receive from upline.</value>
   </data>
+  <data name="SuperWinLossDetailByPT" xml:space="preserve">
+    <value>Super Win Loss Detail By PT</value>
+  </data>
+  <data name="PT" xml:space="preserve">
+    <value>PT</value>
+  </data>
+  <data name="ViewProductPTList" xml:space="preserve">
+    <value>View Product/PT List</value>
+  </data>
+  <data name="ViewProductPTListNoteMessage" xml:space="preserve">
+    <value>PT values shown in the report are the Super Max PT</value>
+  </data>
+  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
+    <value>- For {0}, Net Turnover is Turnover which excludes the Void/Reject/Refund tickets.</value>
+  </data>
 </root>

@@ -1,0 +1,35 @@
+﻿@model SuperWinLossDetailByPTFilterViewModel
+
+<form class="form-inline filter @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form">
+    @RenderHiddenFields()
+
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+
+    @ProductDetailMultiSelection.Render(Model.ProductDetailMultiSelectionViewModel)
+
+    @DateRangePicker.Render(Model.DateRangePickerViewModel)
+
+    <div id="icon-information-container" class="form-group hide">
+        <span id="icon-information" class="icon-information-outline"></span>
+    </div>
+
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+
+    <div class="note">
+        <span class="star">*</span>
+        @Model.ViewDataInstructionMessage
+        <a id="view-product-pt-list" href="javascript:void(0);">@Resources.ViewProductPTList</a>
+    </div>
+
+    @helper RenderHiddenFields()
+    {
+        @Html.Hidden("CustId", Model.CustId)
+        @Html.Hidden("IsFilterVisible", Model.Visible)
+        @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
+        @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
+        @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
+        @Html.Hidden("IsPostBack", "true")
+    }
+</form>

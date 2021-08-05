@@ -8,6 +8,7 @@
     using Alpha.NetThrottling.Resolvers;
     using Alpha.NetThrottling.Utils;
     using Alpha.Reports.Features.BonusDetail;
+    using Alpha.Reports.Site.Features.SuperWinLossDetailByPT;
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
     using Alpha.Utilities.IP;
     using Alpha.Web.Helpers;
@@ -132,7 +133,7 @@
                 new CacheRefServiceImpl(new RemotingRefService()).GetProductName,
                 container.GetInstance<PartialUMService>()),
                 Lifestyle.Singleton);
-            
+
             container.Register<ProductDetailService>(
                 () => new ProductDetailServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
@@ -165,9 +166,13 @@
             container.RegisterSingleton<BetChoiceMatchingService, BetChoiceMatchingServiceImpl>();
             container.Register<BetChoiceMatchingWorkbook, BetChoiceMatchingWorkbookImpl>();
 
+            container.Register<SuperWinLossDetailByPTWorkbook, SuperWinLossDetailByPTWorkbookImpl>();
+
             container.Register<BonusDetailService, BonusDetailServiceImpl>();
 
             container.RegisterSingleton<PartialUMService, PartialUMServiceImpl>();
+
+            container.RegisterSingleton<SuperWinLossDetailByPTService, SuperWinLossDetailByPTServiceImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

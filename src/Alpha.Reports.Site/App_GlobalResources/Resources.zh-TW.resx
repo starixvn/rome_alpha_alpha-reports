@@ -852,4 +852,19 @@
   <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
     <value>在超級代理級別查看報告：總佣金是超級代理可以從上線獲取的總額(不包括占成)</value>
   </data>
+  <data name="SuperWinLossDetailByPT" xml:space="preserve">
+    <value>超級總代理的輸贏細節根據佔成數</value>
+  </data>
+  <data name="PT" xml:space="preserve">
+    <value>占成數</value>
+  </data>
+  <data name="ViewProductPTList" xml:space="preserve">
+    <value>查看產品/占成數列表</value>
+  </data>
+  <data name="ViewProductPTListNoteMessage" xml:space="preserve">
+    <value>報告中顯示的占成數值是超級總代理的最高占成數</value>
+  </data>
+  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
+    <value>- 對於 {0}，淨投注額 也是 總投注額 但不包括 作廢/取消/退款 的 注單。</value>
+  </data>
 </root>

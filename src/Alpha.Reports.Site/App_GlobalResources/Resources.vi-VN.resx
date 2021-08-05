@@ -872,4 +872,19 @@
   <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
     <value>Xem ở cấp Super: khoản hoa hồng (không bao gồm Position Taking) mà Super có thể nhận từ cấp trên.</value>
   </data>
+  <data name="SuperWinLossDetailByPT" xml:space="preserve">
+    <value>Chi tiết thắng thua của Super theo PT</value>
+  </data>
+  <data name="PT" xml:space="preserve">
+    <value>PT</value>
+  </data>
+  <data name="ViewProductPTList" xml:space="preserve">
+    <value>Xem Danh Sách Sản Phẩm/PT</value>
+  </data>
+  <data name="ViewProductPTListNoteMessage" xml:space="preserve">
+    <value>Giá trị PT hiển thị trong báo cáo là PT lớn nhất của Super</value>
+  </data>
+  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
+    <value>- Đối với {0}, Tiền Cược Thực là Tiền Cược không bao gồm các vé cược bị Vô hiệu/Huỷ/Hoàn lại.</value>
+  </data>
 </root>

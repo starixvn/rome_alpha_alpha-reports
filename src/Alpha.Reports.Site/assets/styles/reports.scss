@@ -185,6 +185,21 @@ a {
         }
     }
 
+    &.tbl-win-loss-detail-by-pt {
+        .pt-row {
+            background-color: #fbe0c5;
+            cursor: pointer;
+
+            .col-username {
+                text-transform: uppercase;
+            }
+        }
+
+        .pt-product-row .col-username {
+            padding-left: 39px;
+        }
+    }
+
     .note-opening-balance {
         background-color: #f6a4a4;
     }
@@ -382,7 +397,7 @@ a {
 }
 
 // report-legend
-#report-legend {
+#report-legend, #product-pt-list-popup {
     overflow: hidden;
     width: 100%;
     height: auto;
@@ -440,6 +455,7 @@ a {
     overflow: auto;
 }
 
+#product-pt-list-popup .modal-content .modal-header .modal-title,
 #report-legend .modal-content .modal-header .modal-title {
     cursor: default;
 }
@@ -634,4 +650,9 @@ table.dataTable {
             }
         }
     }
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: scroll;
 }

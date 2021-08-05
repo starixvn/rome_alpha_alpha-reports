@@ -612,4 +612,16 @@
   <data name="NotAuthorized" xml:space="preserve">
     <value>해당 기능에 대한 권한이 없습니다.</value>
   </data>
+  <data name="SuperWinLossDetailByPT" xml:space="preserve">
+    <value>Super Win Loss Detail By PT</value>
+  </data>
+  <data name="PT" xml:space="preserve">
+    <value>PT</value>
+  </data>
+  <data name="ViewProductPTList" xml:space="preserve">
+    <value>View Product/PT List</value>
+  </data>
+  <data name="ViewProductPTListNoteMessage" xml:space="preserve">
+    <value>PT values shown in the report are the Super Max PT</value>
+  </data>
 </root>
