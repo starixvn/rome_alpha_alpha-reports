@@ -53,7 +53,7 @@
 
                     return reportDates;
                 },
-                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(2)));
 
             return balanceUpDayAndMoveBetsDay;
         }
