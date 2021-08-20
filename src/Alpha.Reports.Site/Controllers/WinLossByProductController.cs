@@ -1,9 +1,11 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
     using System.Web.Mvc;
+    using Alpha.Web.Filters;
     using MediatR;
     using Requests.WinLossByProduct;
 
+    [AllowProtectedMode]
     public class WinLossByProductController : ReportBaseController
     {
         public WinLossByProductController(IMediator mediator) : base(mediator)

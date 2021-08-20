@@ -12,10 +12,13 @@
     {
         public WinLossDetailQuery(IUser viewer) : base(viewer)
         {
+            IsProtectedMode = viewer.IsProtectedMode;
         }
 
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
+
+        public bool IsProtectedMode { get; }
     }
 }

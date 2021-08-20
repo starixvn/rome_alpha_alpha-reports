@@ -33,6 +33,7 @@
             IsDescendingSort = canSort && param.IsDescendingSort;
 
             IsGroupHeadline = isGroupHeadline;
+            CanViewBetLists = !message.IsProtectedMode || !message.CustLevel.IsAgentLevel();
         }
 
         public PagerViewModel PagerViewModel =>
@@ -51,6 +52,8 @@
         public bool IsGroupHeadline { get; }
 
         public PagedReportData<WinLossDetailModel> ReportData { get; }
+
+        public bool CanViewBetLists { get; }
 
         private string GetReportNameByLevel(UserLevel userLevel)
             => userLevel.IsSuperLevel()
