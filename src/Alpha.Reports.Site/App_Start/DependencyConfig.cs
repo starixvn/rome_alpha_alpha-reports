@@ -44,7 +44,6 @@
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
     using Sunplus.Agent.Model.Entities.Permission;
-    using IPServiceImpl = Services.IPServiceImpl;
 
     public static class DependencyConfig
     {
