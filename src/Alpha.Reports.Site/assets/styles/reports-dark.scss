@@ -165,7 +165,7 @@ a {
     }
 
     .product-row, .sport-row {
-        background-color: #56533C;
+        background-color: #2E2C1F;
         color: #fff;
         cursor: pointer;
     }
@@ -191,7 +191,7 @@ a {
     }
 
     .format-negative {
-        color: #b50000;
+        color: #E54748;
     }
 
     .col-insurance-gems-win-loss {
@@ -623,6 +623,43 @@ table.dataTable {
         .product-detail-multiselect-container {
             .multiselect-container.dropdown-menu {
                 width: auto !important;
+            }
+        }
+    }
+}
+// custom css table
+
+#tbl-enteredresult-report {
+    thead {
+        tr th {
+            &:last-child {
+                border-right: 0 !important;
+            }
+        }
+
+        &.tableFloatingHeaderOriginal {
+            tr {
+                &:first-child {
+                    th {
+                        border-bottom-color: #171717 !important;
+                    }
+                }
+
+                &.thead-row2 {
+                    th {
+                        background-color: #303030;
+                        border-right-color: #494B52 !important;
+                        border-bottom-color: #3E3F41 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+                border-top: 1px solid #3E3F41;
             }
         }
     }
