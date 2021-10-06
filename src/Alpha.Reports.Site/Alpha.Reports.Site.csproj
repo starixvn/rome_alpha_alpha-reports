@@ -892,6 +892,10 @@
     <Content Include="assets\bundles\agent.min.css">
       <DependentUpon>agent.css</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\betchoicematching\betchoicematching-dark.css" />
+    <Content Include="assets\bundles\betchoicematching\betchoicematching-dark.min.css">
+      <DependentUpon>betchoicematching-dark.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\betchoicematching\betchoicematching.css" />
     <Content Include="assets\bundles\betchoicematching\betchoicematching.js" />
     <Content Include="assets\bundles\betchoicematching\betchoicematching.min.css">
