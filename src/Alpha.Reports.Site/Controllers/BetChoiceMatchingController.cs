@@ -1,9 +1,11 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
-    using Alpha.Reports.Site.Requests.BetChoiceMatching;
-    using MediatR;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.Requests.BetChoiceMatching;
+    using Alpha.SecurityCode.Filters;
+    using MediatR;
 
+    [SecurityCodeFilter(isBetLists: true)]
     public class BetChoiceMatchingController : ReportBaseController
     {
         public BetChoiceMatchingController(IMediator mediator) : base(mediator)

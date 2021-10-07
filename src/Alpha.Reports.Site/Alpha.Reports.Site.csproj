@@ -71,8 +71,8 @@
     <Reference Include="Alpha.NetThrottling.Mvc, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.NetThrottling.Mvc.1.0.14\lib\net461\Alpha.NetThrottling.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Alpha.SecurityCode, Version=3.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.SecurityCode.3.0.0.8\lib\net461\Alpha.SecurityCode.dll</HintPath>
+    <Reference Include="Alpha.SecurityCode, Version=3.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.SecurityCode.3.0.0.9-beta03\lib\net461\Alpha.SecurityCode.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.StaticData, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.StaticData.1.0.1.0\lib\net40\Alpha.StaticData.dll</HintPath>
