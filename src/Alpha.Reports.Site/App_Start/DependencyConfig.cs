@@ -3,10 +3,6 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
-    using Alpha.NetThrottling;
-    using Alpha.NetThrottling.Models;
-    using Alpha.NetThrottling.Resolvers;
-    using Alpha.NetThrottling.Utils;
     using Alpha.Reports.Features.BonusDetail;
     using Alpha.Reports.Site.Features.SuperWinLossDetailByPT;
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
@@ -58,8 +54,6 @@
             RegisterDataAccesses(container);
 
             RegisterServices(container);
-
-            RegisterNetThrottling(container);
 
             // This is an extension method from the integration package.
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
@@ -197,16 +191,6 @@
         private static void RegisterStaticInstances(Container container)
         {
             ReportDateServiceImpl.Instance = container.GetInstance<ReportDateService>();
-        }
-
-        private static void RegisterNetThrottling(Container container)
-        {
-            container.Register<INetThrottler, NetThrottler>(Lifestyle.Scoped);
-            container.Register<IThrottleSetting, ThrottleSetting>(Lifestyle.Scoped);
-            container.Register<IClock, Clock>(Lifestyle.Scoped);
-            container.Register<ILogger, Logger>(Lifestyle.Scoped);
-            container.Register<ICacheServiceFactory, CacheServiceFactory>(Lifestyle.Scoped);
-            container.Register<IResolver, BaseResolver>(Lifestyle.Scoped);
         }
     }
 }
