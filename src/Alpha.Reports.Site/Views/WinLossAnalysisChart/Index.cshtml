@@ -6,7 +6,7 @@
     ViewBag.Title = "Win Loss Analysis Chart Report";
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, (string)ViewData["TitleLevel"], false, true, false, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty), Request.Url.Query)
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty), Request.Url.Query)
 
 <form class="form-inline filter @(Model.FilterViewModel.Visible ? string.Empty : "hide")" role="form" id="report-form">
 
@@ -71,7 +71,7 @@
 </div>
 
 @Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
-<input type="hidden" value="@(!string.IsNullOrWhiteSpace((string)ViewData["DarkModeName"]) ? "1" : "0")" id="hidden-isDarkMode" />
+<input type="hidden" value="@(Model.IsDarkMode ? "1" : "0")" id="hidden-isDarkMode" />
 @section Scripts {
     @StaticResources.AssetScripts.Render("/bundles/site-reports/winloss-analysis-chart")
     @StaticResources.RenderScripts("~/assets/bundles/winlossanalysischart/winlossanalysischart")

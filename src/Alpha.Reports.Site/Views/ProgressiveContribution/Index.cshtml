@@ -5,7 +5,7 @@
 @section Styles {
     @StaticResources.RenderStyles("~/assets/bundles/progressivecontribution/progressivecontribution")
 }
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, (string)ViewData["TitleLevel"], Model.CustLevel.IsMasterOrSuperLevel(), true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, Model.CustLevel.IsMasterOrSuperLevel(), true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
 <form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
     @Html.Hidden("IsFilterVisible", Model.IsFilterVisible ? "true" : "false")
     @Html.Hidden("CustId", Model.CustId)

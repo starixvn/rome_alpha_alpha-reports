@@ -4,7 +4,7 @@
     ViewBag.Title = "Entered Results";
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, (string)ViewData["TitleLevel"], false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty))
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty))
 
 @Html.Partial("~/Features/EnteredResult/Views/Filter.cshtml", Model.FilterViewModel)
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tablesorter" id="tbl-enteredresult-report"

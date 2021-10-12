@@ -7,7 +7,7 @@
     @StaticResources.RenderStyles("~/assets/bundles/statement/statement")
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Resources.DailyStatement + " - " + Model.CustName, (string)ViewData["TitleLevel"], false, true, false, Model.IsFilterVisible, null, null))
+@ReportTitle.Render(new PageHeaderViewModel(Resources.DailyStatement + " - " + Model.CustName, false, true, false, Model.IsFilterVisible, null, null))
 
 <form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty:"hide")" role="form" id="report-form">
     <div class="form-group">

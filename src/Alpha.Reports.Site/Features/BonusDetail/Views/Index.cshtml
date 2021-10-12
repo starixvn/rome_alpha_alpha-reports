@@ -11,7 +11,7 @@
     @StaticResources.RenderScripts("~/Features/BonusDetail/Bundles/bonusdetail")
 }
 @{
-    @ReportTitle.Render(new PageHeaderViewModel(Resources.BonusDetail, (string)ViewData["TitleLevel"], false, true, false, Model.IsFilterVisible, null, null, new InfoIconWithTargetURLViewModel(Model.GuidelineURL(), "_blank")));
+    @ReportTitle.Render(new PageHeaderViewModel(Resources.BonusDetail, false, true, false, Model.IsFilterVisible, null, null, new InfoIconWithTargetURLViewModel(Model.GuidelineURL(), "_blank")));
     Html.RenderPartial("~/Features/BonusDetail/Views/_Filter.cshtml", Model);
 }
 <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover">

@@ -14,7 +14,7 @@
         {
             // Arrange
             var title = "Title";
-            var pageHeaderViewModel = new PageHeaderViewModel(title, "super", false, false, false, false, null, string.Empty);
+            var pageHeaderViewModel = new PageHeaderViewModel(title, false, false, false, false, null, string.Empty);
             var expectedTitle = title;
 
             // Act
@@ -25,28 +25,12 @@
         }
 
         [Theory]
-        [InlineData("super")]
-        [InlineData("master")]
-        [InlineData("agent")]
-        public void IsShowActionIcons_HasStackIconOrHasFilterIcon_ReturnsTrue(string expectedTitleLevel)
-        {
-            // Arrange
-            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, expectedTitleLevel, false, false, false, false, null, string.Empty);
-
-            // Act
-            var actualTitleLevel = pageHeaderViewModel.TitleLevel;
-
-            // Assert
-            Assert.Equal(expectedTitleLevel, actualTitleLevel);
-        }
-
-        [Theory]
         [InlineData(false)]
         [InlineData(true)]
         public void HasStackIcon_Always_ReturnsHasStackIconSetFromConstructor(bool expectedHasStackIcon)
         {
             // Arrange
-            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, "super", expectedHasStackIcon, false, false, false, null, string.Empty);
+            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, expectedHasStackIcon, false, false, false, null, string.Empty);
 
             // Act
             var actualHasStackIcon = pageHeaderViewModel.HasStackIcon;
@@ -61,7 +45,7 @@
         public void HasHideFilterIcon_Always_ReturnsHasHideFilterIconSetFromConstructor(bool expectedHasHideFilterIcon)
         {
             // Arrange
-            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, "super", false, expectedHasHideFilterIcon, false, false, null, string.Empty);
+            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, false, expectedHasHideFilterIcon, false, false, null, string.Empty);
 
             // Act
             var actualHasHideFilterIcon = pageHeaderViewModel.HasHideFilterIcon;
@@ -76,7 +60,7 @@
         public void IsStackMode_Always_ReturnsIsStackModeSetFromConstructor(bool expectedIsStackMode)
         {
             // Arrange
-            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, "super", false, false, expectedIsStackMode, false, null, string.Empty);
+            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, false, false, expectedIsStackMode, false, null, string.Empty);
 
             // Act
             var actualIsStackMode = pageHeaderViewModel.IsStackMode;
@@ -91,7 +75,7 @@
         public void IsFilterVisible_Always_ReturnsIsFilterVisibleSetFromConstructor(bool expectedIsFilterVisible)
         {
             // Arrange
-            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, "super", false, false, false, expectedIsFilterVisible, null, string.Empty);
+            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, false, false, false, expectedIsFilterVisible, null, string.Empty);
 
             // Act
             var actualHideFilter = pageHeaderViewModel.IsFilterVisible;
@@ -112,7 +96,6 @@
                 "LevelJson");
             var pageHeaderViewModel = new PageHeaderViewModel(
                 string.Empty,
-                "super",
                 false,
                 false,
                 false,
@@ -134,7 +117,7 @@
         public void IsShowActionIcons_HasStackIconOrHasFilterIcon_ReturnsTrue(bool hasStackIcon, bool hasHideFilterIcon)
         {
             // Arrange
-            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, "super", hasStackIcon, hasHideFilterIcon, false, false, null, string.Empty);
+            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, hasStackIcon, hasHideFilterIcon, false, false, null, string.Empty);
 
             // Act
             var actualIsShowActionIcons = pageHeaderViewModel.IsShowActionIcons;
@@ -147,7 +130,7 @@
         public void IsShowActionIcons_NotHaveStackIconAndHasFilterIcon_ReturnsTrue()
         {
             // Arrange
-            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, "super", false, false, false, false, null, string.Empty);
+            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, false, false, false, false, null, string.Empty);
 
             // Act
             var actualIsShowActionIcons = pageHeaderViewModel.IsShowActionIcons;

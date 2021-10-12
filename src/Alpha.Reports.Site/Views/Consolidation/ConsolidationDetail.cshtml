@@ -5,7 +5,7 @@
 }
 
 @ReportTitle.Render(
-    new PageHeaderViewModel(Resources.Consolidation, (string)ViewData["TitleLevel"], true, true, Model.IsStackMode, filter.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson),
+    new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, filter.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson),
     Request.Url.Query,
     Model.BreadcrumbActions)
 

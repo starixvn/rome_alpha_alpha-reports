@@ -2,19 +2,17 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Win Loss Report";
-    var darkModeName = ViewData["DarkModeName"];
 }
 
 @section Styles {
-    @StaticResources.AssetStyles.RenderCommon($"/bundles/site-asset/data-table{darkModeName}")
-    @StaticResources.AssetStyles.RenderCommon($"/bundles/site-asset/daterangepicker{darkModeName}")
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/data-table")
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/daterangepicker")
     @StaticResources.RenderStyles("~/Features/WinLoss/Bundles/winloss")
     @StaticResources.RenderStylesWithMedia(767, "~/Features/WinLoss/Bundles/winloss-mobile-calculate-07")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(
     Model.Title,
-    (string)ViewData["TitleLevel"],
     false, true, false,
     Model.IsFilterVisible,
     Model.BreadcrumbLevel,

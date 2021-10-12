@@ -30,6 +30,7 @@
             CurrencyName = string.Equals(viewer.CurrencyName, WonInEnglish, StringComparison.OrdinalIgnoreCase)
                 ? Resources.KoreanWon
                 : viewer.CurrencyName;
+            DarkModeName = viewer.DarkModeName;
         }
 
         public string UserSelectedProductIds { get; set; }
@@ -37,5 +38,7 @@
         public bool IsFilterVisible { get; set; } = true;
 
         public string CurrencyName { get; set; }
+
+        public string DarkModeName { get;  }
     }
 }

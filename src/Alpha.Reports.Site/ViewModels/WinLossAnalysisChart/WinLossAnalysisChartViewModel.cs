@@ -29,6 +29,7 @@
             ReportData = reportData;
 
             Title = Resources.MonthlyWinLossChart;
+            IsDarkMode = !string.IsNullOrWhiteSpace(message.DarkModeName);
         }
 
         public string Title { get; }
@@ -81,5 +82,7 @@
                 ReportData.Select(x => x.WinLoss).JoinWithComma(),
                 ReportData.Select(x => x.Turnover).JoinWithComma(),
                 message.CurrencyName);
+
+        public bool IsDarkMode { get; }
     }
 }

@@ -3,10 +3,7 @@
 
 @helper Render(PageHeaderViewModel model, string currentRequestQuery = null, IEnumerable<string> breadcrumbParamByLevel = null)
 {
-    <div class="page-title title-@model.TitleLevel
-         @(model.IsStackMode ? "stack-mode" : string.Empty)
-         @(model.IsFilterVisible ? string.Empty : "hide-filter")">
-
+    <div class="page-title @(model.IsStackMode ? "stack-mode" : string.Empty) @(model.IsFilterVisible ? string.Empty : "hide-filter")">
         @if (!string.IsNullOrWhiteSpace(model.Title))
         {
             <span class="text-title pull-left">@model.Title</span>

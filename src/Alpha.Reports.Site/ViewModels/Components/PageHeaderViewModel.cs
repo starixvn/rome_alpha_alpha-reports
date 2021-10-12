@@ -7,7 +7,6 @@
     {
         public PageHeaderViewModel(
             string title,
-            string titleLevel,
             bool hasStackIcon,
             bool hasHideFilterIcon,
             bool isStackMode,
@@ -17,7 +16,6 @@
             InfoIconWithTargetURLViewModel infoIcon = null)
         {
             Title = title;
-            TitleLevel = titleLevel;
             HasStackIcon = hasStackIcon;
             HasHideFilterIcon = hasHideFilterIcon;
             IsStackMode = isStackMode;
@@ -41,7 +39,5 @@
         public BreadcrumbLevelViewModel BreadcrumbLevelViewModel { get; set; }
 
         public InfoIconWithTargetURLViewModel InfoIcon { get; }
-
-        public string TitleLevel { get; }
     }
 }

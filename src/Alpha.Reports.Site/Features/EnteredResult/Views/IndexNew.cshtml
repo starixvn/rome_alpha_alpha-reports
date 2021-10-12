@@ -2,18 +2,16 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Entered Results";
-    var darkModeName = ViewData["DarkModeName"];
 }
 
 @section Styles {
-    @StaticResources.AssetStyles.RenderCommon($"/bundles/site-asset/data-table{darkModeName}")
-    @StaticResources.AssetStyles.RenderCommon($"/bundles/site-asset/daterangepicker{darkModeName}")
-    @StaticResources.RenderStylesWithMedia(767, $"~/Features/EnteredResult/Bundles/enteredresult-mobile-calculate-07")
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/data-table")
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/daterangepicker")
+    @StaticResources.RenderStylesWithMedia(767, "~/Features/EnteredResult/Bundles/enteredresult-mobile-calculate-07")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(
     Model.Title,
-    (string)ViewData["TitleLevel"],
     false, true, false, false,
     Enumerable.Empty<CustInfo>(),
     string.Empty))

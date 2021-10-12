@@ -9,13 +9,13 @@
 }
 
 @section Styles {
-	@StaticResources.AssetStyles.RenderCommon($"/bundles/site-asset/data-table{ViewData["DarkModeName"]}")
+	@StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/data-table")
 	@StaticResources.RenderStylesWithMedia(767, "~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
 }
 
 @model OutstandingViewModel
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, (string)ViewData["TitleLevel"], false, true, false, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
 <form class="form-inline filter form-report @(Model.IsFilterVisible ? string.Empty:"hide")" role="form" id="report-form">
 	@ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
