@@ -383,7 +383,7 @@ a {
 }
 
 // report-legend
-#report-legend {
+#report-legend, #product-pt-list-popup {
     overflow: hidden;
     width: 100%;
     height: auto;
@@ -663,4 +663,9 @@ table.dataTable {
             }
         }
     }
+}
+//report bonus detail
+
+.icon-payment {
+    background: url(images/payment.svg) no-repeat center!important;
 }
