@@ -98,5 +98,9 @@
   {
     "outputFile": "assets/styles/matchwinlossdetail/matchwinlossdetail-dark.css",
     "inputFile": "assets/styles/matchwinlossdetail/matchwinlossdetail-dark.scss"
+  },
+  {
+    "outputFile": "Features/BonusDetail/Styles/bonus-detail-dark.css",
+    "inputFile": "Features/BonusDetail/Styles/bonus-detail-dark.scss"
   }
 ]

@@ -450,5 +450,11 @@
       "assets/scripts/components/link-builder.js",
       "Features/SuperWinLossDetailByPT/Scripts/superwinlossdetailbypt.js"
     ]
+  },
+  {
+    "outputFileName": "Features/BonusDetail/Bundles/bonusdetail-dark.css",
+    "inputFiles": [
+      "Features/BonusDetail/Styles/bonus-detail-dark.css"
+    ]
   }
 ]

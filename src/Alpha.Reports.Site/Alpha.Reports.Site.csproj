@@ -86,7 +86,7 @@
       <HintPath>..\..\packages\Alpha.Utilities.IP.1.0.3.2\lib\net461\Alpha.Utilities.IP.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.Web, Version=1.0.8.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Web.1.0.8.6-dark10\lib\net461\Alpha.Web.dll</HintPath>
+      <HintPath>..\..\packages\Alpha.Web.1.0.8.6-dark12\lib\net461\Alpha.Web.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
@@ -976,6 +976,10 @@
     <Content Include="assets\bundles\statement\statement-details.min.js">
       <DependentUpon>statement-details.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\statement\statement.css" />
+    <Content Include="assets\bundles\statement\statement.min.css">
+		<DependentUpon>statement.css</DependentUpon>
+	</Content>
     <Content Include="assets\bundles\super-dark.css" />
     <Content Include="assets\bundles\super-dark.min.css">
       <DependentUpon>super-dark.css</DependentUpon>
@@ -1106,6 +1110,10 @@
     <Content Include="assets\styles\themes\page-title-super.min.css">
       <DependentUpon>page-title-super.css</DependentUpon>
     </Content>
+    <Content Include="Features\BonusDetail\Bundles\bonusdetail-dark.css" />
+    <Content Include="Features\BonusDetail\Bundles\bonusdetail-dark.min.css">
+      <DependentUpon>bonusdetail-dark.css</DependentUpon>
+    </Content>
     <Content Include="Features\BonusDetail\Bundles\bonusdetail.css" />
     <Content Include="Features\BonusDetail\Bundles\bonusdetail.js" />
     <Content Include="Features\BonusDetail\Bundles\bonusdetail.min.css">
@@ -1122,8 +1130,14 @@
     <Content Include="Features\BonusDetail\Bundles\confirmpayment.min.js">
       <DependentUpon>confirmpayment.js</DependentUpon>
     </Content>
+    <Content Include="Features\BonusDetail\Styles\bonus-detail-dark.css">
+      <DependentUpon>bonus-detail-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BonusDetail\Styles\bonus-detail-dark.min.css">
+      <DependentUpon>bonus-detail-dark.css</DependentUpon>
+    </Content>
     <Content Include="Features\BonusDetail\Styles\bonus-detail.css">
-      <DependentUpon>confirm-payment.scss</DependentUpon>
+      <DependentUpon>bonus-detail.scss</DependentUpon>
     </Content>
     <Content Include="Features\BonusDetail\Styles\bonus-detail.min.css">
       <DependentUpon>bonus-detail.css</DependentUpon>
@@ -1134,6 +1148,7 @@
     <Content Include="Features\BonusDetail\Styles\confirm-payment.min.css">
       <DependentUpon>confirm-payment.css</DependentUpon>
     </Content>
+    <Content Include="Features\BonusDetail\Styles\Images\payment-dark.svg" />
     <Content Include="Features\BonusDetail\Styles\Images\payment.svg" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-mobile-calculate-07.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-mobile-calculate-07.min.css">
@@ -1434,6 +1449,7 @@
     <Content Include="Features\SuperWinLossDetailByPT\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Features\BonusDetail\Styles\bonus-detail-dark.scss" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
