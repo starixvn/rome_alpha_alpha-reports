@@ -239,7 +239,8 @@
             {
                 Resources.GrossCommNoteForConsolidationReportSuper,
                 Resources.GrossCommNoteForConsolidationReportMaster,
-                Resources.GrossCommNoteForConsolidationReportAgent
+                Resources.GrossCommNoteForConsolidationReportAgent,
+                Resources.GrossCommNoteForCasino
             };
     }
 }

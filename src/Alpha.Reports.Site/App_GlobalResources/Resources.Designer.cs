@@ -898,6 +898,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In some Casino products, if the Position Taking/Commission Rate is changed during a game or a day, the Gross Comm value displayed on the report will be the approximate value calculated from the average Position Taking/Commission Rate..
+        /// </summary>
+        public static string GrossCommNoteForCasino {
+            get {
+                return ResourceManager.GetString("GrossCommNoteForCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Viewing at Agent level: the commission (without PT) that Agent can receive from upline..
         /// </summary>
         public static string GrossCommNoteForConsolidationReportAgent {

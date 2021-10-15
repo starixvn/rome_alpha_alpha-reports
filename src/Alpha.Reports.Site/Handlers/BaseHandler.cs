@@ -159,25 +159,31 @@
 
         protected internal IEnumerable<string> GetGrossCommNotes(UserLevel viewerLevel)
         {
+            IList<string> grossCommNotes;
+
             if (viewerLevel.IsSuperLevel())
             {
-                return GetSuperGrossCommNotes();
+                grossCommNotes = GetSuperGrossCommNotes();
             }
-
-            if (viewerLevel.IsMasterLevel())
+            else if (viewerLevel.IsMasterLevel())
             {
-                return GetMasterGrossCommNotes();
+                grossCommNotes = GetMasterGrossCommNotes();
             }
-
-            if (viewerLevel.IsAgentLevel())
+            else if (viewerLevel.IsAgentLevel())
             {
-                return GetAgentGrossCommNotes();
+                grossCommNotes = GetAgentGrossCommNotes();
+            }
+            else
+            {
+                grossCommNotes = new List<string>();
             }
 
-            return Enumerable.Empty<string>();
+            grossCommNotes.Add(Resources.GrossCommNoteForCasino);
+
+            return grossCommNotes;
         }
 
-        private IEnumerable<string> GetSuperGrossCommNotes()
+        private IList<string> GetSuperGrossCommNotes()
             => new List<string>
             {
                 Resources.GrossCommNoteForMaster,
@@ -185,14 +191,14 @@
                 Resources.GrossCommNoteForMember
             };
 
-        private IEnumerable<string> GetMasterGrossCommNotes()
+        private IList<string> GetMasterGrossCommNotes()
             => new List<string>
             {
                 Resources.GrossCommNoteForAgent,
                 Resources.GrossCommNoteForMember
             };
 
-        private IEnumerable<string> GetAgentGrossCommNotes()
+        private IList<string> GetAgentGrossCommNotes()
             => new List<string>
             {
                 Resources.GrossCommNoteForMember

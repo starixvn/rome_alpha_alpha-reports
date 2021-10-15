@@ -867,4 +867,7 @@
   <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
     <value>- 對於 {0}，淨投注額 也是 總投注額 但不包括 作廢/取消/退款 的 注單。</value>
   </data>
+  <data name="GrossCommNoteForCasino" xml:space="preserve">
+    <value>在某些娛樂場產品中，若佔成數/佣金在遊戲中或一天中發生變化，則報告上顯示的總佣金值將是根據平均佔成數/佣金率計算所得出的近似值。</value>
+  </data>
 </root>
