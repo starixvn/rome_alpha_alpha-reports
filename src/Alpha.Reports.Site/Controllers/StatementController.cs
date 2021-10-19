@@ -2,8 +2,10 @@
 {
     using System.Web.Mvc;
     using Alpha.Reports.Site.Requests.Statement;
+    using Alpha.SecurityCode.Filters;
     using MediatR;
 
+    [SecurityCodeFilter(isStatement: true)]
     public class StatementController : ReportBaseController
     {
         public StatementController(IMediator mediator) : base(mediator)
