@@ -64,6 +64,8 @@
 
         public bool IsInternal => userSession.IsInternal;
 
+        public bool IsProtectedMode => userSession.IsProtectedMode;
+
         internal virtual IList<int> GetEnableProductsForGame(string gameName)
             => userSession.GetProperty<IList<int>>(SessionKey.GameEnable + gameName) ?? new List<int>();
     }

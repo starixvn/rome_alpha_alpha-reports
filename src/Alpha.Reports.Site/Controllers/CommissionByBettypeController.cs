@@ -1,9 +1,11 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
     using System.Web.Mvc;
+    using Alpha.Web.Filters;
     using MediatR;
     using Requests.CommissionByBettype;
 
+    [AllowProtectedMode]
     public class CommissionByBettypeController : ReportBaseController
     {
         public CommissionByBettypeController(IMediator mediator) : base(mediator)

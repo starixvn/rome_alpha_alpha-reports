@@ -42,5 +42,7 @@
         string IP { get; }
 
         bool IsInternal { get; }
+
+        bool IsProtectedMode { get; }
     }
 }
