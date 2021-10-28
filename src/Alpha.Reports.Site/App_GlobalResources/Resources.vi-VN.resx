@@ -887,4 +887,7 @@
   <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
     <value>- Đối với {0}, Tiền Cược Thực là Tiền Cược không bao gồm các vé cược bị Vô hiệu/Huỷ/Hoàn lại.</value>
   </data>
+  <data name="GrossCommNoteForCasino" xml:space="preserve">
+    <value>Đối với một số sản phẩm Sòng Bạc, nếu Position Taking/Tỷ Lệ Hoa Hồng thay đổi trong một trò chơi hoặc một ngày, thì giá trị Tổng Hoa Hồng hiển thị trên báo cáo sẽ là giá trị gần đúng được tính từ Position Taking/Tỷ Lệ Hoa Hồng trung bình.</value>
+  </data>
 </root>

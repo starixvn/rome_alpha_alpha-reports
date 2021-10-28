@@ -951,4 +951,7 @@
   <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
     <value>- For {0}, Net Turnover is Turnover which excludes the Void/Reject/Refund tickets.</value>
   </data>
+  <data name="GrossCommNoteForCasino" xml:space="preserve">
+    <value>In some Casino products, if the Position Taking/Commission Rate is changed during a game or a day, the Gross Comm value displayed on the report will be the approximate value calculated from the average Position Taking/Commission Rate.</value>
+  </data>
 </root>
