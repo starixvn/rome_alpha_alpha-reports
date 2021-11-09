@@ -60,11 +60,11 @@
                  productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
         }
 
-        protected IEnumerable<ConsolidationByUsernameViewModel> BuildWinLossByUsernameViewModel(
-            IEnumerable<ConsolidationByUsername> models,
+        protected IEnumerable<ConsolidationEntityViewModel> BuildWinLossByUsernameViewModel(
+            IEnumerable<ConsolidationEntity> models,
             IDictionary<byte, string> currencies)
             => models.Select(model =>
-                new ConsolidationByUsernameViewModel(
+                new ConsolidationEntityViewModel(
                     model.CustId,
                     model.CustLevel,
                     model.Username,
@@ -159,5 +159,75 @@
                 productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds),
                 query.IsEnableSabaPromotionForHeadline);
         }
+
+        protected IEnumerable<ConsolidationByUsernameViewModel> BuildConsolidationByUsernameViewModel(
+            IEnumerable<ConsolidationByUsername> consolidationByUsernames,
+            IDictionary<byte, string> currencies)
+            => consolidationByUsernames.GroupBy(
+                consolidation => consolidation.CustId,
+                (custIdKey, consolidationByCustIds) =>
+                {
+                    var total = new ConsolidationByUsernameViewModel();
+                    var consolidationByCustIdList = consolidationByCustIds.OrderByDescending(c => c.PositionTaking).ToList();
+
+                    consolidationByCustIdList.ForEach(item => total = AccumulateTotal(total, item, currencies));
+                    total.Children = BuildConsolidationByUsernameViewModelGroupByPT(consolidationByCustIdList);
+
+                    return total;
+                });
+
+        private static IEnumerable<ConsolidationByUsernameViewModel> BuildConsolidationByUsernameViewModelGroupByPT(
+            IEnumerable<ConsolidationByUsername> consolidationByUsernames)
+            => consolidationByUsernames.GroupBy(
+                consolidation => consolidation.PositionTaking,
+                (ptKey, consolidationByPTs) =>
+                {
+                    var total = new ConsolidationByUsernameViewModel();
+                    var consolidationByPTList = consolidationByPTs.OrderByDescending(c => c.Turnover).ToList();
+
+                    consolidationByPTList.ForEach(item => total = AccumulateTotal(total, item));
+                    total.Children = consolidationByPTList.Select(c => new ConsolidationByUsernameViewModel(
+                        c.CustId,
+                        c.CustLevel,
+                        c.Username,
+                        c.CurrencyId,
+                        c.Turnover,
+                        c.GrossComm,
+                        c.MemberWinLoss,
+                        c.MemberComm,
+                        c.MemberTotal,
+                        c.OwnerTurnover,
+                        c.OwnerWinLoss,
+                        c.OwnerComm,
+                        c.OwnerTotal,
+                        c.Company,
+                        c.BetCount,
+                        productName: c.ProductName));
+
+                    return total;
+                });
+
+        private static ConsolidationByUsernameViewModel AccumulateTotal(
+            ConsolidationByUsernameViewModel source,
+            ConsolidationByUsername destination,
+            IDictionary<byte, string> currencies = null)
+            => new ConsolidationByUsernameViewModel(
+                destination.CustId,
+                destination.CustLevel,
+                destination.Username,
+                destination.CurrencyId,
+                source.Turnover + destination.Turnover,
+                source.GrossComm + destination.GrossComm,
+                source.MemberWinLoss + destination.MemberWinLoss,
+                source.MemberComm + destination.MemberComm,
+                source.MemberTotal + destination.MemberTotal,
+                source.OwnerTurnover + destination.OwnerTurnover,
+                source.OwnerWinLoss + destination.OwnerWinLoss,
+                source.OwnerComm + destination.OwnerComm,
+                source.OwnerTotal + destination.OwnerTotal,
+                source.Company + destination.Company,
+                source.BetCount + destination.BetCount,
+                currencies == null ? null : currencies[destination.CurrencyId],
+                positionTaking: destination.PositionTaking);
     }
 }

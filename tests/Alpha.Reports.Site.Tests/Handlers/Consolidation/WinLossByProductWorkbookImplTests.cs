@@ -32,11 +32,11 @@
 
             var data = new List<ConsolidationByProductViewModel>
             {
-                new ConsolidationByProductViewModel(1, "Product 1", Enumerable.Empty<ConsolidationByUsernameViewModel>()),
+                new ConsolidationByProductViewModel(1, "Product 1", Enumerable.Empty<ConsolidationEntityViewModel>()),
                 new ConsolidationByProductViewModel(
                     2,
                     "Product 2",
-                    new List<ConsolidationByUsernameViewModel> { anyValueCreatorFixture.Create<ConsolidationByUsernameViewModel>() })
+                    new List<ConsolidationEntityViewModel> { anyValueCreatorFixture.Create<ConsolidationEntityViewModel>() })
             };
 
             winLossByProductWorkbookImpl.Body(data, null);

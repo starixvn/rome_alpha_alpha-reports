@@ -3,6 +3,7 @@
     using System.Collections.Specialized;
     using System.Configuration;
     using Alpha.Reports.Configurations;
+    using Alpha.Reports.Tests.Extensions;
     using Xunit;
 
     public class SiteSettingsTests
@@ -119,6 +120,129 @@
 
             // Assert
             Assert.Equal(expectedSetting, actualSetting);
+        }
+
+        [Theory]
+        [InlineData(null, false)]
+        [InlineData("", false)]
+        [InlineData("0", false)]
+        [InlineData("1", true)]
+        public void IsOfferJackpotProductDetails_Always_ReturnsCorrectSetting(string isOfferJackpotProductDetails, bool expected)
+        {
+            // Arrange
+            SiteSettings.AppSettings = new NameValueCollection
+            {
+                ["IsOfferJackpotProductDetails"] = isOfferJackpotProductDetails
+            };
+
+            // Act
+            var actualSetting = SiteSettings.IsOfferJackpotProductDetails;
+
+            // Assert
+            Assert.Equal(expected, actualSetting);
+        }
+
+        [Fact]
+        public void OfferSabaPromotionSites_Null_ReturnsNullCollection()
+        {
+            // Arrange & Act
+            var actualSetting = SiteSettings.OfferSabaPromotionSites;
+
+            // Assert
+            Assert.Null(actualSetting);
+        }
+
+        [Fact]
+        public void OfferSabaPromotionSites_Empty_ReturnsEmptyCollection()
+        {
+            // Arrange
+            SiteSettings.AppSettings = new NameValueCollection
+            {
+                ["EnableProduct-37:Sites"] = string.Empty
+            };
+
+            // Act
+            var actualSetting = SiteSettings.OfferSabaPromotionSites;
+
+            // Assert
+            Assert.Empty(actualSetting);
+        }
+
+        [Fact]
+        public void OfferSabaPromotionSites_HasData_ReturnsCorrectSetting()
+        {
+            // Arrange
+            SiteSettings.AppSettings = new NameValueCollection
+            {
+                ["EnableProduct-37:Sites"] = "1,2,3,4,5,6"
+            };
+            var expectedSetting = new[] { "1", "2", "3", "4", "5", "6" };
+
+            // Act
+            var actualSetting = SiteSettings.OfferSabaPromotionSites;
+
+            // Assert
+            AssertExtension.Equal(actualSetting, expectedSetting);
+        }
+
+        [Fact]
+        public void OfferSabaPromotionHeadlineSites_Null_ReturnsNullCollection()
+        {
+            // Arrange & Act
+            var actualSetting = SiteSettings.OfferSabaPromotionHeadlineSites;
+
+            // Assert
+            Assert.Null(actualSetting);
+        }
+
+        [Fact]
+        public void OfferSabaPromotionHeadlineSites_Empty_ReturnsEmptyCollection()
+        {
+            // Arrange
+            SiteSettings.AppSettings = new NameValueCollection
+            {
+                ["EnableProduct-37:HLSites"] = string.Empty
+            };
+
+            // Act
+            var actualSetting = SiteSettings.OfferSabaPromotionHeadlineSites;
+
+            // Assert
+            Assert.Empty(actualSetting);
+        }
+
+        [Fact]
+        public void OfferSabaPromotionHeadlineSites_HasData_ReturnsCorrectSetting()
+        {
+            // Arrange
+            SiteSettings.AppSettings = new NameValueCollection
+            {
+                ["EnableProduct-37:HLSites"] = "1,2,3,4,5,6"
+            };
+            var expectedSetting = new[] { "1", "2", "3", "4", "5", "6" };
+
+            // Act
+            var actualSetting = SiteSettings.OfferSabaPromotionHeadlineSites;
+
+            // Assert
+            AssertExtension.Equal(actualSetting, expectedSetting);
+        }
+
+        [Fact]
+        public void AllowedSitesToViewBonusDetail_HasData_ReturnsCorrectSetting()
+        {
+            // Arrange
+            SiteSettings.AppSettings = new NameValueCollection
+            {
+                ["AllowedSitesToViewBonusDetail"] = "a,b,c,d,e,f"
+            };
+            var expected = new[] { "A", "B", "C", "D", "E", "F" };
+
+            // Act
+            var actualSetting = SiteSettings.AllowedSitesToViewBonusDetail;
+
+            // Assert
+            AssertExtension.Equal(actualSetting, expected);
         }
     }
 }

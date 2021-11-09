@@ -53,7 +53,7 @@
             };
 
             var param = new GetConsolidationParam(0, 0, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1 }, new List<int> { 1 }, string.Empty);
-            var row = new ConsolidationByUsernameViewModel(1, 1, "Member", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
+            var row = new ConsolidationEntityViewModel(1, 1, "Member", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 query,
@@ -61,7 +61,7 @@
                 anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ProductDetailViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
-                anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());
+                new[] { new ConsolidationByUsernameViewModel() });
             var drilldownFromDate = drilldownDate == null ? (DateTime?)null : Convert.ToDateTime(drilldownDate);
             var expectedFromDate = Convert.ToDateTime(expectedDate);
 
@@ -101,9 +101,9 @@
                 anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ProductDetailViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
-                anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());
+                new[] { new ConsolidationByUsernameViewModel() });
             DateTime? drilldownFromDate = null;
-            var row = new ConsolidationByUsernameViewModel(1, 2, "Agent", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
+            var row = new ConsolidationEntityViewModel(1, 2, "Agent", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
 
             // Act
             viewModel.BuildDrillDownLink(
@@ -138,7 +138,7 @@
                 anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ProductDetailViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
-                anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());
+                new[] { new ConsolidationByUsernameViewModel() });
             var drilldownFromDate = new DateTime(2017, 9, 1);
 
             // Act
@@ -147,7 +147,7 @@
                 "drilldownFromType",
                 "1",
                 drilldownFromDate,
-                anyValueCreatorFixture.Create<ConsolidationByUsernameViewModel>());
+                anyValueCreatorFixture.Create<ConsolidationEntityViewModel>());
 
             // Assert
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(

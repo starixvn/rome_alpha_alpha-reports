@@ -6,7 +6,10 @@
     using Alpha.Reports.DataAccesses;
     using Alpha.Web.Helpers;
     using Constants;
+    using Fanex.Caching;
     using Fanex.Data.Repository;
+    using Fanex.Logging;
+    using Fanex.Logging.RabbitMQ;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
@@ -30,6 +33,7 @@
         private readonly WinLossDetailDataAccess winLossDetailDataAccess;
         private readonly ProductService productService;
         private readonly Func<int, string> getProductName;
+        private readonly ICacheService cacheService;
 
         public ConsolidationServiceImplTests(AnyValueCreatorFixture anyValueCreatorFixture)
         {
@@ -61,7 +65,16 @@
             winLossDetailDataAccess = Substitute.For<WinLossDetailDataAccess>();
             productService = Substitute.For<ProductService>();
             partialUMService = Substitute.For<PartialUMService>();
-            consolidationServiceImpl = new ConsolidationServiceImpl(dynamicRepository, reportDateService, cacheRefService, winLossDetailDataAccess, productService, getProductName, partialUMService);
+            cacheService = Substitute.For<ICacheService>();
+            consolidationServiceImpl = new ConsolidationServiceImpl(
+                dynamicRepository,
+                reportDateService,
+                cacheRefService,
+                winLossDetailDataAccess,
+                productService,
+                getProductName,
+                partialUMService,
+                cacheService);
 
             compareLogic = new CompareLogic();
             getProductName = Substitute.For<Func<int, string>>();
@@ -101,34 +114,15 @@
                 new Product(5, null, minDate, 0, 0, cacheRefService.GetProductName),
                 new Product(11, null, null, 0, 0, cacheRefService.GetProductName)
             };
+            cacheService
+                .GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>())
+                .Returns(expectedProducts);
 
             // Act
             var actualProducts = consolidationServiceImpl.GetProducts(param, isEnableSabaPromotion: false);
 
             // Assert
             Assert.True(compareLogic.Compare(expectedProducts, actualProducts.ToList()).AreEqual);
-        }
-
-        [Fact]
-        public void GetConsolidationByUsername_Always_ReturnsDataFromDynamicRepository()
-        {
-            // Arrange
-            var data = new List<ConsolidationByUsername>
-            {
-                anyValueCreatorFixture.Create<ConsolidationByUsername>(),
-                anyValueCreatorFixture.Create<ConsolidationByUsername>(),
-                anyValueCreatorFixture.Create<ConsolidationByUsername>()
-            };
-
-            dynamicRepository.Fetch<ConsolidationByUsername>(Arg.Any<GetConsolidationCriteria>()).Returns(data);
-            var param = anyValueCreatorFixture.Create<GetConsolidationParam>();
-            var expectedData = data;
-
-            // Act
-            var actualData = consolidationServiceImpl.GetConsolidationByUsername(param);
-
-            // Assert
-            Assert.Equal(expectedData, actualData);
         }
 
         [Fact]
@@ -181,6 +175,17 @@
             // Arrange
             IEnumerable<int> productIds = null;
             var expectedProductIds = new List<int> { 1, 2, 5, 11 };
+            var minDate = DefaultVariablesTest.CurrentDate;
+            IEnumerable<Product> products = new List<Product>
+            {
+                new Product(id: 1, name: null, endOfSupportDate: minDate, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 2, name: null, endOfSupportDate: minDate, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 5, name: null, endOfSupportDate: minDate, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 11, name: null, endOfSupportDate: null, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName)
+            };
+            cacheService
+                .GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>())
+                .Returns(products);
 
             // Act
             var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate, isEnableSabaPromotion: false);
@@ -195,6 +200,17 @@
             // Arrange
             var productIds = Enumerable.Empty<int>();
             var expectedProductIds = new List<int> { 1, 2, 5, 11 };
+            var minDate = DefaultVariablesTest.CurrentDate;
+            IEnumerable<Product> products = new List<Product>
+            {
+                new Product(id: 1, name: null, endOfSupportDate: minDate, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 2, name: null, endOfSupportDate: minDate, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 5, name: null, endOfSupportDate: minDate, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 11, name: null, endOfSupportDate: null, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName)
+            };
+            cacheService
+                .GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>())
+                .Returns(products);
 
             // Act
             var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate, isEnableSabaPromotion: false);
@@ -209,6 +225,15 @@
             // Arrange
             var productIds = new List<int> { 1, 3, 5 };
             var expectedProductIds = new List<int> { 1, 5 };
+            var minDate = DefaultVariablesTest.CurrentDate;
+            IEnumerable<Product> products = new List<Product>
+            {
+                new Product(id: 1, name: null, endOfSupportDate: minDate, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 5, name: null, endOfSupportDate: minDate, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName),
+            };
+            cacheService
+                .GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>())
+                .Returns(products);
 
             // Act
             var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate, isEnableSabaPromotion: false);
@@ -229,7 +254,9 @@
                 new Product(id: 5, name: null, endOfSupportDate: minDate, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName),
                 new Product(id: 11, name: null, endOfSupportDate: null, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName)
             };
-
+            cacheService
+                .GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>())
+                .Returns(products);
             var expectedValue = new ConsolidationExcludeProduct(products);
 
             // Act
@@ -238,5 +265,10 @@
             // Assert
             Assert.True(compareLogic.Compare(expectedValue, actualValue).AreEqual);
         }
+
+        private static void ArrangeFanexLogging()
+            => LogManager
+            .SetDefaultLogCategory("Alpha-MBC-AF-Local")
+            .Use(new RabbitMQLogging("host=ha.nexdev.net:5672;virtualHost=/Fanex_Logging;username=fanexlogging;password=YKQrMtla7oYZGlP8apPtSw=="));
     }
 }

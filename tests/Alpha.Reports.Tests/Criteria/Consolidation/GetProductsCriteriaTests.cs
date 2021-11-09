@@ -50,5 +50,15 @@
             // Assert
             Assert.True(actualIsValid);
         }
+
+        [Fact]
+        public void SettingStatus_Always_ReturnsZero()
+        {
+            // Arrange & Act
+            var criteria = new GetConsolidationReportProductsCriteria(1);
+
+            // Assert
+            Assert.Equal(0, criteria.SettingStatus);
+        }
     }
 }

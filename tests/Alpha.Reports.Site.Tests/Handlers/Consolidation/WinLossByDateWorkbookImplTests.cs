@@ -29,10 +29,10 @@
 
             var data = new List<ConsolidationByDateViewModel>
             {
-                new ConsolidationByDateViewModel(DefaultVariablesTest.CurrentDate, Enumerable.Empty<ConsolidationByUsernameViewModel>()),
+                new ConsolidationByDateViewModel(DefaultVariablesTest.CurrentDate, Enumerable.Empty<ConsolidationEntityViewModel>()),
                 new ConsolidationByDateViewModel(
                     DefaultVariablesTest.CurrentDate,
-                    new List<ConsolidationByUsernameViewModel> { anyValueCreatorFixture.Create<ConsolidationByUsernameViewModel>() })
+                    new List<ConsolidationEntityViewModel> { anyValueCreatorFixture.Create<ConsolidationEntityViewModel>() })
             };
 
             winLossByDateWorkbookImpl.Body(data, null);

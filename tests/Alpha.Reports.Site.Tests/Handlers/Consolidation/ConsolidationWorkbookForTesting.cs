@@ -7,7 +7,7 @@
 
     public class ConsolidationWorkbookForTesting : ConsolidationWorkbook<ConsolidationByDateViewModel>
     {
-        public void CallSetWinLossByUsernameValue(ConsolidationByUsernameViewModel data, Row row)
+        public void CallSetWinLossByUsernameValue(ConsolidationEntityViewModel data, Row row)
         {
             SetWinLossByUsernameValue(data, row);
         }

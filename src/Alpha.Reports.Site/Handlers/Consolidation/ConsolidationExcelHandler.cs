@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Alpha.Reports.Params;
-    using Alpha.Reports.Site.Requests.WinLossDetail;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -15,7 +14,6 @@
     using Requests.Consolidation;
     using Services;
     using ViewModels;
-    using ViewModels.Consolidation;
     using static ONEbook.SpreadSheets.Column;
 
     public class ConsolidationExcelHandler :
@@ -25,7 +23,7 @@
         IRequestHandler<ConsolidationByProductExcelQuery, ExcelFileViewModel>,
         IRequestHandler<ConsolidationDetailExcelQuery, ExcelFileViewModel>
     {
-        private readonly Workbook<ConsolidationByUsernameViewModel> workbook;
+        private readonly ConsolidationByUsernameWorkbook consolidationByUsernameWorkbook;
         private readonly Workbook<WinLossDetailModel> workbookForDetail;
         private readonly ConsolidationByDateWorkbook consolidationByDateWorkbook;
         private readonly ConsolidationByProductWorkbook consolidationByProductWorkbook;
@@ -36,14 +34,14 @@
             ConsolidationService reportService,
             CacheRefService cacheRefService,
             IUser viewer,
-            Workbook<ConsolidationByUsernameViewModel> workbook,
+            ConsolidationByUsernameWorkbook consolidationByUsernameWorkbook,
             Workbook<WinLossDetailModel> workbookForDetail,
             ConsolidationByDateWorkbook consolidationByDateWorkbook,
             ConsolidationByProductWorkbook consolidationByProductWorkbook,
             ProductDetailService productDetailService) :
             base(reportService, cacheRefService, viewer, productDetailService)
         {
-            this.workbook = workbook;
+            this.consolidationByUsernameWorkbook = consolidationByUsernameWorkbook;
             this.workbookForDetail = workbookForDetail;
             this.consolidationByDateWorkbook = consolidationByDateWorkbook;
             this.consolidationByProductWorkbook = consolidationByProductWorkbook;
@@ -59,13 +57,13 @@
             var currencies = reportService
                 .GetCurrencies(new GetCurrencyParam(message.ViewerId))
                 .ToDictionary(c => c.Id, c => c.Name);
-            var viewModels = BuildWinLossByUsernameViewModel(reportData, currencies);
+            var viewModels = BuildConsolidationByUsernameViewModel(reportData, currencies);
 
-            var fileContent = workbook
+            var fileContent = consolidationByUsernameWorkbook
+                .SetData(viewModels)
                 .UseTemplate(GetTemplateInfo("ConsolidationByUsername"))
                 .Title(GetReporTitle(param, Resources.ConsolidationReportByUsername, currencies))
                 .Header(Resources.ResourceManager.GetString)
-                .Body(viewModels, GetRowMapper())
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
@@ -172,27 +170,6 @@
                 productNames,
                 "-",
                 currencyName);
-        }
-
-        internal Mapper<ConsolidationByUsernameViewModel> GetRowMapper()
-        {
-            var mapper = new Mapper<ConsolidationByUsernameViewModel>()
-                .Map(A, winLoss => winLoss.CustLevelName)
-                .Map(B, winLoss => winLoss.Username)
-                .Map(C, winLoss => winLoss.CurrencyName)
-                .Map(D, winLoss => winLoss.Turnover)
-                .Map(E, winLoss => winLoss.GrossComm)
-                .Map(F, winLoss => winLoss.MemberWinLoss)
-                .Map(G, winLoss => winLoss.MemberComm)
-                .Map(H, winLoss => winLoss.MemberTotal)
-                .Map(I, winLoss => winLoss.OwnerTurnover)
-                .Map(J, winLoss => winLoss.OwnerWinLoss)
-                .Map(K, winLoss => winLoss.OwnerComm)
-                .Map(L, winLoss => winLoss.OwnerTotal)
-                .Map(M, winLoss => winLoss.Company)
-                .Map(N, winLoss => winLoss.BetCount);
-
-            return mapper;
         }
 
         private string GetExcelFileName(GetConsolidationParam param)

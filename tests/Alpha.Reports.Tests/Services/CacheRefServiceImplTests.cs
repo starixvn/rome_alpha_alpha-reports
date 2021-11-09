@@ -136,5 +136,59 @@
             // Assert
             Assert.Equal(expectedResult, actualResult);
         }
+
+        [Fact]
+        public void GetOddsTypeName_Always_ReturnsCorrectOddsTypeName()
+        {
+            // Arrange
+            var oddsTypeId = "123456";
+            var expectedResult = "qwerty";
+
+            remotingRefService
+                .GetOddsTypeName(oddsTypeId, "en-US")
+                .Returns(expectedResult);
+
+            // Act
+            var actualResult = cacheRefService.GetOddsTypeName(oddsTypeId);
+
+            // Assert
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Fact]
+        public void GetProductName_Always_ReturnsCorrectProductName()
+        {
+            // Arrange
+            var productId = 20;
+            var expectedResult = "qwerty";
+
+            remotingRefService
+                .GetResourceDataByRefIdAndResourceId("Product", productId.ToString(), "en-US", string.Empty)
+                .Returns(expectedResult);
+
+            // Act
+            var actualResult = cacheRefService.GetProductName(productId);
+
+            // Assert
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Fact]
+        public void GetProductDetailName_Always_ReturnsCorrectProductDetailName()
+        {
+            // Arrange
+            var resourceId = 12;
+            var expectedResult = "qwerty";
+
+            remotingRefService
+                .GetResourceDataByRefIdAndResourceId("ProductDetail", resourceId.ToString(), "en-US", string.Empty)
+                .Returns(expectedResult);
+
+            // Act
+            var actualResult = cacheRefService.GetProductDetailName(resourceId);
+
+            // Assert
+            Assert.Equal(expectedResult, actualResult);
+        }
     }
 }

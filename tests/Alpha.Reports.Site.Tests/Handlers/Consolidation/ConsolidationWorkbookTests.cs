@@ -31,7 +31,7 @@
         public void SetWinLossByUsernameValue_Always_SetsValuesToCorrectColumns()
         {
             // Arrange
-            var data = new ConsolidationByUsernameViewModel(
+            var data = new ConsolidationEntityViewModel(
                 custId: anyValueCreatorFixture.Create<int>(),
                 custLevel: anyValueCreatorFixture.Create<byte>(),
                 username: anyValueCreatorFixture.Create<string>(),
@@ -78,13 +78,13 @@
 
             var data = new List<ConsolidationByDateViewModel>
             {
-                new ConsolidationByDateViewModel(anyValueCreatorFixture.Create<DateTime>(), Enumerable.Empty<ConsolidationByUsernameViewModel>()),
+                new ConsolidationByDateViewModel(anyValueCreatorFixture.Create<DateTime>(), Enumerable.Empty<ConsolidationEntityViewModel>()),
                 new ConsolidationByDateViewModel(
                     anyValueCreatorFixture.Create<DateTime>(),
-                    new List<ConsolidationByUsernameViewModel>
+                    new List<ConsolidationEntityViewModel>
                     {
-                        anyValueCreatorFixture.Create<ConsolidationByUsernameViewModel>(),
-                        anyValueCreatorFixture.Create<ConsolidationByUsernameViewModel>()
+                        anyValueCreatorFixture.Create<ConsolidationEntityViewModel>(),
+                        anyValueCreatorFixture.Create<ConsolidationEntityViewModel>()
                     })
             };
             consolidationWorkbook.Body(data, null);

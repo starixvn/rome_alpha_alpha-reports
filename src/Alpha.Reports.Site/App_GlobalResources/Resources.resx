@@ -954,4 +954,10 @@
   <data name="GrossCommNoteForCasino" xml:space="preserve">
     <value>In some Casino products, if the Position Taking/Commission Rate is changed during a game or a day, the Gross Comm value displayed on the report will be the approximate value calculated from the average Position Taking/Commission Rate.</value>
   </data>
+  <data name="UsernamePTProduct" xml:space="preserve">
+    <value>Username/PT/Product</value>
+  </data>
+  <data name="ConsolidationPTNote" xml:space="preserve">
+    <value>PT values shown in the report are the Max PT of {0}</value>
+  </data>
 </root>
