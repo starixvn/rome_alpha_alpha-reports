@@ -338,6 +338,13 @@ a {
     @include ripple-effect-icon($margin-left: 2px, $height: 36px, $width: 36px, $top: -2px);
 }
 
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    background-color: #474747;
+}
+
+
+
+
 @media only screen and (max-device-width: 767px) and (orientation: portrait) {
     #icon-information {
         position: relative;
