@@ -44,7 +44,8 @@ class DualAxisChartComponent {
 
         if (chartOptions.isDarkMode) {
             chartStyles = new ChartStyles("#41a4ff", "#f2f2f2");
-            xAxesGridLines = yAxesGridLines = { color: "#444" };
+            xAxesGridLines = { color: "#444", zeroLineColor: "#555" };
+            yAxesGridLines = { color: "#444", drawOnChartArea: false };
         }
 
         this.chart.defaults.global.defaultFontFamily = chartStyles.fontFamily;
