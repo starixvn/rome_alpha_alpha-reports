@@ -908,6 +908,10 @@
     <Content Include="assets\bundles\commissionbybettype\commissionbybettype.min.js">
       <DependentUpon>commissionbybettype.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\consolidation\consolidation-dark.css" />
+    <Content Include="assets\bundles\consolidation\consolidation-dark.min.css">
+      <DependentUpon>consolidation-dark.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\consolidation\consolidation-detail.js" />
     <Content Include="assets\bundles\consolidation\consolidation-detail.min.js">
       <DependentUpon>consolidation-detail.js</DependentUpon>
@@ -1047,6 +1051,12 @@
     </Content>
     <Content Include="assets\styles\betchoicematching\betchoicematching.min.css">
       <DependentUpon>betchoicematching.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\consolidation\consolidation-dark.css">
+      <DependentUpon>consolidation-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\consolidation\consolidation-dark.min.css">
+      <DependentUpon>consolidation-dark.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\consolidation\consolidation.css">
       <DependentUpon>consolidation.scss</DependentUpon>
@@ -1226,6 +1236,7 @@
     <Content Include="assets\styles\themes\page-title-agent-dark.scss" />
     <Content Include="assets\styles\themes\page-title-master-dark.scss" />
     <Content Include="assets\styles\themes\page-title-super-dark.scss" />
+    <Content Include="assets\styles\consolidation\consolidation-dark.scss" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>

@@ -324,7 +324,6 @@
   },
   {
     "outputFileName": "assets/bundles/consolidation/consolidation.css",
-
     "inputFiles": [
       "assets/styles/consolidation/consolidation.css"
     ]
@@ -455,6 +454,12 @@
     "outputFileName": "Features/BonusDetail/Bundles/bonusdetail-dark.css",
     "inputFiles": [
       "Features/BonusDetail/Styles/bonus-detail-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/consolidation/consolidation-dark.css",
+    "inputFiles": [
+      "assets/styles/consolidation/consolidation-dark.css"
     ]
   }
 ]

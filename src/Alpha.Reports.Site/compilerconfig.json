@@ -102,5 +102,9 @@
   {
     "outputFile": "Features/BonusDetail/Styles/bonus-detail-dark.css",
     "inputFile": "Features/BonusDetail/Styles/bonus-detail-dark.scss"
+  },
+  {
+    "outputFile": "assets/styles/consolidation/consolidation-dark.css",
+    "inputFile": "assets/styles/consolidation/consolidation-dark.scss"
   }
 ]
