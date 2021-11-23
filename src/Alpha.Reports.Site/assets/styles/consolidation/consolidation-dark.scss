@@ -16,7 +16,7 @@
     }
 
     .username-row {
-        background-color: #fbe0c5;
+         
         cursor: pointer;
 
         > td {
@@ -37,7 +37,7 @@
     }
 
     .consolidation-pt-row {
-        background-color: #fef7f0;
+   
 
         &:hover {
             cursor: default;
@@ -52,7 +52,7 @@
         position: absolute;
         right: 0;
         top: 4px;
-        background: url("../images/percent.svg") center center no-repeat;
+        background: url("../images/percent-dark.svg") center center no-repeat;
         display: inline-block;
         width: 12px;
         height: 12px;
