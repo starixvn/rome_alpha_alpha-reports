@@ -40,4 +40,8 @@
   <Function Name="Super Win Loss Detail By PT">
     <Setting Key="EAS_GetPTProductBySuper" SpName="EAS_GetPTProductBySuper" DbName="DBACC.bodb02.BODBDownlineNet" />
   </Function>
+
+  <Function Name="Consolidation Report by Username">
+    <Setting Key="EAS_GetPTProductBySMA" SpName="EAS_GetPTProductBySMA" DbName="DBACC.bodb02.BODBDownlineNet" />
+  </Function>
 </Functions>

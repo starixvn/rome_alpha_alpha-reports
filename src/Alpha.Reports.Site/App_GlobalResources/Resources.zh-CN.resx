@@ -870,4 +870,10 @@
   <data name="GrossCommNoteForCasino" xml:space="preserve">
     <value>在某些娱乐场产品中，若占成数/佣金在游戏中或一天中发生变化，则报告上显示的总佣金值将是根据平均占成数/佣金率计算所得出的近似值。</value>
   </data>
+  <data name="UsernamePTProduct" xml:space="preserve">
+    <value>用户名/占成数/产品</value>
+  </data>
+  <data name="ConsolidationPTNote" xml:space="preserve">
+    <value>占成数值在报告中显示为最高占成的 {0}</value>
+  </data>
 </root>

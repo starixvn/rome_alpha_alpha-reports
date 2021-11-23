@@ -7,7 +7,7 @@
         public ConsolidationByProductViewModel(
             int productId,
             string productName,
-            IEnumerable<ConsolidationByUsernameViewModel> winLossByUsername)
+            IEnumerable<ConsolidationEntityViewModel> winLossByUsername)
         {
             ProductId = productId;
             ProductName = productName;
@@ -18,6 +18,6 @@
 
         public string ProductName { get; }
 
-        public IEnumerable<ConsolidationByUsernameViewModel> WinLossByUsername { get; }
+        public IEnumerable<ConsolidationEntityViewModel> WinLossByUsername { get; }
     }
 }

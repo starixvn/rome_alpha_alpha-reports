@@ -8,7 +8,7 @@
 
     public class ConsolidationWorkbook<T> : NpoiWorkbook<T> where T : class
     {
-        protected void SetWinLossByUsernameValue(ConsolidationByUsernameViewModel data, Row row)
+        protected void SetWinLossByUsernameValue(ConsolidationEntityViewModel data, Row row)
         {
             var custLevelNameIndex = 1;
             row.SetCellValue(custLevelNameIndex++, data.CustLevelName);

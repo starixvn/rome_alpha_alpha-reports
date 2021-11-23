@@ -102,7 +102,7 @@
             string drilldownFromType,
             string drilldownFromProductIds,
             DateTime? drilldownDate,
-            ConsolidationByUsernameViewModel data)
+            ConsolidationEntityViewModel data)
         {
             if (data.CustLevel == UserLevel.Member.Value)
             {
@@ -143,7 +143,7 @@
         }
 
         private string BuildBetListLink(
-            ConsolidationByUsernameViewModel data,
+            ConsolidationEntityViewModel data,
             string drilldownFromProductIds,
             DateTime? drilldownDate)
         {

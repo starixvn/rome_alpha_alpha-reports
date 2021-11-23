@@ -178,5 +178,34 @@
             // Assert
             Assert.Equal(expectedValue, actualValue);
         }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("     ")]
+        public void ToIntDictionary_NullOrWhiteSpace_ReturnsEmpty(string value)
+        {
+            // Arrange & Act
+            var actualValue = value.ToIntDictionary();
+
+            // Assert
+            Assert.Empty(actualValue);
+        }
+
+        [Fact]
+        public void ToIntDictionary_IsNotNullOrWhiteSpace_ReturnsDictionary()
+        {
+            // Arrange
+            var value = "1,2,3,4";
+
+            // Act
+            var actualValue = value.ToIntDictionary();
+
+            // Assert
+            Assert.True(actualValue[1]
+                && actualValue[2]
+                && actualValue[3]
+                && actualValue[4]);
+        }
     }
 }

@@ -3,7 +3,6 @@
     using System.Web.Mvc;
     using MediatR;
     using Reports.Models;
-    using Reports.Models.WinLossDetail;
     using Requests.Consolidation;
     using ViewModels.Consolidation;
 

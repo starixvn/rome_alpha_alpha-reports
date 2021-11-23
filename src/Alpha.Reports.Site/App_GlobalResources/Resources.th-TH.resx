@@ -865,4 +865,10 @@
   <data name="GrossCommNoteForCasino" xml:space="preserve">
     <value>ในผลิตภัณฑ์คาสิโนบางประเภท หากค่าความเสี่ยง/ค่าคอมมิชชั่นมีการเปลี่ยนแปลงระหว่างเกมหรือระหว่างวัน ยอดรวมของคอมมิชชั่นที่แสดงในรายงานจะเป็นค่าโดยประมาณที่คำนวณจากอัตราเฉลี่ยของค่าความเสี่ยง/อัตราค่าคอมมิชชั่น</value>
   </data>
+  <data name="UsernamePTProduct" xml:space="preserve">
+    <value>ชื่อผู้ใช้ระบบ/ค่าความเสี่ยง/ผลิตภัณฑ์</value>
+  </data>
+  <data name="ConsolidationPTNote" xml:space="preserve">
+    <value>ค่าความเสี่ยงที่แสดงในรายงานคือ “ค่าความเสี่ยงสูงสุด” ของ{0}</value>
+  </data>
 </root>

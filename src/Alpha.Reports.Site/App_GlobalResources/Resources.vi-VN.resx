@@ -890,4 +890,10 @@
   <data name="GrossCommNoteForCasino" xml:space="preserve">
     <value>Đối với một số sản phẩm Sòng Bạc, nếu Position Taking/Tỷ Lệ Hoa Hồng thay đổi trong một trò chơi hoặc một ngày, thì giá trị Tổng Hoa Hồng hiển thị trên báo cáo sẽ là giá trị gần đúng được tính từ Position Taking/Tỷ Lệ Hoa Hồng trung bình.</value>
   </data>
+  <data name="UsernamePTProduct" xml:space="preserve">
+    <value>Tên đăng nhập/PT/Sản phẩm</value>
+  </data>
+  <data name="ConsolidationPTNote" xml:space="preserve">
+    <value>Giá trị PT được hiển thị trong báo cáo là PT Lớn Nhất của {0}</value>
+  </data>
 </root>

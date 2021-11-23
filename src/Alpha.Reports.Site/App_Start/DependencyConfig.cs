@@ -124,7 +124,8 @@
                 container.GetInstance<WinLossDetailDataAccess>(),
                 container.GetInstance<ProductService>(),
                 new CacheRefServiceImpl(new RemotingRefService()).GetProductName,
-                container.GetInstance<PartialUMService>()),
+                container.GetInstance<PartialUMService>(),
+                container.GetInstance<ICacheService>()),
                 Lifestyle.Singleton);
 
             container.Register<ProductDetailService>(
@@ -150,6 +151,7 @@
             container.RegisterSingleton<MemberStatementWorkbook, MemberStatementWorkbookImpl>();
             container.RegisterSingleton<StatementWorkbook, StatementWorkbookImpl>();
 
+            container.RegisterSingleton<ConsolidationByUsernameWorkbook, WinLossByUsernameWorkbookImpl>();
             container.RegisterSingleton<ConsolidationByDateWorkbook, WinLossByDateWorkbookImpl>();
             container.RegisterSingleton<ConsolidationByProductWorkbook, ConsolidationByProductWorkbookImpl>();
 

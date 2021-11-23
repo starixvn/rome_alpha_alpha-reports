@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics;
     using System.Linq;
     using Alpha.Reports.Criteria.WinLossDetail;
     using Alpha.Reports.DataAccesses;
@@ -9,9 +11,13 @@
     using Alpha.Reports.Models.WinLossDetail;
     using Alpha.Reports.Params;
     using Alpha.Web.Helpers;
+    using CasinoLibrary.Model.UserException;
+    using CasinoLibrary.SBAgent;
     using Constants;
     using Criteria.Consolidation;
+    using Fanex.Caching;
     using Fanex.Data.Repository;
+    using Fanex.Logging.Extensions.Web;
     using Models;
     using Models.Consolidation;
     using Params.Consolidation;
@@ -47,8 +53,10 @@
 
         private readonly Func<int, string> getProductName;
         private readonly PartialUMService partialUMService;
+        private readonly ICacheService cacheService;
 
         private const int SabaPromotionProductId = 37;
+        private const int CustProductsCacheTimeInMinutes = 2;
 
         public ConsolidationServiceImpl(
             IDynamicRepository dynamicRepository,
@@ -57,7 +65,8 @@
             WinLossDetailDataAccess winLossDetailDataAccess,
             ProductService productService,
             Func<int, string> getProductName,
-            PartialUMService partialUMService)
+            PartialUMService partialUMService,
+            ICacheService cacheService)
         {
             this.dynamicRepository = dynamicRepository;
             this.reportDateService = reportDateService;
@@ -66,6 +75,7 @@
             this.productService = productService;
             this.getProductName = getProductName;
             this.partialUMService = partialUMService;
+            this.cacheService = cacheService;
         }
 
         public IEnumerable<CurrencyModel> GetCurrencies(GetCurrencyParam param)
@@ -80,20 +90,26 @@
         }
 
         public IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param, bool isEnableSabaPromotion)
-        {
-            var products = dynamicRepository.Fetch<ConsolidationProduct>(new GetConsolidationReportProductsCriteria(param.CustId))
-                  .Where(product => IsRemainSupportProduct(product, param.MinDate))
-                  .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, cacheRefService.GetProductName));
+            => cacheService
+                .GetOrSet(
+                $"Alpha.Reports.Services.Impl.ConsolidationProductsForCustomer-{param.CustId}-{isEnableSabaPromotion}",
+                () =>
+                {
+                    var products = dynamicRepository
+                        .Fetch<ConsolidationProduct>(new GetConsolidationReportProductsCriteria(param.CustId))
+                        .Where(product => IsRemainSupportProduct(product, param.MinDate))
+                        .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, cacheRefService.GetProductName));
 
-            if (isEnableSabaPromotion)
-            {
-                var sabaProduct = new Product(SabaPromotionProductId, null, products.Max(product => product.EndOfSupportDate), 0, 0, getProductName);
-                var sabaProducts = new List<Product> { sabaProduct };
-                products = sabaProducts.Concat(products);
-            }
+                    if (isEnableSabaPromotion)
+                    {
+                        var sabaProduct = new Product(SabaPromotionProductId, null, products.Max(product => product.EndOfSupportDate), 0, 0, getProductName);
+                        var sabaProducts = new List<Product> { sabaProduct };
+                        products = sabaProducts.Concat(products);
+                    }
 
-            return products;
-        }
+                    return products;
+                },
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
 
         public IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(GetConsolidationParam param)
         {
@@ -101,14 +117,16 @@
                 param,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                ConsolidationReportTypeConstants.Username,
+                ConsolidationReportTypeConstants.Product,
                 param.ProductDetailsXML);
 
             partialUMService.CheckPartialUM(criteria.GetSettingKey());
 
-            var data = dynamicRepository.Fetch<ConsolidationByUsername>(criteria);
+            var rawdata = dynamicRepository.Fetch<ConsolidationByUsername>(criteria);
 
-            return data;
+            return rawdata.Any()
+                ? GetConsolidationByUsername(rawdata)
+                : Enumerable.Empty<ConsolidationByUsername>();
         }
 
         public IEnumerable<ConsolidationByDate> GetConsolidationByDate(GetConsolidationParam param)
@@ -188,6 +206,82 @@
             var data = productService.GetProductsNeedDelayTimeToSumarizeData();
 
             return FilterProductIdsByCustomer(custId, data.Select(i => (int)i.ProductId), minReportDate, isEnableSabaPromotion);
+        }
+
+        private IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(IEnumerable<ConsolidationByUsername> rawdata)
+        {
+            var memberValue = UserLevel.Member.Value;
+            var smaCustIds = rawdata
+                .Where(c => c.CustLevel != memberValue)
+                .Select(c => c.CustId.ToString())
+                .Distinct()
+                .ToArray();
+
+            var ptList = GetSMAPositionTakingList(smaCustIds);
+
+            return from consolidation in rawdata
+                   join pt in ptList
+                      on new { consolidation.CustId, ProductId = consolidation.BreakDown }
+                      equals new { pt.CustId, pt.ProductId } into joinData
+                   from joinRecord in joinData.DefaultIfEmpty()
+                   orderby consolidation.Username
+                   select new ConsolidationByUsername(
+                       consolidation.BreakDown,
+                       consolidation.CustId,
+                       consolidation.Username,
+                       consolidation.CurrencyId,
+                       consolidation.CustLevel,
+                       consolidation.Turnover,
+                       consolidation.GrossComm,
+                       consolidation.MemberWinLoss,
+                       consolidation.MemberComm,
+                       consolidation.MemberTotal,
+                       consolidation.OwnerTurnover,
+                       consolidation.OwnerWinLoss,
+                       consolidation.OwnerComm,
+                       consolidation.OwnerTotal,
+                       consolidation.Company,
+                       consolidation.BetCount,
+                       cacheRefService.GetProductName(consolidation.BreakDown),
+                       joinRecord == null ? 0 : joinRecord.ValuePT);
+        }
+
+        private IEnumerable<SMAPositionTaking> GetSMAPositionTakingList(string[] smaCustIds)
+        {
+            var ptList = dynamicRepository.Fetch<SMAPositionTaking>(
+                new GetSMAPositionTakingCriteria(smaCustIds.JoinWithComma()));
+            var casinoSMAPTList = GetCasinoSMAPositionTakingList(smaCustIds);
+
+            return ptList.Concat(casinoSMAPTList);
+        }
+
+        private static IEnumerable<SMAPositionTaking> GetCasinoSMAPositionTakingList(string[] smaCustIds)
+        {
+            var customer = new Customer();
+            var ptList = new List<SMAPositionTaking>();
+
+            try
+            {
+                var ptTable = customer.GetCustDesktopPT(smaCustIds);
+
+                foreach (DataRow row in ptTable.Rows)
+                {
+                    ptList.Add(new SMAPositionTaking(
+                        Convert.ToInt32(row["OBSuperID"]),
+                        Convert.ToDecimal(row["PositionTaking"]),
+                        ProductIdConstants.RNGCasino));
+                }
+            }
+            catch (ErrorException casinoEx)
+            {
+                ExceptionHandler.Handle(new Exception(casinoEx.Message, casinoEx), TraceEventType.Information);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handle(ex);
+            }
+
+            return ptList;
         }
     }
 }

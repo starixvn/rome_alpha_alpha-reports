@@ -1,27 +1,70 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Consolidation
 {
-    using System.Diagnostics.CodeAnalysis;
-    using App_GlobalResources;
-    using Reports.Models;
-    using Reports.Models.Consolidation;
+    using System.Collections.Generic;
+    using Alpha.Reports.Models.Consolidation;
+    using Alpha.Reports.Site.App_GlobalResources;
 
-    public class ConsolidationByUsernameViewModel : ConsolidationByUsername
-    {        
-        public ConsolidationByUsernameViewModel(int custId, int custLevel, string username, byte currencyId, decimal turnover, decimal grossComm, decimal memberWinLoss, decimal memberComm, decimal memberTotal, decimal ownerTurnover, decimal ownerWinLoss, decimal ownerComm, decimal ownerTotal, decimal company, int betCount, string currencyName) :
-            base(custId, custId, username, currencyId, custLevel, turnover, grossComm, memberWinLoss, memberComm, memberTotal, ownerTurnover, ownerWinLoss, ownerComm, ownerTotal, company, betCount)
+    public class ConsolidationByUsernameViewModel : ConsolidationEntityViewModel
+    {
+        public ConsolidationByUsernameViewModel() : base()
         {
-            CurrencyName = currencyName;
         }
 
-        public string CurrencyName { get; }
+        public ConsolidationByUsernameViewModel(
+            int custId,
+            int custLevel,
+            string username,
+            byte currencyId,
+            decimal turnover,
+            decimal grossComm,
+            decimal memberWinLoss,
+            decimal memberComm,
+            decimal memberTotal,
+            decimal ownerTurnover,
+            decimal ownerWinLoss,
+            decimal ownerComm,
+            decimal ownerTotal,
+            decimal company,
+            int betCount,
+            string currencyName = null,
+            string productName = null,
+            decimal positionTaking = 0) : base(
+                custId,
+                custLevel,
+                username,
+                currencyId,
+                turnover,
+                grossComm,
+                memberWinLoss,
+                memberComm,
+                memberTotal,
+                ownerTurnover,
+                ownerWinLoss,
+                ownerComm,
+                ownerTotal,
+                company,
+                betCount,
+                currencyName)
+        {
+            ProductName = productName;
+            PositionTaking = positionTaking;
+        }
 
-        public string CustLevelName
-            => CustLevel == UserLevel.Super.Value
-            ? Resources.Super
-            : CustLevel == UserLevel.Master.Value
-            ? Resources.Master
-            : CustLevel == UserLevel.Agent.Value
-            ? Resources.Agent
-            : Resources.Member;
+        public string ProductName { get; }
+
+        public decimal PositionTaking { get; }
+
+        public string PositionTakingText
+        {
+            get
+            {
+                const int percentage = 100;
+                var positionTakingPercentage = PositionTaking * percentage;
+
+                return $"{positionTakingPercentage.ToString("#,##0.0")}% {Resources.PT}";
+            }
+        }
+
+        public IEnumerable<ConsolidationByUsernameViewModel> Children { get; set; }
     }
 }

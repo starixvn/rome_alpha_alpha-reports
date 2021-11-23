@@ -529,6 +529,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PT values shown in the report are the Max PT of {0}.
+        /// </summary>
+        public static string ConsolidationPTNote {
+            get {
+                return ResourceManager.GetString("ConsolidationPTNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Daily Consolidated Report.
         /// </summary>
         public static string ConsolidationReportByDate {
@@ -2415,6 +2424,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username/PT/Product.
+        /// </summary>
+        public static string UsernamePTProduct {
+            get {
+                return ResourceManager.GetString("UsernamePTProduct", resourceCulture);
             }
         }
         

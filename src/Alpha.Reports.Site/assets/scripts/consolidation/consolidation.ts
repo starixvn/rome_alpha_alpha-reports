@@ -25,6 +25,8 @@ class ConsolidationView extends BaseReport {
     $exportExcelForm: JQuery;
     $isFilterVisible: JQuery;
     $isStackMode: JQuery;
+    $productPTListPopup: JQuery;
+    productPTListHint: string;
 
     isFirstSwitchMode = true;
 
@@ -89,6 +91,9 @@ class ConsolidationView extends BaseReport {
 
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
+
+        this.$productPTListPopup = this.$("#consolidation-product-pt-list-popup");
+        this.productPTListHint = this.$("#product-pt-list-hint").html();
     }
 
     public registerEvents() {
@@ -103,6 +108,19 @@ class ConsolidationView extends BaseReport {
 
         this.$("[name=\"report-type\"]").click(function () {
             self.onChangeReportType(this$(this));
+        });
+
+        this.$tableReport.find(".username-row").click(function () {
+            self.collapseExpandRows(this$(this));
+        });
+
+        this.$tableReport.find(".downline-link").click(function (e) {
+            e.stopPropagation();
+        });
+
+        this.$tableReport.find(".view-product-pt-list").click(function (e) {
+            e.stopPropagation();
+            self.viewProductPTList(this$(this));
         });
     }
 
@@ -220,6 +238,50 @@ class ConsolidationView extends BaseReport {
         let action = actionElement.val();
         $reportForm.attr("action", action);
         $reportForm.submit();
+    };
+    collapseExpandRows = ($usernameRow) => {
+        const custId = $usernameRow.data("custid");
+        const $collapseExpandIcon = $usernameRow.find("#icon-" + custId);
+
+        if ($collapseExpandIcon.hasClass("icon-arrow-right")) {
+            $collapseExpandIcon.removeClass().addClass("icon-arrow-down");
+            this.$tableReport.find(".child-row-" + custId).removeClass("hide");
+        } else {
+            $collapseExpandIcon.removeClass().addClass("icon-arrow-right");
+            this.$tableReport.find(".child-row-" + custId).addClass("hide");
+        }
+    };
+    viewProductPTList = ($icon) => {
+        this.$("#product-pt-list-username").html($icon.data("username"));
+        this.$("#product-pt-list-content").html(this.buildProductPTListHtml($icon.data("custid")));
+        this.$("#product-pt-list-hint").html(this.productPTListHint.replace("{0}", $icon.data("userlevel")));
+
+        this.$productPTListPopup.modal({ show: true, backdrop: false });
+    };
+    buildProductPTListHtml = (custId: number) => {
+        let html = [];
+        const self = this;
+        this.$tableReport.find(".child-row-" + custId).each(function (index) {
+            const $this = self.$(this);
+            if ($this.hasClass("consolidation-pt-row")) {
+                if (index !== 0) {
+                    html.splice(-1);
+                    html.push("</li>");
+                }
+
+                html.push("<li>");
+                html.push($this.find(".group-pt").html());
+                html.push(": ");
+            } else {
+                html.push($this.find(".col-product").html());
+                html.push(", ");
+            }
+        });
+
+        html.splice(-1);
+        html.push("</li>");
+
+        return html.join("");
     };
 }
 

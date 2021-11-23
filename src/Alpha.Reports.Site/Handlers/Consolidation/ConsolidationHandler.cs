@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Alpha.Reports.Constants;
+    using Alpha.Reports.Models.Consolidation;
     using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
     using MediatR;
@@ -45,17 +46,18 @@
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
-            var data = reportService.GetConsolidationByUsername(param);
+            var data = reportService.GetConsolidationByUsername(param).ToList();
 
-            var viewModel = new ConsolidationReportByUsernameViewModel(
+            return new ConsolidationReportByUsernameViewModel(
                 message,
                 param,
                 BuildProductSelectListItems(param.ProductIds, consolidationExcludeProduct.Products),
                 BuildProductDetailViewModels(param.ResourceIds, productDetails),
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
-                BuildWinLossByUsernameViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)));
-
-            return viewModel;
+                data.Any()
+                    ? BuildConsolidationByUsernameViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)).ToList()
+                    : Enumerable.Empty<ConsolidationByUsernameViewModel>()
+            );
         }
 
         public ConsolidationReportByDateViewModel Handle(ConsolidationByDateQuery message)

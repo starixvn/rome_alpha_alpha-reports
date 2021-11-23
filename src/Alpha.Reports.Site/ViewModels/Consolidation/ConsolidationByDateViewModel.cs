@@ -6,7 +6,7 @@
 
     public class ConsolidationByDateViewModel
     {
-        public ConsolidationByDateViewModel(DateTime date, IEnumerable<ConsolidationByUsernameViewModel> winLossByUsername)
+        public ConsolidationByDateViewModel(DateTime date, IEnumerable<ConsolidationEntityViewModel> winLossByUsername)
         {
             Date = date;
             WinLossByUsername = winLossByUsername;
@@ -16,6 +16,6 @@
 
         public string DateText => Date.ToShortDateWithSlash();
 
-        public IEnumerable<ConsolidationByUsernameViewModel> WinLossByUsername { get; }
+        public IEnumerable<ConsolidationEntityViewModel> WinLossByUsername { get; }
     }
 }
