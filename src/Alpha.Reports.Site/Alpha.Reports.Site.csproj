@@ -1065,6 +1065,7 @@
       <DependentUpon>consolidation.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\images\ajax-loader-small.gif" />
+    <Content Include="assets\styles\images\percent-dark.svg" />
     <Content Include="assets\styles\images\percent.svg" />
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail-dark.css">
       <DependentUpon>matchwinlossdetail-dark.scss</DependentUpon>
