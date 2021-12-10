@@ -2,8 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics;
     using System.Linq;
     using Alpha.Reports.Criteria.WinLossDetail;
     using Alpha.Reports.DataAccesses;
@@ -11,13 +9,10 @@
     using Alpha.Reports.Models.WinLossDetail;
     using Alpha.Reports.Params;
     using Alpha.Web.Helpers;
-    using CasinoLibrary.Model.UserException;
-    using CasinoLibrary.SBAgent;
     using Constants;
     using Criteria.Consolidation;
     using Fanex.Caching;
     using Fanex.Data.Repository;
-    using Fanex.Logging.Extensions.Web;
     using Models;
     using Models.Consolidation;
     using Params.Consolidation;
@@ -213,10 +208,8 @@
             var memberValue = UserLevel.Member.Value;
             var smaCustIds = rawdata
                 .Where(c => c.CustLevel != memberValue)
-                .Select(c => c.CustId.ToString())
-                .Distinct()
-                .ToArray();
-
+                .Select(c => c.CustId)
+                .Distinct();
             var ptList = GetSMAPositionTakingList(smaCustIds);
 
             return from consolidation in rawdata
@@ -246,43 +239,8 @@
                        joinRecord == null ? 0 : joinRecord.ValuePT);
         }
 
-        private IEnumerable<SMAPositionTaking> GetSMAPositionTakingList(string[] smaCustIds)
-        {
-            var ptList = dynamicRepository.Fetch<SMAPositionTaking>(
-                new GetSMAPositionTakingCriteria(smaCustIds.JoinWithComma()));
-            var casinoSMAPTList = GetCasinoSMAPositionTakingList(smaCustIds);
-
-            return ptList.Concat(casinoSMAPTList);
-        }
-
-        private static IEnumerable<SMAPositionTaking> GetCasinoSMAPositionTakingList(string[] smaCustIds)
-        {
-            var customer = new Customer();
-            var ptList = new List<SMAPositionTaking>();
-
-            try
-            {
-                var ptTable = customer.GetCustDesktopPT(smaCustIds);
-
-                foreach (DataRow row in ptTable.Rows)
-                {
-                    ptList.Add(new SMAPositionTaking(
-                        Convert.ToInt32(row["OBSuperID"]),
-                        Convert.ToDecimal(row["PositionTaking"]),
-                        ProductIdConstants.RNGCasino));
-                }
-            }
-            catch (ErrorException casinoEx)
-            {
-                ExceptionHandler.Handle(new Exception(casinoEx.Message, casinoEx), TraceEventType.Information);
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.Handle(ex);
-            }
-
-            return ptList;
-        }
+        private IEnumerable<SMAPositionTaking> GetSMAPositionTakingList(IEnumerable<int> smaCustIds)
+            => dynamicRepository.Fetch<SMAPositionTaking>(new GetSMAPositionTakingCriteria(smaCustIds.JoinWithComma()));
 
         private static bool IsExcludedProduct(ConsolidationProduct product)
             => product.Id == ProductIdConstants.Cashout;

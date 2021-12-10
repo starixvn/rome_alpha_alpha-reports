@@ -54,21 +54,6 @@
         }
 
         [Fact]
-        public void IsEnabledJackpot_JackpotEnabled_ReturnTrue()
-        {
-            // Arrange
-            var userSession = Substitute.For<IUserSession>();
-            userSession.IsCasinoSync = true;
-            var user = new UserForTest(userSession);
-
-            // Act
-            var value = user.IsEnabledJackpot;
-
-            // Assert
-            Assert.True(value);
-        }
-
-        [Fact]
         public void LimitedDateToShowInfo_Always_ReturnCorrectValue()
         {
             // Arrange

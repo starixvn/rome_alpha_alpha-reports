@@ -5,7 +5,6 @@
     using System.Linq;
     using Alpha.Reports.Configurations;
     using Constants;
-    using Reports.Constants;
     using Reports.Models;
     using Sunplus.Agent.Model.Entities;
 
@@ -42,10 +41,7 @@
 
         public IList<int> EnableJackpotProductIds => GetEnableProductsForGame(Jackpot);
 
-        public bool IsEnabledJackpot
-            => EnableJackpotProductIds.Count == 1 && EnableJackpotProductIds.Contains(ProductIdConstants.RNGCasino)
-                ? userSession.IsCasinoSync
-                : EnableJackpotProductIds.Any();
+        public bool IsEnabledJackpot => EnableJackpotProductIds.Any();
 
         public DateTime LimitedDateToShowInfo => userSession.GetProperty<DateTime>(SessionKey.CustomerDatelimit);
 
