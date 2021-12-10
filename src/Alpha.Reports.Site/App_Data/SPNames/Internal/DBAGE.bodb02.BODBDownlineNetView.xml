@@ -119,4 +119,7 @@
       <Mapping DataField="PlayerComm" ObjectProperty="MemberComm" />
     </Setting>
   </Function>
+  <Function Name="Consolidation report">
+    <Setting Key="Age_Rpt_ConsolidatedGroup_isShownMenu" SpName="Age_Rpt_ConsolidatedGroup_isShownMenu" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
+  </Function>
 </Functions>
