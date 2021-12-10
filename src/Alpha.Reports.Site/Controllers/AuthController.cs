@@ -33,10 +33,14 @@ namespace Alpha.Reports.Site.Controllers
         // GET: Auth
         public ActionResult Index(string param)
         {
+            IUserSession session = UserSession.Current;
+            if (session.IsLogged)
+            {
+                return Redirect(FormsAuthentication.GetRedirectUrl(session.UserName, false));
+            }
+
             const int dwKeySize = 1024;
             var keyPath = Server.MapPath("~/IbcKeys/ibckey.snk");
-
-            // Get encrypted parameters: custid, subAccId, login time, passwordSeed, nick name, isNickName, __utms, language, no cross cookie
             var parameter = param + string.Empty;
             parameter = parameter.Replace(' ', '+');
             var encryption = new EncryptionThread();
@@ -87,10 +91,7 @@ namespace Alpha.Reports.Site.Controllers
 
             UserSession.Current.Language = language;
             UserSession.Current.LangKey = Language.LangKeyFromCulture(language);
-
             loginTime = new DateTime(timeTicks);
-
-            // Added device id for OTP 
             const string DeviceIdSessionKey = "ProcessAfterLogin_Handler.DeviceIdSessionKey";
             HttpContext.Session[DeviceIdSessionKey] = (string.IsNullOrWhiteSpace(ps[9]) ? "N/A" : ps[9]);
 
@@ -99,8 +100,6 @@ namespace Alpha.Reports.Site.Controllers
                 browserSize = Fanex.Common.Converter.ToString2(ps[10]);
             }
 
-            IUserSession session = UserSession.Current;
-            //Get Browser
             Hashtable requestInfo = GetRequestInfo(HttpContext.Request, browserSize);
             requestInfo["countrycode"] = ipService.GetIPInformation(AgentIPFormat.GetClientIP()).CountryShort;
 
@@ -129,7 +128,9 @@ namespace Alpha.Reports.Site.Controllers
 
             if (isSuccess)
             {
-                FormsAuthentication.SetAuthCookie(nickname, false);
+                FormsAuthentication.SetAuthCookie(session.UserName, false);
+
+                return Redirect(FormsAuthentication.GetRedirectUrl(session.UserName, false));
             }
 
             return new EmptyResult();
