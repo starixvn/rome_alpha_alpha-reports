@@ -36,7 +36,7 @@ namespace Alpha.Reports.Site.Controllers
             IUserSession session = UserSession.Current;
             if (session.IsLogged)
             {
-                return Redirect(FormsAuthentication.GetRedirectUrl(session.UserName, false));
+                return Json(Session.SessionID, JsonRequestBehavior.AllowGet);
             }
 
             const int dwKeySize = 1024;
@@ -65,14 +65,13 @@ namespace Alpha.Reports.Site.Controllers
             string language, password = null, nickname;
             string browserSize = null;
             int custId = 0, subAccId = 0;
-            long timeTicks = 0;
+            long timeTicks = DateTime.Now.Ticks;
             bool isnickname = false;
 
             if( ps == null
                 || ps.Length < 10
                 || !int.TryParse(ps[0], out custId)
-                || !int.TryParse(ps[1], out subAccId)
-                || !long.TryParse(ps[2], out timeTicks)){
+                || !int.TryParse(ps[1], out subAccId)){
                 return new EmptyResult();
             }
 
@@ -130,7 +129,7 @@ namespace Alpha.Reports.Site.Controllers
             {
                 FormsAuthentication.SetAuthCookie(session.UserName, false);
 
-                return Redirect(FormsAuthentication.GetRedirectUrl(session.UserName, false));
+                return Json(Session.SessionID, JsonRequestBehavior.AllowGet);
             }
 
             return new EmptyResult();
