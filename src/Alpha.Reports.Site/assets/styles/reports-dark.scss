@@ -646,7 +646,7 @@ table.dataTable {
     thead {
         tr th {
             &:last-child {
-                border-right: 0 !important;
+                
             }
         }
 
@@ -661,7 +661,6 @@ table.dataTable {
                 &.thead-row2 {
                     th {
                         background-color: #303030;
-                        border-right-color: #494B52 !important;
                         border-bottom-color: #3E3F41 !important;
                     }
                 }
