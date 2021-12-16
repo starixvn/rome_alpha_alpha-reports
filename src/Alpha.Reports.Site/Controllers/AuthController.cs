@@ -1,6 +1,7 @@
 ﻿using Alpha.Auth.Services;
 using Alpha.Auth.Services.Impl;
 using Alpha.Utilities.IP;
+using Alpha.Web.Filters;
 using Fanex.Cryptography.Aes;
 using Fanex.Logging.Extensions.Web;
 using RSACryptoPad;
@@ -17,7 +18,7 @@ using UAParser;
 
 namespace Alpha.Reports.Site.Controllers
 {
-    [SessionState(SessionStateBehavior.Required)]
+    [SessionState(SessionStateBehavior.Required), AllowProtectedMode, AllowAnonymous]
     public class AuthController : Controller
     {
         private readonly IAesService aesService;
@@ -34,7 +35,7 @@ namespace Alpha.Reports.Site.Controllers
         public ActionResult Index(string param)
         {
             IUserSession session = UserSession.Current;
-            if (session.IsLogged)
+            if (session.IsLogged && Request.IsAuthenticated)
             {
                 return Json(Session.SessionID, JsonRequestBehavior.AllowGet);
             }
@@ -100,7 +101,7 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             Hashtable requestInfo = GetRequestInfo(HttpContext.Request, browserSize);
-            requestInfo["countrycode"] = ipService.GetIPInformation(AgentIPFormat.GetClientIP()).CountryShort;
+            requestInfo["countrycode"] = ipService.GetIPInformation(AgentIPFormat.GetClientIP())?.CountryShort;
 
             bool isSuccess = false;
             int errCode = 0;
