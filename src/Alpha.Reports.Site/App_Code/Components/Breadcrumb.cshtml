@@ -34,11 +34,13 @@
             </ul>
         </div>
         <script type="text/javascript">
-            (function ($) {
-                $.each($('.breadcrumb li'), function (index, element) {
-                    $(element).text($(element).text().trim());
-                });
-            })(window.jQuery || window.parent.jQuery || window.top.jQuery);
+            try {
+                (function ($) {
+                    $.each($('.breadcrumb li'), function (index, element) {
+                        $(element).text($(element).text().trim());
+                    });
+                })(window.jQuery || window.parent.jQuery || window.top.jQuery);
+            } catch (e) {}
         </script>
     }
 }
