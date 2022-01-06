@@ -37,6 +37,8 @@ namespace Alpha.Reports.Constants
         public const int SabaClub = 42;
         public const int DummyRNGProductId = 53;
 
+        public const int Cashout = 25;
+
         public static readonly List<int> ProductListForTooltipsLiveCasino = new List<int>
             {
                 ProductIdConstants.Allbet,

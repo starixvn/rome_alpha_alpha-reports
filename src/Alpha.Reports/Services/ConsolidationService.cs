@@ -97,7 +97,7 @@
                 {
                     var products = dynamicRepository
                         .Fetch<ConsolidationProduct>(new GetConsolidationReportProductsCriteria(param.CustId))
-                        .Where(product => IsRemainSupportProduct(product, param.MinDate))
+                        .Where(product => !IsExcludedProduct(product) && IsRemainSupportProduct(product, param.MinDate))
                         .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, cacheRefService.GetProductName));
 
                     if (isEnableSabaPromotion)
@@ -283,5 +283,8 @@
 
             return ptList;
         }
+
+        private static bool IsExcludedProduct(ConsolidationProduct product)
+            => product.Id == ProductIdConstants.Cashout;
     }
 }
