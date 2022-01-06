@@ -358,7 +358,7 @@ class BetChoiceMatching {
         this.$tableTbody = this.$table.find("tbody");
         this.$tableTfoot = this.$table.find("tfoot");
         const $noinfoRow = this.$table.find("#noinfo-row");
-        this.noinfoRowHtml = $noinfoRow.html();
+        this.noinfoRowHtml = $noinfoRow.prop("outerHTML");
         this.betChoiceUplines = new BetChoiceUplines(this.$);
         this.usernameFilterForm = new UsernameFilterForm(this.$);
         this.stakeFilterForm = new StakeFilterForm(this.$);
