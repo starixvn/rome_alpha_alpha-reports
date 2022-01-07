@@ -42,7 +42,8 @@ namespace Alpha.Reports.Site.Controllers
 
             const int dwKeySize = 1024;
             var keyPath = Server.MapPath("~/IbcKeys/ibckey.snk");
-            var parameter = string.IsNullOrWhiteSpace(param) ? Session["LoginParams"] + string.Empty : param;
+            param = string.IsNullOrWhiteSpace(param) ? Session["LoginParams"] + string.Empty : param;
+            var parameter = param;
             parameter = parameter.Replace(' ', '+');
             var encryption = new EncryptionThread();
 
