@@ -42,7 +42,7 @@ namespace Alpha.Reports.Site.Controllers
 
             const int dwKeySize = 1024;
             var keyPath = Server.MapPath("~/IbcKeys/ibckey.snk");
-            var parameter = param + string.Empty;
+            var parameter = string.IsNullOrWhiteSpace(param) ? Session["LoginParams"] + string.Empty : param;
             parameter = parameter.Replace(' ', '+');
             var encryption = new EncryptionThread();
 
@@ -60,6 +60,8 @@ namespace Alpha.Reports.Site.Controllers
             {
                 return new EmptyResult();
             }
+
+            Session.Add("LoginParams", param);
 
             string[] ps = parameter.Split('&');
             DateTime loginTime;
@@ -129,6 +131,11 @@ namespace Alpha.Reports.Site.Controllers
             if (isSuccess)
             {
                 FormsAuthentication.SetAuthCookie(session.UserName, false);
+
+                if (!string.IsNullOrWhiteSpace(Request["ReturnUrl"]))
+                {
+                    return Redirect(Request["ReturnUrl"]);
+                }
 
                 return Json(Session.SessionID, JsonRequestBehavior.AllowGet);
             }
