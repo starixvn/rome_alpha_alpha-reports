@@ -11,12 +11,11 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.SessionState;
 using UAParser;
-using Sunplus.Agent.Model.BL.Definitions;
-using System.Linq;
 
 namespace Alpha.Reports.Site.Controllers
 {
@@ -36,8 +35,7 @@ namespace Alpha.Reports.Site.Controllers
         // GET: Auth
         public ActionResult Index(string param)
         {
-            if (Request.UrlReferrer == null || 
-                !AppSettings.AfterLoginDomainCollection.Any(host => host.IndexOf(Request.UrlReferrer.Host) == -1))
+            if (!IsValidReferrer())
             {
                 return new EmptyResult();
             }
@@ -205,6 +203,24 @@ namespace Alpha.Reports.Site.Controllers
 
             requestInfo["browsername"] = browser;
             requestInfo["platform"] = $"{operateSystem}, Device: {device}";
+        }
+
+        private bool IsValidReferrer()
+        {
+            if(Request.UrlReferrer == null)
+            {
+                return false;
+            }
+
+            foreach (var key in WebConfigurationManager.AppSettings.AllKeys)
+            {
+                if (WebConfigurationManager.AppSettings[key].IndexOf(Request.UrlReferrer.Authority) != -1)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 
