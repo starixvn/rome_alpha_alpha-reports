@@ -15,6 +15,8 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.SessionState;
 using UAParser;
+using Sunplus.Agent.Model.BL.Definitions;
+using System.Linq;
 
 namespace Alpha.Reports.Site.Controllers
 {
@@ -34,6 +36,12 @@ namespace Alpha.Reports.Site.Controllers
         // GET: Auth
         public ActionResult Index(string param)
         {
+            if (Request.UrlReferrer == null || 
+                !AppSettings.AfterLoginDomainCollection.Any(host => host.IndexOf(Request.UrlReferrer.Host) == -1))
+            {
+                return new EmptyResult();
+            }
+
             IUserSession session = UserSession.Current;
             if (session.IsLogged && Request.IsAuthenticated)
             {
