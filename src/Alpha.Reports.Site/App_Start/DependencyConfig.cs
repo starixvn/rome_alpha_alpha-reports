@@ -5,11 +5,6 @@
     using System.Web.Mvc;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
-    using Alpha.Auth.DataAccesses;
-    using Alpha.Auth.DataAccesses.Impl;
-    using Alpha.Auth.Models;
-    using Alpha.Auth.Services;
-    using Alpha.Auth.Services.Impl;
     using Alpha.Reports.Features.BonusDetail;
     using Alpha.Reports.Site.Features.BetCreditTracking;
     using Alpha.Reports.Site.Features.SuperWinLossDetailByPT;
@@ -26,7 +21,6 @@
     using Fanex.BetList.Core.RemotingRef;
     using Fanex.BetList.Core.TicketHelper;
     using Fanex.Caching;
-    using Fanex.Cryptography.Aes;
     using Fanex.Data.Repository;
     using Fanex.RemotingRef;
     using Handlers.CommissionByBettype;
@@ -182,8 +176,6 @@
             container.RegisterSingleton<PartialUMService, PartialUMServiceImpl>();
 
             container.RegisterSingleton<SuperWinLossDetailByPTService, SuperWinLossDetailByPTServiceImpl>();
-
-            container.RegisterSingleton(() => AesService.Default);
         }
 
         private static void RegisterDataAccesses(Container container)
@@ -195,7 +187,6 @@
             container.RegisterSingleton<StatementDataAccess, StatementDataAccessImpl>();
             container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
             container.RegisterSingleton<ProgressiveContributionDataAccess, ProgressiveContributionDataAccessImpl>();
-            container.RegisterSingleton<IAuthorizationDataAccess, AuthorizationDataAccess>();
 
             if (SiteSettings.EnabledStaticData)
             {

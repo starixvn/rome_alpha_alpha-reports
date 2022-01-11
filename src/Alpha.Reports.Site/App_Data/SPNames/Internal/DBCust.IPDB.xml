@@ -5,6 +5,5 @@
       <Mapping DataField="ipfrom" ObjectProperty="From" />
       <Mapping DataField="ipto" ObjectProperty="To" />
     </Setting>
-    <Setting Key="Acc_GetIPInfo_Full" SpName="Acc_GetIPInfo_Full" DbName="DBCust.IPDB.BODBDownlineNet" Plain="0" />
   </Function>
 </Functions>
