@@ -28,7 +28,7 @@
     <WebGreaseLibPath>..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <TargetFrameworkProfile />
     <Use64BitIISExpress />
-    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -976,6 +976,10 @@
     <Content Include="assets\bundles\statement\sma-statement.min.js">
       <DependentUpon>sma-statement.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\statement\statement-dark.css" />
+    <Content Include="assets\bundles\statement\statement-dark.min.css">
+      <DependentUpon>statement-dark.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\statement\statement-details.js" />
     <Content Include="assets\bundles\statement\statement-details.min.js">
       <DependentUpon>statement-details.js</DependentUpon>
@@ -1084,6 +1088,12 @@
     </Content>
     <Content Include="assets\styles\reports-dark.min.css">
       <DependentUpon>reports-dark.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\statement\statement-dark.css">
+      <DependentUpon>statement-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\statement\statement-dark.min.css">
+      <DependentUpon>statement-dark.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\themes\page-title-agent-dark.css">
       <DependentUpon>page-title-agent-dark.scss</DependentUpon>
@@ -1238,6 +1248,7 @@
     <Content Include="assets\styles\themes\page-title-master-dark.scss" />
     <Content Include="assets\styles\themes\page-title-super-dark.scss" />
     <Content Include="assets\styles\consolidation\consolidation-dark.scss" />
+    <Content Include="assets\styles\statement\statement-dark.scss" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
