@@ -4,7 +4,7 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStyles("~/assets/bundles/statement/statement")
+    @StaticResources.RenderStylesWithDarkMode("~/assets/bundles/statement/statement")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.Statement, false, true, false, Model.IsFilterVisible, null, null))

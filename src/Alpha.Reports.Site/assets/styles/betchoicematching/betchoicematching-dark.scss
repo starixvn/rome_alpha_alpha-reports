@@ -93,7 +93,15 @@
     }
 
     .underdog {
-        color: #000000;
+        color: #ffffff;
+    }
+
+    font[color="#B50000"] {
+        color: #FF4F50 !important;
+    }
+
+    .icon-ip-share:before {
+        color: #FF4F50 !important;
     }
 
     .loading-icon {
