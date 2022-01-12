@@ -552,7 +552,7 @@ class BetChoiceMatching {
         }
 
         const formatOdds = ticket.Odds < 0
-            ? `<font color='#B50000' class='color-odds-bet-choice-matching'>${ticket.DisplayOdds}</font>`
+            ? `<font color='#B50000'>${ticket.DisplayOdds}</font>`
             : ticket.DisplayOdds;
 
         if (ticket.DisplayOddsType) {

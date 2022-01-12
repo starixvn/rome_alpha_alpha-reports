@@ -4,12 +4,12 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode("~/assets/bundles/statement/statement")
+    @StaticResources.RenderStyles("~/assets/bundles/statement/statement")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.DailyStatement + " - " + Model.CustName, false, true, false, Model.IsFilterVisible, null, null))
 
-<form class="form-inline filter  sdfsdfsdf @(Model.IsFilterVisible ? string.Empty:"hide")" role="form" id="report-form">
+<form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty:"hide")" role="form" id="report-form">
     <div class="form-group">
         <select id="dropdown-report-type">
             <option value="1" selected="selected">@Resources.DailyStatement</option>

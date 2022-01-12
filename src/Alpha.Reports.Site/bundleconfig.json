@@ -232,13 +232,6 @@
     ]
   },
   {
-    "outputFileName": "assets/bundles/statement/statement-dark.css",
-
-    "inputFiles": [
-      "assets/styles/statement/statement-dark.css"
-    ]
-  },
-  {
     "outputFileName": "assets/bundles/statement/statement-details.js",
     "inputFiles": [
       "assets/scripts/statement/statement-details.js"
