@@ -14,6 +14,7 @@ namespace Alpha.Reports.Site.Controllers
     public class AuthController : Controller
     {
         // GET: Auth
+        [HttpGet]
         public ActionResult Index(string param)
         {
             if (!IsValidReferrer())
@@ -48,23 +49,14 @@ namespace Alpha.Reports.Site.Controllers
                 return new EmptyResult();
             }
 
-            string[] ps = parameter.Split('&');
-            string nickname;
-            int custId = 0, subAccId = 0;
-            long timeTicks = DateTime.Now.Ticks;
-
-            nickname = ps[4];
             IUserSession session = UserSession.Current;
 
-            if (ps.Length < 10
-                || !int.TryParse(ps[0], out custId)
-                || !int.TryParse(ps[1], out subAccId)
-                || (session.IsLogged && !session.NickName.Equals(nickname, StringComparison.OrdinalIgnoreCase)))
+            if (session.IsLogged && !IsValidLoginAccountName(parameter))
             {
                 return new EmptyResult();
             }
 
-            if (session.IsLogged && Request.IsAuthenticated && session.NickName.Equals(nickname, StringComparison.OrdinalIgnoreCase))
+            if (session.IsLogged && Request.IsAuthenticated && IsValidLoginAccountName(parameter))
             {
                 return Json(Session.SessionID, JsonRequestBehavior.AllowGet);
             }
@@ -86,15 +78,42 @@ namespace Alpha.Reports.Site.Controllers
                 return false;
             }
 
+            var session = UserSession.Current;
+            if (session.IsInternal || session.IsIndirectLoggedIn)
+            {
+                return true;
+            }
+
             foreach (var key in WebConfigurationManager.AppSettings.AllKeys)
             {
-                if (WebConfigurationManager.AppSettings[key].IndexOf(Request.UrlReferrer.Authority) != -1)
+                if (WebConfigurationManager.AppSettings[key].IndexOf(Request.UrlReferrer.Authority, StringComparison.OrdinalIgnoreCase) != -1)
                 {
                     return true;
                 }
             }
 
             return false;
+        }
+
+        private static bool IsValidLoginAccountName(string decryptedParams)
+        {
+            var session = UserSession.Current;
+            var loginUsername = session.IsInternal ? session.UserName :
+                session.IsIndirectLoggedIn ? session.IndirectUsername :
+                session.NickName;
+            string[] ps = decryptedParams.Split('&');
+
+            if (session.IsInternal)
+            {
+                return ps[0].Equals(loginUsername, StringComparison.OrdinalIgnoreCase);
+            }
+
+            if (session.IsIndirectLoggedIn)
+            {
+                return ps[8].Equals(loginUsername, StringComparison.OrdinalIgnoreCase);
+            }
+
+            return ps[4].Equals(loginUsername, StringComparison.OrdinalIgnoreCase);
         }
     }
 }
