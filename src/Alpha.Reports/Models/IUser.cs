@@ -44,5 +44,7 @@
         bool IsProtectedMode { get; }
         
         string DarkModeName { get; }
+
+        string MainDomain { get; set; }
     }
 }

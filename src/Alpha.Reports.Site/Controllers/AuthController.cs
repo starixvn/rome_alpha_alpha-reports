@@ -1,18 +1,26 @@
-﻿using Alpha.Web.Filters;
-using Fanex.Logging.Extensions.Web;
-using RSACryptoPad;
-using Sunplus.Agent.Model.Entities;
-using System;
+﻿using System;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.SessionState;
+using Alpha.Reports.Models;
+using Alpha.Web.Filters;
+using Fanex.Logging.Extensions.Web;
+using RSACryptoPad;
+using Sunplus.Agent.Model.Entities;
 
 namespace Alpha.Reports.Site.Controllers
 {
     [SessionState(SessionStateBehavior.Required), AllowProtectedMode, AllowAnonymous]
     public class AuthController : Controller
     {
+        private readonly IUser user;
+
+        public AuthController(IUser user)
+        {
+            this.user = user;
+        }
+
         // GET: Auth
         [HttpGet]
         public ActionResult Index(string param)
@@ -62,6 +70,7 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             FormsAuthentication.SetAuthCookie(session.UserName, false);
+            user.MainDomain = Request.UrlReferrer.AbsoluteUri.TrimEnd('/');
 
             if (!string.IsNullOrWhiteSpace(Request["ReturnUrl"]))
             {

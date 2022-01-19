@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using Configurations;
+    using Alpha.Reports.Configurations;
+    using Alpha.Reports.Site.Models;
+    using Sunplus.Agent.Model.Base;
     using Web.Helpers;
 
     public static class UrlHelper
@@ -130,7 +132,17 @@
 
         internal static string GetBetListPath(string virtualPath = "~/WinLoss/Index")
         {
-            return MicroSites.BetListsUrl(virtualPath);
+            var mainDomain = MainDomain;
+
+            if (string.IsNullOrWhiteSpace(mainDomain))
+            {
+                return MicroSites.BetListsUrl(virtualPath);
+            }
+
+            return $"{mainDomain}{SiteSettings.BetListAppPath}{virtualPath.TrimStart('~')}";
         }
+
+        private static string MainDomain
+            => new User(new UserSessionExt()).MainDomain;
     }
 }
