@@ -71,6 +71,7 @@ namespace Alpha.Reports.Site.Controllers
 
             FormsAuthentication.SetAuthCookie(session.UserName, false);
             user.MainDomain = Request.UrlReferrer.AbsoluteUri.TrimEnd('/');
+            ExceptionHandler.Handle(new Exception($"MainDomain: {user.MainDomain}"), System.Diagnostics.TraceEventType.Information);
 
             if (!string.IsNullOrWhiteSpace(Request["ReturnUrl"]))
             {
