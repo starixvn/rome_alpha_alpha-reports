@@ -63,7 +63,8 @@ namespace Alpha.Reports.Constants
         public static readonly List<int> ProductListHasProductDetail = new List<int>
         {
             ProductIdConstants.PP,
-            ProductIdConstants.SexyGaming
+            ProductIdConstants.SexyGaming,
+            ProductIdConstants.SG
         };
     }
 }
