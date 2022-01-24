@@ -862,6 +862,10 @@
     <value>沙巴體育的專屬報表僅從 {0} 開始提供。
  在{0}之前，體育博彩報表和沙巴體育報表的數據是結合的。</value>
   </data>
+  <data name="PartialUMAnnouncement" xml:space="preserve">
+    <value>由於目前服務器繁忙所以此功能暫時關閉 從 {0} 至 {1} (GMT+8), 請稍後再試。 不便之處 敬請見諒！</value>
+  </data>
+  </data>
   <data name="BetCreditHistory" xml:space="preserve">
     <value>投注額度歷史記錄</value>
   </data>

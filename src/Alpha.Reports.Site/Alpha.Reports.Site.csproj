@@ -65,14 +65,14 @@
       <HintPath>..\..\packages\Alpha.Logging.1.0.1.1\lib\net461\Alpha.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Alpha.NetThrottling, Version=1.0.19.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.NetThrottling.1.0.19\lib\net461\Alpha.NetThrottling.dll</HintPath>
+    <Reference Include="Alpha.NetThrottling, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.NetThrottling.1.1.0-beta1\lib\net461\Alpha.NetThrottling.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.NetThrottling.Mvc, Version=1.0.15.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.NetThrottling.Mvc.1.0.15\lib\net461\Alpha.NetThrottling.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.SecurityCode, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.SecurityCode.3.0.1-beta01\lib\net461\Alpha.SecurityCode.dll</HintPath>
+      <HintPath>..\..\packages\Alpha.SecurityCode.3.0.1-beta02\lib\net461\Alpha.SecurityCode.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.StaticData, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.StaticData.1.0.1.0\lib\net40\Alpha.StaticData.dll</HintPath>
@@ -518,6 +518,7 @@
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
     <Compile Include="Controllers\ConsolidationController.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryBaseHandler.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryController.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryExcelHandler.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryHandler.cs" />
@@ -915,6 +916,10 @@
     <Content Include="assets\bundles\consolidation\consolidation.min.js">
       <DependentUpon>consolidation.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\error\error.css" />
+    <Content Include="assets\bundles\error\error.min.css">
+      <DependentUpon>error.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\master-dark.css" />
     <Content Include="assets\bundles\master-dark.min.css">
       <DependentUpon>master-dark.css</DependentUpon>
@@ -931,6 +936,10 @@
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.js" />
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\partial-um\partial-um.css" />
+    <Content Include="assets\bundles\partial-um\partial-um.min.css">
+      <DependentUpon>partial-um.css</DependentUpon>
     </Content>
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.js">
       <DependentUpon>matchwinlossdetail.js</DependentUpon>
@@ -1053,6 +1062,13 @@
     <Content Include="assets\styles\consolidation\consolidation.min.css">
       <DependentUpon>consolidation.css</DependentUpon>
     </Content>
+    <Content Include="assets\styles\error\error.css">
+      <DependentUpon>error.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\error\error.min.css">
+      <DependentUpon>error.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\error\images\error-bg.png" />
     <Content Include="assets\styles\images\ajax-loader-small.gif" />
     <Content Include="assets\styles\images\percent-dark.svg" />
     <Content Include="assets\styles\images\percent.svg" />
@@ -1069,6 +1085,12 @@
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Features\BetCreditTracking\Scripts\move-statement-history.ts" />
+    <Content Include="assets\styles\partial-um\partial-um.css">
+      <DependentUpon>partial-um.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\partial-um\partial-um.min.css">
+      <DependentUpon>partial-um.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\reports-dark.css">
       <DependentUpon>reports-dark.scss</DependentUpon>
     </Content>
@@ -1278,6 +1300,8 @@
     <Content Include="App_Code\Components\Alert.cshtml" />
     <Content Include="App_Data\ExcelTemplates\SuperWinLossDetailByPT\Super.xls" />
     <Content Include="App_Data\securitycode.json" />
+    <Content Include="assets\styles\error\error.scss" />
+    <Content Include="assets\styles\partial-um\partial-um.scss" />
     <Content Include="assets\styles\_variables-dark.scss" />
     <Content Include="assets\styles\reports-dark.scss" />
     <Content Include="assets\styles\betchoicematching\betchoicematching-dark.scss" />
@@ -1353,6 +1377,7 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Shared\PartialUM.cshtml" />
     <Content Include="Views\web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1377,6 +1402,15 @@
     <Content Include="App_Data\ExcelTemplates\WinLoss\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\MatchResultEntered.xls" />
+    <Content Include="Web.AppSettings.aws.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.aws2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.aws3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
     <Content Include="Web.AppSettings.backupMNL.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
@@ -1417,6 +1451,24 @@
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.pro.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.napaws.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.napaws2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.napaws3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.napaws.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.napaws2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.napaws3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.napinternal2.config">
@@ -1526,6 +1578,20 @@
     <Content Include="ProductSection.config" />    
     <Content Include="Features\BetCreditTracking\Views\MoveStatementHistory\_Filter.cshtml" />
     <Content Include="Features\BetCreditTracking\Views\BetCreditHistory\_Filter.cshtml" />
+    <Content Include="PartialUMConfigs\PartialUMSection.backupMNL.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.backupMNL2.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.backupMNLNap.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.backupMNLNap2.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.napaws.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.napaws2.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.napaws3.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.napinternal.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.napinternal2.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.napinternal3.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.pro2.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.pro3.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.pro.config" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1579,6 +1645,69 @@
     <Content Include="Features\SuperWinLossDetailByPT\Views\ReportData.cshtml" />
     <Content Include="Features\SuperWinLossDetailByPT\Views\ViewProductPTList.cshtml" />
     <Content Include="Views\Consolidation\_ViewProductPTList.cshtml" />
+    <Content Include="Web.ConnectionStrings.config" />
+    <Content Include="Web.ConnectionStrings.aws.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.aws2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.aws3.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.backupMNL.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.backupMNL2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.backupMNLNap.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.backupMNLNap2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.local.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.napaws.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.napaws2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.napaws3.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.napinternal.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.napinternal2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.pro.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.pro2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.pro3.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.sit.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.sit2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.uat.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.uat2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Error\Blocked.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1588,6 +1717,15 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="Web.aws.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.aws2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.aws3.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
     <TypeScriptCompile Include="Features\EnteredResult\Scripts\enteredresult.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\base-historic-report.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\base-report-new.ts" />
@@ -1651,6 +1789,9 @@
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.AppSettings.pro2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.pro3.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.AppSettings.sit.config">

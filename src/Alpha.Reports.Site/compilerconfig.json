@@ -68,6 +68,14 @@
     "inputFile": "Features/BonusDetail/Styles/confirm-payment.scss"
   },
   {
+    "outputFile": "assets/styles/error/error.css",
+    "inputFile": "assets/styles/error/error.scss"
+  },
+  {
+    "outputFile": "assets/styles/partial-um/partial-um.css",
+    "inputFile": "assets/styles/partial-um/partial-um.scss"
+  },
+  {
     "outputFile": "assets/styles/reports-dark.css",
     "inputFile": "assets/styles/reports-dark.scss"
   },

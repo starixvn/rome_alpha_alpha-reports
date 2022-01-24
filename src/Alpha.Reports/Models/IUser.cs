@@ -45,6 +45,6 @@
         
         string DarkModeName { get; }
 
-        string MainDomain { get; set; }
+        string MainDomain { get; }
     }
 }

@@ -485,5 +485,17 @@
     "inputFiles": [
       "Features/BetCreditTracking/Styles/move-statement-history-dark.css"
     ]
+  },
+  {
+    "outputFileName": "assets/bundles/error/error.css",
+    "inputFiles": [
+      "assets/styles/error/error.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/partial-um/partial-um.css",
+    "inputFiles": [
+      "assets/styles/partial-um/partial-um.css"
+    ]
   }
 ]
