@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.SessionState;
-using Alpha.Reports.Models;
 using Alpha.Web.Filters;
 using Fanex.Logging.Extensions.Web;
 using RSACryptoPad;
@@ -14,13 +14,6 @@ namespace Alpha.Reports.Site.Controllers
     [SessionState(SessionStateBehavior.Required), AllowProtectedMode, AllowAnonymous]
     public class AuthController : Controller
     {
-        private readonly IUser user;
-
-        public AuthController(IUser user)
-        {
-            this.user = user;
-        }
-
         // GET: Auth
         [HttpGet]
         public ActionResult Index(string param)
@@ -49,7 +42,7 @@ namespace Alpha.Reports.Site.Controllers
             catch
             {
                 parameter = null;
-                ExceptionHandler.Handle(new Exception("Cannot verify request key " + Request.RawUrl));
+                ExceptionHandler.Handle(new Exception("Cannot verify request key " + Request.RawUrl), TraceEventType.Warning);
             }
 
             if (null == parameter)
@@ -87,7 +80,9 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             var session = UserSession.Current;
-            if (session.IsInternal || session.IsIndirectLoggedIn)
+            if (session.IsInternal 
+                || session.IsIndirectLoggedIn
+                || Request.Headers["Referer"].IndexOf(Request.Headers["Host"], StringComparison.OrdinalIgnoreCase) != -1)
             {
                 return true;
             }
