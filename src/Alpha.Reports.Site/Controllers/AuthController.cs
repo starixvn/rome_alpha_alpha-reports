@@ -89,7 +89,7 @@ namespace Alpha.Reports.Site.Controllers
 
             foreach (var key in WebConfigurationManager.AppSettings.AllKeys)
             {
-                if (WebConfigurationManager.AppSettings[key].IndexOf(Request.UrlReferrer.Authority, StringComparison.OrdinalIgnoreCase) != -1)
+                if (WebConfigurationManager.AppSettings[key].IndexOf(Request.UrlReferrer.Host, StringComparison.OrdinalIgnoreCase) != -1)
                 {
                     return true;
                 }
