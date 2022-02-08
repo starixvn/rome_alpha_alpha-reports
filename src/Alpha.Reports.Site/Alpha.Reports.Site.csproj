@@ -1714,6 +1714,15 @@
     <Content Include="Web.pro3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
+    <Content Include="Web.master.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.masteruat.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.masteruat2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
