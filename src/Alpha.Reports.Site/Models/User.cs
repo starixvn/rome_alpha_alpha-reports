@@ -63,7 +63,7 @@
         
         public string DarkModeName => userSession.DarkModeName;
 
-        public string MainDomain => userSession.GetProperty<string>(MainDomainSessionKey);
+        public string MainDomain => userSession?.GetProperty<string>(MainDomainSessionKey);
 
         internal virtual IList<int> GetEnableProductsForGame(string gameName)
             => userSession.GetProperty<IList<int>>(SessionKey.GameEnable + gameName) ?? new List<int>();

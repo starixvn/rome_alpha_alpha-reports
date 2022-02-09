@@ -4,9 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using System.Web.Mvc;
     using Alpha.Reports.Configurations;
     using Alpha.Reports.Site.Models;
     using Sunplus.Agent.Model.Base;
+    using Sunplus.Agent.Model.Entities;
     using Web.Helpers;
 
     public static class UrlHelper
@@ -143,6 +145,6 @@
         }
 
         private static string MainDomain
-            => new User(new UserSessionExt()).MainDomain;
+            => new User(DependencyResolver.Current.GetService<IUserSession>()).MainDomain;
     }
 }
