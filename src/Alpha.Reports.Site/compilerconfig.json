@@ -64,10 +64,6 @@
     "inputFile": "Features/BonusDetail/Styles/bonus-detail.scss"
   },
   {
-    "outputFile": "Features/BonusDetail/Styles/confirm-payment.css",
-    "inputFile": "Features/BonusDetail/Styles/confirm-payment.scss"
-  },
-  {
     "outputFile": "assets/styles/error/error.css",
     "inputFile": "assets/styles/error/error.scss"
   },

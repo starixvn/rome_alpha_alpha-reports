@@ -7,7 +7,7 @@ class BonusDetail {
     private $reportForm: JQuery;
     private $pageTitle: JQuery;
     private $isFilterVisible: JQuery;
-    private confirmPaymentURL: string;
+    private confirmPaymentPopup: JQuery;
 
     constructor(
         $: JQueryStatic,
@@ -34,7 +34,7 @@ class BonusDetail {
         this.$reportForm = this.$("#report-form");
         this.$pageTitle = this.$(".page-title");
         this.$isFilterVisible = this.$("#IsFilterVisible");
-        this.confirmPaymentURL = this.$("#hidden-confirmPaymentURL").val();
+        this.confirmPaymentPopup = this.$("#popup-confirmPayment");
     }
 
     public initComponents() {
@@ -56,34 +56,21 @@ class BonusDetail {
         this.$reportForm.submit(this.onSubmitReport);
         this.$("#btn-submit").click(() => this.$("#PageIndex").val("1"));
 
-        if (this.confirmPaymentURL) {
+        if (this.confirmPaymentPopup.length) {
+            const confirmPayment = new ConfirmPayment(this.$, new Alert(this.$))
+            confirmPayment.init();
             const self = this;
             this.$(".icon-payment").click(function () {
                 const $this = self.$(this);
-                const url = self.buildConfirmPaymentURL($this);
-                self.topWindow.popupManager.open(
-                    url,
-                    undefined,
-                    470,
-                    380,
-                    "confirm-payment-modal",
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    { isIgnoreAutoHeightOniOS: true });
+                confirmPayment.setUIControlsValue(
+                    $this.data("custid"),
+                    $this.data("username"),
+                    $this.data("transid"),
+                    $this.data("amount"),
+                    $this.data("createddate"));
+                self.confirmPaymentPopup.modal({ show: true, backdrop: false });
             });
         }
-    }
-
-    public buildConfirmPaymentURL(element: JQuery) {
-        return this.confirmPaymentURL
-            + "?custId=" + element.data("custid")
-            + "&custName=" + element.data("username")
-            + "&transId=" + element.data("transid")
-            + "&amount=" + element.data("amount")
-            + "&paymentDate=" + element.data("createddate");
     }
 
     onClickIconFilter = () => {

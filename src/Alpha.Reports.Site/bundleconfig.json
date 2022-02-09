@@ -353,6 +353,8 @@
       "assets/scripts/core.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/pager.js",
+      "assets/scripts/components/alert.js",
+      "Features/BonusDetail/Scripts/confirm-payment.js",
       "Features/BonusDetail/Scripts/bonus-detail.js"
     ]
   },
@@ -363,19 +365,6 @@
     ]
   },
   {
-    "outputFileName": "Features/BonusDetail/Bundles/confirmpayment.js",
-    "inputFiles": [
-      "assets/scripts/components/daterangepicker.js",
-      "assets/scripts/components/alert.js",
-      "Features/BonusDetail/Scripts/confirm-payment.js"
-    ]
-  },
-  {
-    "outputFileName": "Features/BonusDetail/Bundles/confirmpayment.css",
-    "inputFiles": [
-      "Features/BonusDetail/Styles/confirm-payment.css"
-    ]
-  },
   {
     "outputFileName": "Features/BetCreditTracking/Bundles/movestatementhistory.js",
     "inputFiles": [
@@ -441,7 +430,6 @@
       "assets/styles/betchoicematching/betchoicematching-dark.css"
     ]
   },
-  {
     "outputFileName": "Features/SuperWinLossDetailByPT/Bundles/superwinlossdetailbypt.js",
     "inputFiles": [
       "assets/scripts/core.js",

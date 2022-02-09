@@ -26,3 +26,49 @@
     margin-bottom: 2px;
     margin-left: 8px;
 }
+
+.popup-confirmPayment {
+    top: 5px;
+    padding-right: 0!important;
+    z-index: 999;
+
+    .msg {
+        margin: 10px 0 0;
+    }
+
+    p {
+        margin: 10px 0 16px;
+    }
+
+    .form-horizontal {
+        .form-group {
+            margin-right: 0;
+        }
+
+        .control-label {
+            margin-bottom: 0;
+            padding-top: 0;
+            font-weight: normal;
+            text-align: left;
+        }
+
+        .list-button {
+            text-align: right;
+        }
+
+        .icon-calendar:hover {
+            cursor: pointer;
+        }
+
+        .control.date {
+            position: absolute;
+            top: -6px;
+        }
+
+        .input-group.paymentdate {
+            position: fixed;
+            z-index: 10;
+            width: 130px;
+        }
+    }
+}

@@ -103,7 +103,7 @@
     @Pager.Render(Model.PagerViewModel)
     if (Model.ViewerLevel.IsAgentLevel())
     {
-        <input type="hidden" value="@Url.Content("~/BonusDetail/ConfirmPayment")" id="hidden-confirmPaymentURL" />
+        Html.RenderPartial("~/Features/BonusDetail/Views/_ConfirmPayment.cshtml");
     }
 }
 
@@ -221,7 +221,7 @@
               data-custid="@bonus.CustId"
               data-transid="@bonus.TransId"
               data-username="@bonus.Username"
-              data-amount="@bonus.Amount"
+              data-amount="@HtmlHelpers.FormatNumber(bonus.Amount)"
               data-createddate="@bonus.MinConfirmPaymentDate"></span>
     }
     else
