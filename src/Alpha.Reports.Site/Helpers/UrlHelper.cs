@@ -78,7 +78,16 @@
         }
 
         internal static string GetBetListPath(string virtualPath = "~/WinLoss/Index")
-            => GetAppPath(virtualPath, MicroSites.BetListsUrl, SiteSettings.BetListAppPath);
+        {
+            var mainDomain = MainDomain;
+
+            if (string.IsNullOrWhiteSpace(mainDomain))
+            {
+                return MicroSites.BetListsUrl(virtualPath);
+            }
+
+            return $"{mainDomain}{SiteSettings.BetListAppPath}{virtualPath.TrimStart('~')}";
+        }
 
         internal static string AddQueryStringParams(string link, IDictionary<string, object> routeValues)
         {
@@ -157,7 +166,7 @@
         }
 
         private static string MainDomain
-            => (DependencyResolver.Current.GetService<IUser>()).MainDomain;
+            => (DependencyResolver.Current?.GetService<IUser>())?.MainDomain;
 
         private static bool IsStandaloneReports(string mainDomain)
             => !string.IsNullOrWhiteSpace(mainDomain);
