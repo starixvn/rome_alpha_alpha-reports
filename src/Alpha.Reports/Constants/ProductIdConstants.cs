@@ -64,7 +64,8 @@ namespace Alpha.Reports.Constants
         {
             ProductIdConstants.PP,
             ProductIdConstants.SexyGaming,
-            ProductIdConstants.SG
+            ProductIdConstants.SG,
+            ProductIdConstants.Allbet
         };
     }
 }
