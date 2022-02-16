@@ -78,16 +78,7 @@
         }
 
         internal static string GetBetListPath(string virtualPath = "~/WinLoss/Index")
-        {
-            var mainDomain = MainDomain;
-
-            if (string.IsNullOrWhiteSpace(mainDomain))
-            {
-                return MicroSites.BetListsUrl(virtualPath);
-            }
-
-            return $"{mainDomain}{SiteSettings.BetListAppPath}{virtualPath.TrimStart('~')}";
-        }
+            => GetAppPath(virtualPath, MicroSites.BetListsUrl, SiteSettings.BetListAppPath);
 
         internal static string AddQueryStringParams(string link, IDictionary<string, object> routeValues)
         {
