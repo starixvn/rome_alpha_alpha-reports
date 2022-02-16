@@ -10,7 +10,6 @@
                 <p>@Resources.ConfirmPaymentNote</p>
                 @using (Html.BeginForm("ConfirmPayment", "BonusDetail", FormMethod.Post, new { @class = "form-horizontal", id = "form-confirmPayment" }))
                 {
-                    @*@Html.AntiForgeryToken()*@
                     <input type="hidden" name="custId" id="hidden-custId" />
                     <input type="hidden" name="transId" id="hidden-transId" />
                     <div class="form-group">

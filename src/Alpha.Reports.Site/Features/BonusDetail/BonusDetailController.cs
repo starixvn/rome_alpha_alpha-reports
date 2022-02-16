@@ -17,7 +17,7 @@
         public async Task<ActionResult> Index(BonusDetailQuery message)
             => await ViewAsync(string.Format(basePath, nameof(Index)), message);
 
-        [HttpPost/*, AntiXsrfFilter*/]
+        [HttpPost]
         public async Task<ActionResult> ConfirmPayment(ConfirmPaymentCommand message)
             => await JsonAsync(message);
     }

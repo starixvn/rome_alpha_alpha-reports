@@ -78,16 +78,7 @@
         }
 
         internal static string GetBetListPath(string virtualPath = "~/WinLoss/Index")
-        {
-            var mainDomain = MainDomain;
-
-            if (string.IsNullOrWhiteSpace(mainDomain))
-            {
-                return MicroSites.BetListsUrl(virtualPath);
-            }
-
-            return $"{mainDomain}{SiteSettings.BetListAppPath}{virtualPath.TrimStart('~')}";
-        }
+            => GetAppPath(virtualPath, MicroSites.BetListsUrl, SiteSettings.BetListAppPath);
 
         internal static string AddQueryStringParams(string link, IDictionary<string, object> routeValues)
         {
@@ -154,18 +145,21 @@
         }
 
         internal static string GetMessagePath(string virtualPath)
+            => GetAppPath(virtualPath, MicroSites.MessageUrl, Web.Configurations.AppSettings.MessageAppPath);
+
+        internal static string GetAppPath(string virtualPath, Func<string, string> getAppPath, string appPath)
         {
             var mainDomain = MainDomain;
 
-            if (string.IsNullOrWhiteSpace(mainDomain))
-            {
-                return MicroSites.MessageUrl(virtualPath);
-            }
-
-            return $"{mainDomain}{SiteSettings.MessageAppPath}{virtualPath.TrimStart('~')}";
+            return IsStandaloneReports(mainDomain)
+                ? $"{mainDomain}{appPath}{virtualPath.TrimStart('~')}"
+                : getAppPath(virtualPath);
         }
 
         private static string MainDomain
             => (DependencyResolver.Current.GetService<IUser>()).MainDomain;
+
+        private static bool IsStandaloneReports(string mainDomain)
+            => !string.IsNullOrWhiteSpace(mainDomain);
     }
 }
