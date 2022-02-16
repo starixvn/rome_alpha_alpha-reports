@@ -973,10 +973,6 @@
     <Content Include="assets\bundles\statement\statement-dark.min.css">
       <DependentUpon>statement-dark.css</DependentUpon>
     </Content>
-    <Content Include="assets\bundles\statement\statement-details.js" />
-    <Content Include="assets\bundles\statement\statement-details.min.js">
-      <DependentUpon>statement-details.js</DependentUpon>
-    </Content>
     <Content Include="assets\bundles\statement\statement.css" />
     <Content Include="assets\bundles\statement\statement.min.css">
       <DependentUpon>statement.css</DependentUpon>
@@ -1204,10 +1200,6 @@
     </Content>
     <Content Include="Features\BonusDetail\Bundles\bonusdetail.min.js">
       <DependentUpon>bonusdetail.js</DependentUpon>
-    </Content>
-    <Content Include="Features\BonusDetail\Bundles\confirmpayment.js" />
-    <Content Include="Features\BonusDetail\Bundles\confirmpayment.min.js">
-      <DependentUpon>confirmpayment.js</DependentUpon>
     </Content>
     <Content Include="Features\BonusDetail\Styles\bonus-detail-dark.css">
       <DependentUpon>bonus-detail-dark.scss</DependentUpon>
@@ -1607,7 +1599,7 @@
     <Content Include="Views\MatchWinLossDetail\Index.cshtml" />
     <Content Include="Views\Statement\SMAReportLegend.cshtml" />
     <Content Include="Views\WinLossAnalysisChart\Index.cshtml" />
-    <Content Include="Views\Statement\StatementDetails.cshtml" />
+    <Content Include="Views\Statement\_StatementDetails.cshtml" />
     <Content Include="Views\Statement\MemberStatement.cshtml" />
     <Content Include="Views\Statement\MemberReportLegend.cshtml" />
     <Content Include="Views\Consolidation\ConsolidationByDate.cshtml" />
@@ -1696,6 +1688,7 @@
     </Content>
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\Blocked.cshtml" />
+    <Content Include="Views\Statement\_StatementPopup.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

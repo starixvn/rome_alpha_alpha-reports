@@ -21,6 +21,7 @@
              : base(message, statements, message.MinDate, message.FromDate, message.ToDate, message.UserSelectedDateRangeOption, message.IsFilterVisible, message.PageSize, message.PageIndex)
         {
             ProductIds = message.ProductIds ?? "1,6,2";
+            MainDomain = message.MainDomain;
         }
 
         public string ProductIds { get; set; }
@@ -61,5 +62,7 @@
         }
 
         public bool IsNegative(decimal? cellValue) => cellValue.HasValue && cellValue.Value < 0;
+
+        public string MainDomain { get; }
     }
 }

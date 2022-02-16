@@ -17,9 +17,8 @@ class MemberStatementView extends StatementView {
 
     betListUrl: string;
     betListTitle: string;
-    custId: string;
-    custName: string;
     windowLocation: any;
+    mainDomain: string;
 
     constructor(
         $: JQueryStatic,
@@ -46,8 +45,7 @@ class MemberStatementView extends StatementView {
         this.betListUrl = this.$("#BetListUrl").val();
         this.betListTitle = this.$("#BetListTitle").val();
 
-        this.custId = this.$("#CustId").val();
-        this.custName = this.$("#CustName").val();
+        this.mainDomain = this.$("#MainDomain").val();
 
         this.$.unblockUI();
     }
@@ -75,7 +73,7 @@ class MemberStatementView extends StatementView {
         this.windowLocation.href = url;
     };
     viewBetList = (element: JQuery, transactionType: number) => {
-        let param = {
+        const param = {
             custid: this.custId,
             winlossdate: element.data("transfer-date"),
             transtype: transactionType,
@@ -84,6 +82,14 @@ class MemberStatementView extends StatementView {
 
         var url = this.betListUrl + "?" + jQuery.param(param);
 
-        this.topWindow.popupManager.open(url, this.betListTitle, 900);
+        if (this.mainDomain) {
+            this.topWindow.postMessage({
+                event_id: "daily-statement",
+                title: this.betListTitle,
+                url: url
+            }, this.mainDomain);
+        } else {
+            this.topWindow.popupManager.open(url, this.betListTitle, 900);
+        }
     };
 }

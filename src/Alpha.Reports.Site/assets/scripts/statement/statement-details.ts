@@ -1,37 +1,29 @@
 ﻿class StatementDetailView {
     $: JQueryStatic;
+    $popup: JQuery;
 
     $exportExcelForm: JQuery;
     $tableReport: JQuery;
 
-    constructor($: JQueryStatic) {
+    constructor($: JQueryStatic, $popup: JQuery) {
         this.$ = $;
+        this.$popup = $popup;
     }
 
     init = () => {
-        this.$.blockUI();
-
         this.cacheElements();
         this.registerEvents();
 
         this.$tableReport.stickyTableHeaders();
-
-        this.$.unblockUI();
     };
     cacheElements = () => {
-        this.$exportExcelForm = this.$("#export-excel-form");
-        this.$tableReport = this.$("#tbl-report");
+        this.$exportExcelForm = this.$popup.find("#export-excel-form");
+        this.$tableReport = this.$popup.find("#tbl-report");
     };
     registerEvents = () => {
-        this.$("#icon-excel").on("click", this.onExportExcel);
+        this.$popup.find("#icon-excel").off("click").on("click", this.onExportExcel);
     };
     onExportExcel = () => {
         this.$exportExcelForm.submit();
     };
 }
-
-$(() => {
-    const statementDetailView = new StatementDetailView($);
-
-    statementDetailView.init();
-});

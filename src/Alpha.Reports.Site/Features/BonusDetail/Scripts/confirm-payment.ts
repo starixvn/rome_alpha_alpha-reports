@@ -1,4 +1,23 @@
 ﻿"use strict";
+(function ($) {
+    $.fn.tinyDraggable = function (options) {
+        var settings = $.extend({ handle: 0, exclude: 0 }, options);
+        return this.each(function () {
+            var dx, dy, el = $(this), handle = settings.handle ? $(settings.handle, el) : el;
+            handle.on({
+                mousedown: function (e) {
+                    //if (settings.exclude && ~$.inArray(e.target, $(settings.exclude, el))) return;
+                    e.preventDefault();
+                    var os = el.offset(); dx = e.pageX - os.left, dy = e.pageY - os.top;
+                    $(document).on('mousemove.drag', function (e) { el.offset({ top: e.pageY - dy, left: e.pageX - dx }); });
+                },
+                mouseup: function (e) { $(document).off('mousemove.drag'); }
+            });
+        });
+    }
+}(jQuery));
+
+
 interface JQuery {
     datepicker(options: any): JQuery;
 }
@@ -6,6 +25,8 @@ interface JQuery {
 class ConfirmPayment {
     private $: JQueryStatic;
     private alert: Alert;
+    private reloadFormCallback: Function;
+    private $popupConfirmPayment: JQuery;
     private $formConfirmPayment: JQuery;
     private $hiddenCustId: JQuery;
     private $hiddenTransId: JQuery;
@@ -15,9 +36,11 @@ class ConfirmPayment {
     private $labelBonusDetailRefNo: JQuery;
     private $buttonConfirmPayment: JQuery;
 
-    constructor($: JQueryStatic, alert: Alert) {
+    constructor($: JQueryStatic, alert: Alert, reloadFormCallback: Function, $popupConfirmPayment: JQuery) {
         this.$ = $;
         this.alert = alert;
+        this.reloadFormCallback = reloadFormCallback;
+        this.$popupConfirmPayment = $popupConfirmPayment;
     }
 
     public init() {
@@ -26,13 +49,16 @@ class ConfirmPayment {
     }
 
     private cacheElements() {
-        this.$formConfirmPayment = this.$("#form-confirmPayment");
+        this.$formConfirmPayment = this.$popupConfirmPayment.find("#form-confirmPayment");
         this.$hiddenCustId = this.$formConfirmPayment.find("#hidden-custId");
         this.$hiddenTransId = this.$formConfirmPayment.find("#hidden-transId");
         this.$paymentDatePicker = this.$formConfirmPayment.find("#payment-date");
         this.$paymentDatePicker.datepicker({
             allowInputToggle: true,
-            maxDate: new Date(this.$("#hidden-maxPaymentDate").val())
+            maxDate: this.$paymentDatePicker.val(),
+            widgetPositioning: {
+                vertical: "bottom"
+            }
         });
         this.$labelToMember = this.$formConfirmPayment.find("#lbl-toMember");
         this.$labelAmount = this.$formConfirmPayment.find("#lbl-amount");
@@ -42,9 +68,18 @@ class ConfirmPayment {
 
     private bindEvents() {
         const self = this;
+        this.$(".icon-payment").click(function () {
+            self.assignConfirmPaymentFormData(self.$(this));
+            self.$popupConfirmPayment.modal({ show: true, backdrop: false });
+        });
+
         this.$formConfirmPayment.submit(function (e) {
             e.preventDefault();
             self.confirmPaymentPost();
+        });
+
+        this.$popupConfirmPayment.draggable({
+            handle: ".modal-header"
         });
     }
 
@@ -69,8 +104,9 @@ class ConfirmPayment {
         } else {
             this.alert.show(data.Code, data.Message);
             if (data.IsOk) {
-                setTimeout(function () {
-                    window.location.reload();
+                setTimeout(() => {
+                    this.$popupConfirmPayment.modal("hide");
+                    this.reloadFormCallback();
                 }, 3000);
             } else {
                 this.$buttonConfirmPayment.prop("disabled", false);
@@ -78,14 +114,17 @@ class ConfirmPayment {
         }
     }
 
-    public setUIControlsValue(custId: number, custName: string, transId: number, amount: string, paymentDate: string) {
+    private assignConfirmPaymentFormData(iconPayment: JQuery) {
         this.alert.hide();
-        this.$hiddenCustId.val(custId);
+        const transId = iconPayment.data("transid");
+        const paymentDate = iconPayment.data("createddate");
+
+        this.$hiddenCustId.val(iconPayment.data("custid"));
         this.$hiddenTransId.val(transId);
         this.$paymentDatePicker.val(paymentDate);
         this.$paymentDatePicker.data("DateTimePicker").minDate(paymentDate);
-        this.$labelToMember.text(custName);
-        this.$labelAmount.text(amount);
+        this.$labelToMember.text(iconPayment.data("username"));
+        this.$labelAmount.text(iconPayment.data("amount"));
         this.$labelBonusDetailRefNo.text(transId);
     }
 }

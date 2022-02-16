@@ -7,7 +7,6 @@ class BonusDetail {
     private $reportForm: JQuery;
     private $pageTitle: JQuery;
     private $isFilterVisible: JQuery;
-    private confirmPaymentPopup: JQuery;
 
     constructor(
         $: JQueryStatic,
@@ -34,7 +33,6 @@ class BonusDetail {
         this.$reportForm = this.$("#report-form");
         this.$pageTitle = this.$(".page-title");
         this.$isFilterVisible = this.$("#IsFilterVisible");
-        this.confirmPaymentPopup = this.$("#popup-confirmPayment");
     }
 
     public initComponents() {
@@ -56,20 +54,13 @@ class BonusDetail {
         this.$reportForm.submit(this.onSubmitReport);
         this.$("#btn-submit").click(() => this.$("#PageIndex").val("1"));
 
-        if (this.confirmPaymentPopup.length) {
-            const confirmPayment = new ConfirmPayment(this.$, new Alert(this.$))
-            confirmPayment.init();
-            const self = this;
-            this.$(".icon-payment").click(function () {
-                const $this = self.$(this);
-                confirmPayment.setUIControlsValue(
-                    $this.data("custid"),
-                    $this.data("username"),
-                    $this.data("transid"),
-                    $this.data("amount"),
-                    $this.data("createddate"));
-                self.confirmPaymentPopup.modal({ show: true, backdrop: false });
-            });
+        const $popupConfirmPayment = this.$("#popup-confirmPayment");
+        if ($popupConfirmPayment.length) {
+            new ConfirmPayment(
+                this.$,
+                new Alert(this.$),
+                () => this.$reportForm.submit(),
+                $popupConfirmPayment).init();
         }
     }
 
@@ -93,10 +84,9 @@ class BonusDetail {
 }
 
 $(function () {
-    const bonusDetail = new BonusDetail(
+    new BonusDetail(
         $,
         window.top,
         new DateRangePickerComponent($),
-        new PagerComponent($));
-    bonusDetail.init();
+        new PagerComponent($)).init();
 });

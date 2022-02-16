@@ -16,8 +16,12 @@ class StatementView extends BaseReport {
     $exportExcelForm: JQuery;
     $statementDetailsURL: JQuery;
 
-    $custId: JQuery;
-    $custName: JQuery;
+    custId: string;
+    custName: string;
+
+    popupStatementDetails: JQuery;
+    popupBodyStatementDetails: JQuery;
+    statementDetailView: StatementDetailView;
 
     constructor(
         $: JQueryStatic,
@@ -51,16 +55,21 @@ class StatementView extends BaseReport {
         this.$reportForm.submit(this.onSubmitReport);
 
         let self = this;
+        this.statementDetailView = new StatementDetailView(this.$, this.popupStatementDetails);
         this.$(".column-transfer-amount").on("click", function () {
             self.loadStatementDetail(self.$(this).data("transfer-date"));
         });
+        this.popupStatementDetails.draggable({ handle: ".modal-header" });
     }
     public cacheElements() {
         super.cacheElements();
 
         this.$statementDetailsURL = this.$("#StatementDetailsURL");
-        this.$custId = this.$("#CustId");
-        this.$custName = this.$("#CustName");
+        this.custId = this.$("#CustId").val();
+        this.custName = this.$("#CustName").val();
+
+        this.popupStatementDetails = this.$("#popup-statement-details");
+        this.popupBodyStatementDetails = this.popupStatementDetails.find(".modal-body");
     };
     onClickIconFilter = () => {
         let filter = this.$reportForm;
@@ -78,7 +87,6 @@ class StatementView extends BaseReport {
         this.$exportExcelForm.submit();
     };
     onSubmitReport = () => {
-
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : !this.$reportForm.is(":hidden")));
         this.$.blockUI();
     };
@@ -86,11 +94,17 @@ class StatementView extends BaseReport {
     loadStatementDetail = (transferDate: string) => {
         let param = {
             TransferDate: transferDate,
-            CustId: this.$custId.val(),
-            CustName: this.$custName.val()
+            CustId: this.custId,
+            CustName: this.custName
         };
 
-        var url = this.$statementDetailsURL.val() + "?" + this.$.param(param);
-        this.topWindow.popupManager.open(url, null, 800);
+        this.$.blockUI();
+        this.$.get(
+            this.$statementDetailsURL.val() + "?" + this.$.param(param),
+            (html) => {
+                this.popupBodyStatementDetails.html(html);
+                this.statementDetailView.init();
+                this.popupStatementDetails.modal({ show: true, backdrop: false });
+            }).always(this.$.unblockUI);
     };
 }

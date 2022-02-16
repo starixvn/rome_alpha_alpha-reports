@@ -1,4 +1,4 @@
-﻿<div class="modal fade popup-confirmPayment" id="popup-confirmPayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+﻿<div class="modal popup-confirmPayment" id="popup-confirmPayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,7 +10,7 @@
                 <p>@Resources.ConfirmPaymentNote</p>
                 @using (Html.BeginForm("ConfirmPayment", "BonusDetail", FormMethod.Post, new { @class = "form-horizontal", id = "form-confirmPayment" }))
                 {
-                    @Html.AntiForgeryToken()
+                    @*@Html.AntiForgeryToken()*@
                     <input type="hidden" name="custId" id="hidden-custId" />
                     <input type="hidden" name="transId" id="hidden-transId" />
                     <div class="form-group">
@@ -23,7 +23,8 @@
                                            name="paymentDate"
                                            readonly="readonly"
                                            autocomplete="off"
-                                           class="ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate form-control" />
+                                           class="ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate form-control"
+                                           value="@SystemTime.Today.ToShortDateWithSlash()" />
                                     <span class="input-group-addon">
                                         <label class="icon-calendar" for="payment-date"></label>
                                     </span>
@@ -47,7 +48,6 @@
                         <button type="submit" class="btn-submit" id="btn-confirmPayment">@Resources.Submit</button>
                     </div>
                 }
-                <input type="hidden" value="@SystemTime.Today.ToShortDateWithSlash()" id="hidden-maxPaymentDate" />
             </div>
         </div>
     </div>

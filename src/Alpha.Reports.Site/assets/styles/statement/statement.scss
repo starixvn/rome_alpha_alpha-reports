@@ -1,5 +1,4 @@
-﻿
-#report-legend {
+﻿#report-legend {
     font-size: 13px;
     font-family: Roboto, Arial, Tahoma,helvetica,sans-serif;
     line-height: 24px;
@@ -18,15 +17,6 @@
     margin-bottom: 10px;
 }
 
-#popup-statement-detail {
-    right: auto;
-    bottom: auto;
-
-    .modal-dialog {
-        width: 800px;
-    }
-}
-
 #tbl-report {
     .tbl-footer .format-negative {
         color: #ffffff;
@@ -41,7 +31,6 @@
     }
 }
 
-
 .filter .form-group .statement-details-excel {
     float: right;
 }
@@ -50,9 +39,21 @@
     margin-top: 0;
 }
 
-
 #tbl-report .short-title {
     display: none;
+}
+
+body {
+    padding-right: 0 !important;
+}
+
+.popup-statement-details {
+    position: fixed !important;
+    top: 5px;
+    bottom: auto;
+    right: auto;
+    z-index: 999;
+    padding-right: 0 !important;
 }
 
 .filter.statement-details-filter {

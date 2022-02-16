@@ -1,19 +1,13 @@
 ﻿@model StatementDetailViewModel
 @{
-    ViewBag.Title = $"{Resources.TransferDetails} ({Model.CustName})";
+    Layout = null;
 }
-
-@section Styles {
-    @StaticResources.RenderStylesWithDarkMode("~/assets/bundles/statement/statement")
-}
-
 <form class="form-inline filter statement-details-filter" role="form" id="report-form">
     <div class="form-group statement-detail-title">
         @Resources.TransferDetails (@Model.CustName): @Model.TransferDate.ToShortDateWithSlash()
         <span id="icon-excel" class="icon-excel statement-details-excel" title="@Resources.ExportToExcel"></span>
     </div>
 </form>
-
 <table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-report-statement-detail" id="tbl-report">
     <thead>
         <tr>
@@ -41,20 +35,15 @@
                         <br />
                         @data.TransDesc
                     </td>
-                    <td>
-                        @RenderNegativeNumberCell(data.Amount)
-                    </td>
+                    <td>@RenderNegativeNumberCell(data.Amount)</td>
                 </tr>
-
                 isEvenRow = !isEvenRow;
             }
         </tbody>
         <tfoot>
             <tr class="tbl-footer">
                 <td colspan="2">@Resources.Total</td>
-                <td>
-                    @RenderNegativeNumberCell(Model.Total.Amount)
-                </td>
+                <td>@RenderNegativeNumberCell(Model.Total.Amount)</td>
             </tr>
         </tfoot>
     }
@@ -69,9 +58,6 @@
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("TransferDate", Model.TransferDate)
 </form>
-@section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/statement/statement-details")
-}
 
 @helper RenderNegativeNumberCell(decimal? cellValue)
 {

@@ -1,4 +1,6 @@
-﻿.text-danger {
+﻿@import '../../../assets/styles/_mixins.scss';
+
+.text-danger {
     color: #e92819;
 }
 
@@ -27,10 +29,21 @@
     margin-left: 8px;
 }
 
+body {
+    padding-right: 0 !important;
+}
+
 .popup-confirmPayment {
+    position: fixed !important;
     top: 5px;
-    padding-right: 0!important;
     z-index: 999;
+    padding-right: 0 !important;
+    @include box-shadow-multiple(none);
+    width: 500px;
+
+    .modal-dialog {
+        width: 500px;
+    }
 
     .msg {
         margin: 10px 0 0;
@@ -62,12 +75,13 @@
 
         .control.date {
             position: absolute;
-            top: -6px;
+            top: -5px;
+            left: 5px;
         }
 
         .input-group.paymentdate {
             position: fixed;
-            z-index: 10;
+            z-index: 2000;
             width: 130px;
         }
     }

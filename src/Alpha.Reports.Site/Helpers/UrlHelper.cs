@@ -6,9 +6,7 @@
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
     using Alpha.Reports.Configurations;
-    using Alpha.Reports.Site.Models;
-    using Sunplus.Agent.Model.Base;
-    using Sunplus.Agent.Model.Entities;
+    using Alpha.Reports.Models;
     using Web.Helpers;
 
     public static class UrlHelper
@@ -21,9 +19,6 @@
 
         [ThreadStatic]
         private static Func<string, IDictionary<string, object>, string> replaceOrAddQueryStringParamsFunc;
-
-        [ThreadStatic]
-        private static Func<string, string> mapBetListPath;
 
         public static Func<string, IDictionary<string, object>, string> AddQueryStringParamsFunc
         {
@@ -66,17 +61,32 @@
 
         public static Func<string, string, string> GetSiteUrl { get; internal set; } = GetLink;
 
+        private static Func<string, string> mapBetListPath;
         public static Func<string, string> MapBetListPath
         {
             get
             {
-                return mapBetListPath ?? GetBetListPath;
+                mapBetListPath = mapBetListPath ?? GetBetListPath;
+
+                return mapBetListPath;
             }
 
             internal set
             {
                 mapBetListPath = value;
             }
+        }
+
+        internal static string GetBetListPath(string virtualPath = "~/WinLoss/Index")
+        {
+            var mainDomain = MainDomain;
+
+            if (string.IsNullOrWhiteSpace(mainDomain))
+            {
+                return MicroSites.BetListsUrl(virtualPath);
+            }
+
+            return $"{mainDomain}{SiteSettings.BetListAppPath}{virtualPath.TrimStart('~')}";
         }
 
         internal static string AddQueryStringParams(string link, IDictionary<string, object> routeValues)
@@ -132,19 +142,30 @@
             return MicroSites.ReportsUrl(action + currentQuery);
         }
 
-        internal static string GetBetListPath(string virtualPath = "~/WinLoss/Index")
+        private static Func<string, string> mapMessagePath;
+        public static Func<string, string> MapMessagePath
+        {
+            get
+            {
+                mapMessagePath = mapMessagePath ?? GetMessagePath;
+
+                return mapMessagePath;
+            }
+        }
+
+        internal static string GetMessagePath(string virtualPath)
         {
             var mainDomain = MainDomain;
 
             if (string.IsNullOrWhiteSpace(mainDomain))
             {
-                return MicroSites.BetListsUrl(virtualPath);
+                return MicroSites.MessageUrl(virtualPath);
             }
 
-            return $"{mainDomain}{SiteSettings.BetListAppPath}{virtualPath.TrimStart('~')}";
+            return $"{mainDomain}{SiteSettings.MessageAppPath}{virtualPath.TrimStart('~')}";
         }
 
         private static string MainDomain
-            => new User(DependencyResolver.Current.GetService<IUserSession>()).MainDomain;
+            => (DependencyResolver.Current.GetService<IUser>()).MainDomain;
     }
 }

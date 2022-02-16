@@ -131,6 +131,7 @@
 @Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", "Statement"))
 @Html.Hidden("BetListUrl", Model.BetListLink)
 @Html.Hidden("BetListTitle", Resources.BetList)
+@Html.Hidden("MainDomain", Model.MainDomain)
 
 @Pager.Render(Model.PagerViewModel)
 @section Scripts {
