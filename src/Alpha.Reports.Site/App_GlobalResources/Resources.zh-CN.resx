@@ -862,4 +862,10 @@
     <value>沙巴体育的专属报表仅從 {0} 開始提供。
  在 {0} 之前，体育博彩报表和沙巴体育报表的 數據是结合的。</value>
   </data>
+  <data name="BetCreditHistory" xml:space="preserve">
+    <value>Bet Credit History</value>
+  </data>
+  <data name="StatementMovement" xml:space="preserve">
+    <value>Statement Movement</value>
+  </data>
 </root>

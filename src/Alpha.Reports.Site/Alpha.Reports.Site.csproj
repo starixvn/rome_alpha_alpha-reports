@@ -511,6 +511,15 @@
     <Compile Include="Constants\UserSelectedDateRangeOptionConstant.cs" />
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
     <Compile Include="Controllers\ConsolidationController.cs" />
+    <Compile Include="Controllers\PlayForFunController.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistoryController.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistoryHandler.cs" />
+    <Compile Include="Features\BetCreditTracking\Requests\BetCreditHistoryQuery.cs" />
+    <Compile Include="Features\BetCreditTracking\Requests\StatementMovementQuery.cs" />
+    <Compile Include="Features\BetCreditTracking\StatementMovementController.cs" />
+    <Compile Include="Features\BetCreditTracking\StatementMovementHandler.cs" />
+    <Compile Include="Features\BetCreditTracking\ViewModels\BetCreditHistoryViewModel.cs" />
+    <Compile Include="Features\BetCreditTracking\ViewModels\StatementMovementViewModel.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTController.cs" />
     <Compile Include="Features\BonusDetail\BonusDetailController.cs" />
     <Compile Include="Features\BonusDetail\BonusDetailHandler.cs" />
@@ -1431,6 +1440,11 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Features\BonusDetail\Styles\bonus-detail-dark.scss" />
+    <Content Include="Features\BetCreditTracking\Views\BetCreditHistory\Index.cshtml" />
+    <Content Include="Features\BetCreditTracking\Views\StatementMovement\Index.cshtml" />
+    <Content Include="Features\BetCreditTracking\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1599,6 +1613,7 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.8.22.0.31243\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.8.22.0.31243\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

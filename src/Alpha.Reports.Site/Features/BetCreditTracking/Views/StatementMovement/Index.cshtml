@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Resources.StatementMovement;
+}
+@model StatementMovementViewModel
+@section Styles {
+    @StaticResources.AssetStyles.RenderCommon($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
+}
+@section Scripts {
+    @*@StaticResources.RenderScripts("")*@
+}
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation">
+        @Html.ActionLink(@Resources.BetCreditHistory, "Index", "BetCreditHistory")
+    </li>
+    <li role="presentation" class="active">
+        <a href="#statementMovement" aria-controls="home" role="tab" data-toggle="tab">@Resources.StatementMovement</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="statementMovement">
+        Statement Movement
+    </div>
+</div>

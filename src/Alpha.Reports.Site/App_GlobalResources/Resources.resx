@@ -945,4 +945,10 @@
   <data name="SabaSportsNote" xml:space="preserve">
     <value>The dedicated performance report of SABA Sports is only available from {0} onwards. Before {0}, data is the combination of Sportsbook and SABA Sports.</value>
   </data>
+  <data name="BetCreditHistory" xml:space="preserve">
+    <value>Bet Credit History</value>
+  </data>
+  <data name="StatementMovement" xml:space="preserve">
+    <value>Statement Movement</value>
+  </data>
 </root>

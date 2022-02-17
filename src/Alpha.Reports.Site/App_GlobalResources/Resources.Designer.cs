@@ -268,6 +268,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bet Credit History.
+        /// </summary>
+        public static string BetCreditHistory {
+            get {
+                return ResourceManager.GetString("BetCreditHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet List.
         /// </summary>
         public static string BetList {
@@ -2019,6 +2028,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string StatementGuidelines {
             get {
                 return ResourceManager.GetString("StatementGuidelines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statement Movement.
+        /// </summary>
+        public static string StatementMovement {
+            get {
+                return ResourceManager.GetString("StatementMovement", resourceCulture);
             }
         }
         

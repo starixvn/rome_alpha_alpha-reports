@@ -856,4 +856,10 @@
   <data name="SabaSportsNote" xml:space="preserve">
     <value>รายงานเฉพาะของ กีฬาSABA จะมีตั้งแต่วันที่ {0} เป็นต้นไป ก่อนวันที่ {0} รายงานของกีฬาและกีฬาSABA จะรวมกัน</value>
   </data>
+  <data name="BetCreditHistory" xml:space="preserve">
+    <value>Bet Credit History</value>
+  </data>
+  <data name="StatementMovement" xml:space="preserve">
+    <value>Statement Movement</value>
+  </data>
 </root>
