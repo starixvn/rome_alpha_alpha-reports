@@ -16,5 +16,8 @@
 
         public async Task<ActionResult> Index(StatementMovementQuery message)
             => await ViewAsync(string.Format(basePath, nameof(Index)), message);
+
+        public async Task<ActionResult> Excel(StatementMovementExcelQuery message)
+            => await ExcelViewAsync(message);
     }
 }

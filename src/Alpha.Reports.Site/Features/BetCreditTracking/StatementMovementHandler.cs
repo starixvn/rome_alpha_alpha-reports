@@ -1,15 +1,22 @@
 ﻿namespace Alpha.Reports.Site.Features.BetCreditTracking
 {
     using System.Threading.Tasks;
+    using Alpha.Reports.Features.BetCreditTracking.StatementMovement;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
     using Alpha.Reports.Site.Features.BetCreditTracking.ViewModels;
     using MediatR;
 
-    public class StatementMovementHandler : IAsyncRequestHandler<StatementMovementQuery, StatementMovementViewModel>
+    public class StatementMovementHandler : StatementMovementBaseHandler, IAsyncRequestHandler<StatementMovementQuery, StatementMovementViewModel>
     {
-        public Task<StatementMovementViewModel> Handle(StatementMovementQuery message)
+        public StatementMovementHandler(StatementMovementService reportService) : base(reportService)
         {
-            return Task.FromResult(new StatementMovementViewModel(message.ViewerLevel.DisplayName));
+        }
+
+        public async Task<StatementMovementViewModel> Handle(StatementMovementQuery message)
+        {
+            var statementMovementParam = CreateParameter(message);
+            var report = await reportService.GetStatementMovementDetailAsync(statementMovementParam);
+            return new StatementMovementViewModel(report, message);
         }
     }
 }

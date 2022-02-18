@@ -1,13 +1,15 @@
-﻿@{
+﻿@using Alpha.Reports.Features.BetCreditTracking.StatementMovement.Models
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Resources.StatementMovement;
 }
 @model StatementMovementViewModel
 @section Styles {
     @StaticResources.AssetStyles.RenderCommon($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
+    @StaticResources.RenderStyles("~/Features/BetCreditTracking/Bundles/statementmovement")
 }
 @section Scripts {
-    @*@StaticResources.RenderScripts("")*@
+    @StaticResources.RenderScripts("~/Features/BetCreditTracking/Bundles/statementmovement")
 }
 <ul class="nav nav-tabs" role="tablist">
     <li role="presentation">
@@ -19,6 +21,71 @@
 </ul>
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="statementMovement">
-        Statement Movement
+        @{
+            @ReportTitle.Render(new PageHeaderViewModel(@Resources.StatementMovement, false, true, false, @Model.IsFilterVisible, null, null, null));
+            Html.RenderPartial("~/Features/BetCreditTracking/Views/StatementMovement/_Filter.cshtml", Model);
+        }
+        <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
+            <thead>
+                <tr>
+                    <th>@Resources.MemberRefNo</th>
+                    <th>@Resources.OddEventDate</th>
+                    <th>@Resources.NewEventDate</th>
+                    <th>@Resources.MemberWinLossNew</th>
+                    <th>@Resources.MemberComm</th>
+                    <th>@Resources.MemberTotal</th>
+                </tr>
+            </thead>
+            @if (Model.ReportData.Any())
+            {
+                <tbody>
+                    @BuildReport(Model.ReportData.DataSource)
+                </tbody>
+                <tfoot>
+                    <tr class="tbl-footer">
+                        <td class="text-left">@Resources.Total</td>
+                        <td></td>
+                        <td></td>
+                        <td>@HtmlHelpers.FormatNumber(Model.ReportData.TotalData.MemberWinLoss)</td>
+                        <td>@HtmlHelpers.FormatNumber(Model.ReportData.TotalData.MemberComm)</td>
+                        <td>@HtmlHelpers.FormatNumber(Model.ReportData.TotalData.MemberTotal)</td>
+                    </tr>
+                </tfoot>
+            }
+            else
+            {
+                @NoInformation.Render(6)
+            }
+        </table>
     </div>
 </div>
+
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("Excel", "StatementMovement")">
+    @Html.Hidden("MemberUsername", Model.MemberUsername)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+</form>
+
+@helper BuildReport(IEnumerable<StatementMovementModel> dataSource)
+{
+    <tr class="member-row">
+        <td class="text-left" data-islink="true">Member1</td>
+        <td></td>
+        <td></td>
+        <td>200</td>
+        <td>300</td>
+        <td class="total">400</td>
+    </tr>
+    foreach (var record in dataSource)
+    {
+        <tr>
+            <td><span class="refno">@record.MemberRefNo</span></td>
+            <td>@record.OddEventDate</td>
+            <td>@record.NewEventDate</td>
+            <td>@HtmlHelpers.FormatNumber(record.MemberWinLoss)</td>
+            <td>@HtmlHelpers.FormatNumber(record.MemberComm)</td>
+            <td class="total">@HtmlHelpers.FormatNumber(record.MemberTotal)</td>
+        </tr>
+    }
+}    

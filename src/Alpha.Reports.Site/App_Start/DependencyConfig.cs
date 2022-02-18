@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
+    using Alpha.Reports.Features.BetCreditTracking.StatementMovement;
     using Alpha.Reports.Features.BonusDetail;
     using Alpha.Reports.Site.Features.SuperWinLossDetailByPT;
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
@@ -163,6 +164,8 @@
             container.Register<SuperWinLossDetailByPTWorkbook, SuperWinLossDetailByPTWorkbookImpl>();
 
             container.Register<BonusDetailService, BonusDetailServiceImpl>();
+
+            container.Register<StatementMovementService, StatementMovementServiceImpl>();
 
             container.RegisterSingleton<PartialUMService, PartialUMServiceImpl>();
 

@@ -442,5 +442,21 @@
     "inputFiles": [
       "assets/styles/statement/statement-dark.css"
     ]
+  },
+  {
+    "outputFileName": "Features/BetCreditTracking/Bundles/statementmovement.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/monthpicker.js",
+      "assets/scripts/components/link-builder.js",
+      "Features/BetCreditTracking/Scripts/statement-movement.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/BetCreditTracking/Bundles/statementmovement.css",
+    "inputFiles": [
+      "Features/BetCreditTracking/Styles/statement-movement.css"
+    ]
   }
 ]

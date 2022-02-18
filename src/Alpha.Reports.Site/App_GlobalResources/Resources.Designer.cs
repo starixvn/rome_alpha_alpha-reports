@@ -19,7 +19,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -1404,6 +1404,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         /// <summary>
         ///   Looks up a localized string similar to Member Comm.
         /// </summary>
+        public static string MemberComm {
+            get {
+                return ResourceManager.GetString("MemberComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member Comm.
+        /// </summary>
         public static string MemberCommNew {
             get {
                 return ResourceManager.GetString("MemberCommNew", resourceCulture);
@@ -1436,6 +1445,33 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("MemberOutstanding", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Member/Ref No..
+        /// </summary>
+        public static string MemberRefNo {
+            get {
+                return ResourceManager.GetString("MemberRefNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member&apos;s Moved Event Date Report.
+        /// </summary>
+        public static string MembersMovedEventDateReport {
+            get {
+                return ResourceManager.GetString("MembersMovedEventDateReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member Total.
+        /// </summary>
+        public static string MemberTotal {
+            get {
+                return ResourceManager.GetString("MemberTotal", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Member Total.
@@ -1452,6 +1488,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string MemberTurnOver {
             get {
                 return ResourceManager.GetString("MemberTurnOver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member username.
+        /// </summary>
+        public static string MemberUsername {
+            get {
+                return ResourceManager.GetString("MemberUsername", resourceCulture);
             }
         }
         
@@ -1555,6 +1600,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Event Date.
+        /// </summary>
+        public static string NewEventDate {
+            get {
+                return ResourceManager.GetString("NewEventDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Next.
         /// </summary>
         public static string Next {
@@ -1641,6 +1695,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string October {
             get {
                 return ResourceManager.GetString("October", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odd Event Date.
+        /// </summary>
+        public static string OddEventDate {
+            get {
+                return ResourceManager.GetString("OddEventDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odd Event Date From.
+        /// </summary>
+        public static string OddEventDateFrom {
+            get {
+                return ResourceManager.GetString("OddEventDateFrom", resourceCulture);
             }
         }
         
@@ -2037,6 +2109,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string StatementMovement {
             get {
                 return ResourceManager.GetString("StatementMovement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only the tickets whose either old or new date is in the report range and the other date is out of the report range will be listed in the report..
+        /// </summary>
+        public static string StatementMovementNote {
+            get {
+                return ResourceManager.GetString("StatementMovementNote", resourceCulture);
             }
         }
         
