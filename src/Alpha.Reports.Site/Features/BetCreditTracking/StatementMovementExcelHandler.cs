@@ -68,7 +68,7 @@
         private string GetExcelFileName(StatementMovementExcelQuery message, StatementMovementParam param)
             => string.Join(
                 "-",
-                    
+                "Event Date Moved Report",
                 message.CustName,
                 param.FromDate.ToShortDateWithSlash(),
                 param.ToDate.ToShortDateWithSlash());
