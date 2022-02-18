@@ -399,15 +399,6 @@
   <data name="WinLossByBetType" xml:space="preserve">
     <value>Win Loss By Bet Type</value>
   </data>
-  <data name="MasterPlayForFunDetail" xml:space="preserve">
-    <value>Master Play For Fun Detail</value>
-  </data>
-  <data name="MemberPlayForFunDetail" xml:space="preserve">
-    <value>Member Play For Fun Detail</value>
-  </data>
-  <data name="AgentPlayForFunDetail" xml:space="preserve">
-    <value>Agent Play For Fun Detail</value>
-  </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
@@ -419,15 +410,6 @@
   </data>
   <data name="Disabled" xml:space="preserve">
     <value>Disabled</value>
-  </data>
-  <data name="NoPlayers" xml:space="preserve">
-    <value>No.Players</value>
-  </data>
-  <data name="PlayCount" xml:space="preserve">
-    <value>Play Count</value>
-  </data>
-  <data name="PlayForFun" xml:space="preserve">
-    <value>Play For Fun</value>
   </data>
   <data name="WinPlace" xml:space="preserve">
     <value>Win Place</value>

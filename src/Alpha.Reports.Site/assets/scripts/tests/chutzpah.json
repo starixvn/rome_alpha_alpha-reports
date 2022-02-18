@@ -92,9 +92,6 @@
     { "Path": "../winlossanalysischart/winlossanalysischart.ts" },
 
     { "Path": "../base-report.ts" },
-    { "Path": "../playforfun/playforfun.ts" },
-    { "Path": "../playforfun/playforfun-master-agent.ts" },
-    { "Path": "../playforfun/playforfun-member.ts" },
 
     { "Path": "../statement/statement-details.ts" },
     { "Path": "../statement/statement.ts" },
@@ -137,10 +134,6 @@
     },
     {
       "Path": "apps/matchwinlossdetail",
-      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
-    },
-    {
-      "Path": "apps/playforfun",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     },
     {

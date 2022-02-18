@@ -37,8 +37,6 @@
 
         public bool IsShowConsolidatedReport => userSession.IsShowConsolidatedReport;
 
-        public bool GetHideProduct(int productId) => userSession.GetHideProduct(productId);
-
         public IList<int> EnableJackpotProductIds => GetEnableProductsForGame(Jackpot);
 
         public bool IsEnabledJackpot => EnableJackpotProductIds.Any();

@@ -253,10 +253,6 @@
     <Compile Include="Features\Outstanding\OutstandingCriteria.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\MatchWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\PagingReportProductCriteria.cs" />
-    <Compile Include="Criteria\PlayForFun\PlayForFunCriteria.cs" />
-    <Compile Include="Criteria\PlayForFun\MemberPlayForFunCriteria.cs" />
-    <Compile Include="Criteria\PlayForFun\MasterOrAgentPlayForFunCriteria.cs" />
-    <Compile Include="Criteria\PlayForFun\PlayForFunProductCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />
     <Compile Include="Criteria\WinLossAnalysisChart\WinLossAnalysisChartCriteria.cs" />
@@ -320,10 +316,6 @@
     <Compile Include="Features\Outstanding\OutstandingModel.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModel.cs" />
-    <Compile Include="Models\PlayForFun\MemberPlayForFunModel.cs" />
-    <Compile Include="Models\PlayForFun\MasterAgentPlayForFunModel.cs" />
-    <Compile Include="Models\PlayForFun\PlayForFunModel.cs" />
-    <Compile Include="Models\PlayForFun\PlayForFunProduct.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductsByRefTable.cs" />
     <Compile Include="Models\ProgressiveContribution\ProgressiveContributionByProductModel.cs" />
@@ -354,7 +346,6 @@
     <Compile Include="Features\Outstanding\OutstandingParam.cs" />
     <Compile Include="Params\GetLeaguesByCustomerParam.cs" />
     <Compile Include="Params\CommissionByBettypeParam.cs" />
-    <Compile Include="Params\PlayForFunParam.cs" />
     <Compile Include="Params\ProgressiveContributionParam.cs" />
     <Compile Include="Params\RiskAnalysisIPMatchingParam.cs" />
     <Compile Include="Params\Statement\GetStatementParam.cs" />
@@ -375,7 +366,6 @@
     <Compile Include="Services\ConsolidationService.cs" />
     <Compile Include="Services\LeagueService.cs" />
     <Compile Include="Services\CommissionByBettypeService.cs" />
-    <Compile Include="Services\PlayForFunService.cs" />
     <Compile Include="Services\MatchWinLossDetailService.cs" />
     <Compile Include="Services\ProgressiveContributionService.cs" />
     <Compile Include="Services\ReportDateService.cs" />

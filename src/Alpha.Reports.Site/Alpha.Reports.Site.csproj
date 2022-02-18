@@ -475,9 +475,6 @@
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\progressivecontribution\progressivecontribution.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinloss\matchwinloss.ts" />
-    <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-master-agent.ts" />
-    <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-member.ts" />
-    <TypeScriptCompile Include="assets\scripts\playforfun\playforfun.ts" />
     <TypeScriptCompile Include="assets\scripts\risk-analysis-ip-matching\index.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\member-statement-init.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\member-statement.ts" />
@@ -514,7 +511,6 @@
     <Compile Include="Constants\UserSelectedDateRangeOptionConstant.cs" />
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
     <Compile Include="Controllers\ConsolidationController.cs" />
-    <Compile Include="Controllers\PlayForFunController.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTController.cs" />
     <Compile Include="Features\BonusDetail\BonusDetailController.cs" />
     <Compile Include="Features\BonusDetail\BonusDetailHandler.cs" />
@@ -586,9 +582,6 @@
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductHandler.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductExcelHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
-    <Compile Include="Handlers\PlayForFun\PlayForFunBaseHandler.cs" />
-    <Compile Include="Handlers\PlayForFun\PlayForFunExcelHandler.cs" />
-    <Compile Include="Handlers\PlayForFun\PlayForFunHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeExcelHandler.cs" />
@@ -640,11 +633,6 @@
     <Compile Include="Requests\MatchWinLoss\MatchWinLossQuery.cs" />
     <Compile Include="Requests\LeaguesByCustomerQuery.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailQuery.cs" />
-    <Compile Include="Requests\PlayForFun\MemberPlayForFunExcelQuery.cs" />
-    <Compile Include="Requests\PlayForFun\MasterOrAgentPlayForFunExcelQuery.cs" />
-    <Compile Include="Requests\PlayForFun\MasterOrAgentPlayForFunQuery.cs" />
-    <Compile Include="Requests\PlayForFun\MemberPlayForFunQuery.cs" />
-    <Compile Include="Requests\PlayForFun\PlayForFunQuery.cs" />
     <Compile Include="Requests\ProgressiveContribution\ReportLegendQuery.cs" />
     <Compile Include="Requests\ReportBaseQuery.cs" />
     <Compile Include="Models\User.cs" />
@@ -731,11 +719,6 @@
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailFilterViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModel.cs" />
-    <Compile Include="ViewModels\PlayForFun\MasterOrAgentPlayForFunReportViewModel.cs" />
-    <Compile Include="ViewModels\PlayForFun\MemberPlayForFunReportViewModel.cs" />
-    <Compile Include="ViewModels\PlayForFun\MemberPlayForFunViewModel.cs" />
-    <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModel.cs" />
-    <Compile Include="ViewModels\PlayForFun\PlayForFunFilterViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\Statement\StatementDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
@@ -840,10 +823,6 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossbyproduct\winlossbyproduct-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossbyproduct\winlossbyproduct-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-tests.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-master-agent-tests.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-registerevents-tests.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-member-tests.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-template.ts" />
@@ -932,14 +911,6 @@
     <Content Include="assets\bundles\matchwinloss\matchwinloss.js" />
     <Content Include="assets\bundles\matchwinloss\matchwinloss.min.js">
       <DependentUpon>matchwinloss.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\playforfun\playforfun-master-agent.js" />
-    <Content Include="assets\bundles\playforfun\playforfun-master-agent.min.js">
-      <DependentUpon>playforfun-master-agent.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\playforfun\playforfun-member.js" />
-    <Content Include="assets\bundles\playforfun\playforfun-member.min.js">
-      <DependentUpon>playforfun-member.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.css" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.js" />
@@ -1485,10 +1456,6 @@
     <Content Include="Views\CommissionByBettype\Index.cshtml" />
     <Content Include="Views\CommissionByBettype\_CommissionByBettypeFilter.cshtml" />
     <Content Include="Views\MatchWinLossDetail\Index.cshtml" />
-    <Content Include="Views\PlayForFun\Member.cshtml" />
-    <Content Include="Views\PlayForFun\MasterOrAgent.cshtml" />
-    <Content Include="Views\PlayForFun\Filter.cshtml" />
-    <Content Include="Views\PlayForFun\ExportExcel.cshtml" />
     <Content Include="Views\Statement\SMAReportLegend.cshtml" />
     <Content Include="Views\WinLossAnalysisChart\Index.cshtml" />
     <Content Include="Views\Statement\StatementDetails.cshtml" />
