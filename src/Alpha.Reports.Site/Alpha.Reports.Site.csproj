@@ -956,7 +956,9 @@
     <Content Include="assets\bundles\playforfun\playforfun-member.min.js">
       <DependentUpon>playforfun-member.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.css" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.js" />
+    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.css" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.js">
       <DependentUpon>progressivecontribution.js</DependentUpon>
     </Content>
