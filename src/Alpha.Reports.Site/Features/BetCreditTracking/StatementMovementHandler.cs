@@ -6,7 +6,9 @@
     using Alpha.Reports.Site.Features.BetCreditTracking.ViewModels;
     using MediatR;
 
-    public class StatementMovementHandler : StatementMovementBaseHandler, IAsyncRequestHandler<StatementMovementQuery, StatementMovementViewModel>
+    public class StatementMovementHandler : 
+        StatementMovementBaseHandler, 
+        IAsyncRequestHandler<StatementMovementQuery, StatementMovementViewModel>
     {
         public StatementMovementHandler(StatementMovementService reportService) : base(reportService)
         {
@@ -15,7 +17,7 @@
         public async Task<StatementMovementViewModel> Handle(StatementMovementQuery message)
         {
             var statementMovementParam = CreateParameter(message);
-            var report = await reportService.GetStatementMovementDetailAsync(statementMovementParam);
+            var report = await reportService.GetStatementMovementAsync(statementMovementParam);
             return new StatementMovementViewModel(report, message);
         }
     }

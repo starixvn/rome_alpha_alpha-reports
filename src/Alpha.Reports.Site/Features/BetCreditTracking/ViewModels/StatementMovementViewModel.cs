@@ -6,7 +6,6 @@
     using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
     using Alpha.Reports.Site.ViewModels.Components;
-    using Alpha.Web.Helpers;
     using System;
 
     public class StatementMovementViewModel
@@ -47,7 +46,5 @@
 
         public DateRangePickerViewModel DateRangePickerViewModel
           => new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
-
-        public string GuidelineURL() => MicroSites.MessageUrl("~/staticmessage/guide?id=147430");
     }
 }

@@ -79,6 +79,33 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action.
+        /// </summary>
+        public static string Action {
+            get {
+                return ResourceManager.GetString("Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action Date/Time.
+        /// </summary>
+        public static string ActionDateTime {
+            get {
+                return ResourceManager.GetString("ActionDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actual Stake.
+        /// </summary>
+        public static string ActualStake {
+            get {
+                return ResourceManager.GetString("ActualStake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Agent.
         /// </summary>
         public static string Agent {
@@ -250,6 +277,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Balance Change.
+        /// </summary>
+        public static string BalanceChange {
+            get {
+                return ResourceManager.GetString("BalanceChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Choice Matching.
         /// </summary>
         public static string BetChoiceMatching {
@@ -264,6 +300,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string BetCount {
             get {
                 return ResourceManager.GetString("BetCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bet Credit.
+        /// </summary>
+        public static string BetCredit {
+            get {
+                return ResourceManager.GetString("BetCredit", resourceCulture);
             }
         }
         
@@ -831,6 +876,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Gaming {
             get {
                 return ResourceManager.GetString("Gaming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Given Credit.
+        /// </summary>
+        public static string GivenCredit {
+            get {
+                return ResourceManager.GetString("GivenCredit", resourceCulture);
             }
         }
         
@@ -1600,6 +1654,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Balance.
+        /// </summary>
+        public static string NewBalance {
+            get {
+                return ResourceManager.GetString("NewBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Event Date.
         /// </summary>
         public static string NewEventDate {
@@ -1699,24 +1762,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Odd Event Date.
-        /// </summary>
-        public static string OddEventDate {
-            get {
-                return ResourceManager.GetString("OddEventDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Odd Event Date From.
-        /// </summary>
-        public static string OddEventDateFrom {
-            get {
-                return ResourceManager.GetString("OddEventDateFrom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Odds.
         /// </summary>
         public static string odds {
@@ -1740,6 +1785,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string of2 {
             get {
                 return ResourceManager.GetString("of2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Event Date.
+        /// </summary>
+        public static string OldEventDate {
+            get {
+                return ResourceManager.GetString("OldEventDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old Event Date From.
+        /// </summary>
+        public static string OldEventDateFrom {
+            get {
+                return ResourceManager.GetString("OldEventDateFrom", resourceCulture);
             }
         }
         
@@ -1851,6 +1914,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Player Comm.
+        /// </summary>
+        public static string PlayerComm {
+            get {
+                return ResourceManager.GetString("PlayerComm", resourceCulture);
+            }
+        }
+                
         /// <summary>
         ///   Looks up a localized string similar to Position Taking.
         /// </summary>
@@ -2604,6 +2676,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string WinLossByProduct {
             get {
                 return ResourceManager.GetString("WinLossByProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Win Loss Date.
+        /// </summary>
+        public static string WinLossDate {
+            get {
+                return ResourceManager.GetString("WinLossDate", resourceCulture);
             }
         }
         

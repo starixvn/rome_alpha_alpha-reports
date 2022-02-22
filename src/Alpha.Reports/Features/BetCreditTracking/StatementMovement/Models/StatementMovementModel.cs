@@ -6,7 +6,7 @@
     {
         public string MemberRefNo { get; set; }
 
-        public DateTime OddEventDate { get; set; }
+        public DateTime OldEventDate { get; set; }
 
         public DateTime NewEventDate { get; set; }
 

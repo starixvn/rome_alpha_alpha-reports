@@ -5,9 +5,10 @@
 @model BetCreditHistoryViewModel
 @section Styles {
     @StaticResources.AssetStyles.RenderCommon($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
+    @StaticResources.RenderStyles("~/Features/BetCreditTracking/Bundles/betcredithistory")
 }
 @section Scripts {
-    @*@StaticResources.RenderScripts("")*@
+    @StaticResources.RenderScripts("~/Features/BetCreditTracking/Bundles/betcredithistory")
 }
 <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active">
@@ -19,6 +20,65 @@
 </ul>
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="betCreditHistory">
-        Bet Credit History
+        @{
+            @ReportTitle.Render(new PageHeaderViewModel(@Resources.BetCreditHistory, false, true, false, @Model.IsFilterVisible, null, null, null));
+            Html.RenderPartial("~/Features/BetCreditTracking/Views/BetCreditHistory/_Filter.cshtml", Model);
+        }
+
+        <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover">
+            <thead>
+                <tr>
+                    <th class="action-datetime-col">@Resources.ActionDateTime</th>
+                    <th>@Resources.WinLossDate</th>
+                    <th>@Resources.refno</th>
+                    <th>@Resources.ActualStake</th>
+                    <th>@Resources.WinLoss</th>
+                    <th>@Resources.PlayerComm</th>
+                    <th>@Resources.BalanceChange</th>
+                    <th>@Resources.NewBalance</th>
+                    <th>@Resources.GivenCredit</th>
+                    <th>@Resources.BetCredit</th>
+                    <th class="action-col">@Resources.Action</th>
+                </tr>
+            </thead>
+            @if (Model.ReportData.Any())
+            {
+                <tbody>
+                    @BuildReport(Model.ReportData.DataSource)
+                </tbody>
+            }
+            else
+            {
+                @NoInformation.Render(6)
+            }
+        </table>
     </div>
 </div>
+
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("Excel", "BetCreditHistory")">
+    @Html.Hidden("Member", Model.Member)
+    @Html.Hidden("RefNo", Model.RefNo)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+</form>
+
+@helper BuildReport(IEnumerable<BetCreditHistoryModel> dataSource)
+{
+    foreach (var record in dataSource)
+    {
+        <tr class="@(record.BetCredit != (decimal)20.00 ? "highlight-row" : "")">
+            <td>@record.ActionDateTime.ToLongDate24HourWithSlash()</td>
+            <td>@record.WinLossDate.ToShortDateWithSlash()</td>
+            <td>@record.RefNo</td>
+            <td>@HtmlHelpers.FormatNumber(record.ActualStake)</td>
+            <td>@HtmlHelpers.FormatNumber(record.WinLoss)</td>
+            <td>@HtmlHelpers.FormatNumber(record.PlayerComm)</td>
+            <td>@HtmlHelpers.FormatNumber(record.BalanceChange)</td>
+            <td>@HtmlHelpers.FormatNumber(record.NewBalance)</td>
+            <td>@HtmlHelpers.FormatNumber(record.GivenCredit)</td>
+            <td class="@(record.BetCredit == (decimal)20.00 ? "red-cell" : "")">@HtmlHelpers.FormatNumber(record.BetCredit)</td>
+            <td>@record.Action</td>
+        </tr>
+    }
+}

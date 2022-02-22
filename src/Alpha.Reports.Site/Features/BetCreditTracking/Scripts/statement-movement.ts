@@ -33,7 +33,7 @@ class StatementMovement {
 
     public initComponents() {
         this.dateRangePickerComponent.render(
-            new DateRangePickerOption("daterange-picker", "report-form", null, () => this.$("#PageIndex").val("1")));
+            new DateRangePickerOption("daterange-picker", "report-form", null));
 
         this.$("#tbl-report").stickyTableHeaders();
 
@@ -70,7 +70,6 @@ class StatementMovement {
 }
 
 $(function () {
-    const linkBuilderComponent = new LinkBuilderComponent($);
     const statementMovement = new StatementMovement(
         $,
         new DateRangePickerComponent($)

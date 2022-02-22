@@ -15,9 +15,17 @@
 
     public class StatementMovementExcelHandler : StatementMovementBaseHandler, IAsyncRequestHandler<StatementMovementExcelQuery, ExcelFileViewModel>
     {
-        private readonly Workbook<StatementMovementModel> workbook;
+        private const int TitleStartIndex = 1;
+        private const int HeaderStartIndex = 2;
+        private const int BodyStartIndex = 3;
+        private const int BodyEndIndex = 4;
+        private const int FreezeRowIndex = 3;
+        private const int SheetIndex = 1;
+        private const int FooterEndIndex = 5;
 
-        public StatementMovementExcelHandler(StatementMovementService reportService, Workbook<StatementMovementModel> workbook) : base(reportService)
+        private readonly StatementMovementWorkbook workbook;
+
+        public StatementMovementExcelHandler(StatementMovementService reportService, StatementMovementWorkbook workbook) : base(reportService)
         {
             this.workbook = workbook;
         }
@@ -31,14 +39,16 @@
 
             var statementMovementParam = CreateParameter(message);
 
-            var reportData = message.ReportData ?? await reportService.GetStatementMovementDetailAsync(statementMovementParam);
+            var reportData = message.ReportData ?? await reportService.GetStatementMovementAsync(statementMovementParam);
 
             var fileContent = workbook
+                .SetData(reportData.DataSource, reportData.TotalData)
+                .SetRowMappers(GetBodyRowMapper(), GetTotalRowMapper())
                 .UseTemplate(GetTemplateInfo())
                 .Title(GetReportTitle(statementMovementParam))
                 .Header(Resources.ResourceManager.GetString)
-                .Body(reportData.DataSource, GetBodyRowMapper(message))
-                .Footer(reportData.TotalData, GetTotalRowMapper(message))
+                .Body(reportData.DataSource, GetBodyRowMapper())
+                .Footer(reportData.TotalData, GetTotalRowMapper())
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
@@ -49,15 +59,15 @@
             => new TemplateInfo(
                     GetExcelTemplatePath("StatementMovement"), 
                     noInfomationText: Resources.NoInformationIsAvailable,
-                    titleStartIndex: 1,
-                    headerStartIndex: 2,
-                    bodyStartIndex: 3,
-                    bodyEndIndex: 4,
-                    freezeRowIndex: 3,
+                    titleStartIndex: TitleStartIndex,
+                    headerStartIndex: HeaderStartIndex,
+                    bodyStartIndex: BodyStartIndex,
+                    bodyEndIndex: BodyEndIndex,
+                    freezeRowIndex: FreezeRowIndex,
                     freezeColumnName: A,
                     columnStartName: A,
-                    sheetIndex: 1,
-                    footerEndIndex: 5
+                    sheetIndex: SheetIndex,
+                    footerEndIndex: FooterEndIndex
                 );
 
         private string GetReportTitle(StatementMovementParam param)
@@ -73,20 +83,21 @@
                 param.FromDate.ToShortDateWithSlash(),
                 param.ToDate.ToShortDateWithSlash());
 
-        private Mapper<StatementMovementModel> GetBodyRowMapper(StatementMovementExcelQuery message)
-           => GetRowMapper(message, isTotal: false);
+        private Mapper<StatementMovementModel> GetBodyRowMapper()
+           => GetRowMapper(isTotal: false);
 
-        private Mapper<StatementMovementModel> GetTotalRowMapper(StatementMovementExcelQuery message)
-            => GetRowMapper(message, isTotal: true);
+        private Mapper<StatementMovementModel> GetTotalRowMapper()
+            => GetRowMapper(isTotal: true);
 
-        internal Mapper<StatementMovementModel> GetRowMapper(StatementMovementExcelQuery message, bool isTotal)
+        internal Mapper<StatementMovementModel> GetRowMapper(bool isTotal)
         {
             return new Mapper<StatementMovementModel>()
                 .Map(A, statementMovement => isTotal ? Resources.Total : statementMovement.MemberRefNo)
-                .Map(B, statementMovement => statementMovement.MemberWinLoss)
-                .Map(C, statementMovement => statementMovement.MemberWinLoss)
-                .Map(D, statementMovement => statementMovement.MemberComm)
-                .Map(E, statementMovement => statementMovement.MemberTotal);
+                .Map(B, statementMovement => isTotal ? string.Empty : statementMovement.OldEventDate.ToShortDateWithSlash())
+                .Map(C, statementMovement => isTotal ? string.Empty : statementMovement.NewEventDate.ToShortDateWithSlash())
+                .Map(D, statementMovement => statementMovement.MemberWinLoss)
+                .Map(E, statementMovement => statementMovement.MemberComm)
+                .Map(F, statementMovement => statementMovement.MemberTotal);
         }
     }
 }

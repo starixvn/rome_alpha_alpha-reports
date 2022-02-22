@@ -10,7 +10,7 @@
 
     public interface StatementMovementService
     {
-        Task<ReportData<StatementMovementModel>> GetStatementMovementDetailAsync(StatementMovementParam param);
+        Task<ReportData<StatementMovementModel>> GetStatementMovementAsync(StatementMovementParam param);
     }
 
     public class StatementMovementServiceImpl : StatementMovementService
@@ -22,15 +22,15 @@
             repository = dynamicRepository;
         }
 
-        public Task<ReportData<StatementMovementModel>> GetStatementMovementDetailAsync(StatementMovementParam param)
+        public Task<ReportData<StatementMovementModel>> GetStatementMovementAsync(StatementMovementParam param)
         {
             var list = new List<StatementMovementModel>
             {
-                new StatementMovementModel { MemberRefNo = "test",  OddEventDate = DateTime.Now, NewEventDate = DateTime.Now, MemberWinLoss = 100, MemberComm = 3, MemberTotal = 103  },
-                new StatementMovementModel { MemberRefNo = "test",  OddEventDate = DateTime.Now, NewEventDate = DateTime.Now, MemberWinLoss = 100, MemberComm = 3, MemberTotal = 103  },
-                new StatementMovementModel { MemberRefNo = "test",  OddEventDate = DateTime.Now, NewEventDate = DateTime.Now, MemberWinLoss = 100, MemberComm = 3, MemberTotal = 103  },
+                new StatementMovementModel { MemberRefNo = "test",  OldEventDate = DateTime.Now, NewEventDate = DateTime.Now, MemberWinLoss = 100, MemberComm = 3, MemberTotal = 103  },
+                new StatementMovementModel { MemberRefNo = "test",  OldEventDate = DateTime.Now, NewEventDate = DateTime.Now, MemberWinLoss = 100, MemberComm = 3, MemberTotal = 103  },
+                new StatementMovementModel { MemberRefNo = "test",  OldEventDate = DateTime.Now, NewEventDate = DateTime.Now, MemberWinLoss = 100, MemberComm = 3, MemberTotal = 103  },
             };
-            return Task.FromResult(new ReportData<StatementMovementModel>(list, new StatementMovementModel { MemberRefNo = "total", OddEventDate = DateTime.Now, NewEventDate = DateTime.Now, MemberWinLoss = 300, MemberComm = 9, MemberTotal = 309 }));
+            return Task.FromResult(new ReportData<StatementMovementModel>(list, new StatementMovementModel { MemberRefNo = "total", OldEventDate = DateTime.Now, NewEventDate = DateTime.Now, MemberWinLoss = 300, MemberComm = 9, MemberTotal = 309 }));
         }
     }
 }

@@ -449,7 +449,6 @@
       "assets/scripts/core.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/monthpicker.js",
-      "assets/scripts/components/link-builder.js",
       "Features/BetCreditTracking/Scripts/statement-movement.js"
     ]
   },
@@ -457,6 +456,21 @@
     "outputFileName": "Features/BetCreditTracking/Bundles/statementmovement.css",
     "inputFiles": [
       "Features/BetCreditTracking/Styles/statement-movement.css"
+    ]
+  },
+  {
+    "outputFileName": "Features/BetCreditTracking/Bundles/betcredithistory.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/monthpicker.js",
+      "Features/BetCreditTracking/Scripts/bet-credit-history.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/BetCreditTracking/Bundles/betcredithistory.css",
+    "inputFiles": [
+      "Features/BetCreditTracking/Styles/bet-credit-history.css"
     ]
   }
 ]

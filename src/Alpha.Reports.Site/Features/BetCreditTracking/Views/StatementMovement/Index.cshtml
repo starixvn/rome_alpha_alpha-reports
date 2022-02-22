@@ -29,7 +29,7 @@
             <thead>
                 <tr>
                     <th>@Resources.MemberRefNo</th>
-                    <th>@Resources.OddEventDate</th>
+                    <th>@Resources.OldEventDate</th>
                     <th>@Resources.NewEventDate</th>
                     <th>@Resources.MemberWinLossNew</th>
                     <th>@Resources.MemberComm</th>
@@ -81,8 +81,8 @@
     {
         <tr>
             <td><span class="refno">@record.MemberRefNo</span></td>
-            <td>@record.OddEventDate</td>
-            <td>@record.NewEventDate</td>
+            <td>@record.OldEventDate.ToShortDateWithSlash()</td>
+            <td>@record.NewEventDate.ToShortDateWithSlash()</td>
             <td>@HtmlHelpers.FormatNumber(record.MemberWinLoss)</td>
             <td>@HtmlHelpers.FormatNumber(record.MemberComm)</td>
             <td class="total">@HtmlHelpers.FormatNumber(record.MemberTotal)</td>

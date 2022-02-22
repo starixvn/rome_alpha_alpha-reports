@@ -512,8 +512,12 @@
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
     <Compile Include="Controllers\ConsolidationController.cs" />
     <Compile Include="Controllers\PlayForFunController.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistoryBaseHandler.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryController.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistoryExcelHandler.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryHandler.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistoryWorkbook.cs" />
+    <Compile Include="Features\BetCreditTracking\Requests\BetCreditHistoryExcelQuery.cs" />
     <Compile Include="Features\BetCreditTracking\StatementMovementBaseHandler.cs" />
     <Compile Include="Features\BetCreditTracking\StatementMovementExcelHandler.cs" />
     <Compile Include="Features\BetCreditTracking\Requests\BetCreditHistoryQuery.cs" />
@@ -521,6 +525,7 @@
     <Compile Include="Features\BetCreditTracking\Requests\StatementMovementQuery.cs" />
     <Compile Include="Features\BetCreditTracking\StatementMovementController.cs" />
     <Compile Include="Features\BetCreditTracking\StatementMovementHandler.cs" />
+    <Compile Include="Features\BetCreditTracking\StatementMovementWorkbook.cs" />
     <Compile Include="Features\BetCreditTracking\ViewModels\BetCreditHistoryViewModel.cs" />
     <Compile Include="Features\BetCreditTracking\ViewModels\StatementMovementViewModel.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTController.cs" />
@@ -1060,6 +1065,14 @@
       <DependentUpon>reports-dark.css</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Features\BetCreditTracking\Scripts\statement-movement.ts" />
+    <Content Include="Features\BetCreditTracking\Bundles\betcredithistory.css" />
+    <Content Include="Features\BetCreditTracking\Bundles\betcredithistory.js" />
+    <Content Include="Features\BetCreditTracking\Bundles\betcredithistory.min.css">
+      <DependentUpon>betcredithistory.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Bundles\betcredithistory.min.js">
+      <DependentUpon>betcredithistory.js</DependentUpon>
+    </Content>
     <Content Include="Features\BetCreditTracking\Bundles\statementmovement.css" />
     <Content Include="Features\BetCreditTracking\Bundles\statementmovement.js" />
     <Content Include="Features\BetCreditTracking\Bundles\statementmovement.min.css">
@@ -1071,18 +1084,33 @@
     <Content Include="Features\BetCreditTracking\Bundles\statementmovement.min.js">
       <DependentUpon>statementmovement.js</DependentUpon>
     </Content>
-    <Content Include="Features\BetCreditTracking\Styles\statement-movement.css" />
+    <Content Include="App_Data\ExcelTemplates\BetCreditTracking\StatementMovement.xls" />
     <Content Include="assets\styles\statement\statement-dark.min.css">
       <DependentUpon>statement-dark.css</DependentUpon>
     </Content>
+    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.css">
+      <DependentUpon>bet-credit-history.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.min.css">
+      <DependentUpon>bet-credit-history.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\themes\page-title-agent-dark.css">
       <DependentUpon>page-title-agent-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.scss" />
+    <None Include="Features\BetCreditTracking\Styles\statement-movement.scss" />
+    <TypeScriptCompile Include="Features\BetCreditTracking\Scripts\bet-credit-history.ts" />
+    <Content Include="Features\BetCreditTracking\Styles\statement-movement.css">
+      <DependentUpon>statement-movement.scss</DependentUpon>
     </Content>
     <Content Include="assets\styles\themes\page-title-agent-dark.min.css">
       <DependentUpon>page-title-agent-dark.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\themes\page-title-agent.css">
       <DependentUpon>page-title-agent.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\statement-movement.min.css">
+      <DependentUpon>statement-movement.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\themes\page-title-agent.min.css">
       <DependentUpon>page-title-agent.css</DependentUpon>
@@ -1459,6 +1487,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Features\BetCreditTracking\Views\StatementMovement\_Filter.cshtml" />
+    <Content Include="Features\BetCreditTracking\Views\BetCreditHistory\_Filter.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

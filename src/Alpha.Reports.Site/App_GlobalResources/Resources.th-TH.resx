@@ -880,13 +880,40 @@
   <data name="NewEventDate" xml:space="preserve">
     <value>New Event Date</value>
   </data>
-  <data name="OddEventDate" xml:space="preserve">
-    <value>Odd Event Date</value>
-  </data>
-  <data name="OddEventDateFrom" xml:space="preserve">
-    <value>Odd Event Date From</value>
-  </data>
   <data name="StatementMovementNote" xml:space="preserve">
     <value>Only the tickets whose either old or new date is in the report range and the other date is out of the report range will be listed in the report.</value>
+  </data>
+  <data name="OldEventDate" xml:space="preserve">
+    <value>Old Event Date</value>
+  </data>
+  <data name="OldEventDateFrom" xml:space="preserve">
+    <value>Old Event Date From</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ActionDateTime" xml:space="preserve">
+    <value>Action Date/Time</value>
+  </data>
+  <data name="ActualStake" xml:space="preserve">
+    <value>Actual Stake</value>
+  </data>
+  <data name="BalanceChange" xml:space="preserve">
+    <value>Balance Change</value>
+  </data>
+  <data name="BetCredit" xml:space="preserve">
+    <value>Bet Credit</value>
+  </data>
+  <data name="GivenCredit" xml:space="preserve">
+    <value>Given Credit</value>
+  </data>
+  <data name="NewBalance" xml:space="preserve">
+    <value>New Balance</value>
+  </data>
+  <data name="PlayerComm" xml:space="preserve">
+    <value>Player Comm</value>
+  </data>
+  <data name="WinLossDate" xml:space="preserve">
+    <value>Win Loss Date</value>
   </data>
 </root>

@@ -16,5 +16,8 @@
 
         public async Task<ActionResult> Index(BetCreditHistoryQuery message)
             => await ViewAsync(string.Format(basePath, nameof(Index)), message);
+
+        public async Task<ActionResult> Excel(BetCreditHistoryExcelQuery message)
+            => await ExcelViewAsync(message);
     }
 }

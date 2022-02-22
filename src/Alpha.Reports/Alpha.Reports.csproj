@@ -220,6 +220,9 @@
     <Compile Include="Criteria\GetProductsDetailCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistory\BetCreditHistoryService.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistory\Models\BetCreditHistoryModel.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistory\Params\BetCreditHistoryParam.cs" />
     <Compile Include="Features\BetCreditTracking\StatementMovement\Models\StatementMovementModel.cs" />
     <Compile Include="Features\BetCreditTracking\StatementMovement\Params\StatementMovementParam.cs" />
     <Compile Include="Features\BetCreditTracking\StatementMovement\StatementMovementService.cs" />
