@@ -1,4 +1,14 @@
-﻿.action-datetime-col {
+﻿.page-title {
+    border-bottom: none;
+
+    .list-icon {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+}
+
+.action-datetime-col {
     width: 9%;
 }
 

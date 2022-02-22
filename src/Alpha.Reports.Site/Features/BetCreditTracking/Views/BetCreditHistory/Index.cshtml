@@ -10,18 +10,27 @@
 @section Scripts {
     @StaticResources.RenderScripts("~/Features/BetCreditTracking/Bundles/betcredithistory")
 }
-<ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active">
-        <a href="#betCreditHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.BetCreditHistory</a>
-    </li>
-    <li role="presentation">
-        @Html.ActionLink(Resources.StatementMovement, "Index", "StatementMovement")
-    </li>
-</ul>
+<div class="page-title @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#betCreditHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.BetCreditHistory</a>
+        </li>
+        <li role="presentation">
+            @Html.ActionLink(Resources.StatementMovement, "Index", "StatementMovement")
+        </li>
+    </ul>
+
+    <div class="list-icon">
+        <ul>
+            <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+            <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+        </ul>
+    </div>
+</div>
+
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="betCreditHistory">
         @{
-            @ReportTitle.Render(new PageHeaderViewModel(@Resources.BetCreditHistory, false, true, false, @Model.IsFilterVisible, null, null, null));
             Html.RenderPartial("~/Features/BetCreditTracking/Views/BetCreditHistory/_Filter.cshtml", Model);
         }
 

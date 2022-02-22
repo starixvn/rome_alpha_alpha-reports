@@ -11,18 +11,26 @@
 @section Scripts {
     @StaticResources.RenderScripts("~/Features/BetCreditTracking/Bundles/statementmovement")
 }
-<ul class="nav nav-tabs" role="tablist">
-    <li role="presentation">
-        @Html.ActionLink(@Resources.BetCreditHistory, "Index", "BetCreditHistory")
-    </li>
-    <li role="presentation" class="active">
-        <a href="#statementMovement" aria-controls="home" role="tab" data-toggle="tab">@Resources.StatementMovement</a>
-    </li>
-</ul>
+<div class="page-title @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation">
+            @Html.ActionLink(@Resources.BetCreditHistory, "Index", "BetCreditHistory")
+        </li>
+        <li role="presentation" class="active">
+            <a href="#statementMovement" aria-controls="home" role="tab" data-toggle="tab">@Resources.StatementMovement</a>
+        </li>
+    </ul>
+
+    <div class="list-icon">
+        <ul>
+             <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+             <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+        </ul>
+    </div>
+</div>
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="statementMovement">
         @{
-            @ReportTitle.Render(new PageHeaderViewModel(@Resources.StatementMovement, false, true, false, @Model.IsFilterVisible, null, null, null));
             Html.RenderPartial("~/Features/BetCreditTracking/Views/StatementMovement/_Filter.cshtml", Model);
         }
         <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
