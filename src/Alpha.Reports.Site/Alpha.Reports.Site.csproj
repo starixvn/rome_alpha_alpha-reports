@@ -1098,6 +1098,7 @@
       <DependentUpon>page-title-agent-dark.scss</DependentUpon>
     </Content>
     <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.scss" />
+    <Content Include="App_Data\ExcelTemplates\BetCreditTracking\BetCreditHistory.xls" />
     <None Include="Features\BetCreditTracking\Styles\statement-movement.scss" />
     <TypeScriptCompile Include="Features\BetCreditTracking\Scripts\bet-credit-history.ts" />
     <Content Include="Features\BetCreditTracking\Styles\statement-movement.css">
