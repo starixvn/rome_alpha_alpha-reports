@@ -1,8 +1,8 @@
-﻿namespace Alpha.Reports.Features.BetCreditTracking.StatementMovement.Models
+﻿namespace Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models
 {
     using System;
 
-    public class StatementMovementModel
+    public class MoveStatementHistoryModel
     {
         public string MemberRefNo { get; set; }
 

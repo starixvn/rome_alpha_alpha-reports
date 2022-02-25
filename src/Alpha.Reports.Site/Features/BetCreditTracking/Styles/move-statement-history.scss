@@ -1,4 +1,6 @@
-﻿.page-title {
+﻿@import '../../../assets/styles/_variables.scss';
+
+.page-title {
     border-bottom: none;
 
     .list-icon {
@@ -10,7 +12,7 @@
 
 
 .member-row {
-    background-color: #f3f5e0;
+    background-color: $row-light-orange-color;
 }
 
 .refno {

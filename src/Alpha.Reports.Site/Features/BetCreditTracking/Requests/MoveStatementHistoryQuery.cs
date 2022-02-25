@@ -5,9 +5,9 @@
     using Alpha.Reports.Site.Requests;
     using MediatR;
 
-    public class StatementMovementQuery : FromLast3MonthDateRangeQuery, IAsyncRequest<StatementMovementViewModel>
+    public class MoveStatementHistoryQuery : FromLast3MonthDateRangeQuery, IAsyncRequest<MoveStatementHistoryViewModel>
     {
-        public StatementMovementQuery(IUser viewer) : base(viewer)
+        public MoveStatementHistoryQuery(IUser viewer) : base(viewer)
         {
         }
 

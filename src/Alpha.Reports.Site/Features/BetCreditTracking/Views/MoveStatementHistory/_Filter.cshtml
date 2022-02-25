@@ -2,9 +2,9 @@
     Layout = null;
 }
 
-@model StatementMovementViewModel
+@model MoveStatementHistoryViewModel
 
-@using (Html.BeginForm("Index", "StatementMovement", FormMethod.Get, new { @class = "form-inline filter" + (Model.IsFilterVisible ? string.Empty : " hide"), role = "form", id = "report-form" }))
+@using (Html.BeginForm("Index", "MoveStatementHistory", FormMethod.Get, new { @class = "form-inline filter" + (Model.IsFilterVisible ? string.Empty : " hide"), role = "form", id = "report-form" }))
 {
     <input type="hidden" value="@Model.IsFilterVisible.ToString().ToLowerInvariant()" name="IsFilterVisible" id="IsFilterVisible" />
 
@@ -12,7 +12,7 @@
         <input type="text" style="width: 150px;" maxlength="50" autocomplete="off" name="MemberUsername" value="@Model.MemberUsername" placeholder="@Resources.MemberUsername" />
     </div>
 
-    @DateRangePicker.Render(Model.DateRangePickerViewModel, null, Resources.OldEventDateFrom);
+    @DateRangePicker.Render(Model.DateRangePickerViewModel, null, Resources.EventDateFrom);
 
     <div class="form-group">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
@@ -23,6 +23,6 @@
     </div>
 
     <div class="note" style="margin-left: 14px;">
-        @Resources.StatementMovementNote
+        @Resources.MoveStatementHistoryNote
     </div>
 }

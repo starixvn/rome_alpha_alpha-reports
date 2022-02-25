@@ -4,6 +4,8 @@ class BetCreditHistory {
     private dateRangePickerComponent: DateRangePickerComponent;
     private $reportForm: JQuery;
     private $pageTitle: JQuery;
+    private $txtMember: JQuery;
+    private $msgError: JQuery;
     private $isFilterVisible: JQuery;
     private $exportExcelForm: JQuery;
 
@@ -29,6 +31,8 @@ class BetCreditHistory {
         this.$pageTitle = this.$(".page-title");
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$exportExcelForm = this.$("#export-excel-form");
+        this.$txtMember = this.$("#txt-member");
+        this.$msgError = this.$("#msg-error");
     }
 
     public initComponents() {
@@ -59,14 +63,45 @@ class BetCreditHistory {
     }
 
     onExportExcel = () => {
+        this.$.blockUI();
+
+        if (!this.validateUsername()) {
+            this.showValidationUsernameError();
+            this.$.unblockUI();
+
+            return;
+        }
+
+        this.hideValidationUsernameError();
         this.$exportExcelForm.submit();
         this.$.unblockUI();
     };
 
-    onSubmitReport = () => {
+    onSubmitReport = (e: any) => {
         this.$.blockUI();
+
+        if (!this.validateUsername()) {
+            this.showValidationUsernameError();
+            this.$.unblockUI();
+            e.preventDefault();
+
+            return;
+        }
+
+        this.hideValidationUsernameError();
         return true;
     }
+
+    validateUsername = () => {
+        if (this.$txtMember.val() === "") {
+            return false;
+        }
+
+        return true;
+    }
+
+    showValidationUsernameError = () => this.$msgError.removeClass("hide");
+    hideValidationUsernameError = () => this.$msgError.addClass("hide");
 }
 
 $(function () {

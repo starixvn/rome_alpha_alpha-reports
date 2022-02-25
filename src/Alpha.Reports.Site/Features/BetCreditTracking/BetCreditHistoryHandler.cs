@@ -16,8 +16,8 @@
 
         public async Task<BetCreditHistoryViewModel> Handle(BetCreditHistoryQuery message)
         {
-            var statementMovementParam = CreateParameter(message);
-            var report = await reportService.GetBetCreditHistoryAsync(statementMovementParam);
+            var betCreditHistoryParam = CreateParameter(message);
+            var report = await reportService.GetBetCreditHistoryAsync(betCreditHistoryParam);
             return new BetCreditHistoryViewModel(report, message);
         }
     }

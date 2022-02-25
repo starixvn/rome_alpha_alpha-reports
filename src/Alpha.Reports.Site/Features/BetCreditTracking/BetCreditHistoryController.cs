@@ -4,6 +4,7 @@
     using System.Web.Mvc;
     using Alpha.Reports.Site.Controllers;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
+    using Alpha.Reports.Site.Features.BetCreditTracking.ViewModels;
     using MediatR;
 
     public class BetCreditHistoryController : ReportBaseController
@@ -14,7 +15,10 @@
         {
         }
 
-        public async Task<ActionResult> Index(BetCreditHistoryQuery message)
+        public ActionResult Index(BetCreditHistoryQuery message)
+            => View(string.Format(basePath, nameof(Index)), new BetCreditHistoryViewModel(message));
+
+        public async Task<ActionResult> Search(BetCreditHistoryQuery message)
             => await ViewAsync(string.Format(basePath, nameof(Index)), message);
 
         public async Task<ActionResult> Excel(BetCreditHistoryExcelQuery message)

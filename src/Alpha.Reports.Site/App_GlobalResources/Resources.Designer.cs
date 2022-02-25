@@ -772,6 +772,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event Date From.
+        /// </summary>
+        public static string EventDateFrom {
+            get {
+                return ResourceManager.GetString("EventDateFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export to Excel.
         /// </summary>
         public static string ExportToExcel {
@@ -1618,6 +1627,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move Statement History.
+        /// </summary>
+        public static string MoveStatementHistory {
+            get {
+                return ResourceManager.GetString("MoveStatementHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only the tickets whose either old or new date is in the report range and the other date is out of the report range will be listed in the report..
+        /// </summary>
+        public static string MoveStatementHistoryNote {
+            get {
+                return ResourceManager.GetString("MoveStatementHistoryNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Net Turnover.
         /// </summary>
         public static string NetTurnover {
@@ -1794,15 +1821,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string OldEventDate {
             get {
                 return ResourceManager.GetString("OldEventDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Old Event Date From.
-        /// </summary>
-        public static string OldEventDateFrom {
-            get {
-                return ResourceManager.GetString("OldEventDateFrom", resourceCulture);
             }
         }
         
@@ -2176,24 +2194,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Statement Movement.
-        /// </summary>
-        public static string StatementMovement {
-            get {
-                return ResourceManager.GetString("StatementMovement", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Only the tickets whose either old or new date is in the report range and the other date is out of the report range will be listed in the report..
-        /// </summary>
-        public static string StatementMovementNote {
-            get {
-                return ResourceManager.GetString("StatementMovementNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {
@@ -2550,6 +2550,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username is required..
+        /// </summary>
+        public static string UsernameIsRequired {
+            get {
+                return ResourceManager.GetString("UsernameIsRequired", resourceCulture);
             }
         }
         

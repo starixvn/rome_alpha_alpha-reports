@@ -884,9 +884,6 @@
   <data name="BetCreditHistory" xml:space="preserve">
     <value>Bet Credit History</value>
   </data>
-  <data name="StatementMovement" xml:space="preserve">
-    <value>Statement Movement</value>
-  </data>
   <data name="MembersMovedEventDateReport" xml:space="preserve">
     <value>Member's Moved Event Date Report</value>
   </data>
@@ -905,14 +902,11 @@
   <data name="NewEventDate" xml:space="preserve">
     <value>New Event Date</value>
   </data>
-  <data name="StatementMovementNote" xml:space="preserve">
-    <value>Only the tickets whose either old or new date is in the report range and the other date is out of the report range will be listed in the report.</value>
-  </data>
   <data name="OldEventDate" xml:space="preserve">
     <value>Old Event Date</value>
   </data>
-  <data name="OldEventDateFrom" xml:space="preserve">
-    <value>Old Event Date From</value>
+  <data name="EventDateFrom" xml:space="preserve">
+    <value>Event Date From</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>Action</value>
@@ -940,5 +934,14 @@
   </data>
   <data name="WinLossDate" xml:space="preserve">
     <value>Win Loss Date</value>
+  </data>
+  <data name="UsernameIsRequired" xml:space="preserve">
+    <value>Username is required.</value>
+  </data>
+  <data name="MoveStatementHistory" xml:space="preserve">
+    <value>Move Statement History</value>
+  </data>
+  <data name="MoveStatementHistoryNote" xml:space="preserve">
+    <value>Only the tickets whose either old or new date is in the report range and the other date is out of the report range will be listed in the report.</value>
   </data>
 </root>

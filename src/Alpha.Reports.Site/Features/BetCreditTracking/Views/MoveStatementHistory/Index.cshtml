@@ -1,15 +1,15 @@
-﻿@using Alpha.Reports.Features.BetCreditTracking.StatementMovement.Models
+﻿@using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = Resources.StatementMovement;
+    ViewBag.Title = Resources.MoveStatementHistory;
 }
-@model StatementMovementViewModel
+@model MoveStatementHistoryViewModel
 @section Styles {
     @StaticResources.AssetStyles.RenderCommon($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
-    @StaticResources.RenderStyles("~/Features/BetCreditTracking/Bundles/statementmovement")
+    @StaticResources.RenderStyles("~/Features/BetCreditTracking/Bundles/movestatementhistory")
 }
 @section Scripts {
-    @StaticResources.RenderScripts("~/Features/BetCreditTracking/Bundles/statementmovement")
+    @StaticResources.RenderScripts("~/Features/BetCreditTracking/Bundles/movestatementhistory")
 }
 <div class="page-title @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
     <ul class="nav nav-tabs" role="tablist">
@@ -17,7 +17,7 @@
             @Html.ActionLink(@Resources.BetCreditHistory, "Index", "BetCreditHistory")
         </li>
         <li role="presentation" class="active">
-            <a href="#statementMovement" aria-controls="home" role="tab" data-toggle="tab">@Resources.StatementMovement</a>
+            <a href="#moveStatementHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.MoveStatementHistory</a>
         </li>
     </ul>
 
@@ -29,9 +29,9 @@
     </div>
 </div>
 <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="statementMovement">
+    <div role="tabpanel" class="tab-pane active" id="moveStatementHistory">
         @{
-            Html.RenderPartial("~/Features/BetCreditTracking/Views/StatementMovement/_Filter.cshtml", Model);
+            Html.RenderPartial("~/Features/BetCreditTracking/Views/MoveStatementHistory/_Filter.cshtml", Model);
         }
         <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
             <thead>
@@ -69,26 +69,35 @@
 </div>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", "StatementMovement")">
+      action="@Url.Action("Excel", "MoveStatementHistory")">
     @Html.Hidden("MemberUsername", Model.MemberUsername)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
 </form>
 
-@helper BuildReport(IEnumerable<StatementMovementModel> dataSource)
+@helper BuildReport(IEnumerable<MoveStatementHistoryModel> dataSource)
 {
-    <tr class="member-row">
-        <td class="text-left" data-islink="true">Member1</td>
+    @*<tr class="member-row">
+        <td class="text-left">
+            
+        </td>
         <td></td>
         <td></td>
         <td>200</td>
         <td>300</td>
         <td class="total">400</td>
-    </tr>
+    </tr>*@
     foreach (var record in dataSource)
     {
         <tr>
-            <td><span class="refno">@record.MemberRefNo</span></td>
+            <td>
+                <a href="@Model.GetBetListLinkRouteValues(record)">
+                    Member1
+                </a>
+                @*<span class="refno">
+                    @record.MemberRefNo
+                </span>*@
+            </td>
             <td>@record.OldEventDate.ToShortDateWithSlash()</td>
             <td>@record.NewEventDate.ToShortDateWithSlash()</td>
             <td>@HtmlHelpers.FormatNumber(record.MemberWinLoss)</td>

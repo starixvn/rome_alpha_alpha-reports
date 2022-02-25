@@ -8,6 +8,11 @@
 
     public class BetCreditHistoryViewModel
     {
+        public BetCreditHistoryViewModel(BetCreditHistoryQuery message) : this(new ReportData<BetCreditHistoryModel>(null,null), message)
+        {
+            IsSearch = false;
+        }
+
         public BetCreditHistoryViewModel(ReportData<BetCreditHistoryModel> reportData, BetCreditHistoryQuery message)
         {
             ReportData = reportData;
@@ -20,6 +25,7 @@
             FromDate = message.FromDate;
             ToDate = message.ToDate;
             UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
+            IsSearch = true;
         }
 
         public ReportData<BetCreditHistoryModel> ReportData { get; }
@@ -39,6 +45,8 @@
         public DateTime FromDate { get; }
 
         public DateTime ToDate { get; }
+
+        public bool IsSearch { get; }
 
         public int UserSelectedDateRangeOption { get; }
 

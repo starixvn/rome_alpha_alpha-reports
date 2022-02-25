@@ -4,7 +4,7 @@
     using System.Reflection;
     using System.Web.Mvc;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
-    using Alpha.Reports.Features.BetCreditTracking.StatementMovement;
+    using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
     using Alpha.Reports.Features.BonusDetail;
     using Alpha.Reports.Site.Features.BetCreditTracking;
     using Alpha.Reports.Site.Features.SuperWinLossDetailByPT;
@@ -167,8 +167,8 @@
 
             container.Register<BonusDetailService, BonusDetailServiceImpl>();
 
-            container.Register<StatementMovementService, StatementMovementServiceImpl>();
-            container.Register<StatementMovementWorkbook, StatementMovementWorkbookImpl>();
+            container.Register<MoveStatementHistoryService, MoveStatementHistoryServiceImpl>();
+            container.Register<MoveStatementHistoryWorkbook, MoveStatementHistoryWorkbookImpl>();
             
             container.Register<BetCreditHistoryService, BetCreditHistoryServiceImpl>();
             container.Register<BetCreditHistoryWorkbook, BetCreditHistoryWorkbookImpl>();

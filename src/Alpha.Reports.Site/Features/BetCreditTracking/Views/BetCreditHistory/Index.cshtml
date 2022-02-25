@@ -16,7 +16,7 @@
             <a href="#betCreditHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.BetCreditHistory</a>
         </li>
         <li role="presentation">
-            @Html.ActionLink(Resources.StatementMovement, "Index", "StatementMovement")
+            @Html.ActionLink(Resources.MoveStatementHistory, "Index", "MoveStatementHistory")
         </li>
     </ul>
 
@@ -34,33 +34,36 @@
             Html.RenderPartial("~/Features/BetCreditTracking/Views/BetCreditHistory/_Filter.cshtml", Model);
         }
 
-        <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover">
-            <thead>
-                <tr>
-                    <th class="action-datetime-col">@Resources.ActionDateTime</th>
-                    <th>@Resources.WinLossDate</th>
-                    <th>@Resources.refno</th>
-                    <th>@Resources.ActualStake</th>
-                    <th>@Resources.WinLoss</th>
-                    <th>@Resources.PlayerComm</th>
-                    <th>@Resources.BalanceChange</th>
-                    <th>@Resources.NewBalance</th>
-                    <th>@Resources.GivenCredit</th>
-                    <th>@Resources.BetCredit</th>
-                    <th class="action-col">@Resources.Action</th>
-                </tr>
-            </thead>
-            @if (Model.ReportData.Any())
-            {
-                <tbody>
-                    @BuildReport(Model.ReportData.DataSource)
-                </tbody>
-            }
-            else
-            {
-                @NoInformation.Render(6)
-            }
-        </table>
+        @if (Model.IsSearch)
+        {
+            <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover">
+                <thead>
+                    <tr>
+                        <th class="action-datetime-col">@Resources.ActionDateTime</th>
+                        <th>@Resources.WinLossDate</th>
+                        <th>@Resources.refno</th>
+                        <th>@Resources.ActualStake</th>
+                        <th>@Resources.WinLoss</th>
+                        <th>@Resources.PlayerComm</th>
+                        <th>@Resources.BalanceChange</th>
+                        <th>@Resources.NewBalance</th>
+                        <th>@Resources.GivenCredit</th>
+                        <th>@Resources.BetCredit</th>
+                        <th class="action-col">@Resources.Action</th>
+                    </tr>
+                </thead>
+                @if (Model.ReportData.Any())
+                {
+                    <tbody>
+                        @BuildReport(Model.ReportData.DataSource)
+                    </tbody>
+                }
+                else
+                {
+                    @NoInformation.Render(11)
+                }
+            </table>
+        }
     </div>
 </div>
 

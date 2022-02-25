@@ -1,5 +1,5 @@
 ﻿"use strict";
-class StatementMovement {
+class MoveStatementHistory {
     private $: JQueryStatic;
     private dateRangePickerComponent: DateRangePickerComponent;
     private $reportForm: JQuery;
@@ -70,9 +70,9 @@ class StatementMovement {
 }
 
 $(function () {
-    const statementMovement = new StatementMovement(
+    const moveStatementHistory = new MoveStatementHistory(
         $,
         new DateRangePickerComponent($)
     );
-    statementMovement.init();
+    moveStatementHistory.init();
 });

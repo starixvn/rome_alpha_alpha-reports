@@ -112,8 +112,8 @@
     "inputFile": "assets/styles/consolidation/consolidation-dark.scss"
   },
   {
-    "outputFile": "Features/BetCreditTracking/Styles/statement-movement.css",
-    "inputFile": "Features/BetCreditTracking/Styles/statement-movement.scss"
+    "outputFile": "Features/BetCreditTracking/Styles/move-statement-history.css",
+    "inputFile": "Features/BetCreditTracking/Styles/move-statement-history.scss"
   },
   {
     "outputFile": "Features/BetCreditTracking/Styles/bet-credit-history.css",

@@ -1,52 +1,52 @@
 ﻿namespace Alpha.Reports.Site.Features.BetCreditTracking
 {
-    using Alpha.Reports.Features.BetCreditTracking.StatementMovement.Models;
+    using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
     using ONEbook.SpreadSheets;
     using ONEbook.SpreadSheets.NPOI;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public interface StatementMovementWorkbook
+    public interface MoveStatementHistoryWorkbook
     {
-        Workbook<StatementMovementModel> UseTemplate(TemplateInfo templateInfo);
+        Workbook<MoveStatementHistoryModel> UseTemplate(TemplateInfo templateInfo);
 
-        Workbook<StatementMovementModel> Sheet(string sheetName);
+        Workbook<MoveStatementHistoryModel> Sheet(string sheetName);
 
-        Workbook<StatementMovementModel> Title(string titleText);
+        Workbook<MoveStatementHistoryModel> Title(string titleText);
 
-        Workbook<StatementMovementModel> Header(Func<string, string> headerMapping);
+        Workbook<MoveStatementHistoryModel> Header(Func<string, string> headerMapping);
 
-        Workbook<StatementMovementModel> Body(
-            IEnumerable<StatementMovementModel> rows,
-            Mapper<StatementMovementModel> mapper);
+        Workbook<MoveStatementHistoryModel> Body(
+            IEnumerable<MoveStatementHistoryModel> rows,
+            Mapper<MoveStatementHistoryModel> mapper);
 
         byte[] ExportToBytes();
 
-        StatementMovementWorkbook SetData(
-            IEnumerable<StatementMovementModel> reportData,
-            StatementMovementModel total);
+        MoveStatementHistoryWorkbook SetData(
+            IEnumerable<MoveStatementHistoryModel> reportData,
+            MoveStatementHistoryModel total);
 
-        StatementMovementWorkbook SetRowMappers(
-            Mapper<StatementMovementModel> mapper,
-            Mapper<StatementMovementModel> totalMapper);
+        MoveStatementHistoryWorkbook SetRowMappers(
+            Mapper<MoveStatementHistoryModel> mapper,
+            Mapper<MoveStatementHistoryModel> totalMapper);
     }
 
-    public class StatementMovementWorkbookImpl :
-        NpoiWorkbook<StatementMovementModel>,
-        StatementMovementWorkbook
+    public class MoveStatementHistoryWorkbookImpl :
+        NpoiWorkbook<MoveStatementHistoryModel>,
+        MoveStatementHistoryWorkbook
     {
         private const int ReportSheetIndex = 1;
 
         private int currentRowIndex;
 
-        internal IEnumerable<StatementMovementModel> ReportData { get; set; }
+        internal IEnumerable<MoveStatementHistoryModel> ReportData { get; set; }
 
-        internal StatementMovementModel Total { get; set; }
+        internal MoveStatementHistoryModel Total { get; set; }
 
-        internal Mapper<StatementMovementModel> Mapper { get; set; }
+        internal Mapper<MoveStatementHistoryModel> Mapper { get; set; }
 
-        internal Mapper<StatementMovementModel> TotalMapper { get; set; }
+        internal Mapper<MoveStatementHistoryModel> TotalMapper { get; set; }
 
         internal Row MemberRowTemplate { get; set; }
 
@@ -54,9 +54,9 @@
 
         internal Row TotalRowTemplate { get; set; }
 
-        public StatementMovementWorkbook SetData(
-            IEnumerable<StatementMovementModel> reportData, 
-            StatementMovementModel total)
+        public MoveStatementHistoryWorkbook SetData(
+            IEnumerable<MoveStatementHistoryModel> reportData, 
+            MoveStatementHistoryModel total)
         {
             ReportData = reportData;
             Total = total;
@@ -64,9 +64,9 @@
             return this;
         }
 
-        public StatementMovementWorkbook SetRowMappers(
-            Mapper<StatementMovementModel> mapper, 
-            Mapper<StatementMovementModel> totalMapper)
+        public MoveStatementHistoryWorkbook SetRowMappers(
+            Mapper<MoveStatementHistoryModel> mapper, 
+            Mapper<MoveStatementHistoryModel> totalMapper)
         {
             Mapper = mapper;
             TotalMapper = totalMapper;
@@ -74,14 +74,14 @@
             return this;
         }
 
-        internal void FillMember(Sheet sheet, int rowIndex, StatementMovementModel data)
+        internal void FillMember(Sheet sheet, int rowIndex, MoveStatementHistoryModel data)
         {
             var row = sheet.GetRow(rowIndex);
             row.CopyCellsFrom(MemberRowTemplate);
             FillCells(row, data, TotalMapper.Mappings);
         }
 
-        internal void FillRefNo(Sheet sheet, int rowIndex, StatementMovementModel item)
+        internal void FillRefNo(Sheet sheet, int rowIndex, MoveStatementHistoryModel item)
         {
             var row = sheet.GetRow(rowIndex);
             row.CopyCellsFrom(RefNoRowTemplate);

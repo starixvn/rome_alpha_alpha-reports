@@ -223,9 +223,9 @@
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\BetCreditHistoryService.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Models\BetCreditHistoryModel.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Params\BetCreditHistoryParam.cs" />
-    <Compile Include="Features\BetCreditTracking\StatementMovement\Models\StatementMovementModel.cs" />
-    <Compile Include="Features\BetCreditTracking\StatementMovement\Params\StatementMovementParam.cs" />
-    <Compile Include="Features\BetCreditTracking\StatementMovement\StatementMovementService.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryModel.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Params\MoveStatementHistoryParam.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\MoveStatementHistoryService.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperPTCriteria.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperWinLossDetailByPTCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
