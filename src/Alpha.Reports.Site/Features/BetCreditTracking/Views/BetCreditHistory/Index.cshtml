@@ -34,7 +34,7 @@
             Html.RenderPartial("~/Features/BetCreditTracking/Views/BetCreditHistory/_Filter.cshtml", Model);
         }
 
-        @if (Model.IsSearch)
+        @if (Model.IsSearch && Model.IsUsernameValid)
         {
             <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover">
                 <thead>
@@ -52,10 +52,10 @@
                         <th class="action-col">@Resources.Action</th>
                     </tr>
                 </thead>
-                @if (Model.ReportData.Any())
+                @if (Model.Data.Any())
                 {
                     <tbody>
-                        @BuildReport(Model.ReportData.DataSource)
+                        @BuildReport(Model.Data)
                     </tbody>
                 }
                 else
@@ -75,22 +75,22 @@
     @Html.Hidden("ToDate", Model.ToDate)
 </form>
 
-@helper BuildReport(IEnumerable<BetCreditHistoryModel> dataSource)
+@helper BuildReport(IEnumerable<BetCreditHistoryModel> data)
 {
-    foreach (var record in dataSource)
+    foreach (var record in data)
     {
-        <tr class="@(record.BetCredit != (decimal)20.00 ? "highlight-row" : "")">
-            <td>@record.ActionDateTime.ToLongDate24HourWithSlash()</td>
-            <td>@record.WinLossDate.ToShortDateWithSlash()</td>
-            <td>@record.RefNo</td>
-            <td>@HtmlHelpers.FormatNumber(record.ActualStake)</td>
-            <td>@HtmlHelpers.FormatNumber(record.WinLoss)</td>
-            <td>@HtmlHelpers.FormatNumber(record.PlayerComm)</td>
-            <td>@HtmlHelpers.FormatNumber(record.BalanceChange)</td>
-            <td>@HtmlHelpers.FormatNumber(record.NewBalance)</td>
+        <tr class="@(record.BetCredit == null ? "highlight-row" : "")">
+            <td>@record.ActionDate.ToLongDate24HourWithSlash()</td>
+            <td class="text-center">@record.WinLostDate.ToShortDateWithSlash()</td>
+            <td class="text-left">@record.RefNo</td>
+            <td>@HtmlHelpers.FormatNullableNumber(record.ActualStake)</td>
+            <td>@HtmlHelpers.FormatNullableNumber(record.WinLoss) </td>
+            <td>@HtmlHelpers.FormatNullableNumber(record.PlayerComm)</td>
+            <td>@HtmlHelpers.FormatNullableNumber(record.BalanceChanged)</td>
+            <td>@HtmlHelpers.FormatNullableNumber(record.NewBalance)</td>
             <td>@HtmlHelpers.FormatNumber(record.GivenCredit)</td>
-            <td class="@(record.BetCredit == (decimal)20.00 ? "red-cell" : "")">@HtmlHelpers.FormatNumber(record.BetCredit)</td>
-            <td>@record.Action</td>
+            <td class="@(record.BetCredit < (decimal)0 ? "red-cell" : "")">@HtmlHelpers.FormatNullableNumber(record.BetCredit)</td>
+            <td class="text-left">@record.Action</td>
         </tr>
     }
 }

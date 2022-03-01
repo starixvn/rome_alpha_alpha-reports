@@ -10,10 +10,9 @@
     using MediatR;
     using ONEbook.SpreadSheets;
     using System;
-    using System.Threading.Tasks;
     using static ONEbook.SpreadSheets.Column;
 
-    public class BetCreditHistoryExcelHandler : BetCreditHistoryBaseHandler, IAsyncRequestHandler<BetCreditHistoryExcelQuery, ExcelFileViewModel>
+    public class BetCreditHistoryExcelHandler : BetCreditHistoryBaseHandler, IRequestHandler<BetCreditHistoryExcelQuery, ExcelFileViewModel>
     {
         private const int TitleStartIndex = 1;
         private const int HeaderStartIndex = 2;
@@ -30,7 +29,7 @@
             this.workbook = workbook;
         }
 
-        public async Task<ExcelFileViewModel> Handle(BetCreditHistoryExcelQuery message)
+        public ExcelFileViewModel Handle(BetCreditHistoryExcelQuery message)
         {
             if (message == null)
             {
@@ -39,15 +38,17 @@
 
             var betCreditHistoryParam = CreateParameter(message);
 
-            var reportData = message.ReportData ?? await reportService.GetBetCreditHistoryAsync(betCreditHistoryParam);
+            var result = reportService.GetBetCreditHistory(betCreditHistoryParam);
+
+            var data = message.Data ?? result.Data;
 
             var fileContent = workbook
-                .SetData(reportData.DataSource)
+                .SetData(data)
                 .SetRowMappers(GetRowMapper())
                 .UseTemplate(GetTemplateInfo())
-                .Title(GetReportTitle(message,betCreditHistoryParam))
+                .Title(GetReportTitle(message, betCreditHistoryParam))
                 .Header(Resources.ResourceManager.GetString)
-                .Body(reportData.DataSource, GetRowMapper())
+                .Body(data, GetRowMapper())
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
@@ -84,17 +85,27 @@
         internal Mapper<BetCreditHistoryModel> GetRowMapper()
         {
             return new Mapper<BetCreditHistoryModel>()
-                .Map(A, betCreditHistory => betCreditHistory.ActionDateTime.ToLongDate24HourWithSlash())
-                .Map(B, betCreditHistory => betCreditHistory.WinLossDate.ToShortDateWithSlash())
-                .Map(C, betCreditHistory => betCreditHistory.RefNo)
-                .Map(D, betCreditHistory => betCreditHistory.ActualStake)
-                .Map(E, betCreditHistory => betCreditHistory.WinLoss)
-                .Map(F, betCreditHistory => betCreditHistory.PlayerComm)
-                .Map(G, betCreditHistory => betCreditHistory.BalanceChange)
-                .Map(H, betCreditHistory => betCreditHistory.NewBalance)
+                .Map(A, betCreditHistory => betCreditHistory.ActionDate.ToLongDate24HourWithSlash())
+                .Map(B, betCreditHistory => betCreditHistory.WinLostDate.ToShortDateWithSlash())
+                .Map(C, betCreditHistory => GetValueOrEmptyString<long>(betCreditHistory.RefNo))
+                .Map(D, betCreditHistory => GetValueOrEmptyString<decimal>(betCreditHistory.ActualStake))
+                .Map(E, betCreditHistory => GetValueOrEmptyString<decimal>(betCreditHistory.WinLoss))
+                .Map(F, betCreditHistory => GetValueOrEmptyString<decimal>(betCreditHistory.PlayerComm))
+                .Map(G, betCreditHistory => GetValueOrEmptyString<decimal>(betCreditHistory.BalanceChanged))
+                .Map(H, betCreditHistory => GetValueOrEmptyString<decimal>(betCreditHistory.NewBalance))
                 .Map(I, betCreditHistory => betCreditHistory.GivenCredit)
-                .Map(J, betCreditHistory => betCreditHistory.BetCredit)
+                .Map(J, betCreditHistory => GetValueOrEmptyString<decimal>(betCreditHistory.BetCredit))
                 .Map(K, betCreditHistory => betCreditHistory.Action);
+        }
+
+        private object GetValueOrEmptyString<T>(Nullable<T> value) where T : struct
+        {
+            if (value.HasValue)
+            {
+                return value.Value;
+            }
+
+            return string.Empty;
         }
     }
 }

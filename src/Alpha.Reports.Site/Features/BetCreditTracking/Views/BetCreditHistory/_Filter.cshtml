@@ -28,4 +28,11 @@
         @Resources.UsernameIsRequired
     </div>
 
+    if (!Model.IsUsernameValid)
+    {
+        <div id="invalid-msg-error" class="msg msg-error">
+            Invalid username.
+        </div>
+    }
+
 }

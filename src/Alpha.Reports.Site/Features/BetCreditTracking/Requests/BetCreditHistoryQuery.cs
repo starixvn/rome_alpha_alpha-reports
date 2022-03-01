@@ -7,7 +7,7 @@
     using MediatR;
     using System;
 
-    public class BetCreditHistoryQuery : ReportBaseQuery, IAsyncRequest<BetCreditHistoryViewModel>
+    public class BetCreditHistoryQuery : ReportBaseQuery, IRequest<BetCreditHistoryViewModel>
     {
         public BetCreditHistoryQuery(IUser viewer) : base(viewer)
         {
@@ -15,7 +15,7 @@
 
         public string Member { get; set; }
 
-        public string RefNo { get; set; }
+        public long? RefNo { get; set; }
 
         public DateTime FromDate { get; set; } = SystemTime.Today;
 

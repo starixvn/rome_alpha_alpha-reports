@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Features.BetCreditTracking
 {
-    using System.Threading.Tasks;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
     using Alpha.Reports.Site.Features.BetCreditTracking.ViewModels;
@@ -8,17 +7,23 @@
 
     public class BetCreditHistoryHandler : 
         BetCreditHistoryBaseHandler, 
-        IAsyncRequestHandler<BetCreditHistoryQuery, BetCreditHistoryViewModel>
+        IRequestHandler<BetCreditHistoryQuery, BetCreditHistoryViewModel>
     {
         public BetCreditHistoryHandler(BetCreditHistoryService reportService) : base(reportService)
         {
         }
 
-        public async Task<BetCreditHistoryViewModel> Handle(BetCreditHistoryQuery message)
+        public BetCreditHistoryViewModel Handle(BetCreditHistoryQuery message)
         {
             var betCreditHistoryParam = CreateParameter(message);
-            var report = await reportService.GetBetCreditHistoryAsync(betCreditHistoryParam);
-            return new BetCreditHistoryViewModel(report, message);
+            var result = reportService.GetBetCreditHistory(betCreditHistoryParam);
+
+            if (result.ErrorCode != 0)
+            {
+                return new BetCreditHistoryViewModel(null, message, false, false);
+            }
+
+            return new BetCreditHistoryViewModel(result.Data, message);
         }
     }
 }

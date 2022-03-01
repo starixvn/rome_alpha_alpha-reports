@@ -187,6 +187,7 @@
             container.RegisterSingleton<StatementDataAccess, StatementDataAccessImpl>();
             container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
             container.RegisterSingleton<ProgressiveContributionDataAccess, ProgressiveContributionDataAccessImpl>();
+            container.RegisterSingleton<BetCreditHistoryDataAccess, BetCreditHistoryDataAcessImpl>();
 
             if (SiteSettings.EnabledStaticData)
             {

@@ -11,6 +11,14 @@
     @value.ToString("#,##0")
 }
 
+@helper FormatNullableNumber(decimal? value)
+{
+    if (value.HasValue)
+    {
+        @FormatNumber(value.Value)
+    }
+}
+
 @helper RenderStackCell(string css, int colspan, params decimal[] cellValues)
 {
     <td class="visible-stack-mode combinedcell @css" @(colspan > 1 ? "colspan=" + colspan : string.Empty)>

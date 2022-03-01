@@ -6,6 +6,7 @@ class BetCreditHistory {
     private $pageTitle: JQuery;
     private $txtMember: JQuery;
     private $msgError: JQuery;
+    private $invalidMsgError: JQuery;
     private $isFilterVisible: JQuery;
     private $exportExcelForm: JQuery;
 
@@ -33,6 +34,7 @@ class BetCreditHistory {
         this.$exportExcelForm = this.$("#export-excel-form");
         this.$txtMember = this.$("#txt-member");
         this.$msgError = this.$("#msg-error");
+        this.$invalidMsgError = this.$("#invalid-msg-error");
     }
 
     public initComponents() {
@@ -100,7 +102,10 @@ class BetCreditHistory {
         return true;
     }
 
-    showValidationUsernameError = () => this.$msgError.removeClass("hide");
+    showValidationUsernameError = () => {
+        this.$msgError.removeClass("hide");
+        this.$invalidMsgError.addClass("hide");
+    }
     hideValidationUsernameError = () => this.$msgError.addClass("hide");
 }
 

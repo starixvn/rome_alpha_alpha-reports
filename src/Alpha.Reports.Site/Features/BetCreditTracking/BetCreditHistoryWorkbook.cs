@@ -138,13 +138,13 @@
 
             foreach (var data in ReportData)
             {
-                if (currentRowIndex == TemplateInfo.BodyStartIndex)
+                if (data.BetCredit == null)
                 {
                     FillHighlightRow(sheet, currentRowIndex++, data);
                     continue;
                 }
 
-                if (currentRowIndex == TemplateInfo.BodyStartIndex + 1)
+                if (data.BetCredit < (decimal)0)
                 {
                     FillRedHighlightRow(sheet, currentRowIndex++, data);
                     continue;

@@ -15,6 +15,6 @@
         }
 
         protected BetCreditHistoryParam CreateParameter(BetCreditHistoryQuery message)
-            => new BetCreditHistoryParam(message.Member, message.RefNo, message.FromDate, message.ToDate);
+            => new BetCreditHistoryParam(message.Member, message.RefNo, message.FromDate, message.ToDate, message.ViewerId);
     }
 }

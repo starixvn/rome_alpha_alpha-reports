@@ -761,6 +761,7 @@
     <Content Include="App_Data\activitytracking.uat.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
+    <Content Include="App_Data\SPNames\Internal\DBBAH.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBTXN.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBCust.CustDB.DownlineNetView.xml">
       <SubType>Designer</SubType>
@@ -775,6 +776,7 @@
     <Content Include="App_Data\SPNames\Internal\DBRPT.bodb_report.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
+    <Content Include="App_Data\SPNames\Local\DBBAH.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBBOF.bodb02.BODBDownlineNet.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -792,6 +794,7 @@
     <Content Include="App_Data\SPNames\Local\DBRPT.bodb_report.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBTXN.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBACC.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Pro\DBBAH.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBBOF.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBARC.bodb_Archive.BODBDownlineNet.xml" />
@@ -806,6 +809,7 @@
     <Content Include="App_Data\SPNames\SIT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBARC.bodb_Archive.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\SIT\DBBAH.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBCust.CustDB.DownlineNet.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -814,6 +818,7 @@
     <Content Include="App_Data\SPNames\SIT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBRPT.bodb_report.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBTXN.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\UAT\DBBAH.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBBOF.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBAGE.bodb02.BODBDownlineNet.xml" />
