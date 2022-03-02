@@ -34,7 +34,7 @@
             Html.RenderPartial("~/Features/BetCreditTracking/Views/BetCreditHistory/_Filter.cshtml", Model);
         }
 
-        @if (Model.IsSearch && Model.IsUsernameValid)
+        @if (Model.Data != null && Model.ErrMsg == string.Empty)
         {
             <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover">
                 <thead>
@@ -80,8 +80,8 @@
     foreach (var record in data)
     {
         <tr class="@(record.BetCredit == null ? "highlight-row" : "")">
-            <td>@record.ActionDate.ToLongDate24HourWithSlash()</td>
-            <td class="text-center">@record.WinLostDate.ToShortDateWithSlash()</td>
+            <td>@record.ActionDateString</td>
+            <td class="text-center">@record.WinLostDateString</td>
             <td class="text-left">@record.RefNo</td>
             <td>@HtmlHelpers.FormatNullableNumber(record.ActualStake)</td>
             <td>@HtmlHelpers.FormatNullableNumber(record.WinLoss) </td>

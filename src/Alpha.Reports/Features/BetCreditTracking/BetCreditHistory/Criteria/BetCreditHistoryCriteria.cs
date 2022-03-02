@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Criteria
 {
+    using Alpha.Reports.Extensions;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Params;
     using Fanex.Data.Repository;
     using System;
@@ -9,7 +10,7 @@
         public BetCreditHistoryCriteria(BetCreditHistoryParam param)
         {
             Username = param.Member;
-            FromDate = param.FromDate;
+            FromDate = param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo);
             ToDate = param.ToDate;
             RefNo = param.RefNo;
             LoggedId = param.ViewerId;
@@ -25,9 +26,9 @@
 
         public int LoggedId { get; }
 
-        public int ErrorCode { get; }
+        public int ErrorCode { get; set; }
 
-        public string ErrorMess { get; } = "";
+        public string ErrorMess { get; set; }
 
         public override string GetSettingKey() => "Age_Rpt_BetCreditHistory";
 

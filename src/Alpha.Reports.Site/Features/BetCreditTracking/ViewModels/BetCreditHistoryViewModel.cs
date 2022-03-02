@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Features.BetCreditTracking.ViewModels
 {
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Models;
+    using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
     using Alpha.Reports.Site.ViewModels.Components;
     using System;
@@ -8,11 +9,13 @@
 
     public class BetCreditHistoryViewModel
     {
-        public BetCreditHistoryViewModel(BetCreditHistoryQuery message) : this(null, message, false)
+        private readonly IList<string> optionValues = new List<string> { "0", "1", "2", "3", "7" };
+
+        public BetCreditHistoryViewModel(BetCreditHistoryQuery message) : this(null, message)
         {
         }
 
-        public BetCreditHistoryViewModel(IEnumerable<BetCreditHistoryModel> data, BetCreditHistoryQuery message, bool isSearch = true, bool isUsernameValid = true)
+        public BetCreditHistoryViewModel(IEnumerable<BetCreditHistoryModel> data, BetCreditHistoryQuery message, bool isError = false)
         {
             Data = data;
             CustLevel = message.ViewerLevel.DisplayName;
@@ -24,8 +27,7 @@
             FromDate = message.FromDate;
             ToDate = message.ToDate;
             UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
-            IsSearch = isSearch;
-            IsUsernameValid = isUsernameValid;
+            ErrMsg = isError ? Resources.InvalidUsername : string.Empty;
         }
 
         public IEnumerable<BetCreditHistoryModel> Data { get; }
@@ -46,13 +48,11 @@
 
         public DateTime ToDate { get; }
 
-        public bool IsSearch { get; }
-
-        public bool IsUsernameValid { get; }
+        public string ErrMsg { get; }
 
         public int UserSelectedDateRangeOption { get; }
 
         public DateRangePickerViewModel DateRangePickerViewModel
-         => new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
+         => new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption, optionValues: optionValues);
     }
 }

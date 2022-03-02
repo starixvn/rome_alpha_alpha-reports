@@ -3,6 +3,7 @@
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Params;
+    using Fanex.Data.Repository;
 
     public interface BetCreditHistoryService
     {
@@ -11,20 +12,20 @@
 
     public class BetCreditHistoryServiceImpl : BetCreditHistoryService
     {
-        private readonly BetCreditHistoryDataAccess dataAccess;
+        private readonly IDynamicRepository repository;
 
-        public BetCreditHistoryServiceImpl(BetCreditHistoryDataAccess dataAccess)
+        public BetCreditHistoryServiceImpl(IDynamicRepository dynamicRepository)
         {
-            this.dataAccess = dataAccess;
+            repository = dynamicRepository;
         }
 
         public BetCreditHistoryResultModel GetBetCreditHistory(BetCreditHistoryParam param)
         {
             var criteria = new BetCreditHistoryCriteria(param);
 
-            var result = dataAccess.GetBetCreditHistory(criteria);
+            var reportData = repository.Fetch<BetCreditHistoryModel>(criteria);
 
-            return result;
+            return new BetCreditHistoryResultModel(criteria.ErrorCode, criteria.ErrorMess, reportData);
         }
     }
 }

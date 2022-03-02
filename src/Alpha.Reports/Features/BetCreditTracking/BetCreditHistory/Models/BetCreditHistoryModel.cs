@@ -1,29 +1,60 @@
 ﻿namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Models
 {
+    using Alpha.Reports.Extensions;
     using System;
 
     public class BetCreditHistoryModel
     {
-        public DateTime ActionDate { get; set; }
+        public BetCreditHistoryModel(
+            DateTime actionDate, 
+            DateTime? winLostDate, 
+            long? refNo, 
+            decimal? actualStake, 
+            decimal? winLoss, 
+            decimal? playerComm, 
+            decimal? balanceChanged, 
+            decimal? newBalance, 
+            decimal givenCredit, 
+            decimal? betCredit, 
+            string action)
+        {
+            ActionDate = actionDate;
+            WinLostDate = winLostDate;
+            RefNo = refNo;
+            ActualStake = actualStake;
+            WinLoss = winLoss;
+            PlayerComm = playerComm;
+            BalanceChanged = balanceChanged;
+            NewBalance = newBalance;
+            GivenCredit = givenCredit;
+            BetCredit = betCredit;
+            Action = action;
+        }
 
-        public DateTime? WinLostDate { get; set; }
+        public DateTime ActionDate { get; }
 
-        public long? RefNo { get; set; }
+        public DateTime? WinLostDate { get; }
 
-        public decimal? ActualStake { get; set; }
+        public long? RefNo { get;  }
 
-        public decimal? WinLoss { get; set; }
+        public decimal? ActualStake { get; }
 
-        public decimal? PlayerComm { get; set; }
+        public decimal? WinLoss { get; }
 
-        public decimal? BalanceChanged { get; set; }
+        public decimal? PlayerComm { get; }
 
-        public decimal? NewBalance { get; set; }
+        public decimal? BalanceChanged { get; }
 
-        public decimal GivenCredit { get; set; }
+        public decimal? NewBalance { get; }
 
-        public decimal? BetCredit { get; set; }
+        public decimal GivenCredit { get; }
 
-        public string Action { get; set; }
+        public decimal? BetCredit { get; }
+
+        public string Action { get; }
+
+        public string ActionDateString => ActionDate.ToLongDate24HourWithSlash();
+
+        public string WinLostDateString => WinLostDate.ToShortDateWithSlash();
     }
 }

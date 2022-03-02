@@ -4,10 +4,17 @@
 
     public class BetCreditHistoryResultModel
     {
-        public int ErrorCode { get; set; }
+        public BetCreditHistoryResultModel(int errorCode, string errorMess, IEnumerable<BetCreditHistoryModel> data)
+        {
+            ErrorCode = errorCode;
+            ErrorMess = errorMess;
+            Data = data;
+        }
 
-        public string ErrorMess { get; set; } = "Successfull";
+        public int ErrorCode { get; }
 
-        public IList<BetCreditHistoryModel> Data { get; set; } = new List<BetCreditHistoryModel>();
+        public string ErrorMess { get; }
+
+        public IEnumerable<BetCreditHistoryModel> Data { get; }
     }
 }

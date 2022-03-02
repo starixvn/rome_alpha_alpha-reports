@@ -23,7 +23,8 @@
             DateTime fromDate,
             DateTime toDate,
             int userSelectedDateRangeOption,
-            bool isRenderSubmitButton = true)
+            bool isRenderSubmitButton = true,
+            IList<string> optionValues = null)
         {
             MinDate = minDate;
             MaxDate = maxDate;
@@ -31,7 +32,8 @@
             ToDate = toDate;
             UserSelectedDateRangeOption = userSelectedDateRangeOption;
             //// TODO: ricky will refactor here
-            RangeOptions = BuildRangeOptions(userSelectedDateRangeOption);
+            var rangeOptions = BuildRangeOptions(userSelectedDateRangeOption);
+            RangeOptions = optionValues != null ? rangeOptions.Where(item => optionValues.Contains(item.Value)) : rangeOptions;
 
             SelectedRangeOption = RangeOptions.FirstOrDefault(item => item.Value == userSelectedDateRangeOption.ToString());
 

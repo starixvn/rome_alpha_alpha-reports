@@ -72,7 +72,7 @@
 
         private string GetReportTitle(BetCreditHistoryExcelQuery message, BetCreditHistoryParam param)
         {
-            return $"{Resources.BetCreditHistory} {param.FromDate.ToShortDateWithSlash()} -->  {param.ToDate.ToShortDateWithSlash()} - Member: {message.CustName}";
+            return $"{Resources.BetCreditHistory} {param.FromDate.ToShortDateWithSlash()} -->  {param.ToDate.ToShortDateWithSlash()} - {Resources.Member}: {message.CustName}";
         }
 
         private string GetExcelFileName(BetCreditHistoryParam param)
@@ -85,20 +85,20 @@
         internal Mapper<BetCreditHistoryModel> GetRowMapper()
         {
             return new Mapper<BetCreditHistoryModel>()
-                .Map(A, betCreditHistory => betCreditHistory.ActionDate.ToLongDate24HourWithSlash())
-                .Map(B, betCreditHistory => betCreditHistory.WinLostDate.ToShortDateWithSlash())
-                .Map(C, betCreditHistory => GetValueOrEmptyString<long>(betCreditHistory.RefNo))
-                .Map(D, betCreditHistory => GetValueOrEmptyString<decimal>(betCreditHistory.ActualStake))
-                .Map(E, betCreditHistory => GetValueOrEmptyString<decimal>(betCreditHistory.WinLoss))
-                .Map(F, betCreditHistory => GetValueOrEmptyString<decimal>(betCreditHistory.PlayerComm))
-                .Map(G, betCreditHistory => GetValueOrEmptyString<decimal>(betCreditHistory.BalanceChanged))
-                .Map(H, betCreditHistory => GetValueOrEmptyString<decimal>(betCreditHistory.NewBalance))
+                .Map(A, betCreditHistory => betCreditHistory.ActionDateString)
+                .Map(B, betCreditHistory => betCreditHistory.WinLostDateString)
+                .Map(C, betCreditHistory => GetValueOrEmptyString(betCreditHistory.RefNo))
+                .Map(D, betCreditHistory => GetValueOrEmptyString(betCreditHistory.ActualStake))
+                .Map(E, betCreditHistory => GetValueOrEmptyString(betCreditHistory.WinLoss))
+                .Map(F, betCreditHistory => GetValueOrEmptyString(betCreditHistory.PlayerComm))
+                .Map(G, betCreditHistory => GetValueOrEmptyString(betCreditHistory.BalanceChanged))
+                .Map(H, betCreditHistory => GetValueOrEmptyString(betCreditHistory.NewBalance))
                 .Map(I, betCreditHistory => betCreditHistory.GivenCredit)
-                .Map(J, betCreditHistory => GetValueOrEmptyString<decimal>(betCreditHistory.BetCredit))
+                .Map(J, betCreditHistory => GetValueOrEmptyString(betCreditHistory.BetCredit))
                 .Map(K, betCreditHistory => betCreditHistory.Action);
         }
 
-        private object GetValueOrEmptyString<T>(Nullable<T> value) where T : struct
+        private static object GetValueOrEmptyString<T>(T? value) where T : struct
         {
             if (value.HasValue)
             {

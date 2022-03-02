@@ -20,7 +20,7 @@
 
             if (result.ErrorCode != 0)
             {
-                return new BetCreditHistoryViewModel(null, message, false, false);
+                return new BetCreditHistoryViewModel(null, message, true);
             }
 
             return new BetCreditHistoryViewModel(result.Data, message);

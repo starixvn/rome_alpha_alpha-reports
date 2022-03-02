@@ -925,4 +925,7 @@
   <data name="MoveStatementHistoryNote" xml:space="preserve">
     <value>Only the tickets whose either old or new date is in the report range and the other date is out of the report range will be listed in the report.</value>
   </data>
+  <data name="InvalidUsername" xml:space="preserve">
+    <value>Invalid username.</value>
+  </data>
 </root>

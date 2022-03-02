@@ -1008,4 +1008,7 @@
   <data name="UsernameIsRequired" xml:space="preserve">
     <value>Username is required.</value>
   </data>
+  <data name="InvalidUsername" xml:space="preserve">
+    <value>Invalid username.</value>
+  </data>
 </root>

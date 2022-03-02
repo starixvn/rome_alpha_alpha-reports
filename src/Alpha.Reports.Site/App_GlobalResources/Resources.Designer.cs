@@ -1204,6 +1204,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid username..
+        /// </summary>
+        public static string InvalidUsername {
+            get {
+                return ResourceManager.GetString("InvalidUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IP.
         /// </summary>
         public static string IP {

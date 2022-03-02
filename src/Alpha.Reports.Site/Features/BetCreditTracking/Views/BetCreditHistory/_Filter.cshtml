@@ -9,7 +9,7 @@
     <input type="hidden" value="@Model.IsFilterVisible.ToString().ToLowerInvariant()" name="IsFilterVisible" id="IsFilterVisible" />
 
     <div class="form-group">
-        <label>@Resources.Member *</label>
+        <label>@Resources.Member <span style="color: red;">*</span></label>
         <input type="text" maxlength="50" autocomplete="off" id="txt-member" name="Member" value="@Model.Member" placeholder="@Resources.Username" />
     </div>
 
@@ -24,14 +24,14 @@
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
 
-    <div id="msg-error" class="msg msg-error hide">
+    <div id="required-msg-error" class="msg msg-error hide">
         @Resources.UsernameIsRequired
     </div>
 
-    if (!Model.IsUsernameValid)
+    if (Model.ErrMsg != string.Empty)
     {
-        <div id="invalid-msg-error" class="msg msg-error">
-            Invalid username.
+        <div id="msg-error" class="msg msg-error">
+            @Model.ErrMsg
         </div>
     }
 
