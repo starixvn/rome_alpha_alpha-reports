@@ -5,7 +5,7 @@
 @model BetCreditHistoryViewModel
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
-    @StaticResources.RenderStyles("~/Features/BetCreditTracking/Bundles/betcredithistory")
+    @StaticResources.RenderStylesWithDarkMode("~/Features/BetCreditTracking/Bundles/betcredithistory")
 }
 @section Scripts {
     @StaticResources.RenderScripts("~/Features/BetCreditTracking/Bundles/betcredithistory")
