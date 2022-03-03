@@ -1103,23 +1103,11 @@
     <Content Include="App_Data\ExcelTemplates\BetCreditTracking\MoveStatementHistory.xls" />
     <None Include="Features\BetCreditTracking\Styles\move-statement-history.scss" />
     <TypeScriptCompile Include="Features\BetCreditTracking\Scripts\bet-credit-history.ts" />
-    <Content Include="Features\BetCreditTracking\Styles\move-statement-history.css">
-      <DependentUpon>move-statement-history.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\BetCreditTracking\Styles\move-statement-history.min.css">
-      <DependentUpon>move-statement-history.css</DependentUpon>
-    </Content>
-    <Content Include="Features\BetCreditTracking\Styles\statement-movement.css">
-      <DependentUpon>move-statement-history.scss</DependentUpon>
-    </Content>
     <Content Include="assets\styles\themes\page-title-agent-dark.min.css">
       <DependentUpon>page-title-agent-dark.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\themes\page-title-agent.css">
       <DependentUpon>page-title-agent.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\BetCreditTracking\Styles\statement-movement.min.css">
-      <DependentUpon>statement-movement.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\themes\page-title-agent.min.css">
       <DependentUpon>page-title-agent.css</DependentUpon>
@@ -1147,6 +1135,12 @@
     </Content>
     <Content Include="assets\styles\themes\page-title-super.min.css">
       <DependentUpon>page-title-super.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\move-statement-history.css">
+      <DependentUpon>move-statement-history.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\move-statement-history.min.css">
+      <DependentUpon>move-statement-history.css</DependentUpon>
     </Content>
     <Content Include="Features\BonusDetail\Bundles\bonusdetail-dark.css" />
     <Content Include="Features\BonusDetail\Bundles\bonusdetail-dark.min.css">

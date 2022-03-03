@@ -5,6 +5,10 @@
 
     public class BetCreditHistoryModel
     {
+        public BetCreditHistoryModel()
+        {
+        }
+
         public BetCreditHistoryModel(
             DateTime actionDate, 
             DateTime? winLostDate, 
