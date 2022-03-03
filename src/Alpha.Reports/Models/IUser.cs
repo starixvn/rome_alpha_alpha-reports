@@ -44,5 +44,7 @@
         bool IsInternal { get; }
 
         bool IsProtectedMode { get; }
+        
+        string DarkModeName { get; }
     }
 }

@@ -84,7 +84,8 @@
                                 autoSkip: false,
                                 maxRotation: 50,
                                 minRotation: 50
-                            }
+                            },
+                            gridLines: {}
                         }],
                         yAxes: [{
                             type: "linear",
@@ -98,7 +99,8 @@
                             ticks: {
                                 beginAtZero: true,
                                 callback: alphaReports.formatNumber
-                            }
+                            },
+                            gridLines: {}
                         }, {
                             type: "linear",
                             display: true,
@@ -112,7 +114,6 @@
                                 beginAtZero: true,
                                 callback: alphaReports.formatNumber
                             },
-
                             gridLines: {
                                 drawOnChartArea: false
                             }

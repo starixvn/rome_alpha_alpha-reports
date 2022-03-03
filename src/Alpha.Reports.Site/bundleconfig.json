@@ -1,8 +1,23 @@
 ﻿[
   {
-    "outputFileName": "assets/bundles/default.css",
+    "outputFileName": "assets/bundles/super.css",
     "inputFiles": [
-      "assets/styles/reports.css"
+      "assets/styles/reports.css",
+      "assets/styles/themes/page-title-super.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/master.css",
+    "inputFiles": [
+      "assets/styles/reports.css",
+      "assets/styles/themes/page-title-master.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/agent.css",
+    "inputFiles": [
+      "assets/styles/reports.css",
+      "assets/styles/themes/page-title-agent.css"
     ]
   },
   {
@@ -309,7 +324,6 @@
   },
   {
     "outputFileName": "assets/bundles/consolidation/consolidation.css",
-
     "inputFiles": [
       "assets/styles/consolidation/consolidation.css"
     ]
@@ -388,6 +402,40 @@
       "Features/BonusDetail/Styles/confirm-payment.css"
     ]
   },
+  /************************** Dark Mode ************************/
+  {
+    "outputFileName": "assets/bundles/super-dark.css",
+    "inputFiles": [
+      "assets/styles/reports-dark.css",
+      "assets/styles/themes/page-title-super-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/master-dark.css",
+    "inputFiles": [
+      "assets/styles/reports-dark.css",
+      "assets/styles/themes/page-title-master-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/agent-dark.css",
+    "inputFiles": [
+      "assets/styles/reports-dark.css",
+      "assets/styles/themes/page-title-agent-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/matchwinlossdetail/matchwinlossdetail-dark.css",
+    "inputFiles": [
+      "assets/styles/matchwinlossdetail/matchwinlossdetail-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/betchoicematching/betchoicematching-dark.css",
+    "inputFiles": [
+      "assets/styles/betchoicematching/betchoicematching-dark.css"
+    ]
+  },
   {
     "outputFileName": "Features/SuperWinLossDetailByPT/Bundles/superwinlossdetailbypt.js",
     "inputFiles": [
@@ -400,6 +448,25 @@
       "assets/scripts/components/sort.js",
       "assets/scripts/components/link-builder.js",
       "Features/SuperWinLossDetailByPT/Scripts/superwinlossdetailbypt.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/BonusDetail/Bundles/bonusdetail-dark.css",
+    "inputFiles": [
+      "Features/BonusDetail/Styles/bonus-detail-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/consolidation/consolidation-dark.css",
+    "inputFiles": [
+      "assets/styles/consolidation/consolidation-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/statement/statement-dark.css",
+
+    "inputFiles": [
+      "assets/styles/statement/statement-dark.css"
     ]
   }
 ]

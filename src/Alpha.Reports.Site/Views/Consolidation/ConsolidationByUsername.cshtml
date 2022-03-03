@@ -4,7 +4,7 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStyles("~/assets/bundles/consolidation/consolidation")
+    @StaticResources.RenderStylesWithDarkMode("~/assets/bundles/consolidation/consolidation")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)

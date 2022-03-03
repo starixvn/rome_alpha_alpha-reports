@@ -7,7 +7,20 @@ interface JQuery {
 }
 
 class DualAxisChartOption {
-    constructor(public selectorId: string = "winloss-chart") {
+    constructor(
+        public isDarkMode: boolean = false,
+        public selectorId: string = "winloss-chart") {
+    }
+}
+
+class ChartStyles {
+    constructor(
+        public barColor: string,
+        public textColor: string,
+        public lineColor: string = "#fcb441",
+        public fontFamily: string = "Trebuchet MS",
+        public defaultFontSize: number = 12,
+        public defaultFontStyle: string = "bold") {
     }
 }
 
@@ -18,15 +31,6 @@ class DualAxisChartComponent {
     options = new DualAxisChartOption();
     currencyName: string;
 
-    chartStyles = {
-        barColor: "#418cf0",
-        lineColor: "#fcb441",
-        textColor: "#000",
-        fontFamily: "Trebuchet MS",
-        defaultFontSize: 12,
-        defaultFontStyle: "bold"
-    };
-
     constructor($: JQueryStatic, chart: any) {
         this.$ = $;
         this.chart = chart;
@@ -34,7 +38,16 @@ class DualAxisChartComponent {
 
     render = (options: DualAxisChartOption = new DualAxisChartOption) => {
         let chartOptions = <DualAxisChartOption>this.$.extend({}, this.options, options);
-        let chartStyles = this.chartStyles;
+        let chartStyles: ChartStyles = new ChartStyles("#418cf0", "#000"),
+            xAxesGridLines: any = {},
+            yAxesGridLines: any = { drawOnChartArea: false };
+
+        if (chartOptions.isDarkMode) {
+            chartStyles = new ChartStyles("#41a4ff", "#f2f2f2");
+            xAxesGridLines = { color: "#444", zeroLineColor: "#555" };
+            yAxesGridLines = { color: "#444", drawOnChartArea: false };
+        }
+
         this.chart.defaults.global.defaultFontFamily = chartStyles.fontFamily;
         this.chart.defaults.global.defaultFontColor = chartStyles.textColor;
         this.chart.defaults.global.defaultFontSize = chartStyles.defaultFontSize;
@@ -86,7 +99,8 @@ class DualAxisChartComponent {
                             autoSkip: false,
                             maxRotation: 50,
                             minRotation: 50
-                        }
+                        },
+                        gridLines: xAxesGridLines
                     }],
                     yAxes: [{
                         type: "linear",
@@ -100,7 +114,8 @@ class DualAxisChartComponent {
                         ticks: {
                             beginAtZero: true,
                             callback: alphaReports.formatNumber
-                        }
+                        },
+                        gridLines: xAxesGridLines
                     }, {
                         type: "linear",
                         display: true,
@@ -114,10 +129,7 @@ class DualAxisChartComponent {
                             beginAtZero: true,
                             callback: alphaReports.formatNumber
                         },
-
-                        gridLines: {
-                            drawOnChartArea: false
-                        }
+                        gridLines: yAxesGridLines
                     }]
                 },
                 legend: {

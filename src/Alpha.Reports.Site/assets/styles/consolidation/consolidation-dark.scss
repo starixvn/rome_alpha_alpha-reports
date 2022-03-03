@@ -1,0 +1,95 @@
+﻿@import "../_mixins.scss";
+
+.dropdown-currencies-container {
+    .multiselect .multiselect-selected-text {
+        width: 110px;
+    }
+
+    .dropdown-menu {
+        min-width: 140px;
+    }
+}
+
+.tblRpt {
+    .col-userlevel {
+        width: 120px;
+    }
+
+    .username-row {
+        background-color: #2E2C1F;
+        cursor: pointer;
+
+        > td {
+            .icon-arrow-right {
+                @include transform(rotate(0));
+                font-size: 16px;
+                position: relative;
+                top: 2px;
+                @include transition(transform 0.3s ease-out);
+            }
+
+            &.active {
+                .icon-arrow-right {
+                    @include transform(rotate(90deg));
+                }
+            }
+        }
+    }
+
+    .consolidation-pt-row {
+        background-color: #3a3930;
+
+        &:hover {
+            cursor: default;
+        }
+    }
+
+    .col-product {
+        padding-left: 20px;
+    }
+
+    .view-product-pt-list {
+        position: absolute;
+        right: 0;
+        top: 4px;
+        background: url("../images/percent-dark.svg") center center no-repeat;
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+    }
+}
+
+#tbl-report {
+    .downline-link {
+        margin-right: 15px;
+    }
+}
+
+.note .star {
+    padding-right: 6px;
+}
+
+
+.consolidation-modal {
+    padding-top: 5%;
+
+    .modal-content .modal-header .modal-title {
+        cursor: default;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
+    .product-pt-list-content {
+        list-style: disc;
+        margin: 10px 0 15px 0;
+        padding-left: 15px;
+    }
+}
+
+@media only screen and (max-device-width: 414px) and (orientation: portrait) {
+    .consolidation-modal {
+        padding-top: 30%;
+    }
+}

@@ -3,9 +3,8 @@
     ViewBag.Title = "Match Win Loss Detail";
 }
 
-
 @section Styles {
-    @StaticResources.RenderStyles("~/assets/bundles/matchwinlossdetail/matchwinlossdetail")
+    @StaticResources.RenderStylesWithDarkMode("~/assets/bundles/matchwinlossdetail/matchwinlossdetail")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)

@@ -39,7 +39,7 @@ namespace Alpha.Reports.Constants
 
         public const int Cashout = 25;
 
-        public static readonly List<int> ProductListForTooltipsLiveCasino = new List<int>
+        public static readonly IEnumerable<int> ProductListForTooltipsLiveCasino = new List<int>
             {
                 ProductIdConstants.Allbet,
                 ProductIdConstants.SexyGaming,
@@ -53,14 +53,14 @@ namespace Alpha.Reports.Constants
                 ProductIdConstants.PPLiveCasino
             };
 
-        public static readonly List<int> ProductListForTooltipsRNGCasino = new List<int>
+        public static readonly IEnumerable<int> ProductListForTooltipsRNGCasino = new List<int>
             {
                 ProductIdConstants.RNGWar,
                 ProductIdConstants.SabaClub,
                 ProductIdConstants.VGaming
             };
 
-        public static readonly List<int> ProductListHasProductDetail = new List<int>
+        public static readonly IEnumerable<int> ProductListHasProductDetail = new List<int>
         {
             ProductIdConstants.PP,
             ProductIdConstants.SexyGaming,

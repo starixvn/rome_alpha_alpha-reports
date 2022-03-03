@@ -12,6 +12,10 @@
     "inputFile": "assets/styles/statement/statement.scss"
   },
   {
+    "outputFile": "assets/styles/statement/statement-dark.css",
+    "inputFile": "assets/styles/statement/statement-dark.scss"
+  },
+  {
     "outputFile": "assets/styles/consolidation/consolidation.css",
     "inputFile": "assets/styles/consolidation/consolidation.scss"
   },
@@ -62,5 +66,49 @@
   {
     "outputFile": "Features/BonusDetail/Styles/confirm-payment.css",
     "inputFile": "Features/BonusDetail/Styles/confirm-payment.scss"
+  },
+  {
+    "outputFile": "assets/styles/reports-dark.css",
+    "inputFile": "assets/styles/reports-dark.scss"
+  },
+  {
+    "outputFile": "assets/styles/betchoicematching/betchoicematching-dark.css",
+    "inputFile": "assets/styles/betchoicematching/betchoicematching-dark.scss"
+  },
+  {
+    "outputFile": "assets/styles/themes/page-title-agent-dark.css",
+    "inputFile": "assets/styles/themes/page-title-agent-dark.scss"
+  },
+  {
+    "outputFile": "assets/styles/themes/page-title-agent.css",
+    "inputFile": "assets/styles/themes/page-title-agent.scss"
+  },
+  {
+    "outputFile": "assets/styles/themes/page-title-master-dark.css",
+    "inputFile": "assets/styles/themes/page-title-master-dark.scss"
+  },
+  {
+    "outputFile": "assets/styles/themes/page-title-master.css",
+    "inputFile": "assets/styles/themes/page-title-master.scss"
+  },
+  {
+    "outputFile": "assets/styles/themes/page-title-super-dark.css",
+    "inputFile": "assets/styles/themes/page-title-super-dark.scss"
+  },
+  {
+    "outputFile": "assets/styles/themes/page-title-super.css",
+    "inputFile": "assets/styles/themes/page-title-super.scss"
+  },
+  {
+    "outputFile": "assets/styles/matchwinlossdetail/matchwinlossdetail-dark.css",
+    "inputFile": "assets/styles/matchwinlossdetail/matchwinlossdetail-dark.scss"
+  },
+  {
+    "outputFile": "Features/BonusDetail/Styles/bonus-detail-dark.css",
+    "inputFile": "Features/BonusDetail/Styles/bonus-detail-dark.scss"
+  },
+  {
+    "outputFile": "assets/styles/consolidation/consolidation-dark.css",
+    "inputFile": "assets/styles/consolidation/consolidation-dark.scss"
   }
 ]

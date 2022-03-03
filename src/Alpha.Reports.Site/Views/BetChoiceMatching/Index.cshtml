@@ -5,7 +5,7 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStyles("~/assets/bundles/betchoicematching/betchoicematching")
+    @StaticResources.RenderStylesWithDarkMode("~/assets/bundles/betchoicematching/betchoicematching")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.BetChoiceMatching, false, true, false, false, Enumerable.Empty<CustInfo>(), null), Request.Url.Query)
