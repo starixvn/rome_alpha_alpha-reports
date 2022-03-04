@@ -130,5 +130,9 @@
   {
     "outputFile": "Features/BetCreditTracking/Styles/move-statement-history-dark.css",
     "inputFile": "Features/BetCreditTracking/Styles/move-statement-history-dark.scss"
+  },
+  {
+    "outputFile": "assets/styles/error/error-dark.css",
+    "inputFile": "assets/styles/error/error-dark.scss"
   }
 ]

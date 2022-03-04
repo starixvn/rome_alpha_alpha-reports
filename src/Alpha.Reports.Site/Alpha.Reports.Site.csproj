@@ -309,8 +309,8 @@
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\..\packages\StackExchange.Redis.2.0.519\lib\net461\StackExchange.Redis.dll</HintPath>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.5.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.5.8\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.5.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.5.9\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.3.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.3.5\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
@@ -916,6 +916,10 @@
     <Content Include="assets\bundles\consolidation\consolidation.min.js">
       <DependentUpon>consolidation.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\error\error-dark.css" />
+    <Content Include="assets\bundles\error\error-dark.min.css">
+      <DependentUpon>error-dark.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\error\error.css" />
     <Content Include="assets\bundles\error\error.min.css">
       <DependentUpon>error.css</DependentUpon>
@@ -1057,6 +1061,12 @@
     </Content>
     <Content Include="assets\styles\consolidation\consolidation.min.css">
       <DependentUpon>consolidation.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\error\error-dark.css">
+      <DependentUpon>error-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\error\error-dark.min.css">
+      <DependentUpon>error-dark.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\error\error.css">
       <DependentUpon>error.scss</DependentUpon>
@@ -1296,6 +1306,7 @@
     <Content Include="assets\styles\themes\page-title-super-dark.scss" />
     <Content Include="assets\styles\consolidation\consolidation-dark.scss" />
     <Content Include="assets\styles\statement\statement-dark.scss" />
+    <Content Include="assets\styles\error\error-dark.scss" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>

@@ -391,6 +391,33 @@
     "inputFiles": [
       "Features/BetCreditTracking/Styles/bet-credit-history.css"
     ]
+  }
+  ,
+  {
+    "outputFileName": "Features/SuperWinLossDetailByPT/Bundles/superwinlossdetailbypt.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/productdetail-multiselection.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
+      "Features/SuperWinLossDetailByPT/Scripts/superwinlossdetailbypt.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/error/error.css",
+    "inputFiles": [
+      "assets/styles/error/error.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/partial-um/partial-um.css",
+    "inputFiles": [
+      "assets/styles/partial-um/partial-um.css"
+    ]
   },
   /************************** Dark Mode ************************/
   {
@@ -426,19 +453,6 @@
       "assets/styles/betchoicematching/betchoicematching-dark.css"
     ]
   },
-    "outputFileName": "Features/SuperWinLossDetailByPT/Bundles/superwinlossdetailbypt.js",
-    "inputFiles": [
-      "assets/scripts/core.js",
-      "assets/scripts/base-report.js",
-      "assets/scripts/components/daterangepicker.js",
-      "assets/scripts/components/productmultiselection.js",
-      "assets/scripts/components/productdetail-multiselection.js",
-      "assets/scripts/components/tooltip.js",
-      "assets/scripts/components/sort.js",
-      "assets/scripts/components/link-builder.js",
-      "Features/SuperWinLossDetailByPT/Scripts/superwinlossdetailbypt.js"
-    ]
-  },
   {
     "outputFileName": "Features/BonusDetail/Bundles/bonusdetail-dark.css",
     "inputFiles": [
@@ -471,9 +485,9 @@
     ]
   },
   {
-    "outputFileName": "assets/bundles/error/error.css",
+    "outputFileName": "assets/bundles/error/error-dark.css",
     "inputFiles": [
-      "assets/styles/error/error.css"
+      "assets/styles/error/error-dark.css"
     ]
   },
   {
