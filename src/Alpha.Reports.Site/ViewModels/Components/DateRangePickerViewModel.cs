@@ -8,14 +8,14 @@
 
     public class DateRangePickerViewModel
     {
-        private const string TodayOptionValue = "0";
-        private const string YesterdayOptionValue = "1";
-        private const string ThisWeekOptionValue = "2";
-        private const string LastWeekOptionValue = "3";
-        private const string ThisMonthOptionValue = "4";
-        private const string LastMonthOptionValue = "5";
-        private const string SinceLastMonthOptionValue = "6";
-        private const string SpecificDateOptionValue = "7";
+        public const string TodayOptionValue = "0";
+        public const string YesterdayOptionValue = "1";
+        public const string ThisWeekOptionValue = "2";
+        public const string LastWeekOptionValue = "3";
+        public const string ThisMonthOptionValue = "4";
+        public const string LastMonthOptionValue = "5";
+        public const string SinceLastMonthOptionValue = "6";
+        public const string SpecificDateOptionValue = "7";
 
         public DateRangePickerViewModel(
             DateTime minDate,

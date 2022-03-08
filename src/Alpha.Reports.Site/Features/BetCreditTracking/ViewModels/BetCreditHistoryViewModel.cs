@@ -9,7 +9,13 @@
 
     public class BetCreditHistoryViewModel
     {
-        private readonly IList<string> optionValues = new List<string> { "0", "1", "2", "3", "7" };
+        private readonly IList<string> optionValues = new List<string> { 
+            DateRangePickerViewModel.TodayOptionValue,
+            DateRangePickerViewModel.YesterdayOptionValue,
+            DateRangePickerViewModel.ThisWeekOptionValue,
+            DateRangePickerViewModel.LastWeekOptionValue,
+            DateRangePickerViewModel.SpecificDateOptionValue
+        };
 
         public BetCreditHistoryViewModel(BetCreditHistoryQuery message) : this(null, message)
         {
