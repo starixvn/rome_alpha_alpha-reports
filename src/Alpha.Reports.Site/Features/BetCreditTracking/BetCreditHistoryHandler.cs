@@ -4,6 +4,7 @@
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
     using Alpha.Reports.Site.Features.BetCreditTracking.ViewModels;
     using MediatR;
+    using System;
 
     public class BetCreditHistoryHandler : 
         BetCreditHistoryBaseHandler, 
@@ -15,6 +16,11 @@
 
         public BetCreditHistoryViewModel Handle(BetCreditHistoryQuery message)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
             var betCreditHistoryParam = CreateParameter(message);
             var result = reportService.GetBetCreditHistory(betCreditHistoryParam);
 
