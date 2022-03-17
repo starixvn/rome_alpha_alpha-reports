@@ -36,36 +36,38 @@ namespace Alpha.Reports.Constants
         public const int RNGWar = 50;
         public const int SabaClub = 42;
         public const int DummyRNGProductId = 53;
+        public const int FGG = 70;
 
         public const int Cashout = 25;
 
         public static readonly IEnumerable<int> ProductListForTooltipsLiveCasino = new List<int>
             {
-                ProductIdConstants.Allbet,
-                ProductIdConstants.SexyGaming,
-                ProductIdConstants.SAGaming,
-                ProductIdConstants.GTCasino,
-                ProductIdConstants.BBin,
-                ProductIdConstants.ION,
-                ProductIdConstants.WM,
-                ProductIdConstants.GDG,
-                ProductIdConstants.BigGame,
-                ProductIdConstants.PPLiveCasino
+                Allbet,
+                SexyGaming,
+                SAGaming,
+                GTCasino,
+                BBin,
+                ION,
+                WM,
+                GDG,
+                BigGame,
+                PPLiveCasino,
+                FGG
             };
 
         public static readonly IEnumerable<int> ProductListForTooltipsRNGCasino = new List<int>
             {
-                ProductIdConstants.RNGWar,
-                ProductIdConstants.SabaClub,
-                ProductIdConstants.VGaming
+                RNGWar,
+                SabaClub,
+                VGaming
             };
 
         public static readonly IEnumerable<int> ProductListHasProductDetail = new List<int>
         {
-            ProductIdConstants.PP,
-            ProductIdConstants.SexyGaming,
-            ProductIdConstants.SG,
-            ProductIdConstants.Allbet
+            PP,
+            SexyGaming,
+            SG,
+            Allbet
         };
     }
 }
