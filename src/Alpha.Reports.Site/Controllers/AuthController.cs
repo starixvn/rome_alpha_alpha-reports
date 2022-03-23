@@ -52,12 +52,12 @@ namespace Alpha.Reports.Site.Controllers
 
             IUserSession session = UserSession.Current;
 
-            if (session.IsLogged && !IsValidLoginAccountName(parameter))
+            if (!IsValidLoginAccountName(parameter))
             {
                 return new EmptyResult();
             }
 
-            if (session.IsLogged && Request.IsAuthenticated && IsValidLoginAccountName(parameter))
+            if (Request.IsAuthenticated && IsValidLoginAccountName(parameter))
             {
                 return Json(Session.SessionID, JsonRequestBehavior.AllowGet);
             }
