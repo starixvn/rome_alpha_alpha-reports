@@ -10,16 +10,16 @@
         }
 
         public BetCreditHistoryModel(
-            DateTime actionDate, 
-            DateTime? winLostDate, 
-            long? refNo, 
-            decimal? actualStake, 
-            decimal? winLoss, 
-            decimal? playerComm, 
-            decimal? balanceChanged, 
-            decimal? newBalance, 
-            decimal givenCredit, 
-            decimal? betCredit, 
+            DateTime actionDate,
+            DateTime? winLostDate,
+            long? refNo,
+            decimal? actualStake,
+            decimal? winLoss,
+            decimal? playerComm,
+            decimal? balanceChanged,
+            decimal? newBalance,
+            decimal givenCredit,
+            decimal? betCredit,
             string action)
         {
             ActionDate = actionDate;
@@ -55,7 +55,9 @@
 
         public decimal? BetCredit { get; }
 
-        public string Action { get; }
+        public string Action { get; set; }
+
+        public int ActionId { get; }
 
         public string ActionDateString => ActionDate.ToLongDate24HourWithSlash();
 

@@ -1,0 +1,29 @@
+﻿@import '../../../assets/styles/_variables-dark.scss';
+
+.page-title {
+    border-bottom: none;
+
+    .list-icon {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+}
+
+
+.member-row {
+    background-color: $row-member-move-statement-history;
+}
+
+.refno {
+    float: left;
+    margin-left: 15px;
+}
+
+.total {
+    font-weight: 700;
+}
+
+.red {
+    color: red;
+}

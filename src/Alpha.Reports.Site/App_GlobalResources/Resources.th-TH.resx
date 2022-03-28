@@ -922,4 +922,7 @@
   <data name="InvalidUsername" xml:space="preserve">
     <value>Invalid username.</value>
   </data>
+  <data name="DuplicatedTicketMessage" xml:space="preserve">
+    <value>Tickets which were moved multiple times are shown duplicatedly in red.</value>
+  </data>
 </root>

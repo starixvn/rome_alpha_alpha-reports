@@ -10,10 +10,9 @@
     using MediatR;
     using ONEbook.SpreadSheets;
     using System;
-    using System.Threading.Tasks;
     using static ONEbook.SpreadSheets.Column;
 
-    public class MoveStatementHistoryExcelHandler : MoveStatementHistoryBaseHandler, IAsyncRequestHandler<MoveStatementHistoryExcelQuery, ExcelFileViewModel>
+    public class MoveStatementHistoryExcelHandler : MoveStatementHistoryBaseHandler, IRequestHandler<MoveStatementHistoryExcelQuery, ExcelFileViewModel>
     {
         private const int TitleStartIndex = 1;
         private const int HeaderStartIndex = 2;
@@ -30,7 +29,7 @@
             this.workbook = workbook;
         }
 
-        public async Task<ExcelFileViewModel> Handle(MoveStatementHistoryExcelQuery message)
+        public ExcelFileViewModel Handle(MoveStatementHistoryExcelQuery message)
         {
             if (message == null)
             {
@@ -39,16 +38,16 @@
 
             var moveStatementHistoryParam = CreateParameter(message);
 
-            var reportData = message.ReportData ?? await reportService.GetMoveStatementHistoryAsync(moveStatementHistoryParam);
+            var result = reportService.GetMoveStatementHistory(moveStatementHistoryParam);
+
+            var data = message.Data ?? result.Data;
 
             var fileContent = workbook
-                .SetData(reportData.DataSource, reportData.TotalData)
-                .SetRowMappers(GetBodyRowMapper(), GetTotalRowMapper())
+                .SetData(data)
+                .SetRowMappers(GetMemberMapper(), GetRefNoMapper())
                 .UseTemplate(GetTemplateInfo())
                 .Title(GetReportTitle(moveStatementHistoryParam))
                 .Header(Resources.ResourceManager.GetString)
-                .Body(reportData.DataSource, GetBodyRowMapper())
-                .Footer(reportData.TotalData, GetTotalRowMapper())
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
@@ -83,18 +82,24 @@
                 param.FromDate.ToShortDateWithSlash(),
                 param.ToDate.ToShortDateWithSlash());
 
-        private Mapper<MoveStatementHistoryModel> GetBodyRowMapper()
-           => GetRowMapper(isTotal: false);
+        private Mapper<MoveStatementHistoryByRefNoModel> GetMemberMapper()
+            => GetRowMapper(true);
 
-        private Mapper<MoveStatementHistoryModel> GetTotalRowMapper()
-            => GetRowMapper(isTotal: true);
+        private Mapper<MoveStatementHistoryByRefNoModel> GetRefNoMapper()
+            => GetRowMapper(false);
 
-        internal Mapper<MoveStatementHistoryModel> GetRowMapper(bool isTotal)
+        internal Mapper<MoveStatementHistoryByRefNoModel> GetRowMapper(bool isMember)
         {
-            return new Mapper<MoveStatementHistoryModel>()
-                .Map(A, moveStatementHistory => isTotal ? Resources.Total : moveStatementHistory.MemberRefNo)
-                .Map(B, moveStatementHistory => isTotal ? string.Empty : moveStatementHistory.OldEventDate.ToShortDateWithSlash())
-                .Map(C, moveStatementHistory => isTotal ? string.Empty : moveStatementHistory.NewEventDate.ToShortDateWithSlash())
+            if (isMember)
+            {
+                return new Mapper<MoveStatementHistoryByRefNoModel>()
+                    .Map(A, moveStatementHistory => moveStatementHistory.Username);
+            }
+
+            return new Mapper<MoveStatementHistoryByRefNoModel>()
+                .Map(A, moveStatementHistory => moveStatementHistory.TransId)
+                .Map(B, moveStatementHistory => moveStatementHistory.OldEventDate.ToShortDateWithSlash())
+                .Map(C, moveStatementHistory => moveStatementHistory.NewEventDate.ToShortDateWithSlash())
                 .Map(D, moveStatementHistory => moveStatementHistory.MemberWinLoss)
                 .Map(E, moveStatementHistory => moveStatementHistory.MemberComm)
                 .Map(F, moveStatementHistory => moveStatementHistory.MemberTotal);

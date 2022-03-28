@@ -1,16 +1,15 @@
 ﻿namespace Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory
 {
+    using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Params;
-    using Alpha.Reports.Models;
     using Fanex.Data.Repository;
-    using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
+    using System.Linq;
 
     public interface MoveStatementHistoryService
     {
-        Task<ReportData<MoveStatementHistoryModel>> GetMoveStatementHistoryAsync(MoveStatementHistoryParam param);
+        MoveStatementHistoryResultModel GetMoveStatementHistory(MoveStatementHistoryParam param);
     }
 
     public class MoveStatementHistoryServiceImpl : MoveStatementHistoryService
@@ -22,15 +21,17 @@
             repository = dynamicRepository;
         }
 
-        public Task<ReportData<MoveStatementHistoryModel>> GetMoveStatementHistoryAsync(MoveStatementHistoryParam param)
+        public MoveStatementHistoryResultModel GetMoveStatementHistory(MoveStatementHistoryParam param)
         {
-            var list = new List<MoveStatementHistoryModel>
-            {
-                new MoveStatementHistoryModel { MemberRefNo = "test",  OldEventDate = DateTime.Now, NewEventDate = DateTime.Now, MemberWinLoss = 100, MemberComm = 3, MemberTotal = 103  },
-                new MoveStatementHistoryModel { MemberRefNo = "test",  OldEventDate = DateTime.Now, NewEventDate = DateTime.Now, MemberWinLoss = 100, MemberComm = 3, MemberTotal = 103  },
-                new MoveStatementHistoryModel { MemberRefNo = "test",  OldEventDate = DateTime.Now, NewEventDate = DateTime.Now, MemberWinLoss = 100, MemberComm = 3, MemberTotal = 103  },
-            };
-            return Task.FromResult(new ReportData<MoveStatementHistoryModel>(list, new MoveStatementHistoryModel { MemberRefNo = "total", OldEventDate = DateTime.Now, NewEventDate = DateTime.Now, MemberWinLoss = 300, MemberComm = 9, MemberTotal = 309 }));
+            var criteria = new MoveStatementHistoryCriteria(param);
+
+            var result = repository.Fetch<MoveStatementHistoryByRefNoModel>(criteria);
+
+            IEnumerable<MoveStatementHistoryByMemberModel> reportData = result.GroupBy(
+                r => r.Username,
+                (key, g) => new MoveStatementHistoryByMemberModel(key, g));
+
+            return new MoveStatementHistoryResultModel(criteria.ErrorCode, criteria.ErrorMess, reportData);
         }
     }
 }

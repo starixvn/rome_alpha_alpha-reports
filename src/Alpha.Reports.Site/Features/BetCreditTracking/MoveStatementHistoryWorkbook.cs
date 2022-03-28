@@ -9,83 +9,63 @@
 
     public interface MoveStatementHistoryWorkbook
     {
-        Workbook<MoveStatementHistoryModel> UseTemplate(TemplateInfo templateInfo);
+        Workbook<MoveStatementHistoryByRefNoModel> UseTemplate(TemplateInfo templateInfo);
 
-        Workbook<MoveStatementHistoryModel> Sheet(string sheetName);
+        Workbook<MoveStatementHistoryByRefNoModel> Sheet(string sheetName);
 
-        Workbook<MoveStatementHistoryModel> Title(string titleText);
+        Workbook<MoveStatementHistoryByRefNoModel> Title(string titleText);
 
-        Workbook<MoveStatementHistoryModel> Header(Func<string, string> headerMapping);
+        Workbook<MoveStatementHistoryByRefNoModel> Header(Func<string, string> headerMapping);
 
-        Workbook<MoveStatementHistoryModel> Body(
-            IEnumerable<MoveStatementHistoryModel> rows,
-            Mapper<MoveStatementHistoryModel> mapper);
+        Workbook<MoveStatementHistoryByRefNoModel> Body(
+            IEnumerable<MoveStatementHistoryByRefNoModel> rows,
+            Mapper<MoveStatementHistoryByRefNoModel> mapper);
 
         byte[] ExportToBytes();
 
         MoveStatementHistoryWorkbook SetData(
-            IEnumerable<MoveStatementHistoryModel> reportData,
-            MoveStatementHistoryModel total);
+            IEnumerable<MoveStatementHistoryByMemberModel> data);
 
         MoveStatementHistoryWorkbook SetRowMappers(
-            Mapper<MoveStatementHistoryModel> mapper,
-            Mapper<MoveStatementHistoryModel> totalMapper);
+            Mapper<MoveStatementHistoryByRefNoModel> memberMapper,
+            Mapper<MoveStatementHistoryByRefNoModel> refNoMapper);
     }
 
     public class MoveStatementHistoryWorkbookImpl :
-        NpoiWorkbook<MoveStatementHistoryModel>,
+        NpoiWorkbook<MoveStatementHistoryByRefNoModel>,
         MoveStatementHistoryWorkbook
     {
         private const int ReportSheetIndex = 1;
 
         private int currentRowIndex;
 
-        internal IEnumerable<MoveStatementHistoryModel> ReportData { get; set; }
+        internal IEnumerable<MoveStatementHistoryByMemberModel> Data { get; set; }
 
-        internal MoveStatementHistoryModel Total { get; set; }
+        internal Mapper<MoveStatementHistoryByRefNoModel> MemberMapper { get; set; }
 
-        internal Mapper<MoveStatementHistoryModel> Mapper { get; set; }
-
-        internal Mapper<MoveStatementHistoryModel> TotalMapper { get; set; }
+        internal Mapper<MoveStatementHistoryByRefNoModel> RefNoMapper { get; set; }
 
         internal Row MemberRowTemplate { get; set; }
 
         internal Row RefNoRowTemplate { get; set; }
 
-        internal Row TotalRowTemplate { get; set; }
+        internal Row RedRefNoRowTemplate { get; set; }
 
-        public MoveStatementHistoryWorkbook SetData(
-            IEnumerable<MoveStatementHistoryModel> reportData, 
-            MoveStatementHistoryModel total)
+        public MoveStatementHistoryWorkbook SetData(IEnumerable<MoveStatementHistoryByMemberModel> data)
         {
-            ReportData = reportData;
-            Total = total;
+            Data = data;
 
             return this;
         }
 
         public MoveStatementHistoryWorkbook SetRowMappers(
-            Mapper<MoveStatementHistoryModel> mapper, 
-            Mapper<MoveStatementHistoryModel> totalMapper)
+            Mapper<MoveStatementHistoryByRefNoModel> memberMapper, 
+            Mapper<MoveStatementHistoryByRefNoModel> refNoMapper)
         {
-            Mapper = mapper;
-            TotalMapper = totalMapper;
+            MemberMapper = memberMapper;
+            RefNoMapper = refNoMapper;
 
             return this;
-        }
-
-        internal void FillMember(Sheet sheet, int rowIndex, MoveStatementHistoryModel data)
-        {
-            var row = sheet.GetRow(rowIndex);
-            row.CopyCellsFrom(MemberRowTemplate);
-            FillCells(row, data, TotalMapper.Mappings);
-        }
-
-        internal void FillRefNo(Sheet sheet, int rowIndex, MoveStatementHistoryModel item)
-        {
-            var row = sheet.GetRow(rowIndex);
-            row.CopyCellsFrom(RefNoRowTemplate);
-            FillCells(row, item, Mapper.Mappings);
         }
 
         protected override Sheet LoadTemplateSheet()
@@ -96,12 +76,11 @@
 
             MemberRowTemplate = sheet.GetRow(currentRowIndex++);
             RefNoRowTemplate = sheet.GetRow(currentRowIndex++);
-            TotalRowTemplate = sheet.GetRow(currentRowIndex++);
+            RedRefNoRowTemplate = sheet.GetRow(currentRowIndex++);
 
             var reportSheet = GetSheetAt(ReportSheetIndex);
             reportSheet.EvenRowTemplate = MemberRowTemplate;
             reportSheet.OddRowTemplate = RefNoRowTemplate;
-            reportSheet.FooterRowsTemplate = new List<Row> { TotalRowTemplate };
 
             return reportSheet;
         }
@@ -125,10 +104,9 @@
 
             RemoveTemplateRows(sheet);
 
-            if (ReportData.Any())
+            if (Data.Any())
             {
                 FillBodyRows(sheet);
-                FillFooterRows(sheet);
             }
             else
             {
@@ -145,32 +123,29 @@
 
             currentRowIndex = TemplateInfo.BodyStartIndex;
 
-            foreach (var data in ReportData)
+            foreach (var member in Data)
             {
-                if (currentRowIndex == TemplateInfo.BodyStartIndex) 
-                {
-                    FillMember(sheet, currentRowIndex++, data);
-                }
+                FillMemberTitle(sheet, currentRowIndex++, member);
 
-                FillRefNo(sheet, currentRowIndex++, data);
+                foreach (var row in member.RefNoRow)
+                {
+                    FillRefNo(sheet, currentRowIndex++, row);
+                }
             }
         }
 
-        protected override void FillFooterRows(Sheet sheet)
+        internal void FillMemberTitle(Sheet sheet, int rowIndex, MoveStatementHistoryByMemberModel member)
         {
-            if (sheet == null)
-            {
-                throw new ArgumentNullException(nameof(sheet), "Sheet cannot be null");
-            }
+            var row = sheet.GetRow(rowIndex);
+            row.CopyCellsFrom(MemberRowTemplate);
+            FillCells(row, member.MemberRow, MemberMapper.Mappings);
+        }
 
-            if (!SpreadSheet.FooterRows.Any())
-            {
-                return;
-            }
-
-            var row = sheet.GetRow(currentRowIndex);
-            row.CopyCellsFrom(TotalRowTemplate);
-            FillCells(row, Total, TotalMapper.Mappings);
+        internal void FillRefNo(Sheet sheet, int rowIndex, MoveStatementHistoryByRefNoModel refno)
+        {
+            var row = sheet.GetRow(rowIndex);
+            row.CopyCellsFrom(refno.IsMultipleMoved == 1 ? RedRefNoRowTemplate : RefNoRowTemplate);
+            FillCells(row, refno, RefNoMapper.Mappings);
         }
     }
 }

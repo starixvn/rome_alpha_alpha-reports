@@ -1082,8 +1082,15 @@
     <Content Include="Features\BetCreditTracking\Bundles\betcredithistory.min.js">
       <DependentUpon>betcredithistory.js</DependentUpon>
     </Content>
+    <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory-dark.css" />
+    <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory-dark.min.css">
+      <DependentUpon>movestatementhistory-dark.css</DependentUpon>
+    </Content>
     <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory.css" />
     <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory.js" />
+    <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory.min.css">
+      <DependentUpon>movestatementhistory.css</DependentUpon>
+    </Content>
     <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory.min.js">
       <DependentUpon>movestatementhistory.js</DependentUpon>
     </Content>
@@ -1112,6 +1119,13 @@
     <Content Include="App_Data\ExcelTemplates\BetCreditTracking\BetCreditHistory.xls" />
     <Content Include="App_Data\ExcelTemplates\BetCreditTracking\MoveStatementHistory.xls" />
     <Content Include="Features\BetCreditTracking\Styles\bet-credit-history-dark.scss" />
+    <Content Include="Features\BetCreditTracking\Styles\move-statement-history-dark.css">
+      <DependentUpon>move-statement-history-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\move-statement-history-dark.min.css">
+      <DependentUpon>move-statement-history-dark.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\move-statement-history-dark.scss" />
     <None Include="Features\BetCreditTracking\Styles\move-statement-history.scss" />
     <TypeScriptCompile Include="Features\BetCreditTracking\Scripts\bet-credit-history.ts" />
     <Content Include="assets\styles\themes\page-title-agent-dark.min.css">

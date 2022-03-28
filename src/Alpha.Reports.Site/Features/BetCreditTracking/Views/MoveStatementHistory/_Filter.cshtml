@@ -25,4 +25,18 @@
     <div class="note" style="margin-left: 14px;">
         @Resources.MoveStatementHistoryNote
     </div>
+
+    if(Model.IsShowDuplicatedTicketMessage)
+    {
+        <div class="note red" style="margin-left: 14px;">
+            @Resources.DuplicatedTicketMessage
+        </div>
+    }
+
+    if (Model.ErrMsg != string.Empty)
+    {
+        <div id="msg-error" class="msg msg-error">
+            @Model.ErrMsg
+        </div>
+    }
 }

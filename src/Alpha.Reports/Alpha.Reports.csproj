@@ -225,7 +225,15 @@
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Models\BetCreditHistoryModel.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Models\BetCreditHistoryResultModel.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Params\BetCreditHistoryParam.cs" />
-    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryModel.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistory\Resources\BetCreditHistoryResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BetCreditHistoryResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Criteria\MoveStatementHistoryCriteria.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryByMemberModel.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryByRefNoModel.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryResultModel.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Params\MoveStatementHistoryParam.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\MoveStatementHistoryService.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperPTCriteria.cs" />
@@ -418,7 +426,16 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.8.22.0.31243\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.8.22.0.31243\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Features\BetCreditTracking\BetCreditHistory\Resources\BetCreditHistoryResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>BetCreditHistoryResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Features\BetCreditTracking\BetCreditHistory\Resources\BetCreditHistoryResources.th-TH.resx" />
+    <EmbeddedResource Include="Features\BetCreditTracking\BetCreditHistory\Resources\BetCreditHistoryResources.vi-VN.resx" />
+    <EmbeddedResource Include="Features\BetCreditTracking\BetCreditHistory\Resources\BetCreditHistoryResources.zh-CN.resx" />
+    <EmbeddedResource Include="Features\BetCreditTracking\BetCreditHistory\Resources\BetCreditHistoryResources.zh-TW.resx" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets" Condition="Exists('..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

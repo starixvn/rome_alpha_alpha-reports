@@ -4,14 +4,15 @@
     using Alpha.Reports.Models;
     using Alpha.Reports.Site.ViewModels;
     using MediatR;
+    using System.Collections.Generic;
 
-    public class MoveStatementHistoryExcelQuery : MoveStatementHistoryQuery, IAsyncRequest<ExcelFileViewModel>
+    public class MoveStatementHistoryExcelQuery : MoveStatementHistoryQuery, IRequest<ExcelFileViewModel>
     {
         public MoveStatementHistoryExcelQuery(IUser viewer) : base(viewer)
         {
 
         }
 
-        public ReportData<MoveStatementHistoryModel> ReportData { get; set; }
+        public IEnumerable<MoveStatementHistoryByMemberModel> Data { get; set; }
     }
 }

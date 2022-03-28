@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Features.BetCreditTracking
 {
-    using System.Threading.Tasks;
     using System.Web.Mvc;
     using Alpha.Reports.Site.Controllers;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
@@ -14,10 +13,10 @@
         {
         }
 
-        public async Task<ActionResult> Index(MoveStatementHistoryQuery message)
-            => await ViewAsync(string.Format(basePath, nameof(Index)), message);
+        public ActionResult Index(MoveStatementHistoryQuery message)
+            => View(string.Format(basePath, nameof(Index)), message);
 
-        public async Task<ActionResult> Excel(MoveStatementHistoryExcelQuery message)
-            => await ExcelViewAsync(message);
+        public ActionResult Excel(MoveStatementHistoryExcelQuery message)
+            => ExcelView(message);
     }
 }

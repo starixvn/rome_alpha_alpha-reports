@@ -12,7 +12,7 @@
 
 
 .member-row {
-    background-color: $row-light-orange-color;
+    background-color: $row-member-move-statement-history;
 }
 
 .refno {
@@ -22,4 +22,8 @@
 
 .total {
     font-weight: 700;
+}
+
+.red {
+    color: red;
 }

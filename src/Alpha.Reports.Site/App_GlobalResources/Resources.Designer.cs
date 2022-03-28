@@ -745,6 +745,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tickets which were moved multiple times are shown duplicatedly in red..
+        /// </summary>
+        public static string DuplicatedTicketMessage {
+            get {
+                return ResourceManager.GetString("DuplicatedTicketMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enabled.
         /// </summary>
         public static string Enabled {

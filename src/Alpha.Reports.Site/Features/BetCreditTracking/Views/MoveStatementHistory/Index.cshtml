@@ -6,7 +6,7 @@
 @model MoveStatementHistoryViewModel
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
-    @StaticResources.RenderStyles("~/Features/BetCreditTracking/Bundles/movestatementhistory")
+    @StaticResources.RenderStylesWithDarkMode("~/Features/BetCreditTracking/Bundles/movestatementhistory")
 }
 @section Scripts {
     @StaticResources.RenderScripts("~/Features/BetCreditTracking/Bundles/movestatementhistory")
@@ -23,8 +23,8 @@
 
     <div class="list-icon">
         <ul>
-             <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
-             <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+            <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+            <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
         </ul>
     </div>
 </div>
@@ -33,38 +33,31 @@
         @{
             Html.RenderPartial("~/Features/BetCreditTracking/Views/MoveStatementHistory/_Filter.cshtml", Model);
         }
-        <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
-            <thead>
-                <tr>
-                    <th>@Resources.MemberRefNo</th>
-                    <th>@Resources.OldEventDate</th>
-                    <th>@Resources.NewEventDate</th>
-                    <th>@Resources.MemberWinLossNew</th>
-                    <th>@Resources.MemberComm</th>
-                    <th>@Resources.MemberTotal</th>
-                </tr>
-            </thead>
-            @if (Model.ReportData.Any())
-            {
-                <tbody>
-                    @BuildReport(Model.ReportData.DataSource)
-                </tbody>
-                <tfoot>
-                    <tr class="tbl-footer">
-                        <td class="text-left">@Resources.Total</td>
-                        <td></td>
-                        <td></td>
-                        <td>@HtmlHelpers.FormatNumber(Model.ReportData.TotalData.MemberWinLoss)</td>
-                        <td>@HtmlHelpers.FormatNumber(Model.ReportData.TotalData.MemberComm)</td>
-                        <td>@HtmlHelpers.FormatNumber(Model.ReportData.TotalData.MemberTotal)</td>
+        @if (Model.Data != null && Model.ErrMsg == string.Empty)
+        {
+            <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
+                <thead>
+                    <tr>
+                        <th>@Resources.MemberRefNo</th>
+                        <th>@Resources.OldEventDate</th>
+                        <th>@Resources.NewEventDate</th>
+                        <th>@Resources.MemberWinLossNew</th>
+                        <th>@Resources.MemberComm</th>
+                        <th>@Resources.MemberTotal</th>
                     </tr>
-                </tfoot>
-            }
-            else
-            {
-                @NoInformation.Render(6)
-            }
-        </table>
+                </thead>
+                @if (Model.Data.Any())
+                {
+                <tbody>
+                    @BuildReport(Model.Data)
+                </tbody>
+                }
+                else
+                {
+                    @NoInformation.Render(6)
+                }
+            </table>
+        }
     </div>
 </div>
 
@@ -75,34 +68,37 @@
     @Html.Hidden("ToDate", Model.ToDate)
 </form>
 
-@helper BuildReport(IEnumerable<MoveStatementHistoryModel> dataSource)
+@helper BuildReport(IEnumerable<MoveStatementHistoryByMemberModel> dataSource)
 {
-    @*<tr class="member-row">
-        <td class="text-left">
-            
-        </td>
-        <td></td>
-        <td></td>
-        <td>200</td>
-        <td>300</td>
-        <td class="total">400</td>
-    </tr>*@
-    foreach (var record in dataSource)
+    foreach (var member in dataSource)
     {
-        <tr>
-            <td>
-                <a href="@Model.GetBetListLinkRouteValues(record)">
-                    Member1
-                </a>
-                @*<span class="refno">
-                    @record.MemberRefNo
-                </span>*@
+        <tr class="member-row">
+            <td class="text-left">
+                @if (Model.CanViewBetLists)
+                {
+                    <a href="@Model.GetBetListLinkRouteValues(member.Username)">@member.Username</a>
+                }
+                else
+                {
+                    @:@member.Username
+                }
             </td>
-            <td>@record.OldEventDate.ToShortDateWithSlash()</td>
-            <td>@record.NewEventDate.ToShortDateWithSlash()</td>
-            <td>@HtmlHelpers.FormatNumber(record.MemberWinLoss)</td>
-            <td>@HtmlHelpers.FormatNumber(record.MemberComm)</td>
-            <td class="total">@HtmlHelpers.FormatNumber(record.MemberTotal)</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
+        foreach (var row in member.RefNoRow)
+        {
+            <tr class="@(row.IsMultipleMoved == 1 ? "red" : "")">
+                <td><span class="refno">@row.TransId</span></td>
+                <td>@row.OldEventDate.ToShortDateWithSlash()</td>
+                <td>@row.NewEventDate.ToShortDateWithSlash()</td>
+                <td>@HtmlHelpers.FormatNumber(row.MemberWinLoss)</td>
+                <td>@HtmlHelpers.FormatNumber(row.MemberComm)</td>
+                <td class="total">@HtmlHelpers.FormatNumber(row.MemberTotal)</td>
+            </tr>
+        }
     }
-}    
+}

@@ -2,21 +2,21 @@
 {
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
-    using Alpha.Reports.Models;
     using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
     using Alpha.Reports.Site.Helpers;
     using Alpha.Reports.Site.ViewModels.Components;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class MoveStatementHistoryViewModel
     {
         private const string DefaultBetListPath = "~/MoveStatementHistory/Index";
 
-        public MoveStatementHistoryViewModel(ReportData<MoveStatementHistoryModel> reportData, MoveStatementHistoryQuery message)
+        public MoveStatementHistoryViewModel(IEnumerable<MoveStatementHistoryByMemberModel> data, MoveStatementHistoryQuery message, bool isError = false)
         {
-            ReportData = reportData;
+            Data = data;
             CustLevel = message.ViewerLevel.DisplayName;
             IsFilterVisible = message.IsFilterVisible;
             MemberUsername = message.MemberUsername;
@@ -25,11 +25,15 @@
             FromDate = message.FromDate;
             ToDate = message.ToDate;
             UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
+
             ViewDataInstructionMessage = string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, message.MinDate.ToShortDateWithSlash());
             BetListPath = Helpers.UrlHelper.MapBetListPath(DefaultBetListPath);
+            CanViewBetLists = !message.IsProtectedMode || !message.CustLevel.IsAgentLevel();
+
+            ErrMsg = isError ? Resources.InvalidUsername : string.Empty;
         }
 
-        public ReportData<MoveStatementHistoryModel> ReportData { get; }
+        public IEnumerable<MoveStatementHistoryByMemberModel> Data { get; }
 
         public string CustLevel { get; }
 
@@ -51,14 +55,20 @@
 
         public string BetListPath { get; }
 
+        public bool CanViewBetLists { get; }
+
         public DateRangePickerViewModel DateRangePickerViewModel
           => new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
-        public string GetBetListLinkRouteValues(MoveStatementHistoryModel model)
+        public string ErrMsg { get; }
+
+        public bool IsShowDuplicatedTicketMessage => Data != null && Data.Any(member => member.RefNoRow.Any(row => row.IsMultipleMoved == 1));
+
+        public string GetBetListLinkRouteValues(string username)
         {
             var routeValues = new Dictionary<string, object>
             {
-                ["MemberRefNo"] = model.MemberRefNo
+                ["CustName"] = username
             };
 
             return UrlHelper.AddQueryStringParamsFunc(BetListPath, routeValues);

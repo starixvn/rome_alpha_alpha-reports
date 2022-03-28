@@ -478,5 +478,11 @@
     "inputFiles": [
       "Features/BetCreditTracking/Styles/bet-credit-history-dark.css"
     ]
+  },
+  {
+    "outputFileName": "Features/BetCreditTracking/Bundles/movestatementhistory-dark.css",
+    "inputFiles": [
+      "Features/BetCreditTracking/Styles/move-statement-history-dark.css"
+    ]
   }
 ]

@@ -15,6 +15,11 @@
         }
 
         protected MoveStatementHistoryParam CreateParameter(MoveStatementHistoryQuery message)
-            => new MoveStatementHistoryParam(message.MemberUsername, message.FromDate, message.ToDate, message.LimitedDateToShowInfo);
+            => new MoveStatementHistoryParam(
+                message.MemberUsername, 
+                message.FromDate, 
+                message.ToDate,
+                message.ViewerId,
+                message.LimitedDateToShowInfo);
     }
 }
