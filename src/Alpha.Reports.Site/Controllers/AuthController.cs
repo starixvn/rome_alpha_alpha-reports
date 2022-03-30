@@ -52,12 +52,12 @@ namespace Alpha.Reports.Site.Controllers
 
             IUserSession session = UserSession.Current;
 
-            if (!IsValidLoginAccountName(parameter))
+            if (session.IsLogged && !IsValidLoginAccountName(parameter))
             {
                 return new EmptyResult();
             }
 
-            if (Request.IsAuthenticated && IsValidLoginAccountName(parameter))
+            if (session.IsLogged && Request.IsAuthenticated && IsValidLoginAccountName(parameter))
             {
                 return Json(Session.SessionID, JsonRequestBehavior.AllowGet);
             }
@@ -98,7 +98,7 @@ namespace Alpha.Reports.Site.Controllers
             return false;
         }
 
-        private static bool IsValidLoginAccountName(string decryptedParams)
+        private bool IsValidLoginAccountName(string decryptedParams)
         {
             var session = UserSession.Current;
             var loginUsername = session.IsInternal ? session.UserName :

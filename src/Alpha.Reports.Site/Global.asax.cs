@@ -37,6 +37,29 @@
 
     public class MvcApplication : HttpApplication
     {
+        private static string CustomerIp()
+        {
+            var ip = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ?? HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            var ips = string.IsNullOrWhiteSpace(ip) || ip.Equals("::1") ?
+                new[] { "127.0.0.1" } : ip.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            return ips[0].Trim();
+        }
+
+        protected void Application_AcquireRequestState()
+        {
+            if (Request.Url.PathAndQuery.IndexOf("/Auth", StringComparison.OrdinalIgnoreCase) == -1)
+            {
+                var loginCredential = Session["LoginIP_Browser"] + string.Empty;
+                var requestCredential = CustomerIp() + "_" + Request.UserAgent;
+
+                if (!loginCredential.Equals(requestCredential, StringComparison.OrdinalIgnoreCase))
+                {
+                    Response.Redirect("~/Auth", true);
+                }
+            }
+        }
+
         protected void Application_Start()
         {
             ViewEngines.Engines.Clear();
