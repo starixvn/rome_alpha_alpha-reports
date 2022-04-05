@@ -13,6 +13,17 @@
             Username = username;
         }
 
+        public MoveStatementHistoryByRefNoModel(string username, long transId, DateTime oldEventDate, DateTime newEventDate, decimal memberWinLoss, decimal memberComm, decimal memberTotal, int isMultipleMoved) : this(username)
+        {
+            TransId = transId;
+            OldEventDate = oldEventDate;
+            NewEventDate = newEventDate;
+            MemberWinLoss = memberWinLoss;
+            MemberComm = memberComm;
+            MemberTotal = memberTotal;
+            IsMultipleMoved = isMultipleMoved;
+        }
+
         public string Username { get; }
 
         public long TransId { get; }

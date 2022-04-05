@@ -53,14 +53,14 @@
                 case 0:
                     if (IsMatchPrefixPattern(action, TransLogSettled))
                     {
-                        return string.Format(BetCreditHistoryResources.BetUpdatedStatusToStatus, action.Split(',')[1]);
+                        return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
                     }
 
                     if (IsMatchPrefixPattern(action, LC) 
                         || IsMatchPrefixPattern(action, RNG))
                     {
                         return action.IndexOf(to) != -1
-                            ? string.Format(BetCreditHistoryResources.BetUpdatedStatusToStatus, action.Split(',')[1])
+                            ? GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action)
                             : BetCreditHistoryResources.BetUpdated;
                     }
 
@@ -69,14 +69,17 @@
                 case 10:
                 case 11:
                 case 12:
-                    return string.Format(BetCreditHistoryResources.BetPlacedAs, action.Split(new[] { " as " }, StringSplitOptions.None)[1]);
+                    return GetBetPlaceAs(action);
+
+                case 29:
+                    return GetActionStatusToStatus(BetCreditHistoryResources.BetCashOut, action);
 
                 case 30:
                     if (IsMatchPrefixPattern(action, TransLogSettled) 
                         || IsMatchPrefixPattern(action, LC)
                         || IsMatchPrefixPattern(action, RNG))
                     {
-                        return string.Format(BetCreditHistoryResources.BetSettled, action.Split(',')[1]);
+                        return GetActionStatusToStatus(BetCreditHistoryResources.BetSettled, action);
                     }
 
                     break;
@@ -85,10 +88,11 @@
                     if (IsMatchPrefixPattern(action, TransLogUpdated) 
                         || IsMatchPrefixPattern(action, Bet))
                     {
-                        return string.Format(BetCreditHistoryResources.BetUpdatedStatusToStatus, action.Split(',')[1]);
+                        return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
                     }
 
-                    if (IsMatchPrefixPattern(action, RNG))
+                    if (IsMatchPrefixPattern(action, LC)
+                        || IsMatchPrefixPattern(action, RNG))
                     {
                         return BetCreditHistoryResources.BetUpdated;
                     }
@@ -99,18 +103,21 @@
                     if (IsMatchPrefixPattern(action, TransLogUpdated)
                         || IsMatchPrefixPattern(action, Bet))
                     {
-                        return string.Format(BetCreditHistoryResources.BetUpdatedStatusToStatus, action.Split(',')[1]);
+                        return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
                     }
 
                     if (IsMatchPrefixPattern(action, LC)
                         || IsMatchPrefixPattern(action, RNG))
                     {
                         return action.IndexOf(to) != -1
-                            ? string.Format(BetCreditHistoryResources.BetUpdatedStatusToStatus, action.Split(',')[1])
+                            ? GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action)
                             : BetCreditHistoryResources.BetUpdated;
                     }
 
                     break;
+
+                case 34:
+                    return GetActionStatusToStatus(BetCreditHistoryResources.BetCancelCashOut, action);
 
                 case 50:
                     if (IsMatchPrefixAndSuffixPattern(action, Bet, VOID)
@@ -119,7 +126,7 @@
                         || IsMatchPrefixAndSuffixPattern(action, RNG, VOID)
                         )
                     {
-                        return string.Format(BetCreditHistoryResources.BetUpdatedStatusToStatus, action.Split(',')[1]);
+                        return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
                     }
                     
                     if (IsMatchPrefixAndSuffixPattern(action, Bet, voided)
@@ -135,20 +142,20 @@
                 case 55:
                     if (IsMatchPrefixPattern(action, TransLog))
                     {
-                        return string.Format(BetCreditHistoryResources.BetUpdatedStatusToStatus, action.Split(',')[1]);
+                        return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
                     }
 
                     if (IsMatchPrefixPattern(action, LC) 
                         || IsMatchPrefixPattern(action, RNG))
                     {
-                        return string.Format(BetCreditHistoryResources.BetUpdatedStatusToVoid, action.Split(new[] { " to " }, StringSplitOptions.None)[1]);
+                        return BetUpdatedStatusToVoid(action);
                     }
 
                     break;
 
                 case 110:
-                    return string.Format(BetCreditHistoryResources.TransferSubmitted, action.Split(new[] { " as " }, StringSplitOptions.None)[1]);
-                
+                    return GetTransferSubmitted(action);
+
                 default:
                     break;
             }
@@ -158,9 +165,9 @@
 
         private static bool IsMatchPrefixAndSuffixPattern(string str, string prefix, string suffix)
         {
-            const string prefixAndSuffixPattern = "^({0}) (.*) ({1})$";
+            const string prefixAndSuffixPattern = "^({0})(.*)({1})$";
 
-            return Regex.IsMatch(str, string.Format(prefixAndSuffixPattern, prefix, suffix));
+            return Regex.IsMatch(str, string.Format(prefixAndSuffixPattern, prefix, suffix), RegexOptions.IgnoreCase);
         }
 
         private static bool IsMatchPrefixPattern(string str, string prefix)
@@ -168,6 +175,41 @@
             const string prefixPattern = "^({0})";
 
             return Regex.IsMatch(str, string.Format(prefixPattern, prefix));
+        }
+
+        private static string GetActionStatusToStatus(string name ,string action)
+        {
+            var statusToStatus = action.Split(',')[1];
+
+            var splitStatus = statusToStatus.Split(new[] { "to" }, StringSplitOptions.None);
+            var fromStatus = splitStatus[0].Trim().ToUpper();
+            var toStatus = splitStatus[1].Trim().ToUpper();
+
+            return name + ", " 
+                + BetCreditHistoryResources.ResourceManager.GetString(fromStatus) + " " 
+                + BetCreditHistoryResources.To + " " 
+                + BetCreditHistoryResources.ResourceManager.GetString(toStatus); 
+        }
+
+        private static string GetBetPlaceAs(string action)
+        {
+            var status = action.Split(new[] { "as" }, StringSplitOptions.None)[1].Trim().ToUpper();
+            return BetCreditHistoryResources.BetPlacedAs + " " + BetCreditHistoryResources.ResourceManager.GetString(status);
+        }
+
+        private static string BetUpdatedStatusToVoid(string action)
+        {
+            var status = action.Split(new[] { "to" }, StringSplitOptions.None)[1].Trim().ToUpper();
+            return BetCreditHistoryResources.BetUpdated + ", " 
+                + BetCreditHistoryResources.ResourceManager.GetString(status) + " "
+                + BetCreditHistoryResources.To + " "
+                + BetCreditHistoryResources.VOID;
+        }
+
+        private static string GetTransferSubmitted(string action)
+        {
+            var status = action.Split(new[] { "inserted" }, StringSplitOptions.None)[1].Trim().ToUpper();
+            return BetCreditHistoryResources.TransferSubmitted + " " + BetCreditHistoryResources.ResourceManager.GetString(status);
         }
     }
 }

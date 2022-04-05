@@ -35,7 +35,9 @@
                 criteria => criteria.Username == param.Member
                 && criteria.RefNo == param.RefNo
                 && criteria.FromDate == param.FromDate
-                && criteria.ToDate == param.ToDate));
+                && criteria.ToDate == param.ToDate
+                && criteria.LoggedId == param.ViewerId
+                ));
         }
     }
 }

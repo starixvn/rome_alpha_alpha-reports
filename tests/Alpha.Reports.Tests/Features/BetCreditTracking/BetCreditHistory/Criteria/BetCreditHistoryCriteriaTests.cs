@@ -23,6 +23,7 @@
                 && param.RefNo == criteria.RefNo
                 && param.FromDate == criteria.FromDate
                 && param.ToDate == criteria.ToDate
+                && criteria.LoggedId == param.ViewerId
                 );
         }
 

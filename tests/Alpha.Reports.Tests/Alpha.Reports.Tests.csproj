@@ -292,6 +292,8 @@
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\BetCreditHistoryServiceTests.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Criteria\BetCreditHistoryCriteriaTests.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Models\BetCreditHistoryModelTests.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Criteria\MoveStatementHistoryCriteriaTests.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\MoveStatementHistoryServiceTests.cs" />
     <Compile Include="Features\BonusDetail\BonusDetailServiceTests.cs" />
     <Compile Include="Features\BonusDetail\Criteria\ConfirmPaymentCriteriaTests.cs" />
     <Compile Include="Features\BonusDetail\Criteria\GetAgentBonusCriteriaTests.cs" />

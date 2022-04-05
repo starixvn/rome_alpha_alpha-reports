@@ -1,0 +1,72 @@
+﻿namespace Alpha.Reports.Tests.Features.BetCreditTracking.MoveStatementHistory.Criteria
+{
+    using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Criteria;
+    using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Params;
+    using System;
+    using Xunit;
+
+    [Trait("Category", "MoveStatementHistory")]
+    public class MoveStatementHistoryCriteriaTests
+    {
+        [Fact]
+        public void Constructor_Always_AssignCorrectProperties()
+        {
+            // Arrange
+            var param = new MoveStatementHistoryParam("member1", new DateTime(2022, 1, 1), new DateTime(2022, 1, 2), 1, DateTime.MinValue);
+
+            // Act
+            var criteria = new MoveStatementHistoryCriteria(param);
+
+            // Assert
+            Assert.True(
+                param.MemberUsername == criteria.Username
+                && param.FromDate == criteria.FromDate
+                && param.ToDate == criteria.ToDate
+                && param.ViewerId == criteria.LoggedId
+                );
+        }
+
+        [Fact]
+        public void GetSettingKey_Always_ReturnsValidSettingKey()
+        {
+            // Arrange
+            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue);
+            var criteria = new MoveStatementHistoryCriteria(param);
+            var expectedSettingKey = "Age_Rpt_StatementMovement";
+
+            // Act
+            var actualSettingKey = criteria.GetSettingKey();
+
+            // Assert
+            Assert.Equal(expectedSettingKey, actualSettingKey);
+        }
+
+        [Fact]
+        public void IsValid_FromDateLessThanToDate_ReturnsTrue()
+        {
+            // Arrange
+            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue);
+            var criteria = new MoveStatementHistoryCriteria(param);
+
+            // Act
+            var actual = criteria.IsValid();
+
+            // Assert
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void IsValid_FromDateGreaterThanToDate_ReturnsFalse()
+        {
+            // Arrange
+            var param = new MoveStatementHistoryParam("member1", DateTime.Today, DateTime.Today.AddDays(-1), 1, DateTime.MinValue);
+            var criteria = new MoveStatementHistoryCriteria(param);
+
+            // Act
+            var actual = criteria.IsValid();
+
+            // Assert
+            Assert.False(actual);
+        }
+    }
+}

@@ -1,14 +1,14 @@
 ﻿"use strict";
 class BetCreditHistory {
-    private $: JQueryStatic;
-    private dateRangePickerComponent: DateRangePickerComponent;
-    private $reportForm: JQuery;
-    private $pageTitle: JQuery;
-    private $txtMember: JQuery;
-    private $msgError: JQuery;
-    private $requiredMsgError: JQuery;
-    private $isFilterVisible: JQuery;
-    private $exportExcelForm: JQuery;
+    $: JQueryStatic;
+    dateRangePickerComponent: DateRangePickerComponent;
+    $reportForm: JQuery;
+    $pageTitle: JQuery;
+    $txtMember: JQuery;
+    $msgError: JQuery;
+    $requiredMsgError: JQuery;
+    $isFilterVisible: JQuery;
+    $exportExcelForm: JQuery;
 
     constructor(
         $: JQueryStatic,
@@ -20,8 +20,8 @@ class BetCreditHistory {
     public init() {
         this.$.blockUI();
 
-        this.cacheElements()
-        this.initComponents()
+        this.cacheElements();
+        this.initComponents();
         this.bindEvents();
 
         this.$.unblockUI();

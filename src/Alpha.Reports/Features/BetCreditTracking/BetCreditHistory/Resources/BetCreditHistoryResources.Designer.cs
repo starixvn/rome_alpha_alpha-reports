@@ -62,7 +62,25 @@ namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bet placed as {0}.
+        ///   Looks up a localized string similar to Bet Cancel Cash Out.
+        /// </summary>
+        internal static string BetCancelCashOut {
+            get {
+                return ResourceManager.GetString("BetCancelCashOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bet Cash Out.
+        /// </summary>
+        internal static string BetCashOut {
+            get {
+                return ResourceManager.GetString("BetCashOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bet placed as.
         /// </summary>
         internal static string BetPlacedAs {
             get {
@@ -71,7 +89,7 @@ namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bet settled,{0}.
+        ///   Looks up a localized string similar to Bet settled.
         /// </summary>
         internal static string BetSettled {
             get {
@@ -116,11 +134,65 @@ namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Transfer submitted as {0}.
+        ///   Looks up a localized string similar to DRAW.
+        /// </summary>
+        internal static string DRAW {
+            get {
+                return ResourceManager.GetString("DRAW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOSE.
+        /// </summary>
+        internal static string LOSE {
+            get {
+                return ResourceManager.GetString("LOSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to running.
+        /// </summary>
+        internal static string RUNNING {
+            get {
+                return ResourceManager.GetString("RUNNING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to.
+        /// </summary>
+        internal static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer submitted.
         /// </summary>
         internal static string TransferSubmitted {
             get {
                 return ResourceManager.GetString("TransferSubmitted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VOID.
+        /// </summary>
+        internal static string VOID {
+            get {
+                return ResourceManager.GetString("VOID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WON.
+        /// </summary>
+        internal static string WON {
+            get {
+                return ResourceManager.GetString("WON", resourceCulture);
             }
         }
     }

@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BetCancelCashOut" xml:space="preserve">
+    <value>Bet Cancel Cash Out</value>
+  </data>
+  <data name="BetCashOut" xml:space="preserve">
+    <value>Bet Cash Out</value>
+  </data>
   <data name="BetPlacedAs" xml:space="preserve">
-    <value>Bet placed as {0}</value>
+    <value>Bet placed as</value>
   </data>
   <data name="BetSettled" xml:space="preserve">
-    <value>Bet settled,{0}</value>
+    <value>Bet settled</value>
   </data>
   <data name="BetUpdated" xml:space="preserve">
     <value>Bet updated</value>
@@ -135,7 +141,25 @@
   <data name="BetUpdatedStatusToVoid" xml:space="preserve">
     <value>Bet updated, {0} to VOID</value>
   </data>
+  <data name="DRAW" xml:space="preserve">
+    <value>DRAW</value>
+  </data>
+  <data name="LOSE" xml:space="preserve">
+    <value>LOSE</value>
+  </data>
+  <data name="RUNNING" xml:space="preserve">
+    <value>running</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>to</value>
+  </data>
   <data name="TransferSubmitted" xml:space="preserve">
-    <value>Transfer submitted as {0}</value>
+    <value>Transfer submitted</value>
+  </data>
+  <data name="VOID" xml:space="preserve">
+    <value>VOID</value>
+  </data>
+  <data name="WON" xml:space="preserve">
+    <value>WON</value>
   </data>
 </root>

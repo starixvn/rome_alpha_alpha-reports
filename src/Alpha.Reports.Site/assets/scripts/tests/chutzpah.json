@@ -106,7 +106,9 @@
     { "Path": "../progressivecontribution/progressivecontribution.ts" },
 
     { "Path": "apps/betchoicematching/betMatchingResources.js" },
-    { "Path": "../betchoicematching/betchoicematching.ts" }
+    { "Path": "../betchoicematching/betchoicematching.ts" },
+
+    { "Path": "../../../Features/BetCreditTracking/Scripts/bet-credit-history.ts"}
   ],
   "Tests": [
     {
@@ -151,6 +153,10 @@
     {
       "Path": "apps/betchoicematching",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
+    {
+      "Path": "apps/betcredittracking/betcredithistory",
+      "Excludes": [ "**.js.map", "**.js" ]
     }
   ]
 }
