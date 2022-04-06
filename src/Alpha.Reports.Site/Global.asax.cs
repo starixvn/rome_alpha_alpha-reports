@@ -11,9 +11,9 @@
     using Alpha.Logging;
     using Alpha.NetThrottling.Mvc;
     using Alpha.NetThrottling.Utils;
+    using Alpha.Reports.Site.Constants;
     using App_Start;
     using Auth.Configurations;
-    using Auth.Filters;
     using Configurations;
     using Fanex.Caching;
     using Fanex.Data;
@@ -50,8 +50,8 @@
         {
             if (Request.Url.PathAndQuery.IndexOf("/Auth", StringComparison.OrdinalIgnoreCase) == -1)
             {
-                var loginCredential = Session["LoginIP_Browser"] + string.Empty;
-                var requestCredential = CustomerIp() + "_" + Request.UserAgent;
+                var loginCredential = UserSession.Current.GetProperty<string>(SessionKey.LoginIP_Browser);
+                var requestCredential = CustomerIp() + "_" + Request.Browser.Version;
 
                 if (!loginCredential.Equals(requestCredential, StringComparison.OrdinalIgnoreCase))
                 {
@@ -93,11 +93,8 @@
             GlobalFilters.Filters.Add(new CheckUMFilterAttribute(
                 new MaintenanceService(UMClientManager.RestClient, UMClientManager.CacheService, UMClientManager.UMClientConfigs, UMClientManager.HttpContext), null));
 
-            GlobalFilters.Filters.Add(new CheckBelongingFilter());
             GlobalFilters.Filters.Add(new NoCacheFilter());
-            GlobalFilters.Filters.Add(new AfterLoginFlowFilter());
             GlobalFilters.Filters.Add(new PartialUMExceptionFilter());
-            GlobalFilters.Filters.Add(new ProtectedModeFilter());
 
             SiteSettings.Verify();
 
