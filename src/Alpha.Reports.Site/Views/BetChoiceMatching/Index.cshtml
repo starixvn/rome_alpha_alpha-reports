@@ -5,7 +5,7 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode("~/assets/bundles/betchoicematching/betchoicematching")
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/betchoicematching/betchoicematching")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.BetChoiceMatching, false, true, false, false, Enumerable.Empty<CustInfo>(), null), Request.Url.Query)
@@ -98,5 +98,5 @@
         }
     </script>
     @StaticResources.AssetScripts.Render("/bundles/common/cleave-jquery")
-    @StaticResources.RenderScripts("~/assets/bundles/betchoicematching/betchoicematching")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/betchoicematching/betchoicematching")
 }

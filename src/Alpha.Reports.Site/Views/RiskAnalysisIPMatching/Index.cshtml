@@ -83,7 +83,7 @@
 </form>
 
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/RiskAnalysisIPMatching/Index")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/RiskAnalysisIPMatching/Index")
 }
 
 @helper RenderRow(RiskAnalysisIPMatchingModel data, bool isTotalRow, string betListPath)

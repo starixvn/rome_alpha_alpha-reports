@@ -3,7 +3,7 @@
     ViewBag.Title = "Progressive Games Contribution";
 }
 @section Styles {
-    @StaticResources.RenderStyles("~/assets/bundles/progressivecontribution/progressivecontribution")
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/progressivecontribution/progressivecontribution")
 }
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, Model.CustLevel.IsMasterOrSuperLevel(), true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
 <form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
@@ -116,7 +116,7 @@
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
 @Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/progressivecontribution/progressivecontribution")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/progressivecontribution/progressivecontribution")
 }
 @helper RenderProgressiveContribution(ProgressiveContributionByBetTypeModel data)
 {

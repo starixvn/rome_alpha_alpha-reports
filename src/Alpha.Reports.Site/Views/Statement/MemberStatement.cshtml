@@ -135,7 +135,7 @@
 
 @Pager.Render(Model.PagerViewModel)
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/statement/member-statement")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/statement/member-statement")
 }
 
 @helper RenderNegativeNumberCell(decimal? cellValue, string cssClass = "")

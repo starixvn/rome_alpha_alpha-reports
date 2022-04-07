@@ -4,7 +4,7 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode("~/assets/bundles/consolidation/consolidation")
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/consolidation/consolidation")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
@@ -115,7 +115,7 @@
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
 @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Consolidation"))
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/consolidation/consolidation")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/consolidation/consolidation")
 }
 @Html.Partial(
     "ExportExcel",

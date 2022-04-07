@@ -118,7 +118,7 @@
 @Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", "ReportLegend"))
 
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/winlossbyproduct/winlossbyproduct")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/winlossbyproduct/winlossbyproduct")
 }
 
 @helper RenderProduct(WinLossByProductModel data, bool isExpand)

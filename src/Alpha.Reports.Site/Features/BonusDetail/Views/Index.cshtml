@@ -5,10 +5,10 @@
 }
 @model BonusDetailViewModel
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode("~/Features/BonusDetail/Bundles/bonusdetail")
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/BonusDetail/Bundles/bonusdetail")
 }
 @section Scripts {
-    @StaticResources.RenderScripts("~/Features/BonusDetail/Bundles/bonusdetail")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/BonusDetail/Bundles/bonusdetail")
 }
 @{
     @ReportTitle.Render(new PageHeaderViewModel(Resources.BonusDetail, false, true, false, Model.IsFilterVisible, null, null, new InfoIconWithTargetURLViewModel(Model.GuidelineURL(), "_blank")));

@@ -74,7 +74,7 @@
 <input type="hidden" value="@(Model.IsDarkMode ? "1" : "0")" id="hidden-isDarkMode" />
 @section Scripts {
     @StaticResources.AssetScripts.Render("/bundles/site-reports/winloss-analysis-chart")
-    @StaticResources.RenderScripts("~/assets/bundles/winlossanalysischart/winlossanalysischart")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/winlossanalysischart/winlossanalysischart")
 }
 @helper RenderHiddenFields()
 {

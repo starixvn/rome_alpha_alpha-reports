@@ -35,5 +35,5 @@
 @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "WinLossDetail"))
 
 @section Scripts {
-    @StaticResources.RenderScripts("~/Features/SuperWinLossDetailByPT/Bundles/superwinlossdetailbypt")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/SuperWinLossDetailByPT/Bundles/superwinlossdetailbypt")
 }

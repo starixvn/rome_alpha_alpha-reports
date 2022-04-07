@@ -138,7 +138,7 @@
 @Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
 
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/winlossanalysis/winlossanalysis")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/winlossanalysis/winlossanalysis")
 }
 
 @helper RenderRow(WinLossAnalysisModel data, bool isTotalRow)

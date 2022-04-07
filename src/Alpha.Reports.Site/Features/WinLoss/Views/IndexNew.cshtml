@@ -7,8 +7,8 @@
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/data-table")
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/daterangepicker")
-    @StaticResources.RenderStyles("~/Features/WinLoss/Bundles/winloss")
-    @StaticResources.RenderStylesWithMedia(767, "~/Features/WinLoss/Bundles/winloss-mobile-calculate-07")
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/WinLoss/Bundles/winloss")
+    @StaticResources.RenderStylesWithMedia(767, $"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/WinLoss/Bundles/winloss-mobile-calculate-07")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(
@@ -166,7 +166,7 @@
 
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/daterangepicker")
-    @StaticResources.RenderScripts("~/Features/WinLoss/Bundles/winloss-new")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/WinLoss/Bundles/winloss-new")
 }
 
 @helper RenderRow(WinLossModel data, bool isTotalRow, string betListPath)

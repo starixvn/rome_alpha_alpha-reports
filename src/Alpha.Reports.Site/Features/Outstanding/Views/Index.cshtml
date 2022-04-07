@@ -82,7 +82,7 @@
 @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Outstanding"))
 
 @section Scripts {
-	@StaticResources.RenderScripts("~/Features/Outstanding/Bundles/outstanding")
+	@StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/Outstanding/Bundles/outstanding")
 }
 
 @helper RenderOutstandingCells(OutstandingModel data)

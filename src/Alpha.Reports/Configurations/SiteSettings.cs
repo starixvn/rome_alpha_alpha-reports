@@ -48,6 +48,8 @@
 
         public static string RemoteRefURL => GetConfigValue("RemoteRefURL");
 
+        public static string ReportRouting => GetConfigValue("Report:Routing");
+
         public static IEnumerable<int> ProductOfferProductDetail
         {
             get

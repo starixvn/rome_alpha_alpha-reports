@@ -88,7 +88,7 @@
 @Pager.Render(Model.PagerViewModel)
 @{ Html.RenderPartial("~/Views/Statement/_StatementPopup.cshtml", Model.CustName); }
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/statement/sma-statement")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/statement/sma-statement")
 }
 
 @helper RenderNegativeNumberCell(decimal? cellValue)

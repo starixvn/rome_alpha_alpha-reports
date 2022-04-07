@@ -123,7 +123,7 @@
 @Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", "ReportLegend"))
 
 @section Scripts {
-    @StaticResources.RenderScripts("~/Features/WinLoss/Bundles/winloss")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/WinLoss/Bundles/winloss")
 }
 
 @helper RenderRow(WinLossModel data, bool isTotalRow, string betListPath)
