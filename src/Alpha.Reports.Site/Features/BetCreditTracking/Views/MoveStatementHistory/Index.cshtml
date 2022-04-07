@@ -42,8 +42,8 @@
                         <th>@Resources.OldEventDate</th>
                         <th>@Resources.NewEventDate</th>
                         <th>@Resources.MemberWinLossNew</th>
-                        <th>@Resources.MemberComm</th>
-                        <th>@Resources.MemberTotal</th>
+                        <th>@Resources.MemberCommNew</th>
+                        <th>@Resources.MemberTotalNew</th>
                     </tr>
                 </thead>
                 @if (Model.Data.Any())
@@ -74,14 +74,7 @@
     {
         <tr class="member-row">
             <td class="text-left">
-                @if (Model.CanViewBetLists)
-                {
-                    <a href="@Model.GetBetListLinkRouteValues(member.Username)">@member.Username</a>
-                }
-                else
-                {
-                    @:@member.Username
-                }
+                @member.Username
             </td>
             <td></td>
             <td></td>
@@ -92,7 +85,18 @@
         foreach (var row in member.RefNoRow)
         {
             <tr class="@(row.IsMultipleMoved == 1 ? "red" : "")">
-                <td><span class="refno">@row.TransId</span></td>
+                <td>
+                    <div class="refno">
+                        @if (Model.CanViewBetLists)
+                        {
+                            <a href="@Model.GetBetListLinkRouteValues(row.CustId, row.Username, row.TransId)">@row.TransId</a>
+                        }
+                        else
+                        {
+                            @row.TransId
+                        }
+                    </div>
+                </td>
                 <td>@row.OldEventDate.ToShortDateWithSlash()</td>
                 <td>@row.NewEventDate.ToShortDateWithSlash()</td>
                 <td>@HtmlHelpers.FormatNumber(row.MemberWinLoss)</td>

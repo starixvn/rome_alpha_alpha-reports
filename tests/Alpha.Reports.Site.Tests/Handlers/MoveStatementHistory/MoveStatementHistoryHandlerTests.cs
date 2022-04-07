@@ -69,13 +69,13 @@
 
             var refNoRow = new List<MoveStatementHistoryByRefNoModel>
             {
-                new MoveStatementHistoryByRefNoModel("member1", 1, DateTime.Now.AddDays(-1), DateTime.Now, 10, 10, 10, 1),
-                new MoveStatementHistoryByRefNoModel("member1", 1, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, 1)
+                new MoveStatementHistoryByRefNoModel(1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 10, 10, 10, 1),
+                new MoveStatementHistoryByRefNoModel(1, "member1", 2, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, 1)
             };
 
             var rawData = new List<MoveStatementHistoryByMemberModel>
             {
-                new MoveStatementHistoryByMemberModel("member1", refNoRow)
+                new MoveStatementHistoryByMemberModel(1, "member1", refNoRow)
             };
             var resultModel = new MoveStatementHistoryResultModel(0, "Success", rawData);
             reportService.GetMoveStatementHistory(Arg.Any<MoveStatementHistoryParam>()).Returns(resultModel);

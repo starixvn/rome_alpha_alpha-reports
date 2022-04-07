@@ -117,31 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BetCancelCashOut" xml:space="preserve">
-    <value>Bet Cancel Cash Out,{0}</value>
-  </data>
-  <data name="BetCashOut" xml:space="preserve">
-    <value>Bet Cash Out,{0}</value>
-  </data>
   <data name="BetPlacedAs" xml:space="preserve">
-    <value>Bet placed as {0}</value>
+    <value>Bet placed as</value>
   </data>
   <data name="BetSettled" xml:space="preserve">
-    <value>Bet settled,{0}</value>
+    <value>Bet settled</value>
   </data>
   <data name="BetUpdated" xml:space="preserve">
     <value>Bet updated</value>
   </data>
-  <data name="BetUpdatedRunningToVoid" xml:space="preserve">
-    <value>Bet updated, RUNNING to VOID</value>
+  <data name="CancelCashOut" xml:space="preserve">
+    <value>Cancel Cash Out</value>
   </data>
-  <data name="BetUpdatedStatusToStatus" xml:space="preserve">
-    <value>Bet updated,{0}</value>
+  <data name="CashOut" xml:space="preserve">
+    <value>实时兑现</value>
   </data>
-  <data name="BetUpdatedStatusToVoid" xml:space="preserve">
-    <value>Bet updated, {0} to VOID</value>
+  <data name="draw" xml:space="preserve">
+    <value>和</value>
+  </data>
+  <data name="lose" xml:space="preserve">
+    <value>输</value>
+  </data>
+  <data name="refund" xml:space="preserve">
+    <value>退款</value>
+  </data>
+  <data name="reject" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+  <data name="running" xml:space="preserve">
+    <value>进行中</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>到</value>
   </data>
   <data name="TransferSubmitted" xml:space="preserve">
-    <value>Transfer submitted {0}</value>
+    <value>Transfer submitted</value>
+  </data>
+  <data name="void" xml:space="preserve">
+    <value>作废</value>
+  </data>
+  <data name="waiting" xml:space="preserve">
+    <value>等待中</value>
+  </data>
+  <data name="won" xml:space="preserve">
+    <value>赢</value>
   </data>
 </root>

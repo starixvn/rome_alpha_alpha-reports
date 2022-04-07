@@ -868,14 +868,8 @@
   <data name="MembersMovedEventDateReport" xml:space="preserve">
     <value>Member's Moved Event Date Report</value>
   </data>
-  <data name="MemberComm" xml:space="preserve">
-    <value>Member Comm</value>
-  </data>
   <data name="MemberRefNo" xml:space="preserve">
     <value>Member/Ref No.</value>
-  </data>
-  <data name="MemberTotal" xml:space="preserve">
-    <value>Member Total</value>
   </data>
   <data name="MemberUsername" xml:space="preserve">
     <value>Member username</value>

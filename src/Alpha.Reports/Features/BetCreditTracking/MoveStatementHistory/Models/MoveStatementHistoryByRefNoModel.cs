@@ -8,13 +8,16 @@
         {
         }
 
-        public MoveStatementHistoryByRefNoModel(string username)
+        public MoveStatementHistoryByRefNoModel(int custId, string username)
         {
+            CustId = custId;
             Username = username;
         }
 
-        public MoveStatementHistoryByRefNoModel(string username, long transId, DateTime oldEventDate, DateTime newEventDate, decimal memberWinLoss, decimal memberComm, decimal memberTotal, int isMultipleMoved) : this(username)
+        public MoveStatementHistoryByRefNoModel(int custId, string username, long transId, DateTime oldEventDate, DateTime newEventDate, decimal memberWinLoss, decimal memberComm, decimal memberTotal, int isMultipleMoved)
         {
+            Username = username;
+            CustId = custId;
             TransId = transId;
             OldEventDate = oldEventDate;
             NewEventDate = newEventDate;
@@ -23,6 +26,8 @@
             MemberTotal = memberTotal;
             IsMultipleMoved = isMultipleMoved;
         }
+
+        public int CustId { get;  }
 
         public string Username { get; }
 

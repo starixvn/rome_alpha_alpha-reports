@@ -44,13 +44,13 @@
 
             var refNoRow = new List<MoveStatementHistoryByRefNoModel>
             {
-                new MoveStatementHistoryByRefNoModel("member1", 1, DateTime.Now.AddDays(-1), DateTime.Now, 10, 10, 10, 1),
-                new MoveStatementHistoryByRefNoModel("member1", 1, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, 1)
+                new MoveStatementHistoryByRefNoModel(1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 10, 10, 10, 1),
+                new MoveStatementHistoryByRefNoModel(1, "member1", 2, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, 1)
             };
 
             var rawData = new List<MoveStatementHistoryByMemberModel>
             {
-                new MoveStatementHistoryByMemberModel("member1", refNoRow)
+                new MoveStatementHistoryByMemberModel(1, "member1", refNoRow)
             };
             var resultModel = new MoveStatementHistoryResultModel(0, "Success", rawData);
             reportService.GetMoveStatementHistory(Arg.Any<MoveStatementHistoryParam>()).Returns(resultModel);
@@ -159,7 +159,7 @@
         public void GetMemberMapper_Always_MapCorrectly()
         {
             // Arrange
-            var model = new MoveStatementHistoryByRefNoModel("member1", 1, new DateTime(2022, 01, 01), new DateTime(2022, 01, 02), 10, 10, 10, 1);
+            var model = new MoveStatementHistoryByRefNoModel(1, "member1", 2, new DateTime(2022, 01, 01), new DateTime(2022, 01, 02), 10, 10, 10, 1);
 
             // Act
             var actualMapper = handler.GetRowMapper(true);
@@ -172,14 +172,14 @@
         public void GetRefNoMapper_Always_MapCorrectly()
         {
             // Arrange
-            var model = new MoveStatementHistoryByRefNoModel("member1", 1, new DateTime(2022, 01, 01), new DateTime(2022, 01, 02), 10, 10, 10, 1);
+            var model = new MoveStatementHistoryByRefNoModel(1, "member1", 2, new DateTime(2022, 01, 01), new DateTime(2022, 01, 02), 10, 10, 10, 1);
 
             // Act
             var actualMapper = handler.GetRowMapper(false);
 
             // Assert
             Assert.True(
-                (long)actualMapper.Mappings[Column.A](model) == 1 &&
+                (long)actualMapper.Mappings[Column.A](model) == 2 &&
                 (string)actualMapper.Mappings[Column.B](model) == "01/01/2022" &&
                 (string)actualMapper.Mappings[Column.C](model) == "01/02/2022" &&
                 (decimal)actualMapper.Mappings[Column.D](model) == 10 &&

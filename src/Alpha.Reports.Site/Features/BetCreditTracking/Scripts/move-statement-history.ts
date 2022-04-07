@@ -1,11 +1,11 @@
 ﻿"use strict";
 class MoveStatementHistory {
-    private $: JQueryStatic;
-    private dateRangePickerComponent: DateRangePickerComponent;
-    private $reportForm: JQuery;
-    private $pageTitle: JQuery;
-    private $isFilterVisible: JQuery;
-    private $exportExcelForm: JQuery;
+    $: JQueryStatic;
+    dateRangePickerComponent: DateRangePickerComponent;
+    $reportForm: JQuery;
+    $pageTitle: JQuery;
+    $isFilterVisible: JQuery;
+    $exportExcelForm: JQuery;
 
     constructor(
         $: JQueryStatic,

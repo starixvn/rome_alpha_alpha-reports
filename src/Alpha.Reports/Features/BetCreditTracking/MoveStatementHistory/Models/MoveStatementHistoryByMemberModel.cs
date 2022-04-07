@@ -4,15 +4,18 @@
 
     public class MoveStatementHistoryByMemberModel
     {
-        public MoveStatementHistoryByMemberModel(string username, IEnumerable<MoveStatementHistoryByRefNoModel> refNoRow)
+        public MoveStatementHistoryByMemberModel(int custId, string username, IEnumerable<MoveStatementHistoryByRefNoModel> refNoRow)
         {
+            CustId = custId;
             Username = username;
             RefNoRow = refNoRow;
         }
 
+        public int CustId { get; }
+
         public string Username { get; }
 
-        public MoveStatementHistoryByRefNoModel MemberRow => new MoveStatementHistoryByRefNoModel(Username);
+        public MoveStatementHistoryByRefNoModel MemberRow => new MoveStatementHistoryByRefNoModel(CustId, Username);
 
         public IEnumerable<MoveStatementHistoryByRefNoModel> RefNoRow { get; }
     }

@@ -67,12 +67,14 @@
                     break;
 
                 case 10:
+                    return GetBetPlaceAsWhichActionMayHaveTransId(action);
+
                 case 11:
                 case 12:
                     return GetBetPlaceAs(action);
 
                 case 29:
-                    return GetActionStatusToStatus(BetCreditHistoryResources.BetCashOut, action);
+                    return GetActionStatusToStatus(BetCreditHistoryResources.CashOut, action);
 
                 case 30:
                     if (IsMatchPrefixPattern(action, TransLogSettled) 
@@ -117,7 +119,7 @@
                     break;
 
                 case 34:
-                    return GetActionStatusToStatus(BetCreditHistoryResources.BetCancelCashOut, action);
+                    return GetActionStatusToStatus(BetCreditHistoryResources.CancelCashOut, action);
 
                 case 50:
                     if (IsMatchPrefixAndSuffixPattern(action, Bet, VOID)
@@ -134,7 +136,7 @@
                         || IsMatchPrefixAndSuffixPattern(action, LC, voided)
                         || IsMatchPrefixAndSuffixPattern(action, RNG, voided))
                     {
-                        return BetCreditHistoryResources.BetUpdatedRunningToVoid;
+                        return GetBetUpdatedRunningToVoid();
                     }
 
                     break;
@@ -148,7 +150,7 @@
                     if (IsMatchPrefixPattern(action, LC) 
                         || IsMatchPrefixPattern(action, RNG))
                     {
-                        return BetUpdatedStatusToVoid(action);
+                        return GetBetUpdatedStatusToVoid(action);
                     }
 
                     break;
@@ -182,34 +184,50 @@
             var statusToStatus = action.Split(',')[1];
 
             var splitStatus = statusToStatus.Split(new[] { "to" }, StringSplitOptions.None);
-            var fromStatus = splitStatus[0].Trim().ToUpper();
-            var toStatus = splitStatus[1].Trim().ToUpper();
+            var fromStatus = splitStatus[0].Trim().ToLowerInvariant();
+            var toStatus = splitStatus[1].Trim().ToLowerInvariant();
 
             return name + ", " 
                 + BetCreditHistoryResources.ResourceManager.GetString(fromStatus) + " " 
-                + BetCreditHistoryResources.To + " " 
+                + BetCreditHistoryResources.to + " " 
                 + BetCreditHistoryResources.ResourceManager.GetString(toStatus); 
+        }
+
+        private static string GetBetUpdatedStatusToVoid(string action)
+        {
+            var status = action.Split(new[] { "to" }, StringSplitOptions.None)[1].Trim().ToLowerInvariant();
+            return BetCreditHistoryResources.BetUpdated + ", "
+                + BetCreditHistoryResources.ResourceManager.GetString(status) + " "
+                + BetCreditHistoryResources.to + " "
+                + BetCreditHistoryResources._void;
+        }
+
+        private static string GetBetUpdatedRunningToVoid()
+        {
+            return BetCreditHistoryResources.BetUpdated + ", "
+                + BetCreditHistoryResources.running + " "
+                + BetCreditHistoryResources.to + " "
+                + BetCreditHistoryResources._void;
+        }
+
+        private static string GetBetPlaceAsWhichActionMayHaveTransId(string action)
+        {
+            var afterAs = action.Split(new[] { "as" }, StringSplitOptions.None)[1].Trim();
+            var status = afterAs.Split(' ')[0].Trim().ToLowerInvariant();
+
+            return BetCreditHistoryResources.BetPlacedAs + " " + BetCreditHistoryResources.ResourceManager.GetString(status);
         }
 
         private static string GetBetPlaceAs(string action)
         {
-            var status = action.Split(new[] { "as" }, StringSplitOptions.None)[1].Trim().ToUpper();
+            var status = action.Split(new[] { "as" }, StringSplitOptions.None)[1].Trim().ToLowerInvariant();
             return BetCreditHistoryResources.BetPlacedAs + " " + BetCreditHistoryResources.ResourceManager.GetString(status);
-        }
-
-        private static string BetUpdatedStatusToVoid(string action)
-        {
-            var status = action.Split(new[] { "to" }, StringSplitOptions.None)[1].Trim().ToUpper();
-            return BetCreditHistoryResources.BetUpdated + ", " 
-                + BetCreditHistoryResources.ResourceManager.GetString(status) + " "
-                + BetCreditHistoryResources.To + " "
-                + BetCreditHistoryResources.VOID;
         }
 
         private static string GetTransferSubmitted(string action)
         {
-            var status = action.Split(new[] { "inserted" }, StringSplitOptions.None)[1].Trim().ToUpper();
-            return BetCreditHistoryResources.TransferSubmitted + " " + BetCreditHistoryResources.ResourceManager.GetString(status);
+            var refNo = action.Split(new[] { "inserted" }, StringSplitOptions.None)[1].Trim();
+            return BetCreditHistoryResources.TransferSubmitted + " " + refNo;
         }
     }
 }

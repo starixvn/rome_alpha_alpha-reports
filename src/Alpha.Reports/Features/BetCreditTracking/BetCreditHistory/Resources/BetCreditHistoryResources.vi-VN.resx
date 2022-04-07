@@ -117,31 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BetCancelCashOut" xml:space="preserve">
-    <value>Bet Cancel Cash Out,{0}</value>
-  </data>
-  <data name="BetCashOut" xml:space="preserve">
-    <value>Bet Cash Out,{0}</value>
-  </data>
   <data name="BetPlacedAs" xml:space="preserve">
-    <value>Bet placed as {0}</value>
+    <value>Bet placed as</value>
   </data>
   <data name="BetSettled" xml:space="preserve">
-    <value>Bet settled,{0}</value>
+    <value>Bet settled</value>
   </data>
   <data name="BetUpdated" xml:space="preserve">
     <value>Bet updated</value>
   </data>
-  <data name="BetUpdatedRunningToVoid" xml:space="preserve">
-    <value>Bet updated, RUNNING to VOID</value>
+  <data name="CancelCashOut" xml:space="preserve">
+    <value>Cancel Cash Out</value>
   </data>
-  <data name="BetUpdatedStatusToStatus" xml:space="preserve">
-    <value>Bet updated,{0}</value>
+  <data name="CashOut" xml:space="preserve">
+    <value>Cash Out</value>
   </data>
-  <data name="BetUpdatedStatusToVoid" xml:space="preserve">
-    <value>Bet updated, {0} to VOID</value>
+  <data name="draw" xml:space="preserve">
+    <value>Hòa</value>
+  </data>
+  <data name="lose" xml:space="preserve">
+    <value>Thua</value>
+  </data>
+  <data name="refund" xml:space="preserve">
+    <value>Hoàn Tiền</value>
+  </data>
+  <data name="reject" xml:space="preserve">
+    <value>Từ chối</value>
+  </data>
+  <data name="running" xml:space="preserve">
+    <value>Đang diễn ra</value>
+  </data>
+  <data name="to" xml:space="preserve">
+    <value>Đến</value>
   </data>
   <data name="TransferSubmitted" xml:space="preserve">
-    <value>Transfer submitted {0}</value>
+    <value>Transfer submitted</value>
+  </data>
+  <data name="void" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="waiting" xml:space="preserve">
+    <value>Đang Chờ</value>
+  </data>
+  <data name="won" xml:space="preserve">
+    <value>Đã chiến thắng</value>
   </data>
 </root>

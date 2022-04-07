@@ -62,20 +62,11 @@ namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bet Cancel Cash Out.
+        ///   Looks up a localized string similar to VOID.
         /// </summary>
-        internal static string BetCancelCashOut {
+        internal static string _void {
             get {
-                return ResourceManager.GetString("BetCancelCashOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bet Cash Out.
-        /// </summary>
-        internal static string BetCashOut {
-            get {
-                return ResourceManager.GetString("BetCashOut", resourceCulture);
+                return ResourceManager.GetString("void", resourceCulture);
             }
         }
         
@@ -107,65 +98,74 @@ namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bet updated, RUNNING to VOID.
+        ///   Looks up a localized string similar to Cancel Cash Out.
         /// </summary>
-        internal static string BetUpdatedRunningToVoid {
+        internal static string CancelCashOut {
             get {
-                return ResourceManager.GetString("BetUpdatedRunningToVoid", resourceCulture);
+                return ResourceManager.GetString("CancelCashOut", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bet updated,{0}.
+        ///   Looks up a localized string similar to Cash Out.
         /// </summary>
-        internal static string BetUpdatedStatusToStatus {
+        internal static string CashOut {
             get {
-                return ResourceManager.GetString("BetUpdatedStatusToStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bet updated, {0} to VOID.
-        /// </summary>
-        internal static string BetUpdatedStatusToVoid {
-            get {
-                return ResourceManager.GetString("BetUpdatedStatusToVoid", resourceCulture);
+                return ResourceManager.GetString("CashOut", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to DRAW.
         /// </summary>
-        internal static string DRAW {
+        internal static string draw {
             get {
-                return ResourceManager.GetString("DRAW", resourceCulture);
+                return ResourceManager.GetString("draw", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to LOSE.
         /// </summary>
-        internal static string LOSE {
+        internal static string lose {
             get {
-                return ResourceManager.GetString("LOSE", resourceCulture);
+                return ResourceManager.GetString("lose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refund.
+        /// </summary>
+        internal static string refund {
+            get {
+                return ResourceManager.GetString("refund", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reject.
+        /// </summary>
+        internal static string reject {
+            get {
+                return ResourceManager.GetString("reject", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to running.
         /// </summary>
-        internal static string RUNNING {
+        internal static string running {
             get {
-                return ResourceManager.GetString("RUNNING", resourceCulture);
+                return ResourceManager.GetString("running", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to to.
         /// </summary>
-        internal static string To {
+        internal static string to {
             get {
-                return ResourceManager.GetString("To", resourceCulture);
+                return ResourceManager.GetString("to", resourceCulture);
             }
         }
         
@@ -179,20 +179,20 @@ namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VOID.
+        ///   Looks up a localized string similar to waiting.
         /// </summary>
-        internal static string VOID {
+        internal static string waiting {
             get {
-                return ResourceManager.GetString("VOID", resourceCulture);
+                return ResourceManager.GetString("waiting", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to WON.
         /// </summary>
-        internal static string WON {
+        internal static string won {
             get {
-                return ResourceManager.GetString("WON", resourceCulture);
+                return ResourceManager.GetString("won", resourceCulture);
             }
         }
     }

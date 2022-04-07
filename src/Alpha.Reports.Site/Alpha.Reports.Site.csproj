@@ -467,6 +467,7 @@
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\betcredittracking\betcredithistory\betcredithistory-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\betcredittracking\movestatementhistory\movestatementhistory-test.ts" />
     <TypeScriptCompile Include="Features\SuperWinLossDetailByPT\Scripts\superwinlossdetailbypt.ts" />
     <TypeScriptCompile Include="Features\BonusDetail\Scripts\bonus-detail.ts" />
     <TypeScriptCompile Include="Features\BonusDetail\Scripts\confirm-payment.ts" />

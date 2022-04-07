@@ -64,11 +64,13 @@
 
         public bool IsShowDuplicatedTicketMessage => Data != null && Data.Any(member => member.RefNoRow.Any(row => row.IsMultipleMoved == 1));
 
-        public string GetBetListLinkRouteValues(string username)
+        public string GetBetListLinkRouteValues(int custId, string custName, long transId)
         {
             var routeValues = new Dictionary<string, object>
             {
-                ["CustName"] = username
+                ["CustId"] = custId,
+                ["CustName"] = custName,
+                ["TransId"] = transId
             };
 
             return UrlHelper.AddQueryStringParamsFunc(BetListPath, routeValues);

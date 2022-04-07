@@ -108,7 +108,8 @@
     { "Path": "apps/betchoicematching/betMatchingResources.js" },
     { "Path": "../betchoicematching/betchoicematching.ts" },
 
-    { "Path": "../../../Features/BetCreditTracking/Scripts/bet-credit-history.ts"}
+    { "Path": "../../../Features/BetCreditTracking/Scripts/bet-credit-history.ts" },
+    { "Path": "../../../Features/BetCreditTracking/Scripts/move-statement-history.ts" }
   ],
   "Tests": [
     {
@@ -156,6 +157,10 @@
     },
     {
       "Path": "apps/betcredittracking/betcredithistory",
+      "Excludes": [ "**.js.map", "**.js" ]
+    },
+    {
+      "Path": "apps/betcredittracking/movestatementhistory",
       "Excludes": [ "**.js.map", "**.js" ]
     }
   ]

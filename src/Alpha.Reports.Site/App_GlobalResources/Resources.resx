@@ -954,14 +954,8 @@
   <data name="EventDateFrom" xml:space="preserve">
     <value>Event Date From</value>
   </data>
-  <data name="MemberComm" xml:space="preserve">
-    <value>Member Comm</value>
-  </data>
   <data name="MemberRefNo" xml:space="preserve">
     <value>Member/Ref No.</value>
-  </data>
-  <data name="MemberTotal" xml:space="preserve">
-    <value>Member Total</value>
   </data>
   <data name="MemberUsername" xml:space="preserve">
     <value>Member username</value>
@@ -973,7 +967,7 @@
     <value>Old Event Date</value>
   </data>
   <data name="MoveStatementHistoryNote" xml:space="preserve">
-    <value>Only the tickets whose either old or new date is in the report range and the other date is out of the report range will be listed in the report.</value>
+    <value>Only the tickets whose old, new or both date is in the report range will be listed in the report.</value>
   </data>
   <data name="MembersMovedEventDateReport" xml:space="preserve">
     <value>Member's Moved Event Date Report</value>

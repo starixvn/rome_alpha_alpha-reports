@@ -1485,15 +1485,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         /// <summary>
         ///   Looks up a localized string similar to Member Comm.
         /// </summary>
-        public static string MemberComm {
-            get {
-                return ResourceManager.GetString("MemberComm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Member Comm.
-        /// </summary>
         public static string MemberCommNew {
             get {
                 return ResourceManager.GetString("MemberCommNew", resourceCulture);
@@ -1542,15 +1533,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string MembersMovedEventDateReport {
             get {
                 return ResourceManager.GetString("MembersMovedEventDateReport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Member Total.
-        /// </summary>
-        public static string MemberTotal {
-            get {
-                return ResourceManager.GetString("MemberTotal", resourceCulture);
             }
         }
         
@@ -1654,7 +1636,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only the tickets whose either old or new date is in the report range and the other date is out of the report range will be listed in the report..
+        ///   Looks up a localized string similar to Only the tickets whose old, new or both date is in the report range will be listed in the report..
         /// </summary>
         public static string MoveStatementHistoryNote {
             get {

@@ -63,11 +63,9 @@
             expect(betCreditHistory.$reportForm).toBeDefined();
             expect(betCreditHistory.$pageTitle).toBeDefined();
             expect(betCreditHistory.$exportExcelForm).toBeDefined();
-            expect(betCreditHistory.$pageTitle).toBeDefined();
             expect(betCreditHistory.$msgError).toBeDefined();
             expect(betCreditHistory.$requiredMsgError).toBeDefined();
             expect(betCreditHistory.$isFilterVisible).toBeDefined();
-            expect(betCreditHistory.$exportExcelForm).toBeDefined();
         });
     });
     describe("_onExportExcel_Always", () => {
