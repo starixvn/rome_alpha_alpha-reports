@@ -47,7 +47,7 @@ namespace Alpha.Reports.Site.Controllers
                 ExceptionHandler.Handle(new Exception("Cannot verify request key " + Request.RawUrl), TraceEventType.Warning);
             }
 
-            if (null == parameter)
+            if (string.IsNullOrWhiteSpace(parameter))
             {
                 return new EmptyResult();
             }
