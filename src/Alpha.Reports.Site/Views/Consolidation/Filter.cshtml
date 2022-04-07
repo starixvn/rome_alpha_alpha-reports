@@ -3,7 +3,7 @@
     var reportType = ViewData["ReportType"].ToString();
 }
 <form class="form-inline filter  @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form"
-      action="@Url.Action("ConsolidationBy" + reportType, "Consolidation")">
+      action="@Url.Action("ConsolidationBy" + reportType, $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Consolidation")">
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
     @ProductDetailMultiSelection.Render(Model.ProductDetailMultiSelectionViewModel)
     @CurrencySelection.Render(Model.CurrencySelectionViewModel)
@@ -43,6 +43,6 @@
 {
     <input id="report-by-@reportType" name="report-type" type="radio"
            @(string.Equals(reportType, ViewData["ReportType"].ToString(), StringComparison.OrdinalIgnoreCase) ? "checked=\"checked\"" : string.Empty)
-           value="@Url.Action("ConsolidationBy" + reportType, "Consolidation")">
+           value="@Url.Action("ConsolidationBy" + reportType, $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Consolidation")">
     <label for="report-by-@reportType"> @label</label>
 }

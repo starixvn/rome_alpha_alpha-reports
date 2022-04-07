@@ -74,7 +74,7 @@
 
                 <td class="text-left">@data.CustLevelName</td>
                 <td class="text-left">
-                    <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail","Consolidation"), "date", null, date.Date, data)" class="downline-link">
+                    <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail",$"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Consolidation"), "date", null, date.Date, data)" class="downline-link">
                         @data.Username
                     </a>
                 </td>
@@ -109,7 +109,7 @@
     }
 </table>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Consolidation"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Consolidation"))
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/consolidation/consolidation")
 }

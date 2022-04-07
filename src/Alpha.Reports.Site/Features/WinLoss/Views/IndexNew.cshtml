@@ -98,7 +98,7 @@
 </div>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", "WinLoss")">
+      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/WinLoss")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("FromDate", Model.FromDate)
@@ -111,7 +111,7 @@
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", "ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/ReportLegend"))
 
 @section Scripts {
     <script type="text/javascript">

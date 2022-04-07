@@ -76,14 +76,14 @@
     }
 </table>
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("SMAStatementExcel", "Statement")">
+      action="@Url.Action("SMAStatementExcel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Statement")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
 </form>
-@Html.Hidden("LoadLegendURL", Url.Action("SMAReportLegend", "Statement"))
-@Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", "Statement"))
+@Html.Hidden("LoadLegendURL", Url.Action("SMAReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Statement"))
+@Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Statement"))
 
 @Pager.Render(Model.PagerViewModel)
 @{ Html.RenderPartial("~/Views/Statement/_StatementPopup.cshtml", Model.CustName); }

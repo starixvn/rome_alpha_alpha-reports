@@ -43,7 +43,7 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", "EnteredResult")">
+      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/EnteredResult")">
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
 </form>

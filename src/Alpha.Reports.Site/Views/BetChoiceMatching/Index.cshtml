@@ -12,7 +12,7 @@
 
 @Html.Hidden("Today", Model.WinlostDate)
 @Html.Hidden("MinDate", Model.MinDate)
-<form class="form-inline filter" role="form" id="report-form" action="@Url.Action("Query")">
+<form class="form-inline filter" role="form" id="report-form" action="@Url.Action($"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Query")">
     @Html.AntiForgeryToken()
     <div class="form-group">
         <label class="txt">@Resources.eventdate</label>
@@ -41,7 +41,7 @@
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
 </form>
-<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel")">
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action($"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Excel")">
     <input type="hidden" name="WinlostDate" id="ExcelWinlostDate" />
     <input type="hidden" name="BetCount" id="ExcelBetCount" />
     <input type="hidden" name="Username" id="ExcelUsername" />
@@ -49,7 +49,7 @@
     <input type="hidden" name="MemberWinLossOperator" id="ExcelMemberWinLossOperator" />
     <input type="hidden" name="MemberWinLossValue" id="ExcelMemberWinLossValue" />
 </form>
-<form role="form" id="uplines-form" action="@Url.Action("Uplines")">
+<form role="form" id="uplines-form" action="@Url.Action($"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Uplines")">
     @Html.AntiForgeryToken()
     @Html.Hidden("SearchAccountId")
 </form>

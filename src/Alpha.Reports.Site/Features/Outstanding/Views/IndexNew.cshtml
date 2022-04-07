@@ -98,7 +98,7 @@
 		}
 	</table>
 
-	@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Outstanding"))
+	@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Outstanding"))
 	@Html.Hidden("NoInformationIsAvailable", @Resources.NoInformationIsAvailable)
 </div>
 

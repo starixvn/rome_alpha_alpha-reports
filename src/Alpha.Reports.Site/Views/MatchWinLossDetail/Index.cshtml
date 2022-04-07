@@ -190,9 +190,9 @@
     }
 </table>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLeagueURL", Url.Action("LeaguesByCustomer", "League"))
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "MatchWinLossDetail"))
-<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", "MatchWinLossDetail")">
+@Html.Hidden("LoadLeagueURL", Url.Action("LeaguesByCustomer", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/League"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/MatchWinLossDetail"))
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/MatchWinLossDetail")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)

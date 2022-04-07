@@ -70,7 +70,7 @@
     </div>
 </div>
 
-@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/ReportLegend"))
 <input type="hidden" value="@(Model.IsDarkMode ? "1" : "0")" id="hidden-isDarkMode" />
 @section Scripts {
     @StaticResources.AssetScripts.Render("/bundles/site-reports/winloss-analysis-chart")

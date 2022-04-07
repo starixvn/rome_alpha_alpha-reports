@@ -1,7 +1,7 @@
 ﻿@using Alpha.Reports.Site.ViewModels.CommissionByBettype
 @model CommissionByBettypeFilterViewModel
 
-<form class="form-inline filter @(Model.Visible ? string.Empty:"hide")" role="form" id="report-form" action="@Url.Action("Index")">
+<form class="form-inline filter @(Model.Visible ? string.Empty:"hide")" role="form" id="report-form" action="@Url.Action("Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/CommissionByBettype")">
     @DateRangePicker.Render(Model.DateRangePicker)
 
     <div class="form-group">

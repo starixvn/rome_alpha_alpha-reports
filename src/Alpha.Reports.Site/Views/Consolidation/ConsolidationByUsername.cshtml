@@ -67,7 +67,7 @@
                     </td>
                     <td class="text-left bold">
                         <div style="position:relative">
-                            <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail", "Consolidation"), "username", null, null, dataByUsername)" class="downline-link">
+                            <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Consolidation"), "username", null, null, dataByUsername)" class="downline-link">
                                 @dataByUsername.Username
                             </a>
                             @if (isShowPT)
@@ -113,7 +113,7 @@
     }
 </table>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Consolidation"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Consolidation"))
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/consolidation/consolidation")
 }
