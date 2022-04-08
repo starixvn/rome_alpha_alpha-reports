@@ -7,8 +7,8 @@
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/data-table")
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/daterangepicker")
-    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/WinLoss/Bundles/winloss")
-    @StaticResources.RenderStylesWithMedia(767, $"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/WinLoss/Bundles/winloss-mobile-calculate-07")
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/WinLoss/Bundles/winloss")
+    @StaticResources.RenderStylesWithMedia(767, $"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/WinLoss/Bundles/winloss-mobile-calculate-07")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(
@@ -98,7 +98,7 @@
 </div>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/WinLoss")">
+      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLoss")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("FromDate", Model.FromDate)
@@ -111,7 +111,7 @@
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ReportLegend"))
 
 @section Scripts {
     <script type="text/javascript">
@@ -166,7 +166,7 @@
 
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/daterangepicker")
-    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/WinLoss/Bundles/winloss-new")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/WinLoss/Bundles/winloss-new")
 }
 
 @helper RenderRow(WinLossModel data, bool isTotalRow, string betListPath)

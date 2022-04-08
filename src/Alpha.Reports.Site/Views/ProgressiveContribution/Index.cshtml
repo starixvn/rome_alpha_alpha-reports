@@ -3,7 +3,7 @@
     ViewBag.Title = "Progressive Games Contribution";
 }
 @section Styles {
-    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/progressivecontribution/progressivecontribution")
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/progressivecontribution/progressivecontribution")
 }
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, Model.CustLevel.IsMasterOrSuperLevel(), true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
 <form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
@@ -104,7 +104,7 @@
         @NoInformation.Render(colspan: Model.ReportColumnsCount)
     }
 </table>
-<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/ProgressiveContribution")">
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ProgressiveContribution")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
@@ -112,11 +112,11 @@
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
     @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
 </form>
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/ProgressiveContribution"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ProgressiveContribution"))
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
 @Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
 @section Scripts {
-    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/progressivecontribution/progressivecontribution")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/progressivecontribution/progressivecontribution")
 }
 @helper RenderProgressiveContribution(ProgressiveContributionByBetTypeModel data)
 {

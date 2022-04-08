@@ -53,7 +53,7 @@
     }
 </table>
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("StatementDetailExcel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Statement")">
+      action="@Url.Action("StatementDetailExcel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("TransferDate", Model.TransferDate)

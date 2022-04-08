@@ -5,14 +5,14 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/betchoicematching/betchoicematching")
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/betchoicematching/betchoicematching")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.BetChoiceMatching, false, true, false, false, Enumerable.Empty<CustInfo>(), null), Request.Url.Query)
 
 @Html.Hidden("Today", Model.WinlostDate)
 @Html.Hidden("MinDate", Model.MinDate)
-<form class="form-inline filter" role="form" id="report-form" action="@Url.Action($"/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Query")">
+<form class="form-inline filter" role="form" id="report-form" action="@Url.Action($"/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Query")">
     @Html.AntiForgeryToken()
     <div class="form-group">
         <label class="txt">@Resources.eventdate</label>
@@ -41,7 +41,7 @@
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
 </form>
-<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action($"/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Excel")">
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action($"/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Excel")">
     <input type="hidden" name="WinlostDate" id="ExcelWinlostDate" />
     <input type="hidden" name="BetCount" id="ExcelBetCount" />
     <input type="hidden" name="Username" id="ExcelUsername" />
@@ -49,7 +49,7 @@
     <input type="hidden" name="MemberWinLossOperator" id="ExcelMemberWinLossOperator" />
     <input type="hidden" name="MemberWinLossValue" id="ExcelMemberWinLossValue" />
 </form>
-<form role="form" id="uplines-form" action="@Url.Action($"/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Uplines")">
+<form role="form" id="uplines-form" action="@Url.Action($"/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Uplines")">
     @Html.AntiForgeryToken()
     @Html.Hidden("SearchAccountId")
 </form>
@@ -98,5 +98,5 @@
         }
     </script>
     @StaticResources.AssetScripts.Render("/bundles/common/cleave-jquery")
-    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/betchoicematching/betchoicematching")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/betchoicematching/betchoicematching")
 }

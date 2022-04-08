@@ -77,13 +77,13 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/RiskAnalysisIPMatching")">
+      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}RiskAnalysisIPMatching")">
     @Html.Hidden("MemberCount", 2)
     @Html.Hidden("SelectedWinlostDate", Model.WinlostDate.ToShortDateWithSlash())
 </form>
 
 @section Scripts {
-    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles/RiskAnalysisIPMatching/Index")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/RiskAnalysisIPMatching/Index")
 }
 
 @helper RenderRow(RiskAnalysisIPMatchingModel data, bool isTotalRow, string betListPath)
