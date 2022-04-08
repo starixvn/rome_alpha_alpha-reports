@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Diagnostics;
 using System.Linq;
 using System.Web.Configuration;
@@ -123,10 +122,10 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.ASSETAPPPATHSESSIONKEY, sessions[17]);
             
             var enableJackpotGames = sessions[18].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
-            ExceptionHandler.Handle(new Exception($"{sessions[18]}_{sessions[19]}_{enableJackpotGames.Count}"));
             userSession.SetProperty(SessionKey.GameEnable + SessionKey.Jackpot, enableJackpotGames);
             
             userSession.SetProperty(SessionKey.ISCASINOSYNC, Convert.ToBoolean(sessions[19]));
+            userSession.SetSyncedProduct(SessionKey.RNGCasino, Convert.ToBoolean(sessions[19]));
 
             FormsAuthentication.SetAuthCookie(parameters[0], false);
         }
