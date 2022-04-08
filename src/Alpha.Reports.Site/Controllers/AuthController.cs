@@ -127,6 +127,21 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.ISCASINOSYNC, Convert.ToBoolean(sessions[19]));
             userSession.SetSyncedProduct(SessionKey.RNGCasino, Convert.ToBoolean(sessions[19]));
 
+            var pageAccess = sessions[20].Split(new[] { '$' }, StringSplitOptions.RemoveEmptyEntries).Select(bool.Parse);
+            var subPageAccess = new PageAccess
+            {
+                CreateAccount = pageAccess.ElementAt(0),
+                Transfer = pageAccess.ElementAt(1),
+                UpdateAccount = pageAccess.ElementAt(2),
+                ViewLog = pageAccess.ElementAt(3),
+                ViewMemberInfo = pageAccess.ElementAt(4),
+                ViewReports = pageAccess.ElementAt(5),
+                ViewTotalBets = pageAccess.ElementAt(6)
+            };
+
+            subPageAccess.SetPermission("[L]", pageAccess.ElementAt(7));
+            userSession.SetProperty(SessionKey.SUBPAGEACCESS, subPageAccess);
+
             FormsAuthentication.SetAuthCookie(parameters[0], false);
         }
 
