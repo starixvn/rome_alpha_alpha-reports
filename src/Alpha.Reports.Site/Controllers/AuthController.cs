@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics;
+using System.Linq;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -98,7 +100,7 @@ namespace Alpha.Reports.Site.Controllers
 
         private static void SetUserSessionsAndAuth(string[] parameters)
         {
-            var sessions = parameters[1].Split(',');
+            var sessions = parameters[1].Split(';');
             var userSession = UserSession.Current;
 
             userSession.SetProperty(SessionKey.CUSTID, Convert.ToInt32(sessions[0]));
@@ -119,6 +121,10 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.MainDomainSessionKey, sessions[15]);
             userSession.SetProperty(SessionKey.LoginIP_Browser, sessions[16]);
             userSession.SetProperty(SessionKey.ASSETAPPPATHSESSIONKEY, sessions[17]);
+
+            var enableJackpotGames = sessions[18].Split(',').Select(int.Parse).ToList();
+            userSession.SetProperty(SessionKey.GameEnable + SessionKey.Jackpot, enableJackpotGames);
+            userSession.SetProperty(SessionKey.ISCASINOSYNC, Convert.ToBoolean(sessions[19]));
 
             FormsAuthentication.SetAuthCookie(parameters[0], false);
         }

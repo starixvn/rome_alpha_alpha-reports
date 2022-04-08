@@ -23,5 +23,6 @@
         public const string MainDomainSessionKey = "MainDomain";
         public const string LoginIP_Browser = "LoginIP_Browser";
         public const string ASSETAPPPATHSESSIONKEY = "ASSETAPPPATH";
+        public const string ISCASINOSYNC = "ISCASINOSYNC";
     }
 }
