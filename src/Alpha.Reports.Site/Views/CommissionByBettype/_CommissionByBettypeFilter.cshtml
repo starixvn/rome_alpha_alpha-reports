@@ -1,7 +1,11 @@
 ﻿@using Alpha.Reports.Site.ViewModels.CommissionByBettype
 @model CommissionByBettypeFilterViewModel
-
-<form class="form-inline filter @(Model.Visible ? string.Empty:"hide")" role="form" id="report-form" action="@Url.Action("Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/CommissionByBettype")">
+@{ 
+    var viewLevel = Model.CustLevel.Value;
+    var viewCustLevel = viewLevel == 4 ? UserLevel.Master :
+        viewLevel == 3 ? UserLevel.Agent : UserLevel.Member;
+}
+<form class="form-inline filter @(Model.Visible ? string.Empty:"hide")" role="form" id="report-form" action="@Url.Action($"{viewCustLevel.DisplayName}", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/CommissionByBettype")">
     @DateRangePicker.Render(Model.DateRangePicker)
 
     <div class="form-group">
