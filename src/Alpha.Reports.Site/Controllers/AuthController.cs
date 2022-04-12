@@ -26,6 +26,12 @@ namespace Alpha.Reports.Site.Controllers
                 return new EmptyResult();
             }
 
+            IUserSession session = UserSession.Current;
+            if (session.IsLogged && Request.IsAuthenticated)
+            {
+                return RedirectToSpecificUrl();
+            }
+
             if (!string.IsNullOrWhiteSpace(param))
             {
                 Session["LoginParams"] = param;
@@ -51,13 +57,6 @@ namespace Alpha.Reports.Site.Controllers
             if (string.IsNullOrWhiteSpace(parameter))
             {
                 return new EmptyResult();
-            }
-
-            IUserSession session = UserSession.Current;
-
-            if (session.IsLogged && Request.IsAuthenticated)
-            {
-                return RedirectToSpecificUrl();
             }
 
             var parameters = parameter.Split('&');
