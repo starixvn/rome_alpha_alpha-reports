@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
@@ -48,14 +49,15 @@
 
         protected void Application_AcquireRequestState()
         {
-            if (Request.Url.PathAndQuery.IndexOf("/Auth", StringComparison.OrdinalIgnoreCase) == -1)
+            var session = UserSession.Current;
+            if (session.IsLogged && Request.IsAuthenticated && Request.Url.PathAndQuery.IndexOf("/Auth", StringComparison.OrdinalIgnoreCase) == -1)
             {
-                var loginCredential = UserSession.Current.GetProperty<string>(SessionKey.LoginIP_Browser);
+                var loginCredential = session.GetProperty<string>(SessionKey.LoginIP_Browser);
                 var requestCredential = CustomerIp() + "_" + Request.Browser.Version;
 
                 if (!loginCredential.Equals(requestCredential, StringComparison.OrdinalIgnoreCase))
                 {
-                    Response.Redirect("~/Auth", true);
+                    Response.Redirect($"~/{ConfigurationManager.AppSettings["Report:Routing"]}Auth", true);
                 }
             }
         }

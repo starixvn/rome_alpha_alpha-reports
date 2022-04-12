@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Web.Configuration;
@@ -155,7 +156,7 @@ namespace Alpha.Reports.Site.Controllers
         {
             if (!string.IsNullOrWhiteSpace(Request["ReturnUrl"]))
             {
-                return Redirect(Request["ReturnUrl"]);
+                return Redirect($"{ConfigurationManager.AppSettings["Report:Routing"]}{Request["ReturnUrl"]}");
             }
 
             return Json(Session.SessionID, JsonRequestBehavior.AllowGet);
