@@ -25,5 +25,6 @@
         public const string ASSETAPPPATHSESSIONKEY = "ASSETAPPPATH";
         public const string ISCASINOSYNC = "ISCASINOSYNC";
         public const string SUBPAGEACCESS = "SUBPAGEACCESS";
+        public const string ISENABLEDSECURITYCODEINSTATEMENT = "ISENABLEDSECURITYCODEINSTATEMENT";
     }
 }

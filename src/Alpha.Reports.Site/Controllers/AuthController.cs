@@ -142,6 +142,8 @@ namespace Alpha.Reports.Site.Controllers
             subPageAccess.SetPermission("[L]", pageAccess.ElementAt(7));
             userSession.SetProperty(SessionKey.SUBPAGEACCESS, subPageAccess);
 
+            userSession.SetProperty(SessionKey.ISENABLEDSECURITYCODEINSTATEMENT, Convert.ToBoolean(sessions[21]));
+
             FormsAuthentication.SetAuthCookie(parameters[0], false);
         }
 
