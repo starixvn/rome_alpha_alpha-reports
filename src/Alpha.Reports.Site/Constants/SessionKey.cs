@@ -26,5 +26,6 @@
         public const string ISCASINOSYNC = "ISCASINOSYNC";
         public const string SUBPAGEACCESS = "SUBPAGEACCESS";
         public const string ISENABLEDSECURITYCODEINSTATEMENT = "ISENABLEDSECURITYCODEINSTATEMENT";
+        public const string SECURITYCODE = "SECURITYCODE";
     }
 }

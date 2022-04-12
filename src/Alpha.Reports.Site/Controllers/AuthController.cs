@@ -143,6 +143,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.SUBPAGEACCESS, subPageAccess);
 
             userSession.SetProperty(SessionKey.ISENABLEDSECURITYCODEINSTATEMENT, Convert.ToBoolean(sessions[21]));
+            userSession.SetProperty(SessionKey.SECURITYCODE, sessions[22]);
 
             FormsAuthentication.SetAuthCookie(parameters[0], false);
         }
