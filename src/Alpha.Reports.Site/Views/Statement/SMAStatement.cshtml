@@ -4,7 +4,7 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode("~/assets/bundles/statement/statement")
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/statement/statement")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.Statement, false, true, false, Model.IsFilterVisible, null, null))
