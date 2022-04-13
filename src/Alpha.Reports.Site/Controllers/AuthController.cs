@@ -8,6 +8,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 using Alpha.Auth.Filters;
 using Alpha.Reports.Site.Constants;
+using Alpha.SecurityCode.Web;
 using Alpha.Web.Filters;
 using Fanex.Logging.Extensions.Web;
 using RSACryptoPad;
@@ -69,6 +70,43 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             return RedirectToSpecificUrl();
+        }
+
+        // GET: SecurityCode
+        [HttpGet]
+        public ActionResult SecurityCode(string s)
+        {
+            UserSession.Current.SetProperty(SessionKey.SECURITYCODE, s);
+
+            return Json("OK", JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: SecurityCodeBetlist
+        [HttpGet]
+        public ActionResult SecurityCodeBetlist(bool s)
+        {
+            UserSession.Current.SetProperty(SessionKey.ISENABLEDSECURITYCODEINBETLISTS, s);
+
+            return Json("OK", JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: SecurityCodeStatement
+        [HttpGet]
+        public ActionResult SecurityCodeStatement(bool s)
+        {
+            UserSession.Current.SetProperty(SessionKey.ISENABLEDSECURITYCODEINSTATEMENT, s);
+
+            return Json("OK", JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: Otp
+        [HttpGet]
+        public ActionResult Otp()
+        {
+            SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp = true;
+            SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = true;
+
+            return Json("OK", JsonRequestBehavior.AllowGet);
         }
 
         private bool IsValidReferrer()
@@ -144,6 +182,9 @@ namespace Alpha.Reports.Site.Controllers
 
             userSession.SetProperty(SessionKey.ISENABLEDSECURITYCODEINSTATEMENT, Convert.ToBoolean(sessions[21]));
             userSession.SetProperty(SessionKey.SECURITYCODE, sessions[22]);
+
+            SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp = Convert.ToBoolean(sessions[23]);
+            SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = Convert.ToBoolean(sessions[24]);
 
             FormsAuthentication.SetAuthCookie(parameters[0], false);
         }
