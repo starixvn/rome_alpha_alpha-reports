@@ -50,7 +50,7 @@
         protected void Application_AcquireRequestState()
         {
             var session = UserSession.Current;
-            if (session.IsLogged && Request.IsAuthenticated && Request.Url.PathAndQuery.IndexOf("/Auth", StringComparison.OrdinalIgnoreCase) == -1)
+            if (session.IsLogged && Request.IsAuthenticated && !Request.Url.AbsolutePath.EndsWith("/Auth", StringComparison.OrdinalIgnoreCase))
             {
                 var loginCredential = session.GetProperty<string>(SessionKey.LoginIP_Browser);
                 var requestCredential = CustomerIp() + "_" + Request.Browser.Version;
