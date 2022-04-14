@@ -76,6 +76,11 @@ namespace Alpha.Reports.Site.Controllers
         [HttpGet]
         public ActionResult SecurityCode(string s)
         {
+            if (!IsValidReferrer())
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
             UserSession.Current.SetProperty(SessionKey.SECURITYCODE, s);
 
             return Json("OK", JsonRequestBehavior.AllowGet);
@@ -85,6 +90,11 @@ namespace Alpha.Reports.Site.Controllers
         [HttpGet]
         public ActionResult SecurityCodeBetlist(bool s)
         {
+            if (!IsValidReferrer())
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
             UserSession.Current.SetProperty(SessionKey.ISENABLEDSECURITYCODEINBETLISTS, s);
 
             return Json("OK", JsonRequestBehavior.AllowGet);
@@ -94,6 +104,11 @@ namespace Alpha.Reports.Site.Controllers
         [HttpGet]
         public ActionResult SecurityCodeStatement(bool s)
         {
+            if (!IsValidReferrer())
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
             UserSession.Current.SetProperty(SessionKey.ISENABLEDSECURITYCODEINSTATEMENT, s);
 
             return Json("OK", JsonRequestBehavior.AllowGet);
@@ -103,6 +118,11 @@ namespace Alpha.Reports.Site.Controllers
         [HttpGet]
         public ActionResult Otp()
         {
+            if (!IsValidReferrer())
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
             SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp = true;
             SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = true;
 
@@ -203,7 +223,7 @@ namespace Alpha.Reports.Site.Controllers
                 return Redirect($"{ConfigurationManager.AppSettings["Report:Routing"]}{Request["ReturnUrl"]}");
             }
 
-            return Json(Session.SessionID, JsonRequestBehavior.AllowGet);
+            return new EmptyResult();
         }
     }
 }
