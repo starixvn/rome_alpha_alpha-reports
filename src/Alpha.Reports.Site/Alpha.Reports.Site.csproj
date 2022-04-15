@@ -451,7 +451,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_Start\DependencyConfig.cs" />
+    <Compile Include="App_Start\DependencyConfig.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="App_Start\BetTypeConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <TypeScriptCompile Include="assets\scripts\betchoicematching\betchoicematching.ts" />
@@ -515,7 +517,9 @@
     <Compile Include="Constants\RowTypeConstant.cs" />
     <Compile Include="Constants\SessionKey.cs" />
     <Compile Include="Constants\UserSelectedDateRangeOptionConstant.cs" />
-    <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\AuthController.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
     <Compile Include="Controllers\ConsolidationController.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryBaseHandler.cs" />
@@ -536,12 +540,24 @@
     <Compile Include="Features\BetCreditTracking\ViewModels\BetCreditHistoryViewModel.cs" />
     <Compile Include="Features\BetCreditTracking\ViewModels\MoveStatementHistoryViewModel.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTController.cs" />
-    <Compile Include="Features\BonusDetail\BonusDetailController.cs" />
-    <Compile Include="Features\BonusDetail\BonusDetailHandler.cs" />
-    <Compile Include="Features\BonusDetail\Requests\BonusDetailQuery.cs" />
-    <Compile Include="Features\BonusDetail\Requests\ConfirmPaymentCommand.cs" />
-    <Compile Include="Features\BonusDetail\Requests\ConfirmPaymentQuery.cs" />
-    <Compile Include="Features\BonusDetail\ViewModels\BonusDetailViewModel.cs" />
+    <Compile Include="Features\BonusDetail\BonusDetailController.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\BonusDetail\BonusDetailHandler.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\BonusDetail\Requests\BonusDetailQuery.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\BonusDetail\Requests\ConfirmPaymentCommand.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\BonusDetail\Requests\ConfirmPaymentQuery.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\BonusDetail\ViewModels\BonusDetailViewModel.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Features\Outstanding\OutstandingController.cs" />
     <Compile Include="Controllers\MatchWinLossController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
@@ -571,7 +587,9 @@
     <Compile Include="Handlers\Consolidation\ConsolidationBaseHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationByDateWorkbook.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationByProductWorkbook.cs" />
-    <Compile Include="Handlers\Consolidation\ConsolidationByUsernameWorkbook.cs" />
+    <Compile Include="Handlers\Consolidation\ConsolidationByUsernameWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Handlers\Consolidation\ConsolidationExcelHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationWorkbook.cs" />
