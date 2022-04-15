@@ -28,5 +28,6 @@
         public const string ISENABLEDSECURITYCODEINSTATEMENT = "ISENABLEDSECURITYCODEINSTATEMENT";
         public const string SECURITYCODE = "SECURITYCODE";
         public const string ISENABLEDSECURITYCODEINBETLISTS = "ISENABLEDSECURITYCODEINBETLISTS";
+        public const string ReportRouting = "Report_Routing";
     }
 }

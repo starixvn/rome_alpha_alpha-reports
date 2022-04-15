@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
@@ -57,7 +56,7 @@
 
                 if (!loginCredential.Equals(requestCredential, StringComparison.OrdinalIgnoreCase))
                 {
-                    Response.Redirect($"~/{ConfigurationManager.AppSettings["Report:Routing"]}Auth", true);
+                    Response.Redirect($"~/{SiteSettings.ReportRouting}Auth", true);
                 }
             }
         }

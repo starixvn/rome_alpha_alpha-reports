@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.SessionState;
 using Alpha.Auth.Filters;
+using Alpha.Reports.Configurations;
 using Alpha.Reports.Site.Constants;
 using Alpha.SecurityCode.Web;
 using Alpha.Web.Filters;
@@ -28,12 +29,6 @@ namespace Alpha.Reports.Site.Controllers
                 return new EmptyResult();
             }
 
-            IUserSession session = UserSession.Current;
-            if (session.IsLogged && Request.IsAuthenticated)
-            {
-                return RedirectToSpecificUrl();
-            }
-
             if (!string.IsNullOrWhiteSpace(param))
             {
                 Session["LoginParams"] = param;
@@ -52,18 +47,25 @@ namespace Alpha.Reports.Site.Controllers
             }
             catch
             {
-                parameter = null;
+                parameter = string.Empty;
                 ExceptionHandler.Handle(new Exception("Cannot verify request key " + Request.RawUrl), TraceEventType.Warning);
             }
-
+            
             if (string.IsNullOrWhiteSpace(parameter))
             {
                 return new EmptyResult();
             }
 
             var parameters = parameter.Split('&');
-            SetUserSessionsAndAuth(parameters);
+            var session = UserSession.Current;
+            if (session.IsLogged && Request.IsAuthenticated)
+            {
+                RealtimeUpdateReportRouting(parameters);
 
+                return RedirectToSpecificUrl();
+            }
+            
+            SetUserSessionsAndAuth(parameters);
             if (session.IsLogged && Request.IsAuthenticated)
             {
                 RegisterGlobalFilters();
@@ -206,7 +208,19 @@ namespace Alpha.Reports.Site.Controllers
             SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp = Convert.ToBoolean(sessions[23]);
             SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = Convert.ToBoolean(sessions[24]);
 
+            RealtimeUpdateReportRouting(parameters);
+
             FormsAuthentication.SetAuthCookie(parameters[0], false);
+        }
+
+        private static void RealtimeUpdateReportRouting(string[] parameters)
+        {
+            var sessions = parameters[1].Split(';');
+            var session = UserSession.Current;
+            if (!string.Equals(session.GetProperty<string>(SessionKey.ReportRouting), sessions[25], StringComparison.OrdinalIgnoreCase))
+            {
+                session.SetProperty(SessionKey.ReportRouting, sessions[25]);
+            }
         }
 
         private static void RegisterGlobalFilters()
@@ -220,7 +234,7 @@ namespace Alpha.Reports.Site.Controllers
         {
             if (!string.IsNullOrWhiteSpace(Request["ReturnUrl"]))
             {
-                return Redirect($"{ConfigurationManager.AppSettings["Report:Routing"]}{Request["ReturnUrl"]}");
+                return Redirect($"{SiteSettings.ReportRouting}{Request["ReturnUrl"]}");
             }
 
             return new EmptyResult();

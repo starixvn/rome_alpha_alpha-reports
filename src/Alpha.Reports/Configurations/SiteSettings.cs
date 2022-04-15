@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Configurations
 {
+    using Sunplus.Agent.Model.Entities;
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
@@ -48,7 +49,7 @@
 
         public static string RemoteRefURL => GetConfigValue("RemoteRefURL");
 
-        public static string ReportRouting => GetConfigValue("Report:Routing");
+        public static string ReportRouting => UserSession.Current.GetProperty<string>("Report_Routing") ?? string.Empty;
 
         public static IEnumerable<int> ProductOfferProductDetail
         {
