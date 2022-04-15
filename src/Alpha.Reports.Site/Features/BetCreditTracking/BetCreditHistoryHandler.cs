@@ -29,7 +29,7 @@
                 return new BetCreditHistoryViewModel(null, message, true);
             }
 
-            return new BetCreditHistoryViewModel(result.Data, message);
+            return new BetCreditHistoryViewModel(result.Data, message, totalRows: result.TotalRows);
         }
     }
 }

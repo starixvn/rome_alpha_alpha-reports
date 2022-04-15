@@ -33,7 +33,7 @@
                 row.Action = ConvertActionString(row.Action, row.ActionId);
             }    
 
-            return new BetCreditHistoryResultModel(criteria.ErrorCode, criteria.ErrorMess, reportData);
+            return new BetCreditHistoryResultModel(criteria.ErrorCode, criteria.ErrorMess, reportData, criteria.TotalRows);
         }
 
         private static string ConvertActionString(string action, int actionId)

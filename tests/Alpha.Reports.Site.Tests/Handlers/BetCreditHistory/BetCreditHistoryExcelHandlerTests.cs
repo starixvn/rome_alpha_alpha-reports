@@ -47,7 +47,7 @@
                 new BetCreditHistoryModel(DateTime.Now.AddDays(-1), DateTime.Now, 123456, 10, 10, 10, 10, 10, 10, 10, "Bet Updated"),
                 new BetCreditHistoryModel(DateTime.Now.AddDays(-2), DateTime.Now, 234567, 20, 20, 20, 20, 20, 20, 20, "Bet Updated")
             };
-            var resultModel = new BetCreditHistoryResultModel(0, "Success", rawData);
+            var resultModel = new BetCreditHistoryResultModel(0, "Success", rawData, 100);
             reportService.GetBetCreditHistory(Arg.Any<BetCreditHistoryParam>()).Returns(resultModel);
             handler = Substitute.ForPartsOf<BetCreditHistoryExcelHandler>(reportService, workbook);
             handler.MapPath = (path) => path;

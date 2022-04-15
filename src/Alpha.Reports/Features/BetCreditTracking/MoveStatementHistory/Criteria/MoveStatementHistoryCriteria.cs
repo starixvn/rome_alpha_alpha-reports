@@ -9,7 +9,7 @@
     {
         public MoveStatementHistoryCriteria(MoveStatementHistoryParam param)
         {
-            Username = param.MemberUsername;
+            Username = param.Username;
             FromDate = param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo);
             ToDate = param.ToDate;
             LoggedId = param.ViewerId;

@@ -67,19 +67,25 @@
     </div>
 </div>
 
+@Pager.Render(Model.PagerViewModel)
+
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", "BetCreditHistory")">
     @Html.Hidden("Member", Model.Member)
     @Html.Hidden("RefNo", Model.RefNo)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
+    @Html.Hidden("PageIndex", Model.PageIndex)
+    @Html.Hidden("PageSize", Model.PageSize)
 </form>
 
 @helper BuildReport(IEnumerable<BetCreditHistoryModel> data)
 {
+    var isEvenRow = false;
+
     foreach (var record in data)
     {
-        <tr class="@(record.BetCredit == null ? "highlight-row" : "")">
+        <tr class="@(record.BetCredit == null ? "highlight-row" : "") @(isEvenRow? "even-row":string.Empty)">
             <td>@record.ActionDateString</td>
             <td class="text-center">@record.WinLostDateString</td>
             <td class="text-left">@record.RefNo</td>
@@ -92,5 +98,6 @@
             <td class="@(record.BetCredit < (decimal)0 ? "red-cell" : "")">@HtmlHelpers.FormatNullableNumber(record.BetCredit)</td>
             <td class="text-left">@record.Action</td>
         </tr>
+        isEvenRow = !isEvenRow;
     }
 }

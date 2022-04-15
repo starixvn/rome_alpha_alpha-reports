@@ -395,6 +395,7 @@
     "outputFileName": "Features/BetCreditTracking/Bundles/betcredithistory.js",
     "inputFiles": [
       "assets/scripts/core.js",
+      "assets/scripts/components/pager.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/monthpicker.js",
       "Features/BetCreditTracking/Scripts/bet-credit-history.js"

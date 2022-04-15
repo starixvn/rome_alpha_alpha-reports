@@ -4,16 +4,16 @@
 
     public class MoveStatementHistoryParam
     {
-        public MoveStatementHistoryParam(string memberUsername, DateTime fromDate, DateTime toDate, int viewerId, DateTime limitedDateToShowInfo)
+        public MoveStatementHistoryParam(string username, DateTime fromDate, DateTime toDate, int viewerId, DateTime limitedDateToShowInfo)
         {
-            MemberUsername = memberUsername;
+            Username = username;
             FromDate = fromDate;
             ToDate = toDate;
             ViewerId = viewerId;
             LimitedDateToShowInfo = limitedDateToShowInfo;
         }
 
-        public string MemberUsername { get; }
+        public string Username { get; }
 
         public DateTime FromDate { get; }
 

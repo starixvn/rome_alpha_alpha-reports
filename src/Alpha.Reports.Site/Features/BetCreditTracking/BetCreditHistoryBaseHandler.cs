@@ -21,6 +21,8 @@
                 message.FromDate, 
                 message.ToDate, 
                 message.ViewerId, 
-                message.LimitedDateToShowInfo);
+                message.LimitedDateToShowInfo,
+                message.PageIndex,
+                message.PageSize);
     }
 }

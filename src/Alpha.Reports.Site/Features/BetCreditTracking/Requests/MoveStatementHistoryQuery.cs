@@ -12,7 +12,7 @@
             IsProtectedMode = viewer.IsProtectedMode;
         }
 
-        public string MemberUsername { get; set; }
+        public string Username { get; set; }
 
         public bool IsFilterVisible { get; set; } = true;
 

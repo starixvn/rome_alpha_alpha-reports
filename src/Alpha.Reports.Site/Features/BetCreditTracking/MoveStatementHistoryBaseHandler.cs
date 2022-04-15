@@ -16,7 +16,7 @@
 
         protected MoveStatementHistoryParam CreateParameter(MoveStatementHistoryQuery message)
             => new MoveStatementHistoryParam(
-                message.MemberUsername, 
+                message.Username, 
                 message.FromDate, 
                 message.ToDate,
                 message.ViewerId,

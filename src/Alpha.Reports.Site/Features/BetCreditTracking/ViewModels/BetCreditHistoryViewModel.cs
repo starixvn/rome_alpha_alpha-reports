@@ -21,7 +21,7 @@
         {
         }
 
-        public BetCreditHistoryViewModel(IEnumerable<BetCreditHistoryModel> data, BetCreditHistoryQuery message, bool isError = false)
+        public BetCreditHistoryViewModel(IEnumerable<BetCreditHistoryModel> data, BetCreditHistoryQuery message, bool isError = false, int totalRows = 0)
         {
             Data = data;
             CustLevel = message.ViewerLevel.DisplayName;
@@ -32,8 +32,11 @@
             MaxDate = DateTime.MaxValue;
             FromDate = message.FromDate;
             ToDate = message.ToDate;
+            PageIndex = message.PageIndex;
+            PageSize = message.PageSize;
             UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
             ErrMsg = isError ? Resources.InvalidUsername : string.Empty;
+            PagerViewModel = new PagerViewModel(message.PageIndex, message.PageSize, totalRows);
         }
 
         public IEnumerable<BetCreditHistoryModel> Data { get; }
@@ -54,9 +57,15 @@
 
         public DateTime ToDate { get; }
 
+        public int PageIndex { get; }
+
+        public int PageSize { get; }
+
         public string ErrMsg { get; }
 
         public int UserSelectedDateRangeOption { get; }
+
+        public PagerViewModel PagerViewModel { get; }
 
         public DateRangePickerViewModel DateRangePickerViewModel
          => new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption, optionValues: optionValues);

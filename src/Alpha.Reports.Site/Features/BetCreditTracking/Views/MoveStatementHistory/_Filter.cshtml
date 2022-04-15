@@ -9,7 +9,8 @@
     <input type="hidden" value="@Model.IsFilterVisible.ToString().ToLowerInvariant()" name="IsFilterVisible" id="IsFilterVisible" />
 
     <div class="form-group">
-        <input type="text" style="width: 150px;" maxlength="50" autocomplete="off" name="MemberUsername" value="@Model.MemberUsername" placeholder="@Resources.MemberUsername" />
+        <label>@Resources.Member</label>
+        <input type="text" style="width: 150px;" maxlength="50" autocomplete="off" name="Username" value="@Model.Username" placeholder="@Resources.Username" />
     </div>
 
     @DateRangePicker.Render(Model.DateRangePickerViewModel, null, Resources.EventDateFrom);

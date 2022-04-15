@@ -19,7 +19,7 @@
             Data = data;
             CustLevel = message.ViewerLevel.DisplayName;
             IsFilterVisible = message.IsFilterVisible;
-            MemberUsername = message.MemberUsername;
+            Username = message.Username;
             MinDate = message.MinDate;
             MaxDate = DateTime.MaxValue;
             FromDate = message.FromDate;
@@ -39,7 +39,7 @@
 
         public bool IsFilterVisible { get; }
 
-        public string MemberUsername { get; }
+        public string Username { get; }
 
         public DateTime MinDate { get; }
 

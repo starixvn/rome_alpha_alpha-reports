@@ -2,6 +2,7 @@
 class BetCreditHistory {
     $: JQueryStatic;
     dateRangePickerComponent: DateRangePickerComponent;
+    pagerComponent: PagerComponent;
     $reportForm: JQuery;
     $pageTitle: JQuery;
     $txtMember: JQuery;
@@ -12,9 +13,11 @@ class BetCreditHistory {
 
     constructor(
         $: JQueryStatic,
-        dateRangePickerComponent: DateRangePickerComponent) {
+        dateRangePickerComponent: DateRangePickerComponent,
+        pagerComponent: PagerComponent) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
+        this.pagerComponent = pagerComponent;
     }
 
     public init() {
@@ -41,13 +44,17 @@ class BetCreditHistory {
         this.dateRangePickerComponent.render(
             new DateRangePickerOption("daterange-picker", "report-form", null));
 
-        this.$("#tbl-report").stickyTableHeaders();
+        this.pagerComponent.pageList = [10, 50, 100, 500];
+        this.pagerComponent.render();
 
+        this.$("#tbl-report").stickyTableHeaders();
     }
 
     public bindEvents() {
         this.$(".icon-filter").click(this.onClickIconFilter);
         this.$reportForm.submit(this.onSubmitReport);
+        this.$("#btn-submit").click(() => this.$("#PageIndex").val("1"));
+
         this.$("#icon-excel").click(this.onExportExcel);
     }
 
@@ -113,7 +120,8 @@ class BetCreditHistory {
 $(function () {
     const betCreditHistory = new BetCreditHistory(
         $,
-        new DateRangePickerComponent($)
+        new DateRangePickerComponent($),
+        new PagerComponent($)
     );
     betCreditHistory.init();
 });

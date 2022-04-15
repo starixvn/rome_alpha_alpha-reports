@@ -1,4 +1,6 @@
-﻿.page-title {
+﻿@import '../../../assets/styles/_variables-dark.scss';
+
+.page-title {
     border-bottom: none;
 
     .list-icon {
@@ -17,7 +19,7 @@
 }
 
 .highlight-row {
-    background: #35362E;
+    background: $high-light-row-color;
 }
 
 .red-cell {

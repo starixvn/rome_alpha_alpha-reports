@@ -957,9 +957,6 @@
   <data name="MemberRefNo" xml:space="preserve">
     <value>Member/Ref No.</value>
   </data>
-  <data name="MemberUsername" xml:space="preserve">
-    <value>Member username</value>
-  </data>
   <data name="NewEventDate" xml:space="preserve">
     <value>New Event Date</value>
   </data>

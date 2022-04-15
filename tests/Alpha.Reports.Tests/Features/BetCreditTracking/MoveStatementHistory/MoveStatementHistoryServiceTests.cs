@@ -32,7 +32,7 @@
 
             // Assert
             repository.Received().Fetch<MoveStatementHistoryByRefNoModel>(Arg.Is<MoveStatementHistoryCriteria>(
-                criteria => criteria.Username == param.MemberUsername
+                criteria => criteria.Username == param.Username
                 && criteria.FromDate == param.FromDate
                 && criteria.ToDate == param.ToDate
                 && criteria.LoggedId == param.ViewerId

@@ -4,7 +4,15 @@
 
     public class BetCreditHistoryParam
     {
-        public BetCreditHistoryParam(string member, long? refNo, DateTime fromDate, DateTime toDate, int viewerId, DateTime limitedDateToShowInfo)
+        public BetCreditHistoryParam(
+            string member, 
+            long? refNo, 
+            DateTime fromDate, 
+            DateTime toDate, 
+            int viewerId, 
+            DateTime limitedDateToShowInfo, 
+            int pageIndex, 
+            int pageSize)
         {
             Member = member;
             RefNo = refNo;
@@ -12,6 +20,8 @@
             ToDate = toDate;
             ViewerId = viewerId;
             LimitedDateToShowInfo = limitedDateToShowInfo;
+            PageIndex = pageIndex;
+            PageSize = pageSize;
         }
 
         public string Member { get; }
@@ -25,5 +35,9 @@
         public int ViewerId { get; }
 
         public DateTime LimitedDateToShowInfo { get; }
+
+        public int PageIndex { get; }
+
+        public int PageSize { get; }
     }
 }

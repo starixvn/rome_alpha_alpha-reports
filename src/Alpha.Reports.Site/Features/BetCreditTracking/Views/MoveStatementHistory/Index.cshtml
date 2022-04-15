@@ -63,7 +63,7 @@
 
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", "MoveStatementHistory")">
-    @Html.Hidden("MemberUsername", Model.MemberUsername)
+    @Html.Hidden("Username", Model.Username)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
 </form>

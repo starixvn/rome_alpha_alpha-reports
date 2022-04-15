@@ -12,7 +12,7 @@
         public void Constructor_Always_AssignCorrectProperties()
         {
             // Arrange
-            var param = new BetCreditHistoryParam("supertest1", 123456, new DateTime(2022, 1, 1), new DateTime(2022, 1, 2), 1, DateTime.MinValue);
+            var param = new BetCreditHistoryParam("supertest1", 123456, new DateTime(2022, 1, 1), new DateTime(2022, 1, 2), 1, DateTime.MinValue, 1, 100);
 
             // Act
             var criteria = new BetCreditHistoryCriteria(param);
@@ -23,7 +23,9 @@
                 && param.RefNo == criteria.RefNo
                 && param.FromDate == criteria.FromDate
                 && param.ToDate == criteria.ToDate
-                && criteria.LoggedId == param.ViewerId
+                && param.ViewerId == criteria.LoggedId
+                && param.PageIndex == criteria.PageIndex
+                && param.PageSize == criteria.PageSize
                 );
         }
 
@@ -31,7 +33,7 @@
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
-            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue);
+            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
             var criteria = new BetCreditHistoryCriteria(param);
             var expectedSettingKey = "Age_Rpt_BetCreditHistory";
 
@@ -46,7 +48,7 @@
         public void IsValid_FromDateLessThanToDate_ReturnsTrue()
         {
             // Arrange
-            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue);
+            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1 , 100);
             var criteria = new BetCreditHistoryCriteria(param);
 
             // Act
@@ -60,7 +62,7 @@
         public void IsValid_FromDateGreaterThanToDate_ReturnsFalse()
         {
             // Arrange
-            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today, DateTime.Today.AddDays(-1), 1, DateTime.MinValue);
+            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today, DateTime.Today.AddDays(-1), 1, DateTime.MinValue, 1, 100);
             var criteria = new BetCreditHistoryCriteria(param);
 
             // Act

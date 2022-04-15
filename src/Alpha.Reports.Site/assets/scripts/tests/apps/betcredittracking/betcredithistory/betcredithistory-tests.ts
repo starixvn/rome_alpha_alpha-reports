@@ -1,11 +1,12 @@
 ﻿describe("BetCreditHistory", () => {
     const jQueryFake = $;
     const dateRangePickerComponent = new DateRangePickerComponent($);
+    const pagerComponent = new PagerComponent($);
 
     let betCreditHistory: BetCreditHistory;
 
     beforeEach(() => {
-        betCreditHistory = new BetCreditHistory(jQueryFake, dateRangePickerComponent);
+        betCreditHistory = new BetCreditHistory(jQueryFake, dateRangePickerComponent, pagerComponent);
 
         spyOn(betCreditHistory, "cacheElements").and.callThrough();
         spyOn(betCreditHistory, "bindEvents").and.callThrough();
@@ -15,6 +16,7 @@
         spyOn(jQueryFake, "unblockUI");
 
         spyOn(dateRangePickerComponent, "render");
+        spyOn(pagerComponent, "render");
 
         spyOn(jQueryFake.fn, "stickyTableHeaders");
     });
@@ -48,6 +50,10 @@
         it("_Calls dateRangePickerComponent.render", () => {
             // assert
             expect(dateRangePickerComponent.render).toHaveBeenCalled();
+        });
+        it("_Calls pagerComponent.render", () => {
+            // assert
+            expect(pagerComponent.render).toHaveBeenCalled();
         });
         it("_Calls stickyTableHeaders", () => {
             // assert

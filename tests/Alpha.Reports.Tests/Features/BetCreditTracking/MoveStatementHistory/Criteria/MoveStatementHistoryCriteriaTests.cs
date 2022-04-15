@@ -19,7 +19,7 @@
 
             // Assert
             Assert.True(
-                param.MemberUsername == criteria.Username
+                param.Username == criteria.Username
                 && param.FromDate == criteria.FromDate
                 && param.ToDate == criteria.ToDate
                 && param.ViewerId == criteria.LoggedId

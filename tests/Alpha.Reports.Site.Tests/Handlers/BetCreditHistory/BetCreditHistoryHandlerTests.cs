@@ -34,7 +34,7 @@
             // Arrange
             var message = new BetCreditHistoryQuery(user);
 
-            var resultModel = new BetCreditHistoryResultModel(0, "Success", null);
+            var resultModel = new BetCreditHistoryResultModel(0, "Success", null, 100);
             reportService.GetBetCreditHistory(Arg.Any<BetCreditHistoryParam>()).Returns(resultModel);
 
             // Act
@@ -73,7 +73,7 @@
                 new BetCreditHistoryModel(DateTime.Now.AddDays(-1), DateTime.Now, 123456, 10, 10, 10, 10, 10, 10, 10, "Bet Updated"),
                 new BetCreditHistoryModel(DateTime.Now.AddDays(-2), DateTime.Now, 234567, 20, 20, 20, 20, 20, 20, 20, "Bet Updated")
             };
-            var resultModel = new BetCreditHistoryResultModel(0, "Success", rawData);
+            var resultModel = new BetCreditHistoryResultModel(0, "Success", rawData, 2);
             reportService.GetBetCreditHistory(Arg.Any<BetCreditHistoryParam>()).Returns(resultModel);
 
             // Act
@@ -90,7 +90,7 @@
             // Arrange
             var message = new BetCreditHistoryQuery(user);
 
-            var resultModel = new BetCreditHistoryResultModel(101, "Invalid member", null);
+            var resultModel = new BetCreditHistoryResultModel(101, "Invalid member", null, 0);
             reportService.GetBetCreditHistory(Arg.Any<BetCreditHistoryParam>()).Returns(resultModel);
 
             // Act

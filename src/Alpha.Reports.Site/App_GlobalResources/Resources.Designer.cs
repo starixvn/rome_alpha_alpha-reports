@@ -1555,15 +1555,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Member username.
-        /// </summary>
-        public static string MemberUsername {
-            get {
-                return ResourceManager.GetString("MemberUsername", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Member Win Loss.
         /// </summary>
         public static string MemberWinLoss {

@@ -43,7 +43,7 @@
             // Assert
             reportService.Received().GetMoveStatementHistory(Arg.Is<MoveStatementHistoryParam>(param
                 => param != null
-                && param.MemberUsername == message.MemberUsername
+                && param.Username == message.Username
                 && param.FromDate == message.FromDate
                 && param.ToDate == message.ToDate
                 && param.ViewerId == message.ViewerId

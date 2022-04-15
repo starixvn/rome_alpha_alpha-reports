@@ -14,6 +14,8 @@
             ToDate = param.ToDate;
             RefNo = param.RefNo;
             LoggedId = param.ViewerId;
+            PageIndex = param.PageIndex;
+            PageSize = param.PageSize;
         }
 
         public string Username { get; }
@@ -25,6 +27,12 @@
         public long? RefNo { get; }
 
         public int LoggedId { get; }
+
+        public int PageIndex { get; }
+
+        public int PageSize { get; }
+
+        public int TotalRows { get; set; }
 
         public int ErrorCode { get; set; }
 

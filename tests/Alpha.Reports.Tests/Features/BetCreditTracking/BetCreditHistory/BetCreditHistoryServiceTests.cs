@@ -25,7 +25,7 @@
         public void GetBetCreditHistory_Always_CallFetch()
         {
             // Arrange
-            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue);
+            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
 
             // Act
             service.GetBetCreditHistory(param);
@@ -37,6 +37,8 @@
                 && criteria.FromDate == param.FromDate
                 && criteria.ToDate == param.ToDate
                 && criteria.LoggedId == param.ViewerId
+                && criteria.PageIndex == param.PageIndex
+                && criteria.PageSize == param.PageSize
                 ));
         }
     }
