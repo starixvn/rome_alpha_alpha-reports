@@ -48,16 +48,23 @@
 
         protected void Application_AcquireRequestState()
         {
-            var session = UserSession.Current;
-            if (session.IsLogged && Request.IsAuthenticated && !Request.Url.AbsolutePath.EndsWith("/Auth", StringComparison.OrdinalIgnoreCase))
+            try
             {
-                var loginCredential = session.GetProperty<string>(SessionKey.LoginIP_Browser);
-                var requestCredential = CustomerIp() + "_" + Request.Browser.Version;
-
-                if (!loginCredential.Equals(requestCredential, StringComparison.OrdinalIgnoreCase))
+                var session = UserSession.Current;
+                if (session.IsLogged == true && Request.IsAuthenticated && !Request.Url.AbsolutePath.EndsWith("/Auth", StringComparison.OrdinalIgnoreCase))
                 {
-                    Response.Redirect($"~/{SiteSettings.ReportRouting}Auth", true);
+                    var loginCredential = session.GetProperty<string>(SessionKey.LoginIP_Browser);
+                    var requestCredential = CustomerIp() + "_" + Request.Browser.Version;
+
+                    if (!loginCredential.Equals(requestCredential, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Response.Redirect($"~/{SiteSettings.ReportRouting}Auth", true);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handle(ex, TraceEventType.Warning);
             }
         }
 
