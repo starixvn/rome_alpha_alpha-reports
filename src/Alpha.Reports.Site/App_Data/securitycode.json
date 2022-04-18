@@ -11,5 +11,5 @@
   "verifyingOtpPath": "Otp/VerifyOtp",
   "verifyingSecurityCodePath": "SecurityCode/VerifySecurityCode",
   "resetSecurityCodePath": "SecurityCode/resetSecurityCodePath",
-  "isStandaloneSite": true
+  "isStandaloneSite": false
 }
