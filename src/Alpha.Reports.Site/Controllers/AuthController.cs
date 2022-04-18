@@ -209,6 +209,13 @@ namespace Alpha.Reports.Site.Controllers
 
             RealtimeUpdateReportRouting(parameters);
 
+            userSession.SetProperty(SessionKey.ADMINID, Convert.ToInt32(sessions[26]));
+            userSession.SetProperty(SessionKey.ADMINNAME, sessions[27]);
+
+            userSession.SetProperty(SessionKey.IndirectCustIdSessionKey, Convert.ToInt32(sessions[28]));
+            userSession.SetProperty(SessionKey.IndirectSubAccIdSessionKey, Convert.ToInt32(sessions[29]));
+            userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
+
             FormsAuthentication.SetAuthCookie(parameters[0], false);
         }
 

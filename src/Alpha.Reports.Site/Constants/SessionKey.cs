@@ -29,5 +29,10 @@
         public const string SECURITYCODE = "SECURITYCODE";
         public const string ISENABLEDSECURITYCODEINBETLISTS = "ISENABLEDSECURITYCODEINBETLISTS";
         public const string ReportRouting = "Report_Routing";
+        public const string IndirectCustIdSessionKey = "IndirectCustId";
+        public const string IndirectSubAccIdSessionKey = "IndirectSubAccId";
+        public const string IndirectUsernameSessionKey = "IndirectUsername";
+        public const string ADMINID = "ADMINID";
+        public const string ADMINNAME = "ADMINNAME";
     }
 }
