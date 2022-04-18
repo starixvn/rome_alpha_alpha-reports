@@ -786,25 +786,13 @@
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
     <Content Include="App_Data\SPNames\Internal\DBBAH.bodb02.BODBDownlineNetView.xml" />
-    <Content Include="App_Data\securitycode.local.json">
+    <Content Include="App_Data\securitycode.dockerlocal.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
-    <Content Include="App_Data\securitycode.master.json">
+    <Content Include="App_Data\securitycode.dockerpro.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
-    <Content Include="App_Data\securitycode.masteruat.json">
-      <DependentUpon>securitycode.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\securitycode.masteruat2.json">
-      <DependentUpon>securitycode.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\securitycode.pro.json">
-      <DependentUpon>securitycode.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\securitycode.pro2.json">
-      <DependentUpon>securitycode.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\securitycode.pro3.json">
+    <Content Include="App_Data\securitycode.dockeruat.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
     <Content Include="App_Data\SPNames\Internal\DBTXN.bodb02.BODBDownlineNetView.xml" />
@@ -1434,15 +1422,6 @@
     <Content Include="App_Data\ExcelTemplates\WinLoss\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\MatchResultEntered.xls" />
-    <Content Include="Web.AppSettings.aws.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.aws2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.aws3.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
     <Content Include="Web.AppSettings.backupMNL.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
@@ -1455,6 +1434,45 @@
     <Content Include="Web.AppSettings.backupMNLNap2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
+    <Content Include="Web.AppSettings.dockerlocal.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.dockerpro.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.dockeruat.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.local.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.napinternal.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.napinternal2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.pro.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.pro2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.pro3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.sit.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.sit2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.uat.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.uat2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
     <Content Include="Web.backupMNL.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
@@ -1465,6 +1483,21 @@
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.backupMNLNap2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.dockerpro.config">
+      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.dockeruat.config">
+      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
+    </Content>
+    <Content Include="Web.dockerlocal.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.dockerpro.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.dockeruat.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.uat2.config">
@@ -1484,15 +1517,6 @@
     </Content>
     <Content Include="Web.pro.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.napaws.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.napaws2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.napaws3.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.napaws.config">
       <DependentUpon>Web.local.config</DependentUpon>
@@ -1608,21 +1632,11 @@
     <Content Include="ProductSection.config" />    
     <Content Include="Features\BetCreditTracking\Views\MoveStatementHistory\_Filter.cshtml" />
     <Content Include="Features\BetCreditTracking\Views\BetCreditHistory\_Filter.cshtml" />
-    <Content Include="PartialUMConfigs\PartialUMSection.backupMNL.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.backupMNL2.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.backupMNLNap.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.backupMNLNap2.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.napaws.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.napaws2.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.napaws3.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.napinternal.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.napinternal2.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.napinternal3.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.pro2.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.pro3.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.pro.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.aws.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.aws2.config" />
+    <Content Include="PartialUMConfigs\PartialUMSection.aws3.config" />
     <Content Include="Features\BonusDetail\Views\_ConfirmPayment.cshtml" />
+    <Content Include="PartialUMConfigs\PartialUMSection.config" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1676,83 +1690,15 @@
     <Content Include="Features\SuperWinLossDetailByPT\Views\ReportData.cshtml" />
     <Content Include="Features\SuperWinLossDetailByPT\Views\ViewProductPTList.cshtml" />
     <Content Include="Views\Consolidation\_ViewProductPTList.cshtml" />
-    <Content Include="Web.ConnectionStrings.config" />
-    <Content Include="Web.ConnectionStrings.aws.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.aws2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.aws3.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.backupMNL.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.backupMNL2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.backupMNLNap.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.backupMNLNap2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.local.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.napaws.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.napaws2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.napaws3.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.napinternal.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.napinternal2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.pro.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.pro2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.pro3.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.sit.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.sit2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.uat.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.uat2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\Blocked.cshtml" />
     <Content Include="Views\Statement\_StatementPopup.cshtml" />
+    <Content Include="Web.ConnectionStrings.dockerlocal.config" />
+    <Content Include="Web.AppSettings.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="Web.pro3.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.master.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.masteruat.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.masteruat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <None Include="Web.Release.config">
@@ -1812,41 +1758,6 @@
     <EmbeddedResource Include="App_GlobalResources\Resources.zh-TW.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Web.AppSettings.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.AppSettings.local.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.napinternal.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.napinternal2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.pro.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.pro2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.pro3.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.sit.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.sit2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.uat.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.uat2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.local.config" />
