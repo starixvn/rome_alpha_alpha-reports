@@ -56,7 +56,7 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             var parameters = parameter.Split('&');
-            if (session.IsLogged && Request.IsAuthenticated)
+            if (session.IsLogged && Request.IsAuthenticated && Request.Cookies["ASP.NET_SessionId"]?.Value == Session.SessionID)
             {
                 UpdateReportRoutingRealtime(parameters);
 
