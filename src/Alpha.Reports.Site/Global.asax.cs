@@ -11,7 +11,6 @@
     using Alpha.Logging;
     using Alpha.NetThrottling.Mvc;
     using Alpha.NetThrottling.Utils;
-    using Alpha.Reports.Site.Constants;
     using App_Start;
     using Auth.Configurations;
     using Configurations;
@@ -37,37 +36,6 @@
 
     public class MvcApplication : HttpApplication
     {
-        private static string CustomerIp()
-        {
-            var ip = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ?? HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
-            var ips = string.IsNullOrWhiteSpace(ip) || ip.Equals("::1") ?
-                new[] { "127.0.0.1" } : ip.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-            return ips[0].Trim();
-        }
-
-        protected void Application_AcquireRequestState()
-        {
-            try
-            {
-                var session = UserSession.Current;
-                if (session.IsLogged == true && Request.IsAuthenticated && !Request.Url.AbsolutePath.EndsWith("/Auth", StringComparison.OrdinalIgnoreCase))
-                {
-                    var loginCredential = session.GetProperty<string>(SessionKey.LoginIP_Browser);
-                    var requestCredential = CustomerIp() + "_" + Request.Browser.Version;
-
-                    if (!loginCredential.Equals(requestCredential, StringComparison.OrdinalIgnoreCase))
-                    {
-                        Response.Redirect($"~/{SiteSettings.ReportRouting}Auth", true);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.Handle(ex, TraceEventType.Warning);
-            }
-        }
-
         protected void Application_Start()
         {
             ViewEngines.Engines.Clear();

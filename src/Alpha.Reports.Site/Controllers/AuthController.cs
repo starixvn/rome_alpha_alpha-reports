@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.SessionState;
@@ -28,14 +27,15 @@ namespace Alpha.Reports.Site.Controllers
                 return new EmptyResult();
             }
 
+            var session = UserSession.Current;
             if (!string.IsNullOrWhiteSpace(param))
             {
-                Session["LoginParams"] = param;
+                session.SetProperty(SessionKey.LoginParams, param);
             }
 
             const int dwKeySize = 1024;
             var keyPath = Server.MapPath("~/IbcKeys/ibckey.snk");
-            param = string.IsNullOrWhiteSpace(param) ? Session["LoginParams"] + string.Empty : param;
+            param = string.IsNullOrWhiteSpace(param) ? session.GetProperty<string>(SessionKey.LoginParams) + string.Empty : param;
             var parameter = param;
             parameter = parameter.Replace(' ', '+');
             var encryption = new EncryptionThread();
@@ -56,10 +56,9 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             var parameters = parameter.Split('&');
-            var session = UserSession.Current;
             if (session.IsLogged && Request.IsAuthenticated)
             {
-                RealtimeUpdateReportRouting(parameters);
+                UpdateReportRoutingRealtime(parameters);
 
                 return RedirectToSpecificUrl();
             }
@@ -140,17 +139,10 @@ namespace Alpha.Reports.Site.Controllers
             var session = UserSession.Current;
             if (session.IsInternal 
                 || session.IsIndirectLoggedIn
-                || Request.Headers["Referer"].IndexOf(Request.Headers["Host"], StringComparison.OrdinalIgnoreCase) != -1)
+                || Request.Headers["Referer"].IndexOf(Request.Headers["Host"], StringComparison.OrdinalIgnoreCase) != -1 
+                || Request.Headers["Referer"].IndexOf(UserSession.Current.GetProperty<string>(SessionKey.MainDomainSessionKey)) != -1)
             {
                 return true;
-            }
-
-            foreach (var key in WebConfigurationManager.AppSettings.AllKeys)
-            {
-                if (WebConfigurationManager.AppSettings[key].IndexOf(Request.UrlReferrer.Host, StringComparison.OrdinalIgnoreCase) != -1)
-                {
-                    return true;
-                }
             }
 
             return false;
@@ -207,7 +199,7 @@ namespace Alpha.Reports.Site.Controllers
             SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp = Convert.ToBoolean(sessions[23]);
             SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = Convert.ToBoolean(sessions[24]);
 
-            RealtimeUpdateReportRouting(parameters);
+            UpdateReportRoutingRealtime(parameters);
 
             userSession.SetProperty(SessionKey.ADMINID, Convert.ToInt32(sessions[26]));
             userSession.SetProperty(SessionKey.ADMINNAME, sessions[27]);
@@ -219,7 +211,7 @@ namespace Alpha.Reports.Site.Controllers
             FormsAuthentication.SetAuthCookie(parameters[0], false);
         }
 
-        private static void RealtimeUpdateReportRouting(string[] parameters)
+        private static void UpdateReportRoutingRealtime(string[] parameters)
         {
             var sessions = parameters[1].Split(';');
             var session = UserSession.Current;

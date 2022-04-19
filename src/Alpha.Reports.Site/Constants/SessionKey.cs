@@ -34,5 +34,6 @@
         public const string IndirectUsernameSessionKey = "IndirectUsername";
         public const string ADMINID = "ADMINID";
         public const string ADMINNAME = "ADMINNAME";
+        public const string LoginParams = "LoginParams";
     }
 }
