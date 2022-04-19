@@ -132,7 +132,7 @@
         public string BetListPath { get; }
 
         public string GetBetListLink(IDictionary<string, object> routeValues)
-            => ReportHelpers.UrlHelper.AddQueryStringParamsFunc(ReportHelpers.UrlHelper.MapExMainPath(BetListPath), routeValues);
+            => ReportHelpers.UrlHelper.AddQueryStringParamsFunc(BetListPath, routeValues);
 
         public IDictionary<string, object> GetBetListLinkRouteValues(
             MatchWinLossDetailViewModel match,
