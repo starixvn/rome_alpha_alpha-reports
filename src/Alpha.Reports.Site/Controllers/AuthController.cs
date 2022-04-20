@@ -73,14 +73,14 @@ namespace Alpha.Reports.Site.Controllers
 
         // GET: SecurityCode
         [HttpGet]
-        public ActionResult SecurityCode(string s)
+        public ActionResult SecurityCode()
         {
             if (!IsValidReferrer())
             {
                 return Json("Failed", JsonRequestBehavior.AllowGet);
             }
 
-            UserSession.Current.SetProperty(SessionKey.SECURITYCODE, s);
+            SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = true;
 
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
