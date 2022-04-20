@@ -10,9 +10,9 @@ using Alpha.Reports.Configurations;
 using Alpha.Reports.Site.Constants;
 using Alpha.SecurityCode.Web;
 using Alpha.Web.Filters;
+using Fanex.Cryptography.Aes;
 using Fanex.Logging.Extensions.Web;
 using Newtonsoft.Json;
-using RSACryptoPad;
 using Sunplus.Agent.Model.BL;
 using Sunplus.Agent.Model.Entities;
 
@@ -36,16 +36,12 @@ namespace Alpha.Reports.Site.Controllers
                 session.SetProperty(SessionKey.LoginParams, param);
             }
 
-            const int dwKeySize = 1024;
-            var keyPath = Server.MapPath("~/IbcKeys/ibckey.snk");
             param = string.IsNullOrWhiteSpace(param) ? session.GetProperty<string>(SessionKey.LoginParams) + string.Empty : param;
             var parameter = param;
-            parameter = parameter.Replace(' ', '+');
-            var encryption = new EncryptionThread();
 
             try
             {
-                parameter = encryption.DecryptString(parameter, dwKeySize, keyPath);
+                parameter = AesService.Default.Decrypt(parameter, "!@#$");
             }
             catch
             {
@@ -59,7 +55,7 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             var parameters = parameter.Split('&');
-            if (session.IsLogged && Request.IsAuthenticated && Request.Cookies["ASP.NET_SessionId"]?.Value == Session.SessionID)
+            if (session.IsLogged && Request.IsAuthenticated)
             {
                 UpdateReportRoutingRealtime(parameters);
 
@@ -143,7 +139,7 @@ namespace Alpha.Reports.Site.Controllers
             if (session.IsInternal 
                 || session.IsIndirectLoggedIn
                 || Request.Headers["Referer"].IndexOf(Request.Headers["Host"], StringComparison.OrdinalIgnoreCase) != -1 
-                || Request.Headers["Referer"].IndexOf(UserSession.Current.GetProperty<string>(SessionKey.MainDomainSessionKey)) != -1)
+                || Request.Headers["Referer"].IndexOf(session.GetProperty<string>(SessionKey.MainDomainSessionKey) ?? string.Empty) != -1)
             {
                 return true;
             }
