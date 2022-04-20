@@ -149,6 +149,8 @@ namespace Alpha.Reports.Site.Controllers
 
         private static void SetUserSessionsAndAuth(string[] parameters)
         {
+            SetOutputValuesToSession(parameters);
+
             var sessions = parameters[1].Split(';');
             var userSession = UserSession.Current;
 
@@ -206,8 +208,6 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectCustIdSessionKey, Convert.ToInt32(sessions[28]));
             userSession.SetProperty(SessionKey.IndirectSubAccIdSessionKey, Convert.ToInt32(sessions[29]));
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
-
-            SetOutputValuesToSession(parameters);
 
             FormsAuthentication.SetAuthCookie(parameters[0], false);
         }
