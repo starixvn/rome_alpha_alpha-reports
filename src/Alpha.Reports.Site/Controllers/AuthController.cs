@@ -55,18 +55,14 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             var parameters = parameter.Split('&');
+            UpdateReportRoutingRealtime(parameters);
+
             if (session.IsLogged && Request.IsAuthenticated)
             {
-                UpdateReportRoutingRealtime(parameters);
-
                 return RedirectToSpecificUrl();
             }
             
             SetUserSessionsAndAuth(parameters);
-            if (session.IsLogged && Request.IsAuthenticated)
-            {
-                RegisterGlobalFilters();
-            }
 
             return RedirectToSpecificUrl();
         }
@@ -200,8 +196,6 @@ namespace Alpha.Reports.Site.Controllers
             SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp = Convert.ToBoolean(sessions[23]);
             SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = Convert.ToBoolean(sessions[24]);
 
-            UpdateReportRoutingRealtime(parameters);
-
             userSession.SetProperty(SessionKey.ADMINID, Convert.ToInt32(sessions[26]));
             userSession.SetProperty(SessionKey.ADMINNAME, sessions[27]);
 
@@ -210,6 +204,8 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
 
             FormsAuthentication.SetAuthCookie(parameters[0], false);
+
+            RegisterGlobalFilters();
         }
 
         private static void UpdateReportRoutingRealtime(string[] parameters)
