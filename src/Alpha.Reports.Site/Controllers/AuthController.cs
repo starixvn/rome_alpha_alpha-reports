@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
@@ -10,7 +11,9 @@ using Alpha.Reports.Site.Constants;
 using Alpha.SecurityCode.Web;
 using Alpha.Web.Filters;
 using Fanex.Logging.Extensions.Web;
+using Newtonsoft.Json;
 using RSACryptoPad;
+using Sunplus.Agent.Model.BL;
 using Sunplus.Agent.Model.Entities;
 
 namespace Alpha.Reports.Site.Controllers
@@ -208,6 +211,8 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectSubAccIdSessionKey, Convert.ToInt32(sessions[29]));
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
 
+            SetOutputValuesToSession(parameters);
+
             FormsAuthentication.SetAuthCookie(parameters[0], false);
         }
 
@@ -219,6 +224,12 @@ namespace Alpha.Reports.Site.Controllers
             {
                 session.SetProperty(SessionKey.ReportRouting, sessions[25]);
             }
+        }
+
+        private static void SetOutputValuesToSession(string[] parameters)
+        {
+            var outputs = JsonConvert.DeserializeObject<Hashtable>(parameters[2]);
+            UserSessionService.SetUserSessionValues(UserSession.Current, outputs, new Action<IUserSession, Hashtable>((userSession, values) => { }));
         }
 
         private static void RegisterGlobalFilters()
