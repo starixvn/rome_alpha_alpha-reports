@@ -191,7 +191,7 @@ public string GetBetListLinkByBetType(int bettype, DateTime fromDate, DateTime t
         ["BetType"] = bettype
     };
 
-    return ReportHelpers.UrlHelper.AddQueryStringParamsFunc(Helpers.UrlHelper.MapBetListPath(BetListPath), routeValues);
+    return ReportHelpers.UrlHelper.AddQueryStringParamsFunc(BetListPath, routeValues);
 }
     }
 }
