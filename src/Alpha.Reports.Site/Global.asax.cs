@@ -54,10 +54,8 @@
                 .Use((settingKey, commandTimeout) => new WrappingExceptionObjectDb(settingKey, commandTimeout))
                 .Run();
 
-            if (string.IsNullOrWhiteSpace(SiteSettings.ReportRouting))
-            {
-                ShareSession.Init();
-            }
+
+            ShareSession.Init();
 
             LoggingConfig.Init(getDbExceptionInfo: DatabaseInfoGetters.GetDbExceptionInfo);
 

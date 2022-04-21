@@ -49,7 +49,7 @@
 
         public static string RemoteRefURL => GetConfigValue("RemoteRefURL");
 
-        public static string ReportRouting => ConfigurationManager.AppSettings["Report:Routing"];//UserSession.Current.GetProperty<string>("Report_Routing") ?? string.Empty;
+        public static string ReportRouting => UserSession.Current.GetProperty<string>("Report_Routing") ?? string.Empty;
 
         public static IEnumerable<int> ProductOfferProductDetail
         {
