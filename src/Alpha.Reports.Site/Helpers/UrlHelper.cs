@@ -130,7 +130,8 @@
 
         internal static string GetLink(string action, string currentQuery)
         {
-            return MicroSites.ReportsUrl(action + currentQuery);
+            return string.IsNullOrWhiteSpace(MainDomain) ? MicroSites.ReportsUrl(action + currentQuery) : 
+                $"{MainDomain}/{SiteSettings.ReportRouting.TrimEnd('/')}{action.TrimStart('~')}{currentQuery}";
         }
 
         private static Func<string, string> mapMessagePath;
