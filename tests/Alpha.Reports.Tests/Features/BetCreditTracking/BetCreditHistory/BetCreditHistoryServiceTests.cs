@@ -4,6 +4,7 @@
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Params;
+    using Alpha.Web.Helpers;
     using Fanex.Data.Repository;
     using NSubstitute;
     using System;
@@ -14,11 +15,26 @@
     {
         private readonly IDynamicRepository repository;
         private readonly BetCreditHistoryService service;
+        private readonly PartialUMService partialUMService;
 
         public BetCreditHistoryServiceTests()
         {
             repository = Substitute.For<IDynamicRepository>();
-            service = new BetCreditHistoryServiceImpl(repository);
+            partialUMService = Substitute.For<PartialUMService>();
+            service = new BetCreditHistoryServiceImpl(repository, partialUMService);
+        }
+
+        [Fact]
+        public void GetBetCreditHistory_Always_CallCheckPartialUM()
+        {
+            // Arrange
+            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
+
+            // Act
+            service.GetBetCreditHistory(param);
+
+            // Assert
+            partialUMService.Received().CheckPartialUM("Age_Rpt_BetCreditHistory");
         }
 
         [Fact]

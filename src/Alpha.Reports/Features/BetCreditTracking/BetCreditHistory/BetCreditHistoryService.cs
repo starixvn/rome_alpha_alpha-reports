@@ -4,6 +4,7 @@
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Params;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Resources;
+    using Alpha.Web.Helpers;
     using Fanex.Data.Repository;
     using System;
     using System.Text.RegularExpressions;
@@ -15,18 +16,22 @@
 
     public class BetCreditHistoryServiceImpl : BetCreditHistoryService
     {
-        private readonly IDynamicRepository repository;
+        private readonly IDynamicRepository dynamicRepository;
+        private readonly PartialUMService partialUMService;
 
-        public BetCreditHistoryServiceImpl(IDynamicRepository dynamicRepository)
+        public BetCreditHistoryServiceImpl(IDynamicRepository dynamicRepository, PartialUMService partialUMService)
         {
-            repository = dynamicRepository;
+            this.dynamicRepository = dynamicRepository;
+            this.partialUMService = partialUMService;
         }
 
         public BetCreditHistoryResultModel GetBetCreditHistory(BetCreditHistoryParam param)
         {
             var criteria = new BetCreditHistoryCriteria(param);
 
-            var reportData = repository.Fetch<BetCreditHistoryModel>(criteria);
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+
+            var reportData = dynamicRepository.Fetch<BetCreditHistoryModel>(criteria);
 
             foreach(BetCreditHistoryModel row in reportData)
             {

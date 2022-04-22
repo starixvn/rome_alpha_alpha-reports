@@ -3,6 +3,7 @@
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Params;
+    using Alpha.Web.Helpers;
     using Fanex.Data.Repository;
     using System.Collections.Generic;
     using System.Linq;
@@ -14,18 +15,23 @@
 
     public class MoveStatementHistoryServiceImpl : MoveStatementHistoryService
     {
-        private readonly IDynamicRepository repository;
-        
-        public MoveStatementHistoryServiceImpl(IDynamicRepository dynamicRepository)
+        private readonly IDynamicRepository dynamicRepository;
+        private readonly PartialUMService partialUMService;
+
+
+        public MoveStatementHistoryServiceImpl(IDynamicRepository dynamicRepository, PartialUMService partialUMService)
         {
-            repository = dynamicRepository;
+            this.dynamicRepository = dynamicRepository;
+            this.partialUMService = partialUMService;
         }
 
         public MoveStatementHistoryResultModel GetMoveStatementHistory(MoveStatementHistoryParam param)
         {
             var criteria = new MoveStatementHistoryCriteria(param);
 
-            var result = repository.Fetch<MoveStatementHistoryByRefNoModel>(criteria);
+            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+
+            var result = dynamicRepository.Fetch<MoveStatementHistoryByRefNoModel>(criteria);
 
             IEnumerable<MoveStatementHistoryByMemberModel> reportData = result.GroupBy(
                 r => new { r.CustId, r.Username },
