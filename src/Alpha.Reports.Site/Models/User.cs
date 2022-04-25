@@ -66,6 +66,6 @@
         public string MainDomain => userSession?.GetProperty<string>(MainDomainSessionKey);
 
         internal virtual IList<int> GetEnableProductsForGame(string gameName)
-            => userSession.GetProperty<IList<int>>(SessionKey.GameEnable + gameName) ?? new List<int>();
+            => userSession.GetProperty<IList<int>>(gameName) ?? new List<int>();
     }
 }

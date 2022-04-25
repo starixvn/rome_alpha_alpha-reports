@@ -205,7 +205,7 @@ namespace Alpha.Reports.Site.Controllers
 
             FormsAuthentication.SetAuthCookie(parameters[0], false);
 
-            RegisterGlobalFilters();
+            //RegisterGlobalFilters();
         }
 
         private static void UpdateReportRoutingRealtime(string[] parameters)
