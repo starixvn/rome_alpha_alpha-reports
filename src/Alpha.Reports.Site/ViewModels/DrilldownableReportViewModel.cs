@@ -14,7 +14,7 @@
             IEnumerable<CustInfo> breadcrumbLevel,
             string defaultBetListPath = DefaultBetListPath)
         {
-            BetListPath = UrlHelper.MapExMainPath(defaultBetListPath);
+            BetListPath = defaultBetListPath;
             CustLevel = custLevel;
             BreadcrumbLevel = breadcrumbLevel;
             BreadcrumbLevelJson = JsonHelper.ToJsonFunc(breadcrumbLevel);
