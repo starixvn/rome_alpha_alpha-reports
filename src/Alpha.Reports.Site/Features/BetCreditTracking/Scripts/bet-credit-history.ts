@@ -6,8 +6,9 @@ class BetCreditHistory {
     $reportForm: JQuery;
     $pageTitle: JQuery;
     $txtMember: JQuery;
+    $txtRefNo: JQuery;
     $msgError: JQuery;
-    $requiredMsgError: JQuery;
+    $validationMsgError: JQuery;
     $isFilterVisible: JQuery;
     $exportExcelForm: JQuery;
 
@@ -18,6 +19,11 @@ class BetCreditHistory {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.pagerComponent = pagerComponent;
+    }
+
+    resources = {
+        usernameIsRequired: (<HTMLInputElement>document.getElementById('UsernameIsRequired')).value,
+        invalidRefNo: (<HTMLInputElement>document.getElementById('InvalidRefNo')).value,
     }
 
     public init() {
@@ -36,8 +42,9 @@ class BetCreditHistory {
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$exportExcelForm = this.$("#export-excel-form");
         this.$txtMember = this.$("#txt-member");
+        this.$txtRefNo = this.$("#txt-refno");
         this.$msgError = this.$("#msg-error");
-        this.$requiredMsgError = this.$("#required-msg-error");
+        this.$validationMsgError = this.$("#validation-msg-error");
     }
 
     public initComponents() {
@@ -75,13 +82,13 @@ class BetCreditHistory {
         this.$.blockUI();
 
         if (!this.validateUsername()) {
-            this.showValidationUsernameError();
+            this.showValidationMsgError(this.resources.usernameIsRequired);
             this.$.unblockUI();
 
             return;
         }
 
-        this.hideValidationUsernameError();
+        this.hideValidationMsgError();
         this.$exportExcelForm.submit();
         this.$.unblockUI();
     };
@@ -90,31 +97,39 @@ class BetCreditHistory {
         this.$.blockUI();
 
         if (!this.validateUsername()) {
-            this.showValidationUsernameError();
+            this.showValidationMsgError(this.resources.usernameIsRequired);
             this.$.unblockUI();
             e.preventDefault();
 
             return;
         }
 
-        this.hideValidationUsernameError();
-        return true;
-    }
+        if (!this.validateRefNo()) {
+            this.showValidationMsgError(this.resources.invalidRefNo);
+            this.$.unblockUI();
+            e.preventDefault();
 
-    validateUsername = () => {
-        if (this.$txtMember.val() === "") {
-            return false;
+            return;
         }
 
+        this.hideValidationMsgError();
         return true;
     }
 
-    showValidationUsernameError = () => {
+    validateUsername = () => this.$txtMember.val() !== "";
+
+    validateRefNo = () => this.$txtRefNo.val().trim().match(/^[0-9]*$/);
+
+    showValidationMsgError = (msg) => {
         this.$msgError.addClass("hide");
-        this.$requiredMsgError.removeClass("hide");
+        this.$validationMsgError.text(msg);
+        this.$validationMsgError.removeClass("hide");
     }
 
-    hideValidationUsernameError = () => this.$requiredMsgError.addClass("hide");
+    hideValidationMsgError = () => {
+        this.$validationMsgError.text("");
+        this.$validationMsgError.addClass("hide");
+    }
 }
 
 $(function () {

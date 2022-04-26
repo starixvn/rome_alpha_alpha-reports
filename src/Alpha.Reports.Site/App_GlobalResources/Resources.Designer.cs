@@ -1213,6 +1213,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Ref No.
+        /// </summary>
+        public static string InvalidRefNo {
+            get {
+                return ResourceManager.GetString("InvalidRefNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid username..
         /// </summary>
         public static string InvalidUsername {
