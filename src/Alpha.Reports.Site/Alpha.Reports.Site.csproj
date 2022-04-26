@@ -1499,6 +1499,7 @@
     </Content>
     <Content Include="Web.dockerlocal.config">
       <DependentUpon>Web.local.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.dockerpro.config">
       <DependentUpon>Web.local.config</DependentUpon>
