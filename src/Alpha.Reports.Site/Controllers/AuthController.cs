@@ -55,7 +55,7 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             var parameters = parameter.Split('&');
-            if (session.IsLogged && Request.IsAuthenticated)
+            if (session.IsLogged && Request.IsAuthenticated && !Session.IsNewSession)
             {
                 UpdateReportRoutingRealtime(parameters);
 
@@ -213,10 +213,8 @@ namespace Alpha.Reports.Site.Controllers
         {
             var sessions = parameters[1].Split(';');
             var session = UserSession.Current;
-            if (!string.Equals(session.GetProperty<string>(SessionKey.ReportRouting), sessions[25], StringComparison.OrdinalIgnoreCase))
-            {
-                session.SetProperty(SessionKey.ReportRouting, sessions[25]);
-            }
+
+            session.SetProperty(SessionKey.ReportRouting, sessions[25]);
         }
 
         private static void SetOutputValuesToSession(string[] parameters)
@@ -239,7 +237,7 @@ namespace Alpha.Reports.Site.Controllers
                 return Redirect($"{SiteSettings.ReportRouting}{Request["ReturnUrl"]}");
             }
 
-            return Json($"{Session.SessionID}_{Request.IsAuthenticated}_{UserSession.Current.IsLogged}_{Session.IsNewSession}_{UserSession.Current.CustId}", JsonRequestBehavior.AllowGet);
+            return new EmptyResult();
         }
     }
 }
