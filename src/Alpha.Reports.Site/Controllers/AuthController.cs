@@ -145,6 +145,8 @@ namespace Alpha.Reports.Site.Controllers
 
         private static void SetUserSessionsAndAuth(string[] parameters)
         {
+            FormsAuthentication.SetAuthCookie(parameters[0], false);
+
             SetOutputValuesToSession(parameters);
 
             var sessions = parameters[1].Split(';');
@@ -203,9 +205,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectSubAccIdSessionKey, Convert.ToInt32(sessions[29]));
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
 
-            FormsAuthentication.SetAuthCookie(parameters[0], false);
-
-            //RegisterGlobalFilters();
+            RegisterGlobalFilters();
         }
 
         private static void UpdateReportRoutingRealtime(string[] parameters)
