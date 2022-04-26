@@ -55,10 +55,10 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             var parameters = parameter.Split('&');
-            UpdateReportRoutingRealtime(parameters);
-
             if (session.IsLogged && Request.IsAuthenticated)
             {
+                UpdateReportRoutingRealtime(parameters);
+
                 return RedirectToSpecificUrl();
             }
             
@@ -205,6 +205,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectSubAccIdSessionKey, Convert.ToInt32(sessions[29]));
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
 
+            UpdateReportRoutingRealtime(parameters);
             RegisterGlobalFilters();
         }
 
@@ -238,7 +239,7 @@ namespace Alpha.Reports.Site.Controllers
                 return Redirect($"{SiteSettings.ReportRouting}{Request["ReturnUrl"]}");
             }
 
-            return new EmptyResult();
+            return Json($"{Session.SessionID}_{Request.IsAuthenticated}_{UserSession.Current.IsLogged}_{Session.IsNewSession}_{UserSession.Current.CustId}", JsonRequestBehavior.AllowGet);
         }
     }
 }
