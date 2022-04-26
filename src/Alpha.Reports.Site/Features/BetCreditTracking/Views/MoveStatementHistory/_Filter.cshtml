@@ -10,7 +10,7 @@
 
     <div class="form-group">
         <label>@Resources.Member</label>
-        <input type="text" style="width: 150px;" maxlength="50" autocomplete="off" name="Username" value="@Model.Username" placeholder="@Resources.Username" />
+        <input type="text" style="width: 150px;" autocomplete="off" name="Username" value="@Model.Username" placeholder="@Resources.Username" />
     </div>
 
     @DateRangePicker.Render(Model.DateRangePickerViewModel, null, Resources.EventDateFrom);

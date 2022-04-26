@@ -10,12 +10,12 @@
 
     <div class="form-group">
         <label>@Resources.Member <span style="color: red;">*</span></label>
-        <input type="text" maxlength="50" autocomplete="off" id="txt-member" name="Member" value="@Model.Member" placeholder="@Resources.Username" />
+        <input type="text" style="width: 150px;" autocomplete="off" id="txt-member" name="Member" value="@Model.Member" placeholder="@Resources.Username" />
     </div>
 
     <div class="form-group">
         <label>@Resources.refno</label>
-        <input type="text" maxlength="50" autocomplete="off" name="RefNo" value="@Model.RefNo" />
+        <input type="number" autocomplete="off" name="RefNo" value="@Model.RefNo" />
     </div>
 
     @DateRangePicker.Render(Model.DateRangePickerViewModel);
