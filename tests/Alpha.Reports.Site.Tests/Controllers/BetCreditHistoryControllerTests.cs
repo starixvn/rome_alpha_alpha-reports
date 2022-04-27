@@ -1,8 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Tests.Controllers
 {
     using Alpha.Reports.Models;
+    using Alpha.Reports.Services;
     using Alpha.Reports.Site.Features.BetCreditTracking;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
+    using Alpha.Reports.Site.Tests.Constants;
     using Alpha.Reports.Site.Tests.Fixtures;
     using Alpha.Reports.Site.ViewModels;
     using MediatR;
@@ -22,6 +24,10 @@
             mediator = Substitute.For<IMediator>();
             controller = new BetCreditHistoryController(mediator);
             user = userFixture.User;
+
+            var reportDateService = Substitute.For<ReportDateService>();
+            ReportDateServiceImpl.Instance = reportDateService;
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDate);
         }
 
         [Fact]

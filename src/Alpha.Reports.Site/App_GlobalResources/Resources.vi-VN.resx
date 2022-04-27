@@ -942,6 +942,6 @@
     <value>Tickets which were moved multiple times are shown duplicatedly in red.</value>
   </data>
   <data name="InvalidRefNo" xml:space="preserve">
-    <value>Invalid Ref No</value>
+    <value>Invalid Ref No.</value>
   </data>
 </root>

@@ -4,8 +4,10 @@
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Params;
     using Alpha.Reports.Models;
+    using Alpha.Reports.Services;
     using Alpha.Reports.Site.Features.BetCreditTracking;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
+    using Alpha.Reports.Site.Tests.Constants;
     using Alpha.Reports.Site.Tests.Extensions;
     using Alpha.Reports.Site.Tests.Fixtures;
     using NSubstitute;
@@ -26,6 +28,10 @@
             reportService = Substitute.For<BetCreditHistoryService>();
             handler = new BetCreditHistoryHandler(reportService);
             user = userFixture.User;
+
+            var reportDateService = Substitute.For<ReportDateService>();
+            ReportDateServiceImpl.Instance = reportDateService;
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDate);
         }
 
         [Fact]

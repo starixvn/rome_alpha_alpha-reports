@@ -1213,7 +1213,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid Ref No.
+        ///   Looks up a localized string similar to Invalid Ref No..
         /// </summary>
         public static string InvalidRefNo {
             get {
