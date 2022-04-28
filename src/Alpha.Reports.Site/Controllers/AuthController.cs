@@ -58,6 +58,7 @@ namespace Alpha.Reports.Site.Controllers
             if (session.IsLogged && Request.IsAuthenticated && session.UserName.Equals(parameters[0], StringComparison.OrdinalIgnoreCase))
             {
                 UpdateReportRoutingRealtime(parameters);
+                RegisterGlobalFilters();
 
                 return RedirectToSpecificUrl();
             }
@@ -225,6 +226,16 @@ namespace Alpha.Reports.Site.Controllers
 
         private static void RegisterGlobalFilters()
         {
+            var filters = GlobalFilters.Filters.Where(filter => 
+                filter.Instance is CheckBelongingFilter || 
+                filter.Instance is AfterLoginFlowFilter || 
+                filter.Instance is ProtectedModeFilter);
+
+            foreach (var filter in filters)
+            {
+                GlobalFilters.Filters.Remove(filter);
+            }
+
             GlobalFilters.Filters.Add(new CheckBelongingFilter());
             GlobalFilters.Filters.Add(new AfterLoginFlowFilter());
             GlobalFilters.Filters.Add(new ProtectedModeFilter());

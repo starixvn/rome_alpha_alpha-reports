@@ -8,6 +8,7 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using Alpha.Auth.Filters;
     using Alpha.Logging;
     using Alpha.NetThrottling.Mvc;
     using Alpha.NetThrottling.Utils;
@@ -72,6 +73,11 @@
 
             GlobalFilters.Filters.Add(new NoCacheFilter());
             GlobalFilters.Filters.Add(new PartialUMExceptionFilter());
+
+            var isAuthorizedChecking = !SiteSettings.IsStandaloneReport;
+            GlobalFilters.Filters.Add(new CheckBelongingFilter(isAuthorizedChecking));
+            GlobalFilters.Filters.Add(new AfterLoginFlowFilter(isAuthorizedChecking));
+            GlobalFilters.Filters.Add(new ProtectedModeFilter(isAuthorizedChecking));
 
             SiteSettings.Verify();
 

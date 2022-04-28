@@ -51,6 +51,8 @@
 
         public static string ReportRouting => UserSession.Current.GetProperty<string>("Report_Routing") ?? string.Empty;
 
+        public static bool IsStandaloneReport => GetConfigValue("IsStandaloneReport") == "1";
+
         public static IEnumerable<int> ProductOfferProductDetail
         {
             get
