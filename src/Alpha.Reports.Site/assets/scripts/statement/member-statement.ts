@@ -84,7 +84,7 @@ class MemberStatementView extends StatementView {
 
         if (this.mainDomain) {
             this.mainDomain = this.mainDomain.indexOf('http') === -1 ?
-                top.location.origin.split(':')[0] + ':' + this.mainDomain + top.location.pathname : this.mainDomain;
+                location.origin.split(':')[0] + ':' + this.mainDomain + '/site-main' : this.mainDomain;
             this.topWindow.postMessage({
                 event_id: "daily-statement",
                 title: this.betListTitle,
