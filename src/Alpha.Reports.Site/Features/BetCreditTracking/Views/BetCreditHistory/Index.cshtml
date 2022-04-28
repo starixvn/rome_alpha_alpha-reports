@@ -85,7 +85,7 @@
 
     foreach (var record in data)
     {
-        <tr class="@(record.BetCredit == null ? "highlight-row" : "") @(isEvenRow? "even-row":string.Empty)">
+        <tr class="@(record.BetCredit == null ? "highlight-row" : (isEvenRow ? "even-row" : string.Empty))">
             <td>@record.ActionDateString</td>
             <td class="text-center">@record.WinLostDateString</td>
             <td class="text-left">@record.RefNo</td>
