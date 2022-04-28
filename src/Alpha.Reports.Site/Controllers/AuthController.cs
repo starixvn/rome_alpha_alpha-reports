@@ -55,7 +55,7 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             var parameters = parameter.Split('&');
-            if (session.IsLogged && Request.IsAuthenticated && !Session.IsNewSession)
+            if (session.IsLogged && Request.IsAuthenticated && session.UserName.Equals(parameters[0], StringComparison.OrdinalIgnoreCase))
             {
                 UpdateReportRoutingRealtime(parameters);
 
