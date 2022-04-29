@@ -149,7 +149,7 @@ namespace Alpha.Reports.Site.Controllers
             FormsAuthentication.SetAuthCookie(parameters[0], false);
 
             SetOutputValuesToSession(parameters, userSession);
-
+            ExceptionHandler.Handle(new Exception($"Hide GT Casino: {userSession.GetHideProduct(46)}, Hide Macau Games: {userSession.GetHideProduct(22)}"));
             var sessions = parameters[1].Split(';');
 
             userSession.SetProperty(SessionKey.CUSTID, Convert.ToInt32(sessions[0]));
