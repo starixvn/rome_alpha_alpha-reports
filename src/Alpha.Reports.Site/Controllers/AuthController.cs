@@ -57,13 +57,13 @@ namespace Alpha.Reports.Site.Controllers
             var parameters = parameter.Split('&');
             if (session.IsLogged && Request.IsAuthenticated && session.UserName.Equals(parameters[0], StringComparison.OrdinalIgnoreCase))
             {
-                UpdateReportRoutingRealtime(parameters);
+                UpdateReportRoutingRealtime(parameters, session);
                 RegisterGlobalFilters();
 
                 return RedirectToSpecificUrl();
             }
             
-            SetUserSessionsAndAuth(parameters);
+            SetUserSessionsAndAuth(parameters, session);
 
             return RedirectToSpecificUrl();
         }
@@ -144,14 +144,13 @@ namespace Alpha.Reports.Site.Controllers
             return false;
         }
 
-        private static void SetUserSessionsAndAuth(string[] parameters)
+        private static void SetUserSessionsAndAuth(string[] parameters, IUserSession userSession)
         {
             FormsAuthentication.SetAuthCookie(parameters[0], false);
 
-            SetOutputValuesToSession(parameters);
+            SetOutputValuesToSession(parameters, userSession);
 
             var sessions = parameters[1].Split(';');
-            var userSession = UserSession.Current;
 
             userSession.SetProperty(SessionKey.CUSTID, Convert.ToInt32(sessions[0]));
             userSession.SetProperty(SessionKey.USERNAME, sessions[1]);
@@ -206,22 +205,21 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectSubAccIdSessionKey, Convert.ToInt32(sessions[29]));
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
 
-            UpdateReportRoutingRealtime(parameters);
+            UpdateReportRoutingRealtime(parameters, userSession);
+
             RegisterGlobalFilters();
         }
 
-        private static void UpdateReportRoutingRealtime(string[] parameters)
+        private static void UpdateReportRoutingRealtime(string[] parameters, IUserSession session)
         {
             var sessions = parameters[1].Split(';');
-            var session = UserSession.Current;
-
             session.SetProperty(SessionKey.ReportRouting, sessions[25]);
         }
 
-        private static void SetOutputValuesToSession(string[] parameters)
+        private static void SetOutputValuesToSession(string[] parameters, IUserSession session)
         {
             var outputs = JsonConvert.DeserializeObject<Hashtable>(parameters[2]);
-            UserSessionService.SetUserSessionValues(UserSession.Current, outputs, new Action<IUserSession, Hashtable>((userSession, values) => { }));
+            UserSessionService.SetUserSessionValues(session, outputs, new Action<IUserSession, Hashtable>((userSession, values) => { }));
         }
 
         private static void RegisterGlobalFilters()
