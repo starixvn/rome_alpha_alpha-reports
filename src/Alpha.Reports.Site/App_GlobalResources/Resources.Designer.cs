@@ -745,7 +745,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tickets which were moved multiple times are shown duplicatedly in red..
+        ///   Looks up a localized string similar to Tickets which have event date changed multiple times will be displayed duplicated and highlighted in red..
         /// </summary>
         public static string DuplicatedTicketMessage {
             get {
@@ -1636,7 +1636,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only the tickets whose old, new or both date is in the report range will be listed in the report..
+        ///   Looks up a localized string similar to The report will show all tickets which have old/new event date falling in the searched date range..
         /// </summary>
         public static string MoveStatementHistoryNote {
             get {

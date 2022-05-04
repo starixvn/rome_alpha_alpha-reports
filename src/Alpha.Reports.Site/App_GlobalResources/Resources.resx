@@ -964,7 +964,7 @@
     <value>Old Event Date</value>
   </data>
   <data name="MoveStatementHistoryNote" xml:space="preserve">
-    <value>Only the tickets whose old, new or both date is in the report range will be listed in the report.</value>
+    <value>The report will show all tickets which have old/new event date falling in the searched date range.</value>
   </data>
   <data name="MembersMovedEventDateReport" xml:space="preserve">
     <value>Member's Moved Event Date Report</value>
@@ -1003,7 +1003,7 @@
     <value>Invalid username.</value>
   </data>
   <data name="DuplicatedTicketMessage" xml:space="preserve">
-    <value>Tickets which were moved multiple times are shown duplicatedly in red.</value>
+    <value>Tickets which have event date changed multiple times will be displayed duplicated and highlighted in red.</value>
   </data>
   <data name="InvalidRefNo" xml:space="preserve">
     <value>Invalid Ref No.</value>

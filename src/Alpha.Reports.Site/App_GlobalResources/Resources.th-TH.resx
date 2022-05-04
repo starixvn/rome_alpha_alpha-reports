@@ -857,66 +857,66 @@
     <value>รายงานเฉพาะของ กีฬาSABA จะมีตั้งแต่วันที่ {0} เป็นต้นไป ก่อนวันที่ {0} รายงานของกีฬาและกีฬาSABA จะรวมกัน</value>
   </data>
   <data name="BetCreditHistory" xml:space="preserve">
-    <value>Bet Credit History</value>
+    <value>ประวัติเครดิตเดิมพัน</value>
   </data>
   <data name="MembersMovedEventDateReport" xml:space="preserve">
     <value>Member's Moved Event Date Report</value>
   </data>
   <data name="MemberRefNo" xml:space="preserve">
-    <value>Member/Ref No.</value>
+    <value>สมาชิก/หมายเลขอ้างอิง</value>
   </data>
   <data name="NewEventDate" xml:space="preserve">
-    <value>New Event Date</value>
+    <value>วันที่แข่งขันใหม่</value>
   </data>
   <data name="OldEventDate" xml:space="preserve">
-    <value>Old Event Date</value>
+    <value>วันที่แข่งขันเดิม</value>
   </data>
   <data name="EventDateFrom" xml:space="preserve">
-    <value>Event Date From</value>
+    <value>วันที่แข่งขันจาก</value>
   </data>
   <data name="Action" xml:space="preserve">
-    <value>Action</value>
+    <value>ปฏิบัติ</value>
   </data>
   <data name="ActionDateTime" xml:space="preserve">
-    <value>Action Date/Time</value>
+    <value>วันที่/เวลาดำเนินการ</value>
   </data>
   <data name="ActualStake" xml:space="preserve">
-    <value>Actual Stake</value>
+    <value>เงินเดิมพันจริง</value>
   </data>
   <data name="BalanceChange" xml:space="preserve">
-    <value>Balance Change</value>
+    <value>เปลี่ยนแปลงยอดเงินคงเหลือ</value>
   </data>
   <data name="BetCredit" xml:space="preserve">
-    <value>Bet Credit</value>
+    <value>เครดิตสำหรับการวางเดิมพัน</value>
   </data>
   <data name="GivenCredit" xml:space="preserve">
-    <value>Given Credit</value>
+    <value>เครดิตทั้งหมด</value>
   </data>
   <data name="NewBalance" xml:space="preserve">
     <value>New Balance</value>
   </data>
   <data name="PlayerComm" xml:space="preserve">
-    <value>Player Comm</value>
+    <value>ค่าคอมมิชชั่นของผู้เล่น</value>
   </data>
   <data name="WinLossDate" xml:space="preserve">
-    <value>Win Loss Date</value>
+    <value>วันที่ ชนะ แพ้</value>
   </data>
   <data name="UsernameIsRequired" xml:space="preserve">
-    <value>Username is required.</value>
+    <value>จำเป็นต้องระบุชื่อผู้ใช้</value>
   </data>
   <data name="MoveStatementHistory" xml:space="preserve">
-    <value>Move Statement History</value>
+    <value>ประวัติการโอน</value>
   </data>
   <data name="MoveStatementHistoryNote" xml:space="preserve">
-    <value>Only the tickets whose either old or new date is in the report range and the other date is out of the report range will be listed in the report.</value>
+    <value>รายงานจะแสดงตั๋วเดิมพันทั้งหมดซึ่งมีวันที่แข่งขันทั้งเก่า/ใหม่ ภายในช่วงวันที่ที่ทำการค้นหา</value>
   </data>
   <data name="InvalidUsername" xml:space="preserve">
-    <value>Invalid username.</value>
+    <value>ชื่อผู้ใช้ไม่ถูกต้อง</value>
   </data>
   <data name="DuplicatedTicketMessage" xml:space="preserve">
-    <value>Tickets which were moved multiple times are shown duplicatedly in red.</value>
+    <value>ตั๋วที่มีการเปลี่ยนวันที่ของการแข่งขันหลายครั้งจะแสดงซ้ำและถูกเน้นด้วยสีแดง</value>
   </data>
   <data name="InvalidRefNo" xml:space="preserve">
-    <value>Invalid Ref No.</value>
+    <value>หมายเลขอ้างอิงไม่ถูกต้อง</value>
   </data>
 </root>

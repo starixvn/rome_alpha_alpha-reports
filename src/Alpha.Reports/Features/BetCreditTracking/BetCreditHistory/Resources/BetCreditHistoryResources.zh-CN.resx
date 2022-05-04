@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BetPlacedAs" xml:space="preserve">
-    <value>Bet placed as</value>
+    <value>投注予</value>
   </data>
   <data name="BetSettled" xml:space="preserve">
-    <value>Bet settled</value>
+    <value>注单已结算</value>
   </data>
   <data name="BetUpdated" xml:space="preserve">
-    <value>Bet updated</value>
+    <value>更新投注</value>
   </data>
   <data name="CancelCashOut" xml:space="preserve">
-    <value>Cancel Cash Out</value>
+    <value>取消实时兑现</value>
   </data>
   <data name="CashOut" xml:space="preserve">
     <value>实时兑现</value>
@@ -151,7 +151,7 @@
     <value>到</value>
   </data>
   <data name="TransferSubmitted" xml:space="preserve">
-    <value>Transfer submitted</value>
+    <value>转账已提交</value>
   </data>
   <data name="void" xml:space="preserve">
     <value>作废</value>

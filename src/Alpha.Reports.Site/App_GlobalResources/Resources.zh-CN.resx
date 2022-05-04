@@ -863,66 +863,66 @@
  在 {0} 之前，体育博彩报表和沙巴体育报表的 數據是结合的。</value>
   </data>
   <data name="BetCreditHistory" xml:space="preserve">
-    <value>Bet Credit History</value>
+    <value>投注额度历史记录</value>
   </data>
   <data name="MembersMovedEventDateReport" xml:space="preserve">
     <value>Member's Moved Event Date Report</value>
   </data>
   <data name="MemberRefNo" xml:space="preserve">
-    <value>Member/Ref No.</value>
+    <value>会员/注单号码</value>
   </data>
   <data name="NewEventDate" xml:space="preserve">
-    <value>New Event Date</value>
+    <value>新赛事日期</value>
   </data>
   <data name="OldEventDate" xml:space="preserve">
-    <value>Old Event Date</value>
+    <value>旧赛事日期</value>
   </data>
   <data name="EventDateFrom" xml:space="preserve">
-    <value>Event Date From</value>
+    <value>赛事日期从</value>
   </data>
   <data name="Action" xml:space="preserve">
-    <value>Action</value>
+    <value>动作</value>
   </data>
   <data name="ActionDateTime" xml:space="preserve">
-    <value>Action Date/Time</value>
+    <value>行动日期/时间</value>
   </data>
   <data name="ActualStake" xml:space="preserve">
-    <value>Actual Stake</value>
+    <value>真正本金</value>
   </data>
   <data name="BalanceChange" xml:space="preserve">
-    <value>Balance Change</value>
+    <value>余额更换</value>
   </data>
   <data name="BetCredit" xml:space="preserve">
-    <value>Bet Credit</value>
+    <value>投注额度</value>
   </data>
   <data name="GivenCredit" xml:space="preserve">
-    <value>Given Credit</value>
+    <value>信用额度</value>
   </data>
   <data name="NewBalance" xml:space="preserve">
     <value>New Balance</value>
   </data>
   <data name="PlayerComm" xml:space="preserve">
-    <value>Player Comm</value>
+    <value>会员佣金</value>
   </data>
   <data name="WinLossDate" xml:space="preserve">
-    <value>Win Loss Date</value>
+    <value>输赢日期</value>
   </data>
   <data name="UsernameIsRequired" xml:space="preserve">
-    <value>Username is required.</value>
+    <value>请求用户名</value>
   </data>
   <data name="MoveStatementHistory" xml:space="preserve">
-    <value>Move Statement History</value>
+    <value>搬账历史记录</value>
   </data>
   <data name="MoveStatementHistoryNote" xml:space="preserve">
-    <value>Only the tickets whose either old or new date is in the report range and the other date is out of the report range will be listed in the report.</value>
+    <value>该报告将显示所有旧/新赛事日期在搜索日期范围内的注单。</value>
   </data>
   <data name="InvalidUsername" xml:space="preserve">
-    <value>Invalid username.</value>
+    <value>用户名无效</value>
   </data>
   <data name="DuplicatedTicketMessage" xml:space="preserve">
-    <value>Tickets which were moved multiple times are shown duplicatedly in red.</value>
+    <value>多次更改赛事日期的注单将重复并以红色突出显示。</value>
   </data>
   <data name="InvalidRefNo" xml:space="preserve">
-    <value>Invalid Ref No.</value>
+    <value>注单号码无效</value>
   </data>
 </root>
