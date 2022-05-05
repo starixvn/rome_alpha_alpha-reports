@@ -124,6 +124,8 @@ class BetCreditHistory {
         this.$msgError.addClass("hide");
         this.$validationMsgError.text(msg);
         this.$validationMsgError.removeClass("hide");
+        this.$("#tbl-report").remove();
+        this.$("#report-pager").remove();
     }
 
     hideValidationMsgError = () => {
