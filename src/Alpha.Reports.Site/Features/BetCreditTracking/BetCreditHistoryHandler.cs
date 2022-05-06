@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Features.BetCreditTracking
 {
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
+    using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
     using Alpha.Reports.Site.Features.BetCreditTracking.ViewModels;
     using MediatR;
@@ -26,7 +27,7 @@
 
             if (result.ErrorCode != 0)
             {
-                return new BetCreditHistoryViewModel(null, message, true);
+                return new BetCreditHistoryViewModel(null, message, result.ErrorCode == 101 ? Resources.InvalidUsername : result.ErrorMess);
             }
 
             return new BetCreditHistoryViewModel(result.Data, message, totalRows: result.TotalRows);

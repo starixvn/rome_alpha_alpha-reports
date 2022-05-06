@@ -21,7 +21,7 @@
         {
         }
 
-        public BetCreditHistoryViewModel(IEnumerable<BetCreditHistoryModel> data, BetCreditHistoryQuery message, bool isError = false, int totalRows = 0)
+        public BetCreditHistoryViewModel(IEnumerable<BetCreditHistoryModel> data, BetCreditHistoryQuery message, string errMsg = "", int totalRows = 0)
         {
             Data = data;
             CustLevel = message.ViewerLevel.DisplayName;
@@ -35,7 +35,7 @@
             PageIndex = message.PageIndex;
             PageSize = message.PageSize;
             UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
-            ErrMsg = isError ? Resources.InvalidUsername : string.Empty;
+            ErrMsg = errMsg;
             PagerViewModel = new PagerViewModel(message.PageIndex, message.PageSize, totalRows);
         }
 
