@@ -58,8 +58,8 @@
     <Reference Include="Alpha.ActivityTracking, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.ActivityTracking.1.0.0.3\lib\net461\Alpha.ActivityTracking.dll</HintPath>
     </Reference>
-    <Reference Include="Alpha.Auth, Version=3.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Auth.3.0.3.1-Beta01\lib\net461\Alpha.Auth.dll</HintPath>
+    <Reference Include="Alpha.Auth, Version=3.0.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.Auth.3.0.4.1\lib\net461\Alpha.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.Logging, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.Logging.1.0.1.1\lib\net461\Alpha.Logging.dll</HintPath>
@@ -306,10 +306,10 @@
       <HintPath>..\..\packages\StackExchange.Redis.2.0.519\lib\net461\StackExchange.Redis.dll</HintPath>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.5.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.6.2-OneRNGDCS01\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.6.2\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.3.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.3.5-Beta02\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.3.5\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
     </Reference>
     <Reference Include="Sunplus.Agent.Utilities, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sunplus.Agent.Utilities.3.0.2\lib\net461\Sunplus.Agent.Utilities.dll</HintPath>
