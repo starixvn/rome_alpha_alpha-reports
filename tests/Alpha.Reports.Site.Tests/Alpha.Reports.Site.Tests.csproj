@@ -168,10 +168,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.5.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.5.9\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.6.2\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.3.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.3.3\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.3.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.3.5\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
     </Reference>
     <Reference Include="Sunplus.Agent.Utilities, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sunplus.Agent.Utilities.3.0.2\lib\net461\Sunplus.Agent.Utilities.dll</HintPath>
@@ -286,7 +286,6 @@
     <Compile Include="Controllers\WinLossByProductControllerTests.cs" />
     <Compile Include="Controllers\WinLossAnalysisChartControllerTests.cs" />
     <Compile Include="Controllers\WinLossAnalysisControllerTests.cs" />
-    <Compile Include="Controllers\PlayForFunControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossControllerTests.cs" />
     <Compile Include="Controllers\LeagueControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossDetailControllerTests.cs" />
@@ -334,8 +333,6 @@
     <Compile Include="Handlers\Statement\StatementHandlerTests.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossExcelHandlerTest.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossHandlerTests.cs" />
-    <Compile Include="Handlers\PlayForFun\PlayForFunExcelHandlerTests.cs" />
-    <Compile Include="Handlers\PlayForFun\PlayForFunHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbookImplTests.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeExcelHandlerTests.cs" />
@@ -400,8 +397,6 @@
     <Compile Include="ViewModels\Statement\StatementDetailViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossFilterViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModelTests.cs" />
-    <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModelForTesting.cs" />
-    <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModelTests.cs" />

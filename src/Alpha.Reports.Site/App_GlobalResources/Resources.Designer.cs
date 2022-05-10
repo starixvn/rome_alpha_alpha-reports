@@ -106,15 +106,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Agent Play For Fun Detail.
-        /// </summary>
-        public static string AgentPlayForFunDetail {
-            get {
-                return ResourceManager.GetString("AgentPlayForFunDetail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Agent Total.
         /// </summary>
         public static string AgentTotal {
@@ -1294,15 +1285,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Master Play For Fun Detail.
-        /// </summary>
-        public static string MasterPlayForFunDetail {
-            get {
-                return ResourceManager.GetString("MasterPlayForFunDetail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Master Total.
         /// </summary>
         public static string MasterTotal {
@@ -1443,15 +1425,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string MemberOutstanding {
             get {
                 return ResourceManager.GetString("MemberOutstanding", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Member Play For Fun Detail.
-        /// </summary>
-        public static string MemberPlayForFunDetail {
-            get {
-                return ResourceManager.GetString("MemberPlayForFunDetail", resourceCulture);
             }
         }
         
@@ -1605,15 +1578,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string NonEntered {
             get {
                 return ResourceManager.GetString("NonEntered", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No.Players.
-        /// </summary>
-        public static string NoPlayers {
-            get {
-                return ResourceManager.GetString("NoPlayers", resourceCulture);
             }
         }
         
@@ -1803,24 +1767,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Place {
             get {
                 return ResourceManager.GetString("Place", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Play Count.
-        /// </summary>
-        public static string PlayCount {
-            get {
-                return ResourceManager.GetString("PlayCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Play For Fun.
-        /// </summary>
-        public static string PlayForFun {
-            get {
-                return ResourceManager.GetString("PlayForFun", resourceCulture);
             }
         }
         

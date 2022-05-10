@@ -27,8 +27,6 @@
 
         IList<int> EnableJackpotProductIds { get; }
 
-        bool GetHideProduct(int productId);
-
         DateTime LimitedDateToShowInfo { get; }
 
         bool IsAdminCanViewVNIP { get; }

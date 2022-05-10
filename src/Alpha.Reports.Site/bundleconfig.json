@@ -252,32 +252,6 @@
     ]
   },
   {
-    "outputFileName": "assets/bundles/playforfun/playforfun-member.js",
-    "inputFiles": [
-      "assets/scripts/core.js",
-      "assets/scripts/base-report.js",
-      "assets/scripts/components/daterangepicker.js",
-      "assets/scripts/components/sort.js",
-      "assets/scripts/components/single-selection-dropdown.js",
-      "assets/scripts/components/link-builder.js",
-      "assets/scripts/playforfun/playforfun.js",
-      "assets/scripts/playforfun/playforfun-member.js"
-    ]
-  },
-  {
-    "outputFileName": "assets/bundles/playforfun/playforfun-master-agent.js",
-    "inputFiles": [
-      "assets/scripts/core.js",
-      "assets/scripts/base-report.js",
-      "assets/scripts/components/daterangepicker.js",
-      "assets/scripts/components/sort.js",
-      "assets/scripts/components/single-selection-dropdown.js",
-      "assets/scripts/components/link-builder.js",
-      "assets/scripts/playforfun/playforfun.js",
-      "assets/scripts/playforfun/playforfun-master-agent.js"
-    ]
-  },
-  {
     "outputFileName": "assets/bundles/winlossanalysischart/winlossanalysischart.js",
     "inputFiles": [
       "assets/scripts/core.js",

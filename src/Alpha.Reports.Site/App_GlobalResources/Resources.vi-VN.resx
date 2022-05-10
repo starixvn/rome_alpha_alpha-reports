@@ -435,9 +435,6 @@
   <data name="SportWinLossAnalysis" xml:space="preserve">
     <value>Phân tích kết quả thắng thua của từng môn thể thao</value>
   </data>
-  <data name="AgentPlayForFunDetail" xml:space="preserve">
-    <value>Chi tiết 'Chơi Thử' dành cho Agent</value>
-  </data>
   <data name="Enabled" xml:space="preserve">
     <value>Đã kích hoạt</value>
   </data>
@@ -447,23 +444,8 @@
   <data name="AllProducts" xml:space="preserve">
     <value>Tất cả sản phẩm</value>
   </data>
-  <data name="MemberPlayForFunDetail" xml:space="preserve">
-    <value>Chi tiết 'Chơi Thử' của Member</value>
-  </data>
-  <data name="MasterPlayForFunDetail" xml:space="preserve">
-    <value>Chi tiết 'Chơi Thử' dành cho Master</value>
-  </data>
-  <data name="NoPlayers" xml:space="preserve">
-    <value>Số người chơi</value>
-  </data>
   <data name="ThereIsNoProduct" xml:space="preserve">
     <value>Không có sản phẩm nào</value>
-  </data>
-  <data name="PlayCount" xml:space="preserve">
-    <value>Số vé cược</value>
-  </data>
-  <data name="PlayForFun" xml:space="preserve">
-    <value>Chơi Thử</value>
   </data>
   <data name="Statement" xml:space="preserve">
     <value>Sao kê</value>

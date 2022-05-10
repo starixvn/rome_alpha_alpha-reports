@@ -465,24 +465,6 @@
   <data name="DelayIssueLegend" xml:space="preserve">
     <value>- 在 {0} 结算后，数据库将会在大约5分钟内更新。</value>
   </data>
-  <data name="MasterPlayForFunDetail" xml:space="preserve">
-    <value>总代理免费试玩资料</value>
-  </data>
-  <data name="AgentPlayForFunDetail" xml:space="preserve">
-    <value>代理免费试玩资料</value>
-  </data>
-  <data name="MemberPlayForFunDetail" xml:space="preserve">
-    <value>会员免费试玩资料</value>
-  </data>
-  <data name="NoPlayers" xml:space="preserve">
-    <value>玩家人数</value>
-  </data>
-  <data name="PlayCount" xml:space="preserve">
-    <value>投注统计</value>
-  </data>
-  <data name="PlayForFun" xml:space="preserve">
-    <value>免费试玩</value>
-  </data>
   <data name="Selected" xml:space="preserve">
     <value>选定</value>
   </data>

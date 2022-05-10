@@ -104,7 +104,6 @@
             container.RegisterSingleton<WinLossByProductService, WinLossByProductServiceImpl>();
             container.RegisterSingleton<WinLossAnalysisService, WinLossAnalysisServiceImpl>();
             container.RegisterSingleton<WinLossAnalysisChartService, WinLossAnalysisChartServiceImpl>();
-            container.RegisterSingleton<PlayForFunService, PlayForFunServiceImpl>();
             container.RegisterSingleton<CommissionByBettypeService, CommissionByBettypeServiceImpl>();
 
             container.RegisterSingleton<MatchWinLossDetailService, MatchWinLossDetailServiceImpl>();

@@ -35,39 +35,7 @@
                 && user.IsShowConsolidatedReport.ToString() == "True"
                 && user.CurrencyName == "CurrencyName");
         }
-
-        [Fact]
-        public void GetHideProduct_Always_ReturnsCorrectStatus()
-        {
-            // Arrange
-            var userSession = Substitute.For<IUserSession>();
-            userSession.GetHideProduct(Arg.Any<int>()).Returns(true);
-            var user = new User(userSession);
-            var productId = 1;
-            var expectedHide = true;
-
-            // Act
-            var actualHide = user.GetHideProduct(productId);
-
-            // Assert
-            Assert.Equal(expectedHide, actualHide);
-        }
-
-        [Fact]
-        public void IsEnabledJackpot_JackpotEnabled_ReturnTrue()
-        {
-            // Arrange
-            var userSession = Substitute.For<IUserSession>();
-            userSession.IsCasinoSync = true;
-            var user = new UserForTest(userSession);
-
-            // Act
-            var value = user.IsEnabledJackpot;
-
-            // Assert
-            Assert.True(value);
-        }
-
+        
         [Fact]
         public void LimitedDateToShowInfo_Always_ReturnCorrectValue()
         {
