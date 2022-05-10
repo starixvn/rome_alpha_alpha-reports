@@ -513,7 +513,6 @@
     <Compile Include="Constants\UserSelectedDateRangeOptionConstant.cs" />
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
     <Compile Include="Controllers\ConsolidationController.cs" />
-    <Compile Include="Controllers\PlayForFunController.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryBaseHandler.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryController.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryExcelHandler.cs" />
