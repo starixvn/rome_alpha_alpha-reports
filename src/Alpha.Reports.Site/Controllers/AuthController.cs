@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
@@ -21,6 +22,19 @@ namespace Alpha.Reports.Site.Controllers
     [SessionState(SessionStateBehavior.Required), AllowProtectedMode, AllowAnonymous]
     public class AuthController : Controller
     {
+        private const string English = "en-US";
+        private const string ChineseTraditional = "zh-TW";
+        private const string ChineseSimplified = "zh-CN";
+        private const string Japanese = "ja-JP";
+        private const string Thai = "th-TH";
+        private const string Korean = "ko-KR";
+        private const string Vietnamese = "vi-VN";
+        private const string Default = English;
+        private const string SecretKey = "!@#$";
+        private const string OK = "OK";
+        private const string Failed = "Failed";
+        private const string NotSupported = "Not supported";
+
         // GET: Auth
         [HttpGet]
         public ActionResult Index(string param)
@@ -41,14 +55,14 @@ namespace Alpha.Reports.Site.Controllers
 
             try
             {
-                parameter = AesService.Default.Decrypt(parameter, "!@#$");
+                parameter = AesService.Default.Decrypt(parameter, SecretKey);
             }
             catch
             {
                 parameter = string.Empty;
                 ExceptionHandler.Handle(new Exception("Cannot verify request key " + Request.RawUrl), TraceEventType.Warning);
             }
-            
+
             if (string.IsNullOrWhiteSpace(parameter))
             {
                 return new EmptyResult();
@@ -62,7 +76,7 @@ namespace Alpha.Reports.Site.Controllers
 
                 return RedirectToSpecificUrl();
             }
-            
+
             SetUserSessionsAndAuth(parameters, session);
 
             return RedirectToSpecificUrl();
@@ -74,12 +88,12 @@ namespace Alpha.Reports.Site.Controllers
         {
             if (!IsValidReferrer())
             {
-                return Json("Failed", JsonRequestBehavior.AllowGet);
+                return Json(Failed, JsonRequestBehavior.AllowGet);
             }
 
             SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = true;
 
-            return Json("OK", JsonRequestBehavior.AllowGet);
+            return Json(OK, JsonRequestBehavior.AllowGet);
         }
 
         // GET: SecurityCodeBetlist
@@ -88,12 +102,12 @@ namespace Alpha.Reports.Site.Controllers
         {
             if (!IsValidReferrer())
             {
-                return Json("Failed", JsonRequestBehavior.AllowGet);
+                return Json(Failed, JsonRequestBehavior.AllowGet);
             }
 
             UserSession.Current.SetProperty(SessionKey.ISENABLEDSECURITYCODEINBETLISTS, s);
 
-            return Json("OK", JsonRequestBehavior.AllowGet);
+            return Json(OK, JsonRequestBehavior.AllowGet);
         }
 
         // GET: SecurityCodeStatement
@@ -102,12 +116,12 @@ namespace Alpha.Reports.Site.Controllers
         {
             if (!IsValidReferrer())
             {
-                return Json("Failed", JsonRequestBehavior.AllowGet);
+                return Json(Failed, JsonRequestBehavior.AllowGet);
             }
 
             UserSession.Current.SetProperty(SessionKey.ISENABLEDSECURITYCODEINSTATEMENT, s);
 
-            return Json("OK", JsonRequestBehavior.AllowGet);
+            return Json(OK, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Otp
@@ -116,14 +130,65 @@ namespace Alpha.Reports.Site.Controllers
         {
             if (!IsValidReferrer())
             {
-                return Json("Failed", JsonRequestBehavior.AllowGet);
+                return Json(Failed, JsonRequestBehavior.AllowGet);
             }
 
             SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp = true;
             SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = true;
 
-            return Json("OK", JsonRequestBehavior.AllowGet);
+            return Json(OK, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult ChangeTheme(bool isDarkMode)
+        {
+            if (!IsValidReferrer())
+            {
+                return Json(Failed, JsonRequestBehavior.AllowGet);
+            }
+
+            UserSession.Current.DarkModeName = isDarkMode ? "-dark" : string.Empty;
+
+            return Json(OK, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult ChangeLang(string langCode)
+        {
+            if (!IsValidReferrer())
+            {
+                return Json(Failed, JsonRequestBehavior.AllowGet);
+            }
+
+            var userSession = UserSession.Current;
+
+            if (string.IsNullOrWhiteSpace(langCode) ||
+                !CodeKeys.ContainsKey(langCode))
+            {
+                return Json(NotSupported, JsonRequestBehavior.AllowGet);
+            }
+
+            if (SiteSettings.DisabledVietnamese && langCode == Vietnamese)
+            {
+                langCode = Default;
+            }
+
+            userSession.Language = langCode;
+            userSession.LangKey = CodeKeys[langCode];
+
+            return Json(OK, JsonRequestBehavior.AllowGet);
+        }
+
+        private static readonly IDictionary<string, string> CodeKeys = new Dictionary<string, string>
+        {
+            [English] = "E",
+            [ChineseTraditional] = "CT",
+            [ChineseSimplified] = "CS",
+            [Japanese] = "J",
+            [Thai] = "TH",
+            [Korean] = "KO",
+            [Vietnamese] = "VI"
+        };
 
         private bool IsValidReferrer()
         {
@@ -133,9 +198,9 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             var session = UserSession.Current;
-            if (session.IsInternal 
+            if (session.IsInternal
                 || session.IsIndirectLoggedIn
-                || Request.Headers["Referer"].IndexOf(Request.Headers["Host"], StringComparison.OrdinalIgnoreCase) != -1 
+                || Request.Headers["Referer"].IndexOf(Request.Headers["Host"], StringComparison.OrdinalIgnoreCase) != -1
                 || Request.Headers["Referer"].IndexOf(session.GetProperty<string>(SessionKey.MainDomainSessionKey) ?? string.Empty) != -1)
             {
                 return true;
@@ -149,7 +214,7 @@ namespace Alpha.Reports.Site.Controllers
             FormsAuthentication.SetAuthCookie(parameters[0], false);
 
             SetOutputValuesToSession(parameters, userSession);
-            ExceptionHandler.Handle(new Exception($"Hide GT Casino: {userSession.GetHideProduct(46)}, Hide Macau Games: {userSession.GetHideProduct(22)}"));
+
             var sessions = parameters[1].Split(';');
 
             userSession.SetProperty(SessionKey.CUSTID, Convert.ToInt32(sessions[0]));
@@ -170,10 +235,10 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.MainDomainSessionKey, sessions[15]);
             userSession.SetProperty(SessionKey.LoginIP_Browser, sessions[16]);
             userSession.SetProperty(SessionKey.ASSETAPPPATHSESSIONKEY, sessions[17]);
-            
+
             var enableJackpotGames = sessions[18].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
             userSession.SetProperty(SessionKey.GameEnable + SessionKey.Jackpot, enableJackpotGames);
-            
+
             userSession.SetProperty(SessionKey.ISCASINOSYNC, Convert.ToBoolean(sessions[19]));
             userSession.SetSyncedProduct(SessionKey.RNGCasino, Convert.ToBoolean(sessions[19]));
 
@@ -219,14 +284,14 @@ namespace Alpha.Reports.Site.Controllers
         private static void SetOutputValuesToSession(string[] parameters, IUserSession session)
         {
             var outputs = JsonConvert.DeserializeObject<Hashtable>(parameters[2]);
-            UserSessionService.SetUserSessionValues(session, outputs, new Action<IUserSession, Hashtable>((userSession, values) => { }));
+            UserSessionService.SetUserSessionValues(session, outputs, (userSession, values) => { });
         }
 
         private static void RegisterGlobalFilters()
         {
-            var filters = GlobalFilters.Filters.Where(filter => 
-                filter.Instance is CheckBelongingFilter || 
-                filter.Instance is AfterLoginFlowFilter || 
+            var filters = GlobalFilters.Filters.Where(filter =>
+                filter.Instance is CheckBelongingFilter ||
+                filter.Instance is AfterLoginFlowFilter ||
                 filter.Instance is ProtectedModeFilter);
 
             foreach (var filter in filters)

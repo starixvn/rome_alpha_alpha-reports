@@ -102,6 +102,7 @@ class StatementView extends BaseReport {
         this.$.get(
             this.$statementDetailsURL.val() + "?" + this.$.param(param),
             (html) => {
+                this.$.unblockUI();
                 this.popupBodyStatementDetails.html(html);
                 this.statementDetailView.init();
                 this.popupStatementDetails.modal({ show: true, backdrop: false });

@@ -106,5 +106,11 @@
                 return allowedSitesToViewBonusDetail;
             }
         }
+
+        public static bool IsMBCSite => !string.IsNullOrWhiteSpace(GetConfigValue("SiteGroup"))
+            && !GetConfigValue("SiteGroup").Equals("789y", StringComparison.OrdinalIgnoreCase);
+
+        public static bool DisabledVietnamese => IsMBCSite;
+
     }
 }
