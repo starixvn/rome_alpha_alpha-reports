@@ -45,10 +45,6 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             var session = UserSession.Current;
-            if (!string.IsNullOrWhiteSpace(param))
-            {
-                session.SetProperty(SessionKey.LoginParams, param);
-            }
 
             param = string.IsNullOrWhiteSpace(param) ? session.GetProperty<string>(SessionKey.LoginParams) + string.Empty : param;
             var parameter = param;
@@ -68,8 +64,16 @@ namespace Alpha.Reports.Site.Controllers
                 return new EmptyResult();
             }
 
+            if (!string.IsNullOrWhiteSpace(param)
+                && !string.Equals(param, session.GetProperty<string>(SessionKey.LoginParams) ?? string.Empty, StringComparison.OrdinalIgnoreCase))
+            {
+                session.SetProperty(SessionKey.LoginParams, param);
+            }
+
             var parameters = parameter.Split('&');
-            if (session.IsLogged && Request.IsAuthenticated && session.UserName.Equals(parameters[0], StringComparison.OrdinalIgnoreCase))
+            if (session.IsLogged
+                && Request.IsAuthenticated
+                && session.UserName.Equals(parameters[0], StringComparison.OrdinalIgnoreCase))
             {
                 UpdateReportRoutingRealtime(parameters, session);
                 RegisterGlobalFilters();
@@ -278,7 +282,11 @@ namespace Alpha.Reports.Site.Controllers
         private static void UpdateReportRoutingRealtime(string[] parameters, IUserSession session)
         {
             var sessions = parameters[1].Split(';');
-            session.SetProperty(SessionKey.ReportRouting, sessions[25]);
+            var routing = sessions[25];
+            if (!string.Equals(routing, session.GetProperty<string>(SessionKey.ReportRouting) ?? string.Empty, StringComparison.OrdinalIgnoreCase))
+            {
+                session.SetProperty(SessionKey.ReportRouting, routing);
+            }
         }
 
         private static void SetOutputValuesToSession(string[] parameters, IUserSession session)
