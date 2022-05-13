@@ -155,7 +155,7 @@
                     if (IsMatchPrefixPattern(action, LC) 
                         || IsMatchPrefixPattern(action, RNG))
                     {
-                        return GetBetUpdatedStatusToVoid(action);
+                        return GetBetUpdatedVoidToStatus(action);
                     }
 
                     break;
@@ -198,13 +198,13 @@
                 + BetCreditHistoryResources.ResourceManager.GetString(toStatus); 
         }
 
-        private static string GetBetUpdatedStatusToVoid(string action)
+        private static string GetBetUpdatedVoidToStatus(string action)
         {
             var status = action.Split(new[] { "to" }, StringSplitOptions.None)[1].Trim().ToLowerInvariant();
             return BetCreditHistoryResources.BetUpdated + ", "
-                + BetCreditHistoryResources.ResourceManager.GetString(status) + " "
+                + BetCreditHistoryResources._void + " "
                 + BetCreditHistoryResources.to + " "
-                + BetCreditHistoryResources._void;
+                + BetCreditHistoryResources.ResourceManager.GetString(status);
         }
 
         private static string GetBetUpdatedRunningToVoid()
