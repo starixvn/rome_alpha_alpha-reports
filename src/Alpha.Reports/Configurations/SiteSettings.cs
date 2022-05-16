@@ -46,8 +46,20 @@
 
         public static string RemoteRefURL => GetConfigValue("RemoteRefURL");
 
-        public static bool IsOfferJackpotProductDetails
-            => "1" == GetConfigValue("IsOfferJackpotProductDetails");
+        public static IEnumerable<int> ProductOfferProductDetail
+        {
+            get
+            {
+                var productIds = GetConfigValue("ProductOfferProductDetail");
+                if (!string.IsNullOrEmpty(productIds))
+                {
+                    return productIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(i => int.Parse(i));
+                }
+
+                return Enumerable.Empty<int>();
+            }
+        }
 
         public static byte SettingStatus
         {
@@ -63,6 +75,9 @@
 
         public static IEnumerable<string> OfferSabaPromotionHeadlineSites
             => GetConfigValue("EnableProduct-37:HLSites")?.Split(new[] { ",", ";" }, StringSplitOptions.RemoveEmptyEntries);
+
+        public static string SeperateSabaSportsDate
+            => GetConfigValue("SeperateSabaSportsDate");
 
         private static string[] allowedSitesToViewBonusDetail;
         public static string[] AllowedSitesToViewBonusDetail

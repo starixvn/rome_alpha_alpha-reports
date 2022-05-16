@@ -18,7 +18,13 @@
     </div>
 
     <div class="note">
-        <span class="star">*</span>@Model.ViewDataInstructionMessage
+        @foreach (var item in Model.ViewDataInstructionMessage)
+        {
+            <div>
+                <span class="star">*</span>@item
+            </div>
+
+        }
     </div>
 
     @helper RenderHiddenFields()

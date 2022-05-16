@@ -26,7 +26,8 @@
     </div>
 
     <div class="note">
-        <span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" data-is-historic-report="@Model.IsHistoricReport.ToString().ToLower()" href="#">@Model.ViewActionMessage</a>
+        <div><span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" data-is-historic-report="@Model.IsHistoricReport.ToString().ToLower()" href="#">@Model.ViewActionMessage</a></div>
+        <div><span class="star">*</span>@Model.SeparateSabaMessage</div>
     </div>
 
     @helper RenderHiddenFields()
