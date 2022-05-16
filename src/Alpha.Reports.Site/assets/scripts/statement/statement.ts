@@ -22,6 +22,7 @@ class StatementView extends BaseReport {
     popupStatementDetails: JQuery;
     popupBodyStatementDetails: JQuery;
     statementDetailView: StatementDetailView;
+    mainDomain: string;
 
     constructor(
         $: JQueryStatic,
@@ -48,6 +49,8 @@ class StatementView extends BaseReport {
 
         this.registerEvents();
         this.initHelp();
+
+        this.mainDomain = this.$("#MainDomain").val();
     }
     public registerEvents() {
         this.$(".icon-filter").on("click", this.onClickIconFilter);
@@ -98,14 +101,20 @@ class StatementView extends BaseReport {
             CustName: this.custName
         };
 
-        this.$.blockUI();
-        this.$.get(
-            this.$statementDetailsURL.val() + "?" + this.$.param(param),
-            (html) => {
-                this.$.unblockUI();
-                this.popupBodyStatementDetails.html(html);
-                this.statementDetailView.init();
-                this.popupStatementDetails.modal({ show: true, backdrop: false });
-            }).always(this.$.unblockUI);
+        const url = this.$statementDetailsURL.val() + "?" + this.$.param(param);
+        const title = 'Transfer Details (' + this.custName + ')';
+
+        if (this.mainDomain) {
+            this.mainDomain = this.mainDomain.indexOf('http') === -1 ?
+                location.origin.split(':')[0] + ':' + this.mainDomain + '/site-main' : this.mainDomain;
+            this.topWindow.postMessage({
+                event_id: "detail-statement",
+                title: title,
+                url: url
+            }, this.mainDomain);
+        }
+        else {
+            this.topWindow.popupManager.open(url, title, 900);
+        }
     };
 }

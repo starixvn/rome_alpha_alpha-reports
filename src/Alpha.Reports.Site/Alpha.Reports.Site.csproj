@@ -993,6 +993,10 @@
     <Content Include="assets\bundles\RiskAnalysisIPMatching\index.min.js">
       <DependentUpon>index.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\statement\statement-details.js" />
+    <Content Include="assets\bundles\statement\statement-details.min.js">
+      <DependentUpon>statement-details.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\statement\member-statement.js" />
     <Content Include="assets\bundles\statement\member-statement.min.js">
       <DependentUpon>member-statement.js</DependentUpon>

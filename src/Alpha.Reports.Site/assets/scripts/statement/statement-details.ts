@@ -27,3 +27,8 @@
         this.$exportExcelForm.submit();
     };
 }
+$(() => {
+    const statementDetailView = new StatementDetailView($, $(document));
+
+    statementDetailView.init();
+});

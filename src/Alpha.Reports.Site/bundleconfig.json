@@ -248,6 +248,12 @@
     ]
   },
   {
+    "outputFileName": "assets/bundles/statement/statement-details.js",
+    "inputFiles": [
+      "assets/scripts/statement/statement-details.js"
+    ]
+  },
+  {
     "outputFileName": "assets/bundles/winlossanalysischart/winlossanalysischart.js",
     "inputFiles": [
       "assets/scripts/core.js",
