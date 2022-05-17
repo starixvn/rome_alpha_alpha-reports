@@ -11,8 +11,10 @@
     @StaticResources.AssetStyles.RenderWithDarkMode("/bundles/site-reports/default")
     @StaticResources.RenderStylesWithRoleAndDarkMode("~/assets/bundles/")
     @RenderSection("Styles", required: false)
+    @Alpha.Web.Helpers.GoogleAnalyticHepler.GtagScript()
 </head>
 <body>
+    @Alpha.Web.Helpers.GoogleAnalyticHepler.GtagNoScript()
     @RenderBody()
 
     @Html.Hidden("NoInformationIsAvailable", @Resources.NoInformationIsAvailable)
@@ -23,7 +25,6 @@
 
     @RenderSection("Scripts", required: false)
 
-    @Alpha.Web.Helpers.GoogleAnalyticHepler.Render()
     @Html.Raw(Fanex.Logging.LogManager.RenderJavascriptLogger())
 </body>
 </html>
