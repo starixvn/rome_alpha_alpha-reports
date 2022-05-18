@@ -76,7 +76,6 @@ namespace Alpha.Reports.Site.Controllers
                 && session.UserName.Equals(parameters[0], StringComparison.OrdinalIgnoreCase))
             {
                 UpdateReportRoutingRealtime(parameters, session);
-                RegisterGlobalFilters();
 
                 return RedirectToSpecificUrl();
             }
@@ -319,7 +318,7 @@ namespace Alpha.Reports.Site.Controllers
                 return Redirect($"{SiteSettings.ReportRouting}{Request["ReturnUrl"]}");
             }
 
-            return new EmptyResult();
+            return Json(OK, JsonRequestBehavior.AllowGet);
         }
     }
 }
