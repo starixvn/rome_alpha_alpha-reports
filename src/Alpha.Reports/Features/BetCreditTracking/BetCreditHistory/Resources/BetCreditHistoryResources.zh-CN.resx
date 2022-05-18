@@ -138,6 +138,9 @@
   <data name="lose" xml:space="preserve">
     <value>输</value>
   </data>
+  <data name="OpeningCredit" xml:space="preserve">
+    <value>Opening Credit</value>
+  </data>
   <data name="refund" xml:space="preserve">
     <value>退款</value>
   </data>
@@ -147,11 +150,17 @@
   <data name="running" xml:space="preserve">
     <value>进行中</value>
   </data>
+  <data name="SetCreditWhenMembersCreated" xml:space="preserve">
+    <value>SetCreditWhenMembersCreated</value>
+  </data>
   <data name="to" xml:space="preserve">
     <value>到</value>
   </data>
   <data name="TransferSubmitted" xml:space="preserve">
     <value>转账已提交</value>
+  </data>
+  <data name="UpdateGivenCredit" xml:space="preserve">
+    <value>更新信用额度</value>
   </data>
   <data name="void" xml:space="preserve">
     <value>作废</value>

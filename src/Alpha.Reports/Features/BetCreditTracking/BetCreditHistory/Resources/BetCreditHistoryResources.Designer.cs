@@ -134,6 +134,15 @@ namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opening Credit.
+        /// </summary>
+        internal static string OpeningCredit {
+            get {
+                return ResourceManager.GetString("OpeningCredit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refund.
         /// </summary>
         internal static string refund {
@@ -161,6 +170,15 @@ namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SetCreditWhenMembersCreated.
+        /// </summary>
+        internal static string SetCreditWhenMembersCreated {
+            get {
+                return ResourceManager.GetString("SetCreditWhenMembersCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to to.
         /// </summary>
         internal static string to {
@@ -175,6 +193,15 @@ namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Resources {
         internal static string TransferSubmitted {
             get {
                 return ResourceManager.GetString("TransferSubmitted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UpdateGivenCredit.
+        /// </summary>
+        internal static string UpdateGivenCredit {
+            get {
+                return ResourceManager.GetString("UpdateGivenCredit", resourceCulture);
             }
         }
         

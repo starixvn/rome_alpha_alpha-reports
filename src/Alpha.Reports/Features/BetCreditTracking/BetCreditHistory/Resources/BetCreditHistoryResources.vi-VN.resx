@@ -133,33 +133,42 @@
     <value>Cash Out</value>
   </data>
   <data name="draw" xml:space="preserve">
-    <value>Hòa</value>
+    <value>DRAW</value>
   </data>
   <data name="lose" xml:space="preserve">
-    <value>Thua</value>
+    <value>LOSE</value>
+  </data>
+  <data name="OpeningCredit" xml:space="preserve">
+    <value>Opening Credit</value>
   </data>
   <data name="refund" xml:space="preserve">
-    <value>Hoàn Tiền</value>
+    <value>Refund</value>
   </data>
   <data name="reject" xml:space="preserve">
-    <value>Từ chối</value>
+    <value>Reject</value>
   </data>
   <data name="running" xml:space="preserve">
-    <value>Đang diễn ra</value>
+    <value>running</value>
+  </data>
+  <data name="SetCreditWhenMembersCreated" xml:space="preserve">
+    <value>SetCreditWhenMembersCreated</value>
   </data>
   <data name="to" xml:space="preserve">
-    <value>Đến</value>
+    <value>to</value>
   </data>
   <data name="TransferSubmitted" xml:space="preserve">
     <value>Transfer submitted</value>
   </data>
+  <data name="UpdateGivenCredit" xml:space="preserve">
+    <value>UpdateGivenCredit</value>
+  </data>
   <data name="void" xml:space="preserve">
-    <value>Hủy</value>
+    <value>VOID</value>
   </data>
   <data name="waiting" xml:space="preserve">
-    <value>Đang Chờ</value>
+    <value>waiting</value>
   </data>
   <data name="won" xml:space="preserve">
-    <value>Đã chiến thắng</value>
+    <value>WON</value>
   </data>
 </root>

@@ -899,7 +899,7 @@
     <value>信用额度</value>
   </data>
   <data name="NewBalance" xml:space="preserve">
-    <value>New Balance</value>
+    <value>最新余额</value>
   </data>
   <data name="PlayerComm" xml:space="preserve">
     <value>会员佣金</value>

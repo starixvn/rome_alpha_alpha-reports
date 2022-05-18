@@ -138,6 +138,9 @@
   <data name="lose" xml:space="preserve">
     <value>LOSE</value>
   </data>
+  <data name="OpeningCredit" xml:space="preserve">
+    <value>Opening Credit</value>
+  </data>
   <data name="refund" xml:space="preserve">
     <value>Refund</value>
   </data>
@@ -147,11 +150,17 @@
   <data name="running" xml:space="preserve">
     <value>running</value>
   </data>
+  <data name="SetCreditWhenMembersCreated" xml:space="preserve">
+    <value>SetCreditWhenMembersCreated</value>
+  </data>
   <data name="to" xml:space="preserve">
     <value>to</value>
   </data>
   <data name="TransferSubmitted" xml:space="preserve">
     <value>Transfer submitted</value>
+  </data>
+  <data name="UpdateGivenCredit" xml:space="preserve">
+    <value>UpdateGivenCredit</value>
   </data>
   <data name="void" xml:space="preserve">
     <value>VOID</value>

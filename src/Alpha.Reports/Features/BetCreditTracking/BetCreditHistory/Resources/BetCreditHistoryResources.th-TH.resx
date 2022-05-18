@@ -138,6 +138,9 @@
   <data name="lose" xml:space="preserve">
     <value>แพ้</value>
   </data>
+  <data name="OpeningCredit" xml:space="preserve">
+    <value>Opening Credit</value>
+  </data>
   <data name="refund" xml:space="preserve">
     <value>คืนเงิน</value>
   </data>
@@ -147,11 +150,17 @@
   <data name="running" xml:space="preserve">
     <value>ยอมรับการวางเดิมพันแล้ว</value>
   </data>
+  <data name="SetCreditWhenMembersCreated" xml:space="preserve">
+    <value>SetCreditWhenMembersCreated</value>
+  </data>
   <data name="to" xml:space="preserve">
     <value>ถึง</value>
   </data>
   <data name="TransferSubmitted" xml:space="preserve">
     <value>โอนแล้ว</value>
+  </data>
+  <data name="UpdateGivenCredit" xml:space="preserve">
+    <value>อัพเดท เครดิตใหม่</value>
   </data>
   <data name="void" xml:space="preserve">
     <value>โมฆะ</value>

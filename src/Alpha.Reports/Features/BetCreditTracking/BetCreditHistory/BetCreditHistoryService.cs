@@ -55,6 +55,9 @@
 
             switch (actionId)
             {
+                case -1:
+                    return BetCreditHistoryResources.OpeningCredit;
+
                 case 0:
                     if (IsMatchPrefixPattern(action, TransLogSettled))
                     {
