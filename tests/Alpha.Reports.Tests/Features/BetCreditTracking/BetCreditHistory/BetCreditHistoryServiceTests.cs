@@ -1,10 +1,12 @@
 ﻿namespace Alpha.Reports.Tests.Features.BetCreditTracking.BetCreditHistory
 {
+    using Alpha.Reports.Constants;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Params;
     using Alpha.Web.Helpers;
+    using Fanex.Caching;
     using Fanex.Data.Repository;
     using NSubstitute;
     using System;
@@ -16,19 +18,21 @@
         private readonly IDynamicRepository repository;
         private readonly BetCreditHistoryService service;
         private readonly PartialUMService partialUMService;
+        private readonly ICacheService cacheService;
 
         public BetCreditHistoryServiceTests()
         {
             repository = Substitute.For<IDynamicRepository>();
             partialUMService = Substitute.For<PartialUMService>();
-            service = new BetCreditHistoryServiceImpl(repository, partialUMService);
+            cacheService = Substitute.For<ICacheService>();
+            service = new BetCreditHistoryServiceImpl(repository, partialUMService, cacheService);
         }
 
         [Fact]
         public void GetBetCreditHistory_Always_CallCheckPartialUM()
         {
             // Arrange
-            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
+            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, LanguageCode.English ,1, 100);
 
             // Act
             service.GetBetCreditHistory(param);
@@ -41,7 +45,7 @@
         public void GetBetCreditHistory_Always_CallFetch()
         {
             // Arrange
-            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
+            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, LanguageCode.English, 1, 100);
 
             // Act
             service.GetBetCreditHistory(param);
