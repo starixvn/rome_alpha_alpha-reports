@@ -59,6 +59,8 @@
 
         public int ActionId { get; }
 
+        public byte IsUserLogActionId { get; }
+
         public string ActionDateString => ActionDate.ToLongDate24HourWithSlash();
 
         public string WinLostDateString => WinLostDate.ToShortDateWithSlash();

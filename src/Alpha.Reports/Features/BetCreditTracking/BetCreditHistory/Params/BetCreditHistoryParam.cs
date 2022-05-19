@@ -11,6 +11,7 @@
             DateTime toDate, 
             int viewerId, 
             DateTime limitedDateToShowInfo, 
+            string language,
             int pageIndex, 
             int pageSize)
         {
@@ -20,6 +21,7 @@
             ToDate = toDate;
             ViewerId = viewerId;
             LimitedDateToShowInfo = limitedDateToShowInfo;
+            Language = language;
             PageIndex = pageIndex;
             PageSize = pageSize;
         }
@@ -35,6 +37,8 @@
         public int ViewerId { get; }
 
         public DateTime LimitedDateToShowInfo { get; }
+
+        public string Language { get; }
 
         public int PageIndex { get; }
 

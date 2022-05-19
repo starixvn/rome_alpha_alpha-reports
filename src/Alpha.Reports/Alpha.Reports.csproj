@@ -213,6 +213,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\SiteSettings.cs" />
+    <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Criteria\BetChoiceMatching\BetChoiceMatchingCriteria.cs" />
     <Compile Include="Criteria\BetChoiceMatching\BetChoiceUplinesCriteria.cs" />
     <Compile Include="Criteria\Consolidation\GetSMAPositionTakingCriteria.cs" />
@@ -222,8 +223,10 @@
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\BetCreditHistoryService.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Criteria\BetCreditHistoryCriteria.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistory\Criteria\GetLogActionsCriteria.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Models\BetCreditHistoryModel.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Models\BetCreditHistoryResultModel.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistory\Models\LogAction.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Params\BetCreditHistoryParam.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Resources\BetCreditHistoryResources.Designer.cs">
       <AutoGen>True</AutoGen>

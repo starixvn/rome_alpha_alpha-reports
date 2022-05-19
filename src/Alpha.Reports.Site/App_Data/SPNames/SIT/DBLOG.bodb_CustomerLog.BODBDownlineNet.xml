@@ -3,4 +3,21 @@
   <Function Name="Write/View Logs">
     <Setting Key="IS_UpdFunctionUsage" SpName="IS_UpdFunctionUsage" DbName="DBLOG.bodb_CustomerLog.BODBDownlineNet" Plain="0" />
   </Function>
+  <Function Name="View Logs">
+    <Setting Key="Acc_UserLog_LogActionSel" SpName="Acc_UserLog_LogActionSel" DbName="DBLOG.bodb_CustomerLog.BODBDownlineNet" Plain="0" >
+      <Mapping DataField="ActionID" ObjectProperty="Id" />
+      <Mapping DataField="ActionTypeID" ObjectProperty="ActionTypeId" />
+
+      <Mapping DataField="ActionNameEN" ObjectProperty="EnglishName" />
+      <Mapping DataField="ActionNameCH" ObjectProperty="ChineseTraditionalName" />
+      <Mapping DataField="ActionNameCS" ObjectProperty="ChineseSimplifiedName" />
+      <Mapping DataField="ActionNameJP" ObjectProperty="JapaneseName" />
+      <Mapping DataField="ActionNameVI" ObjectProperty="VietnameseName" />
+      <Mapping DataField="ActionNameTH" ObjectProperty="ThaiName" />
+      <Mapping DataField="ActionNameKO" ObjectProperty="KoreanName" />
+
+      <Mapping DataField="IsInternal" ObjectProperty="IsInternal" />
+      <Mapping DataField="SPName" ObjectProperty="SPName" />
+    </Setting>
+  </Function>
 </Functions>
