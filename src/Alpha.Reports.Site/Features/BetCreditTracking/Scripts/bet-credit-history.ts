@@ -11,6 +11,7 @@ class BetCreditHistory {
     $validationMsgError: JQuery;
     $isFilterVisible: JQuery;
     $exportExcelForm: JQuery;
+    resources: any;
 
     constructor(
         $: JQueryStatic,
@@ -19,11 +20,6 @@ class BetCreditHistory {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.pagerComponent = pagerComponent;
-    }
-
-    resources = {
-        usernameIsRequired: (<HTMLInputElement>document.getElementById('UsernameIsRequired')).value,
-        invalidRefNo: (<HTMLInputElement>document.getElementById('InvalidRefNo')).value,
     }
 
     public init() {
@@ -45,6 +41,11 @@ class BetCreditHistory {
         this.$txtRefNo = this.$("#txt-refno");
         this.$msgError = this.$("#msg-error");
         this.$validationMsgError = this.$("#validation-msg-error");
+
+        this.resources = {
+            usernameIsRequired: this.$('#UsernameIsRequired').val(),
+            invalidRefNo: this.$('#InvalidRefNo').val(),
+        }
     }
 
     public initComponents() {

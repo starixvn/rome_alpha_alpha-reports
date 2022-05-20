@@ -25,5 +25,17 @@
                 message.Language,
                 message.PageIndex,
                 message.PageSize);
+
+        protected BetCreditHistoryParam CreateExcelParameter(BetCreditHistoryQuery message)
+            => new BetCreditHistoryParam(
+                message.Member,
+                message.RefNo,
+                message.FromDate,
+                message.ToDate,
+                message.ViewerId,
+                message.LimitedDateToShowInfo,
+                message.Language,
+                1,
+                int.MaxValue - 1);
     }
 }

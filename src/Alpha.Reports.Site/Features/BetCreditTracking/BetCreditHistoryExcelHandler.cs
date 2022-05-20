@@ -36,7 +36,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var betCreditHistoryParam = CreateParameter(message);
+            var betCreditHistoryParam = CreateExcelParameter(message);
 
             var result = reportService.GetBetCreditHistory(betCreditHistoryParam);
 

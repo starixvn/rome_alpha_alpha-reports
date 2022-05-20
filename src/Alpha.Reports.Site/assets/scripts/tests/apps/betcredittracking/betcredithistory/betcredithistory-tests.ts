@@ -19,6 +19,20 @@
         spyOn(pagerComponent, "render");
 
         spyOn(jQueryFake.fn, "stickyTableHeaders");
+
+        setFixtures(`<body>
+                        <form id="report-form" role="form">
+                            <div class="form-group">
+                                <label>Member <span style="color: #E54748;">*</span></label>
+                                <input type="text" style="width: 200px;" autocomplete="off" id="txt-member" name="Member" value="test" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Refno</label>
+                                <input type="text" autocomplete="off" name="RefNo" value="12345" id="txt-refno"/>
+                            </div>
+                        </form>
+                    </body>`);
     });
 
     describe("_init", () => {
