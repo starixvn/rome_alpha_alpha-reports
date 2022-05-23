@@ -46,7 +46,7 @@
                 .SetData(data)
                 .SetRowMappers(GetRowMapper())
                 .UseTemplate(GetTemplateInfo())
-                .Title(GetReportTitle(message, betCreditHistoryParam))
+                .Title(GetReportTitle(betCreditHistoryParam))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(data, GetRowMapper())
                 .Sheet(Resources.DefaultSheetName)
@@ -70,9 +70,9 @@
                     footerEndIndex: FooterEndIndex
                 );
 
-        private string GetReportTitle(BetCreditHistoryExcelQuery message, BetCreditHistoryParam param)
+        private string GetReportTitle(BetCreditHistoryParam param)
         {
-            return $"{Resources.BetCreditHistory} {param.FromDate.ToShortDateWithSlash()} -->  {param.ToDate.ToShortDateWithSlash()} - {Resources.Member}: {message.CustName}";
+            return $"{Resources.BetCreditHistory} {param.FromDate.ToShortDateWithSlash()} -->  {param.ToDate.ToShortDateWithSlash()} - {Resources.Member}: {param.Member}";
         }
 
         private string GetExcelFileName(BetCreditHistoryParam param)

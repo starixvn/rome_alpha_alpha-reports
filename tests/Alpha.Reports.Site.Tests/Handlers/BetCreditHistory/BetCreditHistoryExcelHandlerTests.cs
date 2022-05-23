@@ -123,11 +123,14 @@
         [Fact]
         public void Handle_NotNullMessage_ExportsCorrectTitle()
         {
+            // Arrange
+            excelQuery.Member = "MemberName";
+
             // Act
             handler.Handle(excelQuery);
 
             // Assert
-            onebookWorkbook.Received().Title(Arg.Is("Bet Credit History 12/02/2016 -->  12/02/2016 - Member: Name"));
+            onebookWorkbook.Received().Title(Arg.Is("Bet Credit History 12/02/2016 -->  12/02/2016 - Member: MemberName"));
         }
 
         [Fact]

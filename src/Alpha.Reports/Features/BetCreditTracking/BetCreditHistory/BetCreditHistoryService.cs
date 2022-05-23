@@ -149,6 +149,11 @@
                     return GetActionStatusToStatus(BetCreditHistoryResources.CashOut, action);
 
                 case 30:
+                    if (IsMatchPrefixPattern(action, BetUpdated))
+                    {
+                        return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
+                    }
+
                     if (IsMatchPrefixPattern(action, TransLogSettled) 
                         || IsMatchPrefixPattern(action, LC)
                         || IsMatchPrefixPattern(action, RNG)
