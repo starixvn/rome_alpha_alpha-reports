@@ -61,7 +61,10 @@ class BetCreditHistory {
     public bindEvents() {
         this.$(".icon-filter").click(this.onClickIconFilter);
         this.$reportForm.submit(this.onSubmitReport);
-        this.$("#btn-submit").click(() => this.$("#PageIndex").val("1"));
+        $('input[type="submit"]').click(() => {
+            this.$("#PageIndex").val("1");
+            this.$("#PageSize").val("100");
+        });
 
         this.$("#icon-excel").click(this.onExportExcel);
     }
