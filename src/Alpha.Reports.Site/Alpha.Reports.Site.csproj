@@ -60,7 +60,7 @@
       <HintPath>..\..\packages\Alpha.ActivityTracking.1.0.0.3\lib\net461\Alpha.ActivityTracking.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.Auth, Version=3.0.4.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Auth.3.0.4.2-beta02\lib\net461\Alpha.Auth.dll</HintPath>
+      <HintPath>..\..\packages\Alpha.Auth.3.0.4.2-beta03\lib\net461\Alpha.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.Logging, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.Logging.1.0.1.1\lib\net461\Alpha.Logging.dll</HintPath>
@@ -87,7 +87,7 @@
       <HintPath>..\..\packages\Alpha.Utilities.IP.1.0.3.2\lib\net461\Alpha.Utilities.IP.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.Web, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Web.1.1.0.1-beta01\lib\net461\Alpha.Web.dll</HintPath>
+      <HintPath>..\..\packages\Alpha.Web.1.1.0.1-beta02\lib\net461\Alpha.Web.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
