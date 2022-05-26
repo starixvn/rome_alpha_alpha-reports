@@ -35,5 +35,6 @@
         public const string ADMINID = "ADMINID";
         public const string ADMINNAME = "ADMINNAME";
         public const string LoginParams = "LoginParams";
+        public const string ISPASSWORDEXPIRED = "ISPASSWORDEXPIRED";
     }
 }
