@@ -118,57 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BetPlacedAs" xml:space="preserve">
-    <value>Bet placed as</value>
+    <value>Cược đặt ở trạng thái</value>
   </data>
   <data name="BetSettled" xml:space="preserve">
-    <value>Bet settled</value>
+    <value>Kết toán cược</value>
   </data>
   <data name="BetUpdated" xml:space="preserve">
-    <value>Bet updated</value>
+    <value>Cập nhật trạng thái</value>
   </data>
   <data name="CancelCashOut" xml:space="preserve">
-    <value>Cancel Cash Out</value>
+    <value>Hủy Bán vé cược</value>
   </data>
   <data name="CashOut" xml:space="preserve">
-    <value>Cash Out</value>
+    <value>Vé cược</value>
   </data>
   <data name="draw" xml:space="preserve">
-    <value>DRAW</value>
+    <value>Hòa</value>
   </data>
   <data name="lose" xml:space="preserve">
-    <value>LOSE</value>
+    <value>Thua</value>
   </data>
   <data name="OpeningCredit" xml:space="preserve">
-    <value>Opening Credit</value>
+    <value>Hạn mức đầu ngày</value>
   </data>
   <data name="refund" xml:space="preserve">
-    <value>Refund</value>
+    <value>Hoàn tiền</value>
   </data>
   <data name="reject" xml:space="preserve">
-    <value>Reject</value>
+    <value>Từ chối</value>
   </data>
   <data name="running" xml:space="preserve">
-    <value>running</value>
+    <value>Đang diễn ra</value>
   </data>
   <data name="SetCreditWhenMembersCreated" xml:space="preserve">
-    <value>SetCreditWhenMembersCreated</value>
+    <value>Thiết lập hạn mức khi tạo mới Member</value>
   </data>
   <data name="to" xml:space="preserve">
-    <value>to</value>
+    <value>đến</value>
   </data>
   <data name="TransferSubmitted" xml:space="preserve">
-    <value>Transfer submitted</value>
+    <value>Đã chuyển khoản</value>
   </data>
   <data name="UpdateGivenCredit" xml:space="preserve">
-    <value>UpdateGivenCredit</value>
+    <value>Cập nhật hạn mức được cấp</value>
   </data>
   <data name="void" xml:space="preserve">
-    <value>VOID</value>
+    <value>Hủy</value>
   </data>
   <data name="waiting" xml:space="preserve">
-    <value>waiting</value>
+    <value>Đang đợi</value>
   </data>
   <data name="won" xml:space="preserve">
-    <value>WON</value>
+    <value>Thắng</value>
   </data>
 </root>

@@ -680,7 +680,7 @@
     <value>Tỷ lệ</value>
   </data>
   <data name="refno" xml:space="preserve">
-    <value>Ref No</value>
+    <value>Số tham chiếu</value>
   </data>
   <data name="transtime" xml:space="preserve">
     <value>Thời gian</value>
@@ -816,7 +816,7 @@
     <value>Member Feedback</value>
   </data>
   <data name="PaymentDate" xml:space="preserve">
-    <value>Payment Date</value>
+    <value>Ngày thanh toán</value>
   </data>
   <data name="CreatedDate" xml:space="preserve">
     <value>Created Date</value>
