@@ -171,4 +171,7 @@
   <data name="won" xml:space="preserve">
     <value>Thắng</value>
   </data>
+  <data name="betrejected" xml:space="preserve">
+    <value>Cược bị từ chối</value>
+  </data>
 </root>

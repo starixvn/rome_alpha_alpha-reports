@@ -171,4 +171,7 @@
   <data name="won" xml:space="preserve">
     <value>WON</value>
   </data>
+  <data name="betrejected" xml:space="preserve">
+    <value>Bet rejected</value>
+  </data>
 </root>

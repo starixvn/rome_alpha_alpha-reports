@@ -145,6 +145,9 @@
                 case 12:
                     return GetBetPlaceAs(action);
 
+                case 20:
+                    return BetCreditHistoryResources.betrejected;
+
                 case 29:
                     return GetActionStatusToStatus(BetCreditHistoryResources.CashOut, action);
 
