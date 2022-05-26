@@ -21,6 +21,19 @@
     public class BetCreditHistoryServiceImpl : BetCreditHistoryService
     {
         private const string LogActionCacheKey = "Alpha.Reports.BetCreditTracking.BetCreditHistory.LogAction";
+        
+        private const string TransLogSettled = "TransLog settled,";
+        private const string TransLog = "TransLog";
+        private const string LC = "LC";
+        private const string RNG = "RNG";
+        private const string Bet = "Bet";
+        private const string BetUpdated = "Bet updated,";
+        private const string BetSettled = "Bet settled,";
+        private const string BetRejected = "Bet rejected";
+        private const string VOID = "VOID";
+        private const string Move = "Move";
+        private const string voided = "voided";
+        private const string to = "to";
 
         private readonly IDynamicRepository dynamicRepository;
         private readonly PartialUMService partialUMService;
@@ -105,38 +118,13 @@
 
         private static string ConvertActionName(string action, int actionId)
         {
-            const string TransLogSettled = "TransLog settled,";
-            const string TransLog = "TransLog";
-            const string LC = "LC";
-            const string RNG = "RNG";
-            const string Bet = "Bet";
-            const string BetUpdated = "Bet updated,";
-            const string BetSettled = "Bet settled,";
-            const string VOID = "VOID";
-            const string voided = "voided";
-            const string to = "to";
-
             switch (actionId)
             {
                 case -1:
                     return BetCreditHistoryResources.OpeningCredit;
 
                 case 0:
-                    if (IsMatchPrefixPattern(action, TransLogSettled) 
-                        || IsMatchPrefixPattern(action, BetUpdated))
-                    {
-                        return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
-                    }
-
-                    if (IsMatchPrefixPattern(action, LC) 
-                        || IsMatchPrefixPattern(action, RNG))
-                    {
-                        return action.IndexOf(to) != -1
-                            ? GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action)
-                            : BetCreditHistoryResources.BetUpdated;
-                    }
-
-                    break;
+                    return TransformActionIdEqualsTo0(action);
 
                 case 10:
                     return GetBetPlaceAsWhichActionMayHaveTransId(action);
@@ -146,101 +134,153 @@
                     return GetBetPlaceAs(action);
 
                 case 20:
-                    return BetCreditHistoryResources.betrejected;
+                    return TransformActionIdEqualsTo20(action);
 
                 case 29:
                     return GetActionStatusToStatus(BetCreditHistoryResources.CashOut, action);
 
                 case 30:
-                    if (IsMatchPrefixPattern(action, BetUpdated))
-                    {
-                        return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
-                    }
-
-                    if (IsMatchPrefixPattern(action, TransLogSettled) 
-                        || IsMatchPrefixPattern(action, LC)
-                        || IsMatchPrefixPattern(action, RNG)
-                        || IsMatchPrefixPattern(action, BetSettled))
-                    {
-                        return GetActionStatusToStatus(BetCreditHistoryResources.BetSettled, action);
-                    }
-
-                    break;
+                    return TransformActionIdEqualsTo30(action);
 
                 case 31:
-                    if (IsMatchPrefixPattern(action, TransLog) 
-                        || IsMatchPrefixPattern(action, BetUpdated))
-                    {
-                        return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
-                    }
-
-                    if (IsMatchPrefixPattern(action, LC)
-                        || IsMatchPrefixPattern(action, RNG))
-                    {
-                        return BetCreditHistoryResources.BetUpdated;
-                    }
-
-                    break;
+                    return TransformActionIdEqualsTo31(action);
 
                 case 32:
-                    if (IsMatchPrefixPattern(action, TransLog)
-                        || IsMatchPrefixPattern(action, BetUpdated))
-                    {
-                        return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
-                    }
-
-                    if (IsMatchPrefixPattern(action, LC)
-                        || IsMatchPrefixPattern(action, RNG))
-                    {
-                        return action.IndexOf(to) != -1
-                            ? GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action)
-                            : BetCreditHistoryResources.BetUpdated;
-                    }
-
-                    break;
+                    return TransformActionIdEqualsTo32(action);
 
                 case 34:
                     return GetActionStatusToStatus(BetCreditHistoryResources.CancelCashOut, action);
 
                 case 50:
-                    if (IsMatchPrefixAndSuffixPattern(action, Bet, VOID)
-                        || IsMatchPrefixAndSuffixPattern(action, TransLog, VOID)
-                        || IsMatchPrefixAndSuffixPattern(action, LC, VOID)
-                        || IsMatchPrefixAndSuffixPattern(action, RNG, VOID)
-                        )
-                    {
-                        return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
-                    }
-                    
-                    if (IsMatchPrefixAndSuffixPattern(action, Bet, voided)
-                        || IsMatchPrefixAndSuffixPattern(action, TransLog, voided)
-                        || IsMatchPrefixAndSuffixPattern(action, LC, voided)
-                        || IsMatchPrefixAndSuffixPattern(action, RNG, voided))
-                    {
-                        return GetBetUpdatedRunningToVoid();
-                    }
-
-                    break;
+                    return TransformActionIdEqualsTo50(action);
 
                 case 55:
-                    if (IsMatchPrefixPattern(action, TransLog))
-                    {
-                        return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
-                    }
-
-                    if (IsMatchPrefixPattern(action, LC) 
-                        || IsMatchPrefixPattern(action, RNG))
-                    {
-                        return GetBetUpdatedVoidToStatus(action);
-                    }
-
-                    break;
+                    return TransformActionIdEqualsTo55(action);
 
                 case 110:
                     return GetTransferSubmitted(action);
 
                 default:
-                    break;
+                    return action;
+            }
+        }
+
+        private static string TransformActionIdEqualsTo0(string action)
+        {
+            if (IsMatchPrefixPattern(action, TransLogSettled)
+                || IsMatchPrefixPattern(action, BetUpdated))
+            {
+                return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
+            }
+
+            if (IsMatchPrefixPattern(action, LC)
+                || IsMatchPrefixPattern(action, RNG))
+            {
+                return action.IndexOf(to, StringComparison.OrdinalIgnoreCase) != -1
+                    ? GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action)
+                    : BetCreditHistoryResources.BetUpdated;
+            }
+
+            return action;
+        }
+
+        private static string TransformActionIdEqualsTo20(string action)
+        {
+            if (action.Trim().Equals(BetRejected, StringComparison.OrdinalIgnoreCase))
+            {
+                return BetCreditHistoryResources.BetRejected;
+            }
+
+            return action;
+        }
+
+        private static string TransformActionIdEqualsTo30(string action)
+        {
+            if (IsMatchPrefixPattern(action, BetUpdated))
+            {
+                return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
+            }
+
+            if (IsMatchPrefixPattern(action, TransLogSettled)
+                || IsMatchPrefixPattern(action, LC)
+                || IsMatchPrefixPattern(action, RNG)
+                || IsMatchPrefixPattern(action, BetSettled))
+            {
+                return GetActionStatusToStatus(BetCreditHistoryResources.BetSettled, action);
+            }
+
+            return action;
+        }
+
+        private static string TransformActionIdEqualsTo31(string action)
+        {
+            if (IsMatchPrefixPattern(action, TransLog)
+                || IsMatchPrefixPattern(action, BetUpdated))
+            {
+                return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
+            }
+
+            if (IsMatchPrefixPattern(action, LC)
+                || IsMatchPrefixPattern(action, RNG))
+            {
+                return BetCreditHistoryResources.BetUpdated;
+            }
+
+            return action;
+        }
+
+        private static string TransformActionIdEqualsTo32(string action)
+        {
+            if (IsMatchPrefixPattern(action, TransLog)
+                || IsMatchPrefixPattern(action, BetUpdated)
+                || IsMatchPrefixPattern(action, Move))
+            {
+                return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
+            }
+
+            if (IsMatchPrefixPattern(action, LC)
+                || IsMatchPrefixPattern(action, RNG))
+            {
+                return action.IndexOf(to, StringComparison.OrdinalIgnoreCase) != -1
+                    ? GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action)
+                    : BetCreditHistoryResources.BetUpdated;
+            }
+
+            return action;
+        }
+
+        private static string TransformActionIdEqualsTo50(string action)
+        {
+            if (IsMatchPrefixAndSuffixPattern(action, Bet, VOID)
+                || IsMatchPrefixAndSuffixPattern(action, TransLog, VOID)
+                || IsMatchPrefixAndSuffixPattern(action, LC, VOID)
+                || IsMatchPrefixAndSuffixPattern(action, RNG, VOID))
+            {
+                return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
+            }
+
+            if (IsMatchPrefixAndSuffixPattern(action, Bet, voided)
+                || IsMatchPrefixAndSuffixPattern(action, TransLog, voided)
+                || IsMatchPrefixAndSuffixPattern(action, LC, voided)
+                || IsMatchPrefixAndSuffixPattern(action, RNG, voided))
+            {
+                return GetBetUpdatedRunningToVoid();
+            }
+
+            return action;
+        }
+
+        private static string TransformActionIdEqualsTo55(string action)
+        {
+            if (IsMatchPrefixPattern(action, TransLog))
+            {
+                return GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action);
+            }
+
+            if (IsMatchPrefixPattern(action, LC)
+                || IsMatchPrefixPattern(action, RNG))
+            {
+                return GetBetUpdatedVoidToStatus(action);
             }
 
             return action;

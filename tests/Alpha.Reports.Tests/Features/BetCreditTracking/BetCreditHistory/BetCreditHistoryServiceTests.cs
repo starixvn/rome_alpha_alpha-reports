@@ -5,11 +5,14 @@
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Params;
+    using Alpha.Reports.Tests.Extensions;
     using Alpha.Web.Helpers;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using NSubstitute;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Xunit;
 
     [Trait("Category", "BetCreditHistory")]
@@ -42,7 +45,7 @@
         }
 
         [Fact]
-        public void GetBetCreditHistory_Always_CallFetch()
+        public void GetBetCreditHistory_Always_CallFetchBetCreditHistory()
         {
             // Arrange
             var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, LanguageCode.English, 1, 100);
@@ -60,6 +63,24 @@
                 && criteria.PageIndex == param.PageIndex
                 && criteria.PageSize == param.PageSize
                 ));
+        }
+
+        [Fact]
+        public void GetBetCreditHistory_WhenActionIsFromUserLog_CallFetchLogActions()
+        {
+            // Arrange
+            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, LanguageCode.English, 1, 100);
+            var reportData = new List<BetCreditHistoryModel>
+            {
+                new BetCreditHistoryModel(DateTime.Now, new DateTime(2022, 3, 3, 23, 59, 00), 123456, 10, 10, 10, 10, 10, 10, 10, 1, "Bet Updated", 1)
+            };
+            repository.Fetch<BetCreditHistoryModel>(Arg.Any<BetCreditHistoryCriteria>()).Returns(reportData);
+
+            // Act
+            service.GetBetCreditHistory(param);
+
+            // Assert
+            repository.Received().Fetch<LogAction>(Arg.Any<GetLogActionsCriteria>());
         }
     }
 }

@@ -120,6 +120,9 @@
   <data name="BetPlacedAs" xml:space="preserve">
     <value>วางเดิมพัน</value>
   </data>
+  <data name="BetRejected" xml:space="preserve">
+    <value>Bet rejected</value>
+  </data>
   <data name="BetSettled" xml:space="preserve">
     <value>ตัดสินเดิมพัน</value>
   </data>
@@ -149,9 +152,6 @@
   </data>
   <data name="running" xml:space="preserve">
     <value>ยอมรับการวางเดิมพันแล้ว</value>
-  </data>
-  <data name="SetCreditWhenMembersCreated" xml:space="preserve">
-    <value>SetCreditWhenMembersCreated</value>
   </data>
   <data name="to" xml:space="preserve">
     <value>ถึง</value>

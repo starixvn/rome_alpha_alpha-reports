@@ -23,14 +23,16 @@
                 actual.NewBalance == null &&
                 actual.GivenCredit == 0 &&
                 actual.BetCredit == null &&
-                actual.Action == null);
+                actual.ActionId == 0 &&
+                actual.Action == null &&
+                actual.IsUserLogActionId == 0);
         }
 
         [Fact]
         public void ActionDateString_HasData_ReturnsCorrectString()
         {
             // Arrange
-            var entity = new BetCreditHistoryModel(new DateTime(2022, 3, 3, 23, 59, 00), DateTime.Now, 123456, 10, 10, 10, 10, 10, 10, 10, "Bet Updated");
+            var entity = new BetCreditHistoryModel(new DateTime(2022, 3, 3, 23, 59, 00), DateTime.Now, 123456, 10, 10, 10, 10, 10, 10, 10, 1, "Bet Updated", 0);
 
             // Act
             var actual = entity.ActionDateString;
@@ -43,7 +45,7 @@
         public void WinLostDateString_Null_ReturnsCorrectString()
         {
             // Arrange
-            var entity = new BetCreditHistoryModel(DateTime.Now, null, 123456, 10, 10, 10, 10, 10, 10, 10, "Bet Updated");
+            var entity = new BetCreditHistoryModel(DateTime.Now, null, 123456, 10, 10, 10, 10, 10, 10, 10, 1, "Bet Updated", 0);
 
             // Act
             var actual = entity.WinLostDateString;
@@ -56,7 +58,7 @@
         public void WinLostDateString_HasData_ReturnsCorrectString()
         {
             // Arrange
-            var entity = new BetCreditHistoryModel(DateTime.Now, new DateTime(2022, 3, 3, 23, 59, 00), 123456, 10, 10, 10, 10, 10, 10, 10, "Bet Updated");
+            var entity = new BetCreditHistoryModel(DateTime.Now, new DateTime(2022, 3, 3, 23, 59, 00), 123456, 10, 10, 10, 10, 10, 10, 10, 1, "Bet Updated", 0);
 
             // Act
             var actual = entity.WinLostDateString;

@@ -7,8 +7,8 @@
         public BetCreditHistoryParam(
             string member, 
             long? refNo, 
-            DateTime fromDate, 
-            DateTime toDate, 
+            DateTime fromDate,
+            DateTime toDate,
             int viewerId, 
             DateTime limitedDateToShowInfo, 
             string language,

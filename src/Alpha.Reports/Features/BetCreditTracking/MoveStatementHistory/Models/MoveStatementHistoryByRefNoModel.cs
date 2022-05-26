@@ -14,7 +14,16 @@
             Username = username;
         }
 
-        public MoveStatementHistoryByRefNoModel(int custId, string username, long transId, DateTime oldEventDate, DateTime newEventDate, decimal memberWinLoss, decimal memberComm, decimal memberTotal, int isMultipleMoved)
+        public MoveStatementHistoryByRefNoModel(
+            int custId, 
+            string username, 
+            long transId, 
+            DateTime oldEventDate, 
+            DateTime newEventDate, 
+            decimal memberWinLoss, 
+            decimal memberComm, 
+            decimal memberTotal, 
+            int isMultipleMoved)
         {
             Username = username;
             CustId = custId;

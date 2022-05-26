@@ -120,6 +120,9 @@
   <data name="BetPlacedAs" xml:space="preserve">
     <value>投注予</value>
   </data>
+  <data name="BetRejected" xml:space="preserve">
+    <value>Bet rejected</value>
+  </data>
   <data name="BetSettled" xml:space="preserve">
     <value>注單已結算</value>
   </data>
@@ -149,9 +152,6 @@
   </data>
   <data name="running" xml:space="preserve">
     <value>進行中</value>
-  </data>
-  <data name="SetCreditWhenMembersCreated" xml:space="preserve">
-    <value>SetCreditWhenMembersCreated</value>
   </data>
   <data name="to" xml:space="preserve">
     <value>到</value>

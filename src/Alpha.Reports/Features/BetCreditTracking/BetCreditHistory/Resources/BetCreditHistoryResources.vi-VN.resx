@@ -120,6 +120,9 @@
   <data name="BetPlacedAs" xml:space="preserve">
     <value>Cược đặt ở trạng thái</value>
   </data>
+  <data name="BetRejected" xml:space="preserve">
+    <value>Cược bị từ chối</value>
+  </data>
   <data name="BetSettled" xml:space="preserve">
     <value>Kết toán cược</value>
   </data>
@@ -150,9 +153,6 @@
   <data name="running" xml:space="preserve">
     <value>Đang diễn ra</value>
   </data>
-  <data name="SetCreditWhenMembersCreated" xml:space="preserve">
-    <value>Thiết lập hạn mức khi tạo mới Member</value>
-  </data>
   <data name="to" xml:space="preserve">
     <value>đến</value>
   </data>
@@ -170,8 +170,5 @@
   </data>
   <data name="won" xml:space="preserve">
     <value>Thắng</value>
-  </data>
-  <data name="betrejected" xml:space="preserve">
-    <value>Cược bị từ chối</value>
   </data>
 </root>

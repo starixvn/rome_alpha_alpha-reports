@@ -20,7 +20,9 @@
             decimal? newBalance,
             decimal givenCredit,
             decimal? betCredit,
-            string action)
+            int actionId,
+            string action,
+            byte isUserLogActionId)
         {
             ActionDate = actionDate;
             WinLostDate = winLostDate;
@@ -32,7 +34,9 @@
             NewBalance = newBalance;
             GivenCredit = givenCredit;
             BetCredit = betCredit;
+            ActionId = actionId;
             Action = action;
+            IsUserLogActionId = isUserLogActionId;
         }
 
         public DateTime ActionDate { get; }
