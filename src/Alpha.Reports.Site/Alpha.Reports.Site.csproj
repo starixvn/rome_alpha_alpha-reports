@@ -1704,10 +1704,64 @@
     <Content Include="Views\Statement\_StatementPopup.cshtml" />
     <Content Include="Web.ConnectionStrings.dockerlocal.config" />
     <Content Include="Web.AppSettings.config" />
+    <Content Include="Web.AppSettings.dockerlocal2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.dockerlocal3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.dockerpro2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.dockerpro3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.dockeruat2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.dockeruat3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.dockerlocal2.config">
+      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.dockerlocal3.config">
+      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.dockerpro2.config">
+      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.dockerpro3.config">
+      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.dockeruat2.config">
+      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.dockeruat3.config">
+      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="Web.pro3.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.dockerlocal2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.dockerlocal3.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.dockerpro2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.dockerpro3.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.dockeruat2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.dockeruat3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <None Include="Web.Release.config">
