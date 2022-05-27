@@ -34,6 +34,9 @@
         private const string Move = "Move";
         private const string voided = "voided";
         private const string to = "to";
+        private const string to0 = "to 0";
+        private const string to1 = "to 1";
+
 
         private readonly IDynamicRepository dynamicRepository;
         private readonly PartialUMService partialUMService;
@@ -176,7 +179,7 @@
             if (IsMatchPrefixPattern(action, LC)
                 || IsMatchPrefixPattern(action, RNG))
             {
-                return action.IndexOf(to, StringComparison.OrdinalIgnoreCase) != -1
+                return IsHaveStatusToStatus(action)
                     ? GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action)
                     : BetCreditHistoryResources.BetUpdated;
             }
@@ -241,7 +244,7 @@
             if (IsMatchPrefixPattern(action, LC)
                 || IsMatchPrefixPattern(action, RNG))
             {
-                return action.IndexOf(to, StringComparison.OrdinalIgnoreCase) != -1
+                return IsHaveStatusToStatus(action)
                     ? GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action)
                     : BetCreditHistoryResources.BetUpdated;
             }
@@ -285,6 +288,12 @@
 
             return action;
         }
+
+        private static bool IsHaveStatusToStatus(string action)
+            => action.IndexOf(to, StringComparison.OrdinalIgnoreCase) != -1 &&
+                   action.IndexOf(to0, StringComparison.OrdinalIgnoreCase) == -1 &&
+                   action.IndexOf(to1, StringComparison.OrdinalIgnoreCase) == -1;
+        
 
         private static bool IsMatchPrefixAndSuffixPattern(string str, string prefix, string suffix)
         {
