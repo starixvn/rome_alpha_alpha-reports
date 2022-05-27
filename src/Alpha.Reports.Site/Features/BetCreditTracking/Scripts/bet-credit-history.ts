@@ -62,11 +62,18 @@ class BetCreditHistory {
         this.$(".icon-filter").click(this.onClickIconFilter);
         this.$reportForm.submit(this.onSubmitReport);
         $('input[type="submit"]').click(() => {
-            this.$("#PageIndex").val("1");
-            this.$("#PageSize").val("100");
+            this.resetPaging();
+        });
+        $(".range-option").click(() => {
+            this.resetPaging();
         });
 
         this.$("#icon-excel").click(this.onExportExcel);
+    }
+
+    resetPaging = () => {
+        this.$("#PageIndex").val("1");
+        this.$("#PageSize").val("100");
     }
 
     onClickIconFilter = () => {
