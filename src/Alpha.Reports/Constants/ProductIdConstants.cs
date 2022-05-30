@@ -60,13 +60,5 @@ namespace Alpha.Reports.Constants
                 SabaClub,
                 VGaming
             };
-
-        public static readonly IEnumerable<int> ProductListHasProductDetail = new List<int>
-        {
-            PP,
-            SexyGaming,
-            SG,
-            Allbet
-        };
     }
 }

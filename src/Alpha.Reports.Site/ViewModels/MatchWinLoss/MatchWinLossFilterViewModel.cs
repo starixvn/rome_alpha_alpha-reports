@@ -1,6 +1,8 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.MatchWinLoss
 {
     using System;
+    using System.Collections.Generic;
+    using Alpha.Reports.Configurations;
     using App_GlobalResources;
     using Components;
     using Extensions;
@@ -18,7 +20,11 @@
             CustId = custId;
             CustLevel = custLevel;
             DateRangePickerViewModel = dateRangePickerViewModel;
-            ViewDataInstructionMessage = string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, minDate.ToShortDateWithSlash());
+            ViewDataInstructionMessage = new List<string>
+            {
+                string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, minDate.ToShortDateWithSlash()),
+                string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)
+            };
             Visible = visible;
         }
 
@@ -28,7 +34,7 @@
 
         public bool Visible { get; }
 
-        public string ViewDataInstructionMessage { get; }
+        public List<string> ViewDataInstructionMessage { get; }
 
         public DateRangePickerViewModel DateRangePickerViewModel { get; }
     }

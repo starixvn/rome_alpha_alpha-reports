@@ -853,4 +853,7 @@
   <data name="ConsolidationPTNote" xml:space="preserve">
     <value>ค่าความเสี่ยงที่แสดงในรายงานคือ “ค่าความเสี่ยงสูงสุด” ของ{0}</value>
   </data>
+  <data name="SabaSportsNote" xml:space="preserve">
+    <value>รายงานเฉพาะของ กีฬาSABA จะมีตั้งแต่วันที่ {0} เป็นต้นไป ก่อนวันที่ {0} รายงานของกีฬาและกีฬาSABA จะรวมกัน</value>
+  </data>
 </root>

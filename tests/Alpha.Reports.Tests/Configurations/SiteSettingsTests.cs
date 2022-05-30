@@ -122,26 +122,6 @@
             Assert.Equal(expectedSetting, actualSetting);
         }
 
-        [Theory]
-        [InlineData(null, false)]
-        [InlineData("", false)]
-        [InlineData("0", false)]
-        [InlineData("1", true)]
-        public void IsOfferJackpotProductDetails_Always_ReturnsCorrectSetting(string isOfferJackpotProductDetails, bool expected)
-        {
-            // Arrange
-            SiteSettings.AppSettings = new NameValueCollection
-            {
-                ["IsOfferJackpotProductDetails"] = isOfferJackpotProductDetails
-            };
-
-            // Act
-            var actualSetting = SiteSettings.IsOfferJackpotProductDetails;
-
-            // Assert
-            Assert.Equal(expected, actualSetting);
-        }
-
         [Fact]
         public void OfferSabaPromotionSites_Null_ReturnsNullCollection()
         {

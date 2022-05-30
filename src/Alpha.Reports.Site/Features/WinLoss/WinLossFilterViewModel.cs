@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLoss
 {
     using System;
+    using Alpha.Reports.Configurations;
     using App_GlobalResources;
     using Components;
     using Extensions;
@@ -36,6 +37,7 @@
             Visible = visible;
             CustLevel = custLevel;
             BreadcrumbLevelJson = breadcrumbLevelJson;
+            SeparateSabaMessage = string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate);
         }
 
         public int CustId { get; }
@@ -57,6 +59,8 @@
         public bool Visible { get; }
 
         public string ViewDataInstructionMessage { get; }
+
+        public string SeparateSabaMessage { get; }
 
         public string ViewActionMessage => IsHistoricReport ? Resources.BackToCurrentReport : Resources.ViewHistoryReport;
 

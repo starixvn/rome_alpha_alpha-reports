@@ -1888,6 +1888,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The dedicated performance report of SABA Sports is only available from {0} onwards. Before {0}, data is the combination of Sportsbook and SABA Sports..
+        /// </summary>
+        public static string SabaSportsNote {
+            get {
+                return ResourceManager.GetString("SabaSportsNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select all.
         /// </summary>
         public static string SelectAll {

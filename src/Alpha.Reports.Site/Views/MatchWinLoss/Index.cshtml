@@ -19,7 +19,12 @@
     </div>
 
     <div class="note">
-        <span class="star">*</span>@Model.FilterViewModel.ViewDataInstructionMessage
+        @foreach (var item in Model.FilterViewModel.ViewDataInstructionMessage)
+        {
+            <div>
+                <span class="star">*</span>@item
+            </div>
+        }
     </div>
 </form>
 

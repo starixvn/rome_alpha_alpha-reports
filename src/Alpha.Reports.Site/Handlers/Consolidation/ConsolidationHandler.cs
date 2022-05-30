@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Configurations;
     using Alpha.Reports.Constants;
     using Alpha.Reports.Models.Consolidation;
     using Alpha.Reports.Site.ViewModels.Components;

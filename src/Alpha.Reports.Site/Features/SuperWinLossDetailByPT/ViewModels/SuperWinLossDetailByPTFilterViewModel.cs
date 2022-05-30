@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Features.SuperWinLossDetailByPT.ViewModels
 {
     using System;
+    using Alpha.Reports.Configurations;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
@@ -24,6 +25,7 @@
                 Resources.CanOnlyViewDataAfterTimeHistoryReport,
                 minDate.ToShortDateWithSlash());
             Visible = visible;
+            SeparateSabaMessage = string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate);
         }
 
         public int CustId { get; }
@@ -37,5 +39,7 @@
         public bool Visible { get; }
 
         public string ViewDataInstructionMessage { get; }
+
+        public string SeparateSabaMessage { get; }
     }
 }

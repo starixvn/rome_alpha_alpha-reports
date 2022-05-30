@@ -878,4 +878,7 @@
   <data name="ConsolidationPTNote" xml:space="preserve">
     <value>Giá trị PT được hiển thị trong báo cáo là PT Lớn Nhất của {0}</value>
   </data>
+  <data name="SabaSportsNote" xml:space="preserve">
+    <value>Báo cáo hiệu suất dành riêng cho SABA Sports chỉ có sẵn từ {0} trở đi. Trước {0}, các số liệu là sự kết hợp của Sportsbook và SABA Sports.</value>
+  </data>
 </root>

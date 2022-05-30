@@ -21,7 +21,12 @@
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
     <div class="note">
-        <span class="star">*</span>@filter.ViewDataInstructionMessage
+        @foreach (var item in filter.ViewDataInstructionMessage)
+        {
+            <div>
+                <span class="star">*</span>@item
+            </div>
+        }
     </div>
 
     @Html.Hidden("IsFilterVisible", filter.Visible ? "true" : "false")
