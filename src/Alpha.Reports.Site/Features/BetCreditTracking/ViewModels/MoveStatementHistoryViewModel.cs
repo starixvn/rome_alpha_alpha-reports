@@ -13,6 +13,7 @@
     public class MoveStatementHistoryViewModel
     {
         private const string DefaultBetListPath = "~/MoveStatementHistory/Index";
+        private readonly DateTime ReleasedDateTime = new DateTime(2022, 5, 31);
 
         public MoveStatementHistoryViewModel(IEnumerable<MoveStatementHistoryByMemberModel> data, MoveStatementHistoryQuery message, bool isError = false)
         {
@@ -26,7 +27,7 @@
             ToDate = message.ToDate;
             UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
 
-            ViewDataInstructionMessage = string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, message.MinDate.ToShortDateWithSlash());
+            ViewDataInstructionMessage = string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, ReleasedDateTime.ToShortDateWithSlash());
             BetListPath = Helpers.UrlHelper.MapBetListPath(DefaultBetListPath);
             CanViewBetLists = !message.IsProtectedMode || !message.CustLevel.IsAgentLevel();
 

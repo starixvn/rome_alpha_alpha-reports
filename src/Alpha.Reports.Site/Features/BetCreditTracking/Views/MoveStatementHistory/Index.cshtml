@@ -1,8 +1,13 @@
 ﻿@using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models
+@using Sunplus.Agent.Model.Entities
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Resources.MoveStatementHistory;
-}
+
+    var userguideLink = UserSession.Current.Site.Equals("789y", StringComparison.OrdinalIgnoreCase) ?
+        MicroSites.MessageUrl("~/StaticMessage/Guide?id=167296") :
+        MicroSites.HowToUseUrl("~/Index.aspx?linktomessagesite=167296");
+    }
 @model MoveStatementHistoryViewModel
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
@@ -20,7 +25,7 @@
             <a href="#moveStatementHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.MoveStatementHistory</a>
         </li>
         <li>
-            <a href="#" target="_blank"><span class="icon icon-information-outline"></span></a>
+            <a href="@userguideLink" target="_blank"><span class="icon icon-information-outline"></span></a>
         </li>
     </ul>
 
@@ -51,9 +56,9 @@
                 </thead>
                 @if (Model.Data.Any())
                 {
-                <tbody>
-                    @BuildReport(Model.Data)
-                </tbody>
+                    <tbody>
+                        @BuildReport(Model.Data)
+                    </tbody>
                 }
                 else
                 {

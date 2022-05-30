@@ -28,3 +28,9 @@
 .red {
     color: #E54748;
 }
+
+.nav.nav-tabs > li:last-child.active:after,
+.nav.nav-tabs > li:last-child:hover:after {
+    width: 0%;
+    background: none;
+}

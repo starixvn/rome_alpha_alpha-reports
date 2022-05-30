@@ -121,7 +121,7 @@
     <value>วางเดิมพัน</value>
   </data>
   <data name="BetRejected" xml:space="preserve">
-    <value>Bet rejected</value>
+    <value>เดิมพันถูกปฏิเสธ</value>
   </data>
   <data name="BetSettled" xml:space="preserve">
     <value>ตัดสินเดิมพัน</value>
@@ -142,7 +142,7 @@
     <value>แพ้</value>
   </data>
   <data name="OpeningCredit" xml:space="preserve">
-    <value>Opening Credit</value>
+    <value>จำนวนเครดิตเริ่มต้น</value>
   </data>
   <data name="refund" xml:space="preserve">
     <value>คืนเงิน</value>

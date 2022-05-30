@@ -1,6 +1,11 @@
-﻿@{
+﻿@using Sunplus.Agent.Model.Entities
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Resources.BetCreditHistory;
+
+    var userguideLink = UserSession.Current.Site.Equals("789y", StringComparison.OrdinalIgnoreCase) ?
+        MicroSites.MessageUrl("~/StaticMessage/Guide?id=167296") :
+        MicroSites.HowToUseUrl("~/Index.aspx?linktomessagesite=167296");
 }
 @model BetCreditHistoryViewModel
 @section Styles {
@@ -19,7 +24,7 @@
             @Html.ActionLink(Resources.MoveStatementHistory, "Index", "MoveStatementHistory")
         </li>
         <li>
-            <a href="#" target="_blank"><span class="icon icon-information-outline"></span></a>
+            <a href="@userguideLink" target="_blank"><span class="icon icon-information-outline"></span></a>
         </li>
     </ul>
 

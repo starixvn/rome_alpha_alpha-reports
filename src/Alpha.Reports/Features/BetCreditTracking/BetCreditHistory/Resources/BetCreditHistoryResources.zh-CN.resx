@@ -121,7 +121,7 @@
     <value>投注予</value>
   </data>
   <data name="BetRejected" xml:space="preserve">
-    <value>Bet rejected</value>
+    <value>投注被取消</value>
   </data>
   <data name="BetSettled" xml:space="preserve">
     <value>注单已结算</value>
@@ -142,7 +142,7 @@
     <value>输</value>
   </data>
   <data name="OpeningCredit" xml:space="preserve">
-    <value>Opening Credit</value>
+    <value>期初信用额</value>
   </data>
   <data name="refund" xml:space="preserve">
     <value>退款</value>
