@@ -865,7 +865,6 @@
   <data name="PartialUMAnnouncement" xml:space="preserve">
     <value>由于目前服务器繁忙所以此功能暂时关闭 从 {0} 至 {1} (GMT+8), 请稍后再试。 不便之处 敬请见谅！</value>
   </data>
-  </data>
   <data name="BetCreditHistory" xml:space="preserve">
     <value>投注额度历史记录</value>
   </data>

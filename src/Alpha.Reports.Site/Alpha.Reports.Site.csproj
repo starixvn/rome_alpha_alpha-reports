@@ -1638,12 +1638,8 @@
     <Content Include="Features\BetCreditTracking\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="ProductSection.config" />    
     <Content Include="Features\BetCreditTracking\Views\MoveStatementHistory\_Filter.cshtml" />
     <Content Include="Features\BetCreditTracking\Views\BetCreditHistory\_Filter.cshtml" />
-    <Content Include="PartialUMConfigs\PartialUMSection.aws.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.aws2.config" />
-    <Content Include="PartialUMConfigs\PartialUMSection.aws3.config" />
     <Content Include="Features\BonusDetail\Views\_ConfirmPayment.cshtml" />
     <Content Include="PartialUMConfigs\PartialUMSection.config" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />

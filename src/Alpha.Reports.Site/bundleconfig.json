@@ -365,8 +365,7 @@
     "inputFiles": [
       "Features/BonusDetail/Styles/bonus-detail.css"
     ]
-  },
-  {
+  },  
   {
     "outputFileName": "Features/BetCreditTracking/Bundles/movestatementhistory.js",
     "inputFiles": [
