@@ -33,7 +33,7 @@
             row = Substitute.For<Row>();
 
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(Constants.LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
 

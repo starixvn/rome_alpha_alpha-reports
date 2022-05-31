@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+}
+
+@model BetCreditHistoryViewModel
+
+@using (Html.BeginForm("Search", "BetCreditHistory", FormMethod.Get, new { @class = "form-inline filter" + (Model.IsFilterVisible ? string.Empty : " hide"), role = "form", id = "report-form" }))
+{
+    <input type="hidden" value="@Model.IsFilterVisible.ToString().ToLowerInvariant()" name="IsFilterVisible" id="IsFilterVisible" />
+
+    <div class="form-group">
+        <label>@Resources.Member <span style="color: #E54748;">*</span></label>
+        <input type="text" style="width: 200px;" autocomplete="off" id="txt-member" name="Member" value="@Model.Member" placeholder="@Resources.Username" />
+    </div>
+
+    <div class="form-group">
+        <label>@Resources.refno</label>
+        <input type="text" autocomplete="off" name="RefNo" value="@Model.RefNo" id="txt-refno"/>
+    </div>
+
+    @DateRangePicker.Render(Model.DateRangePickerViewModel);
+
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+
+    <div id="validation-msg-error" class="msg msg-error hide">
+    </div>
+
+    if (Model.ErrMsg != string.Empty)
+    {
+        <div id="msg-error" class="msg msg-error">
+            @Model.ErrMsg
+        </div>
+    }
+}

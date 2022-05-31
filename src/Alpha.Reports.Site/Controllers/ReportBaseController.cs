@@ -74,6 +74,17 @@
             return GetExcelContent(mediator.Send(message));
         }
 
+        protected async Task<FileContentResult> ExcelViewAsync(IAsyncRequest<ExcelFileViewModel> message)
+        {
+            var baseQuery = message as ReportBaseQuery;
+            if (baseQuery != null && !baseQuery.IsValid())
+            {
+                return GetExcelContent(new ExcelFileViewModel(InvalidReportExcelFileName, new byte[] { }));
+            }
+
+            return GetExcelContent(await mediator.SendAsync(message));
+        }
+
         protected ActionResult Json<TResponse>(IRequest<TResponse> message)
         {
             var baseQuery = message as ReportBaseQuery;

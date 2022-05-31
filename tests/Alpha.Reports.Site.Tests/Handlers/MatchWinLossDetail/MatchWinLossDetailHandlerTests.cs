@@ -50,7 +50,7 @@
             reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDate);
 
             matchWinLossDetailHandler = new MatchWinLossDetailHandler(productService, leagueService, reportService, cacheRefService);
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(Constants.LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
 

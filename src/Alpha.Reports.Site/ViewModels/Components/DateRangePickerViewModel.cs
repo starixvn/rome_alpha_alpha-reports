@@ -8,14 +8,14 @@
 
     public class DateRangePickerViewModel
     {
-        private const string TodayOptionValue = "0";
-        private const string YesterdayOptionValue = "1";
-        private const string ThisWeekOptionValue = "2";
-        private const string LastWeekOptionValue = "3";
-        private const string ThisMonthOptionValue = "4";
-        private const string LastMonthOptionValue = "5";
-        private const string SinceLastMonthOptionValue = "6";
-        private const string SpecificDateOptionValue = "7";
+        public const string TodayOptionValue = "0";
+        public const string YesterdayOptionValue = "1";
+        public const string ThisWeekOptionValue = "2";
+        public const string LastWeekOptionValue = "3";
+        public const string ThisMonthOptionValue = "4";
+        public const string LastMonthOptionValue = "5";
+        public const string SinceLastMonthOptionValue = "6";
+        public const string SpecificDateOptionValue = "7";
 
         public DateRangePickerViewModel(
             DateTime minDate,
@@ -23,7 +23,8 @@
             DateTime fromDate,
             DateTime toDate,
             int userSelectedDateRangeOption,
-            bool isRenderSubmitButton = true)
+            bool isRenderSubmitButton = true,
+            IList<string> optionValues = null)
         {
             MinDate = minDate;
             MaxDate = maxDate;
@@ -31,7 +32,8 @@
             ToDate = toDate;
             UserSelectedDateRangeOption = userSelectedDateRangeOption;
             //// TODO: ricky will refactor here
-            RangeOptions = BuildRangeOptions(userSelectedDateRangeOption);
+            var rangeOptions = BuildRangeOptions(userSelectedDateRangeOption);
+            RangeOptions = optionValues != null ? rangeOptions.Where(item => optionValues.Contains(item.Value)) : rangeOptions;
 
             SelectedRangeOption = RangeOptions.FirstOrDefault(item => item.Value == userSelectedDateRangeOption.ToString());
 

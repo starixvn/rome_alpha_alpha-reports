@@ -1,0 +1,116 @@
+﻿@using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models
+@using Sunplus.Agent.Model.Entities
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Resources.MoveStatementHistory;
+
+    var userguideLink = UserSession.Current.Site.Equals("789y", StringComparison.OrdinalIgnoreCase) ?
+        MicroSites.MessageUrl("~/StaticMessage/Guide?id=167296") :
+        MicroSites.HowToUseUrl("~/Index.aspx?linktomessagesite=167296");
+    }
+@model MoveStatementHistoryViewModel
+@section Styles {
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
+    @StaticResources.RenderStylesWithDarkMode("~/Features/BetCreditTracking/Bundles/movestatementhistory")
+}
+@section Scripts {
+    @StaticResources.RenderScripts("~/Features/BetCreditTracking/Bundles/movestatementhistory")
+}
+<div class="page-title @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation">
+            @Html.ActionLink(@Resources.BetCreditHistory, "Index", "BetCreditHistory")
+        </li>
+        <li role="presentation" class="active">
+            <a href="#moveStatementHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.MoveStatementHistory</a>
+        </li>
+        <li>
+            <a href="@userguideLink" target="_blank"><span class="icon icon-information-outline"></span></a>
+        </li>
+    </ul>
+
+    <div class="list-icon">
+        <ul>
+            <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+            <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+        </ul>
+    </div>
+</div>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="moveStatementHistory">
+        @{
+            Html.RenderPartial("~/Features/BetCreditTracking/Views/MoveStatementHistory/_Filter.cshtml", Model);
+        }
+        @if (Model.Data != null && Model.ErrMsg == string.Empty)
+        {
+            <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
+                <thead>
+                    <tr>
+                        <th>@Resources.MemberRefNo</th>
+                        <th>@Resources.OldEventDate</th>
+                        <th>@Resources.NewEventDate</th>
+                        <th>@Resources.MemberWinLossNew</th>
+                        <th>@Resources.MemberCommNew</th>
+                        <th>@Resources.MemberTotalNew</th>
+                    </tr>
+                </thead>
+                @if (Model.Data.Any())
+                {
+                    <tbody>
+                        @BuildReport(Model.Data)
+                    </tbody>
+                }
+                else
+                {
+                    @NoInformation.Render(6)
+                }
+            </table>
+        }
+    </div>
+</div>
+
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("Excel", "MoveStatementHistory")">
+    @Html.Hidden("Username", Model.Username)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+</form>
+
+@helper BuildReport(IEnumerable<MoveStatementHistoryByMemberModel> dataSource)
+{
+    foreach (var member in dataSource)
+    {
+        <tr class="member-row">
+            <td class="text-left">
+                @member.Username
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        foreach (var row in member.RefNoRow)
+        {
+            <tr class="@(row.IsMultipleMoved == 1 ? "red" : "")">
+                <td>
+                    <div class="refno">
+                        @if (Model.CanViewBetLists)
+                        {
+                            <a href="@Model.GetBetListLinkRouteValues(row.CustId, row.Username, row.TransId)">@row.TransId</a>
+                        }
+                        else
+                        {
+                            @row.TransId
+                        }
+                    </div>
+                </td>
+                <td>@row.OldEventDate.ToShortDateWithSlash()</td>
+                <td>@row.NewEventDate.ToShortDateWithSlash()</td>
+                <td>@HtmlHelpers.FormatNumber(row.MemberWinLoss)</td>
+                <td>@HtmlHelpers.FormatNumber(row.MemberComm)</td>
+                <td class="total">@HtmlHelpers.FormatNumber(row.MemberTotal)</td>
+            </tr>
+        }
+    }
+}

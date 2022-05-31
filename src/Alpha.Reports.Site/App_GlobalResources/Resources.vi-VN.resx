@@ -680,7 +680,7 @@
     <value>Tỷ lệ</value>
   </data>
   <data name="refno" xml:space="preserve">
-    <value>Ref No</value>
+    <value>Số tham chiếu</value>
   </data>
   <data name="transtime" xml:space="preserve">
     <value>Thời gian</value>
@@ -816,7 +816,7 @@
     <value>Member Feedback</value>
   </data>
   <data name="PaymentDate" xml:space="preserve">
-    <value>Payment Date</value>
+    <value>Ngày thanh toán</value>
   </data>
   <data name="CreatedDate" xml:space="preserve">
     <value>Created Date</value>
@@ -880,5 +880,68 @@
   </data>
   <data name="SabaSportsNote" xml:space="preserve">
     <value>Báo cáo hiệu suất dành riêng cho SABA Sports chỉ có sẵn từ {0} trở đi. Trước {0}, các số liệu là sự kết hợp của Sportsbook và SABA Sports.</value>
+  </data>
+  <data name="BetCreditHistory" xml:space="preserve">
+    <value>Lịch sử Hạn mức khả dụng</value>
+  </data>
+  <data name="MembersMovedEventDateReport" xml:space="preserve">
+    <value>Member's Moved Event Date Report</value>
+  </data>
+  <data name="MemberRefNo" xml:space="preserve">
+    <value>Member/Số tham chiếu</value>
+  </data>
+  <data name="NewEventDate" xml:space="preserve">
+    <value>Ngày diễn ra mới</value>
+  </data>
+  <data name="OldEventDate" xml:space="preserve">
+    <value>Ngày diễn ra cũ</value>
+  </data>
+  <data name="EventDateFrom" xml:space="preserve">
+    <value>Ngày diễn ra từ</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Hành động</value>
+  </data>
+  <data name="ActionDateTime" xml:space="preserve">
+    <value>Thời điểm thực hiện</value>
+  </data>
+  <data name="ActualStake" xml:space="preserve">
+    <value>Tiền cược thực</value>
+  </data>
+  <data name="BalanceChange" xml:space="preserve">
+    <value>Thay đổi số dư</value>
+  </data>
+  <data name="BetCredit" xml:space="preserve">
+    <value>Hạn mức khả dụng</value>
+  </data>
+  <data name="GivenCredit" xml:space="preserve">
+    <value>Hạn mức được cấp</value>
+  </data>
+  <data name="NewBalance" xml:space="preserve">
+    <value>Số dư mới</value>
+  </data>
+  <data name="PlayerComm" xml:space="preserve">
+    <value>Hoa hồng</value>
+  </data>
+  <data name="WinLossDate" xml:space="preserve">
+    <value>Ngày thắng thua</value>
+  </data>
+  <data name="UsernameIsRequired" xml:space="preserve">
+    <value>Cần nhập tên người dùng</value>
+  </data>
+  <data name="MoveStatementHistory" xml:space="preserve">
+    <value>Lịch sử thay đổi sao kê</value>
+  </data>
+  <data name="MoveStatementHistoryNote" xml:space="preserve">
+    <value>Báo cáo này sẽ hiển thị tất cả vé cược có ngày diễn ra mới/cũ nằm trong khoảng ngày tháng tìm kiếm.</value>
+  </data>
+  <data name="InvalidUsername" xml:space="preserve">
+    <value>Tên người dùng không đúng</value>
+  </data>
+  <data name="DuplicatedTicketMessage" xml:space="preserve">
+    <value>Vé cược nào có ngày diễn ra bị thay đổi nhiều lần sẽ được hiển thị lại và tô đỏ.</value>
+  </data>
+  <data name="InvalidRefNo" xml:space="preserve">
+    <value>Số tham chiếu không đúng</value>
   </data>
 </root>

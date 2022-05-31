@@ -19,7 +19,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -75,6 +75,33 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string AccumulatedTotal {
             get {
                 return ResourceManager.GetString("AccumulatedTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action.
+        /// </summary>
+        public static string Action {
+            get {
+                return ResourceManager.GetString("Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action Date/Time.
+        /// </summary>
+        public static string ActionDateTime {
+            get {
+                return ResourceManager.GetString("ActionDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actual Stake.
+        /// </summary>
+        public static string ActualStake {
+            get {
+                return ResourceManager.GetString("ActualStake", resourceCulture);
             }
         }
         
@@ -250,6 +277,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Balance Change.
+        /// </summary>
+        public static string BalanceChange {
+            get {
+                return ResourceManager.GetString("BalanceChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Choice Matching.
         /// </summary>
         public static string BetChoiceMatching {
@@ -264,6 +300,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string BetCount {
             get {
                 return ResourceManager.GetString("BetCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bet Credit.
+        /// </summary>
+        public static string BetCredit {
+            get {
+                return ResourceManager.GetString("BetCredit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bet Credit History.
+        /// </summary>
+        public static string BetCreditHistory {
+            get {
+                return ResourceManager.GetString("BetCreditHistory", resourceCulture);
             }
         }
         
@@ -691,6 +745,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tickets which have event date changed multiple times will be displayed duplicated and highlighted in red..
+        /// </summary>
+        public static string DuplicatedTicketMessage {
+            get {
+                return ResourceManager.GetString("DuplicatedTicketMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enabled.
         /// </summary>
         public static string Enabled {
@@ -714,6 +777,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string eventdate {
             get {
                 return ResourceManager.GetString("eventdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event Date From.
+        /// </summary>
+        public static string EventDateFrom {
+            get {
+                return ResourceManager.GetString("EventDateFrom", resourceCulture);
             }
         }
         
@@ -822,6 +894,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Gaming {
             get {
                 return ResourceManager.GetString("Gaming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Given Credit.
+        /// </summary>
+        public static string GivenCredit {
+            get {
+                return ResourceManager.GetString("GivenCredit", resourceCulture);
             }
         }
         
@@ -1132,6 +1213,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Ref No..
+        /// </summary>
+        public static string InvalidRefNo {
+            get {
+                return ResourceManager.GetString("InvalidRefNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid username..
+        /// </summary>
+        public static string InvalidUsername {
+            get {
+                return ResourceManager.GetString("InvalidUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IP.
         /// </summary>
         public static string IP {
@@ -1427,6 +1526,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("MemberOutstanding", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Member/Ref No..
+        /// </summary>
+        public static string MemberRefNo {
+            get {
+                return ResourceManager.GetString("MemberRefNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member&apos;s Moved Event Date Report.
+        /// </summary>
+        public static string MembersMovedEventDateReport {
+            get {
+                return ResourceManager.GetString("MembersMovedEventDateReport", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Member Total.
@@ -1510,6 +1627,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move Statement History.
+        /// </summary>
+        public static string MoveStatementHistory {
+            get {
+                return ResourceManager.GetString("MoveStatementHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The report will show all tickets which have old/new event date falling in the searched date range..
+        /// </summary>
+        public static string MoveStatementHistoryNote {
+            get {
+                return ResourceManager.GetString("MoveStatementHistoryNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Net Turnover.
         /// </summary>
         public static string NetTurnover {
@@ -1542,6 +1677,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Neutral {
             get {
                 return ResourceManager.GetString("Neutral", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Balance.
+        /// </summary>
+        public static string NewBalance {
+            get {
+                return ResourceManager.GetString("NewBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Event Date.
+        /// </summary>
+        public static string NewEventDate {
+            get {
+                return ResourceManager.GetString("NewEventDate", resourceCulture);
             }
         }
         
@@ -1663,6 +1816,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Old Event Date.
+        /// </summary>
+        public static string OldEventDate {
+            get {
+                return ResourceManager.GetString("OldEventDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening Bal.
         /// </summary>
         public static string OpeningBal {
@@ -1770,6 +1932,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Player Comm.
+        /// </summary>
+        public static string PlayerComm {
+            get {
+                return ResourceManager.GetString("PlayerComm", resourceCulture);
+            }
+        }
+                
         /// <summary>
         ///   Looks up a localized string similar to Position Taking.
         /// </summary>
@@ -2383,6 +2554,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username is required..
+        /// </summary>
+        public static string UsernameIsRequired {
+            get {
+                return ResourceManager.GetString("UsernameIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username/PT/Product.
         /// </summary>
         public static string UsernamePTProduct {
@@ -2505,6 +2685,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string WinLossByProduct {
             get {
                 return ResourceManager.GetString("WinLossByProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Win Loss Date.
+        /// </summary>
+        public static string WinLossDate {
+            get {
+                return ResourceManager.GetString("WinLossDate", resourceCulture);
             }
         }
         

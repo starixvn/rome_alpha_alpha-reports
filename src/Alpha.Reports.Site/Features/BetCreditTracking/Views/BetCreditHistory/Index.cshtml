@@ -1,0 +1,112 @@
+﻿@using Sunplus.Agent.Model.Entities
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Resources.BetCreditHistory;
+
+    var userguideLink = UserSession.Current.Site.Equals("789y", StringComparison.OrdinalIgnoreCase) ?
+        MicroSites.MessageUrl("~/StaticMessage/Guide?id=167296") :
+        MicroSites.HowToUseUrl("~/Index.aspx?linktomessagesite=167296");
+}
+@model BetCreditHistoryViewModel
+@section Styles {
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
+    @StaticResources.RenderStylesWithDarkMode("~/Features/BetCreditTracking/Bundles/betcredithistory")
+}
+@section Scripts {
+    @StaticResources.RenderScripts("~/Features/BetCreditTracking/Bundles/betcredithistory")
+}
+<div class="page-title @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#betCreditHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.BetCreditHistory</a>
+        </li>
+        <li role="presentation">
+            @Html.ActionLink(Resources.MoveStatementHistory, "Index", "MoveStatementHistory")
+        </li>
+        <li>
+            <a href="@userguideLink" target="_blank"><span class="icon icon-information-outline"></span></a>
+        </li>
+    </ul>
+
+    <div class="list-icon">
+        <ul>
+            <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+            <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="betCreditHistory">
+        @{
+            Html.RenderPartial("~/Features/BetCreditTracking/Views/BetCreditHistory/_Filter.cshtml", Model);
+        }
+
+        @if (Model.Data != null && Model.ErrMsg == string.Empty)
+        {
+            <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover">
+                <thead>
+                    <tr>
+                        <th class="action-datetime-col">@Resources.ActionDateTime</th>
+                        <th>@Resources.WinLossDate</th>
+                        <th>@Resources.refno</th>
+                        <th>@Resources.ActualStake</th>
+                        <th>@Resources.WinLoss</th>
+                        <th>@Resources.PlayerComm</th>
+                        <th>@Resources.BalanceChange</th>
+                        <th>@Resources.NewBalance</th>
+                        <th>@Resources.GivenCredit</th>
+                        <th>@Resources.BetCredit</th>
+                        <th class="action-col">@Resources.Action</th>
+                    </tr>
+                </thead>
+                @if (Model.Data.Any())
+                {
+                    <tbody>
+                        @BuildReport(Model.Data)
+                    </tbody>
+                }
+                else
+                {
+                    @NoInformation.Render(11)
+                }
+            </table>
+        }
+    </div>
+</div>
+
+@Pager.Render(Model.PagerViewModel)
+
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("Excel", "BetCreditHistory")">
+    @Html.Hidden("Member", Model.Member)
+    @Html.Hidden("RefNo", Model.RefNo)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+</form>
+
+@helper BuildReport(IEnumerable<BetCreditHistoryModel> data)
+{
+    var isEvenRow = false;
+
+    foreach (var record in data)
+    {
+        <tr class="@(record.BetCredit == null ? "highlight-row" : (isEvenRow ? "even-row" : string.Empty))">
+            <td>@record.ActionDateString</td>
+            <td class="text-center">@record.WinLostDateString</td>
+            <td class="text-left">@record.RefNo</td>
+            <td>@HtmlHelpers.FormatNullableNumber(record.ActualStake)</td>
+            <td>@HtmlHelpers.FormatNullableNumber(record.WinLoss) </td>
+            <td>@HtmlHelpers.FormatNullableNumber(record.PlayerComm)</td>
+            <td>@HtmlHelpers.FormatNullableNumber(record.BalanceChanged)</td>
+            <td>@HtmlHelpers.FormatNullableNumber(record.NewBalance)</td>
+            <td>@HtmlHelpers.FormatNumber(record.GivenCredit)</td>
+            <td class="@(record.BetCredit < (decimal)0 ? "red-cell" : "")">@HtmlHelpers.FormatNullableNumber(record.BetCredit)</td>
+            <td class="text-left">@record.Action</td>
+        </tr>
+        isEvenRow = !isEvenRow;
+    }
+}
+
+@Html.Hidden("UsernameIsRequired", Resources.UsernameIsRequired)
+@Html.Hidden("InvalidRefNo", Resources.InvalidRefNo)

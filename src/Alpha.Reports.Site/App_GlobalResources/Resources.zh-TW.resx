@@ -862,4 +862,67 @@
     <value>沙巴體育的專屬報表僅從 {0} 開始提供。
  在{0}之前，體育博彩報表和沙巴體育報表的數據是結合的。</value>
   </data>
+  <data name="BetCreditHistory" xml:space="preserve">
+    <value>投注額度歷史記錄</value>
+  </data>
+  <data name="MembersMovedEventDateReport" xml:space="preserve">
+    <value>Member's Moved Event Date Report</value>
+  </data>
+  <data name="MemberRefNo" xml:space="preserve">
+    <value>會員/注單號碼</value>
+  </data>
+  <data name="NewEventDate" xml:space="preserve">
+    <value>新賽事日期</value>
+  </data>
+  <data name="OldEventDate" xml:space="preserve">
+    <value>舊賽事日期</value>
+  </data>
+  <data name="EventDateFrom" xml:space="preserve">
+    <value>賽事日期從</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>動作</value>
+  </data>
+  <data name="ActionDateTime" xml:space="preserve">
+    <value>行動日期/時間</value>
+  </data>
+  <data name="ActualStake" xml:space="preserve">
+    <value>真正本金</value>
+  </data>
+  <data name="BalanceChange" xml:space="preserve">
+    <value>餘額更換</value>
+  </data>
+  <data name="BetCredit" xml:space="preserve">
+    <value>投注額度</value>
+  </data>
+  <data name="GivenCredit" xml:space="preserve">
+    <value>信用額度</value>
+  </data>
+  <data name="NewBalance" xml:space="preserve">
+    <value>最新餘額</value>
+  </data>
+  <data name="PlayerComm" xml:space="preserve">
+    <value>會員佣金</value>
+  </data>
+  <data name="WinLossDate" xml:space="preserve">
+    <value>輸贏日期</value>
+  </data>
+  <data name="UsernameIsRequired" xml:space="preserve">
+    <value>請求用戶名</value>
+  </data>
+  <data name="MoveStatementHistory" xml:space="preserve">
+    <value>搬賬歷史記錄</value>
+  </data>
+  <data name="MoveStatementHistoryNote" xml:space="preserve">
+    <value>該報告將顯示所有舊/新賽事日期在搜索日期範圍內的注單。</value>
+  </data>
+  <data name="InvalidUsername" xml:space="preserve">
+    <value>用戶名無效</value>
+  </data>
+  <data name="DuplicatedTicketMessage" xml:space="preserve">
+    <value>多次更改賽事日期的注單將重複並以紅色突出顯示。</value>
+  </data>
+  <data name="InvalidRefNo" xml:space="preserve">
+    <value>注單號碼無效</value>
+  </data>
 </root>

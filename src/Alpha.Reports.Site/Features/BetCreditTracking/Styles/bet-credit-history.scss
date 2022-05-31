@@ -1,0 +1,33 @@
+﻿@import '../../../assets/styles/_variables.scss';
+
+.page-title {
+    border-bottom: none;
+
+    .list-icon {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+}
+
+.action-datetime-col {
+    width: 9%;
+}
+
+.action-col {
+    width: 24%;
+}
+
+.highlight-row {
+    background: $high-light-row-color;
+}
+
+.red-cell {
+    background: #ff6464;
+}
+
+.nav.nav-tabs > li:last-child.active:after,
+.nav.nav-tabs > li:last-child:hover:after {
+    width: 0%;
+    background: none;
+}

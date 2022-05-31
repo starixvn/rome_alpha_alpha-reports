@@ -274,10 +274,12 @@
     <Compile Include="Constants\DefaultVariablesTest.cs" />
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Controllers\BetChoiceMatchingControllerTests.cs" />
+    <Compile Include="Controllers\BetCreditHistoryControllerTests.cs" />
     <Compile Include="Controllers\CommissionByBettypeControllerTests.cs" />
     <Compile Include="Controllers\ConsolidationControllerTests.cs" />
     <Compile Include="Controllers\ControllerBaseFuctions.cs" />
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
+    <Compile Include="Controllers\MoveStatementHistoryControllerTests.cs" />
     <Compile Include="Controllers\RiskAnalysisIPMatchingControllerTests.cs" />
     <Compile Include="Controllers\OutstandingControllerTests.cs" />
     <Compile Include="Controllers\ProgressiveContributionControllerTests.cs" />
@@ -301,6 +303,8 @@
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingJsonHandlerTests.cs" />
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingWorkbookTests.cs" />
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceUplinesJsonHandlerTests.cs" />
+    <Compile Include="Handlers\BetCreditHistory\BetCreditHistoryExcelHandlerTests.cs" />
+    <Compile Include="Handlers\BetCreditHistory\BetCreditHistoryHandlerTests.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationExcelHandlerTests.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationHandlerTests.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationTestsBaseFunctions.cs" />
@@ -311,6 +315,8 @@
     <Compile Include="Handlers\Consolidation\WinLossByProductWorkbookImplForTesting.cs" />
     <Compile Include="Handlers\Consolidation\WinLossByProductWorkbookImplTests.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandlerTests.cs" />
+    <Compile Include="Handlers\MoveStatementHistory\MoveStatementHistoryExcelHandlerTests.cs" />
+    <Compile Include="Handlers\MoveStatementHistory\MoveStatementHistoryHandlerTests.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandlerTests.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionExcelHandlerTests.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionHandlerTests.cs" />

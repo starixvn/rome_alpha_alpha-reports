@@ -110,5 +110,21 @@
   {
     "outputFile": "assets/styles/consolidation/consolidation-dark.css",
     "inputFile": "assets/styles/consolidation/consolidation-dark.scss"
+  },
+  {
+    "outputFile": "Features/BetCreditTracking/Styles/move-statement-history.css",
+    "inputFile": "Features/BetCreditTracking/Styles/move-statement-history.scss"
+  },
+  {
+    "outputFile": "Features/BetCreditTracking/Styles/bet-credit-history.css",
+    "inputFile": "Features/BetCreditTracking/Styles/bet-credit-history.scss"
+  },
+  {
+    "outputFile": "Features/BetCreditTracking/Styles/bet-credit-history-dark.css",
+    "inputFile": "Features/BetCreditTracking/Styles/bet-credit-history-dark.scss"
+  },
+  {
+    "outputFile": "Features/BetCreditTracking/Styles/move-statement-history-dark.css",
+    "inputFile": "Features/BetCreditTracking/Styles/move-statement-history-dark.scss"
   }
 ]

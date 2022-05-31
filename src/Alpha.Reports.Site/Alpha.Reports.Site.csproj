@@ -466,6 +466,8 @@
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\betcredittracking\betcredithistory\betcredithistory-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\betcredittracking\movestatementhistory\movestatementhistory-test.ts" />
     <TypeScriptCompile Include="Features\SuperWinLossDetailByPT\Scripts\superwinlossdetailbypt.ts" />
     <TypeScriptCompile Include="Features\BonusDetail\Scripts\bonus-detail.ts" />
     <TypeScriptCompile Include="Features\BonusDetail\Scripts\confirm-payment.ts" />
@@ -511,6 +513,22 @@
     <Compile Include="Constants\UserSelectedDateRangeOptionConstant.cs" />
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
     <Compile Include="Controllers\ConsolidationController.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistoryBaseHandler.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistoryController.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistoryExcelHandler.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistoryHandler.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistoryWorkbook.cs" />
+    <Compile Include="Features\BetCreditTracking\Requests\BetCreditHistoryExcelQuery.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistoryBaseHandler.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistoryExcelHandler.cs" />
+    <Compile Include="Features\BetCreditTracking\Requests\BetCreditHistoryQuery.cs" />
+    <Compile Include="Features\BetCreditTracking\Requests\MoveStatementHistoryExcelQuery.cs" />
+    <Compile Include="Features\BetCreditTracking\Requests\MoveStatementHistoryQuery.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistoryController.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistoryHandler.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistoryWorkbook.cs" />
+    <Compile Include="Features\BetCreditTracking\ViewModels\BetCreditHistoryViewModel.cs" />
+    <Compile Include="Features\BetCreditTracking\ViewModels\MoveStatementHistoryViewModel.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTController.cs" />
     <Compile Include="Features\BonusDetail\BonusDetailController.cs" />
     <Compile Include="Features\BonusDetail\BonusDetailHandler.cs" />
@@ -744,6 +762,7 @@
     <Content Include="App_Data\activitytracking.uat.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
+    <Content Include="App_Data\SPNames\Internal\DBBAH.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBTXN.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBCust.CustDB.DownlineNetView.xml">
       <SubType>Designer</SubType>
@@ -758,6 +777,7 @@
     <Content Include="App_Data\SPNames\Internal\DBRPT.bodb_report.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
+    <Content Include="App_Data\SPNames\Local\DBBAH.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBBOF.bodb02.BODBDownlineNet.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -775,6 +795,7 @@
     <Content Include="App_Data\SPNames\Local\DBRPT.bodb_report.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBTXN.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBACC.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Pro\DBBAH.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBBOF.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBARC.bodb_Archive.BODBDownlineNet.xml" />
@@ -789,6 +810,7 @@
     <Content Include="App_Data\SPNames\SIT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBARC.bodb_Archive.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\SIT\DBBAH.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBCust.CustDB.DownlineNet.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -797,6 +819,7 @@
     <Content Include="App_Data\SPNames\SIT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBRPT.bodb_report.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBTXN.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\UAT\DBBAH.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBBOF.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBAGE.bodb02.BODBDownlineNet.xml" />
@@ -1041,11 +1064,36 @@
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Features\BetCreditTracking\Scripts\move-statement-history.ts" />
     <Content Include="assets\styles\reports-dark.css">
       <DependentUpon>reports-dark.scss</DependentUpon>
     </Content>
     <Content Include="assets\styles\reports-dark.min.css">
       <DependentUpon>reports-dark.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Bundles\betcredithistory-dark.css" />
+    <Content Include="Features\BetCreditTracking\Bundles\betcredithistory-dark.min.css">
+      <DependentUpon>betcredithistory-dark.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Bundles\betcredithistory.css" />
+    <Content Include="Features\BetCreditTracking\Bundles\betcredithistory.js" />
+    <Content Include="Features\BetCreditTracking\Bundles\betcredithistory.min.css">
+      <DependentUpon>betcredithistory.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Bundles\betcredithistory.min.js">
+      <DependentUpon>betcredithistory.js</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory-dark.css" />
+    <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory-dark.min.css">
+      <DependentUpon>movestatementhistory-dark.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory.css" />
+    <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory.js" />
+    <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory.min.css">
+      <DependentUpon>movestatementhistory.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory.min.js">
+      <DependentUpon>movestatementhistory.js</DependentUpon>
     </Content>
     <Content Include="assets\styles\statement\statement-dark.css">
       <DependentUpon>statement-dark.scss</DependentUpon>
@@ -1053,9 +1101,34 @@
     <Content Include="assets\styles\statement\statement-dark.min.css">
       <DependentUpon>statement-dark.css</DependentUpon>
     </Content>
+    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history-dark.css">
+      <DependentUpon>bet-credit-history-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history-dark.min.css">
+      <DependentUpon>bet-credit-history-dark.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.css">
+      <DependentUpon>bet-credit-history.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.min.css">
+      <DependentUpon>bet-credit-history.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\themes\page-title-agent-dark.css">
       <DependentUpon>page-title-agent-dark.scss</DependentUpon>
     </Content>
+    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.scss" />
+    <Content Include="App_Data\ExcelTemplates\BetCreditTracking\BetCreditHistory.xls" />
+    <Content Include="App_Data\ExcelTemplates\BetCreditTracking\MoveStatementHistory.xls" />
+    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history-dark.scss" />
+    <Content Include="Features\BetCreditTracking\Styles\move-statement-history-dark.css">
+      <DependentUpon>move-statement-history-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\move-statement-history-dark.min.css">
+      <DependentUpon>move-statement-history-dark.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\move-statement-history-dark.scss" />
+    <None Include="Features\BetCreditTracking\Styles\move-statement-history.scss" />
+    <TypeScriptCompile Include="Features\BetCreditTracking\Scripts\bet-credit-history.ts" />
     <Content Include="assets\styles\themes\page-title-agent-dark.min.css">
       <DependentUpon>page-title-agent-dark.css</DependentUpon>
     </Content>
@@ -1088,6 +1161,12 @@
     </Content>
     <Content Include="assets\styles\themes\page-title-super.min.css">
       <DependentUpon>page-title-super.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\move-statement-history.css">
+      <DependentUpon>move-statement-history.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\move-statement-history.min.css">
+      <DependentUpon>move-statement-history.css</DependentUpon>
     </Content>
     <Content Include="Features\BonusDetail\Bundles\bonusdetail-dark.css" />
     <Content Include="Features\BonusDetail\Bundles\bonusdetail-dark.min.css">
@@ -1431,6 +1510,13 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Features\BonusDetail\Styles\bonus-detail-dark.scss" />
+    <Content Include="Features\BetCreditTracking\Views\BetCreditHistory\Index.cshtml" />
+    <Content Include="Features\BetCreditTracking\Views\MoveStatementHistory\Index.cshtml" />
+    <Content Include="Features\BetCreditTracking\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Views\MoveStatementHistory\_Filter.cshtml" />
+    <Content Include="Features\BetCreditTracking\Views\BetCreditHistory\_Filter.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1599,6 +1685,7 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.8.22.0.31243\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.8.22.0.31243\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -6,6 +6,7 @@
     {
         private const string ShortDateWithSlash = "MM/dd/yyyy";
         private const string LongDateWithSlash = "MM/dd/yyyy hh:mm:ss tt";
+        private const string LongDate24HourWithSlash = "MM/dd/yyyy HH:mm:ss";
         private const string LongDateWithoutSecondWithSlash = "MM/dd/yyyy hh:mm tt";
 
         private const string LongTime = "hh:mm:ss tt";
@@ -20,6 +21,9 @@
 
         public static string ToLongDateWithSlash(this DateTime dateTime)
             => dateTime.ToString(LongDateWithSlash);
+
+        public static string ToLongDate24HourWithSlash(this DateTime dateTime)
+            => dateTime.ToString(LongDate24HourWithSlash);
 
         public static string ToLongDateWithoutSecondWithSlash(this DateTime dateTime)
             => dateTime.ToString(LongDateWithoutSecondWithSlash);

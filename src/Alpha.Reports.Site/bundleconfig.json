@@ -376,6 +376,37 @@
       "Features/BonusDetail/Styles/confirm-payment.css"
     ]
   },
+  {
+    "outputFileName": "Features/BetCreditTracking/Bundles/movestatementhistory.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/monthpicker.js",
+      "Features/BetCreditTracking/Scripts/move-statement-history.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/BetCreditTracking/Bundles/movestatementhistory.css",
+    "inputFiles": [
+      "Features/BetCreditTracking/Styles/move-statement-history.css"
+    ]
+  },
+  {
+    "outputFileName": "Features/BetCreditTracking/Bundles/betcredithistory.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/pager.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/monthpicker.js",
+      "Features/BetCreditTracking/Scripts/bet-credit-history.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/BetCreditTracking/Bundles/betcredithistory.css",
+    "inputFiles": [
+      "Features/BetCreditTracking/Styles/bet-credit-history.css"
+    ]
+  },
   /************************** Dark Mode ************************/
   {
     "outputFileName": "assets/bundles/super-dark.css",
@@ -441,6 +472,18 @@
 
     "inputFiles": [
       "assets/styles/statement/statement-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "Features/BetCreditTracking/Bundles/betcredithistory-dark.css",
+    "inputFiles": [
+      "Features/BetCreditTracking/Styles/bet-credit-history-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "Features/BetCreditTracking/Bundles/movestatementhistory-dark.css",
+    "inputFiles": [
+      "Features/BetCreditTracking/Styles/move-statement-history-dark.css"
     ]
   }
 ]
