@@ -220,6 +220,7 @@ namespace Alpha.Reports.Site.Controllers
 
             var sessions = parameters[1].Split(';');
 
+            userSession.IsForcedSecurityCode = false;
             userSession.SetProperty(SessionKey.CUSTID, Convert.ToInt32(sessions[0]));
             userSession.SetProperty(SessionKey.USERNAME, sessions[1]);
             userSession.SetProperty(SessionKey.SITE, sessions[2]);
