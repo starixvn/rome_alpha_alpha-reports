@@ -4,8 +4,8 @@
     ViewBag.Title = Resources.BetCreditHistory;
 
     var userguideLink = UserSession.Current.Site.Equals("789y", StringComparison.OrdinalIgnoreCase) ?
-        MicroSites.MessageUrl("~/StaticMessage/Guide?id=167296") :
-        MicroSites.HowToUseUrl("~/Index.aspx?linktomessagesite=167296");
+        MicroSites.MessageUrl() + "/StaticMessage/Guide?id=167296" :
+        MicroSites.HowToUseUrl() + "/Index.aspx?linktomessagesite=167296";
 }
 @model BetCreditHistoryViewModel
 @section Styles {
