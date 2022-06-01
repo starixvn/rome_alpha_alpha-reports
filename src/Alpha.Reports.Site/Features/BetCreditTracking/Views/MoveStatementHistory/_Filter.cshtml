@@ -13,7 +13,11 @@
         <input type="text" style="width: 200px;" autocomplete="off" name="Username" value="@Model.Username" placeholder="@Resources.Username" />
     </div>
 
-    @DateRangePicker.Render(Model.DateRangePickerViewModel, null, Resources.EventDateFrom);
+    @MonthPicker.Render(Model.MonthPickerViewModel);
+
+    <div class="form-group">
+        <input type="submit" value="@Resources.Submit" class="btn-submit" id="btn-submit" />
+    </div>
 
     <div class="form-group">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
@@ -27,7 +31,7 @@
         @Resources.MoveStatementHistoryNote
     </div>
 
-    if(Model.IsShowDuplicatedTicketMessage)
+    if (Model.IsShowDuplicatedTicketMessage)
     {
         <div class="note red" style="margin-left: 14px;">
             @Resources.DuplicatedTicketMessage

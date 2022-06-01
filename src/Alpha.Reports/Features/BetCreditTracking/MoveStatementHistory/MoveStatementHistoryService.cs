@@ -37,7 +37,7 @@
                 r => new { r.CustId, r.Username },
                 (key, g) => new MoveStatementHistoryByMemberModel(key.CustId, key.Username, g));
 
-            return new MoveStatementHistoryResultModel(criteria.ErrorCode, criteria.ErrorMess, reportData);
+            return new MoveStatementHistoryResultModel(criteria.ErrorCode, criteria.ErrorMess, reportData, criteria.TotalRows);
         }
     }
 }

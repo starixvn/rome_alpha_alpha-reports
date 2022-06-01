@@ -16,8 +16,10 @@
 
         public bool IsFilterVisible { get; set; } = true;
 
-        public int UserSelectedDateRangeOption { get; set; }
-
         public bool IsProtectedMode { get; }
+
+        public int PageIndex { get; set; } = 1;
+
+        public int PageSize { get; set; } = 100;
     }
 }

@@ -129,7 +129,7 @@ class BetCreditHistory {
 
     validateUsername = () => this.$txtMember.val() !== "";
 
-    validateRefNo = () => this.$txtRefNo.val().trim().match(/^[0-9]*$/);
+    validateRefNo = () => this.$txtRefNo.val().length < 19 && this.$txtRefNo.val().trim().match(/^[0-9]*$/);
 
     showValidationMsgError = (msg) => {
         this.$msgError.addClass("hide");

@@ -20,6 +20,18 @@
                 message.FromDate, 
                 message.ToDate,
                 message.ViewerId,
-                message.LimitedDateToShowInfo);
+                message.LimitedDateToShowInfo,
+                message.PageIndex,
+                message.PageSize);
+
+        protected MoveStatementHistoryParam CreateExcelParameter(MoveStatementHistoryQuery message)
+            => new MoveStatementHistoryParam(
+                message.Username,
+                message.FromDate,
+                message.ToDate,
+                message.ViewerId,
+                message.LimitedDateToShowInfo,
+                1,
+                int.MaxValue - 1);
     }
 }

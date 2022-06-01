@@ -37,7 +37,6 @@
         private const string to0 = "to 0";
         private const string to1 = "to 1";
 
-
         private readonly IDynamicRepository dynamicRepository;
         private readonly PartialUMService partialUMService;
         private readonly ICacheService cacheService;

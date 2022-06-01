@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
   <Function Name="Bet Credit History">
-    <Setting Key="Age_Rpt_BetCreditHistory" SpName="Age_Rpt_BetCreditHistory_xtest" DbName="DBBAH.bodb02.BODBDownlineNet" >
+    <Setting Key="Age_Rpt_BetCreditHistory" SpName="Age_Rpt_BetCreditHistory" DbName="DBBAH.bodb02.BODBDownlineNet" >
       <Mapping DataField="actual_stake" ObjectProperty="ActualStake" />
     </Setting>
   </Function>

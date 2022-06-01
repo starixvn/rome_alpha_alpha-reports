@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Features.BetCreditTracking.ViewModels
 {
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Models;
-    using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
     using Alpha.Reports.Site.ViewModels.Components;
     using System;

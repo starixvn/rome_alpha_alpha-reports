@@ -370,7 +370,7 @@
     "outputFileName": "Features/BetCreditTracking/Bundles/movestatementhistory.js",
     "inputFiles": [
       "assets/scripts/core.js",
-      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/pager.js",
       "assets/scripts/components/monthpicker.js",
       "Features/BetCreditTracking/Scripts/move-statement-history.js"
     ]
@@ -387,7 +387,6 @@
       "assets/scripts/core.js",
       "assets/scripts/components/pager.js",
       "assets/scripts/components/daterangepicker.js",
-      "assets/scripts/components/monthpicker.js",
       "Features/BetCreditTracking/Scripts/bet-credit-history.js"
     ]
   },
