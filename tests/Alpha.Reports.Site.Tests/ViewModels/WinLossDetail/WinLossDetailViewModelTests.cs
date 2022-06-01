@@ -36,14 +36,14 @@
 
             compareLogic = new CompareLogic();
             anyValueCreatorFixture = new AnyValueCreatorFixture();
+
+            SetUpForHelpers();
         }
 
         [Fact]
         public void BuildDrillDownLink_ViewingAgentReport_CallAddQueryStringParamsFuncToBuildBetListLink()
         {
             // Arrange
-            SetUpForHelpers();
-
             var fromDate = new DateTime(1989, 5, 28);
             var toDate = new DateTime(1989, 5, 29);
             var message = new WinLossDetailQuery(userFixture.User);
@@ -79,8 +79,6 @@
         public void BuildDrillDownLink_ViewingSuperOrMasterReport_CallReplaceOrAddQueryStringParamsFuncToBuildDrillDownLink(byte custLevelId)
         {
             // Arrange
-            SetUpForHelpers();
-
             var fromDate = new DateTime(1989, 5, 28);
             var toDate = new DateTime(1989, 5, 29);
             var message = new WinLossDetailQuery(userFixture.User);

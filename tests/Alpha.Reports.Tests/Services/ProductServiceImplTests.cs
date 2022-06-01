@@ -432,6 +432,18 @@
             Assert.Null(act.DisplayName);
 
             // Assert
+            Assert.Null(act.LeagueGroupId);
+
+            // Assert
+            Assert.Empty(act.LeagueGroupIds);
+
+            // Assert
+            Assert.Null(act.TicketType);
+
+            // Assert
+            Assert.Empty(act.TicketTypeIds);
+
+            // Assert
             Assert.Null(act.RefId);
         }
 
@@ -453,6 +465,19 @@
         {
             // Arrange
             var act = new StatusModel();
+
+            // Assert
+            Assert.True(act.Id == 0);
+
+            // Assert
+            Assert.Null(act.Name);
+        }
+
+        [Fact]
+        public void StatusModel_ParamCtor_AlwaysReturnsCorrectProperties()
+        {
+            // Arrange
+            var act = new StatusModel(0, null);
 
             // Assert
             Assert.True(act.Id == 0);

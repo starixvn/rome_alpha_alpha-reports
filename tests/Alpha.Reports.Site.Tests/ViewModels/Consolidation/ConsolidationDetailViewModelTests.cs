@@ -63,7 +63,7 @@
             consolidationDetailViewModel.BuildDrillDownLink(winLossDetailModel, "currentURL");
 
             // Assert
-            replaceOrAddQueryStringParamsFunc.Received().Invoke("BetListPath", Arg.Any<Dictionary<string, object>>());
+            replaceOrAddQueryStringParamsFunc.Received().Invoke("~/_BetList/BetList.aspx", Arg.Any<Dictionary<string, object>>());
         }
 
         private ConsolidationDetailViewModel CreateConsolidationDetailViewModel(IUser user)

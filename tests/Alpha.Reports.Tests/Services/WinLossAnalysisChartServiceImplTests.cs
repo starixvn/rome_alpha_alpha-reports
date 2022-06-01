@@ -62,6 +62,22 @@
         }
 
         [Fact]
+        public void GetWinLossAnalysisChart_DefaultCtor_ReturnDefaultReportData()
+        {
+            // Arrange
+            var model = new WinLossAnalysisChartModel();
+
+            // Assert
+            Assert.Null(model.WinLossDate);
+
+            // Assert
+            Assert.True(model.Turnover == 0m);
+
+            // Assert
+            Assert.True(model.WinLoss == 0m);
+        }
+
+        [Fact]
         public void GetWinLossAnalysisChart_ValidParam_CallsDynamicRepository()
         {
             // Act

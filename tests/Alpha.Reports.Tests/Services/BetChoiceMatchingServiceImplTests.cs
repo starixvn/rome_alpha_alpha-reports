@@ -127,6 +127,25 @@
         }
 
         [Fact]
+        public void DefaultCtor_Always_ReturnsCorrectProperties()
+        {
+            // Arrange
+            var model = new BetChoiceMatchingUplinesModel();
+
+            // Assert
+            Assert.True(model.AgentId == 0);
+
+            // Assert
+            Assert.True(model.MasterId == 0);
+
+            // Assert
+            Assert.Null(model.AgentName);
+
+            // Assert
+            Assert.Null(model.MasterName);
+        }
+
+        [Fact]
         public void ExcelQuery_WithNoFilter_ReturnsDataFromDynamicRepository()
         {
             // Arrange

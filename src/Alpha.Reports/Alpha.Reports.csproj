@@ -308,12 +308,18 @@
     <Compile Include="Models\BetChoiceMatching\MemberWinLossOperators.cs" />
     <Compile Include="Models\Consolidation\ConsolidationEntity.cs" />
     <Compile Include="Models\Consolidation\SMAPositionTaking.cs" />
-    <Compile Include="Models\IPRange.cs" />
+    <Compile Include="Models\IPRange.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Models\ProductBySiteModel.cs" />
     <Compile Include="Models\ProductDetail.cs" />
     <Compile Include="Models\Result.cs" />
-    <Compile Include="Models\SportBetType.cs" />
-    <Compile Include="Models\SportType.cs" />
+    <Compile Include="Models\SportBetType.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Models\SportType.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperPTModel.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperPtProductModel.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailByProductModel.cs" />
@@ -391,7 +397,9 @@
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\MatchWinLossService.cs" />
     <Compile Include="Services\RiskAnalysisIPMatchingService.cs" />
-    <Compile Include="Services\ProductDetailService.cs" />
+    <Compile Include="Services\ProductDetailService.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTService.cs" />
     <Compile Include="Services\WinLossByProductService.cs" />
     <Compile Include="Services\WinLossAnalysisChartService.cs" />
