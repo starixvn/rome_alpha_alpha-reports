@@ -226,7 +226,9 @@
             if (IsMatchPrefixPattern(action, LC)
                 || IsMatchPrefixPattern(action, RNG))
             {
-                return BetCreditHistoryResources.BetUpdated;
+                return IsHaveStatusToStatus(action)
+                    ? GetActionStatusToStatus(BetCreditHistoryResources.BetUpdated, action)
+                    : BetCreditHistoryResources.BetUpdated;
             }
 
             return action;
