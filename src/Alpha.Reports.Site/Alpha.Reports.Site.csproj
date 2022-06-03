@@ -1155,6 +1155,7 @@
     <Content Include="assets\styles\error\error.min.css">
       <DependentUpon>error.css</DependentUpon>
     </Content>
+    <Content Include="assets\styles\error\images\error-bg-dark.png" />
     <Content Include="assets\styles\error\images\error-bg.png" />
     <Content Include="assets\styles\images\ajax-loader-small.gif" />
     <Content Include="assets\styles\images\percent-dark.svg" />
