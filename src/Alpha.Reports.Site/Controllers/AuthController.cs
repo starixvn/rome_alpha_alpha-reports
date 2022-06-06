@@ -34,6 +34,7 @@ namespace Alpha.Reports.Site.Controllers
         private const string OK = "OK";
         private const string Failed = "Failed";
         private const string NotSupported = "Not supported";
+        private const int LoginTimeoutSeconds = 10;
 
         // GET: Auth
         [HttpGet]
@@ -45,13 +46,12 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             var session = UserSession.Current;
-
-            param = string.IsNullOrWhiteSpace(param) ? session.GetProperty<string>(SessionKey.LoginParams) + string.Empty : param;
-            var parameter = param;
+            var authParams = string.IsNullOrWhiteSpace(param) ? session.GetProperty<string>(SessionKey.LoginParams) + string.Empty : param;
+            var parameter = string.Empty;
 
             try
             {
-                parameter = AesService.Default.Decrypt(parameter, SecretKey);
+                parameter = AesService.Default.Decrypt(authParams, SecretKey);
             }
             catch
             {
@@ -64,10 +64,10 @@ namespace Alpha.Reports.Site.Controllers
                 return new EmptyResult();
             }
 
-            if (!string.IsNullOrWhiteSpace(param)
-                && !string.Equals(param, session.GetProperty<string>(SessionKey.LoginParams) ?? string.Empty, StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrWhiteSpace(authParams) &&
+                !string.Equals(authParams, session.GetProperty<string>(SessionKey.LoginParams) ?? string.Empty, StringComparison.OrdinalIgnoreCase))
             {
-                session.SetProperty(SessionKey.LoginParams, param);
+                session.SetProperty(SessionKey.LoginParams, authParams);
             }
 
             var parameters = parameter.Split('&');
@@ -78,6 +78,12 @@ namespace Alpha.Reports.Site.Controllers
                 UpdateReportRoutingRealtime(parameters, session);
 
                 return RedirectToSpecificUrl();
+            }
+
+            if (!string.IsNullOrWhiteSpace(param)
+                && DateTime.Now.Subtract(Convert.ToDateTime(parameters[3])).TotalSeconds > LoginTimeoutSeconds)
+            {
+                return new EmptyResult();
             }
 
             SetUserSessionsAndAuth(parameters, session);
