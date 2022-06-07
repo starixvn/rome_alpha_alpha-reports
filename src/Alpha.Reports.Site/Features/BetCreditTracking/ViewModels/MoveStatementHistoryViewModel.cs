@@ -21,13 +21,13 @@
             CustLevel = message.ViewerLevel.DisplayName;
             IsFilterVisible = message.IsFilterVisible;
             Username = message.Username;
-            MinDate = message.MinDate;
+            MinDate = message.MinDate.CompareTo(ReleasedDateTime) > 0 ? message.MinDate : ReleasedDateTime;
             MaxDate = DateTime.MaxValue;
             FromDate = message.FromDate;
             ToDate = message.ToDate;
             PagerViewModel = new PagerViewModel(message.PageIndex, message.PageSize, totalRows);
 
-            ViewDataInstructionMessage = string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, ReleasedDateTime.ToShortDateWithSlash());
+            ViewDataInstructionMessage = string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, MinDate.ToShortDateWithSlash());
             BetListPath = Helpers.UrlHelper.MapBetListPath(DefaultBetListPath);
             CanViewBetLists = !message.IsProtectedMode || !message.CustLevel.IsAgentLevel();
 
