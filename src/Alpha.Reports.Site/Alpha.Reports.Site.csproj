@@ -523,7 +523,9 @@
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
-    <Compile Include="Controllers\ConsolidationController.cs" />
+    <Compile Include="Controllers\ConsolidationController.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryBaseHandler.cs" />
     <Compile Include="Controllers\ErrorController.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
@@ -591,7 +593,9 @@
     <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingExcelHandler.cs" />
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingHandler.cs" />
-    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingWorkbook.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceUplinesJsonHandler.cs" />
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingJsonHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationBaseHandler.cs" />
@@ -600,7 +604,9 @@
     <Compile Include="Handlers\Consolidation\ConsolidationByUsernameWorkbook.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
-    <Compile Include="Handlers\Consolidation\ConsolidationExcelHandler.cs" />
+    <Compile Include="Handlers\Consolidation\ConsolidationExcelHandler.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Handlers\Consolidation\ConsolidationHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationWorkbook.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossBaseHandler.cs" />
@@ -608,14 +614,18 @@
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionBaseHandler.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionExcelHandler.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionHandler.cs" />
-    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbook.cs" />
+    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Handlers\ReportLegendHandler.cs" />
     <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingBaseHandler.cs" />
     <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingHandler.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
     <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelHandler.cs" />
-    <Compile Include="Handlers\Statement\MemberStatementWorkbook.cs" />
+    <Compile Include="Handlers\Statement\MemberStatementWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTBaseHandler.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
@@ -643,7 +653,9 @@
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductHandler.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductExcelHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
-    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs" />
+    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeHandler.cs" />
@@ -662,7 +674,9 @@
     <Compile Include="Features\WinLoss\WinLossExcelHandler.cs" />
     <Compile Include="Features\WinLoss\WinLossHandler.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
-    <Compile Include="Helpers\JsonNetResult.cs" />
+    <Compile Include="Helpers\JsonNetResult.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Helpers\WorkbookHelper.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
@@ -706,7 +720,9 @@
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailQuery.cs" />
     <Compile Include="Requests\ProgressiveContribution\ReportLegendQuery.cs" />
     <Compile Include="Requests\ReportBaseQuery.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\User.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Helpers\QueryEntityModelBinder.cs" />
     <Compile Include="Requests\FromLast3YearDateRangeQuery.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
@@ -771,7 +787,9 @@
     <Compile Include="ViewModels\Consolidation\ConsolidationByUsernameGroupByPTViewModel.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
-    <Compile Include="ViewModels\Consolidation\ConsolidationByUsernameViewModel.cs" />
+    <Compile Include="ViewModels\Consolidation\ConsolidationByUsernameViewModel.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="ViewModels\Consolidation\ConsolidationEntityViewModel.cs" />
     <Compile Include="ViewModels\Consolidation\ConsolidationDetailViewModel.cs" />
     <Compile Include="ViewModels\Consolidation\ConsolidationFilterViewModel.cs" />
