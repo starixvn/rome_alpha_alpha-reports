@@ -2,14 +2,15 @@
 @using Alpha.Reports.Site.ViewModels.Components;
 @using Alpha.Reports.Utils;
 
-@helper Render(MonthPickerViewModel model)
+@helper Render(MonthPickerViewModel model, bool isViewNextYear = false)
 {
+    var maxDate = isViewNextYear ? SystemTime.Today.AddYears(1).LastDayOfYear() : SystemTime.Today;
     <div class="form-group monthpicker-container">
         <div id="monthPickerID">
             <div id="dropdown-month"
                  data-longmonths-inyear="@model.MonthNames.JoinWithComma()"
                  data-mindate="@model.MinDate.ToShortDateWithSlash()"
-                 data-maxdate="@SystemTime.Today.ToShortDateWithSlash()"
+                 data-maxdate="@maxDate.ToShortDateWithSlash()"
                  data-dateinmonth="@model.FromDate.ToShortDateWithSlash()"
                  data-fromdate="@model.FromDate.Day"
                  data-todate="@model.ToDate.Day"

@@ -13,7 +13,7 @@
         <input type="text" style="width: 200px;" autocomplete="off" name="Username" value="@Model.Username" placeholder="@Resources.Username" />
     </div>
 
-    @MonthPicker.Render(Model.MonthPickerViewModel);
+    @MonthPicker.Render(Model.MonthPickerViewModel, true);
 
     <div class="form-group">
         <input type="submit" value="@Resources.Submit" class="btn-submit" id="btn-submit" />

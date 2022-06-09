@@ -22,7 +22,6 @@
             IsFilterVisible = message.IsFilterVisible;
             Username = message.Username;
             MinDate = message.MinDate.CompareTo(ReleasedDateTime) > 0 ? message.MinDate : ReleasedDateTime;
-            MaxDate = DateTime.MaxValue;
             FromDate = message.FromDate;
             ToDate = message.ToDate;
             PagerViewModel = new PagerViewModel(message.PageIndex, message.PageSize, totalRows);
@@ -43,8 +42,6 @@
         public string Username { get; }
 
         public DateTime MinDate { get; }
-
-        public DateTime MaxDate { get; }
 
         public DateTime FromDate { get; }
 

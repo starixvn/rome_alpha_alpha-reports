@@ -12,6 +12,7 @@
         private const string LongTime = "hh:mm:ss tt";
         private const string FullDateName = "dddd";
         private const int MonthsInYear = 12;
+        private const int LastDayOfMonth12 = 31;
 
         public static string ToShortDateWithSlash(this DateTime dateTime)
             => dateTime.ToString(ShortDateWithSlash);
@@ -42,6 +43,9 @@
 
         public static DateTime FirstDayOfYear(this DateTime dateTime)
             => new DateTime(dateTime.Year, 1, 1);
+
+        public static DateTime LastDayOfYear(this DateTime dateTime)
+            => new DateTime(dateTime.Year, MonthsInYear, LastDayOfMonth12);
 
         public static bool IsSameMonthWith(this DateTime dateTime, DateTime otherDateTime)
             => dateTime.Month == otherDateTime.Month && dateTime.Year == otherDateTime.Year;

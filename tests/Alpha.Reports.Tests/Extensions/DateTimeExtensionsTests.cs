@@ -91,6 +91,29 @@
         }
 
         [Theory]
+        [InlineData(1, 1)]
+        [InlineData(1, 15)]
+        [InlineData(1, 31)]
+        [InlineData(6, 1)]
+        [InlineData(6, 15)]
+        [InlineData(6, 30)]
+        [InlineData(12, 1)]
+        [InlineData(12, 15)]
+        [InlineData(12, 31)]
+        public void LastDayOfYear_Always_ReturnsLastDayOfYear(int month, int day)
+        {
+            // Arrange
+            var date = new DateTime(2022, month, day);
+            var expectedDate = new DateTime(2022, 12, 31);
+
+            // Act
+            var actualDate = date.LastDayOfYear();
+
+            // Assert
+            Assert.Equal(expectedDate, actualDate);
+        }
+
+        [Theory]
         [InlineData(0, 0, 0, "12:00:00 AM")]
         [InlineData(1, 0, 0, "01:00:00 AM")]
         [InlineData(12, 0, 0, "12:00:00 PM")]
