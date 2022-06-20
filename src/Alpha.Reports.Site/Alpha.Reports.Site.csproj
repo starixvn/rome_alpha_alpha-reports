@@ -458,6 +458,94 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
+    <Content Include="App_Data\activitytracking.local.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.local_2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.local_3.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.napinternal.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.napinternal2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.pro.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.pro2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.prod.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.prod_2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.prod_3.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.uat.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.uat2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.uat_2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.uat_3.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.local_2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.local_3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.prod.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.prod_2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.prod_3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.uat_2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.uat_3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.local.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.local_2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.local_3.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.prod.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.prod_2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.prod_3.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.uat.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.uat_3.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="WhoAmI.aspx" />
     <TypeScriptCompile Include="assets\scripts\betchoicematching\betchoicematching.ts" />
     <TypeScriptCompile Include="assets\scripts\betchoicematching\global.d.ts" />
     <TypeScriptCompile Include="assets\scripts\commissionbybettype\commissionbybettype.ts" />
@@ -838,31 +926,34 @@
     <Compile Include="Features\WinLoss\WinLossViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\activitytracking.local.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
+    <Content Include="App_Data\ProductSection.local.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
     </Content>
-    <Content Include="App_Data\activitytracking.napinternal.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
+    <Content Include="App_Data\ProductSection.local_2.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
     </Content>
-    <Content Include="App_Data\activitytracking.napinternal2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
+    <Content Include="App_Data\ProductSection.local_3.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
     </Content>
-    <Content Include="App_Data\activitytracking.pro.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
+    <Content Include="App_Data\ProductSection.prod.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
     </Content>
-    <Content Include="App_Data\activitytracking.uat.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
+    <Content Include="App_Data\ProductSection.prod_2.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.prod_3.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.uat.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.uat_2.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.uat_3.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
     </Content>
     <Content Include="App_Data\SPNames\Internal\DBBAH.bodb02.BODBDownlineNetView.xml" />
-    <Content Include="App_Data\securitycode.dockerlocal.json">
-      <DependentUpon>securitycode.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\securitycode.dockerpro.json">
-      <DependentUpon>securitycode.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\securitycode.dockeruat.json">
-      <DependentUpon>securitycode.json</DependentUpon>
-    </Content>
     <Content Include="App_Data\SPNames\Internal\DBTXN.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBCust.CustDB.DownlineNetView.xml">
       <SubType>Designer</SubType>
@@ -1408,9 +1499,6 @@
     <Content Include="assets\styles\statement\statement-dark.scss" />
     <Content Include="assets\styles\error\error-dark.scss" />
     <Content Include="App_Data\ProductSection.config" />
-    <Content Include="App_Data\ProductSection.dockerpro.config" />
-    <Content Include="App_Data\ProductSection.dockerpro3.config" />
-    <Content Include="App_Data\ProductSection.dockerpro2.config" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
@@ -1513,15 +1601,6 @@
     <Content Include="Web.AppSettings.backupMNLNap2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
-    <Content Include="Web.AppSettings.dockerlocal.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.dockerpro.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.dockeruat.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
     <Content Include="Web.AppSettings.local.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
@@ -1564,21 +1643,19 @@
     <Content Include="Web.backupMNLNap2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-    <Content Include="Web.ConnectionStrings.dockerpro.config">
-      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.dockeruat.config">
-      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
-    </Content>
-    <Content Include="Web.dockerlocal.config">
+    <Content Include="Web.local_2.config">
       <DependentUpon>Web.local.config</DependentUpon>
-      <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.dockerpro.config">
+    <Content Include="Web.local_3.config">
       <DependentUpon>Web.local.config</DependentUpon>
-      <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.dockeruat.config">
+    <Content Include="Web.prod.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.prod_2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.prod_3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.uat2.config">
@@ -1681,12 +1758,6 @@
     <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.scss" />
     <Content Include="Features\Outstanding\Views\IndexNew.cshtml" />
     <Content Include="App_Code\Components\DateRangePickerNew.cshtml" />
-    <Content Include="App_Data\activitytracking.pro2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.uat2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
     <Content Include="App_Code\Components\ProductDetailMultiSelection.cshtml" />
     <Content Include="Features\WinLoss\Styles\winloss.scss" />
     <Content Include="Features\Shared\Styles\datepicker-mobile-07.scss" />
@@ -1767,43 +1838,13 @@
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\Blocked.cshtml" />
     <Content Include="Views\Statement\_StatementPopup.cshtml" />
-    <Content Include="Web.ConnectionStrings.dockerlocal.config" />
     <Content Include="Web.AppSettings.config" />
-    <Content Include="Web.AppSettings.dockerlocal2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    <Content Include="Web.ConnectionStrings.config" />
+    <Content Include="Web.ConnectionStrings.uat_2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
     </Content>
-    <Content Include="Web.AppSettings.dockerlocal3.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.dockerpro2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.dockerpro3.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.dockeruat2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.dockeruat3.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.dockerlocal2.config">
-      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.dockerlocal3.config">
-      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.dockerpro2.config">
-      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.dockerpro3.config">
-      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.dockeruat2.config">
-      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.dockeruat3.config">
-      <DependentUpon>Web.ConnectionStrings.dockerlocal.config</DependentUpon>
+    <Content Include="Web.ConnectionStrings.uat_3.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1811,22 +1852,7 @@
     <Content Include="Web.pro3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-    <Content Include="Web.dockerlocal2.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.dockerlocal3.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.dockerpro2.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.dockerpro3.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.dockeruat2.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.dockeruat3.config">
+    <Content Include="Web.uat_2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <None Include="Web.Release.config">
