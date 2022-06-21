@@ -500,6 +500,46 @@
     <Content Include="App_Data\activitytracking.uat_3.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
+    <Content Include="App_Data\securitycode.local.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.local_2.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.local_3.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.prod.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.prod_2.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.prod_3.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.uat.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.uat_2.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.uat_3.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\SPNames\Docker\DBACC.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBAGE.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBARC.bodb_Archive.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBBAH.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBBOF.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBCust.CustDB.DownlineNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\SPNames\Docker\DBCust.IPDB.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBONUSER.ON_USER.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBRPT.bodb_report.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBTXN.bodb02.BODBDownlineNet.xml" />
     <Content Include="Web.AppSettings.local_2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>

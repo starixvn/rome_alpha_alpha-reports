@@ -1,0 +1,15 @@
+{
+  "isActive": true,
+  "paths": [],
+  "betListsPaths": [
+    "BetChoiceMatching"
+  ],
+  "statementPaths": [
+    "Statement"
+  ],
+  "sites": [],
+  "verifyingOtpPath": "Otp/VerifyOtp",
+  "verifyingSecurityCodePath": "SecurityCode/VerifySecurityCode",
+  "resetSecurityCodePath": "SecurityCode/resetSecurityCodePath",
+  "isStandaloneSite": true
+}

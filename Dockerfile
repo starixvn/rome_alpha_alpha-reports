@@ -25,7 +25,7 @@ RUN nuget.exe restore Alpha.Reports.Site.sln
 COPY src src\
 COPY build build\
 COPY tools tools\
-COPY tests tests\
+COPY tests\Alpha.Reports.StaticData tests\Alpha.Reports.StaticData\
 
 RUN MSBuild.exe "src\Alpha.Reports.Site\Alpha.Reports.Site.csproj" `
     /t:Build;WebPublish /m `
@@ -45,17 +45,17 @@ WORKDIR C:\Compiled
 RUN `
     if defined REDMINE_IDS `
     FOR %P IN ( `
-        App_Data\SPNames\%DEPLOY_ENV%\DBACC.bodb02.BODBDownlineNet.xml, `
-		App_Data\SPNames\%DEPLOY_ENV%\DBAGE.bodb02.BODBDownlineNet.xml, `
-		App_Data\SPNames\%DEPLOY_ENV%\DBARC.bodb_Archive.BODBDownlineNet.xml, `
-		App_Data\SPNames\%DEPLOY_ENV%\DBBAH.bodb02.BODBDownlineNet.xml, `
-		App_Data\SPNames\%DEPLOY_ENV%\DBBOF.bodb02.BODBDownlineNet.xml, `
-		App_Data\SPNames\%DEPLOY_ENV%\DBCust.CustDB.DownlineNet.xml, `
-		App_Data\SPNames\%DEPLOY_ENV%\DBCust.IPDB.xml, `
-		App_Data\SPNames\%DEPLOY_ENV%\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml, `
-		App_Data\SPNames\%DEPLOY_ENV%\DBONUSER.ON_USER.BODBDownlineNet.xml, `
-		App_Data\SPNames\%DEPLOY_ENV%\DBRPT.bodb_report.BODBDownlineNet.xml, `
-		App_Data\SPNames\%DEPLOY_ENV%\DBTXN.bodb02.BODBDownlineNet.xml `
+        App_Data\SPNames\Docker\DBACC.bodb02.BODBDownlineNet.xml, `
+		App_Data\SPNames\Docker\DBAGE.bodb02.BODBDownlineNet.xml, `
+		App_Data\SPNames\Docker\DBARC.bodb_Archive.BODBDownlineNet.xml, `
+		App_Data\SPNames\Docker\DBBAH.bodb02.BODBDownlineNet.xml, `
+		App_Data\SPNames\Docker\DBBOF.bodb02.BODBDownlineNet.xml, `
+		App_Data\SPNames\Docker\DBCust.CustDB.DownlineNet.xml, `
+		App_Data\SPNames\Docker\DBCust.IPDB.xml, `
+		App_Data\SPNames\Docker\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml, `
+		App_Data\SPNames\Docker\DBONUSER.ON_USER.BODBDownlineNet.xml, `
+		App_Data\SPNames\Docker\DBRPT.bodb_report.BODBDownlineNet.xml, `
+		App_Data\SPNames\Docker\DBTXN.bodb02.BODBDownlineNet.xml `
     ) `
     DO curl --fail -o C:\sp-result.xml --form file=@"%P" --form "redmineIds=%REDMINE_IDS%" -X POST %ROCKETOR_API% `
         && xcopy C:\sp-result.xml "%P" /Y
@@ -66,6 +66,7 @@ RUN echo "%DEPLOY_ENV%" `
     && xcopy "Web.ConnectionStrings.%DEPLOY_ENV%.config" "Web.ConnectionStrings.config" /Y `
 	&& xcopy "Web.AppSettings.%DEPLOY_ENV%.config" "Web.AppSettings.config" /Y `
 	&& xcopy "App_Data\activitytracking.%DEPLOY_ENV%.json" "App_Data\activitytracking.json" /Y `
+	&& xcopy "App_Data\securitycode.%DEPLOY_ENV%.json" "App_Data\securitycode.json" /Y `
 	&& xcopy "App_Data\ProductSection.%DEPLOY_ENV%.config" "App_Data\ProductSection.config" /Y
 
 FROM hub.nexdev.net/base/dotnet/framework/aspnet:4.7.2-windowsservercore-ltsc2019 AS base
