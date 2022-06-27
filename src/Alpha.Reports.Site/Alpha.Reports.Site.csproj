@@ -521,6 +521,12 @@
     <Content Include="App_Data\securitycode.uat.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
+    <Content Include="App_Data\securitycode.uat1.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.uat2.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
     <Content Include="App_Data\securitycode.uat_2.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
@@ -1054,6 +1060,9 @@
     <Content Include="App_Data\SPNames\UAT\DBBOF.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBAGE.bodb02.BODBDownlineNet.xml" />
+    <Content Include="Web.uat1.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
     <TypeScriptCompile Include="assets\scripts\components\netturnover-tooltip.ts" />
     <TypeScriptCompile Include="assets\scripts\components\pager.ts" />
     <TypeScriptCompile Include="assets\scripts\components\sort.ts" />
@@ -1885,6 +1894,9 @@
     </Content>
     <Content Include="Web.ConnectionStrings.uat_3.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.uat1.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
