@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.SessionState;
@@ -326,7 +327,7 @@ namespace Alpha.Reports.Site.Controllers
                 return Redirect($"{SiteSettings.ReportRouting}{Request["ReturnUrl"]}");
             }
 
-            return Json(OK, JsonRequestBehavior.AllowGet);
+            return Content(OK, "text/html", Encoding.UTF8);
         }
     }
 }
