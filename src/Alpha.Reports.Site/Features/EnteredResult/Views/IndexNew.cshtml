@@ -7,7 +7,7 @@
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/data-table")
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/daterangepicker")
-    @StaticResources.RenderStylesWithMedia(767, $"~/Features/EnteredResult/Bundles/enteredresult-mobile-calculate-07")
+    @StaticResources.RenderStylesWithMedia(767, $"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/EnteredResult/Bundles/enteredresult-mobile-calculate-07")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(
@@ -61,7 +61,7 @@
     @Html.Hidden("ToDate", DateTime.Now.ToShortDateWithSlash())
 </div>
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", $"EnteredResult")">
+      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}EnteredResult")">
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
 </form>
@@ -71,7 +71,7 @@
 @section Scripts {
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/daterangepicker")
-    @StaticResources.RenderScripts($"~/Features/EnteredResult/Bundles/enteredresult-new")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/EnteredResult/Bundles/enteredresult-new")
 }
 
 @helper RenderEnteredResult(DailyEnteredSport enteredSportDaily)

@@ -10,7 +10,7 @@
 
 @section Styles {
 	@StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/data-table")
-	@StaticResources.RenderStylesWithMedia(767, $"~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
+	@StaticResources.RenderStylesWithMedia(767, $"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
 }
 
 @model OutstandingViewModel
@@ -98,7 +98,7 @@
 		}
 	</table>
 
-	@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"Outstanding"))
+	@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Outstanding"))
 	@Html.Hidden("NoInformationIsAvailable", @Resources.NoInformationIsAvailable)
 </div>
 
@@ -109,7 +109,7 @@
 	</script>
 
 	@StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
-	@StaticResources.RenderScripts($"~/Features/Outstanding/Bundles/outstanding-new")
+	@StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/Outstanding/Bundles/outstanding-new")
 }
 
 @helper RenderOutstandingCells(OutstandingModel data)

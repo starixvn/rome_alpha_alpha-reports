@@ -2,7 +2,7 @@
     Layout = null;
 }
 @model BonusDetailViewModel
-@using (Html.BeginForm("Index", $"BonusDetail", FormMethod.Get, new { @class = "form-inline filter" + (Model.IsFilterVisible ? string.Empty : " hide"), role = "form", id = "report-form" }))
+@using (Html.BeginForm("Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}BonusDetail", FormMethod.Get, new { @class = "form-inline filter" + (Model.IsFilterVisible ? string.Empty : " hide"), role = "form", id = "report-form" }))
 {
     <input type="hidden" value="@Model.IsFilterVisible.ToString().ToLowerInvariant()" name="IsFilterVisible" id="IsFilterVisible" />
     <div class="form-group">

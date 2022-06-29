@@ -57,8 +57,8 @@
         ["ExportExcelAction"] = "ConsolidationDetailExcel"
     })
 
-@Html.Hidden("LoadLegendURL", Url.Action("ReportDetailLegend", $"Consolidation", new { CustLevelId = Model.WinLossDetailViewModel.CustLevel.Value }))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportDetailLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Consolidation", new { CustLevelId = Model.WinLossDetailViewModel.CustLevel.Value }))
 
 @section Scripts {
-    @StaticResources.RenderScripts($"~/assets/bundles/consolidation/consolidation-detail")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/consolidation/consolidation-detail")
 }

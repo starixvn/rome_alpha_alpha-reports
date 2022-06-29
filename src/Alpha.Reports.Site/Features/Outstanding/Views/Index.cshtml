@@ -79,10 +79,10 @@
 
 </table>
 
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"Outstanding"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Outstanding"))
 
 @section Scripts {
-	@StaticResources.RenderScripts($"~/Features/Outstanding/Bundles/outstanding")
+	@StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/Outstanding/Bundles/outstanding")
 }
 
 @helper RenderOutstandingCells(OutstandingModel data)

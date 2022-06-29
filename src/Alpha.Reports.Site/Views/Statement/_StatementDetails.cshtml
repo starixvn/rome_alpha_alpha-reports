@@ -1,6 +1,6 @@
 ﻿@model StatementDetailViewModel
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode($"~/assets/bundles/statement/statement")
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/statement/statement")
 }
 <form class="form-inline filter statement-details-filter" role="form" id="report-form">
     <div class="form-group statement-detail-title">
@@ -53,14 +53,14 @@
     }
 </table>
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("StatementDetailExcel", $"Statement")">
+      action="@Url.Action("StatementDetailExcel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("TransferDate", Model.TransferDate)
 </form>
 
 @section Scripts {
-    @StaticResources.RenderScripts($"~/assets/bundles/statement/statement-details")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/statement/statement-details")
 }
 
 @helper RenderNegativeNumberCell(decimal? cellValue)

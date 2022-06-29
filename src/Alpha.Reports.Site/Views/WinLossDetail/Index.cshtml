@@ -23,7 +23,7 @@
     })
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", $"WinLossDetail")">
+      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLossDetail")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("FromDate", Model.FromDate)
@@ -36,10 +36,10 @@
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"WinLossDetail"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLossDetail"))
 
 @Pager.Render(Model.PagerViewModel)
 
 @section Scripts {
-    @StaticResources.RenderScripts($"~/assets/bundles/winlossdetail/winlossdetail")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/winlossdetail/winlossdetail")
 }

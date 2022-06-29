@@ -80,7 +80,7 @@
         @NoInformation.Render(colspan: 6)
     }
 </table>
-<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", $"MatchWinLoss")">
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MatchWinLoss")">
     <input type="hidden" name="CustId" value="@Model.CustId" />
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />

@@ -11,15 +11,15 @@
 @model MoveStatementHistoryViewModel
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
-    @StaticResources.RenderStylesWithDarkMode($"~/Features/BetCreditTracking/Bundles/movestatementhistory")
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/BetCreditTracking/Bundles/movestatementhistory")
 }
 @section Scripts {
-    @StaticResources.RenderScripts($"~/Features/BetCreditTracking/Bundles/movestatementhistory")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/BetCreditTracking/Bundles/movestatementhistory")
 }
 <div class="page-title @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation">
-            @Html.ActionLink(@Resources.BetCreditHistory, "Index", $"BetCreditHistory")
+            @Html.ActionLink(@Resources.BetCreditHistory, "Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}BetCreditHistory")
         </li>
         <li role="presentation" class="active">
             <a href="#moveStatementHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.MoveStatementHistory</a>
@@ -70,7 +70,7 @@
 </div>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", $"MoveStatementHistory")">
+      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MoveStatementHistory")">
     @Html.Hidden("Username", Model.Username)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)

@@ -22,7 +22,7 @@
 @Html.Partial("~/Features/SuperWinLossDetailByPT/Views/ViewProductPTList.cshtml", Model)
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", $"SuperWinLossDetailByPT")">
+      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}SuperWinLossDetailByPT")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
@@ -32,8 +32,8 @@
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"WinLossDetail"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLossDetail"))
 
 @section Scripts {
-    @StaticResources.RenderScripts($"~/Features/SuperWinLossDetailByPT/Bundles/superwinlossdetailbypt")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/SuperWinLossDetailByPT/Bundles/superwinlossdetailbypt")
 }

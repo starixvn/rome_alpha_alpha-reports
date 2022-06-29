@@ -104,7 +104,7 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", $"WinLossByProduct")">
+      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLossByProduct")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
@@ -115,10 +115,10 @@
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", $"ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ReportLegend"))
 
 @section Scripts {
-    @StaticResources.RenderScripts($"~/assets/bundles/winlossbyproduct/winlossbyproduct")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/winlossbyproduct/winlossbyproduct")
 }
 
 @helper RenderProduct(WinLossByProductModel data, bool isExpand)

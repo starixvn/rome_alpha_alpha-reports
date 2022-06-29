@@ -4,7 +4,7 @@
 
 @model BetCreditHistoryViewModel
 
-@using (Html.BeginForm("Search", $"BetCreditHistory", FormMethod.Get, new { @class = "form-inline filter" + (Model.IsFilterVisible ? string.Empty : " hide"), role = "form", id = "report-form" }))
+@using (Html.BeginForm("Search", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}BetCreditHistory", FormMethod.Get, new { @class = "form-inline filter" + (Model.IsFilterVisible ? string.Empty : " hide"), role = "form", id = "report-form" }))
 {
     <input type="hidden" value="@Model.IsFilterVisible.ToString().ToLowerInvariant()" name="IsFilterVisible" id="IsFilterVisible" />
 
