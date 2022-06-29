@@ -6,6 +6,7 @@
     using System.Collections.Specialized;
     using System.Configuration;
     using System.Linq;
+    using System.Web;
 
     public static class SiteSettings
     {
@@ -49,7 +50,15 @@
 
         public static string RemoteRefURL => GetConfigValue("RemoteRefURL");
 
-        public static string ReportRouting => UserSession.Current.GetProperty<string>("Report_Routing") ?? string.Empty;
+        public static string ReportRouting
+        {
+            get
+            {
+                var currentAppPath = HttpRuntime.AppDomainAppVirtualPath;
+                return currentAppPath.Equals("/", StringComparison.OrdinalIgnoreCase) ?
+                    "site-reports/" : UserSession.Current.GetProperty<string>("Report_Routing") ?? string.Empty;
+            }
+        }
 
         public static bool IsStandaloneReport => GetConfigValue("IsStandaloneReport") == "1";
 
