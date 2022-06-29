@@ -4,7 +4,7 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/consolidation/consolidation")
+    @StaticResources.RenderStyles($"~/assets/bundles/consolidation/consolidation")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
@@ -74,7 +74,7 @@
 
                 <td class="text-left">@data.CustLevelName</td>
                 <td class="text-left">
-                    <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail",$"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Consolidation"), "date", null, date.Date, data)" class="downline-link">
+                    <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail",$"Consolidation"), "date", null, date.Date, data)" class="downline-link">
                         @data.Username
                     </a>
                 </td>
@@ -109,9 +109,9 @@
     }
 </table>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Consolidation"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"Consolidation"))
 @section Scripts {
-    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/consolidation/consolidation")
+    @StaticResources.RenderScripts($"~/assets/bundles/consolidation/consolidation")
 }
 
 @Html.Partial(

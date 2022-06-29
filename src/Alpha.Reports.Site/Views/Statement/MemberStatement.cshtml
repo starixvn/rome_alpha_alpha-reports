@@ -4,7 +4,7 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/statement/statement")
+    @StaticResources.RenderStylesWithDarkMode($"~/assets/bundles/statement/statement")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.DailyStatement + " - " + Model.CustName, false, true, false, Model.IsFilterVisible, null, null))
@@ -120,22 +120,22 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("MemberStatementExcel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement")">
+      action="@Url.Action("MemberStatementExcel", $"Statement")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
 </form>
 
-@Html.Hidden("LoadLegendURL", Url.Action("MemberReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
-@Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
+@Html.Hidden("LoadLegendURL", Url.Action("MemberReportLegend", $"Statement"))
+@Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", $"Statement"))
 @Html.Hidden("BetListUrl", Model.BetListLink)
 @Html.Hidden("BetListTitle", Resources.BetList)
 @Html.Hidden("MainDomain", Model.MainDomain)
 
 @Pager.Render(Model.PagerViewModel)
 @section Scripts {
-    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/statement/member-statement")
+    @StaticResources.RenderScripts($"~/assets/bundles/statement/member-statement")
 }
 
 @helper RenderNegativeNumberCell(decimal? cellValue, string cssClass = "")

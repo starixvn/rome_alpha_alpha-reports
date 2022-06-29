@@ -4,7 +4,7 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/matchwinlossdetail/matchwinlossdetail")
+    @StaticResources.RenderStylesWithDarkMode($"~/assets/bundles/matchwinlossdetail/matchwinlossdetail")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
@@ -190,9 +190,9 @@
     }
 </table>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLeagueURL", Url.Action("LeaguesByCustomer", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}League"))
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MatchWinLossDetail"))
-<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MatchWinLossDetail")">
+@Html.Hidden("LoadLeagueURL", Url.Action("LeaguesByCustomer", $"League"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"MatchWinLossDetail"))
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", $"MatchWinLossDetail")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
@@ -201,7 +201,7 @@
     @Html.Hidden("UserSelectedLeagueIds", Model.UserSelectedLeagueIds)
 </form>
 @section Scripts {
-    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/matchwinlossdetail/matchwinlossdetail")
+    @StaticResources.RenderScripts($"~/assets/bundles/matchwinlossdetail/matchwinlossdetail")
 }
 @helper RenderBetTypeRow(BetTypeWinLossViewModel data, string betType, bool isEvenRow = false)
 {

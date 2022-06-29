@@ -43,13 +43,13 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}EnteredResult")">
+      action="@Url.Action("Excel", $"EnteredResult")">
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
 </form>
 
 @section Scripts {
-    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/EnteredResult/Bundles/enteredresult")
+    @StaticResources.RenderScripts($"~/Features/EnteredResult/Bundles/enteredresult")
 }
 
 @helper RenderEnteredResult(DailyEnteredSport enteredSportDaily)

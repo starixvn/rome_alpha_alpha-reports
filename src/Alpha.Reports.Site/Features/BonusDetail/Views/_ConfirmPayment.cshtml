@@ -8,7 +8,7 @@
             <div class="modal-body">
                 @Alert.Render()
                 <p>@Resources.ConfirmPaymentNote</p>
-                @using (Html.BeginForm("ConfirmPayment", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}BonusDetail", FormMethod.Post, new { @class = "form-horizontal", id = "form-confirmPayment" }))
+                @using (Html.BeginForm("ConfirmPayment", $"BonusDetail", FormMethod.Post, new { @class = "form-horizontal", id = "form-confirmPayment" }))
                 {
                     <input type="hidden" name="custId" id="hidden-custId" />
                     <input type="hidden" name="transId" id="hidden-transId" />
