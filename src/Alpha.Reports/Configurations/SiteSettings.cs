@@ -56,7 +56,7 @@
             {
                 var currentAppPath = HttpRuntime.AppDomainAppVirtualPath;
                 return currentAppPath.Equals("/", StringComparison.OrdinalIgnoreCase) ?
-                    "site-reports/" : UserSession.Current.GetProperty<string>("Report_Routing") ?? string.Empty;
+                    "site-reports/" : string.Empty;
             }
         }
 
