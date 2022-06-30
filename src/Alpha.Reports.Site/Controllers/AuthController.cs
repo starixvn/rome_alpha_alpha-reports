@@ -93,6 +93,7 @@ namespace Alpha.Reports.Site.Controllers
                 && Request.IsAuthenticated
                 && session.UserName.Equals(parameters[0], StringComparison.OrdinalIgnoreCase))
             {
+                SetRealtimeValues(parameters, session);
                 UpdateReportRoutingRealtime(parameters, session);
 
                 return RedirectToSpecificUrl();
@@ -234,6 +235,36 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             return false;
+        }
+
+        private static void SetRealtimeValues(string[] parameters, IUserSession userSession)
+        {
+            var sessions = parameters[1].Split(';');
+
+            userSession.SetProperty(SessionKey.LANGUAGE, sessions[3]);
+            userSession.SetProperty(SessionKey.LANGKEY, sessions[4]);
+            userSession.SetProperty(SessionKey.DARKMODENAMESESSIONKEY, sessions[14]);
+
+            var pageAccess = sessions[20].Split(new[] { '$' }, StringSplitOptions.RemoveEmptyEntries).Select(bool.Parse);
+            var subPageAccess = new PageAccess
+            {
+                CreateAccount = pageAccess.ElementAt(0),
+                Transfer = pageAccess.ElementAt(1),
+                UpdateAccount = pageAccess.ElementAt(2),
+                ViewLog = pageAccess.ElementAt(3),
+                ViewMemberInfo = pageAccess.ElementAt(4),
+                ViewReports = pageAccess.ElementAt(5),
+                ViewTotalBets = pageAccess.ElementAt(6)
+            };
+
+            subPageAccess.SetPermission("[L]", pageAccess.ElementAt(7));
+            userSession.SetProperty(SessionKey.SUBPAGEACCESS, subPageAccess);
+
+            userSession.SetProperty(SessionKey.ISENABLEDSECURITYCODEINSTATEMENT, Convert.ToBoolean(sessions[21]));
+            userSession.SetProperty(SessionKey.SECURITYCODE, sessions[22]);
+
+            SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp = Convert.ToBoolean(sessions[23]);
+            SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = Convert.ToBoolean(sessions[24]);
         }
 
         private static void SetUserSessionsAndAuth(string[] parameters, IUserSession userSession)
