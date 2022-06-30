@@ -372,7 +372,7 @@ namespace Alpha.Reports.Site.Controllers
         {
             if (!string.IsNullOrWhiteSpace(Request["ReturnUrl"]))
             {
-                return Redirect($"{SiteSettings.ReportRouting}{Request["ReturnUrl"]}");
+                return Redirect($"~/{SiteSettings.ReportRouting}{Request["ReturnUrl"].Replace("/site-reports", string.Empty)}");
             }
 
             return Content(OK, "text/html", Encoding.UTF8);
