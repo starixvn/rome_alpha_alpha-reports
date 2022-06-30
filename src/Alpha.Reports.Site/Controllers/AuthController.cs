@@ -50,14 +50,31 @@ namespace Alpha.Reports.Site.Controllers
             var authParams = string.IsNullOrWhiteSpace(param) ? session.GetProperty<string>(SessionKey.LoginParams) + string.Empty : param;
             var parameter = string.Empty;
 
-            try
+            if (!string.IsNullOrWhiteSpace(authParams))
             {
-                parameter = AesService.Default.Decrypt(authParams, SecretKey);
+                try
+                {
+                    parameter = AesService.Default.Decrypt(authParams, SecretKey);
+                }
+                catch
+                {
+                    parameter = string.Empty;
+                    ExceptionHandler.Handle(new Exception("Cannot verify request key " + Request.RawUrl), TraceEventType.Warning);
+                }
             }
-            catch
+            else
             {
-                parameter = string.Empty;
-                ExceptionHandler.Handle(new Exception("Cannot verify request key " + Request.RawUrl), TraceEventType.Warning);
+                try
+                {
+                    parameter = $"{AesService.Default.Decrypt(HttpContext.Request.Cookies["auth_1"].Value, SecretKey)}" +
+                        $"&{AesService.Default.Decrypt(HttpContext.Request.Cookies["auth_2"].Value, SecretKey)}" +
+                        $"&{AesService.Default.Decrypt(HttpContext.Request.Cookies["auth_3"].Value, SecretKey)}";
+
+                    authParams = AesService.Default.Encrypt(parameter, SecretKey);
+                }
+                catch
+                {
+                }
             }
 
             if (string.IsNullOrWhiteSpace(parameter))
