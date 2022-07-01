@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.SessionState;
 using Alpha.Auth.Filters;
+using Alpha.NetThrottling.Mvc;
 using Alpha.Reports.Configurations;
 using Alpha.Reports.Site.Constants;
 using Alpha.SecurityCode.Web;
@@ -38,7 +39,7 @@ namespace Alpha.Reports.Site.Controllers
         private const int LoginTimeoutSeconds = 10;
 
         // GET: Auth
-        [HttpGet]
+        [HttpGet, DisableNetThrottling]
         public ActionResult Index(string param)
         {
             if (!IsValidReferrer())
@@ -72,9 +73,7 @@ namespace Alpha.Reports.Site.Controllers
 
                     authParams = AesService.Default.Encrypt(parameter, SecretKey);
                 }
-                catch
-                {
-                }
+                catch { }
             }
 
             if (string.IsNullOrWhiteSpace(parameter))
@@ -88,24 +87,28 @@ namespace Alpha.Reports.Site.Controllers
                 session.SetProperty(SessionKey.LoginParams, authParams);
             }
 
-            var parameters = parameter.Split('&');
-            if (session.IsLogged
-                && Request.IsAuthenticated
-                && session.UserName.Equals(parameters[0], StringComparison.OrdinalIgnoreCase))
+            try
             {
-                SetRealtimeValues(parameters, session);
-                UpdateReportRoutingRealtime(parameters, session);
+                var parameters = parameter.Split('&');
+                if (session.IsLogged
+                    && Request.IsAuthenticated
+                    && session.UserName.Equals(parameters[0], StringComparison.OrdinalIgnoreCase))
+                {
+                    SetRealtimeValues(parameters, session);
+                    UpdateReportRoutingRealtime(parameters, session);
 
-                return RedirectToSpecificUrl();
+                    return RedirectToSpecificUrl();
+                }
+
+                if (!string.IsNullOrWhiteSpace(param)
+                    && DateTime.Now.Subtract(Convert.ToDateTime(parameters[3])).TotalSeconds > LoginTimeoutSeconds)
+                {
+                    return new EmptyResult();
+                }
+
+                SetUserSessionsAndAuth(parameters, session);
             }
-
-            if (!string.IsNullOrWhiteSpace(param)
-                && DateTime.Now.Subtract(Convert.ToDateTime(parameters[3])).TotalSeconds > LoginTimeoutSeconds)
-            {
-                return new EmptyResult();
-            }
-
-            SetUserSessionsAndAuth(parameters, session);
+            catch { }
 
             return RedirectToSpecificUrl();
         }
