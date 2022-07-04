@@ -7,6 +7,7 @@
     using System.Web.Mvc;
     using Alpha.Reports.Configurations;
     using Alpha.Reports.Models;
+    using Sunplus.Agent.Model.Entities;
     using Web.Helpers;
 
     public static class UrlHelper
@@ -131,7 +132,7 @@
         internal static string GetLink(string action, string currentQuery)
         {
             return string.IsNullOrWhiteSpace(MainDomain) ? MicroSites.ReportsUrl(action + currentQuery) : 
-                $"{MainDomain}/{SiteSettings.ReportRouting.TrimEnd('/')}{action.TrimStart('~')}{currentQuery}";
+                $"{MainDomain}/{UserSession.Current.GetProperty<string>(Constants.SessionKey.ReportRouting)?.TrimEnd('/')}{action.TrimStart('~')}{currentQuery}";
         }
 
         private static Func<string, string> mapMessagePath;
