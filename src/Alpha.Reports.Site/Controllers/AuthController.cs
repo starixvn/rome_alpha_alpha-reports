@@ -223,7 +223,8 @@ namespace Alpha.Reports.Site.Controllers
 
         private bool IsValidReferrer()
         {
-            if (Request.UrlReferrer == null)
+            if (Request.UrlReferrer == null
+                || string.IsNullOrWhiteSpace(HttpContext.Request.Cookies["auth_1"]?.Value))
             {
                 return false;
             }
