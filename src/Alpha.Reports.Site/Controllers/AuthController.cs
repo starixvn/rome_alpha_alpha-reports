@@ -90,8 +90,7 @@ namespace Alpha.Reports.Site.Controllers
             try
             {
                 var parameters = parameter.Split('&');
-                if (session.IsLogged
-                    && Request.IsAuthenticated
+                if (IsLoggedIn()
                     && session.UserName.Equals(parameters[0], StringComparison.OrdinalIgnoreCase))
                 {
                     SetRealtimeValues(parameters, session);
@@ -117,7 +116,8 @@ namespace Alpha.Reports.Site.Controllers
         [HttpGet]
         public ActionResult SecurityCode()
         {
-            if (!IsValidReferrer())
+            if (!IsValidReferrer()
+                || !IsLoggedIn())
             {
                 return Json(Failed, JsonRequestBehavior.AllowGet);
             }
@@ -131,7 +131,8 @@ namespace Alpha.Reports.Site.Controllers
         [HttpGet]
         public ActionResult SecurityCodeBetlist(bool s)
         {
-            if (!IsValidReferrer())
+            if (!IsValidReferrer()
+                || !IsLoggedIn())
             {
                 return Json(Failed, JsonRequestBehavior.AllowGet);
             }
@@ -145,7 +146,8 @@ namespace Alpha.Reports.Site.Controllers
         [HttpGet]
         public ActionResult SecurityCodeStatement(bool s)
         {
-            if (!IsValidReferrer())
+            if (!IsValidReferrer()
+                || !IsLoggedIn())
             {
                 return Json(Failed, JsonRequestBehavior.AllowGet);
             }
@@ -159,7 +161,8 @@ namespace Alpha.Reports.Site.Controllers
         [HttpGet]
         public ActionResult Otp()
         {
-            if (!IsValidReferrer())
+            if (!IsValidReferrer()
+                || !IsLoggedIn())
             {
                 return Json(Failed, JsonRequestBehavior.AllowGet);
             }
@@ -173,7 +176,8 @@ namespace Alpha.Reports.Site.Controllers
         [HttpGet]
         public ActionResult ChangeTheme(bool isDarkMode)
         {
-            if (!IsValidReferrer())
+            if (!IsValidReferrer()
+                || !IsLoggedIn())
             {
                 return Json(Failed, JsonRequestBehavior.AllowGet);
             }
@@ -186,7 +190,8 @@ namespace Alpha.Reports.Site.Controllers
         [HttpGet]
         public ActionResult ChangeLang(string langCode)
         {
-            if (!IsValidReferrer())
+            if (!IsValidReferrer()
+                || !IsLoggedIn())
             {
                 return Json(Failed, JsonRequestBehavior.AllowGet);
             }
@@ -380,6 +385,11 @@ namespace Alpha.Reports.Site.Controllers
             }
 
             return Content(OK, "text/html", Encoding.UTF8);
+        }
+
+        private bool IsLoggedIn()
+        {
+            return UserSession.Current.IsLogged && Request.IsAuthenticated;
         }
     }
 }
