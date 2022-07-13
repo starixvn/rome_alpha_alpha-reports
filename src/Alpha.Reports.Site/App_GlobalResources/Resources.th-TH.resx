@@ -856,6 +856,9 @@
   <data name="SabaSportsNote" xml:space="preserve">
     <value>รายงานเฉพาะของ กีฬาSABA จะมีตั้งแต่วันที่ {0} เป็นต้นไป ก่อนวันที่ {0} รายงานของกีฬาและกีฬาSABA จะรวมกัน</value>
   </data>
+  <data name="PartialUMAnnouncement" xml:space="preserve">
+    <value>เนื่องจากเซิร์ฟเวอร์ไม่ว่างในขณะนี้  ดังนั้นฟังก์ชันนี้ถูกปิดชั่วคราว ตั้งแต่ {0} ถึง {1} (GMT+8) โปรดลองใหม่ภายหลัง ขออภัยในความไม่สะดวกมา ณ ที่นี้ด้วย</value>
+  </data>
   <data name="BetCreditHistory" xml:space="preserve">
     <value>ประวัติเครดิตเดิมพัน</value>
   </data>

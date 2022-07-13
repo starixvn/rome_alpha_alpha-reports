@@ -7,7 +7,6 @@ class BonusDetail {
     private $reportForm: JQuery;
     private $pageTitle: JQuery;
     private $isFilterVisible: JQuery;
-    private confirmPaymentURL: string;
 
     constructor(
         $: JQueryStatic,
@@ -34,7 +33,6 @@ class BonusDetail {
         this.$reportForm = this.$("#report-form");
         this.$pageTitle = this.$(".page-title");
         this.$isFilterVisible = this.$("#IsFilterVisible");
-        this.confirmPaymentURL = this.$("#hidden-confirmPaymentURL").val();
     }
 
     public initComponents() {
@@ -56,34 +54,14 @@ class BonusDetail {
         this.$reportForm.submit(this.onSubmitReport);
         this.$("#btn-submit").click(() => this.$("#PageIndex").val("1"));
 
-        if (this.confirmPaymentURL) {
-            const self = this;
-            this.$(".icon-payment").click(function () {
-                const $this = self.$(this);
-                const url = self.buildConfirmPaymentURL($this);
-                self.topWindow.popupManager.open(
-                    url,
-                    undefined,
-                    470,
-                    380,
-                    "confirm-payment-modal",
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    { isIgnoreAutoHeightOniOS: true });
-            });
+        const $popupConfirmPayment = this.$("#popup-confirmPayment");
+        if ($popupConfirmPayment.length) {
+            new ConfirmPayment(
+                this.$,
+                new Alert(this.$),
+                () => this.$reportForm.submit(),
+                $popupConfirmPayment).init();
         }
-    }
-
-    public buildConfirmPaymentURL(element: JQuery) {
-        return this.confirmPaymentURL
-            + "?custId=" + element.data("custid")
-            + "&custName=" + element.data("username")
-            + "&transId=" + element.data("transid")
-            + "&amount=" + element.data("amount")
-            + "&paymentDate=" + element.data("createddate");
     }
 
     onClickIconFilter = () => {
@@ -106,10 +84,9 @@ class BonusDetail {
 }
 
 $(function () {
-    const bonusDetail = new BonusDetail(
+    new BonusDetail(
         $,
         window.top,
         new DateRangePickerComponent($),
-        new PagerComponent($));
-    bonusDetail.init();
+        new PagerComponent($)).init();
 });

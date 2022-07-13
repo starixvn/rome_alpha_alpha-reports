@@ -67,14 +67,14 @@
     }
 </table>
 
-<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", "CommissionByBettype")">
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}CommissionByBettype")">
     <input type="hidden" name="CustId" value="@Model.Query.CustId" />
     <input type="hidden" name="CustName" value="@Model.Query.CustName" />
     <input type="hidden" name="CustLevelId" value="@Model.Query.CustLevel.Value" />
     <input type="hidden" name="FromDate" value="@Model.Query.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.Query.ToDate" />
 </form>
-@Html.Hidden("LoadLegendURL", Url.Action("Guidelines", "CommissionByBettype"))
+@Html.Hidden("LoadLegendURL", Url.Action("Guidelines", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}CommissionByBettype"))
 
 @helper RenderCellValue(CommissionByBettypeModel commission)
 {
@@ -89,5 +89,5 @@
 }
 
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/commissionbybettype/commissionbybettype")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/commissionbybettype/commissionbybettype")
 }

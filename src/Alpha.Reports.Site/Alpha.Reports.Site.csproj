@@ -29,6 +29,7 @@
     <TargetFrameworkProfile />
     <Use64BitIISExpress />
     <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <SonarQubeTestProject>False</SonarQubeTestProject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,21 +59,21 @@
     <Reference Include="Alpha.ActivityTracking, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.ActivityTracking.1.0.0.3\lib\net461\Alpha.ActivityTracking.dll</HintPath>
     </Reference>
-    <Reference Include="Alpha.Auth, Version=3.0.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Auth.3.0.4.1\lib\net461\Alpha.Auth.dll</HintPath>
+    <Reference Include="Alpha.Auth, Version=3.0.4.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.Auth.3.0.4.3\lib\net461\Alpha.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.Logging, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.Logging.1.0.1.1\lib\net461\Alpha.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Alpha.NetThrottling, Version=1.0.19.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.NetThrottling.1.0.19\lib\net461\Alpha.NetThrottling.dll</HintPath>
+    <Reference Include="Alpha.NetThrottling, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.NetThrottling.1.1.0.1\lib\net461\Alpha.NetThrottling.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.NetThrottling.Mvc, Version=1.0.15.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.NetThrottling.Mvc.1.0.15\lib\net461\Alpha.NetThrottling.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Alpha.SecurityCode, Version=3.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.SecurityCode.3.0.0.9\lib\net461\Alpha.SecurityCode.dll</HintPath>
+    <Reference Include="Alpha.SecurityCode, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.SecurityCode.3.0.1\lib\net461\Alpha.SecurityCode.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.StaticData, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.StaticData.1.0.1.0\lib\net40\Alpha.StaticData.dll</HintPath>
@@ -85,8 +86,8 @@
     <Reference Include="Alpha.Utilities.IP, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.Utilities.IP.1.0.3.2\lib\net461\Alpha.Utilities.IP.dll</HintPath>
     </Reference>
-    <Reference Include="Alpha.Web, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Web.1.1.0\lib\net461\Alpha.Web.dll</HintPath>
+    <Reference Include="Alpha.Web, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.Web.1.1.0.1\lib\net461\Alpha.Web.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
@@ -127,6 +128,9 @@
     </Reference>
     <Reference Include="Fanex.Common, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Common.1.1.0.1\lib\net40\Fanex.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Cryptography.Aes, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Cryptography.Aes.1.0.0.5\lib\net461\Fanex.Cryptography.Aes.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Data, Version=2.1.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Data.2.1.0.1\lib\net461\Fanex.Data.dll</HintPath>
@@ -305,8 +309,8 @@
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\..\packages\StackExchange.Redis.2.0.519\lib\net461\StackExchange.Redis.dll</HintPath>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.5.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.6.2\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.6.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.6.3\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.3.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.3.5\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
@@ -447,9 +451,148 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_Start\DependencyConfig.cs" />
+    <Compile Include="App_Start\DependencyConfig.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="App_Start\BetTypeConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Content Include="App_Data\activitytracking.local.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.local_2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.local_3.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.napinternal.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.napinternal2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.pro.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.pro2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.prod.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.prod_2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.prod_3.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.uat.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.uat2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.uat_2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.uat_3.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.local.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.local_2.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.local_3.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.prod.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.prod_2.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.prod_3.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.uat.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.uat1.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.uat2.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.uat_2.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.uat_3.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\SPNames\Docker\DBACC.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBAGE.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBARC.bodb_Archive.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBBAH.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBBOF.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBCust.CustDB.DownlineNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\SPNames\Docker\DBCust.IPDB.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBONUSER.ON_USER.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBRPT.bodb_report.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker\DBTXN.bodb02.BODBDownlineNet.xml" />
+    <Content Include="Web.AppSettings.local_2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.local_3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.prod.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.prod_2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.prod_3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.AppSettings.uat_2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.uat_3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.local.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.local_2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.local_3.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.prod.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.prod_2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.prod_3.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.uat.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.uat_3.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="WhoAmI.aspx" />
     <TypeScriptCompile Include="assets\scripts\betchoicematching\betchoicematching.ts" />
     <TypeScriptCompile Include="assets\scripts\betchoicematching\global.d.ts" />
     <TypeScriptCompile Include="assets\scripts\commissionbybettype\commissionbybettype.ts" />
@@ -511,13 +654,23 @@
     <Compile Include="Constants\RowTypeConstant.cs" />
     <Compile Include="Constants\SessionKey.cs" />
     <Compile Include="Constants\UserSelectedDateRangeOptionConstant.cs" />
+    <Compile Include="Controllers\AuthController.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
-    <Compile Include="Controllers\ConsolidationController.cs" />
+    <Compile Include="Controllers\ConsolidationController.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryBaseHandler.cs" />
+    <Compile Include="Controllers\ErrorController.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryController.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryExcelHandler.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryHandler.cs" />
-    <Compile Include="Features\BetCreditTracking\BetCreditHistoryWorkbook.cs" />
+    <Compile Include="Features\BetCreditTracking\BetCreditHistoryWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Features\BetCreditTracking\Requests\BetCreditHistoryExcelQuery.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistoryBaseHandler.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistoryExcelHandler.cs" />
@@ -526,17 +679,32 @@
     <Compile Include="Features\BetCreditTracking\Requests\MoveStatementHistoryQuery.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistoryController.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistoryHandler.cs" />
-    <Compile Include="Features\BetCreditTracking\MoveStatementHistoryWorkbook.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistoryWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Features\BetCreditTracking\ViewModels\BetCreditHistoryViewModel.cs" />
     <Compile Include="Features\BetCreditTracking\ViewModels\MoveStatementHistoryViewModel.cs" />
-    <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTController.cs" />
-    <Compile Include="Features\BonusDetail\BonusDetailController.cs" />
-    <Compile Include="Features\BonusDetail\BonusDetailHandler.cs" />
-    <Compile Include="Features\BonusDetail\Requests\BonusDetailQuery.cs" />
-    <Compile Include="Features\BonusDetail\Requests\ConfirmPaymentCommand.cs" />
-    <Compile Include="Features\BonusDetail\Requests\ConfirmPaymentQuery.cs" />
-    <Compile Include="Features\BonusDetail\ViewModels\BonusDetailViewModel.cs" />
-    <Compile Include="Features\BonusDetail\ViewModels\ConfirmPaymentViewModel.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTController.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\BonusDetail\BonusDetailController.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\BonusDetail\BonusDetailHandler.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\BonusDetail\Requests\BonusDetailQuery.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\BonusDetail\Requests\ConfirmPaymentCommand.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\BonusDetail\Requests\ConfirmPaymentQuery.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\BonusDetail\ViewModels\BonusDetailViewModel.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Features\Outstanding\OutstandingController.cs" />
     <Compile Include="Controllers\MatchWinLossController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
@@ -560,14 +728,20 @@
     <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingExcelHandler.cs" />
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingHandler.cs" />
-    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingWorkbook.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceUplinesJsonHandler.cs" />
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingJsonHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationBaseHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationByDateWorkbook.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationByProductWorkbook.cs" />
-    <Compile Include="Handlers\Consolidation\ConsolidationByUsernameWorkbook.cs" />
-    <Compile Include="Handlers\Consolidation\ConsolidationExcelHandler.cs" />
+    <Compile Include="Handlers\Consolidation\ConsolidationByUsernameWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Handlers\Consolidation\ConsolidationExcelHandler.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Handlers\Consolidation\ConsolidationHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationWorkbook.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossBaseHandler.cs" />
@@ -575,16 +749,30 @@
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionBaseHandler.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionExcelHandler.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionHandler.cs" />
-    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbook.cs" />
+    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Handlers\ReportLegendHandler.cs" />
     <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingBaseHandler.cs" />
-    <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingHandler.cs" />
+    <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingHandler.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelHandler.cs" />
-    <Compile Include="Handlers\Statement\MemberStatementWorkbook.cs" />
-    <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTBaseHandler.cs" />
-    <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTExcelHandler.cs" />
-    <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTHandler.cs" />
-    <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTWorkbook.cs" />
+    <Compile Include="Handlers\Statement\MemberStatementWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTBaseHandler.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTExcelHandler.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTHandler.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbook.cs" />
     <Compile Include="Handlers\Statement\MemberStatementExcelHandler.cs" />
     <Compile Include="Handlers\Statement\StatementDetailExcelHandler.cs" />
@@ -600,11 +788,15 @@
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductHandler.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductExcelHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
-    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs" />
+    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeHandler.cs" />
-    <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeWorkbook.cs" />
+    <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeWorkbook.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Handlers\LeagueHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandler.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandler.cs" />
@@ -617,9 +809,13 @@
     <Compile Include="Features\WinLoss\WinLossExcelHandler.cs" />
     <Compile Include="Features\WinLoss\WinLossHandler.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
-    <Compile Include="Helpers\JsonNetResult.cs" />
+    <Compile Include="Helpers\JsonNetResult.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Helpers\UrlHelper.cs" />
-    <Compile Include="Helpers\WorkbookHelper.cs" />
+    <Compile Include="Helpers\WorkbookHelper.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\BetChoiceMatching\BetChoiceMatchingExcelQuery.cs" />
     <Compile Include="Requests\BetChoiceMatching\BetChoiceMatchingJsonQuery.cs" />
@@ -634,13 +830,19 @@
     <Compile Include="Requests\Consolidation\ConsolidationByUsernameQuery.cs" />
     <Compile Include="Requests\Consolidation\ConsolidationDetailExcelQuery.cs" />
     <Compile Include="Requests\Consolidation\ConsolidationDetailQuery.cs" />
-    <Compile Include="Requests\Consolidation\ConsolidationDetailLegendQuery.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidationDetailLegendQuery.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Requests\Consolidation\GetConsolidationQuery.cs" />
     <Compile Include="Requests\FromBalanceUpDateDateRangeQuery.cs" />
     <Compile Include="Requests\FromLast3MonthDateRangeQuery.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailExcelQuery.cs" />
-    <Compile Include="Features\Outstanding\Requests\ReportLegendQuery.cs" />
-    <Compile Include="Requests\MatchWinLossDetail\ReportLegendQuery.cs" />
+    <Compile Include="Features\Outstanding\Requests\ReportLegendQuery.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Requests\MatchWinLossDetail\ReportLegendQuery.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Requests\ProgressiveContribution\ProgressiveContributionExcelQuery.cs" />
     <Compile Include="Requests\ProgressiveContribution\ProgressiveContributionQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBettypeExcelQuery.cs" />
@@ -653,17 +855,27 @@
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailQuery.cs" />
     <Compile Include="Requests\ProgressiveContribution\ReportLegendQuery.cs" />
     <Compile Include="Requests\ReportBaseQuery.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\User.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Helpers\QueryEntityModelBinder.cs" />
     <Compile Include="Requests\FromLast3YearDateRangeQuery.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
-    <Compile Include="Requests\Consolidation\ConsolidationLegendQuery.cs" />
-    <Compile Include="Requests\ReportLegendGrossCommQuery.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidationLegendQuery.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Requests\ReportLegendGrossCommQuery.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Requests\ReportLegendQuery.cs" />
     <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingQuery.cs" />
     <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelQuery.cs" />
-    <Compile Include="Features\SuperWinLossDetailByPT\Requests\SuperWinLossDetailByPTExcelQuery.cs" />
-    <Compile Include="Features\SuperWinLossDetailByPT\Requests\SuperWinLossDetailByPTQuery.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\Requests\SuperWinLossDetailByPTExcelQuery.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\SuperWinLossDetailByPT\Requests\SuperWinLossDetailByPTQuery.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Requests\WinLossByProduct\WinLossByProductQuery.cs" />
     <Compile Include="Requests\WinLossByProduct\WinLossByProductExcelQuery.cs" />
     <Compile Include="Requests\Statement\MemberStatementExcelQuery.cs" />
@@ -690,7 +902,9 @@
     <Compile Include="ViewModels\Components\CurrencySelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
     <Compile Include="ViewModels\Components\GroupProductViewModel.cs" />
-    <Compile Include="ViewModels\Components\InfoIconWithTargetURLViewModel.cs" />
+    <Compile Include="ViewModels\Components\InfoIconWithTargetURLViewModel.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="ViewModels\Components\LeagueMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\MonthPickerViewModel.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModel.cs" />
@@ -699,12 +913,18 @@
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductDetailMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\ReportLegendViewModel.cs" />
-    <Compile Include="ViewModels\Components\StatusSelectionViewModel.cs" />
+    <Compile Include="ViewModels\Components\StatusSelectionViewModel.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="ViewModels\Components\DualAxisChartViewModel.cs" />
     <Compile Include="ViewModels\Consolidation\ConsolidationByDateViewModel.cs" />
     <Compile Include="ViewModels\Consolidation\ConsolidationByProductViewModel.cs" />
-    <Compile Include="ViewModels\Consolidation\ConsolidationByUsernameGroupByPTViewModel.cs" />
-    <Compile Include="ViewModels\Consolidation\ConsolidationByUsernameViewModel.cs" />
+    <Compile Include="ViewModels\Consolidation\ConsolidationByUsernameGroupByPTViewModel.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="ViewModels\Consolidation\ConsolidationByUsernameViewModel.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="ViewModels\Consolidation\ConsolidationEntityViewModel.cs" />
     <Compile Include="ViewModels\Consolidation\ConsolidationDetailViewModel.cs" />
     <Compile Include="ViewModels\Consolidation\ConsolidationFilterViewModel.cs" />
@@ -721,9 +941,15 @@
     <Compile Include="ViewModels\RiskAnalysisIPMatching\RiskAnalysisIPMatchingViewModel.cs" />
     <Compile Include="ViewModels\Statement\MemberStatementViewModel.cs" />
     <Compile Include="ViewModels\Statement\SMAStatementViewModel.cs" />
-    <Compile Include="Features\SuperWinLossDetailByPT\ViewModels\SuperPtProductViewModel.cs" />
-    <Compile Include="Features\SuperWinLossDetailByPT\ViewModels\SuperWinLossDetailByPTFilterViewModel.cs" />
-    <Compile Include="Features\SuperWinLossDetailByPT\ViewModels\SuperWinLossDetailByPTViewModel.cs" />
+    <Compile Include="Features\SuperWinLossDetailByPT\ViewModels\SuperPtProductViewModel.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\SuperWinLossDetailByPT\ViewModels\SuperWinLossDetailByPTFilterViewModel.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="Features\SuperWinLossDetailByPT\ViewModels\SuperWinLossDetailByPTViewModel.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
@@ -747,20 +973,32 @@
     <Compile Include="Features\WinLoss\WinLossViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\activitytracking.local.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
+    <Content Include="App_Data\ProductSection.local.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
     </Content>
-    <Content Include="App_Data\activitytracking.napinternal.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
+    <Content Include="App_Data\ProductSection.local_2.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
     </Content>
-    <Content Include="App_Data\activitytracking.napinternal2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
+    <Content Include="App_Data\ProductSection.local_3.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
     </Content>
-    <Content Include="App_Data\activitytracking.pro.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
+    <Content Include="App_Data\ProductSection.prod.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
     </Content>
-    <Content Include="App_Data\activitytracking.uat.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
+    <Content Include="App_Data\ProductSection.prod_2.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.prod_3.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.uat.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.uat_2.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.uat_3.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
     </Content>
     <Content Include="App_Data\SPNames\Internal\DBBAH.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBTXN.bodb02.BODBDownlineNetView.xml" />
@@ -823,6 +1061,9 @@
     <Content Include="App_Data\SPNames\UAT\DBBOF.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBAGE.bodb02.BODBDownlineNet.xml" />
+    <Content Include="Web.uat1.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
     <TypeScriptCompile Include="assets\scripts\components\netturnover-tooltip.ts" />
     <TypeScriptCompile Include="assets\scripts\components\pager.ts" />
     <TypeScriptCompile Include="assets\scripts\components\sort.ts" />
@@ -911,6 +1152,14 @@
     <Content Include="assets\bundles\consolidation\consolidation.min.js">
       <DependentUpon>consolidation.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\error\error-dark.css" />
+    <Content Include="assets\bundles\error\error-dark.min.css">
+      <DependentUpon>error-dark.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\error\error.css" />
+    <Content Include="assets\bundles\error\error.min.css">
+      <DependentUpon>error.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\master-dark.css" />
     <Content Include="assets\bundles\master-dark.min.css">
       <DependentUpon>master-dark.css</DependentUpon>
@@ -927,6 +1176,10 @@
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.js" />
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\partial-um\partial-um.css" />
+    <Content Include="assets\bundles\partial-um\partial-um.min.css">
+      <DependentUpon>partial-um.css</DependentUpon>
     </Content>
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.js">
       <DependentUpon>matchwinlossdetail.js</DependentUpon>
@@ -949,6 +1202,10 @@
     <Content Include="assets\bundles\RiskAnalysisIPMatching\index.min.js">
       <DependentUpon>index.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\statement\statement-details.js" />
+    <Content Include="assets\bundles\statement\statement-details.min.js">
+      <DependentUpon>statement-details.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\statement\member-statement.js" />
     <Content Include="assets\bundles\statement\member-statement.min.js">
       <DependentUpon>member-statement.js</DependentUpon>
@@ -960,10 +1217,6 @@
     <Content Include="assets\bundles\statement\statement-dark.css" />
     <Content Include="assets\bundles\statement\statement-dark.min.css">
       <DependentUpon>statement-dark.css</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\statement\statement-details.js" />
-    <Content Include="assets\bundles\statement\statement-details.min.js">
-      <DependentUpon>statement-details.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\statement\statement.css" />
     <Content Include="assets\bundles\statement\statement.min.css">
@@ -1049,6 +1302,20 @@
     <Content Include="assets\styles\consolidation\consolidation.min.css">
       <DependentUpon>consolidation.css</DependentUpon>
     </Content>
+    <Content Include="assets\styles\error\error-dark.css">
+      <DependentUpon>error-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\error\error-dark.min.css">
+      <DependentUpon>error-dark.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\error\error.css">
+      <DependentUpon>error.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\error\error.min.css">
+      <DependentUpon>error.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\error\images\error-bg-dark.png" />
+    <Content Include="assets\styles\error\images\error-bg.png" />
     <Content Include="assets\styles\images\ajax-loader-small.gif" />
     <Content Include="assets\styles\images\percent-dark.svg" />
     <Content Include="assets\styles\images\percent.svg" />
@@ -1065,6 +1332,12 @@
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Features\BetCreditTracking\Scripts\move-statement-history.ts" />
+    <Content Include="assets\styles\partial-um\partial-um.css">
+      <DependentUpon>partial-um.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\partial-um\partial-um.min.css">
+      <DependentUpon>partial-um.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\reports-dark.css">
       <DependentUpon>reports-dark.scss</DependentUpon>
     </Content>
@@ -1180,14 +1453,6 @@
     <Content Include="Features\BonusDetail\Bundles\bonusdetail.min.js">
       <DependentUpon>bonusdetail.js</DependentUpon>
     </Content>
-    <Content Include="Features\BonusDetail\Bundles\confirmpayment.css" />
-    <Content Include="Features\BonusDetail\Bundles\confirmpayment.js" />
-    <Content Include="Features\BonusDetail\Bundles\confirmpayment.min.css">
-      <DependentUpon>confirmpayment.css</DependentUpon>
-    </Content>
-    <Content Include="Features\BonusDetail\Bundles\confirmpayment.min.js">
-      <DependentUpon>confirmpayment.js</DependentUpon>
-    </Content>
     <Content Include="Features\BonusDetail\Styles\bonus-detail-dark.css">
       <DependentUpon>bonus-detail-dark.scss</DependentUpon>
     </Content>
@@ -1199,12 +1464,6 @@
     </Content>
     <Content Include="Features\BonusDetail\Styles\bonus-detail.min.css">
       <DependentUpon>bonus-detail.css</DependentUpon>
-    </Content>
-    <Content Include="Features\BonusDetail\Styles\confirm-payment.css">
-      <DependentUpon>confirm-payment.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\BonusDetail\Styles\confirm-payment.min.css">
-      <DependentUpon>confirm-payment.css</DependentUpon>
     </Content>
     <Content Include="Features\BonusDetail\Styles\Images\payment-dark.svg" />
     <Content Include="Features\BonusDetail\Styles\Images\payment.svg" />
@@ -1274,6 +1533,8 @@
     <Content Include="App_Code\Components\Alert.cshtml" />
     <Content Include="App_Data\ExcelTemplates\SuperWinLossDetailByPT\Super.xls" />
     <Content Include="App_Data\securitycode.json" />
+    <Content Include="assets\styles\error\error.scss" />
+    <Content Include="assets\styles\partial-um\partial-um.scss" />
     <Content Include="assets\styles\_variables-dark.scss" />
     <Content Include="assets\styles\reports-dark.scss" />
     <Content Include="assets\styles\betchoicematching\betchoicematching-dark.scss" />
@@ -1286,6 +1547,8 @@
     <Content Include="assets\styles\themes\page-title-super-dark.scss" />
     <Content Include="assets\styles\consolidation\consolidation-dark.scss" />
     <Content Include="assets\styles\statement\statement-dark.scss" />
+    <Content Include="assets\styles\error\error-dark.scss" />
+    <Content Include="App_Data\ProductSection.config" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
@@ -1349,6 +1612,7 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Shared\PartialUM.cshtml" />
     <Content Include="Views\web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1367,7 +1631,9 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
-    <Content Include="App_Data\AuthorizationSection.config" />
+    <Content Include="App_Data\AuthorizationSection.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Features\WinLoss\Views\Filter.cshtml" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Master.xls" />
@@ -1385,6 +1651,37 @@
     <Content Include="Web.AppSettings.backupMNLNap2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
+    <Content Include="Web.AppSettings.local.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.napinternal.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.napinternal2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.pro.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.pro2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.pro3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.sit.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.sit2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.uat.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.AppSettings.uat2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
     <Content Include="Web.backupMNL.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
@@ -1395,6 +1692,21 @@
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.backupMNLNap2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.local_2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.local_3.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.prod.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.prod_2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.prod_3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.uat2.config">
@@ -1415,11 +1727,21 @@
     <Content Include="Web.pro.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
+    <Content Include="Web.napaws.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.napaws2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.napaws3.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
     <Content Include="Web.napinternal2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.napinternal.config">
       <DependentUpon>Web.local.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Features\WinLoss\Views\Index.cshtml" />
     <Content Include="App_Code\Components\ReportTitle.cshtml" />
@@ -1487,12 +1809,6 @@
     <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.scss" />
     <Content Include="Features\Outstanding\Views\IndexNew.cshtml" />
     <Content Include="App_Code\Components\DateRangePickerNew.cshtml" />
-    <Content Include="App_Data\activitytracking.pro2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.uat2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
     <Content Include="App_Code\Components\ProductDetailMultiSelection.cshtml" />
     <Content Include="Features\WinLoss\Styles\winloss.scss" />
     <Content Include="Features\Shared\Styles\datepicker-mobile-07.scss" />
@@ -1503,8 +1819,6 @@
     </Content>
     <Content Include="Features\BonusDetail\Views\Index.cshtml" />
     <Content Include="Features\BonusDetail\Views\_Filter.cshtml" />
-    <Content Include="Features\BonusDetail\Styles\confirm-payment.scss" />
-    <Content Include="Features\BonusDetail\Views\ConfirmPayment.cshtml" />
     <Content Include="Features\BonusDetail\Styles\bonus-detail.scss" />
     <Content Include="Features\SuperWinLossDetailByPT\Views\web.config">
       <SubType>Designer</SubType>
@@ -1517,6 +1831,8 @@
     </Content>
     <Content Include="Features\BetCreditTracking\Views\MoveStatementHistory\_Filter.cshtml" />
     <Content Include="Features\BetCreditTracking\Views\BetCreditHistory\_Filter.cshtml" />
+    <Content Include="Features\BonusDetail\Views\_ConfirmPayment.cshtml" />
+    <Content Include="PartialUMConfigs\PartialUMSection.config" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1544,7 +1860,7 @@
     <Content Include="Views\MatchWinLossDetail\Index.cshtml" />
     <Content Include="Views\Statement\SMAReportLegend.cshtml" />
     <Content Include="Views\WinLossAnalysisChart\Index.cshtml" />
-    <Content Include="Views\Statement\StatementDetails.cshtml" />
+    <Content Include="Views\Statement\_StatementDetails.cshtml" />
     <Content Include="Views\Statement\MemberStatement.cshtml" />
     <Content Include="Views\Statement\MemberReportLegend.cshtml" />
     <Content Include="Views\Consolidation\ConsolidationByDate.cshtml" />
@@ -1570,15 +1886,42 @@
     <Content Include="Features\SuperWinLossDetailByPT\Views\ReportData.cshtml" />
     <Content Include="Features\SuperWinLossDetailByPT\Views\ViewProductPTList.cshtml" />
     <Content Include="Views\Consolidation\_ViewProductPTList.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Error\Blocked.cshtml" />
+    <Content Include="Views\Statement\_StatementPopup.cshtml" />
+    <Content Include="Web.AppSettings.config" />
+    <Content Include="Web.ConnectionStrings.config" />
+    <Content Include="Web.ConnectionStrings.uat_2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.uat_3.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.uat1.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="Web.pro3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
+    <Content Include="Web.uat_2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="Web.aws.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.aws2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.aws3.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
     <TypeScriptCompile Include="Features\EnteredResult\Scripts\enteredresult.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\base-historic-report.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\base-report-new.ts" />
@@ -1626,38 +1969,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.AppSettings.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.AppSettings.local.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.napinternal.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.napinternal2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.pro.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.pro2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.sit.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.sit2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.uat.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.uat2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Web.local.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1685,6 +1996,7 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.8.22.0.31243\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.8.22.0.31243\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

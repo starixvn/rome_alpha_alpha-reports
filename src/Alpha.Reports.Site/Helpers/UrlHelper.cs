@@ -4,7 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using Configurations;
+    using System.Web.Mvc;
+    using Alpha.Reports.Configurations;
+    using Alpha.Reports.Models;
+    using Sunplus.Agent.Model.Entities;
     using Web.Helpers;
 
     public static class UrlHelper
@@ -17,9 +20,6 @@
 
         [ThreadStatic]
         private static Func<string, IDictionary<string, object>, string> replaceOrAddQueryStringParamsFunc;
-
-        [ThreadStatic]
-        private static Func<string, string> mapBetListPath;
 
         public static Func<string, IDictionary<string, object>, string> AddQueryStringParamsFunc
         {
@@ -62,11 +62,14 @@
 
         public static Func<string, string, string> GetSiteUrl { get; internal set; } = GetLink;
 
+        private static Func<string, string> mapBetListPath;
         public static Func<string, string> MapBetListPath
         {
             get
             {
-                return mapBetListPath ?? GetBetListPath;
+                mapBetListPath = mapBetListPath ?? GetBetListPath;
+
+                return mapBetListPath;
             }
 
             internal set
@@ -74,6 +77,9 @@
                 mapBetListPath = value;
             }
         }
+
+        internal static string GetBetListPath(string virtualPath = "~/WinLoss/Index")
+            => GetAppPath(virtualPath, MicroSites.BetListsUrl, SiteSettings.BetListAppPath);
 
         internal static string AddQueryStringParams(string link, IDictionary<string, object> routeValues)
         {
@@ -125,12 +131,37 @@
 
         internal static string GetLink(string action, string currentQuery)
         {
-            return MicroSites.ReportsUrl(action + currentQuery);
+            return string.IsNullOrWhiteSpace(MainDomain) ? MicroSites.ReportsUrl(action + currentQuery) : 
+                $"{MainDomain}/{UserSession.Current.GetProperty<string>(Constants.SessionKey.ReportRouting)?.TrimEnd('/')}{action.TrimStart('~')}{currentQuery}";
         }
 
-        internal static string GetBetListPath(string virtualPath = "~/WinLoss/Index")
+        private static Func<string, string> mapMessagePath;
+        public static Func<string, string> MapMessagePath
         {
-            return MicroSites.BetListsUrl(virtualPath);
+            get
+            {
+                mapMessagePath = mapMessagePath ?? GetMessagePath;
+
+                return mapMessagePath;
+            }
         }
+
+        internal static string GetMessagePath(string virtualPath)
+            => GetAppPath(virtualPath, MicroSites.MessageUrl, Web.Configurations.AppSettings.MessageAppPath);
+
+        internal static string GetAppPath(string virtualPath, Func<string, string> getAppPath, string appPath)
+        {
+            var mainDomain = MainDomain;
+
+            return IsStandaloneReports(mainDomain)
+                ? $"{mainDomain}{appPath}{virtualPath.TrimStart('~')}"
+                : getAppPath(virtualPath);
+        }
+
+        private static string MainDomain
+            => (DependencyResolver.Current?.GetService<IUser>())?.MainDomain;
+
+        private static bool IsStandaloneReports(string mainDomain)
+            => !string.IsNullOrWhiteSpace(mainDomain);
     }
 }

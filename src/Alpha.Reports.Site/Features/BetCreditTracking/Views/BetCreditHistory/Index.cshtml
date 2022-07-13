@@ -10,10 +10,10 @@
 @model BetCreditHistoryViewModel
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
-    @StaticResources.RenderStylesWithDarkMode("~/Features/BetCreditTracking/Bundles/betcredithistory")
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/BetCreditTracking/Bundles/betcredithistory")
 }
 @section Scripts {
-    @StaticResources.RenderScripts("~/Features/BetCreditTracking/Bundles/betcredithistory")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/BetCreditTracking/Bundles/betcredithistory")
 }
 <div class="page-title @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
     <ul class="nav nav-tabs" role="tablist">
@@ -21,7 +21,7 @@
             <a href="#betCreditHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.BetCreditHistory</a>
         </li>
         <li role="presentation">
-            @Html.ActionLink(Resources.MoveStatementHistory, "Index", "MoveStatementHistory")
+            @Html.ActionLink(Resources.MoveStatementHistory, "Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MoveStatementHistory")
         </li>
         <li>
             <a href="@userguideLink" target="_blank"><span class="icon icon-information-outline"></span></a>
@@ -78,7 +78,7 @@
 @Pager.Render(Model.PagerViewModel)
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", "BetCreditHistory")">
+      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}BetCreditHistory")">
     @Html.Hidden("Member", Model.Member)
     @Html.Hidden("RefNo", Model.RefNo)
     @Html.Hidden("FromDate", Model.FromDate)

@@ -115,7 +115,7 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action(ViewData["ExportExcelAction"].ToString(), ViewData["ExportExcelController"].ToString())">
+      action="@Url.Action(ViewData["ExportExcelAction"].ToString(), $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}{ViewData["ExportExcelController"].ToString()}")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("FromDate", Model.FromDate)

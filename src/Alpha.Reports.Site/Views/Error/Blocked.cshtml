@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+    var darkmode = Sunplus.Agent.Model.Entities.UserSession.Current.DarkModeName;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blocked</title>
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/error/error")
+</head>
+<body>
+    <div class="container">
+        <img src="@Url.Content($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/styles/error/images/error-bg{darkmode}.png")" title="" alt="" class="img" />
+        <p class="caption">Too many requests</p>
+    </div>
+</body>
+</html>

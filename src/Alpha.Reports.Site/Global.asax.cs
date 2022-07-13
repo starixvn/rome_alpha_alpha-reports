@@ -8,12 +8,12 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using Alpha.Auth.Filters;
     using Alpha.Logging;
     using Alpha.NetThrottling.Mvc;
     using Alpha.NetThrottling.Utils;
     using App_Start;
     using Auth.Configurations;
-    using Auth.Filters;
     using Configurations;
     using Fanex.Caching;
     using Fanex.Data;
@@ -55,6 +55,7 @@
                 .Use((settingKey, commandTimeout) => new WrappingExceptionObjectDb(settingKey, commandTimeout))
                 .Run();
 
+
             ShareSession.Init();
 
             LoggingConfig.Init(getDbExceptionInfo: DatabaseInfoGetters.GetDbExceptionInfo);
@@ -70,11 +71,13 @@
             GlobalFilters.Filters.Add(new CheckUMFilterAttribute(
                 new MaintenanceService(UMClientManager.RestClient, UMClientManager.CacheService, UMClientManager.UMClientConfigs, UMClientManager.HttpContext), null));
 
-            GlobalFilters.Filters.Add(new CheckBelongingFilter());
             GlobalFilters.Filters.Add(new NoCacheFilter());
-            GlobalFilters.Filters.Add(new AfterLoginFlowFilter());
-            GlobalFilters.Filters.Add(new PartialUMExceptionFilter(true));
-            GlobalFilters.Filters.Add(new ProtectedModeFilter());
+            GlobalFilters.Filters.Add(new PartialUMExceptionFilter());
+
+            var isAuthorizedChecking = !SiteSettings.IsStandaloneReport;
+            GlobalFilters.Filters.Add(new CheckBelongingFilter(isAuthorizedChecking));
+            GlobalFilters.Filters.Add(new AfterLoginFlowFilter(isAuthorizedChecking));
+            GlobalFilters.Filters.Add(new ProtectedModeFilter(isAuthorizedChecking));
 
             SiteSettings.Verify();
 

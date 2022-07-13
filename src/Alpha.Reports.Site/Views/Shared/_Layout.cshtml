@@ -9,7 +9,7 @@
 
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/common/common")
     @StaticResources.AssetStyles.RenderWithDarkMode("/bundles/site-reports/default")
-    @StaticResources.RenderStylesWithRoleAndDarkMode("~/assets/bundles/")
+    @StaticResources.RenderStylesWithRoleAndDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/")
     @RenderSection("Styles", required: false)
     @Alpha.Web.Helpers.GoogleAnalyticHepler.GtagScript()
 </head>

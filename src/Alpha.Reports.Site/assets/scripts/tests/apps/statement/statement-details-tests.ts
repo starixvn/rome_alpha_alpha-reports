@@ -9,7 +9,7 @@
     };
 
     beforeEach(() => {
-        statementDetailView = new StatementDetailView(jQueryFake);
+        statementDetailView = new StatementDetailView(jQueryFake, null);
     });
 
     describe("_init", () => {

@@ -1,10 +1,12 @@
 ﻿namespace Alpha.Reports.Configurations
 {
+    using Sunplus.Agent.Model.Entities;
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Configuration;
     using System.Linq;
+    using System.Web;
 
     public static class SiteSettings
     {
@@ -42,9 +44,23 @@
 
         public static string BetListAppPath => GetConfigValue("BetListsAppPath") ?? "site-betlists";
 
+        public static string MessageAppPath => GetConfigValue("MessageAppPath") ?? "site-messages";
+
         public static bool EnabledStaticData => GetConfigValue("EnabledStaticData") == "1";
 
         public static string RemoteRefURL => GetConfigValue("RemoteRefURL");
+
+        public static string ReportRouting
+        {
+            get
+            {
+                var currentAppPath = HttpRuntime.AppDomainAppVirtualPath;
+                return currentAppPath.Equals("/", StringComparison.OrdinalIgnoreCase) ?
+                    "site-reports/" : string.Empty;
+            }
+        }
+
+        public static bool IsStandaloneReport => GetConfigValue("IsStandaloneReport") == "1";
 
         public static IEnumerable<int> ProductOfferProductDetail
         {
@@ -99,5 +115,11 @@
                 return allowedSitesToViewBonusDetail;
             }
         }
+
+        public static bool IsMBCSite => !string.IsNullOrWhiteSpace(GetConfigValue("SiteGroup"))
+            && !GetConfigValue("SiteGroup").Equals("789y", StringComparison.OrdinalIgnoreCase);
+
+        public static bool DisabledVietnamese => IsMBCSite;
+
     }
 }

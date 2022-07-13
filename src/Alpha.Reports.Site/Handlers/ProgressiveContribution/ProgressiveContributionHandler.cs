@@ -32,7 +32,6 @@
             }
 
             var products = productService.GetProgressiveJackpotProduct(message.CustId, message.EnableJackpotProductIds);
-
             var param = CreateProgressiveContributionParam(message);
             var progressiveContributions = progressiveContributionService.GetProgressiveContributions(param);
             var grandTotal = AccumulateGrandTotal(progressiveContributions);

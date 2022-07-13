@@ -18,7 +18,7 @@
 
         public ActionResult MemberReportLegend() => View();
 
-        public ActionResult StatementDetails(StatementDetailsQuery message) => View(message);
+        public ActionResult StatementDetails(StatementDetailsQuery message) => View("_StatementDetails", message);
 
         public ActionResult MemberStatement(MemberStatementQuery message) => View(message);
 

@@ -9,7 +9,6 @@
     using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Features.BonusDetail.Requests;
     using Alpha.Reports.Site.ViewModels.Components;
-    using Alpha.Web.Helpers;
 
     public class BonusDetailViewModel
     {
@@ -76,6 +75,6 @@
         private static SelectListItem GetSelectListItem(string text, string value, bool selected)
             => new SelectListItem { Text = text, Value = value, Selected = selected };
 
-        public string GuidelineURL() => MicroSites.MessageUrl("~/staticmessage/guide?id=147430");
+        public string GuidelineURL() =>Helpers.UrlHelper.MapMessagePath("~/staticmessage/guide?id=147430");
     }
 }

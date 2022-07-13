@@ -1,20 +1,26 @@
-﻿"use strict";
-interface JQuery {
+﻿interface JQuery {
     datepicker(options: any): JQuery;
 }
 
 class ConfirmPayment {
     private $: JQueryStatic;
-    private topWindow: any;
     private alert: Alert;
-    private $confirmPaymentForm: JQuery;
+    private reloadFormCallback: Function;
+    private $popupConfirmPayment: JQuery;
+    private $formConfirmPayment: JQuery;
+    private $hiddenCustId: JQuery;
+    private $hiddenTransId: JQuery;
     private $paymentDatePicker: JQuery;
-    private $submitButton: JQuery;
+    private $labelToMember: JQuery;
+    private $labelAmount: JQuery;
+    private $labelBonusDetailRefNo: JQuery;
+    private $buttonConfirmPayment: JQuery;
 
-    constructor($: JQueryStatic, topWindow: any, alert: Alert) {
+    constructor($: JQueryStatic, alert: Alert, reloadFormCallback: Function, $popupConfirmPayment: JQuery) {
         this.$ = $;
-        this.topWindow = topWindow;
         this.alert = alert;
+        this.reloadFormCallback = reloadFormCallback;
+        this.$popupConfirmPayment = $popupConfirmPayment;
     }
 
     public init() {
@@ -22,33 +28,50 @@ class ConfirmPayment {
         this.bindEvents();
     }
 
-    public cacheElements() {
-        this.$confirmPaymentForm = this.$("#form-confirmPayment");
-        this.$paymentDatePicker = this.$("#payment-date");
+    private cacheElements() {
+        this.$formConfirmPayment = this.$popupConfirmPayment.find("#form-confirmPayment");
+        this.$hiddenCustId = this.$formConfirmPayment.find("#hidden-custId");
+        this.$hiddenTransId = this.$formConfirmPayment.find("#hidden-transId");
+        this.$paymentDatePicker = this.$formConfirmPayment.find("#payment-date");
         this.$paymentDatePicker.datepicker({
             allowInputToggle: true,
-            maxDate: new Date(this.$("#hidden-maxPaymentDate").val()),
-            minDate: new Date(this.$paymentDatePicker.val())
+            maxDate: this.$paymentDatePicker.val(),
+            widgetPositioning: {
+                horizontal: "left",
+                vertical: "bottom"
+            }
         });
-        this.$submitButton = this.$("#btn-submit");
+        this.$labelToMember = this.$formConfirmPayment.find("#lbl-toMember");
+        this.$labelAmount = this.$formConfirmPayment.find("#lbl-amount");
+        this.$labelBonusDetailRefNo = this.$formConfirmPayment.find("#lbl-bonusDetailRefNo");
+        this.$buttonConfirmPayment = this.$formConfirmPayment.find("#btn-confirmPayment");
     }
 
-    public bindEvents() {
+    private bindEvents() {
         const self = this;
-        this.$confirmPaymentForm.submit(function (e) {
+        this.$(".icon-payment").click(function () {
+            self.assignConfirmPaymentFormData(self.$(this));
+            self.$popupConfirmPayment.modal({ show: true, backdrop: false });
+        });
+
+        this.$formConfirmPayment.submit(function (e) {
             e.preventDefault();
             self.confirmPaymentPost();
         });
+
+        this.$popupConfirmPayment.draggable({
+            handle: ".modal-header"
+        });
     }
 
-    public confirmPaymentPost() {
+    private confirmPaymentPost() {
         this.$.blockUI();
-        this.$submitButton.prop("disabled", true);
+        this.$buttonConfirmPayment.prop("disabled", true);
         this.$.ajax({
-            type: this.$confirmPaymentForm.attr("method"),
-            url: this.$confirmPaymentForm.attr("action"),
-            beforeSend: xhr => xhr.setRequestHeader("__RequestVerificationToken", this.$confirmPaymentForm.find('input[name="__RequestVerificationToken"]').val()),
-            data: this.$confirmPaymentForm.serialize(),
+            type: this.$formConfirmPayment.attr("method"),
+            url: this.$formConfirmPayment.attr("action"),
+            beforeSend: xhr => xhr.setRequestHeader("__RequestVerificationToken", this.$formConfirmPayment.find('input[name="__RequestVerificationToken"]').val()),
+            data: this.$formConfirmPayment.serialize(),
             dataType: "json",
             success: this.confirmPaymentPostSuccess,
             complete: this.$.unblockUI
@@ -58,18 +81,31 @@ class ConfirmPayment {
     confirmPaymentPostSuccess = (data) => {
         if (data.ErrCode) {
             this.alert.showError(data.ErrMsg);
-            this.$submitButton.prop("disabled", false);
+            this.$buttonConfirmPayment.prop("disabled", false);
         } else {
             this.alert.show(data.Code, data.Message);
             if (data.IsOk) {
-                this.topWindow.closePopupAndReloadMainFrameAfterUpdateSuccess(3000);
+                setTimeout(() => {
+                    this.$popupConfirmPayment.modal("hide");
+                    this.reloadFormCallback();
+                }, 3000);
             } else {
-                this.$submitButton.prop("disabled", false);
+                this.$buttonConfirmPayment.prop("disabled", false);
             }
         }
     }
-}
 
-$(function () {
-    new ConfirmPayment($, window.top, new Alert($)).init();
-});
+    private assignConfirmPaymentFormData(iconPayment: JQuery) {
+        this.alert.hide();
+        const transId = iconPayment.data("transid");
+        const paymentDate = iconPayment.data("createddate");
+
+        this.$hiddenCustId.val(iconPayment.data("custid"));
+        this.$hiddenTransId.val(transId);
+        this.$paymentDatePicker.val(paymentDate);
+        this.$paymentDatePicker.data("DateTimePicker").minDate(paymentDate);
+        this.$labelToMember.text(iconPayment.data("username"));
+        this.$labelAmount.text(iconPayment.data("amount"));
+        this.$labelBonusDetailRefNo.text(transId);
+    }
+}

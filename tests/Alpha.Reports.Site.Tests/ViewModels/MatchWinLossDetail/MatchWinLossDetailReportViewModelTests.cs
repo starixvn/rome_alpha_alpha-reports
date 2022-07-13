@@ -390,7 +390,7 @@
         public void GetBetListLink_Always_ReturnsCorrectBetListLink()
         {
             // Arrange
-            var expectedBetListLink = "BetListPath?{\"BetType\":1}";
+            var expectedBetListLink = "~/WinLossByMatch/Index?{\"BetType\":1}";
 
             // Act
             var actualBetListLink = viewModel.GetBetListLink(new Dictionary<string, object>

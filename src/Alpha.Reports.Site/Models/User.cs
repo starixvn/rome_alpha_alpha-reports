@@ -11,6 +11,7 @@
     public class User : IUser
     {
         private const string Jackpot = "Jackpot";
+        private const string MainDomainSessionKey = "MainDomain";
 
         private readonly IUserSession userSession;
 
@@ -48,7 +49,7 @@
         public bool IsEnableSabaPromotion
             => SiteSettings.OfferSabaPromotionSites.Any(site => site == "*" || site.Equals(userSession.Site, StringComparison.OrdinalIgnoreCase));
 
-        public bool IsEnableSabaPromotionForHeadline 
+        public bool IsEnableSabaPromotionForHeadline
             => SiteSettings.OfferSabaPromotionHeadlineSites.Any(site => site == "*" || site.Equals(userSession.Site, StringComparison.OrdinalIgnoreCase))
             || IsEnableSabaPromotion;
 
@@ -61,6 +62,8 @@
         public bool IsProtectedMode => userSession.IsProtectedMode;
         
         public string DarkModeName => userSession.DarkModeName;
+
+        public string MainDomain => userSession?.GetProperty<string>(MainDomainSessionKey);
 
         internal virtual IList<int> GetEnableProductsForGame(string gameName)
             => userSession.GetProperty<IList<int>>(SessionKey.GameEnable + gameName) ?? new List<int>();

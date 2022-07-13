@@ -189,5 +189,24 @@
             var result = compareLogic.Compare(expectedEnteredSportResultData, actualEnteredSportResultData);
             Assert.True(result.AreEqual);
         }
+
+        [Fact]
+        public void GetDataEnteredSportResults_DefaultCtor_ReturnsCorrectProperties()
+        {
+            // Arrange
+            var model = new EnteredSportResult();
+
+            // Assert
+            Assert.True(model.SportTypeId == 0);
+
+            // Assert
+            Assert.Null(model.SportName);
+
+            // Assert
+            Assert.Null(model.EnteredSportToday);
+
+            // Assert
+            Assert.Null(model.EnteredSportYesterday);
+        }
     }
 }

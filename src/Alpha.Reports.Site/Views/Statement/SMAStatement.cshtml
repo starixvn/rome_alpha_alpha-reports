@@ -4,12 +4,12 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode("~/assets/bundles/statement/statement")
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/statement/statement")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.Statement, false, true, false, Model.IsFilterVisible, null, null))
 
-<form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty:"hide")" role="form" id="report-form">
+<form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
     @DateRangePicker.Render(Model.DateRangePickerViewModel)
 
     <div class="form-group">
@@ -48,9 +48,9 @@
         <tbody>
             @foreach (var data in Model.Statements)
             {
-                <tr class="@(isEvenRow? "even-row":string.Empty) hide">
+                <tr class="@(isEvenRow ? "even-row" : string.Empty) hide">
                     <td class="text-center">@data.WinLossDateString</td>
-                    <td class="@(data.IsNotedBalance(previousStatement)?"note-opening-balance":string.Empty)">
+                    <td class="@(data.IsNotedBalance(previousStatement) ? "note-opening-balance" : string.Empty)">
                         @RenderNegativeNumberCell(data.OpeningBalance)
                     </td>
                     <td>@RenderNumberCell(data.Turnover)</td>
@@ -76,18 +76,19 @@
     }
 </table>
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("SMAStatementExcel", "Statement")">
+      action="@Url.Action("SMAStatementExcel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
 </form>
-@Html.Hidden("LoadLegendURL", Url.Action("SMAReportLegend", "Statement"))
-@Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", "Statement"))
+@Html.Hidden("LoadLegendURL", Url.Action("SMAReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
+@Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
 
 @Pager.Render(Model.PagerViewModel)
+@{ Html.RenderPartial("~/Views/Statement/_StatementPopup.cshtml", Model.CustName); }
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/statement/sma-statement")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/statement/sma-statement")
 }
 
 @helper RenderNegativeNumberCell(decimal? cellValue)

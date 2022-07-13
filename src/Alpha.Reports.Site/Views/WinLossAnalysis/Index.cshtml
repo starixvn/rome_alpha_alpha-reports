@@ -122,7 +122,7 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", "WinLossAnalysis")">
+      action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLossAnalysis")">
     @Html.HiddenFor(model => model.CustId)
     @Html.HiddenFor(model => model.CustName)
     @Html.HiddenFor(model => model.ToDate)
@@ -135,10 +135,10 @@
 </form>
 
 @Html.HiddenFor(model => model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ReportLegend"))
 
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/winlossanalysis/winlossanalysis")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/winlossanalysis/winlossanalysis")
 }
 
 @helper RenderRow(WinLossAnalysisModel data, bool isTotalRow)

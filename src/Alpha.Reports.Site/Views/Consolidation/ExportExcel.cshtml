@@ -1,5 +1,5 @@
 ﻿<form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action(ViewData["action"].ToString(), "Consolidation")">
+      action="@Url.Action(ViewData["action"].ToString(), $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Consolidation")">
     @Html.Hidden("CustId", ViewData["CustId"])
     @Html.Hidden("CustName", ViewData["CustName"])
     @Html.Hidden("FromDate", ViewData["FromDate"])

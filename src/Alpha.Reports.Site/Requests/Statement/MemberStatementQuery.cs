@@ -13,6 +13,7 @@
         public MemberStatementQuery(IUser viewer) : base(viewer)
         {
             FromDate = SystemTime.Today.AddDays(-1);
+            MainDomain = viewer.MainDomain;
         }
 
         public string ProductIds { get; set; }
@@ -24,5 +25,7 @@
         public bool IsFilterVisible { get; set; } = true;
 
         public int UserSelectedDateRangeOption { get; set; } = UserSelectedDateRangeOptionConstant.SpecificDates;
+
+        public string MainDomain { get; }
     }
 }
