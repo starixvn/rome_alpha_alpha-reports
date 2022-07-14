@@ -11,21 +11,13 @@ WORKDIR /dev
 
 # Copy files *.sln, *.csproj, packages.config to restore nuget packages
 COPY *.sln .
-COPY src\Alpha.Reports\*.csproj src\Alpha.Reports\
-COPY src\Alpha.Reports\packages.config src\Alpha.Reports\
-COPY src\Alpha.Reports.Site\*.csproj src\Alpha.Reports.Site\
-COPY src\Alpha.Reports.Site\packages.config src\Alpha.Reports.Site\
-COPY tests\Alpha.Reports.StaticData\*.csproj tests\Alpha.Reports.StaticData\
-COPY tests\Alpha.Reports.StaticData\packages.config tests\Alpha.Reports.StaticData\
-COPY SonarQube\ SonarQube\
-
-RUN nuget.exe restore Alpha.Reports.Site.sln
-
-# Copy source codes
 COPY src src\
 COPY build build\
 COPY tools tools\
 COPY tests\Alpha.Reports.StaticData tests\Alpha.Reports.StaticData\
+COPY SonarQube\ SonarQube\
+
+RUN nuget.exe restore Alpha.Reports.Site.sln
 
 RUN MSBuild.exe "src\Alpha.Reports.Site\Alpha.Reports.Site.csproj" `
     /t:Build;WebPublish /m `
