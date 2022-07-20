@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
@@ -131,7 +132,8 @@
 
         internal static string GetLink(string action, string currentQuery)
         {
-            return string.IsNullOrWhiteSpace(MainDomain) ? MicroSites.ReportsUrl(action + currentQuery) : 
+            return string.IsNullOrWhiteSpace(MainDomain) ||
+                ConfigurationManager.AppSettings["IsStandaloneReport"] != "1" ? MicroSites.ReportsUrl(action + currentQuery) : 
                 $"{MainDomain}/{UserSession.Current.GetProperty<string>(Constants.SessionKey.ReportRouting)?.TrimEnd('/')}{action.TrimStart('~')}{currentQuery}";
         }
 
@@ -162,6 +164,6 @@
             => (DependencyResolver.Current?.GetService<IUser>())?.MainDomain;
 
         private static bool IsStandaloneReports(string mainDomain)
-            => !string.IsNullOrWhiteSpace(mainDomain);
+            => !string.IsNullOrWhiteSpace(mainDomain) && ConfigurationManager.AppSettings["IsStandaloneReport"] == "1";
     }
 }
