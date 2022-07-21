@@ -253,6 +253,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.LANGUAGE, sessions[3]);
             userSession.SetProperty(SessionKey.LANGKEY, sessions[4]);
             userSession.SetProperty(SessionKey.DARKMODENAMESESSIONKEY, sessions[14]);
+            userSession.SetProperty(SessionKey.MainDomainSessionKey, sessions[15]);
 
             var pageAccess = sessions[20].Split(new[] { '$' }, StringSplitOptions.RemoveEmptyEntries).Select(bool.Parse);
             var subPageAccess = new PageAccess
@@ -337,7 +338,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectCustIdSessionKey, Convert.ToInt32(sessions[28]));
             userSession.SetProperty(SessionKey.IndirectSubAccIdSessionKey, Convert.ToInt32(sessions[29]));
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
-            userSession.SetProperty(SessionKey.ISPASSWORDEXPIRED, Convert.ToBoolean(sessions[31]));
+            userSession.SetProperty(SessionKey.ISPASSWORDEXPIRED, false);
 
             UpdateReportRoutingRealtime(parameters, userSession);
 
