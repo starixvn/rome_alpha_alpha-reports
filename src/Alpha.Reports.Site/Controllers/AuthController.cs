@@ -47,6 +47,11 @@ namespace Alpha.Reports.Site.Controllers
                 return new EmptyResult();
             }
 
+            if (!SiteSettings.IsStandaloneReport)
+            {
+                return Content(OK, "text/html", Encoding.UTF8);
+            }
+
             var session = UserSession.Current;
             var authParams = string.IsNullOrWhiteSpace(param) ? session.GetProperty<string>(SessionKey.LoginParams) + string.Empty : param;
             var parameter = string.Empty;
@@ -229,7 +234,7 @@ namespace Alpha.Reports.Site.Controllers
         private bool IsValidReferrer()
         {
             if (Request.UrlReferrer == null
-                || string.IsNullOrWhiteSpace(HttpContext.Request.Cookies["auth_1"]?.Value))
+                /*|| string.IsNullOrWhiteSpace(HttpContext.Request.Cookies["auth_1"]?.Value)*/)
             {
                 return false;
             }
@@ -275,6 +280,12 @@ namespace Alpha.Reports.Site.Controllers
 
             SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp = Convert.ToBoolean(sessions[23]);
             SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = Convert.ToBoolean(sessions[24]);
+
+            userSession.SetProperty(SessionKey.ISFORCEDSECURITYCODE, false);
+            userSession.SetProperty(SessionKey.ISPASSWORDEXPIRED, false);
+            userSession.SetProperty(SessionKey.NICKNAME, sessions[32]);
+            userSession.SetProperty(SessionKey.ISLOGGED, true);
+            userSession.SetProperty(SessionKey.ISNICKNAMELOGINONLY, true);
         }
 
         private static void SetUserSessionsAndAuth(string[] parameters, IUserSession userSession)
@@ -285,12 +296,9 @@ namespace Alpha.Reports.Site.Controllers
 
             var sessions = parameters[1].Split(';');
 
-            userSession.IsForcedSecurityCode = false;
             userSession.SetProperty(SessionKey.CUSTID, Convert.ToInt32(sessions[0]));
             userSession.SetProperty(SessionKey.USERNAME, sessions[1]);
             userSession.SetProperty(SessionKey.SITE, sessions[2]);
-            userSession.SetProperty(SessionKey.LANGUAGE, sessions[3]);
-            userSession.SetProperty(SessionKey.LANGKEY, sessions[4]);
             userSession.SetProperty(SessionKey.ROLEID, Convert.ToByte(sessions[5]));
             userSession.SetProperty(SessionKey.CURRENCY, sessions[6]);
             userSession.SetProperty(SessionKey.CURRENCYID, Convert.ToInt32(sessions[7]));
@@ -300,8 +308,6 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.SUBACCID, Convert.ToInt32(sessions[11]));
             userSession.SetProperty(SessionKey.USERLOGINIP, sessions[12]);
             userSession.SetProperty(SessionKey.ISPROTECTEDMODESESSIONKEY, Convert.ToBoolean(sessions[13]));
-            userSession.SetProperty(SessionKey.DARKMODENAMESESSIONKEY, sessions[14]);
-            userSession.SetProperty(SessionKey.MainDomainSessionKey, sessions[15]);
             userSession.SetProperty(SessionKey.LoginIP_Browser, sessions[16]);
             userSession.SetProperty(SessionKey.ASSETAPPPATHSESSIONKEY, sessions[17]);
 
@@ -310,21 +316,6 @@ namespace Alpha.Reports.Site.Controllers
 
             userSession.SetProperty(SessionKey.ISCASINOSYNC, Convert.ToBoolean(sessions[19]));
             userSession.SetSyncedProduct(SessionKey.RNGCasino, Convert.ToBoolean(sessions[19]));
-
-            var pageAccess = sessions[20].Split(new[] { '$' }, StringSplitOptions.RemoveEmptyEntries).Select(bool.Parse);
-            var subPageAccess = new PageAccess
-            {
-                CreateAccount = pageAccess.ElementAt(0),
-                Transfer = pageAccess.ElementAt(1),
-                UpdateAccount = pageAccess.ElementAt(2),
-                ViewLog = pageAccess.ElementAt(3),
-                ViewMemberInfo = pageAccess.ElementAt(4),
-                ViewReports = pageAccess.ElementAt(5),
-                ViewTotalBets = pageAccess.ElementAt(6)
-            };
-
-            subPageAccess.SetPermission("[L]", pageAccess.ElementAt(7));
-            userSession.SetProperty(SessionKey.SUBPAGEACCESS, subPageAccess);
 
             userSession.SetProperty(SessionKey.ISENABLEDSECURITYCODEINSTATEMENT, Convert.ToBoolean(sessions[21]));
             userSession.SetProperty(SessionKey.SECURITYCODE, sessions[22]);
@@ -338,8 +329,8 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectCustIdSessionKey, Convert.ToInt32(sessions[28]));
             userSession.SetProperty(SessionKey.IndirectSubAccIdSessionKey, Convert.ToInt32(sessions[29]));
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
-            userSession.SetProperty(SessionKey.ISPASSWORDEXPIRED, false);
 
+            SetRealtimeValues(parameters, userSession);
             UpdateReportRoutingRealtime(parameters, userSession);
 
             RegisterGlobalFilters();
