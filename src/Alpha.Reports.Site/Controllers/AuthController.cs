@@ -49,7 +49,7 @@ namespace Alpha.Reports.Site.Controllers
 
             if (!SiteSettings.IsStandaloneReport)
             {
-                return Content(OK, "text/html", Encoding.UTF8);
+                return RedirectToSpecificUrl();
             }
 
             var session = UserSession.Current;
@@ -96,6 +96,7 @@ namespace Alpha.Reports.Site.Controllers
             {
                 var parameters = parameter.Split('&');
                 if (IsLoggedIn()
+                    && !string.IsNullOrWhiteSpace(session.UserName)
                     && session.UserName.Equals(parameters[0], StringComparison.OrdinalIgnoreCase))
                 {
                     SetRealtimeValues(parameters, session);
@@ -112,7 +113,7 @@ namespace Alpha.Reports.Site.Controllers
 
                 SetUserSessionsAndAuth(parameters, session);
             }
-            catch { }
+            catch (Exception e) { ExceptionHandler.Handle(new Exception(e.Message, e), TraceEventType.Warning); }
 
             return RedirectToSpecificUrl();
         }
@@ -234,7 +235,7 @@ namespace Alpha.Reports.Site.Controllers
         private bool IsValidReferrer()
         {
             if (Request.UrlReferrer == null
-                /*|| string.IsNullOrWhiteSpace(HttpContext.Request.Cookies["auth_1"]?.Value)*/)
+                || string.IsNullOrWhiteSpace(HttpContext.Request.Cookies["auth_1"]?.Value))
             {
                 return false;
             }
@@ -260,21 +261,6 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.DARKMODENAMESESSIONKEY, sessions[14]);
             userSession.SetProperty(SessionKey.MainDomainSessionKey, sessions[15]);
 
-            var pageAccess = sessions[20].Split(new[] { '$' }, StringSplitOptions.RemoveEmptyEntries).Select(bool.Parse);
-            var subPageAccess = new PageAccess
-            {
-                CreateAccount = pageAccess.ElementAt(0),
-                Transfer = pageAccess.ElementAt(1),
-                UpdateAccount = pageAccess.ElementAt(2),
-                ViewLog = pageAccess.ElementAt(3),
-                ViewMemberInfo = pageAccess.ElementAt(4),
-                ViewReports = pageAccess.ElementAt(5),
-                ViewTotalBets = pageAccess.ElementAt(6)
-            };
-
-            subPageAccess.SetPermission("[L]", pageAccess.ElementAt(7));
-            userSession.SetProperty(SessionKey.SUBPAGEACCESS, subPageAccess);
-
             userSession.SetProperty(SessionKey.ISENABLEDSECURITYCODEINSTATEMENT, Convert.ToBoolean(sessions[21]));
             userSession.SetProperty(SessionKey.SECURITYCODE, sessions[22]);
 
@@ -292,9 +278,10 @@ namespace Alpha.Reports.Site.Controllers
         {
             FormsAuthentication.SetAuthCookie(parameters[0], false);
 
-            SetOutputValuesToSession(parameters, userSession);
-
             var sessions = parameters[1].Split(';');
+            userSession.SetProperty(SessionKey.SUBACCID, Convert.ToInt32(sessions[11]));
+
+            SetOutputValuesToSession(parameters, userSession);
 
             userSession.SetProperty(SessionKey.CUSTID, Convert.ToInt32(sessions[0]));
             userSession.SetProperty(SessionKey.USERNAME, sessions[1]);
@@ -305,23 +292,31 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.ISSHOWCONSOLIDATEDREPORT, Convert.ToBoolean(sessions[8]));
             userSession.SetProperty(SessionKey.CustomerDatelimit, Convert.ToDateTime(sessions[9]));
             userSession.SetProperty(SessionKey.ISADMINCANVIEWVNIP, Convert.ToBoolean(sessions[10]));
-            userSession.SetProperty(SessionKey.SUBACCID, Convert.ToInt32(sessions[11]));
             userSession.SetProperty(SessionKey.USERLOGINIP, sessions[12]);
             userSession.SetProperty(SessionKey.ISPROTECTEDMODESESSIONKEY, Convert.ToBoolean(sessions[13]));
             userSession.SetProperty(SessionKey.LoginIP_Browser, sessions[16]);
             userSession.SetProperty(SessionKey.ASSETAPPPATHSESSIONKEY, sessions[17]);
+
+            var pageAccess = sessions[20].Split(new[] { '$' }, StringSplitOptions.RemoveEmptyEntries).Select(bool.Parse);
+            var subPageAccess = new PageAccess
+            {
+                CreateAccount = pageAccess.ElementAt(0),
+                Transfer = pageAccess.ElementAt(1),
+                UpdateAccount = pageAccess.ElementAt(2),
+                ViewLog = pageAccess.ElementAt(3),
+                ViewMemberInfo = pageAccess.ElementAt(4),
+                ViewReports = pageAccess.ElementAt(5),
+                ViewTotalBets = pageAccess.ElementAt(6)
+            };
+
+            subPageAccess.SetPermission("[L]", pageAccess.ElementAt(7));
+            userSession.SetProperty(SessionKey.SUBPAGEACCESS, subPageAccess);
 
             var enableJackpotGames = sessions[18].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
             userSession.SetProperty(SessionKey.GameEnable + SessionKey.Jackpot, enableJackpotGames);
 
             userSession.SetProperty(SessionKey.ISCASINOSYNC, Convert.ToBoolean(sessions[19]));
             userSession.SetSyncedProduct(SessionKey.RNGCasino, Convert.ToBoolean(sessions[19]));
-
-            userSession.SetProperty(SessionKey.ISENABLEDSECURITYCODEINSTATEMENT, Convert.ToBoolean(sessions[21]));
-            userSession.SetProperty(SessionKey.SECURITYCODE, sessions[22]);
-
-            SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp = Convert.ToBoolean(sessions[23]);
-            SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = Convert.ToBoolean(sessions[24]);
 
             userSession.SetProperty(SessionKey.ADMINID, Convert.ToInt32(sessions[26]));
             userSession.SetProperty(SessionKey.ADMINNAME, sessions[27]);
@@ -349,7 +344,11 @@ namespace Alpha.Reports.Site.Controllers
         private static void SetOutputValuesToSession(string[] parameters, IUserSession session)
         {
             var outputs = JsonConvert.DeserializeObject<Hashtable>(parameters[2]);
-            UserSessionService.SetUserSessionValues(session, outputs, (userSession, values) => { });
+            try
+            {
+                UserSessionService.SetUserSessionValues(session, outputs, (userSession, values) => { });
+            }
+            catch (Exception ex) { ExceptionHandler.Handle(new Exception(ex.Message, ex), TraceEventType.Warning); }
         }
 
         private static void RegisterGlobalFilters()
@@ -381,7 +380,7 @@ namespace Alpha.Reports.Site.Controllers
 
         private bool IsLoggedIn()
         {
-            return UserSession.Current.IsLogged && Request.IsAuthenticated;
+            return Request.IsAuthenticated;
         }
     }
 }
