@@ -13,7 +13,6 @@
     public class MoveStatementHistoryViewModel
     {
         private const string DefaultBetListPath = "~/MoveStatementHistory/Index";
-        private readonly DateTime ReleasedDateTime = new DateTime(2022, 5, 31);
 
         public MoveStatementHistoryViewModel(IEnumerable<MoveStatementHistoryByMemberModel> data, MoveStatementHistoryQuery message, bool isError = false, int totalRows = 0)
         {
@@ -21,7 +20,7 @@
             CustLevel = message.ViewerLevel.DisplayName;
             IsFilterVisible = message.IsFilterVisible;
             Username = message.Username;
-            MinDate = message.MinDate.CompareTo(ReleasedDateTime) > 0 ? message.MinDate : ReleasedDateTime;
+            MinDate = message.MinDate;
             FromDate = message.FromDate;
             ToDate = message.ToDate;
             PagerViewModel = new PagerViewModel(message.PageIndex, message.PageSize, totalRows);
