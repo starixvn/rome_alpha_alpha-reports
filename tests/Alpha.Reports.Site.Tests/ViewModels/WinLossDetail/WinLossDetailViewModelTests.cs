@@ -7,6 +7,7 @@
     using System.Threading;
     using System.Web.Mvc;
     using Alpha.Reports.Site.ViewModels.Components;
+    using Alpha.Reports.Utils;
     using Constants;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
@@ -321,6 +322,7 @@
 
         private static void SetUpForHelpers()
         {
+            SystemTime.Today = DateTime.Today;
             Site.Helpers.JsonHelper.ToJsonFunc = Substitute.For<Func<object, string>>();
             Site.Helpers.JsonHelper.ToJsonFunc.Invoke(Arg.Any<object>()).Returns("parsedJson");
             Site.Helpers.UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();

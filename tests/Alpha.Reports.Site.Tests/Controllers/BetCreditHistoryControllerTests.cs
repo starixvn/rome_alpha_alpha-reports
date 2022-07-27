@@ -7,8 +7,10 @@
     using Alpha.Reports.Site.Tests.Constants;
     using Alpha.Reports.Site.Tests.Fixtures;
     using Alpha.Reports.Site.ViewModels;
+    using Alpha.Reports.Utils;
     using MediatR;
     using NSubstitute;
+    using System;
     using Xunit;
 
     [Trait("Category", "BetCreditHistory")]
@@ -21,6 +23,7 @@
 
         public BetCreditHistoryControllerTests(UserFixture userFixture)
         {
+            SystemTime.Today = DateTime.Today;
             mediator = Substitute.For<IMediator>();
             controller = new BetCreditHistoryController(mediator);
             user = userFixture.User;

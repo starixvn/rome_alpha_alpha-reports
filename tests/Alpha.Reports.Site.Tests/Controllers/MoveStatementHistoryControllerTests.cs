@@ -5,8 +5,10 @@
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
     using Alpha.Reports.Site.Tests.Fixtures;
     using Alpha.Reports.Site.ViewModels;
+    using Alpha.Reports.Utils;
     using MediatR;
     using NSubstitute;
+    using System;
     using Xunit;
 
     [Trait("Category", "MoveStatementHistory")]
@@ -19,6 +21,7 @@
 
         public MoveStatementHistoryControllerTests(UserFixture userFixture)
         {
+            SystemTime.Today = DateTime.Today;
             mediator = Substitute.For<IMediator>();
             controller = new MoveStatementHistoryController(mediator);
             user = userFixture.User;
