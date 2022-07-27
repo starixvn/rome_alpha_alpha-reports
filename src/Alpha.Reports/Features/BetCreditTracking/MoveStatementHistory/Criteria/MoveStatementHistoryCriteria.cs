@@ -13,6 +13,8 @@
             FromDate = param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo);
             ToDate = param.ToDate;
             LoggedId = param.ViewerId;
+            PageIndex = param.PageIndex;
+            PageSize = param.PageSize;
         }
 
         public string Username { get; }
@@ -26,6 +28,12 @@
         public int ErrorCode { get; set; }
 
         public string ErrorMess { get; set; }
+
+        public int PageIndex { get; }
+
+        public int PageSize { get; }
+
+        public int TotalRows { get; set; }
 
         public override string GetSettingKey() => "Age_Rpt_StatementMovement";
 

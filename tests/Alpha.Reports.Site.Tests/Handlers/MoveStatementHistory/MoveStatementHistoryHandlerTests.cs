@@ -34,7 +34,7 @@
             // Arrange
             var message = new MoveStatementHistoryQuery(user);
 
-            var resultModel = new MoveStatementHistoryResultModel(0, "Success", null);
+            var resultModel = new MoveStatementHistoryResultModel(0, "Success", null, 0);
             reportService.GetMoveStatementHistory(Arg.Any<MoveStatementHistoryParam>()).Returns(resultModel);
 
             // Act
@@ -77,7 +77,7 @@
             {
                 new MoveStatementHistoryByMemberModel(1, "member1", refNoRow)
             };
-            var resultModel = new MoveStatementHistoryResultModel(0, "Success", rawData);
+            var resultModel = new MoveStatementHistoryResultModel(0, "Success", rawData, 2);
             reportService.GetMoveStatementHistory(Arg.Any<MoveStatementHistoryParam>()).Returns(resultModel);
 
             // Act
@@ -94,7 +94,7 @@
             // Arrange
             var message = new MoveStatementHistoryQuery(user);
 
-            var resultModel = new MoveStatementHistoryResultModel(101, "Invalid member", null);
+            var resultModel = new MoveStatementHistoryResultModel(101, "Invalid member", null, 0);
             reportService.GetMoveStatementHistory(Arg.Any<MoveStatementHistoryParam>()).Returns(resultModel);
 
             // Act

@@ -13,21 +13,19 @@
     public class MoveStatementHistoryViewModel
     {
         private const string DefaultBetListPath = "~/MoveStatementHistory/Index";
-        private readonly DateTime ReleasedDateTime = new DateTime(2022, 5, 31);
 
-        public MoveStatementHistoryViewModel(IEnumerable<MoveStatementHistoryByMemberModel> data, MoveStatementHistoryQuery message, bool isError = false)
+        public MoveStatementHistoryViewModel(IEnumerable<MoveStatementHistoryByMemberModel> data, MoveStatementHistoryQuery message, bool isError = false, int totalRows = 0)
         {
             Data = data;
             CustLevel = message.ViewerLevel.DisplayName;
             IsFilterVisible = message.IsFilterVisible;
             Username = message.Username;
             MinDate = message.MinDate;
-            MaxDate = DateTime.MaxValue;
             FromDate = message.FromDate;
             ToDate = message.ToDate;
-            UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
+            PagerViewModel = new PagerViewModel(message.PageIndex, message.PageSize, totalRows);
 
-            ViewDataInstructionMessage = string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, ReleasedDateTime.ToShortDateWithSlash());
+            ViewDataInstructionMessage = string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, MinDate.ToShortDateWithSlash());
             BetListPath = Helpers.UrlHelper.MapBetListPath(DefaultBetListPath);
             CanViewBetLists = !message.IsProtectedMode || !message.CustLevel.IsAgentLevel();
 
@@ -44,22 +42,20 @@
 
         public DateTime MinDate { get; }
 
-        public DateTime MaxDate { get; }
-
         public DateTime FromDate { get; }
 
         public DateTime ToDate { get; }
         
-        public int UserSelectedDateRangeOption { get; }
-
         public string ViewDataInstructionMessage { get; }
 
         public string BetListPath { get; }
 
         public bool CanViewBetLists { get; }
 
-        public DateRangePickerViewModel DateRangePickerViewModel
-          => new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
+        public MonthPickerViewModel MonthPickerViewModel
+          => new MonthPickerViewModel(MinDate, FromDate, ToDate);
+
+        public PagerViewModel PagerViewModel { get; }
 
         public string ErrMsg { get; }
 

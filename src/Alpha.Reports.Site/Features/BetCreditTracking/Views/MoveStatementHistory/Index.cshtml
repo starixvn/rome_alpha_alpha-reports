@@ -7,7 +7,7 @@
     var userguideLink = UserSession.Current.Site.Equals("789y", StringComparison.OrdinalIgnoreCase) ?
         MicroSites.MessageUrl("~/StaticMessage/Guide?id=167296") :
         MicroSites.HowToUseUrl("~/Index.aspx?linktomessagesite=167296");
-    }
+}
 @model MoveStatementHistoryViewModel
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
@@ -68,6 +68,8 @@
         }
     </div>
 </div>
+
+@Pager.Render(Model.PagerViewModel)
 
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MoveStatementHistory")">

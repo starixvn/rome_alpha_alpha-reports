@@ -52,7 +52,7 @@
             {
                 new MoveStatementHistoryByMemberModel(1, "member1", refNoRow)
             };
-            var resultModel = new MoveStatementHistoryResultModel(0, "Success", rawData);
+            var resultModel = new MoveStatementHistoryResultModel(0, "Success", rawData, 2);
             reportService.GetMoveStatementHistory(Arg.Any<MoveStatementHistoryParam>()).Returns(resultModel);
             handler = Substitute.ForPartsOf<MoveStatementHistoryExcelHandler>(reportService, workbook);
             handler.MapPath = (path) => path;

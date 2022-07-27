@@ -1,11 +1,12 @@
 ﻿describe("MoveStatementHistory", () => {
     const jQueryFake = $;
-    const dateRangePickerComponent = new DateRangePickerComponent($);
+    const monthPickerComponent = new MonthPickerComponent($);
+    const pagerComponent = new PagerComponent($);
 
     let moveStatementHistory: MoveStatementHistory;
 
     beforeEach(() => {
-        moveStatementHistory = new MoveStatementHistory(jQueryFake, dateRangePickerComponent);
+        moveStatementHistory = new MoveStatementHistory(jQueryFake, monthPickerComponent, pagerComponent);
 
         spyOn(moveStatementHistory, "cacheElements").and.callThrough();
         spyOn(moveStatementHistory, "bindEvents").and.callThrough();
@@ -14,7 +15,8 @@
         spyOn(jQueryFake, "blockUI");
         spyOn(jQueryFake, "unblockUI");
 
-        spyOn(dateRangePickerComponent, "render");
+        spyOn(monthPickerComponent, "render");
+        spyOn(pagerComponent, "render");
 
         spyOn(jQueryFake.fn, "stickyTableHeaders");
     });
@@ -47,7 +49,11 @@
         });
         it("_Calls dateRangePickerComponent.render", () => {
             // assert
-            expect(dateRangePickerComponent.render).toHaveBeenCalled();
+            expect(monthPickerComponent.render).toHaveBeenCalled();
+        });
+        it("_Calls pagerComponent.render", () => {
+            // assert
+            expect(pagerComponent.render).toHaveBeenCalled();
         });
         it("_Calls stickyTableHeaders", () => {
             // assert

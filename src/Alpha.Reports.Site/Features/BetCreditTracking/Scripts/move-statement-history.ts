@@ -1,7 +1,8 @@
 ﻿"use strict";
 class MoveStatementHistory {
     $: JQueryStatic;
-    dateRangePickerComponent: DateRangePickerComponent;
+    monthPickerComponent: MonthPickerComponent;
+    pagerComponent: PagerComponent;
     $reportForm: JQuery;
     $pageTitle: JQuery;
     $isFilterVisible: JQuery;
@@ -9,9 +10,11 @@ class MoveStatementHistory {
 
     constructor(
         $: JQueryStatic,
-        dateRangePickerComponent: DateRangePickerComponent) {
+        monthPickerComponent: MonthPickerComponent,
+        pagerComponent: PagerComponent) {
         this.$ = $;
-        this.dateRangePickerComponent = dateRangePickerComponent;
+        this.monthPickerComponent = monthPickerComponent;
+        this.pagerComponent = pagerComponent;
     }
 
     public init() {
@@ -32,16 +35,21 @@ class MoveStatementHistory {
     }
 
     public initComponents() {
-        this.dateRangePickerComponent.render(
-            new DateRangePickerOption("daterange-picker", "report-form", null));
+        this.monthPickerComponent.render();
+
+        this.pagerComponent.pageList = [10, 50, 100, 500];
+        this.pagerComponent.render();
 
         this.$("#tbl-report").stickyTableHeaders();
-
     }
 
     public bindEvents() {
         this.$(".icon-filter").click(this.onClickIconFilter);
         this.$reportForm.submit(this.onSubmitReport);
+        this.$("#btn-submit").click(() => {
+            this.$("#PageIndex").val("1");
+            this.$("#PageSize").val("100");
+        })
         this.$("#icon-excel").click(this.onExportExcel);
     }
 
@@ -72,7 +80,8 @@ class MoveStatementHistory {
 $(function () {
     const moveStatementHistory = new MoveStatementHistory(
         $,
-        new DateRangePickerComponent($)
+        new MonthPickerComponent($),
+        new PagerComponent($)
     );
     moveStatementHistory.init();
 });

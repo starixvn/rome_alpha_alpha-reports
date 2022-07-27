@@ -28,7 +28,7 @@
         public void GetMoveStatementHistory_Always_CallCheckPartialUM()
         {
             // Arrange
-            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue);
+            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
 
             // Act
             service.GetMoveStatementHistory(param);
@@ -41,7 +41,7 @@
         public void GetMoveStatementHistory_Always_CallFetch()
         {
             // Arrange
-            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue);
+            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
 
             // Act
             service.GetMoveStatementHistory(param);
@@ -52,6 +52,8 @@
                 && criteria.FromDate == param.FromDate
                 && criteria.ToDate == param.ToDate
                 && criteria.LoggedId == param.ViewerId
+                && criteria.PageSize == param.PageSize
+                && criteria.PageIndex == param.PageIndex
                 ));
         }
     }

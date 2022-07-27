@@ -29,7 +29,7 @@
                 return new MoveStatementHistoryViewModel(null, message, true);
             }
 
-            return new MoveStatementHistoryViewModel(result.Data, message);
+            return new MoveStatementHistoryViewModel(result.Data, message, totalRows: result.TotalRows);
         }
     }
 }

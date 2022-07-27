@@ -19,5 +19,18 @@
             // Assert
             Assert.Equal(expectedSettingKey, actualSettingKey);
         }
+
+        [Fact]
+        public void IsValid_Always_ReturnsTrue()
+        {
+            // Arrange
+            var criteria = new GetLogActionsCriteria();
+
+            // Act
+            var actual = criteria.IsValid();
+
+            // Assert
+            Assert.True(actual);
+        }
     }
 }

@@ -36,7 +36,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var moveStatementHistoryParam = CreateParameter(message);
+            var moveStatementHistoryParam = CreateExcelParameter(message);
 
             var result = reportService.GetMoveStatementHistory(moveStatementHistoryParam);
 
