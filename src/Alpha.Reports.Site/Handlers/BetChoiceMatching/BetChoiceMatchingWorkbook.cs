@@ -185,7 +185,7 @@
         {
             row.SetCellValue(Column.GetColIndex(Column.A), ticket.Username);
             row.SetCellValue(Column.GetColIndex(Column.B), ticket.TransDate);
-            row.SetCellValue(Column.GetColIndex(Column.C), ticket.TransId);
+            row.SetCellValue(Column.GetColIndex(Column.C), ticket.TransId.ToString());
             row.SetCellValue(Column.GetColIndex(Column.D), BuildOdds(ticket));
             row.SetCellValue(Column.GetColIndex(Column.E), ticket.IP ?? string.Empty);
             row.SetCellValue(Column.GetColIndex(Column.F), ticket.Stake);

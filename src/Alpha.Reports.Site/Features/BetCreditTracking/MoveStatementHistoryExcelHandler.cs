@@ -97,7 +97,7 @@
             }
 
             return new Mapper<MoveStatementHistoryByRefNoModel>()
-                .Map(A, moveStatementHistory => moveStatementHistory.TransId)
+                .Map(A, moveStatementHistory => moveStatementHistory.TransId.ToString())
                 .Map(B, moveStatementHistory => moveStatementHistory.OldEventDate.ToShortDateWithSlash())
                 .Map(C, moveStatementHistory => moveStatementHistory.NewEventDate.ToShortDateWithSlash())
                 .Map(D, moveStatementHistory => moveStatementHistory.MemberWinLoss)
