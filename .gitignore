@@ -40,13 +40,7 @@ _CodeCoverageReport
 .vs/config/applicationhost.config
 /OpenCover/*
 
-*.min.js
-bundles
-*.css
 *.js.map
-*/**/assets/scripts/**/*.js
-*/**/bundles/**/*.js
-**/Features/**/*.js
 *.ncrunchproject
 *.ncrunchsolution
 
@@ -61,4 +55,3 @@ src/Alpha.Reports.Site/jsUnitTest.xml
 /.vs/Alpha.Reports.Site/v15/Server/sqlite3/storage.ide-shm
 /.vs/Alpha.Reports.Site/v15/Server/sqlite3/storage.ide-wal
 /.vs/Alpha.Reports.Site/DesignTimeBuild/.dtbcache
-*.js

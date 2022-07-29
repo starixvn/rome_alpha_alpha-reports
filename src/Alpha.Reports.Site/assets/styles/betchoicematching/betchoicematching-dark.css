@@ -1,0 +1,131 @@
+﻿/*******************************************/
+/* Effect of dropdownlist */
+/*******************************************/
+/*******************************************/
+/* Transition */
+/*******************************************/
+/*******************************************/
+/* Ripple Effect */
+/*******************************************/
+#tbl-report .row-bet-choice {
+  background-color: #2E2C1F; }
+  #tbl-report .row-bet-choice .col-bet-choice {
+    border-right: none;
+    font-weight: bold; }
+    #tbl-report .row-bet-choice .col-bet-choice .text-handicap {
+      color: #5685FF; }
+    #tbl-report .row-bet-choice .col-bet-choice .text-live-score {
+      color: #B50000; }
+    #tbl-report .row-bet-choice .col-bet-choice .text-bet-type {
+      color: #508BFF; }
+  #tbl-report .row-bet-choice .col-event {
+    border-left: none;
+    border-right: none; }
+    #tbl-report .row-bet-choice .col-event .text-event {
+      color: #e7e7e7; }
+    #tbl-report .row-bet-choice .col-event .text-league {
+      color: #b7b7b7; }
+    #tbl-report .row-bet-choice .col-event .text-sport-type {
+      color: #56AEFF; }
+  #tbl-report .row-bet-choice .col-global-time {
+    border-left: none;
+    color: #e7e7e7; }
+
+#tbl-report .row-total {
+  font-weight: bold; }
+
+#tbl-report .row-even {
+  background-color: #262829; }
+
+#tbl-report tbody .col-superwinloss {
+  background-color: #333124; }
+
+#tbl-report tfoot .col-superwinloss {
+  background-color: #29170D; }
+
+#tbl-report .text-username {
+  font-weight: normal;
+  cursor: pointer; }
+
+#tbl-report .icon-table-filter {
+  cursor: pointer;
+  margin-top: 3px;
+  float: right; }
+  #tbl-report .icon-table-filter.has-filter:before {
+    color: red; }
+
+#tbl-report .icon-ip-share {
+  cursor: pointer;
+  margin-top: 3px;
+  float: right; }
+
+#tbl-report .favorite {
+  color: #FF4F50; }
+
+#tbl-report .underdog {
+  color: #ffffff; }
+
+#tbl-report font[color="#B50000"] {
+  color: #FF4F50 !important; }
+
+#tbl-report .icon-ip-share:before {
+  color: #FF4F50 !important; }
+
+#tbl-report .loading-icon {
+  height: 16px;
+  background: url(../images/ajax-loader-small.gif) no-repeat center; }
+
+#tbl-report .ip-tooltip .tooltip-body {
+  max-height: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll; }
+
+#tbl-report .simple-tooltip .form-label {
+  margin-left: 10px; }
+
+#tbl-report .simple-tooltip .btn-filter {
+  margin: 0;
+  margin-top: 5px; }
+
+#tbl-report .simple-tooltip #inputTotalStake {
+  margin-left: 5px;
+  width: 100px; }
+
+#tbl-report .simple-tooltip #selectMemberWL {
+  margin: 0 5px; }
+
+#tbl-report .simple-tooltip #inputMemberWL {
+  width: 100px; }
+
+.simple-tooltip {
+  font-weight: normal;
+  position: absolute;
+  background: #212223;
+  color: #e7e7e7;
+  text-align: left;
+  border: 1px solid #474747;
+  padding: 0 5px;
+  z-index: 1;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px; }
+  .simple-tooltip .tooltip-header {
+    padding: 5px 0;
+    border-bottom: 1px solid #3E3F41; }
+    .simple-tooltip .tooltip-header .tooltip-title {
+      font-weight: bold;
+      margin-right: 30px; }
+    .simple-tooltip .tooltip-header .close {
+      margin-right: 0;
+      opacity: 1;
+      top: 2px;
+      color: #e7e7e7; }
+  .simple-tooltip .tooltip-body {
+    padding: 5px 0; }
+    .simple-tooltip .tooltip-body .form-control {
+      background-color: #2B2B2B;
+      border-color: #474747;
+      color: #e7e7e7; }
+

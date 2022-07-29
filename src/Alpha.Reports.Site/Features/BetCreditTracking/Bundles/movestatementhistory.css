@@ -1,0 +1,28 @@
+.page-title {
+  border-bottom: none; }
+  .page-title .list-icon {
+    position: absolute;
+    top: 0px;
+    right: 0px; }
+
+.member-row {
+  background-color: #f3f5e0;
+  font-weight: bold; }
+
+.refno {
+  float: left;
+  margin-left: 15px; }
+
+.total {
+  font-weight: 700; }
+
+.red {
+  color: red; }
+
+.nav.nav-tabs > li:last-child.active:after,
+.nav.nav-tabs > li:last-child:hover:after {
+  width: 0%;
+  background: none; }
+
+.pagination {
+  width: 60%; }
