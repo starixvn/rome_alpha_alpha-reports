@@ -36,5 +36,9 @@
         public const string ADMINNAME = "ADMINNAME";
         public const string LoginParams = "LoginParams";
         public const string ISPASSWORDEXPIRED = "ISPASSWORDEXPIRED";
+        public const string NICKNAME = "NICKNAME";
+        public const string ISFORCEDSECURITYCODE = "ISFORCEDSECURITYCODE";
+        public const string ISLOGGED = "ISLOGGED";
+        public const string ISNICKNAMELOGINONLY = "ISNICKNAMELOGINONLY";
     }
 }
