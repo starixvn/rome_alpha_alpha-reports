@@ -70,7 +70,7 @@
 
             // Assert
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
-                "NewBetListPath",
+                Arg.Any<string>(),
                 Arg.Is<Dictionary<string, object>>(routeValue => compareLogic.Compare(expectedRouteValues, routeValue).AreEqual));
         }
 
