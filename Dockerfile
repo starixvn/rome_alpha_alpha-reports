@@ -1,6 +1,7 @@
 # escape=`
 FROM hub.nexdev.net/base/rocketor/buildservice AS builder
 
+ARG DEPLOY_ENV
 ARG ROCKETOR_API
 ARG REDMINE_IDS
 
@@ -52,6 +53,15 @@ RUN `
     ) `
     DO curl --fail -o C:\sp-result.xml --form file=@"%P" --form "redmineIds=%REDMINE_IDS%" -X POST %ROCKETOR_API% `
         && xcopy C:\sp-result.xml "%P" /Y
+
+# Transform config
+RUN echo "%DEPLOY_ENV%" `
+    && xcopy "Web.%DEPLOY_ENV%.config" "Web.config" /Y `
+    && xcopy "Web.ConnectionStrings.%DEPLOY_ENV%.config" "Web.ConnectionStrings.config" /Y `
+	&& xcopy "Web.AppSettings.%DEPLOY_ENV%.config" "Web.AppSettings.config" /Y `
+	&& xcopy "App_Data\activitytracking.%DEPLOY_ENV%.json" "App_Data\activitytracking.json" /Y `
+	&& xcopy "App_Data\securitycode.%DEPLOY_ENV%.json" "App_Data\securitycode.json" /Y `
+	&& xcopy "App_Data\ProductSection.%DEPLOY_ENV%.config" "App_Data\ProductSection.config" /Y
 
 FROM hub.nexdev.net/base/dotnet/framework/aspnet:4.7.2-windowsservercore-ltsc2019 AS base
 
