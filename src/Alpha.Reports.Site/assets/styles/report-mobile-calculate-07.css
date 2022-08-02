@@ -1,0 +1,133 @@
+﻿/*******************************************/
+/* Effect of dropdownlist */
+/*******************************************/
+/*******************************************/
+/* Transition */
+/*******************************************/
+/*******************************************/
+/* Ripple Effect */
+/*******************************************/
+body {
+  font-size: 18.57143px; }
+
+.tblRpt thead th, .tblRpt tbody td, .tblRpt tfoot td {
+  height: 48.57143px; }
+
+.tblRpt .icon-plus, .tblRpt .icon-minus {
+  font-size: 34.28571px;
+  color: #04A54E; }
+
+table.dataTable thead [class*="sorting"]:after {
+  font-size: 14.28571px; }
+
+table.dataTable tbody > tr.odd.parent + tr.child > td.child {
+  background-color: #f9f9f9; }
+
+table.dataTable tbody > tr.even.parent + tr.child > td.child {
+  background-color: #eae9ee; }
+
+table.dataTable tbody > tr.tbl-footer.parent + tr.child > td.child {
+  background-color: #7f3d1d;
+  color: #fff;
+  font-weight: 700; }
+
+table.dataTable tbody > tr:not(.tbl-footer):hover + tr.child > td.child {
+  background-color: #f8eb95; }
+
+.page-title {
+  font-size: 18.57143px;
+  line-height: 55.71429px;
+  position: relative;
+  border-bottom: none; }
+  .page-title .text-title {
+    width: 100%;
+    border-bottom: 1px solid #cecece; }
+  .page-title .breadcrumb {
+    padding: 0;
+    line-height: 28px;
+    padding-top: 12px; }
+  .page-title .list-icon {
+    position: absolute;
+    right: 0; }
+    .page-title .list-icon .icon-filter {
+      font-size: 31.42857px !important;
+      padding-right: 0px !important; }
+
+.filter .btn-group button.multiselect {
+  height: 51.42857px;
+  line-height: 37.14286px; }
+  .filter .btn-group button.multiselect .multiselect-selected-text {
+    font-size: 18.57143px; }
+
+.filter {
+  padding: 15px 0 0 0; }
+  .filter select, .filter input[type='text'], .filter [class^='btn-submit'], .filter .input-group.date .form-control {
+    height: 51.42857px;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    -khtml-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    -o-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); }
+  .filter [class^='btn-submit'] {
+    width: 116px;
+    border-radius: 3px; }
+  .filter .ui_nexdatepicker_datetextbox.form-control {
+    -webkit-appearance: none; }
+  .filter .ui_nexdatepicker_lbl_field {
+    padding: 8px 6px 8px 0px; }
+  .filter .input-group.date .form-control {
+    font-size: 22.85714px; }
+  .filter .btn-group button.multiselect {
+    height: 51.42857px;
+    line-height: 37.14286px;
+    box-shadow: none;
+    border-radius: 4px;
+    border: 1px solid #cfcfcf; }
+    .filter .btn-group button.multiselect .caret {
+      top: 22.85714px;
+      border-width: 5.71429px;
+      border-top: 5.71429px solid; }
+  .filter button .caret {
+    top: 22.85714px;
+    border-width: 5.71429px;
+    border-top: 5.71429px solid; }
+  .filter .icon-excel, .filter .icon-back {
+    font-size: 22px;
+    height: 40px; }
+    .filter .icon-excel:hover:after, .filter .icon-back:hover:after {
+      top: 4px; }
+  .filter select.select-multiple {
+    height: 40px; }
+  .filter .form-group.last-group, .filter .form-group .btn-submit {
+    margin-right: 0; }
+
+.multiselect-container.dropdown-menu {
+  font-size: 18.57143px;
+  width: 100%; }
+  .multiselect-container.dropdown-menu > li {
+    height: 48.57143px; }
+    .multiselect-container.dropdown-menu > li > a {
+      padding: 8px 0; }
+
+input[type="checkbox"] {
+  width: 22.85714px;
+  height: 22.85714px; }
+
+.form-inline .multiselect-container li a label.checkbox input[type=checkbox],
+.multiselect-item.multiselect-group a input[type=checkbox] {
+  margin-left: -32px !important;
+  top: 4px; }
+
+.form-inline .multiselect-container label.checkbox,
+.multiselect-container.dropdown-menu .multiselect-item.multiselect-group a {
+  padding-left: 44px !important; }
+  .form-inline .multiselect-container label.checkbox b:not(.caret),
+  .multiselect-container.dropdown-menu .multiselect-item.multiselect-group a b:not(.caret) {
+    padding-left: 7px; }
+
+.multiselect-group .caret {
+  border-width: 5.71429px; }
+
+.multiselect-container.dropdown-menu .multiselect-nested-item a {
+  padding-left: 35px; }
+

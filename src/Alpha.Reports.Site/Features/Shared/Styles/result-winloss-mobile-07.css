@@ -1,0 +1,101 @@
+﻿/*******************************************/
+/* Effect of dropdownlist */
+/*******************************************/
+/*******************************************/
+/* Transition */
+/*******************************************/
+/*******************************************/
+/* Ripple Effect */
+/*******************************************/
+.filter {
+  display: grid;
+  grid-template-columns: 50% 1fr 1fr auto;
+  grid-gap: 15px 16px;
+  align-items: center;
+  padding-right: 10px;
+  padding-bottom: 12px; }
+  @media (orientation: landscape) {
+    .filter .daterange-dropdown {
+      width: 100%; } }
+  .filter .note {
+    grid-column: 1/5; }
+  .filter:not(.hide) + [class*="level-"] {
+    margin-top: -10px; }
+  .filter .form-group {
+    margin: 0; }
+    .filter .form-group .input-group.date {
+      position: relative; }
+      .filter .form-group .input-group.date .form-control {
+        box-shadow: none;
+        border: 1px solid #cfcfcf;
+        border-radius: 4px; }
+      .filter .form-group .input-group.date .input-group-addon {
+        width: auto;
+        position: absolute;
+        right: 8px;
+        z-index: 99;
+        top: 12px; }
+        @media (orientation: landscape) {
+          .filter .form-group .input-group.date .input-group-addon {
+            padding: 0; } }
+    .filter .form-group.to-date-box {
+      grid-column: 2/5; }
+    .filter .form-group.submit-container {
+      grid-column: 2/4; }
+    .filter .form-group.daterange-container {
+      grid-row: 2; }
+    .filter .form-group .daterange-dropdown .dropdown-toggle {
+      border: 1px solid #cfcfcf;
+      box-shadow: none;
+      border-radius: 4px;
+      background-color: #EDEDED;
+      color: #333; }
+      .filter .form-group .daterange-dropdown .dropdown-toggle .caret {
+        border-width: 6px; }
+    .filter .form-group label {
+      display: none;
+      margin-bottom: 3px; }
+    .filter .form-group .control {
+      margin: 0; }
+    .filter .form-group .date {
+      width: 100% !important; }
+    .filter .form-group .btn-submit {
+      width: 100%; }
+  .filter .icon-excel {
+    font-size: 30px; }
+
+@media (orientation: landscape) {
+  .fromdate .bootstrap-datetimepicker-widget.dropdown-menu {
+    width: 100%; } }
+
+.fromdate .bootstrap-datetimepicker-widget.dropdown-menu.pull-right {
+  left: 0 !important; }
+  .fromdate .bootstrap-datetimepicker-widget.dropdown-menu.pull-right:before {
+    left: 6px;
+    right: auto; }
+  .fromdate .bootstrap-datetimepicker-widget.dropdown-menu.pull-right:after {
+    left: 7px;
+    right: auto; }
+
+.todate .bootstrap-datetimepicker-widget {
+  right: -10px !important; }
+  @media (orientation: landscape) {
+    .todate .bootstrap-datetimepicker-widget {
+      width: calc(100% + 10px); } }
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2.625) {
+  body, .filter .btn-group button.multiselect .multiselect-selected-text {
+    font-size: 22.28571px; }
+  .note {
+    line-height: 26px; }
+  .tblRpt thead th, .tblRpt tbody td, .tblRpt tfoot td {
+    height: 58.28571px; } }
+
+@media only screen and (-webkit-device-pixel-ratio: 3) {
+  body, .filter .btn-group button.multiselect .multiselect-selected-text {
+    font-size: 18.57143px; }
+  .note {
+    line-height: 26px; }
+  .tblRpt thead th, .tblRpt tbody td, .tblRpt tfoot td {
+    height: 48.57143px; } }
+

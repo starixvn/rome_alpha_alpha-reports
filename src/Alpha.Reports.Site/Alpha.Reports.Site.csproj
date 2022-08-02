@@ -1977,8 +1977,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\tests\Alpha.Reports.StaticData\Alpha.Reports.StaticData.csproj">
-      <Project>{B2293610-3C5B-42DF-9B6A-3AE914512223}</Project>
+    <ProjectReference Include="..\Alpha.Reports.StaticData\Alpha.Reports.StaticData.csproj">
+      <Project>{b2293610-3c5b-42df-9b6a-3ae914512223}</Project>
       <Name>Alpha.Reports.StaticData</Name>
     </ProjectReference>
     <ProjectReference Include="..\Alpha.Reports\Alpha.Reports.csproj">
@@ -2044,14 +2044,7 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>
-      cd $(ProjectDir)
-      cd ..
-      cd ..
-      cd build
-      assets.build.cmd
-      if not exist "$(WebProjectOutputDir)\bin\Roslyn" md "$(WebProjectOutputDir)\bin\Roslyn"
-      start /MIN xcopy /s /y /R "$(OutDir)roslyn\*.*" "$(WebProjectOutputDir)\bin\Roslyn"
-</PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets" Condition="Exists('..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets')" />
   <Import Project="..\..\packages\Fanex.Chutzpah.4.3.3\build\Fanex.Chutzpah.targets" Condition="Exists('..\..\packages\Fanex.Chutzpah.4.3.3\build\Fanex.Chutzpah.targets')" />
