@@ -44,7 +44,7 @@ namespace Alpha.Reports.Site.Controllers
         {
             if (!IsValidReferrer())
             {
-                return new EmptyResult();
+                return new HttpUnauthorizedResult();
             }
 
             if (!SiteSettings.IsStandaloneReport)
@@ -83,7 +83,7 @@ namespace Alpha.Reports.Site.Controllers
 
             if (string.IsNullOrWhiteSpace(parameter))
             {
-                return new EmptyResult();
+                return Redirect("~/site-main/Dashboard/Index");
             }
 
             if (!string.IsNullOrWhiteSpace(authParams) &&
@@ -108,7 +108,7 @@ namespace Alpha.Reports.Site.Controllers
                 if (!string.IsNullOrWhiteSpace(param)
                     && DateTime.Now.Subtract(Convert.ToDateTime(parameters[3])).TotalSeconds > LoginTimeoutSeconds)
                 {
-                    return new EmptyResult();
+                    return new HttpUnauthorizedResult();
                 }
 
                 SetUserSessionsAndAuth(parameters, session);
@@ -234,8 +234,7 @@ namespace Alpha.Reports.Site.Controllers
 
         private bool IsValidReferrer()
         {
-            if (Request.UrlReferrer == null
-                || string.IsNullOrWhiteSpace(HttpContext.Request.Cookies["auth_1"]?.Value))
+            if (Request.UrlReferrer == null)
             {
                 return false;
             }
