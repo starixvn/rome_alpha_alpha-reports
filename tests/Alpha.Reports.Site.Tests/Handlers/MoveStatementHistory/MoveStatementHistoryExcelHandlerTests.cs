@@ -179,7 +179,7 @@
 
             // Assert
             Assert.True(
-                (long)actualMapper.Mappings[Column.A](model) == 2 &&
+                (string)actualMapper.Mappings[Column.A](model) == "2" &&
                 (string)actualMapper.Mappings[Column.B](model) == "01/01/2022" &&
                 (string)actualMapper.Mappings[Column.C](model) == "01/02/2022" &&
                 (decimal)actualMapper.Mappings[Column.D](model) == 10 &&

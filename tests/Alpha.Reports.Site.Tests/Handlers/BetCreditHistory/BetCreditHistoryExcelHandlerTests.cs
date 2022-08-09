@@ -166,7 +166,7 @@
             Assert.True(
                 (string)actualMapper.Mappings[Column.A](model) == "01/01/2022 00:00:00" &&
                 (string)actualMapper.Mappings[Column.B](model) == "01/02/2022" &&
-                (long)actualMapper.Mappings[Column.C](model) == 123456 &&
+                (string)actualMapper.Mappings[Column.C](model) == "123456" &&
                 (decimal)actualMapper.Mappings[Column.D](model) == 10 &&
                 (decimal)actualMapper.Mappings[Column.E](model) == 10 &&
                 (decimal)actualMapper.Mappings[Column.F](model) == 10 &&
