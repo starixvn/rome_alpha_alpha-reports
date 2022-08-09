@@ -15,7 +15,7 @@
 
     <div class="form-group">
         <label>@Resources.refno</label>
-        <input type="text" autocomplete="off" name="RefNo" value="@Model.RefNo" id="txt-refno"/>
+        <input type="text" style="width: 170px;" maxlength="19" autocomplete="off" name="RefNo" value="@Model.RefNo" id="txt-refno"/>
     </div>
 
     @DateRangePicker.Render(Model.DateRangePickerViewModel);

@@ -97,7 +97,7 @@ interface QueryTicketModel {
     Username: string;
     TransDate: string;
     GlobalShowTime: string;
-    TransId: number;
+    TransIdString: string;
     Odds: number;
     DisplayOdds: string;
     DisplayOddsType: string;
@@ -519,7 +519,7 @@ class BetChoiceMatching {
 
                     html.push(`<tr class="${index % 2 === 1 ? "row-even" : ""}">
                         <td class="text-center">${moment(ticket.TransDate).format("MM/DD HH:mm:ss")}</td>
-                        <td class="text-center">${ticket.TransId}</td>
+                        <td class="text-center">${ticket.TransIdString}</td>
                         <td class="text-center">${this.buildOdds(ticket)}</td>
                         <td class="text-center">${ticket.IP ? ticket.IP : ''}${ipHtml}</td>
                         <td>${alphaReports.formatNumber(ticket.Stake)}</td>

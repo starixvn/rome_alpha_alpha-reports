@@ -87,7 +87,7 @@
             return new Mapper<BetCreditHistoryModel>()
                 .Map(A, betCreditHistory => betCreditHistory.ActionDateString)
                 .Map(B, betCreditHistory => betCreditHistory.WinLostDateString)
-                .Map(C, betCreditHistory => GetValueOrEmptyString(betCreditHistory.RefNo))
+                .Map(C, betCreditHistory => betCreditHistory.RefNoString)
                 .Map(D, betCreditHistory => GetValueOrEmptyString(betCreditHistory.ActualStake))
                 .Map(E, betCreditHistory => GetValueOrEmptyString(betCreditHistory.WinLoss))
                 .Map(F, betCreditHistory => GetValueOrEmptyString(betCreditHistory.PlayerComm))

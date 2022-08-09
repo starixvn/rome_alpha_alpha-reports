@@ -111,6 +111,8 @@
 
         public long TransId { get; private set; }
 
+        public string TransIdString => TransId.ToString();
+
         public decimal Stake { get; private set; }
 
         public decimal MemberWinLoss { get; private set; }

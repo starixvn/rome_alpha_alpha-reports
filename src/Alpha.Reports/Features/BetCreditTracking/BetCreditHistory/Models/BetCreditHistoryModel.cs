@@ -45,6 +45,8 @@
 
         public long? RefNo { get;  }
 
+        public string RefNoString => RefNo.HasValue ? RefNo.ToString() : string.Empty;
+
         public decimal? ActualStake { get; }
 
         public decimal? WinLoss { get; }
