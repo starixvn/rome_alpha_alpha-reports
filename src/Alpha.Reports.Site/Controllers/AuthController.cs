@@ -355,9 +355,12 @@ namespace Alpha.Reports.Site.Controllers
             var filters = GlobalFilters.Filters.Where(filter =>
                 filter.Instance is CheckBelongingFilter ||
                 filter.Instance is AfterLoginFlowFilter ||
-                filter.Instance is ProtectedModeFilter);
+                filter.Instance is ProtectedModeFilter).ToArray();
 
-            foreach (var filter in filters)
+            var destFilters = new Filter[filters.Length];
+            Array.Copy(filters, destFilters, filters.Length);
+
+            foreach (var filter in destFilters)
             {
                 GlobalFilters.Filters.Remove(filter);
             }
