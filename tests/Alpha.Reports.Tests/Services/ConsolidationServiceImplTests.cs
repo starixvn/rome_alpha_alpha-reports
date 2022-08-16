@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.PartialUM.Services;
     using Alpha.Reports.DataAccesses;
-    using Alpha.Web.Helpers;
     using Constants;
     using Fanex.Caching;
     using Fanex.Data.Repository;
@@ -26,7 +26,7 @@
     {
         private readonly AnyValueCreatorFixture anyValueCreatorFixture;
         private readonly IDynamicRepository dynamicRepository;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
         private readonly ConsolidationServiceImpl consolidationServiceImpl;
         private readonly CompareLogic compareLogic;
         private readonly CacheRefService cacheRefService;
@@ -64,7 +64,7 @@
 
             winLossDetailDataAccess = Substitute.For<WinLossDetailDataAccess>();
             productService = Substitute.For<ProductService>();
-            partialUMService = Substitute.For<PartialUMService>();
+            partialUMService = Substitute.For<IPartialUMService>();
             cacheService = Substitute.For<ICacheService>();
             consolidationServiceImpl = new ConsolidationServiceImpl(
                 dynamicRepository,

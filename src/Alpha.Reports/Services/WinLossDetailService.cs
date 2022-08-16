@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System;
-    using Alpha.Web.Helpers;
+    using Alpha.PartialUM.Services;
     using Criteria.WinLossDetail;
     using DataAccesses;
     using Extensions;
@@ -20,14 +20,14 @@
         private readonly ProductService productService;
         private readonly ProductDetailService productDetailService;
         private readonly WinLossDetailDataAccess dataAccess;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
 
         public WinLossDetailServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
             ProductDetailService productDetailService,
             WinLossDetailDataAccess dataAccess,
-            PartialUMService partialUMService)
+            IPartialUMService partialUMService)
         {
             this.reportDateService = reportDateService;
             this.productService = productService;
@@ -59,7 +59,7 @@
                 param.ReportLevel,
                 param.ProductDetailsXML);
 
-            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             var winLossDetailData = dataAccess.GetData(criteria);
 

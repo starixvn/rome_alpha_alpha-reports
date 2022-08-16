@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.Web.Helpers;
+    using Alpha.PartialUM.Services;
     using Criteria.WinLossAnalysisChart;
     using Extensions;
     using Fanex.Data.Repository;
@@ -19,14 +19,14 @@
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly IDynamicRepository dynamicRepository;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
         private const int DefaultLoadingMonths = 2;
 
         public WinLossAnalysisChartServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
             IDynamicRepository dynamicRepository,
-            PartialUMService partialUMService)
+            IPartialUMService partialUMService)
         {
             this.reportDateService = reportDateService;
             this.productService = productService;
@@ -51,7 +51,7 @@
                                         validUserSelectedProductIds,
                                         param.CustLevel);
 
-                partialUMService.CheckPartialUM(criteria.GetSettingKey());
+                partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
                 winlossAnalysisChartData = dynamicRepository.Fetch<WinLossAnalysisChartModel>(criteria);
                 winlossAnalysisChartData = AddEmptyWinlossInLimitedDate(winlossAnalysisChartData, param);

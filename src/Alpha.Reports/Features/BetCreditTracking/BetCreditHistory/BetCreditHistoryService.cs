@@ -1,17 +1,17 @@
 ﻿namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using Alpha.PartialUM.Services;
     using Alpha.Reports.Constants;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Params;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Resources;
-    using Alpha.Web.Helpers;
     using Fanex.Caching;
     using Fanex.Data.Repository;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text.RegularExpressions;
 
     public interface BetCreditHistoryService
     {
@@ -38,10 +38,10 @@
         private const string to1 = "to 1";
 
         private readonly IDynamicRepository dynamicRepository;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
         private readonly ICacheService cacheService;
 
-        public BetCreditHistoryServiceImpl(IDynamicRepository dynamicRepository, PartialUMService partialUMService, ICacheService cacheService)
+        public BetCreditHistoryServiceImpl(IDynamicRepository dynamicRepository, IPartialUMService partialUMService, ICacheService cacheService)
         {
             this.dynamicRepository = dynamicRepository;
             this.partialUMService = partialUMService;
@@ -51,7 +51,7 @@
         public BetCreditHistoryResultModel GetBetCreditHistory(BetCreditHistoryParam param)
         {
             var criteria = new BetCreditHistoryCriteria(param);
-            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             var reportData = dynamicRepository.Fetch<BetCreditHistoryModel>(criteria);
 

@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
+    using Alpha.PartialUM.DataAccess;
+    using Alpha.PartialUM.Services;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
     using Alpha.Reports.Features.BonusDetail;
@@ -12,7 +14,6 @@
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
     using Alpha.Utilities.IP;
     using Alpha.Web.Helpers;
-    using Alpha.Web.Helpers.Impl;
     using Configurations;
     using Controllers;
     using DataAccesses;
@@ -127,7 +128,7 @@
                 container.GetInstance<WinLossDetailDataAccess>(),
                 container.GetInstance<ProductService>(),
                 new CacheRefServiceImpl(new RemotingRefService()).GetProductName,
-                container.GetInstance<PartialUMService>(),
+                container.GetInstance<IPartialUMService>(),
                 container.GetInstance<ICacheService>()),
                 Lifestyle.Singleton);
 
@@ -164,6 +165,7 @@
             container.RegisterSingleton<BetChoiceMatchingService, BetChoiceMatchingServiceImpl>();
             container.Register<BetChoiceMatchingWorkbook, BetChoiceMatchingWorkbookImpl>();
 
+            container.RegisterSingleton<SuperWinLossDetailByPTService, SuperWinLossDetailByPTServiceImpl>();
             container.Register<SuperWinLossDetailByPTWorkbook, SuperWinLossDetailByPTWorkbookImpl>();
 
             container.Register<BonusDetailService, BonusDetailServiceImpl>();
@@ -174,9 +176,7 @@
             container.Register<BetCreditHistoryService, BetCreditHistoryServiceImpl>();
             container.Register<BetCreditHistoryWorkbook, BetCreditHistoryWorkbookImpl>();
 
-            container.RegisterSingleton<PartialUMService, PartialUMServiceImpl>();
-
-            container.RegisterSingleton<SuperWinLossDetailByPTService, SuperWinLossDetailByPTServiceImpl>();
+            container.RegisterSingleton<IPartialUMService, PartialUMService>();
 
             container.Register<EnteredSportResultWorkbook, EnteredSportResultWorkbookImpl>();
         }
@@ -199,6 +199,8 @@
             {
                 container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Singleton);
             }
+
+            container.RegisterSingleton<IPartialUMDataAccess, PartialUMDataAccess>();
         }
 
         private static void RegisterStaticInstances(Container container)

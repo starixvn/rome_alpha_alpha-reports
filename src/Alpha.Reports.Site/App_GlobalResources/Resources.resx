@@ -946,7 +946,7 @@
     <value>The dedicated performance report of SABA Sports is only available from {0} onwards. Before {0}, data is the combination of Sportsbook and SABA Sports.</value>
   </data>
   <data name="PartialUMAnnouncement" xml:space="preserve">
-    <value>Our server is too busy at the moment so this function is turned off temporarily {0} - {1} (GMT+8). Please try again later and sorry for the inconvenience.</value>
+    <value>We're updating this function for a better experience. Thus, this function is turned off temporarily ({0} - {1} (GMT+8)). Please try again later and sorry for the inconvenience.</value>
   </data>
   <data name="BetCreditHistory" xml:space="preserve">
     <value>Bet Credit History</value>

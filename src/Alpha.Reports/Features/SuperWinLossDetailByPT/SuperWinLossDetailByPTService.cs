@@ -1,12 +1,12 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System.Collections.Generic;
+    using Alpha.PartialUM.Services;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Features.SuperWinLossDetailByPT;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Criteria;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Models;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Params;
-    using Alpha.Web.Helpers;
     using Fanex.Data.Repository;
 
     public interface SuperWinLossDetailByPTService
@@ -21,13 +21,13 @@
         private readonly IDynamicRepository repository;
         private readonly ReportDateService reportDateService;
         private readonly CacheRefService refService;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
 
         public SuperWinLossDetailByPTServiceImpl(
             IDynamicRepository repository,
             ReportDateService reportDateService,
             CacheRefService refService,
-            PartialUMService partialUMService)
+            IPartialUMService partialUMService)
         {
             this.repository = repository;
             this.reportDateService = reportDateService;
@@ -49,7 +49,7 @@
                 param.UserSelectedProductIds,
                 param.ProductDetailsXML);
 
-            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             return repository.Fetch<SuperWinLossDetailByProductModel>(criteria);
         }

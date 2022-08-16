@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System.Collections.Generic;
-    using Alpha.Web.Helpers;
+    using Alpha.PartialUM.Services;
     using Criteria.CommissionByBettype;
     using Fanex.Data.Repository;
     using Models;
@@ -19,12 +19,12 @@
     {
         private readonly IDynamicRepository repository;
         private readonly ProductService productService;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
 
         public CommissionByBettypeServiceImpl(
             IDynamicRepository dynamicRepository,
             ProductService productService,
-            PartialUMService partialUMService)
+            IPartialUMService partialUMService)
         {
             repository = dynamicRepository;
             this.productService = productService;
@@ -35,7 +35,7 @@
         {
             var criteria = new CommissionByBettypeCriteria(param.CustLevel, param.CustId, param.FromDate, param.ToDate, param.MoveBetsDay);
 
-            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             return repository.Fetch<CommissionByBettypeModel>(criteria);
         }
