@@ -7,7 +7,6 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.SessionState;
-using Alpha.Auth.Filters;
 using Alpha.NetThrottling.Mvc;
 using Alpha.Reports.Configurations;
 using Alpha.Reports.Site.Constants;
@@ -326,8 +325,6 @@ namespace Alpha.Reports.Site.Controllers
 
             SetRealtimeValues(parameters, userSession);
             UpdateReportRoutingRealtime(parameters, userSession);
-
-            RegisterGlobalFilters();
         }
 
         private static void UpdateReportRoutingRealtime(string[] parameters, IUserSession session)
@@ -348,26 +345,6 @@ namespace Alpha.Reports.Site.Controllers
                 UserSessionService.SetUserSessionValues(session, outputs, (userSession, values) => { });
             }
             catch (Exception ex) { ExceptionHandler.Handle(new Exception(ex.Message, ex), TraceEventType.Warning); }
-        }
-
-        private static void RegisterGlobalFilters()
-        {
-            var filters = GlobalFilters.Filters.Where(filter =>
-                filter.Instance is CheckBelongingFilter ||
-                filter.Instance is AfterLoginFlowFilter ||
-                filter.Instance is ProtectedModeFilter).ToArray();
-
-            var destFilters = new Filter[filters.Length];
-            Array.Copy(filters, destFilters, filters.Length);
-
-            foreach (var filter in destFilters)
-            {
-                GlobalFilters.Filters.Remove(filter);
-            }
-
-            GlobalFilters.Filters.Add(new CheckBelongingFilter());
-            GlobalFilters.Filters.Add(new AfterLoginFlowFilter());
-            GlobalFilters.Filters.Add(new ProtectedModeFilter());
         }
 
         private ActionResult RedirectToSpecificUrl()

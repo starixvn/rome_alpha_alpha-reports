@@ -102,6 +102,7 @@
       <Mapping DataField="company" ObjectProperty="Company" />
       <Mapping DataField="betcount" ObjectProperty="BetCount" />
     </Setting>
+    <Setting Key="Age_CustomerSelCheckBelonging_MultiCust" SpName="Age_CustomerSelCheckBelonging_MultiCust" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
   <Function Name="Progressvice Games Contribution">
     <Setting Key="Age_Rpt_ProgressiveGamesContribution_Master" SpName="Age_Rpt_ProgressiveGamesContribution_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
