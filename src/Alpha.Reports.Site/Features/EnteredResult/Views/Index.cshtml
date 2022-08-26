@@ -4,9 +4,19 @@
     ViewBag.Title = "Entered Results";
 }
 
+@section Styles {
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/EnteredResult/Bundles/enteredresult")
+}
+
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty))
 
 @Html.Partial("~/Features/EnteredResult/Views/Filter.cshtml", Model.FilterViewModel)
+
+<div class="non-entered-note">
+    @DateTime.Now.AddDays(-1).ToShortDateWithSlash(): @Resources.NonEntered <span>(@Model.TotalEnteredSportYesterday.NonEntered)</span> |
+    @DateTime.Now.ToShortDateWithSlash(): @Resources.NonEntered <span>(@Model.TotalEnteredSportToday.NonEntered)</span>
+</div>
+
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tablesorter" id="tbl-enteredresult-report"
        data-totalrecords="@Model.ReportData.Count()">
     <thead>
@@ -22,6 +32,14 @@
             <th class="sorting width-17per" data-colindex="3">@Resources.Entered</th>
             <th class="sorting width-17per" data-colindex="4">@Resources.NonEntered</th>
         </tr>
+        @if (Model.ReportData.Any())
+        {
+            <tr class="total-row">
+                <td class="text-left">@Resources.Total</td>
+                @RenderEnteredResult(Model.TotalEnteredSportYesterday)
+                @RenderEnteredResult(Model.TotalEnteredSportToday)
+            </tr>
+        }
     </thead>
     @if (Model.ReportData.Any())
     {

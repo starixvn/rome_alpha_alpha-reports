@@ -92,6 +92,12 @@
     ]
   },
   {
+    "outputFileName": "Features/EnteredResult/Bundles/enteredresult.css",
+    "inputFiles": [
+      "Features/EnteredResult/Styles/enteredresult.css"
+    ]
+  },
+  {
     "outputFileName": "Features/EnteredResult/Bundles/enteredresult.js",
     "inputFiles": [
       "assets/scripts/core.js",
@@ -365,7 +371,7 @@
     "inputFiles": [
       "Features/BonusDetail/Styles/bonus-detail.css"
     ]
-  },  
+  },
   {
     "outputFileName": "Features/BetCreditTracking/Bundles/movestatementhistory.js",
     "inputFiles": [
@@ -395,8 +401,7 @@
     "inputFiles": [
       "Features/BetCreditTracking/Styles/bet-credit-history.css"
     ]
-  }
-  ,
+  },
   {
     "outputFileName": "Features/SuperWinLossDetailByPT/Bundles/superwinlossdetailbypt.js",
     "inputFiles": [
@@ -498,6 +503,12 @@
     "outputFileName": "assets/bundles/partial-um/partial-um.css",
     "inputFiles": [
       "assets/styles/partial-um/partial-um.css"
+    ]
+  },
+  {
+    "outputFileName": "Features/EnteredResult/Bundles/enteredresult-dark.css",
+    "inputFiles": [
+      "Features/EnteredResult/Styles/enteredresult-dark.css"
     ]
   }
 ]

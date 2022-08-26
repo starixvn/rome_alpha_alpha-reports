@@ -1,0 +1,35 @@
+﻿.non-entered-note {
+    font-weight: bold;
+    color: #333cd1;
+    font-size: 14px;
+    margin-top: 10px;
+
+    span {
+        color: red;
+    }
+}
+
+thead {
+    .total-row {
+        font-weight: bold;
+
+        td:nth-child(3), td:nth-child(5) {
+            color: red;
+        }
+    }
+
+    td {
+        background-color: #e1e549;
+        height: 28px;
+        padding: 4px 8px;
+        white-space: nowrap;
+        vertical-align: middle;
+
+        -webkit-box-sizing: border-box;
+        -khtml-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+}

@@ -546,6 +546,28 @@
     <Content Include="App_Data\SPNames\Docker\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Docker\DBRPT.bodb_report.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Docker\DBTXN.bodb02.BODBDownlineNet.xml" />
+    <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.css" />
+    <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.min.css">
+      <DependentUpon>enteredresult-dark.css</DependentUpon>
+    </Content>
+    <Content Include="Features\EnteredResult\Styles\enteredresult-dark.css">
+      <DependentUpon>enteredresult-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\EnteredResult\Styles\enteredresult-dark.min.css">
+      <DependentUpon>enteredresult-dark.css</DependentUpon>
+    </Content>
+    <Content Include="Features\EnteredResult\Styles\enteredresult-dark.scss" />
+    <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
+    <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
+    <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
+      <DependentUpon>enteredresult.css</DependentUpon>
+    </Content>
+    <Content Include="Features\EnteredResult\Styles\enteredresult.css">
+      <DependentUpon>enteredresult.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\EnteredResult\Styles\enteredresult.min.css">
+      <DependentUpon>enteredresult.css</DependentUpon>
+    </Content>
     <Content Include="Web.AppSettings.local_2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>

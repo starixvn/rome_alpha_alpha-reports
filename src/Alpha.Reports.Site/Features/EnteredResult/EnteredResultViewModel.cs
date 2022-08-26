@@ -8,6 +8,7 @@
     using Requests.WinLoss;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Utils;
 
     public class EnteredResultViewModel
@@ -20,6 +21,10 @@
             ReportData = reportData;
             CustLevel = message.CustLevel;
             IsMobileView = isMobile;
+
+            var total = GetTotalEnteredSportYesterdayAndToday(reportData);
+            TotalEnteredSportYesterday = total.Item1;
+            TotalEnteredSportToday = total.Item2;
         }
 
         public DateTime MinDate => SystemTime.Today.AddMonths(-3).FirstDayOfMonth();
@@ -35,6 +40,10 @@
         public int UserSelectedDateRangeOption => 0;
 
         public IEnumerable<EnteredSportResult> ReportData { get; }
+
+        public DailyEnteredSport TotalEnteredSportToday { get; }
+
+        public DailyEnteredSport TotalEnteredSportYesterday { get; }
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
@@ -61,5 +70,35 @@
         }
 
         public bool IsMobileView { get; }
+
+        private Tuple<DailyEnteredSport, DailyEnteredSport> GetTotalEnteredSportYesterdayAndToday(IEnumerable<EnteredSportResult> reportData)
+        {
+            int totalEnteredToday = 0,
+                totalNonEnteredToday = 0,
+                totalEnteredYesterday = 0,
+                totalNonEnteredYesterday = 0;
+
+            if (reportData.Any())
+            {
+                foreach (var data in reportData)
+                {
+                    if (data.EnteredSportToday != null)
+                    {
+                        totalEnteredToday += data.EnteredSportToday.Entered;
+                        totalNonEnteredToday += data.EnteredSportToday.NonEntered;
+                    }
+
+                    if (data.EnteredSportYesterday != null)
+                    {
+                        totalEnteredYesterday += data.EnteredSportYesterday.Entered;
+                        totalNonEnteredYesterday += data.EnteredSportYesterday.NonEntered;
+                    }
+                }
+            }
+
+            return Tuple.Create(
+                new DailyEnteredSport(totalEnteredYesterday, totalNonEnteredYesterday),
+                new DailyEnteredSport(totalEnteredToday, totalNonEnteredToday));
+        }
     }
 }
