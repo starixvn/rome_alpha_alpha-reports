@@ -1,7 +1,7 @@
 # escape=`
 FROM hub.nexdev.net/base/rocketor/buildservice AS builder
 
-ARG DEPLOY_ENV
+ARG TRANSFORM_CONFIG
 ARG ROCKETOR_API
 ARG REDMINE_IDS
 
@@ -55,13 +55,13 @@ RUN `
         && xcopy C:\sp-result.xml "%P" /Y
 
 # Transform config
-RUN echo "%DEPLOY_ENV%" `
-    && xcopy "Web.%DEPLOY_ENV%.config" "Web.config" /Y `
-    && xcopy "Web.ConnectionStrings.%DEPLOY_ENV%.config" "Web.ConnectionStrings.config" /Y `
-	&& xcopy "Web.AppSettings.%DEPLOY_ENV%.config" "Web.AppSettings.config" /Y `
-	&& xcopy "App_Data\activitytracking.%DEPLOY_ENV%.json" "App_Data\activitytracking.json" /Y `
-	&& xcopy "App_Data\securitycode.%DEPLOY_ENV%.json" "App_Data\securitycode.json" /Y `
-	&& xcopy "App_Data\ProductSection.%DEPLOY_ENV%.config" "App_Data\ProductSection.config" /Y
+RUN echo "%TRANSFORM_CONFIG%" `
+    && xcopy "Web.%TRANSFORM_CONFIG%.config" "Web.config" /Y `
+    && xcopy "Web.ConnectionStrings.%TRANSFORM_CONFIG%.config" "Web.ConnectionStrings.config" /Y `
+	&& xcopy "Web.AppSettings.%TRANSFORM_CONFIG%.config" "Web.AppSettings.config" /Y `
+	&& xcopy "App_Data\activitytracking.%TRANSFORM_CONFIG%.json" "App_Data\activitytracking.json" /Y `
+	&& xcopy "App_Data\securitycode.%TRANSFORM_CONFIG%.json" "App_Data\securitycode.json" /Y `
+	&& xcopy "App_Data\ProductSection.%TRANSFORM_CONFIG%.config" "App_Data\ProductSection.config" /Y
 
 FROM hub.nexdev.net/base/dotnet/framework/aspnet:4.7.2-windowsservercore-ltsc2019 AS base
 
