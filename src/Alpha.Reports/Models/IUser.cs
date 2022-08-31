@@ -48,5 +48,9 @@
         string MainDomain { get; }
 
         bool AutoFollowBetIsDummyAgent { get; }
+        
+        string MainSessionID { get; }
+
+        string SessionID { get; }
     }
 }

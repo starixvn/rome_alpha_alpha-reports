@@ -1427,6 +1427,18 @@
       <DependentUpon>move-statement-history-dark.css</DependentUpon>
     </Content>
     <Content Include="Features\BetCreditTracking\Styles\move-statement-history-dark.scss" />
+    <Content Include="App_Data\ProductSection.napinternal.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.napinternal2.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.napinternal2.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.napinternal.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
     <None Include="Features\BetCreditTracking\Styles\move-statement-history.scss" />
     <TypeScriptCompile Include="Features\BetCreditTracking\Scripts\bet-credit-history.ts" />
     <Content Include="assets\styles\themes\page-title-agent-dark.min.css">
@@ -1926,6 +1938,12 @@
     </Content>
     <Content Include="Web.AppSettings.uat1.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.napinternal.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.napinternal2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

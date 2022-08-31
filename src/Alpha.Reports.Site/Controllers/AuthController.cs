@@ -13,6 +13,7 @@ using Alpha.Reports.Configurations;
 using Alpha.Reports.Site.Constants;
 using Alpha.SecurityCode.Web;
 using Alpha.Web.Filters;
+using Alpha.Web.Helpers;
 using Fanex.Cryptography.Aes;
 using Fanex.Logging.Extensions.Web;
 using Newtonsoft.Json;
@@ -83,7 +84,9 @@ namespace Alpha.Reports.Site.Controllers
 
             if (string.IsNullOrWhiteSpace(parameter))
             {
-                return Redirect("~/site-main/Dashboard/Index");
+                var cookieless = Session.IsCookieless ? $"/(S({UserSession.Current.GetProperty<string>(SessionKey.MainSessionID)}))" : string.Empty;
+
+                return Redirect($"{UserSession.Current.GetProperty<string>(SessionKey.MainDomainSessionKey)}/site-main{cookieless}/Dashboard/Index");
             }
 
             if (!string.IsNullOrWhiteSpace(authParams) &&
@@ -300,7 +303,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.USERLOGINIP, sessions[12]);
             userSession.SetProperty(SessionKey.ISPROTECTEDMODESESSIONKEY, Convert.ToBoolean(sessions[13]));
             userSession.SetProperty(SessionKey.LoginIP_Browser, sessions[16]);
-            userSession.SetProperty(SessionKey.ASSETAPPPATHSESSIONKEY, sessions[17]);
+            userSession.SetProperty(SessionKey.ASSETAPPPATHSESSIONKEY, Session.IsCookieless ? $"{sessions[15]}/assets" : sessions[17]);
 
             var pageAccess = sessions[20].Split(new[] { '$' }, StringSplitOptions.RemoveEmptyEntries).Select(bool.Parse);
             var subPageAccess = new PageAccess
@@ -329,6 +332,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectCustIdSessionKey, Convert.ToInt32(sessions[28]));
             userSession.SetProperty(SessionKey.IndirectSubAccIdSessionKey, Convert.ToInt32(sessions[29]));
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
+            userSession.SetProperty(SessionKey.MainSessionID, sessions[33]);
 
             userSession.SetProperty(SessionKey.AUTOFOLLOWBETISDUMMYAGENT, Convert.ToBoolean(sessions[34]));
 
@@ -363,7 +367,7 @@ namespace Alpha.Reports.Site.Controllers
                 return Redirect($"~/{SiteSettings.ReportRouting}{Request["ReturnUrl"].Replace("/site-reports", string.Empty)}");
             }
 
-            return Content(OK, "text/html", Encoding.UTF8);
+            return Content(Session.IsCookieless ? Session.SessionID : OK, "text/html", Encoding.UTF8);
         }
 
         private bool IsLoggedIn()

@@ -55,7 +55,7 @@
             get
             {
                 var currentAppPath = HttpRuntime.AppDomainAppVirtualPath;
-                return currentAppPath.Equals("/", StringComparison.OrdinalIgnoreCase) ?
+                return currentAppPath.Equals("/", StringComparison.OrdinalIgnoreCase) && !HttpContext.Current.Session.IsCookieless ?
                     "site-reports/" : string.Empty;
             }
         }
