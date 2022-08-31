@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLoss
 {
+    using Alpha.Reports.Site.Features.EnteredResult;
     using Alpha.Web.Helpers;
     using MediatR;
     using Requests.WinLoss;
@@ -8,15 +9,14 @@
     using ViewModels.WinLoss;
 
     public class EnteredSportResultHandler :
-        BaseHandler,
+        EnteredSportResultBaseHandler,
         IRequestHandler<EnteredSportResultQuery, EnteredResultViewModel>
     {
-        private readonly WinLossService reportService;
         private readonly BrowserHelper browserHelper;
 
-        public EnteredSportResultHandler(WinLossService reportService, BrowserHelper browserHelper)
+        public EnteredSportResultHandler(WinLossService reportService, BrowserHelper browserHelper) 
+            : base(reportService)
         {
-            this.reportService = reportService;
             this.browserHelper = browserHelper;
         }
 
@@ -28,9 +28,14 @@
             }
 
             var reportData = reportService.GetEnteredSportResults();
+            var totalEnteredSport = GetTotalEnteredSportYesterdayAndToday(reportData);
             var isOnlyMobile = browserHelper.IsMobile(isOnlyTablet: false) && !browserHelper.IsMobile(isOnlyTablet: true);
 
-            return new EnteredResultViewModel(message, reportData, isOnlyMobile);
+            return new EnteredResultViewModel(
+                message, 
+                reportData,
+                totalEnteredSport,
+                isOnlyMobile);
         }
     }
 }

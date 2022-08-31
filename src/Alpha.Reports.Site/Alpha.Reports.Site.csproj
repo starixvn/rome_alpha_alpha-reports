@@ -706,6 +706,8 @@
     </Compile>
     <Compile Include="Features\BetCreditTracking\ViewModels\BetCreditHistoryViewModel.cs" />
     <Compile Include="Features\BetCreditTracking\ViewModels\MoveStatementHistoryViewModel.cs" />
+    <Compile Include="Features\EnteredResult\EnteredSportResultBaseHandler.cs" />
+    <Compile Include="Features\EnteredResult\EnteredSportResultWorkbook.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTController.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>

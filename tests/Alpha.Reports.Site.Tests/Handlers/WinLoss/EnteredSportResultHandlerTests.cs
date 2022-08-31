@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLoss
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
@@ -63,10 +64,15 @@
                 CustId = 1596
             };
 
-            var reportData = Enumerable.Empty<EnteredSportResult>();
+            var reportData = new List<EnteredSportResult>
+            {
+                new EnteredSportResult(1, "Basketball", new DailyEnteredSport(1, 2), new DailyEnteredSport(2, 3)),
+                new EnteredSportResult(2, "Soccer", new DailyEnteredSport(3, 4), new DailyEnteredSport(4, 5)),
+            };
             reportService.GetEnteredSportResults().Returns(reportData);
+            var totalEnteredSport = new EnteredSportResult(0, "Total", new DailyEnteredSport(4, 6), new DailyEnteredSport(6, 8));
 
-            var expectedResult = new EnteredResultViewModel(message, reportData);
+            var expectedResult = new EnteredResultViewModel(message, reportData, totalEnteredSport);
 
             // Act
             var actualResult = enteredSportResultHandler.Handle(message);

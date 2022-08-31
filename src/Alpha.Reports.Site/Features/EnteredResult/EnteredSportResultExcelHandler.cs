@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Alpha.Reports.Site.Features.EnteredResult;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -13,17 +14,15 @@
     using ViewModels;
 
     public class EnteredSportResultExcelHandler :
-        BaseHandler,
+        EnteredSportResultBaseHandler,
         IRequestHandler<EnteredSportResultExcelQuery, ExcelFileViewModel>
     {
-        private readonly WinLossService reportService;
-        private readonly Workbook<EnteredSportResult> workbook;
+        private readonly EnteredSportResultWorkbook workbook;
 
         public EnteredSportResultExcelHandler(
-         WinLossService reportService,
-         Workbook<EnteredSportResult> workbook)
+             WinLossService reportService,
+             EnteredSportResultWorkbook workbook) : base(reportService)
         {
-            this.reportService = reportService;
             this.workbook = workbook;
         }
 
@@ -35,6 +34,8 @@
             }
 
             var reportData = reportService.GetEnteredSportResults();
+            var totalEnteredSport = GetTotalEnteredSportYesterdayAndToday(reportData);
+
             var resources = new Dictionary<string, string>
             {
                 ["Yesterday"] = SystemTime.Today.AddDays(-1).ToShortDateWithSlash(),
@@ -42,9 +43,10 @@
             };
 
             var result = workbook
+               .SetData(reportData, totalEnteredSport)
+               .SetRowMappers(GetEnteredSportResultRowMapper())
                .UseTemplate(GetTemplateInfo())
                .Header(key => resources.ContainsKey(key) ? resources[key] : Resources.ResourceManager.GetString(key))
-               .Body(reportData, GetEnteredSportResultRowMapper())
                .Sheet(Resources.DefaultSheetName)
                .ExportToBytes();
 
@@ -70,7 +72,7 @@
                 titleStartIndex: 0,
                 headerStartIndex: 1,
                 bodyStartIndex: 3,
-                bodyEndIndex: 4);
+                bodyEndIndex: 5);
 
         private string GetExcelFileName()
           => string.Join(

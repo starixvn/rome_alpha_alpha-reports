@@ -2,13 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using Alpha.Reports.Site.Features.EnteredResult;
     using Constants;
     using Fixtures;
-    using Newtonsoft.Json;
     using NSubstitute;
     using ONEbook.SpreadSheets;
-    using Reports.Models;
     using Reports.Models.Winloss;
     using Services;
     using Site.Handlers.WinLoss;
@@ -22,7 +20,8 @@
     public class EnteredSportResultExcelHandlerTests
     {
         private readonly WinLossService reportService;
-        private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
+        private readonly EnteredSportResultWorkbook enteredSportResultWorkbook;
+        private readonly Workbook<EnteredSportResult> onebookWorkbook;
         private readonly EnteredSportResultExcelHandler enteredSportResultExcelHandler;
         private readonly UserFixture userFixture;
 
@@ -30,16 +29,49 @@
         {
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
             reportService = Substitute.For<WinLossService>();
-            enteredSportResultWorkbook = Substitute.For<Workbook<EnteredSportResult>>();
-            enteredSportResultWorkbook.UseTemplate(Arg.Any<TemplateInfo>()).Returns(enteredSportResultWorkbook);
-            enteredSportResultWorkbook.Header(Arg.Any<Func<string, string>>()).Returns(enteredSportResultWorkbook);
-            enteredSportResultWorkbook.Body(Arg.Any<IEnumerable<EnteredSportResult>>(), Arg.Any<Mapper<EnteredSportResult>>()).Returns(enteredSportResultWorkbook);
-            enteredSportResultWorkbook.Sheet(Arg.Any<string>()).Returns(enteredSportResultWorkbook);
+
+            enteredSportResultWorkbook = Substitute.For<EnteredSportResultWorkbook>();
+            onebookWorkbook = Substitute.For<Workbook<EnteredSportResult>>();
+
+            enteredSportResultWorkbook.SetData(Arg.Any<IEnumerable<EnteredSportResult>>(), Arg.Any<EnteredSportResult>()).Returns(enteredSportResultWorkbook);
+            enteredSportResultWorkbook.SetRowMappers(Arg.Any<Mapper<EnteredSportResult>>()).Returns(enteredSportResultWorkbook);
+            enteredSportResultWorkbook.UseTemplate(Arg.Any<TemplateInfo>()).Returns(onebookWorkbook);
+
+            onebookWorkbook.Title(Arg.Any<string>()).Returns(onebookWorkbook);
+            onebookWorkbook.Header(Arg.Any<Func<string, string>>()).Returns(onebookWorkbook);
+            onebookWorkbook.Body(Arg.Any<IEnumerable<EnteredSportResult>>(), Arg.Any<Mapper<EnteredSportResult>>()).Returns(onebookWorkbook);
+            onebookWorkbook.Sheet(Arg.Any<string>()).Returns(onebookWorkbook);
 
             enteredSportResultExcelHandler = Substitute.ForPartsOf<EnteredSportResultExcelHandler>(reportService, enteredSportResultWorkbook);
             enteredSportResultExcelHandler.MapPath = Substitute.For<Func<string, string>>();
             enteredSportResultExcelHandler.IsFileExist = (path) => true;
             this.userFixture = userFixture;
+        }
+
+        [Fact]
+        public void HandleExportEnteredResultQuery_SetsRowMappers()
+        {
+            // Arrange
+            var message = CreateExportEnteredResultsExcelQuery(custLevelId: 4);
+
+            // Act
+            enteredSportResultExcelHandler.Handle(message);
+
+            // Assert
+            enteredSportResultWorkbook.Received().SetRowMappers(Arg.Any<Mapper<EnteredSportResult>>());
+        }
+
+        [Fact]
+        public void HandleExportEnteredResultQuery_SetsDataToWorkbook()
+        {
+            // Arrange
+            var message = CreateExportEnteredResultsExcelQuery(custLevelId: 4);
+
+            // Act
+            enteredSportResultExcelHandler.Handle(message);
+
+            // Assert
+            enteredSportResultWorkbook.Received().SetData(Arg.Any<IEnumerable<EnteredSportResult>>(), Arg.Any<EnteredSportResult>());
         }
 
         [Fact]
@@ -67,22 +99,6 @@
         }
 
         [Fact]
-        public void HandleExportEnteredResultQuery_ExportsCorrectBody()
-        {
-            // Arrange
-            var message = CreateExportEnteredResultsExcelQuery(custLevelId: 4);
-            var enteredResultReportData = Enumerable.Empty<EnteredSportResult>();
-
-            // Act
-            enteredSportResultExcelHandler.Handle(message);
-
-            // Assert
-            enteredSportResultWorkbook.Received().Body(
-                Arg.Is<IEnumerable<EnteredSportResult>>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(enteredResultReportData)),
-                Arg.Any<Mapper<EnteredSportResult>>());
-        }
-
-        [Fact]
         public void HandleExportEnteredResultQuery_ExportsCorrectSheetName()
         {
             // Arrange
@@ -92,7 +108,7 @@
             enteredSportResultExcelHandler.Handle(message);
 
             // Assert
-            enteredSportResultWorkbook.Received().Sheet(Arg.Is("Sheet 1"));
+            onebookWorkbook.Received().Sheet(Arg.Is("Sheet 1"));
         }
 
         [Fact]
@@ -105,7 +121,7 @@
             enteredSportResultExcelHandler.Handle(message);
 
             // Assert
-            enteredSportResultWorkbook.Received().Header(Arg.Is<Func<string, string>>(func =>
+            onebookWorkbook.Received().Header(Arg.Is<Func<string, string>>(func =>
             func("Yesterday") == "12/01/2016"
             && func("Today") == "12/02/2016"
             && func("WinLoss") == "Win/Loss"));
@@ -121,7 +137,7 @@
             enteredSportResultExcelHandler.Handle(message);
 
             // Assert
-            enteredSportResultWorkbook.Received().ExportToBytes();
+            onebookWorkbook.Received().ExportToBytes();
         }
 
         [Fact]
