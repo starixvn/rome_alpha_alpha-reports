@@ -1,16 +1,15 @@
 ﻿.non-entered-note {
   font-weight: bold;
-  color: #7a82ff;
-  font-size: 14px;
+  color: #3266cf;
   margin-top: 10px; }
   .non-entered-note span {
-    color: #e54748; }
+    color: #ff4D00; }
 
 thead .total-row {
   font-weight: bold; }
   thead .total-row td {
     border-right: none !important;
-    background-color: #36362e;
+    background-color: #7f3d1d;
     height: 28px;
     padding: 4px 8px;
     white-space: nowrap;
@@ -22,6 +21,6 @@ thead .total-row {
     -o-box-sizing: border-box;
     box-sizing: border-box; }
   thead .total-row td:nth-child(3), thead .total-row td:nth-child(5) {
-    color: #e54748; }
+    color: #ffd439; }
   thead .total-row td:last-child {
     border-right: 1px solid #5F626B !important; }

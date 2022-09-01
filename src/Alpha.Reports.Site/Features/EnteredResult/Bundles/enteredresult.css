@@ -1,10 +1,9 @@
 .non-entered-note {
   font-weight: bold;
-  color: #333cd1;
-  font-size: 14px;
+  color: #3333cc;
   margin-top: 10px; }
   .non-entered-note span {
-    color: red; }
+    color: #ff4D00; }
 
 thead .total-row {
   font-weight: bold; }
@@ -21,4 +20,4 @@ thead .total-row {
     -o-box-sizing: border-box;
     box-sizing: border-box; }
   thead .total-row td:nth-child(3), thead .total-row td:nth-child(5) {
-    color: red; }
+    color: #ff4d00; }

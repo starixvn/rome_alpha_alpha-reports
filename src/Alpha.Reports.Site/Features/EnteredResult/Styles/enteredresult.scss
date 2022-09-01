@@ -1,11 +1,10 @@
 ﻿.non-entered-note {
     font-weight: bold;
-    color: #333cd1;
-    font-size: 14px;
+    color: #3333cc;
     margin-top: 10px;
 
     span {
-        color: red;
+        color: #ff4D00;
     }
 }
 
@@ -28,7 +27,7 @@ thead {
         }
 
         td:nth-child(3), td:nth-child(5) {
-            color: red;
+            color: #ff4d00;
         }
     }
 }
