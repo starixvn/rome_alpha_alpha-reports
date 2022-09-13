@@ -40,7 +40,8 @@
                 message.ViewerLevel,
                 message.CustLevel,
                 message.CustId,
-                validUserSelectedProductIds.JoinWithComma());
+                validUserSelectedProductIds.JoinWithComma(),
+                message.AutoFollowBetIsDummyAgent);
 
             var outstandings = outstandingService.GetMemberOutstanding(param);
             var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, DateTime.Now);

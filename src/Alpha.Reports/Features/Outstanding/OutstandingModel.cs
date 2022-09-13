@@ -20,9 +20,9 @@
 
         public string DownlineLink { get; set; }
 
-        public int CustId { get; }
+        public int CustId { get; set; }
 
-        public string CustName { get; }
+        public string CustName { get; set; }
 
         public decimal MemberOutstanding { get; private set; }
 

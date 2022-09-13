@@ -330,6 +330,8 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectSubAccIdSessionKey, Convert.ToInt32(sessions[29]));
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
 
+            userSession.SetProperty(SessionKey.AUTOFOLLOWBETISDUMMYAGENT, Convert.ToBoolean(sessions[34]));
+
             SetRealtimeValues(parameters, userSession);
             UpdateReportRoutingRealtime(parameters, userSession);
         }

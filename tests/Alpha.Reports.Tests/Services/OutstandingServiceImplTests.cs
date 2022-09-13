@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Features.AutoFollowBets;
     using Alpha.PartialUM.Services;
     using Fanex.Data.Repository;
     using NSubstitute;
@@ -24,8 +25,9 @@
             UserLevel custLevel = UserLevel.Master;
             var repository = GetFakeRepository(new List<OutstandingModel>());
             var partialUMService = GetFakePartialUMService();
-            var param = new OutstandingParam(userLevel, custLevel, 1, null);
-            var outstandingService = new OutstandingServiceImpl(repository, partialUMService);
+            var autoFollowBetService = GetFakeAutoFollowBetService();
+            var param = new OutstandingParam(userLevel, custLevel, 1, null, false);
+            var outstandingService = new OutstandingServiceImpl(repository, partialUMService, autoFollowBetService);
 
             // Act
             var outstandings = outstandingService.GetMemberOutstanding(param);
@@ -44,8 +46,9 @@
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
             var repository = GetFakeRepository(new List<OutstandingModel> { null });
             var partialUMService = GetFakePartialUMService();
-            var param = new OutstandingParam(userLevel, custLevel, 1, null);
-            var outstandingService = new OutstandingServiceImpl(repository, partialUMService);
+            var autoFollowBetService = GetFakeAutoFollowBetService();
+            var param = new OutstandingParam(userLevel, custLevel, 1, null, false);
+            var outstandingService = new OutstandingServiceImpl(repository, partialUMService, autoFollowBetService);
 
             // Act
             var outstandings = outstandingService.GetMemberOutstanding(param);
@@ -60,8 +63,8 @@
         public void GetMemberOutstanding_WhenCustIdLessOrEqualZero_ReturnsEmptyData(int custId)
         {
             // Arrange
-            var param = new OutstandingParam(null, null, custId, null);
-            var outstandingService = new OutstandingServiceImpl(null, GetFakePartialUMService());
+            var param = new OutstandingParam(null, null, custId, null, false);
+            var outstandingService = new OutstandingServiceImpl(null, GetFakePartialUMService(), GetFakeAutoFollowBetService());
 
             // Act
             var outstandings = outstandingService.GetMemberOutstanding(param);
@@ -80,5 +83,8 @@
 
         private static IPartialUMService GetFakePartialUMService()
             => Substitute.For<IPartialUMService>();
+
+        private static AutoFollowBetService GetFakeAutoFollowBetService()
+            => Substitute.For<AutoFollowBetService>();
     }
 }

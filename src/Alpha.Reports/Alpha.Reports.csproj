@@ -135,8 +135,8 @@
       <HintPath>..\..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.6.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.6.4\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.6.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.6.5\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.3.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.3.5\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
@@ -243,6 +243,9 @@
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryResultModel.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Params\MoveStatementHistoryParam.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\MoveStatementHistoryService.cs" />
+    <Compile Include="Features\AutoFollowBets\Criteria\GetFollowBetAccountsCriteria.cs" />
+    <Compile Include="Features\AutoFollowBets\AutoFollowBetService.cs" />
+    <Compile Include="Features\AutoFollowBets\Models\FollowBetAccount.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperPTCriteria.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperWinLossDetailByPTCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
