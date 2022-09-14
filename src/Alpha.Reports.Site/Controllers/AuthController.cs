@@ -13,7 +13,6 @@ using Alpha.Reports.Configurations;
 using Alpha.Reports.Site.Constants;
 using Alpha.SecurityCode.Web;
 using Alpha.Web.Filters;
-using Alpha.Web.Helpers;
 using Fanex.Cryptography.Aes;
 using Fanex.Logging.Extensions.Web;
 using Newtonsoft.Json;
@@ -59,15 +58,7 @@ namespace Alpha.Reports.Site.Controllers
 
             if (!string.IsNullOrWhiteSpace(authParams))
             {
-                try
-                {
-                    parameter = AesService.Default.Decrypt(authParams, SecretKey);
-                }
-                catch
-                {
-                    parameter = string.Empty;
-                    ExceptionHandler.Handle(new Exception("Cannot verify request key " + Request.RawUrl), TraceEventType.Warning);
-                }
+               parameter = AesService.Default.Decrypt(authParams, SecretKey);
             }
             else
             {
@@ -84,9 +75,12 @@ namespace Alpha.Reports.Site.Controllers
 
             if (string.IsNullOrWhiteSpace(parameter))
             {
-                var cookieless = Session.IsCookieless ? $"/(S({UserSession.Current.GetProperty<string>(SessionKey.MainSessionID)}))" : string.Empty;
+                if (Session.IsCookieless)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
 
-                return Redirect($"{UserSession.Current.GetProperty<string>(SessionKey.MainDomainSessionKey)}/site-main{cookieless}/Dashboard/Index");
+                return Redirect($"{UserSession.Current.GetProperty<string>(SessionKey.MainDomainSessionKey)}/site-main/Dashboard/Index");
             }
 
             if (!string.IsNullOrWhiteSpace(authParams) &&
