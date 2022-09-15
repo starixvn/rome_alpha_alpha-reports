@@ -7,6 +7,7 @@
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
     using Alpha.Reports.Features.BonusDetail;
     using Alpha.Reports.Site.Features.BetCreditTracking;
+    using Alpha.Reports.Site.Features.EnteredResult;
     using Alpha.Reports.Site.Features.SuperWinLossDetailByPT;
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
     using Alpha.Utilities.IP;
@@ -176,6 +177,8 @@
             container.RegisterSingleton<PartialUMService, PartialUMServiceImpl>();
 
             container.RegisterSingleton<SuperWinLossDetailByPTService, SuperWinLossDetailByPTServiceImpl>();
+
+            container.Register<EnteredSportResultWorkbook, EnteredSportResultWorkbookImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

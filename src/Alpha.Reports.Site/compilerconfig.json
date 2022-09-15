@@ -40,6 +40,10 @@
     "inputFile": "Features/EnteredResult/Styles/enteredresult-mobile-calculate-07.scss"
   },
   {
+    "outputFile": "Features/EnteredResult/Styles/enteredresult.css",
+    "inputFile": "Features/EnteredResult/Styles/enteredresult.scss"
+  },
+  {
     "outputFile": "Features/WinLoss/Styles/winloss-mobile-calculate-07.css",
     "inputFile": "Features/WinLoss/Styles/winloss-mobile-calculate-07.scss"
   },
@@ -134,5 +138,9 @@
   {
     "outputFile": "assets/styles/error/error-dark.css",
     "inputFile": "assets/styles/error/error-dark.scss"
+  },
+  {
+    "outputFile": "Features/EnteredResult/Styles/enteredresult-dark.css",
+    "inputFile": "Features/EnteredResult/Styles/enteredresult-dark.scss"
   }
 ]

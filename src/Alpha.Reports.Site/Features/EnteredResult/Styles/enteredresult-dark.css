@@ -1,0 +1,26 @@
+﻿.non-entered-note {
+  font-weight: bold;
+  color: #3266cf;
+  margin-left: 14px; }
+  .non-entered-note span {
+    color: #ff4D00; }
+
+thead .total-row {
+  font-weight: bold; }
+  thead .total-row td {
+    border-right: none !important;
+    background-color: #7f3d1d;
+    height: 28px;
+    padding: 4px 8px;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-box-sizing: border-box;
+    -khtml-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box; }
+  thead .total-row td:nth-child(3), thead .total-row td:nth-child(5) {
+    color: #ffd439; }
+  thead .total-row td:last-child {
+    border-right: 1px solid #5F626B !important; }

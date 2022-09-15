@@ -9,6 +9,12 @@
 
         }
 
+        public DailyEnteredSport(int entered, int nonEntered)
+        {
+            Entered = entered;
+            NonEntered = nonEntered;
+        }
+
         public DailyEnteredSport(
             bool isToday,
             DateTime eventDate,

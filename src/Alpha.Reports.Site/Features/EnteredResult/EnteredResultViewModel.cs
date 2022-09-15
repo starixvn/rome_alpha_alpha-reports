@@ -15,10 +15,12 @@
         public EnteredResultViewModel(
             EnteredSportResultQuery message,
             IEnumerable<EnteredSportResult> reportData,
+            EnteredSportResult totalEnteredSport,
             bool isMobile = false)
         {
             ReportData = reportData;
             CustLevel = message.CustLevel;
+            TotalEnteredSport = totalEnteredSport;
             IsMobileView = isMobile;
         }
 
@@ -35,6 +37,8 @@
         public int UserSelectedDateRangeOption => 0;
 
         public IEnumerable<EnteredSportResult> ReportData { get; }
+
+        public EnteredSportResult TotalEnteredSport { get; }
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
