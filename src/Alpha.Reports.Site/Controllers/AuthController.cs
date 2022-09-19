@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -43,7 +44,7 @@ namespace Alpha.Reports.Site.Controllers
         {
             if (!IsValidReferrer())
             {
-                return new HttpUnauthorizedResult();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             if (!SiteSettings.IsStandaloneReport)
@@ -107,7 +108,7 @@ namespace Alpha.Reports.Site.Controllers
                 if (!string.IsNullOrWhiteSpace(param)
                     && DateTime.Now.Subtract(Convert.ToDateTime(parameters[3])).TotalSeconds > LoginTimeoutSeconds)
                 {
-                    return new HttpUnauthorizedResult();
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
                 SetUserSessionsAndAuth(parameters, session);
