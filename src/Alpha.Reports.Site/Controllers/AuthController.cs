@@ -251,7 +251,7 @@ namespace Alpha.Reports.Site.Controllers
             return false;
         }
 
-        private static void SetRealtimeValues(string[] parameters, IUserSession userSession)
+        private void SetRealtimeValues(string[] parameters, IUserSession userSession)
         {
             var sessions = parameters[1].Split(';');
 
@@ -271,9 +271,15 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.NICKNAME, sessions[32]);
             userSession.SetProperty(SessionKey.ISLOGGED, true);
             userSession.SetProperty(SessionKey.ISNICKNAMELOGINONLY, true);
+
+            try
+            {
+                Session["ONEbook.UM.ByPassUM"] = sessions[33];
+            }
+            catch { }
         }
 
-        private static void SetUserSessionsAndAuth(string[] parameters, IUserSession userSession)
+        private void SetUserSessionsAndAuth(string[] parameters, IUserSession userSession)
         {
             FormsAuthentication.SetAuthCookie(parameters[0], false);
 
