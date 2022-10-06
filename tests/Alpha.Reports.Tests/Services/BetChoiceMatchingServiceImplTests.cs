@@ -1,5 +1,9 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Alpha.PartialUM.Services;
     using Alpha.Reports.Criteria.BetChoiceMatching;
     using Alpha.Reports.Models.BetChoiceMatching;
     using Alpha.Reports.Params.BetChoiceMatching;
@@ -7,14 +11,10 @@
     using Alpha.Reports.Tests.Extensions;
     using Alpha.Reports.Tests.TestCases.BetChoiceMatching;
     using Alpha.Utilities.IP;
-    using Alpha.Web.Helpers;
     using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Sunplus.Agent.Model.Entities;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Xunit;
 
     [Trait("Category", "BetChoiceMatching")]
@@ -25,7 +25,7 @@
         private readonly IUserSession userSession;
         private readonly BetChoiceMatchingService service;
         private readonly CacheRefService cacheRefService;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
         private readonly CompareLogic compareLogic;
         private readonly DateTime winlostDate = DateTime.Parse("2019-09-09");
         private readonly DateTime moveBetsDay = DateTime.Parse("2019-08-08");
@@ -37,7 +37,7 @@
             userSession = Substitute.For<IUserSession>();
             ipService = Substitute.For<IPService>();
             cacheRefService = Substitute.For<CacheRefService>();
-            partialUMService = Substitute.For<PartialUMService>();
+            partialUMService = Substitute.For<IPartialUMService>();
             service = new BetChoiceMatchingServiceImpl(repository, userSession, ipService, cacheRefService, partialUMService);
         }
 

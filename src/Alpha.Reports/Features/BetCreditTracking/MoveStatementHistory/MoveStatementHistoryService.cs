@@ -1,12 +1,12 @@
 ﻿namespace Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Alpha.PartialUM.Services;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Params;
-    using Alpha.Web.Helpers;
     using Fanex.Data.Repository;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public interface MoveStatementHistoryService
     {
@@ -16,10 +16,9 @@
     public class MoveStatementHistoryServiceImpl : MoveStatementHistoryService
     {
         private readonly IDynamicRepository dynamicRepository;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
 
-
-        public MoveStatementHistoryServiceImpl(IDynamicRepository dynamicRepository, PartialUMService partialUMService)
+        public MoveStatementHistoryServiceImpl(IDynamicRepository dynamicRepository, IPartialUMService partialUMService)
         {
             this.dynamicRepository = dynamicRepository;
             this.partialUMService = partialUMService;
@@ -29,7 +28,7 @@
         {
             var criteria = new MoveStatementHistoryCriteria(param);
 
-            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             var result = dynamicRepository.Fetch<MoveStatementHistoryByRefNoModel>(criteria);
 

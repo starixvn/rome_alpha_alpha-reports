@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.Web.Helpers;
+    using Alpha.PartialUM.Services;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLossByProductCriteria;
@@ -20,7 +20,7 @@
     public class WinLossByProductServiceImplTests
     {
         private readonly WinLossByProductDataAccess dataAccess;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
         private readonly WinLossByProductServiceImpl winLossByBetTypeServiceImpl;
         private readonly DateTime currentDate = new DateTime(2016, 12, 28);
         private readonly CompareLogic compareLogic;
@@ -32,7 +32,7 @@
             dataAccess = Substitute.For<WinLossByProductDataAccess>();
             cacheRefService = Substitute.For<CacheRefService>();
             reportDateService = Substitute.For<ReportDateService>();
-            partialUMService = Substitute.For<PartialUMService>();
+            partialUMService = Substitute.For<IPartialUMService>();
             winLossByBetTypeServiceImpl = new WinLossByProductServiceImpl(reportDateService, dataAccess, cacheRefService, partialUMService);
             compareLogic = new CompareLogic();
         }

@@ -1,13 +1,13 @@
 ﻿namespace Alpha.Reports.Tests.Features.BetCreditTracking.MoveStatementHistory
 {
+    using System;
+    using Alpha.PartialUM.Services;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Params;
-    using Alpha.Web.Helpers;
     using Fanex.Data.Repository;
     using NSubstitute;
-    using System;
     using Xunit;
 
     [Trait("Category", "MoveStatementHistory")]
@@ -15,17 +15,17 @@
     {
         private readonly IDynamicRepository repository;
         private readonly MoveStatementHistoryService service;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
 
         public MoveStatementHistoryServiceTests()
         {
             repository = Substitute.For<IDynamicRepository>();
-            partialUMService = Substitute.For<PartialUMService>();
+            partialUMService = Substitute.For<IPartialUMService>();
             service = new MoveStatementHistoryServiceImpl(repository, partialUMService);
         }
 
         [Fact]
-        public void GetMoveStatementHistory_Always_CallCheckPartialUM()
+        public void GetMoveStatementHistory_Always_CallThrowIfUM()
         {
             // Arrange
             var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
@@ -34,7 +34,7 @@
             service.GetMoveStatementHistory(param);
 
             // Assert
-            partialUMService.Received().CheckPartialUM("Age_Rpt_StatementMovement");
+            partialUMService.Received().ThrowIfUM("Age_Rpt_StatementMovement");
         }
 
         [Fact]

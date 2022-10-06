@@ -2,11 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.PartialUM.Services;
     using Alpha.Reports.Criteria.Statement;
     using Alpha.Reports.DataAccesses;
     using Alpha.Reports.Models.Statement;
     using Alpha.Reports.Params.Statement;
-    using Alpha.Web.Helpers;
     using Extensions;
     using Fanex.Data.Repository;
 
@@ -22,13 +22,13 @@
         private readonly ReportDateService reportDateService;
         private readonly IDynamicRepository repository;
         private readonly StatementDataAccess statementRepository;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
 
         public StatementServiceImpl(
             ReportDateService reportDateService,
             IDynamicRepository repository,
             StatementDataAccess statementRepository,
-            PartialUMService partialUMService)
+            IPartialUMService partialUMService)
         {
             this.reportDateService = reportDateService;
             this.repository = repository;
@@ -51,7 +51,7 @@
                     balanceUpDay,
                     reportDateService.GetStoreMappingSuffix(timeRange.FromDate));
 
-                partialUMService.CheckPartialUM(criteria.GetSettingKey());
+                partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
                 var rawData = statementRepository.GetStatements(criteria);
 

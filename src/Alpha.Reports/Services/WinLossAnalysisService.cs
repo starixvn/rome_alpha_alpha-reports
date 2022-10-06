@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.Web.Helpers;
+    using Alpha.PartialUM.Services;
     using Criteria.WinLossAnalysis;
     using DataAccesses;
     using Extensions;
@@ -20,13 +20,13 @@
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly WinLossAnalysisDataAccess dataAccess;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
 
         public WinLossAnalysisServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
             WinLossAnalysisDataAccess dataAccess,
-            PartialUMService partialUMService)
+            IPartialUMService partialUMService)
         {
             this.reportDateService = reportDateService;
             this.productService = productService;
@@ -54,7 +54,7 @@
                                     validUserSelectedProductIds,
                                     param.CustLevel);
 
-            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             var winlossAnalysisData = dataAccess.GetWinLossAnalysis(criteria);
 

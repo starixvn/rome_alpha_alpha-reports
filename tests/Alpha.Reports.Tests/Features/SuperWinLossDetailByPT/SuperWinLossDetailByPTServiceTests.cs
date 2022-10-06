@@ -1,11 +1,11 @@
 ﻿namespace Alpha.Reports.Tests.Features.SuperWinLossDetailByPT
 {
     using System;
+    using Alpha.PartialUM.Services;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Criteria;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Models;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Params;
     using Alpha.Reports.Services;
-    using Alpha.Web.Helpers;
     using Fanex.Data.Repository;
     using NSubstitute;
     using Xunit;
@@ -16,7 +16,7 @@
         private readonly IDynamicRepository repository;
         private readonly ReportDateService reportDateService;
         private readonly CacheRefService refService;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
         private readonly SuperWinLossDetailByPTService service;
 
         public SuperWinLossDetailByPTServiceTests()
@@ -24,12 +24,12 @@
             repository = Substitute.For<IDynamicRepository>();
             reportDateService = Substitute.For<ReportDateService>();
             refService = Substitute.For<CacheRefService>();
-            partialUMService = Substitute.For<PartialUMService>();
+            partialUMService = Substitute.For<IPartialUMService>();
             service = new SuperWinLossDetailByPTServiceImpl(repository, reportDateService, refService, partialUMService);
         }
 
         [Fact]
-        public void GetSuperWinLossDetailByProducts_Always_CallCheckPartialUM()
+        public void GetSuperWinLossDetailByProducts_Always_CallThrowIfUM()
         {
             // Arrange
             var param = new SuperWinLossDetailByPTParam(
@@ -45,7 +45,7 @@
             service.GetSuperWinLossDetailByProducts(param);
 
             // Assert
-            partialUMService.Received().CheckPartialUM("Age_Rpt_WinLossDetailByPT_Super");
+            partialUMService.Received().ThrowIfUM("Age_Rpt_WinLossDetailByPT_Super");
         }
 
         [Fact]

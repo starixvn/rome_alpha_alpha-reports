@@ -2,8 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using Alpha.Web.Helpers;
+    using Alpha.PartialUM.Services;
     using Fanex.Data.Repository;
     using NSubstitute;
     using Reports.Criteria.CommissionByBettype;
@@ -20,7 +19,7 @@
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly IDynamicRepository repository;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
         private readonly CommissionByBettypeService service;
 
         public CommissionByBettypeServiceTests()
@@ -28,7 +27,7 @@
             reportDateService = Substitute.For<ReportDateService>();
             productService = Substitute.For<ProductService>();
             repository = Substitute.For<IDynamicRepository>();
-            partialUMService = Substitute.For<PartialUMService>();
+            partialUMService = Substitute.For<IPartialUMService>();
             service = new CommissionByBettypeServiceImpl(repository, productService, partialUMService);
         }
 

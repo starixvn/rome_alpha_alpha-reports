@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.Web.Helpers;
+    using Alpha.PartialUM.Services;
     using Criteria.Outstanding;
     using Fanex.Data.Repository;
     using Models.Outstanding;
@@ -16,9 +16,9 @@
     public class OutstandingServiceImpl : OutstandingService
     {
         private readonly IDynamicRepository repository;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
 
-        public OutstandingServiceImpl(IDynamicRepository dynamicRepository, PartialUMService partialUMService)
+        public OutstandingServiceImpl(IDynamicRepository dynamicRepository, IPartialUMService partialUMService)
         {
             repository = dynamicRepository;
             this.partialUMService = partialUMService;
@@ -33,7 +33,7 @@
 
             var criteria = new OutstandingCriteria(param.CustLevel, param.CustId, param.ProductIds);
 
-            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             return repository.Fetch<OutstandingModel>(criteria);
         }

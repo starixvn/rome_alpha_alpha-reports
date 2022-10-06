@@ -3,12 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.PartialUM.Services;
     using Alpha.Reports.Criteria.WinLossDetail;
     using Alpha.Reports.DataAccesses;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Models.WinLossDetail;
     using Alpha.Reports.Params;
-    using Alpha.Web.Helpers;
     using Constants;
     using Criteria.Consolidation;
     using Fanex.Caching;
@@ -47,7 +47,7 @@
         private readonly WinLossDetailDataAccess winLossDetailDataAccess;
 
         private readonly Func<int, string> getProductName;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
         private readonly ICacheService cacheService;
 
         private const int SabaPromotionProductId = 37;
@@ -60,7 +60,7 @@
             WinLossDetailDataAccess winLossDetailDataAccess,
             ProductService productService,
             Func<int, string> getProductName,
-            PartialUMService partialUMService,
+            IPartialUMService partialUMService,
             ICacheService cacheService)
         {
             this.dynamicRepository = dynamicRepository;
@@ -77,7 +77,7 @@
         {
             var criteria = new GetCurrencyCriteria(param.CustId);
 
-            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             var data = dynamicRepository.Fetch<CurrencyModel>(criteria);
 
@@ -115,7 +115,7 @@
                 ConsolidationReportTypeConstants.Product,
                 param.ProductDetailsXML);
 
-            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             var rawdata = dynamicRepository.Fetch<ConsolidationByUsername>(criteria);
 

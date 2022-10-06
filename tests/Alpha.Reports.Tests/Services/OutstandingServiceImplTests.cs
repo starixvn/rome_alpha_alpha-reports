@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.Web.Helpers;
+    using Alpha.PartialUM.Services;
     using Fanex.Data.Repository;
     using NSubstitute;
     using Reports.Criteria.Outstanding;
@@ -78,7 +78,7 @@
             return repository;
         }
 
-        private static PartialUMService GetFakePartialUMService()
-            => Substitute.For<PartialUMService>();
+        private static IPartialUMService GetFakePartialUMService()
+            => Substitute.For<IPartialUMService>();
     }
 }

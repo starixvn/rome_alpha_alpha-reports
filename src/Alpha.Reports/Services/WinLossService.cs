@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.Web.Helpers;
+    using Alpha.PartialUM.Services;
     using Configurations;
     using Criteria.WinLoss;
     using DataAccesses;
@@ -30,7 +30,7 @@
         private readonly IDynamicRepository dynamicRepository;
         private readonly CacheRefService cacheRefService;
         private readonly ICacheService cacheService;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
 
         public WinLossServiceImpl(
             ReportDateService reportDateService,
@@ -40,7 +40,7 @@
             IDynamicRepository dynamicRepository,
             CacheRefService cacheRefService,
             ICacheService cacheService,
-            PartialUMService partialUMService)
+            IPartialUMService partialUMService)
         {
             this.dynamicRepository = dynamicRepository;
             this.cacheService = cacheService;
@@ -86,7 +86,7 @@
                 param.ReportLevel,
                 param.ProductDetailsXML);
 
-            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             var winlossData = dataAccess.GetWinLoss(criteria);
 
@@ -97,7 +97,7 @@
         {
             var criteria = new DailyEnteredSportCriteria(includeTestData);
 
-            partialUMService.CheckPartialUM(criteria.GetSettingKey());
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(criteria);
 

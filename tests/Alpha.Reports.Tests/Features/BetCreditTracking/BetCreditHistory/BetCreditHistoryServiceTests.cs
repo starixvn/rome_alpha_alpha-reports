@@ -1,18 +1,18 @@
 ﻿namespace Alpha.Reports.Tests.Features.BetCreditTracking.BetCreditHistory
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Alpha.PartialUM.Services;
     using Alpha.Reports.Constants;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Params;
     using Alpha.Reports.Tests.Extensions;
-    using Alpha.Web.Helpers;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using NSubstitute;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Xunit;
 
     [Trait("Category", "BetCreditHistory")]
@@ -20,19 +20,19 @@
     {
         private readonly IDynamicRepository repository;
         private readonly BetCreditHistoryService service;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
         private readonly ICacheService cacheService;
 
         public BetCreditHistoryServiceTests()
         {
             repository = Substitute.For<IDynamicRepository>();
-            partialUMService = Substitute.For<PartialUMService>();
+            partialUMService = Substitute.For<IPartialUMService>();
             cacheService = Substitute.For<ICacheService>();
             service = new BetCreditHistoryServiceImpl(repository, partialUMService, cacheService);
         }
 
         [Fact]
-        public void GetBetCreditHistory_Always_CallCheckPartialUM()
+        public void GetBetCreditHistory_Always_CallThrowIfUM()
         {
             // Arrange
             var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, LanguageCode.English ,1, 100);
@@ -41,7 +41,7 @@
             service.GetBetCreditHistory(param);
 
             // Assert
-            partialUMService.Received().CheckPartialUM("Age_Rpt_BetCreditHistory");
+            partialUMService.Received().ThrowIfUM("Age_Rpt_BetCreditHistory");
         }
 
         [Fact]

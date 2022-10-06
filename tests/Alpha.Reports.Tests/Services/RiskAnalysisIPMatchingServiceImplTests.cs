@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
     using System.Collections.Generic;
+    using Alpha.PartialUM.Services;
     using Alpha.Reports.Criteria.RiskAnalysisIPMatching;
-    using Alpha.Web.Helpers;
     using Extensions;
     using Fanex.Data.Repository;
     using Fixtures;
@@ -18,7 +18,7 @@
     {
         private readonly AnyValueCreatorFixture anyValueCreatorFixture;
         private readonly IDynamicRepository repository;
-        private readonly PartialUMService partialUMService;
+        private readonly IPartialUMService partialUMService;
         private readonly RiskAnalysisIPMatchingServiceImpl service;
 
         public RiskAnalysisIPMatchingServiceImplTests(AnyValueCreatorFixture anyValueCreatorFixture)
@@ -26,7 +26,7 @@
             this.anyValueCreatorFixture = anyValueCreatorFixture;
 
             repository = Substitute.For<IDynamicRepository>();
-            partialUMService = Substitute.For<PartialUMService>();
+            partialUMService = Substitute.For<IPartialUMService>();
             service = new RiskAnalysisIPMatchingServiceImpl(repository, partialUMService);
         }
 
