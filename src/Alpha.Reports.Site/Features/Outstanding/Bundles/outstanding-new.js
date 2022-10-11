@@ -561,10 +561,12 @@ var OutstandingViewNew = /** @class */ (function (_super) {
                 e.preventDefault();
                 return;
             }
-            _this.replaceHrefParam("SortPropertyName", _this.getColumnSortName());
-            _this.replaceHrefParam("IsDescendingSort", _this.isDescendingSort());
-            _this.$sortPropertyName.val(_this.getColumnSortName());
-            _this.$isDescendingSort.val(_this.isDescendingSort ? 'True' : 'False');
+            var columnSortName = _this.getColumnSortName();
+            var isDescendingSort = _this.isDescendingSort();
+            _this.replaceHrefParam("SortPropertyName", columnSortName);
+            _this.replaceHrefParam("IsDescendingSort", isDescendingSort);
+            _this.$sortPropertyName.val(columnSortName);
+            _this.$isDescendingSort.val(isDescendingSort ? 'True' : 'False');
             _this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
         };
         _this.getParams = function () {

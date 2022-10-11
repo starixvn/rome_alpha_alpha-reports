@@ -86,13 +86,16 @@ class OutstandingViewNew extends BaseReportNew {
 			e.preventDefault();
 
 			return;
-		}
+        }
 
-		this.replaceHrefParam("SortPropertyName", this.getColumnSortName());
-		this.replaceHrefParam("IsDescendingSort", this.isDescendingSort());
+        var columnSortName = this.getColumnSortName();
+        var isDescendingSort = this.isDescendingSort();
 
-		this.$sortPropertyName.val(this.getColumnSortName());
-		this.$isDescendingSort.val(this.isDescendingSort ? 'True' : 'False');
+        this.replaceHrefParam("SortPropertyName", columnSortName);
+        this.replaceHrefParam("IsDescendingSort", isDescendingSort);
+
+        this.$sortPropertyName.val(columnSortName);
+        this.$isDescendingSort.val(isDescendingSort ? 'True' : 'False');
 
 		this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
 	};
