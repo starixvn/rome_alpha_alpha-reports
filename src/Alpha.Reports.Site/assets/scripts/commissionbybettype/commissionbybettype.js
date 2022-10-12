@@ -24,6 +24,7 @@ var CommissionByBettype = /** @class */ (function (_super) {
             _this.registerEvents();
             _this.dateRangePicker.render();
             _this.sorter.render(new SortOption(_this.$tableReport, parseInt(_this.$tableReport.data("totalrecords"), 0) > 1, true, _this.sorter.afterSort, { 0: { sorter: "text" } }));
+            _this.$tableReport.stickyTableHeaders();
             _this.initHelp();
         };
         _this.cacheDOMElements = function () {
