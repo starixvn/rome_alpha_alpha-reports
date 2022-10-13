@@ -18,6 +18,7 @@
     linkBuilderComponent: LinkBuilderComponent;
     canSort: boolean;
     currentHideState: boolean;
+    isClickedCollapseExpandAll = false;
 
     constructor(
         $: JQueryStatic,
@@ -110,6 +111,11 @@
             childRow.addClass('tbl-footer') :
             childRow.removeClass('tbl-footer');
 
+        if (this.isClickedCollapseExpandAll) {
+            this.isClickedCollapseExpandAll = false;
+            return;
+        }
+
         setTimeout(() => {
             const scrollTo = this.$(document).height();
             this.$(window).scrollTop(scrollTo + 15);
@@ -159,7 +165,32 @@
         this.$dataTable = this.$tableReport.DataTable(tableOptions);
 
         this.$tableReport.find('tbody').on('click', 'td.control', event => this.onClickDetailControl(event.currentTarget));
+        this.$tableReport.find('thead').on('click', 'th.control', event => this.collapseExpandAll(event.currentTarget));
         this.$dataTable.on('draw.dt', () => this.triggerRedrawTable());
+    }
+
+    private collapseExpandAll = element => {
+        this.$.blockUI();
+        this.isClickedCollapseExpandAll = true;
+        setTimeout(() => {
+            const targetParent = this.$(element).parent();
+
+            if (targetParent.hasClass("parent")) {
+                targetParent.removeClass("parent");
+                this.triggerClickDetailWhenSwitchAll(this.$('tbody tr.parent'));
+            }
+            else {
+                targetParent.addClass("parent");
+                this.triggerClickDetailWhenSwitchAll(this.$('tbody tr').not(".parent"));
+            }
+
+            this.$.unblockUI();
+        }, 100);
+    }
+
+    private triggerClickDetailWhenSwitchAll = (controlArray) => {
+        controlArray.each((index, detailButton) => this.$(detailButton).find('.control').click());
+        this.$dataTable.fixedHeader.adjust();
     }
 
     public getTableOptions = () => {
