@@ -28,6 +28,7 @@
             ViewerLevel = Enumeration.FromValue<UserLevel>(ViewerLevelId);
 
             LimitedDateToShowInfo = viewer.LimitedDateToShowInfo;
+            MainDomain = viewer.MainDomain;
         }
 
         public string Language { get; }
@@ -62,5 +63,7 @@
         public DateTime LimitedDateToShowInfo { get; set; }
 
         public bool IsPostBack { get; set; }
+
+        public string MainDomain { get; }
     }
 }

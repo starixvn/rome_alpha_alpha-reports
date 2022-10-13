@@ -150,7 +150,7 @@
         {
             if (SiteSettings.IsStandaloneReport && HttpContext.Current.Session.IsCookieless)
             {
-                return $"{currentQuery}";
+                return MicroSites.ReportsUrl(action + currentQuery).Replace("/site-reports", string.Empty);
             }
 
             return MicroSites.ReportsUrl(action + currentQuery);
@@ -168,7 +168,18 @@
         }
 
         internal static string GetMessagePath(string virtualPath)
-            => GetAppPath(virtualPath, MicroSites.MessageUrl, Web.Configurations.AppSettings.MessageAppPath);
+        {
+            if (SiteSettings.IsStandaloneReport && HttpContext.Current.Session.IsCookieless)
+            {
+                var userSession = UserSession.Current;
+                var mainDomain = userSession.GetProperty<string>(SessionKey.MainDomainSessionKey);
+                var mainSessionId = userSession.GetProperty<string>(SessionKey.MainSessionID);
+
+                return $"{mainDomain}/site-messages/(S({mainSessionId})){virtualPath?.Replace("~", string.Empty)}";
+            }
+
+            return GetAppPath(virtualPath, MicroSites.MessageUrl, Web.Configurations.AppSettings.MessageAppPath);
+        }
 
         internal static string GetAppPath(string virtualPath, Func<string, string> getAppPath, string appPath)
         {
