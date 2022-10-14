@@ -421,4 +421,7 @@
   <data name="ViewProductPTListNoteMessage" xml:space="preserve">
     <value>PT values shown in the report are the Super Max PT</value>
   </data>
+  <data name="HttpError_Default" xml:space="preserve">
+    <value>Sorry, there was an unexpected issue on the server. Please seek help from our customer support. [{0}]</value>
+  </data>
 </root>

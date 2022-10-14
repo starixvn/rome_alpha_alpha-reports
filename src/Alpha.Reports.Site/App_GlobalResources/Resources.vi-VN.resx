@@ -947,4 +947,7 @@
   <data name="PartialUMAnnouncement" xml:space="preserve">
     <value>Chúng tôi đang nâng cấp chức năng này để có trải nghiệm tốt hơn. Do đó, chức năng này tạm gián đoạn ({0} - {1} (GMT+8)). Xin lỗi vì sự bất tiện này, vui lòng thử lại sau.</value>
   </data>
+  <data name="HttpError_Default" xml:space="preserve">
+    <value>Rất tiếc, đã xảy ra lỗi không mong muốn với máy chủ. Vui lòng liên hệ với bộ phận chăm sóc khách hàng của chúng tôi để được hỗ trợ. [{0}]</value>
+  </data>
 </root>

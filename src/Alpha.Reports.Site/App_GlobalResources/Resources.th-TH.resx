@@ -922,4 +922,7 @@
   <data name="InvalidRefNo" xml:space="preserve">
     <value>หมายเลขอ้างอิงไม่ถูกต้อง</value>
   </data>
+  <data name="HttpError_Default" xml:space="preserve">
+    <value>มีปัญหาที่ไม่คาดคิดเกิดขึ้น โปรดติดต่อฝ่ายสนับสนุนลูกค้าหากท่านต้องการความช่วยเหลือ [{0}]</value>
+  </data>
 </root>
