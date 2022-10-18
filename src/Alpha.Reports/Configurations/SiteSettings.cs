@@ -121,5 +121,6 @@
 
         public static bool DisabledVietnamese => IsMBCSite;
 
+        public static string JsVersion => GetConfigValue("JsVersion");
     }
 }

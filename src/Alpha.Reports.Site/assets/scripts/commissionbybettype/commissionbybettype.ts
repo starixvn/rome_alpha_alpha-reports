@@ -40,6 +40,8 @@ class CommissionByBettype extends BaseReport {
             true,
             this.sorter.afterSort,
             { 0: { sorter: "text" } }));
+        this.$tableReport.stickyTableHeaders();
+
         this.initHelp();
     };
 

@@ -139,6 +139,7 @@ var alphaReports = new AlphaReports($, store);
 var BaseReportNew = /** @class */ (function () {
     function BaseReportNew($, linkBuilderComponent) {
         var _this = this;
+        this.isClickedCollapseExpandAll = false;
         this.initHelp = function () {
             _this.$loadLegendURL = _this.$("#LoadLegendURL");
             _this.$iconInformation = _this.$(".icon-information");
@@ -187,6 +188,10 @@ var BaseReportNew = /** @class */ (function () {
             parentRow.hasClass('parent') ?
                 childRow.addClass('tbl-footer') :
                 childRow.removeClass('tbl-footer');
+            if (_this.isClickedCollapseExpandAll) {
+                _this.isClickedCollapseExpandAll = false;
+                return;
+            }
             setTimeout(function () {
                 var scrollTo = _this.$(document).height();
                 _this.$(window).scrollTop(scrollTo + 15);
@@ -209,6 +214,26 @@ var BaseReportNew = /** @class */ (function () {
         };
         this.replaceHrefParam = function (paramName, paramValue) {
             _this.linkBuilderComponent.updateParam(paramName, paramValue);
+        };
+        this.collapseExpandAll = function (element) {
+            _this.$.blockUI();
+            _this.isClickedCollapseExpandAll = true;
+            setTimeout(function () {
+                var targetParent = _this.$(element).parent();
+                if (targetParent.hasClass("parent")) {
+                    targetParent.removeClass("parent");
+                    _this.triggerClickDetailWhenSwitchAll(_this.$('tbody tr.parent'));
+                }
+                else {
+                    targetParent.addClass("parent");
+                    _this.triggerClickDetailWhenSwitchAll(_this.$('tbody tr').not(".parent"));
+                }
+                _this.$.unblockUI();
+            }, 100);
+        };
+        this.triggerClickDetailWhenSwitchAll = function (controlArray) {
+            controlArray.each(function (index, detailButton) { return _this.$(detailButton).find('.control').click(); });
+            _this.$dataTable.fixedHeader.adjust();
         };
         this.getTableOptions = function () {
             var self = _this;
@@ -306,6 +331,7 @@ var BaseReportNew = /** @class */ (function () {
         this.$.extend(tableOptions, options);
         this.$dataTable = this.$tableReport.DataTable(tableOptions);
         this.$tableReport.find('tbody').on('click', 'td.control', function (event) { return _this.onClickDetailControl(event.currentTarget); });
+        this.$tableReport.find('thead').on('click', 'th.control', function (event) { return _this.collapseExpandAll(event.currentTarget); });
         this.$dataTable.on('draw.dt', function () { return _this.triggerRedrawTable(); });
     };
     return BaseReportNew;
@@ -561,10 +587,12 @@ var OutstandingViewNew = /** @class */ (function (_super) {
                 e.preventDefault();
                 return;
             }
-            _this.replaceHrefParam("SortPropertyName", _this.getColumnSortName());
-            _this.replaceHrefParam("IsDescendingSort", _this.isDescendingSort());
-            _this.$sortPropertyName.val(_this.getColumnSortName());
-            _this.$isDescendingSort.val(_this.isDescendingSort ? 'True' : 'False');
+            var columnSortName = _this.getColumnSortName();
+            var isDescendingSort = _this.isDescendingSort();
+            _this.replaceHrefParam("SortPropertyName", columnSortName);
+            _this.replaceHrefParam("IsDescendingSort", isDescendingSort);
+            _this.$sortPropertyName.val(columnSortName);
+            _this.$isDescendingSort.val(isDescendingSort ? 'True' : 'False');
             _this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
         };
         _this.getParams = function () {
