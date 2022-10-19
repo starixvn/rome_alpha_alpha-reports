@@ -40,5 +40,6 @@
         public const string ISFORCEDSECURITYCODE = "ISFORCEDSECURITYCODE";
         public const string ISLOGGED = "ISLOGGED";
         public const string ISNICKNAMELOGINONLY = "ISNICKNAMELOGINONLY";
+        public const string AUTOFOLLOWBETISDUMMYAGENT = "AUTOFOLLOWBETISDUMMYAGENT";
     }
 }

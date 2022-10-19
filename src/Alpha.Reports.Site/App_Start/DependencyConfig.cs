@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
+    using Alpha.Reports.Features.AutoFollowBets;
     using Alpha.PartialUM.DataAccess;
     using Alpha.PartialUM.Services;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
@@ -178,6 +179,7 @@
 
             container.RegisterSingleton<IPartialUMService, PartialUMService>();
 
+            container.RegisterSingleton<AutoFollowBetService, AutoFollowBetServiceImpl>();
             container.Register<EnteredSportResultWorkbook, EnteredSportResultWorkbookImpl>();
         }
 

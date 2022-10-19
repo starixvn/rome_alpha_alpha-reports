@@ -46,5 +46,7 @@
         string DarkModeName { get; }
 
         string MainDomain { get; }
+
+        bool AutoFollowBetIsDummyAgent { get; }
     }
 }

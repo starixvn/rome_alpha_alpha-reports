@@ -8,6 +8,7 @@
     {
         public OutstandingQuery(IUser user) : base(user)
         {
+            AutoFollowBetIsDummyAgent = user.AutoFollowBetIsDummyAgent;
         }
 
         public string UserSelectedProductIds { get; set; }
@@ -17,5 +18,7 @@
         public bool IsDescendingSort { get; set; }
 
         public bool IsFilterVisible { get; set; } = true;
+
+        public bool AutoFollowBetIsDummyAgent { get; }
     }
 }

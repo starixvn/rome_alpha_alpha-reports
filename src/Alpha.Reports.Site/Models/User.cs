@@ -12,6 +12,7 @@
     {
         private const string Jackpot = "Jackpot";
         private const string MainDomainSessionKey = "MainDomain";
+        private const string AutoFollowBetIsDummyAgentSessionKey = "AutoFollowBetIsDummyAgent";
 
         private readonly IUserSession userSession;
 
@@ -64,6 +65,8 @@
         public string DarkModeName => userSession.DarkModeName;
 
         public string MainDomain => userSession?.GetProperty<string>(MainDomainSessionKey);
+
+        public bool AutoFollowBetIsDummyAgent => userSession.GetProperty<bool>(AutoFollowBetIsDummyAgentSessionKey);
 
         internal virtual IList<int> GetEnableProductsForGame(string gameName)
             => userSession.GetProperty<IList<int>>(SessionKey.GameEnable + gameName) ?? new List<int>();
