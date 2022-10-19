@@ -269,11 +269,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.ISLOGGED, true);
             userSession.SetProperty(SessionKey.ISNICKNAMELOGINONLY, true);
 
-            try
-            {
-                Session["ONEbook.UM.ByPassUM"] = sessions[33];
-            }
-            catch { }
+            Session["ONEbook.UM.ByPassUM"] = sessions[33];
         }
 
         private void SetUserSessionsAndAuth(string[] parameters, IUserSession userSession)
@@ -326,9 +322,8 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectCustIdSessionKey, Convert.ToInt32(sessions[28]));
             userSession.SetProperty(SessionKey.IndirectSubAccIdSessionKey, Convert.ToInt32(sessions[29]));
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
-            userSession.SetProperty(SessionKey.MainSessionID, sessions[34]);
-
             userSession.SetProperty(SessionKey.AUTOFOLLOWBETISDUMMYAGENT, Convert.ToBoolean(sessions[34]));
+            userSession.SetProperty(SessionKey.MainSessionID, sessions[35]);
 
             SetRealtimeValues(parameters, userSession);
             UpdateReportRoutingRealtime(parameters, userSession);

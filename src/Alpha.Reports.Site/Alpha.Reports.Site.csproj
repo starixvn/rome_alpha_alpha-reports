@@ -60,7 +60,7 @@
       <HintPath>..\..\packages\Alpha.ActivityTracking.1.0.0.3\lib\net461\Alpha.ActivityTracking.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.Auth, Version=3.0.4.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Auth.3.0.4.5-beta01\lib\net461\Alpha.Auth.dll</HintPath>
+      <HintPath>..\..\packages\Alpha.Auth.3.0.4.5-beta02\lib\net461\Alpha.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.Logging, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.Logging.1.0.1.1\lib\net461\Alpha.Logging.dll</HintPath>
