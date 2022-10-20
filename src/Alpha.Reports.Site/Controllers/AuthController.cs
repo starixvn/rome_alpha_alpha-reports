@@ -64,11 +64,14 @@ namespace Alpha.Reports.Site.Controllers
             {
                 try
                 {
-                    parameter = $"{AesService.Default.Decrypt(HttpContext.Request.Cookies["auth_1"].Value, SecretKey)}" +
+                    if (!Session.IsCookieless)
+                    {
+                        parameter = $"{AesService.Default.Decrypt(HttpContext.Request.Cookies["auth_1"].Value, SecretKey)}" +
                         $"&{AesService.Default.Decrypt(HttpContext.Request.Cookies["auth_2"].Value, SecretKey)}" +
                         $"&{AesService.Default.Decrypt(HttpContext.Request.Cookies["auth_3"].Value, SecretKey)}";
 
-                    authParams = AesService.Default.Encrypt(parameter, SecretKey);
+                        authParams = AesService.Default.Encrypt(parameter, SecretKey);
+                    }
                 }
                 catch { }
             }
