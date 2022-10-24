@@ -2,12 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using System.Web.Mvc;
+    using System.Web;
     using Alpha.Reports.Configurations;
-    using Alpha.Reports.Models;
+    using Alpha.Reports.Site.Constants;
     using Sunplus.Agent.Model.Entities;
     using Web.Helpers;
 
@@ -79,8 +78,25 @@
             }
         }
 
+        internal static Func<string, string> RemapBetListPath
+        {
+            get
+            {
+                if (SiteSettings.IsStandaloneReport && HttpContext.Current.Session.IsCookieless)
+                {
+                    var userSession = UserSession.Current;
+                    var mainDomain = userSession.GetProperty<string>(SessionKey.MainDomainSessionKey);
+                    var mainSessionId = userSession.GetProperty<string>(SessionKey.MainSessionID);
+
+                    return new Func<string, string>((virtualPath) => $"{mainDomain}/site-betlists/(S({mainSessionId})){virtualPath?.Replace("~", string.Empty)}");
+                }
+
+                return MicroSites.BetListsUrl;
+            }
+        }
+
         internal static string GetBetListPath(string virtualPath = "~/WinLoss/Index")
-            => GetAppPath(virtualPath, MicroSites.BetListsUrl, SiteSettings.BetListAppPath);
+            => GetAppPath(virtualPath, RemapBetListPath, SiteSettings.BetListAppPath);
 
         internal static string AddQueryStringParams(string link, IDictionary<string, object> routeValues)
         {
@@ -132,9 +148,12 @@
 
         internal static string GetLink(string action, string currentQuery)
         {
-            return string.IsNullOrWhiteSpace(MainDomain) ||
-                ConfigurationManager.AppSettings["IsStandaloneReport"] != "1" ? MicroSites.ReportsUrl(action + currentQuery) : 
-                $"{MainDomain}/{UserSession.Current.GetProperty<string>(Constants.SessionKey.ReportRouting)?.TrimEnd('/')}{action.TrimStart('~')}{currentQuery}";
+            if (SiteSettings.IsStandaloneReport && HttpContext.Current.Session.IsCookieless)
+            {
+                return MicroSites.ReportsUrl(action + currentQuery).Replace("/site-reports", string.Empty);
+            }
+
+            return MicroSites.ReportsUrl(action + currentQuery);
         }
 
         private static Func<string, string> mapMessagePath;
@@ -149,21 +168,22 @@
         }
 
         internal static string GetMessagePath(string virtualPath)
-            => GetAppPath(virtualPath, MicroSites.MessageUrl, Web.Configurations.AppSettings.MessageAppPath);
+        {
+            if (SiteSettings.IsStandaloneReport && HttpContext.Current.Session.IsCookieless)
+            {
+                var userSession = UserSession.Current;
+                var mainDomain = userSession.GetProperty<string>(SessionKey.MainDomainSessionKey);
+                var mainSessionId = userSession.GetProperty<string>(SessionKey.MainSessionID);
+
+                return $"{mainDomain}/site-messages/(S({mainSessionId})){virtualPath?.Replace("~", string.Empty)}";
+            }
+
+            return GetAppPath(virtualPath, MicroSites.MessageUrl, Web.Configurations.AppSettings.MessageAppPath);
+        }
 
         internal static string GetAppPath(string virtualPath, Func<string, string> getAppPath, string appPath)
         {
-            var mainDomain = MainDomain;
-
-            return IsStandaloneReports(mainDomain)
-                ? $"{mainDomain}{appPath}{virtualPath.TrimStart('~')}"
-                : getAppPath(virtualPath);
+            return getAppPath(virtualPath);
         }
-
-        private static string MainDomain
-            => (DependencyResolver.Current?.GetService<IUser>())?.MainDomain;
-
-        private static bool IsStandaloneReports(string mainDomain)
-            => !string.IsNullOrWhiteSpace(mainDomain) && ConfigurationManager.AppSettings["IsStandaloneReport"] == "1";
     }
 }

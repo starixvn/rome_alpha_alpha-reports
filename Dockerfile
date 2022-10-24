@@ -49,7 +49,18 @@ RUN `
 		App_Data\SPNames\Docker\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml, `
 		App_Data\SPNames\Docker\DBONUSER.ON_USER.BODBDownlineNet.xml, `
 		App_Data\SPNames\Docker\DBRPT.bodb_report.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker\DBTXN.bodb02.BODBDownlineNet.xml `
+		App_Data\SPNames\Docker\DBTXN.bodb02.BODBDownlineNet.xml, `
+		App_Data\SPNames\Internal\DBACC.bodb02.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal\DBARC.bodb_Archive.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal\DBBAH.bodb02.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal\DBBOF.bodb02.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal\DBCust.CustDB.DownlineNetView.xml, `
+		App_Data\SPNames\Internal\DBCust.IPDB.xml, `
+		App_Data\SPNames\Internal\DBLOG.bodb_CustomerLog.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal\DBRPT.bodb_report.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal\DBTXN.bodb02.BODBDownlineNetView.xml `
     ) `
     DO curl --fail -o C:\sp-result.xml --form file=@"%P" --form "redmineIds=%REDMINE_IDS%" -X POST %ROCKETOR_API% `
         && xcopy C:\sp-result.xml "%P" /Y

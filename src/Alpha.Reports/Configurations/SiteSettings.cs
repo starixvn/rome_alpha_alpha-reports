@@ -55,10 +55,13 @@
             get
             {
                 var currentAppPath = HttpRuntime.AppDomainAppVirtualPath;
-                return currentAppPath.Equals("/", StringComparison.OrdinalIgnoreCase) ?
+                return currentAppPath.Equals("/", StringComparison.OrdinalIgnoreCase) && !HttpContext.Current.Session.IsCookieless ?
                     "site-reports/" : string.Empty;
             }
         }
+
+        public static string ReportDomain => HttpContext.Current.Session.IsCookieless ?
+             $"/{HttpContext.Current.Request.Headers["Host"]}/(S({HttpContext.Current.Session.SessionID}))/" : string.Empty;
 
         public static bool IsStandaloneReport => GetConfigValue("IsStandaloneReport") == "1";
 

@@ -928,4 +928,7 @@
   <data name="InvalidRefNo" xml:space="preserve">
     <value>注單號碼無效</value>
   </data>
+  <data name="HttpError_Default" xml:space="preserve">
+    <value>很抱歉，伺服器發生意外錯誤，請聯繫我們的客服協助處理。[{0}]</value>
+  </data>
 </root>

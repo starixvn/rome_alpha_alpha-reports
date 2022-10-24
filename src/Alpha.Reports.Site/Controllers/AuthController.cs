@@ -58,32 +58,32 @@ namespace Alpha.Reports.Site.Controllers
 
             if (!string.IsNullOrWhiteSpace(authParams))
             {
-                try
-                {
-                    parameter = AesService.Default.Decrypt(authParams, SecretKey);
-                }
-                catch
-                {
-                    parameter = string.Empty;
-                    ExceptionHandler.Handle(new Exception("Cannot verify request key " + Request.RawUrl), TraceEventType.Warning);
-                }
+               parameter = AesService.Default.Decrypt(authParams, SecretKey);
             }
             else
             {
                 try
                 {
-                    parameter = $"{AesService.Default.Decrypt(HttpContext.Request.Cookies["auth_1"].Value, SecretKey)}" +
+                    if (!Session.IsCookieless)
+                    {
+                        parameter = $"{AesService.Default.Decrypt(HttpContext.Request.Cookies["auth_1"].Value, SecretKey)}" +
                         $"&{AesService.Default.Decrypt(HttpContext.Request.Cookies["auth_2"].Value, SecretKey)}" +
                         $"&{AesService.Default.Decrypt(HttpContext.Request.Cookies["auth_3"].Value, SecretKey)}";
 
-                    authParams = AesService.Default.Encrypt(parameter, SecretKey);
+                        authParams = AesService.Default.Encrypt(parameter, SecretKey);
+                    }
                 }
                 catch { }
             }
 
             if (string.IsNullOrWhiteSpace(parameter))
             {
-                return Redirect("~/site-main/Dashboard/Index");
+                if (Session.IsCookieless)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                return Redirect($"{UserSession.Current.GetProperty<string>(SessionKey.MainDomainSessionKey)}/site-main/Dashboard/Index");
             }
 
             if (!string.IsNullOrWhiteSpace(authParams) &&
@@ -272,11 +272,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.ISLOGGED, true);
             userSession.SetProperty(SessionKey.ISNICKNAMELOGINONLY, true);
 
-            try
-            {
-                Session["ONEbook.UM.ByPassUM"] = sessions[33];
-            }
-            catch { }
+            Session["ONEbook.UM.ByPassUM"] = sessions[33];
         }
 
         private void SetUserSessionsAndAuth(string[] parameters, IUserSession userSession)
@@ -300,7 +296,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.USERLOGINIP, sessions[12]);
             userSession.SetProperty(SessionKey.ISPROTECTEDMODESESSIONKEY, Convert.ToBoolean(sessions[13]));
             userSession.SetProperty(SessionKey.LoginIP_Browser, sessions[16]);
-            userSession.SetProperty(SessionKey.ASSETAPPPATHSESSIONKEY, sessions[17]);
+            userSession.SetProperty(SessionKey.ASSETAPPPATHSESSIONKEY, Session.IsCookieless ? $"{sessions[15]}/assets" : sessions[17]);
 
             var pageAccess = sessions[20].Split(new[] { '$' }, StringSplitOptions.RemoveEmptyEntries).Select(bool.Parse);
             var subPageAccess = new PageAccess
@@ -329,8 +325,8 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectCustIdSessionKey, Convert.ToInt32(sessions[28]));
             userSession.SetProperty(SessionKey.IndirectSubAccIdSessionKey, Convert.ToInt32(sessions[29]));
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
-
             userSession.SetProperty(SessionKey.AUTOFOLLOWBETISDUMMYAGENT, Convert.ToBoolean(sessions[34]));
+            userSession.SetProperty(SessionKey.MainSessionID, sessions[35]);
 
             SetRealtimeValues(parameters, userSession);
             UpdateReportRoutingRealtime(parameters, userSession);
@@ -363,7 +359,7 @@ namespace Alpha.Reports.Site.Controllers
                 return Redirect($"~/{SiteSettings.ReportRouting}{Request["ReturnUrl"].Replace("/site-reports", string.Empty)}");
             }
 
-            return Content(OK, "text/html", Encoding.UTF8);
+            return Content(Session.IsCookieless ? Session.SessionID : OK, "text/html", Encoding.UTF8);
         }
 
         private bool IsLoggedIn()

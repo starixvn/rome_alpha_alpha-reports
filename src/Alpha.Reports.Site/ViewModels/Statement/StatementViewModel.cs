@@ -41,6 +41,7 @@
 
             PageSize = pageSize == 0 ? 50 : pageSize;
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
+            MainDomain = message.MainDomain;
         }
 
         public static DateTime MaxDate => DateTime.MaxValue;
@@ -74,5 +75,7 @@
 
         public PagerViewModel PagerViewModel =>
             new PagerViewModel(PageIndex, PageSize, Statements.Count());
+
+        public string MainDomain { get; }
     }
 }

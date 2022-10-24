@@ -1,5 +1,7 @@
 ﻿@using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models
 @using Sunplus.Agent.Model.Entities
+@using Alpha.Reports.Site.Constants
+@using Alpha.Reports.Configurations
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Resources.MoveStatementHistory;
@@ -7,6 +9,17 @@
     var userguideLink = UserSession.Current.Site.Equals("789y", StringComparison.OrdinalIgnoreCase) ?
         MicroSites.MessageUrl("~/StaticMessage/Guide?id=167296") :
         MicroSites.HowToUseUrl("~/Index.aspx?linktomessagesite=167296");
+
+    if (Session.IsCookieless && SiteSettings.IsStandaloneReport)
+    {
+        var currentSession = UserSession.Current;
+        var mainDomain = currentSession.GetProperty<string>(SessionKey.MainDomainSessionKey);
+        var mainSessionId = currentSession.GetProperty<string>(SessionKey.MainSessionID);
+
+        userguideLink = UserSession.Current.Site.Equals("789y", StringComparison.OrdinalIgnoreCase) ?
+            $"{mainDomain}/site-messages/(S({mainSessionId}))/StaticMessage/Guide?id=167296" :
+            $"{mainDomain}/site-howtouse/(S({mainSessionId}))/Index.aspx?linktomessagesite=167296";
+    }
 }
 @model MoveStatementHistoryViewModel
 @section Styles {

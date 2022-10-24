@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Web;
+    using System.Web.Helpers;
     using System.Web.Mvc;
     using System.Web.Routing;
     using Alpha.Auth.Filters;
@@ -40,6 +41,8 @@
     {
         protected void Application_Start()
         {
+            AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
+
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
             MvcHandler.DisableMvcResponseHeader = true;
