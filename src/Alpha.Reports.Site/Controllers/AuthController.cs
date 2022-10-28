@@ -332,6 +332,8 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.AUTOFOLLOWBETISDUMMYAGENT, Convert.ToBoolean(sessions[34]));
             userSession.SetProperty(SessionKey.MainSessionID, sessions[35]);
 
+            userSession.SetProperty(SessionKey.BetlistDomainSessionKey, sessions[36]);
+
             SetRealtimeValues(parameters, userSession);
             UpdateReportRoutingRealtime(parameters, userSession);
         }
