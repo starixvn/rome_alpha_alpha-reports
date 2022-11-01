@@ -29,6 +29,8 @@
 
             var productIds = productService.GetProgressiveJackpotProduct(
                 message.CustId,
+                message.Site,
+                message.CurrencyId,
                 userSelectedProductIds).Select(i=>i.Id);
 
             return new ProgressiveContributionParam(

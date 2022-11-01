@@ -11,7 +11,7 @@
 
     public interface ProductService
     {
-        IEnumerable<Product> GetProgressiveJackpotProduct(int custId, IEnumerable<int> progressiveJackpotproductIds);
+        IEnumerable<Product> GetProgressiveJackpotProduct(int custId, string site, int currencyId, IEnumerable<int> progressiveJackpotproductIds);
 
         IEnumerable<Product> GetProductsForCustomer(int custId, string site, int currencyId, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
 
@@ -56,9 +56,9 @@
             this.getProductName = getProductName;
         }
 
-        public IEnumerable<Product> GetProgressiveJackpotProduct(int custId, IEnumerable<int> progressiveJackpotproductIds)
+        public IEnumerable<Product> GetProgressiveJackpotProduct(int custId, string site, int currencyId, IEnumerable<int> progressiveJackpotproductIds)
         {
-            var offeredProducts = progressiveJackpotproductIds.Where(i => canViewProduct(i));
+            var offeredProducts = progressiveJackpotproductIds.Where(i => canViewProduct(i) || CanViewBySite(custId, site, currencyId, i));
 
             return offeredProducts.Select(i => new Product(i, getProductName(i), null, 0, i, getProductName));
         }
