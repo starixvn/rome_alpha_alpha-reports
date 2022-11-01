@@ -16,6 +16,7 @@
             // Act
             var model = new WinLossParam(
                 1,
+                1,
                 "",
                 1,
                 DateTime.MinValue,

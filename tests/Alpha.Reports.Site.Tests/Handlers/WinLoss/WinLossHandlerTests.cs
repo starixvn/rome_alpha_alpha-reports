@@ -106,6 +106,7 @@
             var grandTotal = new WinLossModel();
             var winLossParam = new WinLossParam(
                 0,
+                1,
                 "",
                 1,
                 DefaultVariablesTest.CurrentDate,

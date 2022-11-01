@@ -39,13 +39,13 @@
         protected WinLossByProductParam CreateWinLossByBettypeParamater(WinLossByProductQuery message)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
-                message.CustId,
+                message.ViewerId,
                 message.Site,
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
             var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
-                message.CustId,
+                message.ViewerId,
                 message.Site,
                 message.CurrencyId,
                 !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds);

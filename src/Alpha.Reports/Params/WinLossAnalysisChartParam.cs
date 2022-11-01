@@ -12,6 +12,7 @@
 
         public WinLossAnalysisChartParam(
             int custId,
+            int viewerId,
             string site,
             int currencyId,
             DateTime fromDate,
@@ -21,6 +22,7 @@
             UserLevel custLevel)
         {
             CustId = custId;
+            ViewerId = viewerId;
             Site = site;
             CurrencyId = currencyId;
             CustLevel = custLevel;
@@ -32,6 +34,8 @@
         }
 
         public int CustId { get; }
+
+        public int ViewerId { get; }
 
         public string Site { get; }
 

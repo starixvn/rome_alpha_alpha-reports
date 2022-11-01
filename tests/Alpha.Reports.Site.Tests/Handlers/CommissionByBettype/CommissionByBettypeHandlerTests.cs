@@ -68,7 +68,6 @@
         {
             //// Arrange
             var noteCount = 1;
-            service.GetProductsInOthers(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<Product>());
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(new List<byte> { 1 });
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
             var query = new CommissionByBetTypeGuideQuery(userFixture.User);

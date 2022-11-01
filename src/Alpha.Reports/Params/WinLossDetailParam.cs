@@ -9,6 +9,7 @@
     {
         public WinLossDetailParam(
             int custId,
+            int viewerId,
             string site,
             int currencyId,
             int pageIndex,
@@ -24,7 +25,7 @@
             bool isHistoricReport,
             string productDetailsXML,
             bool isEnableSabaPromotion)
-            : base(custId, site, currencyId, fromDate, toDate, limitedDate, userSelectedProductIds, userSelectedResourceIds, reportLevel, isHistoricReport, productDetailsXML)
+            : base(custId, viewerId, site, currencyId, fromDate, toDate, limitedDate, userSelectedProductIds, userSelectedResourceIds, reportLevel, isHistoricReport, productDetailsXML)
         {
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;

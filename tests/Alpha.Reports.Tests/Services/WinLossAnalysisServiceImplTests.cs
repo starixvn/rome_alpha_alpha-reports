@@ -34,7 +34,7 @@
             winLossAnalysisServiceImpl = new WinLossAnalysisServiceImpl(reportDateService, productService, dataAccess, partialUMService);
             compareLogic = new CompareLogic();
 
-            param = new WinLossAnalysisParam(0, "", 1, 2, currentDate, currentDate, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
+            param = new WinLossAnalysisParam(0, 1, "", 1, 2, currentDate, currentDate, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
         }
 
         [Fact]
@@ -67,7 +67,7 @@
         {
             // Arrange
             var limitedDate = DateTime.Today.AddDays(1);
-            var param = new WinLossAnalysisParam(0, "", 1, 2, DateTime.Today, DateTime.Today.AddDays(2), limitedDate, Enumerable.Empty<int>(), UserLevel.Super);
+            var param = new WinLossAnalysisParam(0, 1, "", 1, 2, DateTime.Today, DateTime.Today.AddDays(2), limitedDate, Enumerable.Empty<int>(), UserLevel.Super);
 
             // Act            
             winLossAnalysisServiceImpl.GetWinLossAnalysis(param);
@@ -94,7 +94,7 @@
                 new WinLossAnalysisModel("3", 3, 2, 3, null, null, null, null)
             };
 
-            var param = new WinLossAnalysisParam(0, "", 1, 3, currentDate, currentDate, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
+            var param = new WinLossAnalysisParam(0, 1, "", 1, 3, currentDate, currentDate, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
 
             // Act
             dataAccess.GetWinLossAnalysis(Arg.Any<WinLossAnalysisCriteria>()).Returns(data);

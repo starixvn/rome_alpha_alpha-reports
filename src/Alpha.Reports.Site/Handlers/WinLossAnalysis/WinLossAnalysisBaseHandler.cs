@@ -30,7 +30,7 @@
         protected WinLossAnalysisParam CreateWinLossAnalysisParamater(WinLossAnalysisQuery message)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
-                message.CustId,
+                message.ViewerId,
                 message.Site,
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
@@ -38,6 +38,7 @@
 
             return new WinLossAnalysisParam(
                  message.CustId,
+                 message.ViewerId,
                  message.Site,
                  message.CurrencyId,
                  message.ReportTypeId,

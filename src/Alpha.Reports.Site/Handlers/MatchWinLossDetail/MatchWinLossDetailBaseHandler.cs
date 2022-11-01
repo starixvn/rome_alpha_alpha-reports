@@ -41,7 +41,7 @@
         {
             var productIds = supportedProducts.Select(product => product.Id);
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
-                query.CustId,
+                query.ViewerId,
                 query.Site,
                 query.CurrencyId,
                 query.UserSelectedProductIds.ToListInt())
@@ -49,6 +49,7 @@
 
             return new MatchWinLossDetailParam(
                  query.CustId,
+                 query.ViewerId,
                  query.Site,
                  query.CurrencyId,
                  query.FromDate,

@@ -34,7 +34,7 @@
 
         public OutstandingViewModel Handle(OutstandingQuery message)
         {
-            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(message.CustId, message.Site, message.CurrencyId, message.UserSelectedProductIds.ToListInt(), DateTime.Now);
+            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(message.ViewerId, message.Site, message.CurrencyId, message.UserSelectedProductIds.ToListInt(), DateTime.Now);
             
             var param = new OutstandingParam(
                 message.ViewerLevel,
@@ -44,7 +44,7 @@
                 message.AutoFollowBetIsDummyAgent);
 
             var outstandings = outstandingService.GetMemberOutstanding(param);
-            var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, DateTime.Now);
+            var products = productService.GetProductsForCustomer(message.ViewerId, message.Site, message.CurrencyId, DateTime.Now);
             var isOnlyMobile = browserHelper.IsMobile(isOnlyTablet: false) && !browserHelper.IsMobile(isOnlyTablet: true);
 
             var viewModel = new OutstandingViewModel(

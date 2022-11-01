@@ -33,13 +33,13 @@
         protected WinLossParam CreateWinLossParamater(WinLossQuery message)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
-                message.CustId,
+                message.ViewerId,
                 message.Site,
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
             var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
-                message.CustId,
+                message.ViewerId,
                 message.Site,
                 message.CurrencyId,
                 !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds);
@@ -47,6 +47,7 @@
 
             return new WinLossParam(
                  message.CustId,
+                 message.ViewerId,
                  message.Site,
                  message.CurrencyId,
                  message.FromDate,

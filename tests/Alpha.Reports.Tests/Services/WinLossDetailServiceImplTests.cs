@@ -49,6 +49,7 @@
             // Arrange
             WinLossDetailParam param = new WinLossDetailParam(
                 0,
+                1,
                 "",
                 1,
                 0,
@@ -84,6 +85,7 @@
             var limitedDate = DateTime.Today.AddDays(1);
             WinLossDetailParam param = new WinLossDetailParam(
                 0,
+                1,
                 "",
                 1,
                 0,

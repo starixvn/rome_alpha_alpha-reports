@@ -143,6 +143,7 @@
 
             return new WinLossDetailParam(
                 query.CustId,
+                query.ViewerId,
                 query.Site,
                 query.CurrencyId,
                 query.PageIndex,

@@ -43,6 +43,7 @@
 
             param = new MatchWinLossDetailParam(
                 anyValueCreatorFixture.Create<int>(),
+                anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<string>(),
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<DateTime>(),

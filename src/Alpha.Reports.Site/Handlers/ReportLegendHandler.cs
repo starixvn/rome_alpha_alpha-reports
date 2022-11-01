@@ -22,19 +22,19 @@
         }
 
         public IEnumerable<string> Handle(ReportLegendQuery message)
-            => GetReportLegends(message.CustId, message.Site, message.CurrencyId);
+            => GetReportLegends(message.ViewerId, message.Site, message.CurrencyId);
 
         public ReportLegendViewModel Handle(ReportLegendGrossCommQuery message)
         {
-            var legends = GetReportLegends(message.CustId, message.Site, message.CurrencyId);
+            var legends = GetReportLegends(message.ViewerId, message.Site, message.CurrencyId);
 
             return new ReportLegendViewModel(legends, GetGrossCommNotes(message.ViewerLevel));
         }
 
-        private IEnumerable<string> GetReportLegends(int custId, string site, int currencyId)
+        private IEnumerable<string> GetReportLegends(int viewerId, string site, int currencyId)
         {
             var result = new List<string>();
-            var products = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(custId, site, currencyId).Select(product => (int)product);
+            var products = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(viewerId, site, currencyId).Select(product => (int)product);
 
             if (products.Any())
             {

@@ -9,6 +9,7 @@
     {
         public MatchWinLossDetailParam(
             int custId,
+            int viewerId,
             string site,
             int currencyId,
             DateTime fromDate,
@@ -19,6 +20,7 @@
             UserLevel reportLevel)
         {
             CustId = custId;
+            ViewerId = viewerId;
             Site = site;
             CurrencyId = currencyId;
             FromDate = fromDate == DateTime.MinValue ? SystemTime.Today : fromDate;
@@ -30,6 +32,8 @@
         }
 
         public int CustId { get; }
+
+        public int ViewerId { get; }
 
         public string Site { get; }
 
