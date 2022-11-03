@@ -31,7 +31,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProgressiveJackpotProduct(message.CustId, message.EnableJackpotProductIds);
+            var products = productService.GetProgressiveJackpotProduct(message.CustId, message.Site, message.CurrencyId, message.EnableJackpotProductIds);
             var param = CreateProgressiveContributionParam(message);
             var progressiveContributions = progressiveContributionService.GetProgressiveContributions(param);
             var grandTotal = AccumulateGrandTotal(progressiveContributions);
