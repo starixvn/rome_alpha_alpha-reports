@@ -73,7 +73,7 @@
             }
 
             var validUserSelectedProductIds =
-                productService.FilterProductIdsByCustomer(param.CustId, param.Site, param.CurrencyId, param.UserSelectedProductIds);
+                productService.FilterProductIdsByCustomer(param.ViewerId, param.Site, param.CurrencyId, param.UserSelectedProductIds);
             validUserSelectedProductIds = productDetailService.RemoveProductIds(validUserSelectedProductIds, param.UserSelectedResourceIds);
 
             var criteria = new WinLossCriteria(

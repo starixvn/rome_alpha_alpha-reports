@@ -14,11 +14,11 @@
 
     public interface ProductDetailService
     {
-        IEnumerable<int> FilterResourceIdsByCustomer(int custId, string site, int currencyId, string resourceIds);
+        IEnumerable<int> FilterResourceIdsByCustomer(int viewerId, string site, int currencyId, string resourceIds);
 
         IEnumerable<int> FilterResourceIdsByCustomerForConsolidationReport(int custId, string resourceIds, IEnumerable<Product> products);
 
-        IEnumerable<ProductDetail> GetProductDetails(int custId, string site, int currencyId);
+        IEnumerable<ProductDetail> GetProductDetails(int viewerId, string site, int currencyId);
 
         IEnumerable<ProductDetail> GetProductDetailsForConsolidationReport(int custId, IEnumerable<Product> products);
 
@@ -52,37 +52,23 @@
             this.canViewProduct = canViewProduct;
         }
 
-        public IEnumerable<int> FilterResourceIdsByCustomer(int custId, string site, int currencyId, string resourceIds)
-            => FilterResourceIdsByCustomer(GetProductDetails(custId, site, currencyId), resourceIds);
+        public IEnumerable<int> FilterResourceIdsByCustomer(int viewerId, string site, int currencyId, string resourceIds)
+            => FilterResourceIdsByCustomer(GetProductDetails(viewerId, site, currencyId), resourceIds);
 
         public IEnumerable<int> FilterResourceIdsByCustomerForConsolidationReport(int custId, string resourceIds, IEnumerable<Product> products)
             => FilterResourceIdsByCustomer(GetProductDetailsForConsolidationReport(custId, products), resourceIds);
-
-        private static IEnumerable<int> FilterResourceIdsByCustomer(IEnumerable<ProductDetail> productDetails, string resourceIds)
+                
+        public IEnumerable<ProductDetail> GetProductDetails(int viewerId, string site, int currencyId)
         {
-            if (IsSelectAllProductDetails(resourceIds))
-            {
-                return productDetails.Select(p => p.ResourceId);
-            }
-
-            var resourceIdsHash = resourceIds.ToIntDictionary();
-
-            return productDetails
-                .Where(p => resourceIdsHash.ContainsKey(p.ResourceId))
-                .Select(p => p.ResourceId);
-        }
-
-        public IEnumerable<ProductDetail> GetProductDetails(int custId, string site, int currencyId)
-        {
-            if (custId <= 0)
+            if (viewerId <= 0)
             {
                 return Enumerable.Empty<ProductDetail>();
             }
 
-            var canViewProductDetails = CanViewProductDetails(custId, site, currencyId);
+            var canViewProductDetails = CanViewProductDetails(viewerId, site, currencyId);
 
             return ConfiguredCacheService.GetOrSet(
-                $"{ProductDetailsCacheKey}-{custId}",
+                $"{ProductDetailsCacheKey}-{viewerId}",
                 () => GetProductDetails()
                     .Where(p => canViewProductDetails.ContainsKey(p.ProductId))
                     .Select(product =>
@@ -113,12 +99,6 @@
                 });
         }
 
-        private IEnumerable<ProductDetail> GetProductDetails()
-            => ConfiguredCacheService.GetOrSet(
-                ProductDetailsCacheKey,
-                () => dynamicRepository.Fetch<ProductDetail>(new GetProductsDetailCriteria()),
-                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(ProductDetailsCacheInDay)));
-
         public string BuildProductDetailsXML(IEnumerable<int> validProductIds, IEnumerable<int> validResourceIds)
         {
             var validProductDetails = new List<ProductDetail>();
@@ -138,66 +118,6 @@
             return validProductDetails.Any()
                 ? BuildProductDetailsXML(validProductDetails)
                 : string.Empty;
-        }
-
-        private static string BuildProductDetailsXML(IEnumerable<ProductDetail> productDetails)
-        {
-            var xml = new StringBuilder("<ROOT>");
-            foreach (var product in productDetails)
-            {
-                foreach (var leagueId in product.LeagueGroupIds)
-                {
-                    foreach (var typeId in product.TicketTypeIds)
-                    {
-                        xml.AppendFormat(
-                            "<ProductDetail ProductId=\"{0}\" Sporttype=\"{1}\" Bettype=\"{2}\" LeagueGroupId=\"{3}\" TicketType=\"{4}\"/>",
-                            product.ProductId,
-                            product.SportType,
-                            product.BetType,
-                            leagueId,
-                            typeId);
-                    }
-                }
-            }
-
-            xml.Append("</ROOT>");
-
-            return xml.ToString();
-        }
-
-        private static bool IsSelectAllProductDetails(string resourceIds)
-            => resourceIds != null && resourceIds == DefaultVariables.AllProductDetails;
-
-        private IDictionary<int, bool> CanViewProductDetails(int custId, string site, int currencyId)
-        {
-            var canViewProductDetails = new Dictionary<int, bool>();
-
-            foreach (var product in SiteSettings.ProductOfferProductDetail)
-            {
-                if (canViewBySite(custId, site, currencyId, product) || canViewProduct(product))
-                {
-                    canViewProductDetails[product] = true;
-                }
-            }
-
-            return canViewProductDetails;
-        }
-
-        private static IDictionary<int, bool> CanViewProductDetailsForConsolidationReport(IEnumerable<Product> products)
-        {
-            var canViewProductDetails = new Dictionary<int, bool>();
-
-            products
-                .ToList()
-                .ForEach(product =>
-                {
-                    if (IsSupportProductDetail(product.Id))
-                    {
-                        canViewProductDetails[product.Id] = true;
-                    }
-                });
-
-            return canViewProductDetails;
         }
 
         public IDictionary<int, string> GetProductNamesExportExcel(IEnumerable<int> selectedResourceIds)
@@ -247,6 +167,86 @@
                 });
 
             return removedProductIds;
+        }
+
+        private static IEnumerable<int> FilterResourceIdsByCustomer(IEnumerable<ProductDetail> productDetails, string resourceIds)
+        {
+            if (IsSelectAllProductDetails(resourceIds))
+            {
+                return productDetails.Select(p => p.ResourceId);
+            }
+
+            var resourceIdsHash = resourceIds.ToIntDictionary();
+
+            return productDetails
+                .Where(p => resourceIdsHash.ContainsKey(p.ResourceId))
+                .Select(p => p.ResourceId);
+        }
+
+        private IEnumerable<ProductDetail> GetProductDetails()
+            => ConfiguredCacheService.GetOrSet(
+                ProductDetailsCacheKey,
+                () => dynamicRepository.Fetch<ProductDetail>(new GetProductsDetailCriteria()),
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(ProductDetailsCacheInDay)));
+
+        private static string BuildProductDetailsXML(IEnumerable<ProductDetail> productDetails)
+        {
+            var xml = new StringBuilder("<ROOT>");
+            foreach (var product in productDetails)
+            {
+                foreach (var leagueId in product.LeagueGroupIds)
+                {
+                    foreach (var typeId in product.TicketTypeIds)
+                    {
+                        xml.AppendFormat(
+                            "<ProductDetail ProductId=\"{0}\" Sporttype=\"{1}\" Bettype=\"{2}\" LeagueGroupId=\"{3}\" TicketType=\"{4}\"/>",
+                            product.ProductId,
+                            product.SportType,
+                            product.BetType,
+                            leagueId,
+                            typeId);
+                    }
+                }
+            }
+
+            xml.Append("</ROOT>");
+
+            return xml.ToString();
+        }
+
+        private static bool IsSelectAllProductDetails(string resourceIds)
+            => resourceIds != null && resourceIds == DefaultVariables.AllProductDetails;
+
+        private IDictionary<int, bool> CanViewProductDetails(int viewerId, string site, int currencyId)
+        {
+            var canViewProductDetails = new Dictionary<int, bool>();
+
+            foreach (var product in SiteSettings.ProductOfferProductDetail)
+            {
+                if (canViewBySite(viewerId, site, currencyId, product) || canViewProduct(product))
+                {
+                    canViewProductDetails[product] = true;
+                }
+            }
+
+            return canViewProductDetails;
+        }
+
+        private static IDictionary<int, bool> CanViewProductDetailsForConsolidationReport(IEnumerable<Product> products)
+        {
+            var canViewProductDetails = new Dictionary<int, bool>();
+
+            products
+                .ToList()
+                .ForEach(product =>
+                {
+                    if (IsSupportProductDetail(product.Id))
+                    {
+                        canViewProductDetails[product.Id] = true;
+                    }
+                });
+
+            return canViewProductDetails;
         }
 
         private static bool IsSupportProductDetail(int productId)

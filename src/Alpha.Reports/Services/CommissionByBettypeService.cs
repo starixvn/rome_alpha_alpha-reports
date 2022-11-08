@@ -11,8 +11,6 @@
     public interface CommissionByBettypeService
     {
         IEnumerable<CommissionByBettypeModel> GetAllCommissionByBettypes(CommissionByBettypeParam param);
-
-        IEnumerable<Product> GetProductsInOthers(int custId, string site, int currencyId);
     }
 
     public class CommissionByBettypeServiceImpl : CommissionByBettypeService
@@ -39,8 +37,5 @@
 
             return repository.Fetch<CommissionByBettypeModel>(criteria);
         }
-
-        public IEnumerable<Product> GetProductsInOthers(int custId, string site, int currencyId)
-            => productService.GetProductsForCustomer(custId, site, currencyId);
     }
 }

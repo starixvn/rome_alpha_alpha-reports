@@ -173,6 +173,7 @@
                 query,
                 new MatchWinLossDetailParam(
                      query.CustId,
+                     query.ViewerId,
                      query.Site,
                      query.CurrencyId,
                      query.FromDate,
@@ -282,6 +283,7 @@
                 query,
                 new MatchWinLossDetailParam(
                      query.CustId,
+                     query.ViewerId,
                      query.Site,
                      query.CurrencyId,
                      query.FromDate,

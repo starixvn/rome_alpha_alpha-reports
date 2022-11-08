@@ -25,6 +25,7 @@
             int custId = 1;
             var param = new WinLossAnalysisParam(
                 custId: custId,
+                viewerId: custId,
                 site: "",
                 currencyId: 1,
                 reportType: 2,
@@ -47,6 +48,7 @@
             // Arrange
             var param = new WinLossAnalysisParam(
                 custId: 0,
+                viewerId: 1,
                 site: "",
                 currencyId: 1,
                 reportType: 2,
@@ -71,6 +73,7 @@
             // Arrange
             var param = new WinLossAnalysisParam(
                 custId: 0,
+                viewerId: 1,
                 site: "",
                 currencyId: 1,
                 reportType: 2,
@@ -97,6 +100,7 @@
 
             var param = new WinLossAnalysisParam(
                 custId: 0,
+                viewerId: 1,
                 site: "",
                 currencyId: 1,
                 reportType: 2,
@@ -121,6 +125,7 @@
             // Arrange
             var param = new WinLossAnalysisParam(
                 custId: 0,
+                viewerId: 1,
                 site: "",
                 currencyId: 1,
                 reportType: 2,
@@ -150,6 +155,7 @@
 
             var param = new WinLossAnalysisParam(
                 custId: 0,
+                viewerId: 1,
                 site: "",
                 currencyId: 1,
                 reportType: 2,

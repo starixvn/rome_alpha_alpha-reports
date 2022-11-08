@@ -36,7 +36,7 @@
             winLossAnalysisChartServiceImpl = new WinLossAnalysisChartServiceImpl(reportDateService, productService, dynamicRepository, partialUMService);
             compareLogic = new CompareLogic();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(ProductIds);
-            param = new WinLossAnalysisChartParam(1, "", 1, DateTime.Now.AddMonths(-3), DateTime.Now, DateTime.MinValue, ProductIds, UserLevel.Super);
+            param = new WinLossAnalysisChartParam(1, 1, "", 1, DateTime.Now.AddMonths(-3), DateTime.Now, DateTime.MinValue, ProductIds, UserLevel.Super);
         }
 
         [Fact]
@@ -92,7 +92,7 @@
         {
             // Arrange
             var limitedDate = new DateTime(2017, 3, 29);
-            var param = new WinLossAnalysisChartParam(1, "", 1, new DateTime(2017, 2, 1), new DateTime(2017, 5, 1), limitedDate, new List<int> { 1, 2 }, UserLevel.Super);
+            var param = new WinLossAnalysisChartParam(1, 1, "", 1, new DateTime(2017, 2, 1), new DateTime(2017, 5, 1), limitedDate, new List<int> { 1, 2 }, UserLevel.Super);
             var dataFromSp = new List<WinLossAnalysisChartModel>
             {
                 new WinLossAnalysisChartModel("2017-03", 13051.12m, 56300.13m),
@@ -122,7 +122,7 @@
         public void GetWinLossAnalysisChart_MonthRangeIsLessThan3Months_ReturnEmpty()
         {
             // Arrange
-            var param = new WinLossAnalysisChartParam(1, "", 1, DateTime.Now, DateTime.Now, DateTime.MinValue, ProductIds, UserLevel.Super);
+            var param = new WinLossAnalysisChartParam(1, 1, "", 1, DateTime.Now, DateTime.Now, DateTime.MinValue, ProductIds, UserLevel.Super);
 
             // Act
             var actualData = winLossAnalysisChartServiceImpl.GetWinLossAnalysisChart(param);

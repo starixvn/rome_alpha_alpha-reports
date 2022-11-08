@@ -26,6 +26,7 @@
             var custId = 1;
             var winLossDetailParam = new WinLossDetailParam(
                 custId,
+                custId,
                 string.Empty,
                 1,
                 0,
@@ -55,6 +56,7 @@
             // Arrange
             var winLossDetailParam = new WinLossDetailParam(
                 0,
+                1,
                 string.Empty,
                 1,
                 0,
@@ -85,6 +87,7 @@
             // Arrange
             var winLossDetailParam = new WinLossDetailParam(
                 0,
+                1,
                 string.Empty,
                 1,
                 0,
@@ -119,6 +122,7 @@
 
             var winLossDetailParam = new WinLossDetailParam(
                 0,
+                1,
                 string.Empty,
                 1,
                 0,
@@ -151,6 +155,7 @@
             // Arrange
             var winLossDetailParam = new WinLossDetailParam(
                     0,
+                    1,
                     "",
                     1,
                     0,
@@ -186,6 +191,7 @@
 
             var winLossDetailParam = new WinLossDetailParam(
                 0,
+                1,
                 string.Empty,
                 1,
                 0,
@@ -217,6 +223,7 @@
             var custLevel = UserLevel.Super;
             var winLossDetailParam = new WinLossDetailParam(
                 0,
+                1,
                 string.Empty,
                 1,
                 0,
@@ -249,6 +256,7 @@
             // Arrange
             var winLossDetailParam = new WinLossDetailParam(
                 0,
+                1,
                 "",
                 1,
                 0,
@@ -284,6 +292,7 @@
 
             var winLossDetailParam = new WinLossDetailParam(
                 0,
+                1,
                 string.Empty,
                 1,
                 0,
@@ -314,6 +323,7 @@
             // Arrange
             var winLossDetailParam = new WinLossDetailParam(
                 0,
+                1,
                 string.Empty,
                 1,
                 0,
@@ -350,6 +360,7 @@
             // Arrange
             var winLossDetailParam = new WinLossDetailParam(
                 0,
+                1,
                 "",
                 1,
                 pageIndex,
@@ -380,6 +391,7 @@
             // Arrange
             var winLossDetailParam = new WinLossDetailParam(
                 0,
+                1,
                 string.Empty,
                 1,
                 0,
@@ -416,6 +428,7 @@
             // Arrange
             var winLossDetailParam = new WinLossDetailParam(
                 0,
+                1,
                 "",
                 1,
                 0,
@@ -445,6 +458,7 @@
         {
             // Arrange
             var winLossDetailParam = new WinLossDetailParam(
+                1,
                 1,
                 string.Empty,
                 1,

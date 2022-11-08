@@ -9,6 +9,7 @@
     {
         public WinLossAnalysisParam(
           int custId,
+          int viewerId,
           string site,
           int currencyId,
           int reportType,
@@ -19,6 +20,7 @@
           UserLevel custLevel)
         {
             CustId = custId;
+            ViewerId = viewerId;
             Site = site;
             CurrencyId = currencyId;
             CustLevel = custLevel;
@@ -32,6 +34,8 @@
         }
 
         public int CustId { get; }
+
+        public int ViewerId { get; }
 
         public string Site { get; }
 

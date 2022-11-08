@@ -25,8 +25,8 @@
 
         public SuperWinLossDetailByPTViewModel Handle(SuperWinLossDetailByPTQuery message)
         {
-            var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, message.MinDate);
-            var productDetails = productDetailService.GetProductDetails(message.CustId, message.Site, message.CurrencyId);
+            var products = productService.GetProductsForCustomer(message.ViewerId, message.Site, message.CurrencyId, message.MinDate);
+            var productDetails = productDetailService.GetProductDetails(message.ViewerId, message.Site, message.CurrencyId);
 
             var superPTParam = CreateSuperPTParam(message.ViewerId);
             var winLossDetailByPTParam = CreateSuperWinLossDetailByPTParam(message);

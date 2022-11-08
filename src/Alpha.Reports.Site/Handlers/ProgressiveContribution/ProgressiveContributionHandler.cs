@@ -31,7 +31,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProgressiveJackpotProduct(message.CustId, message.Site, message.CurrencyId, message.EnableJackpotProductIds);
+            var products = productService.GetProgressiveJackpotProduct(message.ViewerId, message.Site, message.CurrencyId, message.EnableJackpotProductIds);
             var param = CreateProgressiveContributionParam(message);
             var progressiveContributions = progressiveContributionService.GetProgressiveContributions(param);
             var grandTotal = AccumulateGrandTotal(progressiveContributions);
@@ -49,7 +49,7 @@
             var result = new List<string>();
             result.Add(Resources.ContributionAmountRoundNote);
 
-            var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId)
+            var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.ViewerId, message.Site, message.CurrencyId)
                 .Where(product => message.EnableJackpotProductIds.Contains(product))
                 .Select(product => (int)product);
 

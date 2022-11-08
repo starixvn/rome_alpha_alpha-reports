@@ -35,8 +35,8 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, message.MinDate, message.IsEnableSabaPromotion);
-            var productDetails = productDetailService.GetProductDetails(message.CustId, message.Site, message.CurrencyId);
+            var products = productService.GetProductsForCustomer(message.ViewerId, message.Site, message.CurrencyId, message.MinDate, message.IsEnableSabaPromotion);
+            var productDetails = productDetailService.GetProductDetails(message.ViewerId, message.Site, message.CurrencyId);
 
             var winLossDetailParam = CreateParameter(message, message.CustLevel);
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
@@ -57,19 +57,19 @@
             var result = new List<string>();
             result.Add(Resources.Tooltip_NetTurnover);
 
-            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.Site, message.CurrencyId);
+            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.ViewerId, message.Site, message.CurrencyId);
             if (!string.IsNullOrEmpty(liveCasinoTooltips))
             {
                 result.Add(liveCasinoTooltips);
             }
 
-            var rngCasinoTooltips = BuildTooltipsForRNGCasino(message.CustId, message.Site, message.CurrencyId);
+            var rngCasinoTooltips = BuildTooltipsForRNGCasino(message.ViewerId, message.Site, message.CurrencyId);
             if (!string.IsNullOrEmpty(rngCasinoTooltips))
             {
                 result.Add(rngCasinoTooltips);
             }
 
-            var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId).Select(product => (int)product);
+            var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.ViewerId, message.Site, message.CurrencyId).Select(product => (int)product);
 
             if (productsNeedDelayTimeToSumarizeData.Any())
             {
@@ -81,9 +81,9 @@
             return new ReportLegendViewModel(result, GetGrossCommNotes(message.ViewerLevel));
         }
 
-        private string BuildTooltipsForLiveCasino(int custId, string site, int currencyId)
+        private string BuildTooltipsForLiveCasino(int viewerId, string site, int currencyId)
         {
-            var offeredLiveCasino = productService.FilterProductsByCustomer(custId, site, currencyId, ProductIdConstants.ProductListForTooltipsLiveCasino);
+            var offeredLiveCasino = productService.FilterProductsByCustomer(viewerId, site, currencyId, ProductIdConstants.ProductListForTooltipsLiveCasino);
             var liveCasinoNames = string.Join(", ", offeredLiveCasino.Select(i => i.Name));
 
             return offeredLiveCasino != null && offeredLiveCasino.Any() ?
@@ -91,9 +91,9 @@
                 string.Empty;
         }
 
-        private string BuildTooltipsForRNGCasino(int custId, string site, int currencyId)
+        private string BuildTooltipsForRNGCasino(int viewerId, string site, int currencyId)
         {
-            var offeredRNGCasino = productService.GetProductsForCustomer(custId, site, currencyId)
+            var offeredRNGCasino = productService.GetProductsForCustomer(viewerId, site, currencyId)
                 .Where(i => i.Type == ProductIdConstants.DummyRNGProductId || ProductIdConstants.ProductListForTooltipsRNGCasino.Contains(i.Id));
             var rngCasinoNames = string.Join(", ", offeredRNGCasino.Select(i => i.DisplayName));
 

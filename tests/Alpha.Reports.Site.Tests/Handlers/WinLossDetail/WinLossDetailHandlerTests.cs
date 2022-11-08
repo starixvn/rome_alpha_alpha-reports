@@ -80,6 +80,7 @@
 
             var winLossDetailParam = new WinLossDetailParam(
                 10,
+                10,
                 "",
                 1,
                 0,

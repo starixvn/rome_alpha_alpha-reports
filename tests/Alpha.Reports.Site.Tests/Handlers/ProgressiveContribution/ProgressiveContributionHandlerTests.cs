@@ -96,7 +96,7 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId).Returns(Enumerable.Empty<byte>());
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.ViewerId, message.Site, message.CurrencyId).Returns(Enumerable.Empty<byte>());
 
             var expectedViewModel = new List<string>
             {

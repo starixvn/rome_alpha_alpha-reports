@@ -66,6 +66,7 @@
             // Arrange
             var param = new MatchWinLossDetailParam(
                 anyValueCreatorFixture.Create<int>(),
+                anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<string>(),
                 anyValueCreatorFixture.Create<int>(),
                 DefaultVariablesTest.CurrentDate,
@@ -99,6 +100,7 @@
         {
             var param = new MatchWinLossDetailParam(
                 anyValueCreatorFixture.Create<int>(),
+                anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<string>(),
                 anyValueCreatorFixture.Create<int>(),
                 DefaultVariablesTest.CurrentDate,
@@ -129,6 +131,7 @@
             // Arrage
             var limitedDate = DefaultVariablesTest.CurrentDate.AddDays(1);
             var param = new MatchWinLossDetailParam(
+                anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<string>(),
                 anyValueCreatorFixture.Create<int>(),
