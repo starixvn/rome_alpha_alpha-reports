@@ -476,12 +476,6 @@
     <Content Include="App_Data\activitytracking.napinternal2.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
-    <Content Include="App_Data\activitytracking.pro.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.pro2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
     <Content Include="App_Data\activitytracking.prod.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
@@ -492,9 +486,6 @@
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
     <Content Include="App_Data\activitytracking.uat.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.uat2.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
     <Content Include="App_Data\activitytracking.uat_2.json">
@@ -522,12 +513,6 @@
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
     <Content Include="App_Data\securitycode.uat.json">
-      <DependentUpon>securitycode.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\securitycode.uat1.json">
-      <DependentUpon>securitycode.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\securitycode.uat2.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
     <Content Include="App_Data\securitycode.uat_2.json">
@@ -1095,9 +1080,6 @@
     <Content Include="App_Data\SPNames\UAT\DBBOF.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBAGE.bodb02.BODBDownlineNet.xml" />
-    <Content Include="Web.uat1.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="assets\scripts\components\netturnover-tooltip.ts" />
     <TypeScriptCompile Include="assets\scripts\components\pager.ts" />
     <TypeScriptCompile Include="assets\scripts\components\sort.ts" />
@@ -1685,18 +1667,6 @@
     <Content Include="App_Data\ExcelTemplates\WinLoss\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\MatchResultEntered.xls" />
-    <Content Include="Web.AppSettings.backupMNL.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.backupMNL2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.backupMNLNap.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.backupMNLNap2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
     <Content Include="Web.AppSettings.local.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
@@ -1704,15 +1674,6 @@
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.AppSettings.napinternal2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.pro.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.pro2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.AppSettings.pro3.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.AppSettings.sit.config">
@@ -1724,21 +1685,6 @@
     <Content Include="Web.AppSettings.uat.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.AppSettings.uat2.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.backupMNL.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.backupMNL2.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.backupMNLNap.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.backupMNLNap2.config">
-      <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.local_2.config">
       <DependentUpon>Web.local.config</DependentUpon>
@@ -1755,9 +1701,6 @@
     <Content Include="Web.prod_3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-    <Content Include="Web.uat2.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
     <Content Include="Web.uat.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
@@ -1765,12 +1708,6 @@
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.sit.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.pro2.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
-    <Content Include="Web.pro.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.napaws.config">
@@ -1945,9 +1882,6 @@
     <Content Include="Web.ConnectionStrings.uat_3.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
     </Content>
-    <Content Include="Web.AppSettings.uat1.config">
-      <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </Content>
     <Content Include="Web.ConnectionStrings.napinternal.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
     </Content>
@@ -1957,9 +1891,6 @@
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Web.pro3.config">
-      <DependentUpon>Web.local.config</DependentUpon>
-    </Content>
     <Content Include="Web.uat_2.config">
       <DependentUpon>Web.local.config</DependentUpon>
       <SubType>Designer</SubType>
