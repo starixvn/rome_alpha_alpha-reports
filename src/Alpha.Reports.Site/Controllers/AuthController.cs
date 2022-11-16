@@ -277,6 +277,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.ISNICKNAMELOGINONLY, true);
 
             Session["ONEbook.UM.ByPassUM"] = sessions[33];
+            userSession.SetProperty(SessionKey.BetlistSessionID, sessions[37]);
         }
 
         private void SetUserSessionsAndAuth(string[] parameters, IUserSession userSession)
