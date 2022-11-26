@@ -108,7 +108,8 @@
 
         private static void CheckInvalidSessionCustIdsAndWriteLog(WinLossDetailQuery message)
         {
-            if (SiteSettings.LogInvalidSessionSuperIds.Any(superId => superId == message.SRecommendId))
+            if (SiteSettings.LogInvalidSessionSuperIds.Any(superId => superId == message.SRecommendId)
+                && !string.IsNullOrWhiteSpace(message.SSGUID))
             {
                 var reportsSSGUID = $"{message.ViewerId}-{message.SubAccId}-{message.OnUserId}";
 

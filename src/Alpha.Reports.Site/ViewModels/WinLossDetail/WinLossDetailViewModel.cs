@@ -34,6 +34,7 @@
 
             IsGroupHeadline = isGroupHeadline;
             CanViewBetLists = !message.IsProtectedMode || !message.CustLevel.IsAgentLevel();
+            SSGUID = message.SSGUID;
         }
 
         public PagerViewModel PagerViewModel =>
@@ -54,6 +55,8 @@
         public PagedReportData<WinLossDetailModel> ReportData { get; }
 
         public bool CanViewBetLists { get; }
+
+        public string SSGUID { get; }
 
         private string GetReportNameByLevel(UserLevel userLevel)
             => userLevel.IsSuperLevel()
