@@ -125,5 +125,20 @@
         public static bool DisabledVietnamese => IsMBCSite;
 
         public static string JsVersion => GetConfigValue("JsVersion");
+
+        public static int[] LogInvalidSessionCustIds { get; } = GetIntArray(GetConfigValue("LogInvalidSession:CustIds"));
+
+        public static int[] GetIntArray(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return Array.Empty<int>();
+            }
+
+            return value
+                .Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(item => int.Parse(item.Trim()))
+                .ToArray();
+        }
     }
 }

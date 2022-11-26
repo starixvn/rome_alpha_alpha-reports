@@ -52,5 +52,7 @@
         string MainSessionID { get; }
 
         string SessionID { get; }
+
+        int OnUserId { get; }
     }
 }

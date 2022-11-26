@@ -74,5 +74,7 @@
         public string MainSessionID => userSession?.GetProperty<string>(SessionKey.MainSessionID);
 
         public string SessionID => userSession?.NetSessionId;
+
+        public int OnUserId => userSession.OnUserId;
     }
 }
