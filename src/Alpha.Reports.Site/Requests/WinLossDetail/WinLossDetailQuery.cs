@@ -12,6 +12,7 @@
         public WinLossDetailQuery(IUser viewer) : base(viewer)
         {
             IsProtectedMode = viewer.IsProtectedMode;
+            SRecommendId = viewer.SRecommendId;
             SubAccId = viewer.SubAccId;
             OnUserId = viewer.OnUserId;
         }
@@ -23,6 +24,8 @@
         public string SSGUID { get; set; }
 
         public bool IsProtectedMode { get; }
+
+        public int SRecommendId { get; }
 
         public int SubAccId { get; }
 

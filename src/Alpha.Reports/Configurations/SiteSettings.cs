@@ -126,7 +126,7 @@
 
         public static string JsVersion => GetConfigValue("JsVersion");
 
-        public static int[] LogInvalidSessionCustIds { get; } = GetIntArray(GetConfigValue("LogInvalidSession:CustIds"));
+        public static int[] LogInvalidSessionSuperIds { get; } = GetIntArray(GetConfigValue("LogInvalidSession:SuperIds"));
 
         public static int[] GetIntArray(string value)
         {

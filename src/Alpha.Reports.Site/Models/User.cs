@@ -75,6 +75,8 @@
 
         public string SessionID => userSession?.NetSessionId;
 
+        public int SRecommendId => userSession.SRecommendId;
+
         public int OnUserId => userSession.OnUserId;
     }
 }
