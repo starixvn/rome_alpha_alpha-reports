@@ -206,6 +206,25 @@ namespace Alpha.Reports.Site.Controllers
             return Json(OK, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult SignOut()
+        {
+            if (!IsValidReferrer())
+            {
+                return Json(Failed, JsonRequestBehavior.AllowGet);
+            }
+
+            Session.Clear();
+
+            if (!Session.IsCookieless)
+            {
+                Session.Abandon();
+                FormsAuthentication.SignOut();
+            }
+
+            return Json(OK, JsonRequestBehavior.AllowGet);
+        }
+
         private static readonly IDictionary<string, string> CodeKeys = new Dictionary<string, string>
         {
             [English] = "E",
