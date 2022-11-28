@@ -304,10 +304,10 @@
     <value>日期</value>
   </data>
   <data name="Entered" xml:space="preserve">
-    <value>成绩已输入场数</value>
+    <value>已完成</value>
   </data>
   <data name="NonEntered" xml:space="preserve">
-    <value>成绩还没输入场数</value>
+    <value>未完成</value>
   </data>
   <data name="Results" xml:space="preserve">
     <value>赛果</value>
