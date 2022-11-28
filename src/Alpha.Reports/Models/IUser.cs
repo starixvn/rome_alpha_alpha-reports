@@ -52,5 +52,9 @@
         string MainSessionID { get; }
 
         string SessionID { get; }
+
+        int SRecommendId { get; }
+
+        int OnUserId { get; }
     }
 }

@@ -1935,7 +1935,9 @@
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\Blocked.cshtml" />
     <Content Include="Views\Statement\_StatementPopup.cshtml" />
-    <Content Include="Web.AppSettings.config" />
+    <Content Include="Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.ConnectionStrings.config" />
     <Content Include="Web.ConnectionStrings.uat_2.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>

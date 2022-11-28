@@ -3,8 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Configurations;
     using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
+    using Fanex.Logging.Extensions.Web;
     using MediatR;
     using Reports.Constants;
     using Reports.Models;
@@ -34,6 +36,8 @@
             {
                 throw new ArgumentNullException(nameof(message));
             }
+
+            CheckInvalidSessionCustIdsAndWriteLog(message);
 
             var products = productService.GetProductsForCustomer(message.ViewerId, message.Site, message.CurrencyId, message.MinDate, message.IsEnableSabaPromotion);
             var productDetails = productDetailService.GetProductDetails(message.ViewerId, message.Site, message.CurrencyId);
@@ -100,6 +104,26 @@
             return offeredRNGCasino != null && offeredRNGCasino.Any() ?
                 string.Format(Resources.Tooltip_NetTurnover_RNGCasino, rngCasinoNames) :
                 string.Empty;
+        }
+
+        private static void CheckInvalidSessionCustIdsAndWriteLog(WinLossDetailQuery message)
+        {
+            if (SiteSettings.LogInvalidSessionSuperIds.Any(superId => superId == message.SRecommendId)
+                && !string.IsNullOrWhiteSpace(message.SSGUID))
+            {
+                var reportsSSGUID = $"{message.ViewerId}-{message.SubAccId}-{message.OnUserId}";
+
+                if (message.SSGUID != reportsSSGUID)
+                {
+                    var errorBuilder = new System.Text.StringBuilder();
+                    errorBuilder
+                        .AppendLine($"There is difference between Main Session and Reports Session")
+                        .AppendLine($"Main: {message.SSGUID}")
+                        .AppendLine($"Reports: {reportsSSGUID}");
+
+                    ExceptionHandler.Handle(new Exception(errorBuilder.ToString()));
+                }
+            }
         }
     }
 }

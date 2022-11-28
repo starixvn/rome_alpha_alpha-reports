@@ -74,5 +74,9 @@
         public string MainSessionID => userSession?.GetProperty<string>(SessionKey.MainSessionID);
 
         public string SessionID => userSession?.NetSessionId;
+
+        public int SRecommendId => userSession.SRecommendId;
+
+        public int OnUserId => userSession.OnUserId;
     }
 }
