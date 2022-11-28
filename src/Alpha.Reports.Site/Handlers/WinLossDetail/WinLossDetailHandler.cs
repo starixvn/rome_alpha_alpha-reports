@@ -111,17 +111,11 @@
             if (SiteSettings.LogInvalidSessionSuperIds.Any(superId => superId == message.SRecommendId)
                 && !string.IsNullOrWhiteSpace(message.SSGUID))
             {
-                var reportsSSGUID = $"{message.ViewerId}-{message.SubAccId}-{message.OnUserId}";
+                var reportsSSGUID = $"{message.ViewerId}-{message.SubAccId}";
 
-                if (message.SSGUID != reportsSSGUID)
+                if (message.SSGUID.IndexOf(reportsSSGUID, StringComparison.OrdinalIgnoreCase) == -1)
                 {
-                    var errorBuilder = new System.Text.StringBuilder();
-                    errorBuilder
-                        .AppendLine($"There is difference between Main Session and Reports Session")
-                        .AppendLine($"Main: {message.SSGUID}")
-                        .AppendLine($"Reports: {reportsSSGUID}");
-
-                    ExceptionHandler.Handle(new Exception(errorBuilder.ToString()));
+                    ExceptionHandler.Handle(new Exception($"{message.SSGUID} # {reportsSSGUID}"));
                 }
             }
         }
