@@ -2,6 +2,11 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Entered Results";
+
+    var yesterdayText = Model.TotalEnteredSport.EnteredSportYesterday.NonEntered > 0 ?
+        Resources.NonEntered : Resources.Entered;
+    var yesterdayValue = Model.TotalEnteredSport.EnteredSportYesterday.NonEntered > 0 ?
+        $"({Model.TotalEnteredSport.EnteredSportYesterday.NonEntered})" : string.Empty;
 }
 
 @section Styles {
@@ -13,7 +18,7 @@
 @Html.Partial("~/Features/EnteredResult/Views/Filter.cshtml", Model.FilterViewModel)
 
 <div class="non-entered-note">
-    @DateTime.Now.AddDays(-1).ToShortDateWithSlash(): @Resources.Entered <span>(@Model.TotalEnteredSport.EnteredSportYesterday.Entered)</span> |
+    @DateTime.Now.AddDays(-1).ToShortDateWithSlash(): @yesterdayText <span>@yesterdayValue</span> |
     @DateTime.Now.ToShortDateWithSlash(): @Resources.NonEntered <span>(@Model.TotalEnteredSport.EnteredSportToday.NonEntered)</span>
 </div>
 
