@@ -126,19 +126,6 @@
 
         public static string JsVersion => GetConfigValue("JsVersion");
 
-        public static int[] LogInvalidSessionSuperIds { get; } = GetIntArray(GetConfigValue("LogInvalidSession:SuperIds"));
-
-        public static int[] GetIntArray(string value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                return Array.Empty<int>();
-            }
-
-            return value
-                .Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(item => int.Parse(item.Trim()))
-                .ToArray();
-        }
+        public static bool EnableLogDifferentSessionBetweenMainAndReports { get; } = "1" == GetConfigValue("EnableLogDifferentSessionBetweenMainAndReports");
     }
 }
