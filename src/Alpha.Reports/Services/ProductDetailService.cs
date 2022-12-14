@@ -186,7 +186,7 @@
         private IEnumerable<ProductDetail> GetProductDetails()
             => ConfiguredCacheService.GetOrSet(
                 ProductDetailsCacheKey,
-                () => dynamicRepository.Fetch<ProductDetail>(new GetProductsDetailCriteria()),
+                () => dynamicRepository.Fetch<ProductDetail>(new GetProductsDetailCriteria()).OrderBy(product => product.ProductId).ThenBy(product => product.Order),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(ProductDetailsCacheInDay)));
 
         private static string BuildProductDetailsXML(IEnumerable<ProductDetail> productDetails)
