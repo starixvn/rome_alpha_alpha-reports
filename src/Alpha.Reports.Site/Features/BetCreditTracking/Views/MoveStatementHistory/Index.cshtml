@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Resources.MoveStatementHistory;
 
-    var userguideLink = UserSession.Current.Site.Equals("789y", StringComparison.OrdinalIgnoreCase) ?
+    var userguideLink = SiteSettings.IsSiteLabel789y ?
         MicroSites.MessageUrl("~/StaticMessage/Guide?id=167296") :
         MicroSites.HowToUseUrl("~/Index.aspx?linktomessagesite=167296");
 
@@ -16,7 +16,7 @@
         var mainDomain = currentSession.GetProperty<string>(SessionKey.MainDomainSessionKey);
         var mainSessionId = currentSession.GetProperty<string>(SessionKey.MainSessionID);
 
-        userguideLink = UserSession.Current.Site.Equals("789y", StringComparison.OrdinalIgnoreCase) ?
+        userguideLink = SiteSettings.IsSiteLabel789y ?
             $"{mainDomain}/site-messages/(S({mainSessionId}))/StaticMessage/Guide?id=167296" :
             $"{mainDomain}/site-howtouse/(S({mainSessionId}))/Index.aspx?linktomessagesite=167296";
     }

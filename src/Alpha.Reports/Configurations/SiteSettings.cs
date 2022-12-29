@@ -119,8 +119,9 @@
             }
         }
 
-        public static bool IsMBCSite => !string.IsNullOrWhiteSpace(GetConfigValue("SiteGroup"))
-            && !GetConfigValue("SiteGroup").Equals("789y", StringComparison.OrdinalIgnoreCase);
+        public static bool IsMBCSite => !IsSiteLabel789y;
+
+        public static bool IsSiteLabel789y => GetConfigValue("SiteLabel").Equals(GetConfigValue("SiteLabel789y"));
 
         public static bool DisabledVietnamese => IsMBCSite;
 
