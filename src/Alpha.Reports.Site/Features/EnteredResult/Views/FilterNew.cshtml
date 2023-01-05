@@ -9,10 +9,6 @@
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
 
-    <div class="note">
-        <span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" href="#">@Model.ViewActionMessage</a>
-    </div>
-
     @helper RenderHiddenFields()
     {
         @Html.Hidden("IsHistoricReport", false)

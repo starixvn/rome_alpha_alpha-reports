@@ -421,7 +421,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can view the report data from {0}. For more historic data, please click to.
+        ///   Looks up a localized string similar to You can view the report data from {0}..
         /// </summary>
         public static string CanOnlyViewDataAfterTimeCurrentReport {
             get {

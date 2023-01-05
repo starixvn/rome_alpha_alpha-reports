@@ -127,7 +127,7 @@
     <value>会员输赢资料</value>
   </data>
   <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
-    <value>您可查看报表数据从 {0}。如需要查阅三个月前的旧报告，请用 </value>
+    <value>您可查看报表数据从 {0}。</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>今日赛事</value>

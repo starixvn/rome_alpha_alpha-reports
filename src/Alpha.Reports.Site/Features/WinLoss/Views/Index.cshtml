@@ -27,7 +27,7 @@
             <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="1">
                 <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>
                 @(Model.CustLevel.IsAgentLevel() ? "/ " + Resources.GrossComm :
-                          (Model.CustLevel.IsSuperLevel() ? Resources.GrossComAndMasterTotal : Resources.GrossComAndAgentTotal))
+              (Model.CustLevel.IsSuperLevel() ? Resources.GrossComAndMasterTotal : Resources.GrossComAndAgentTotal))
             </th>
 
             @if (Model.CustLevel.IsSuperLevel())
@@ -120,7 +120,7 @@
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ReportLegend", new { IsSupportHistoricReport = true, IsHistoricReport = Model.IsHistoricReport, MinDate = Model.MinDate }))
 
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/WinLoss/Bundles/winloss")

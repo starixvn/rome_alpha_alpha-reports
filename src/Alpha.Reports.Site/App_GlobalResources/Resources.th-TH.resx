@@ -127,7 +127,7 @@
     <value>รายละเอียด</value>
   </data>
   <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
-    <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}. ข้อมูลก่อนหน้านี้ กรุณาใช้ </value>
+    <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}.</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>วันนี้</value>

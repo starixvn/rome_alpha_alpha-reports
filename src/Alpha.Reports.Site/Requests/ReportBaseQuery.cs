@@ -65,5 +65,11 @@
         public bool IsPostBack { get; set; }
 
         public string MainDomain { get; }
+
+        public bool IsHistoricReport { get; set; }
+
+        public bool IsSupportHistoricReport { get; set; }
+
+        public DateTime MinDate { get; set; }
     }
 }
