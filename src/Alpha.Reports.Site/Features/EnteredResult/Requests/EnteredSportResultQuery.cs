@@ -8,6 +8,7 @@
     {
         public EnteredSportResultQuery(IUser viewer) : base(viewer)
         {
+            IsSupportHistoricReport = true;
         }
     }
 }

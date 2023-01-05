@@ -234,7 +234,8 @@ var DateRangePickerComponent = /** @class */ (function () {
         var _this = this;
         this.options = new DateRangePickerOption();
         this.quickChooseType = {
-            specificDates: 7
+            specificDates: 7,
+            olderThan3Months: 8
         };
         this.isCompleteInitDateRangePicker = false;
         this.render = function (options) {
@@ -261,7 +262,13 @@ var DateRangePickerComponent = /** @class */ (function () {
                 onQuickChooseChange: function (selectValue) {
                     _this.options.onBeforeQuickChooseChange && _this.options.onBeforeQuickChooseChange();
                     if (_this.isCompleteInitDateRangePicker && selectValue !== _this.quickChooseType.specificDates) {
-                        _this.$reportForm.submit();
+                        if (selectValue === _this.quickChooseType.olderThan3Months) {
+                            _this.$reportForm.find("input[id=IsHistoricReport]").val("true");
+                            _this.$reportForm.find("a[id=historic-report]").trigger("click");
+                        }
+                        else {
+                            _this.$reportForm.submit();
+                        }
                     }
                 }
             });

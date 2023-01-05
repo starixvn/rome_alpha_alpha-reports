@@ -132,7 +132,7 @@ class WinLossDetailView extends BaseReport {
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
-        this.$reportSwitch = this.$("#report-switch");
+        this.$reportSwitch = this.$("#historic-report");
 
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");

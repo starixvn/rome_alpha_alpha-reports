@@ -1825,6 +1825,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Older Than 3 Months.
+        /// </summary>
+        public static string OlderThan3Months {
+            get {
+                return ResourceManager.GetString("OlderThan3Months", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Old Event Date.
         /// </summary>
         public static string OldEventDate {
