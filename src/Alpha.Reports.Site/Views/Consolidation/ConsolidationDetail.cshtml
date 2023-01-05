@@ -20,14 +20,6 @@
     <div class="form-group">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
-    <div class="note">
-        @foreach (var item in filter.ViewDataInstructionMessage)
-        {
-            <div>
-                <span class="star">*</span>@item
-            </div>
-        }
-    </div>
 
     @Html.Hidden("IsFilterVisible", filter.Visible ? "true" : "false")
     @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
@@ -57,7 +49,7 @@
         ["ExportExcelAction"] = "ConsolidationDetailExcel"
     })
 
-@Html.Hidden("LoadLegendURL", Url.Action("ReportDetailLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Consolidation", new { CustLevelId = Model.WinLossDetailViewModel.CustLevel.Value }))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportDetailLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Consolidation", new { CustLevelId = Model.WinLossDetailViewModel.CustLevel.Value, IsSupportHistoricReport = true, IsHistoricReport = Model.IsHistoricReport, MinDate = Model.MinDate }))
 
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/consolidation/consolidation-detail")

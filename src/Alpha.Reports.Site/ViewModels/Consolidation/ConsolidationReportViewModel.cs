@@ -39,6 +39,10 @@
 
         public DateTime MinDate => message.MinDate;
 
+        public bool IsSupportHistoricReport => message.IsSupportHistoricReport;
+
+        public bool IsHistoricReport => message.IsHistoricReport;
+
         public DateTime MaxDate => DateTime.MaxValue;
 
         public DateTime FromDate => message.FromDate;

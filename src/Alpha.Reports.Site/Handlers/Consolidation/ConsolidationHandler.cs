@@ -5,6 +5,7 @@
     using System.Linq;
     using Alpha.Reports.Configurations;
     using Alpha.Reports.Constants;
+    using Alpha.Reports.Extensions;
     using Alpha.Reports.Models.Consolidation;
     using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
@@ -138,6 +139,19 @@
         public ReportLegendViewModel Handle(ConsolidationLegendQuery message)
         {
             var result = new List<string>();
+
+            if (message.IsSupportHistoricReport && !message.IsHistoricReport)
+            {
+                result.Add(string.Format(
+                    $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
+            }
+
+            if (message.IsSupportHistoricReport)
+            {
+                result.Add(string.Format(
+                    $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
+            }
+
             var products = reportService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
             if (products.Any())

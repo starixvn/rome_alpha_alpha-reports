@@ -22,14 +22,6 @@
         @RenderReportTypeOption("date", Resources.Date)
         @RenderReportTypeOption("product", Resources.Product)
     </div>
-    <div class="note">
-        @foreach (var item in Model.ViewDataInstructionMessage)
-        {
-            <div>
-                <span class="star">*</span>@item
-            </div>
-        }
-    </div>
 
     @Html.Hidden("IsFilterVisible", Model.Visible ? "true" : "false")
     @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)

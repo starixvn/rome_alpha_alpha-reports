@@ -56,6 +56,12 @@
 
         public WinLossDetailViewModel WinLossDetailViewModel { get; }
 
+        public DateTime MinDate => message.MinDate;
+
+        public bool IsSupportHistoricReport => message.IsSupportHistoricReport;
+
+        public bool IsHistoricReport => message.IsHistoricReport;
+
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(WinLossDetailModel model)
             => new Dictionary<string, object>();
 
