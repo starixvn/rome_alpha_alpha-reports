@@ -37,7 +37,7 @@
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLossDetail"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLossDetail", new { IsSupportHistoricReport = true, IsHistoricReport = Model.IsHistoricReport, MinDate = Model.MinDate }))
 
 @Pager.Render(Model.PagerViewModel)
 
