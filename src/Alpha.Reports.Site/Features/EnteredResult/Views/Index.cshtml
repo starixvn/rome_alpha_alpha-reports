@@ -13,7 +13,7 @@
     @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/EnteredResult/Bundles/enteredresult")
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty))
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty), hasEnterOrNonEnterNote: true, enteredSportResult: Model.TotalEnteredSport)
 
 @Html.Partial("~/Features/EnteredResult/Views/Filter.cshtml", Model.FilterViewModel)
 

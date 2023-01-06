@@ -52,7 +52,8 @@
                  fixture.Create<WinLossParam>(),
                  Enumerable.Empty<CustInfo>(),
                  Enumerable.Empty<GroupProductViewModel>(),
-                 Enumerable.Empty<ProductDetailViewModel>());
+                 Enumerable.Empty<ProductDetailViewModel>(),
+                 null);
 
             // Act & Assert
             Assert.Equal(winlossViewModel.Title, expectedTitle);
@@ -86,7 +87,8 @@
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
                 Enumerable.Empty<GroupProductViewModel>(),
-                Enumerable.Empty<ProductDetailViewModel>());
+                Enumerable.Empty<ProductDetailViewModel>(),
+                null);
 
             // Act
             var actualReportData = winlossViewModel.ReportData;
@@ -164,7 +166,8 @@
                             winlossParam,
                             Enumerable.Empty<CustInfo>(),
                             Enumerable.Empty<GroupProductViewModel>(),
-                            Enumerable.Empty<ProductDetailViewModel>());
+                            Enumerable.Empty<ProductDetailViewModel>(),
+                            null);
             var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
@@ -194,7 +197,8 @@
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
                 Enumerable.Empty<GroupProductViewModel>(),
-                Enumerable.Empty<ProductDetailViewModel>());
+                Enumerable.Empty<ProductDetailViewModel>(),
+                null);
 
             var expectedSortByPropertyName = "DownLineLevelName";
 
@@ -233,6 +237,7 @@
                 winLossParam ?? fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
                 Enumerable.Empty<GroupProductViewModel>(),
-                Enumerable.Empty<ProductDetailViewModel>());
+                Enumerable.Empty<ProductDetailViewModel>(),
+                null);
     }
 }

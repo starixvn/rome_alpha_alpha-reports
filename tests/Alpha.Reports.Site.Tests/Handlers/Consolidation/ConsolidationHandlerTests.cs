@@ -33,7 +33,7 @@
 
         public ConsolidationHandlerTests(UserFixture userFixture) : base(userFixture)
         {
-            consolidationHandler = new ConsolidationHandler(reportService, cacheRefService, viewer, productDetailService, productService);
+            consolidationHandler = new ConsolidationHandler(reportService, cacheRefService, viewer, productDetailService, productService, winLossService);
 
             expectedProductList = new List<GroupProductViewModel>
             {
@@ -166,7 +166,8 @@
                     new ConsolidationByDateViewModel(
                         DefaultVariablesTest.CurrentDate,
                         new List<ConsolidationEntityViewModel> { new ConsolidationEntityViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1") })
-                });
+                },
+                null);
 
             // Act
             var actualViewModel = consolidationHandler.Handle(message);
@@ -214,7 +215,8 @@
                         1,
                         "Product 1",
                         new List<ConsolidationEntityViewModel> { new ConsolidationEntityViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1") })
-                });
+                },
+                null);
 
             // Act
             var actualViewModel = consolidationHandler.Handle(message);
@@ -401,7 +403,8 @@
                 message,
                 expectedBreadcrumbLevel,
                 consolidationFilterViewModel,
-                winLossDetailViewModel);
+                winLossDetailViewModel,
+                null);
 
             // Act
             var actualViewModel = consolidationHandler.Handle(message);

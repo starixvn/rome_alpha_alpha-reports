@@ -2,6 +2,7 @@
 {
     using System.Diagnostics.CodeAnalysis;
     using Alpha.Reports.Constants;
+    using Alpha.Reports.Site.Features.EnteredResult;
     using Extensions;
     using Params;
     using Reports.Models;
@@ -12,20 +13,21 @@
         "StyleCop.CSharp.NamingRules",
         "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter",
         Justification = "Reviewed. Suppression is OK here.")]
-    public class WinLossDetailBaseHandler : BaseHandler
+    public class WinLossDetailBaseHandler : EnteredSportResultBaseHandler
     {
         protected readonly ProductService productService;
         protected readonly ProductDetailService productDetailService;
-        protected readonly WinLossDetailService reportService;
+        protected readonly WinLossDetailService winlossDetailService;
 
         public WinLossDetailBaseHandler(
             ProductService productService,
             ProductDetailService productDetailService,
-            WinLossDetailService reportService)
+            WinLossDetailService winlossDetailService,
+            WinLossService winLossService) : base(winLossService)
         {
             this.productService = productService;
             this.productDetailService = productDetailService;
-            this.reportService = reportService;
+            this.winlossDetailService = winlossDetailService;
         }
 
         protected WinLossDetailParam CreateParameter(

@@ -32,6 +32,7 @@
             var winLossParam = CreateWinLossParamater(message);
             var reportData = reportService.GetWinLoss(winLossParam);
             var grandTotal = AccumulateGrandTotal(reportData);
+            var reportEntered = reportService.GetEnteredSportResults();
 
             var viewModel = new WinLossViewModel(
                 reportData,
@@ -40,7 +41,8 @@
                 winLossParam,
                 BuildBreadcrumbLevel(message),
                 BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products),
-                BuildProductDetailViewModels(winLossParam.UserSelectedResourceIds, productDetails));
+                BuildProductDetailViewModels(winLossParam.UserSelectedResourceIds, productDetails),
+                GetTotalEnteredSportYesterdayAndToday(reportEntered));
 
             return viewModel;
         }

@@ -81,7 +81,8 @@
                 query,
                 null,
                 anyValueCreatorFixture.Create<ConsolidationFilterViewModel>(),
-                winLossDetailViewModel);
+                winLossDetailViewModel,
+                null);
 
             return consolidationDetailViewModel;
         }

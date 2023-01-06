@@ -4,6 +4,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Alpha.Reports.Constants;
+    using Alpha.Reports.Site.Features.EnteredResult;
     using Extensions;
     using Params;
     using Params.Consolidation;
@@ -18,9 +19,9 @@
         "StyleCop.CSharp.NamingRules",
         "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter",
         Justification = "Reviewed. Suppression is OK here.")]
-    public class ConsolidationBaseHandler : BaseHandler
+    public class ConsolidationBaseHandler : EnteredSportResultBaseHandler
     {
-        protected readonly ConsolidationService reportService;
+        protected readonly ConsolidationService consolidationService;
         protected readonly CacheRefService cacheRefService;
         protected readonly IUser viewer;
         protected readonly ProductDetailService productDetailService;
@@ -29,9 +30,10 @@
             ConsolidationService reportService,
             CacheRefService cacheRefService,
             IUser viewer,
-            ProductDetailService productDetailService)
+            ProductDetailService productDetailService,
+            WinLossService winLossService) : base(winLossService)
         {
-            this.reportService = reportService;
+            this.consolidationService = reportService;
             this.cacheRefService = cacheRefService;
             this.viewer = viewer;
             this.productDetailService = productDetailService;
@@ -39,7 +41,7 @@
 
         protected GetConsolidationParam CreateParameter(GetConsolidationQuery message, IEnumerable<Product> products)
         {
-            var validUserSelectedProductIds = reportService.FilterProductIdsByCustomer(
+            var validUserSelectedProductIds = consolidationService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate,
@@ -137,7 +139,7 @@
         protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query, IEnumerable<Product> products)
         {
             var validUserSelectedProductIds =
-               reportService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate, query.IsEnableSabaPromotionForHeadline);
+               consolidationService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate, query.IsEnableSabaPromotionForHeadline);
             var validUserSelectedResourceIds =
                 productDetailService.FilterResourceIdsByCustomerForConsolidationReport(query.ViewerId, query.UserSelectedResourceIds, products);
 

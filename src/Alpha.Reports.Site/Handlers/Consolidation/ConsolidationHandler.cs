@@ -35,20 +35,22 @@
             CacheRefService cacheRefService,
             IUser viewer,
             ProductDetailService productDetailService,
-            ProductService productServiceImpl) :
-            base(reportService, cacheRefService, viewer, productDetailService)
+            ProductService productServiceImpl,
+            WinLossService winLossService) :
+            base(reportService, cacheRefService, viewer, productDetailService, winLossService)
         {
             productService = productServiceImpl;
         }
 
         public ConsolidationReportByUsernameViewModel Handle(ConsolidationByUsernameQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
-            var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
+            var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
-            var data = reportService.GetConsolidationByUsername(param).ToList();
+            var data = consolidationService.GetConsolidationByUsername(param).ToList();
+            var reportEntered = reportService.GetEnteredSportResults();
 
             return new ConsolidationReportByUsernameViewModel(
                 message,
@@ -58,38 +60,41 @@
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
                 data.Any()
                     ? BuildConsolidationByUsernameViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)).ToList()
-                    : Enumerable.Empty<ConsolidationByUsernameViewModel>()
+                    : Enumerable.Empty<ConsolidationByUsernameViewModel>(),
+                GetTotalEnteredSportYesterdayAndToday(reportEntered)
             );
         }
 
         public ConsolidationReportByDateViewModel Handle(ConsolidationByDateQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
-            var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
+            var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
-            var data = reportService.GetConsolidationByDate(param);
-
+            var data = consolidationService.GetConsolidationByDate(param);
+            var reportEntered = reportService.GetEnteredSportResults();
             var viewModel = new ConsolidationReportByDateViewModel(
                 message,
                 param,
                 BuildProductSelectListItems(param.ProductIds, consolidationExcludeProduct.Products),
                 BuildProductDetailViewModels(param.ResourceIds, productDetails),
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
-                BuildWinLossByDateViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)));
+                BuildWinLossByDateViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)),
+                GetTotalEnteredSportYesterdayAndToday(reportEntered));
 
             return viewModel;
         }
 
         public ConsolidationReportByProductViewModel Handle(ConsolidationByProductQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
-            var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
+            var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
-            var data = reportService.GetConsolidationByProduct(param);
+            var data = consolidationService.GetConsolidationByProduct(param);
+            var reportEntered = reportService.GetEnteredSportResults();
 
             var viewModel = new ConsolidationReportByProductViewModel(
                 message,
@@ -97,7 +102,8 @@
                 BuildProductSelectListItems(param.ProductIds, consolidationExcludeProduct.Products),
                 BuildProductDetailViewModels(param.ResourceIds, productDetails),
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
-                BuildWinLossByProductViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)));
+                BuildWinLossByProductViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)),
+                GetTotalEnteredSportYesterdayAndToday(reportEntered));
 
             return viewModel;
         }
@@ -124,16 +130,19 @@
 
             var winLossDetailQuery = CreateWinLossDetailQuery(message);
 
-            var products = reportService.GetProducts(
+            var products = consolidationService.GetProducts(
                 new GetConslidationReportProductsParam(consolidationQuery.ViewerId, consolidationQuery.MinDate),
                 message.IsEnableSabaPromotionForHeadline);
             var filterViewModel = GetConsolidationFilterViewModel(consolidationQuery, products);
 
+            var reportEntered = reportService.GetEnteredSportResults();
+            
             return new ConsolidationDetailViewModel(
                 message,
                 GetConsolidationDetailBreadcrumbLevel(message),
                 filterViewModel,
-                GetWinLossDetailViewModel(winLossDetailQuery, products));
+                GetWinLossDetailViewModel(winLossDetailQuery, products),
+                GetTotalEnteredSportYesterdayAndToday(reportEntered));
         }
 
         public ReportLegendViewModel Handle(ConsolidationLegendQuery message)
@@ -152,7 +161,7 @@
                     $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
             }
 
-            var products = reportService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
+            var products = consolidationService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
             if (products.Any())
             {
@@ -180,7 +189,7 @@
 
         private string BuildTooltipsForLiveCasino(int custId, DateTime minDate, bool isEnableSabaPromotion)
         {
-            var offeredLiveCasino = reportService.FilterProductIdsByCustomer(custId, ProductIdConstants.ProductListForTooltipsLiveCasino, minDate, isEnableSabaPromotion);
+            var offeredLiveCasino = consolidationService.FilterProductIdsByCustomer(custId, ProductIdConstants.ProductListForTooltipsLiveCasino, minDate, isEnableSabaPromotion);
             var liveCasinoNames = string.Join(", ", productService.GetProductNames(offeredLiveCasino));
 
             return offeredLiveCasino != null && offeredLiveCasino.Any() ?
@@ -192,11 +201,12 @@
             ConsolidationByUsernameQuery query,
             IEnumerable<Product> products)
         {
-            var currencies = reportService.GetCurrencies(new GetCurrencyParam(query.ViewerId));
+            var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(query.ViewerId));
 
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(query.ViewerId, products);
 
             var param = CreateParameter(query, products);
+            var reportEntered = reportService.GetEnteredSportResults();
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 query,
@@ -204,7 +214,8 @@
                 BuildProductSelectListItems(param.ProductIds, products),
                 BuildProductDetailViewModels(param.ResourceIds, productDetails),
                 BuildCurrencySelectListItems(currencies, query.UserSelectedCurrencyId),
-                null);
+                null,
+                GetTotalEnteredSportYesterdayAndToday(reportEntered));
 
             return viewModel.FilterViewModel;
         }
@@ -213,7 +224,7 @@
         {
             var param = CreateWinLossDetailParam(query, products);
 
-            var reportData = reportService.GetWinLossDetail(param);
+            var reportData = consolidationService.GetWinLossDetail(param);
 
             return new WinLossDetailViewModel(
                 query,

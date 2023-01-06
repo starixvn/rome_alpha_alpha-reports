@@ -7,7 +7,9 @@
 @ReportTitle.Render(
     new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, filter.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson),
     Request.Url.Query,
-    Model.BreadcrumbActions)
+    Model.BreadcrumbActions,
+    hasEnterOrNonEnterNote: true,
+    enteredSportResult: Model.TotalEnteredSport)
 
 <form class="form-inline filter  @(filter.Visible ? string.Empty : "hide")" role="form" id="report-form">
     @ProductMultiSelection.Render(filter.ProductMultiSelectionViewModel)

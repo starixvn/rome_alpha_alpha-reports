@@ -16,7 +16,7 @@
     false, true, false,
     Model.IsFilterVisible,
     Model.BreadcrumbLevel,
-    Model.BreadcrumbLevelJson), Request.Url.Query)
+    Model.BreadcrumbLevelJson), Request.Url.Query, hasEnterOrNonEnterNote: true)
 
 @Html.Partial("~/Features/WinLoss/Views/FilterNew.cshtml", Model.FilterViewModel,
     new ViewDataDictionary

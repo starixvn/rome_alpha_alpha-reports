@@ -7,7 +7,9 @@
     @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/consolidation/consolidation")
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
+@ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query,
+    hasEnterOrNonEnterNote: true,
+    enteredSportResult: Model.TotalEnteredSport)
 
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary

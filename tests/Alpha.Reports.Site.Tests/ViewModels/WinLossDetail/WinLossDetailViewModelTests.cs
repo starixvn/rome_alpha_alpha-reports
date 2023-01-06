@@ -349,7 +349,8 @@
                     new ProductDetailViewModel(42, 1, "A", true),
                     new ProductDetailViewModel(42, 2, "B", true)
                 },
-                false);
+                false,
+                null);
 
         private PagedReportData<WinLossDetailModel> CreatePagedReportData()
             => new PagedReportData<WinLossDetailModel>(
