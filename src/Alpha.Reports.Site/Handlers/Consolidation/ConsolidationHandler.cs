@@ -173,7 +173,21 @@
 
         public ReportLegendViewModel Handle(ConsolidationDetailLegendQuery message)
         {
-            var result = new List<string> { Resources.Tooltip_NetTurnover };
+            var result = new List<string>();
+
+            if (message.IsSupportHistoricReport && !message.IsHistoricReport)
+            {
+                result.Add(string.Format(
+                    $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
+            }
+
+            if (message.IsSupportHistoricReport)
+            {
+                result.Add(string.Format(
+                    $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
+            }
+
+            result.Add(Resources.Tooltip_NetTurnover);
 
             var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
             if (!string.IsNullOrEmpty(liveCasinoTooltips))
