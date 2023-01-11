@@ -267,8 +267,10 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.ISENABLEDSECURITYCODEINSTATEMENT, Convert.ToBoolean(sessions[21]));
             userSession.SetProperty(SessionKey.SECURITYCODE, sessions[22]);
 
-            SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp = Convert.ToBoolean(sessions[23]);
-            SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = Convert.ToBoolean(sessions[24]);
+            SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp =
+                SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp || Convert.ToBoolean(sessions[23]);
+            SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode =
+                SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode || Convert.ToBoolean(sessions[24]);
 
             userSession.SetProperty(SessionKey.ISFORCEDSECURITYCODE, false);
             userSession.SetProperty(SessionKey.ISPASSWORDEXPIRED, false);
