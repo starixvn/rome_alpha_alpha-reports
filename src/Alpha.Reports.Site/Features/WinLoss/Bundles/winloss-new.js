@@ -634,7 +634,7 @@ var BaseReportNew = /** @class */ (function () {
             var iconHelpPosition = _this.$iconInformation.position();
             _this.$reportLegend.css({
                 bottom: "auto",
-                top: iconHelpPosition.top + 60
+                top: _this.$(".entered-non-entered").length > 0 ? iconHelpPosition.top + 90 : iconHelpPosition.top + 60
             });
         };
         this.isDescendingSort = function () { return _this.$dataTable.order()[0][1] !== 'asc'; };
