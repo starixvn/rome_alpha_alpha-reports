@@ -3,9 +3,18 @@
     ViewBag.Title = "Win Loss Detail Report";
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query,
+@ReportTitle.Render(new PageHeaderViewModel(
+    Model.Title, 
+    true, 
+    true, 
+    Model.IsStackMode, 
+    Model.IsFilterVisible, 
+    Model.BreadcrumbLevel, 
+    Model.BreadcrumbLevelJson), 
+    Request.Url.Query,
     hasEnterOrNonEnterNote: true,
-    enteredSportResult: Model.TotalEnteredSport)
+    enteredSportResult: Model.TotalEnteredSport,
+    isHistoricReport: Model.IsHistoricReport)
 
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary

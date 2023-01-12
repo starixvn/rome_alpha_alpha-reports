@@ -25,6 +25,7 @@
             TotalEnteredSport = totalEnteredSport;
             IsMobileView = isMobile;
             this.message = message;
+            IsHistoricReport = message.IsHistoricReport;
         }
 
         public DateTime MinDate => SystemTime.Today.AddMonths(-3).FirstDayOfMonth();
@@ -68,5 +69,7 @@
         }
 
         public bool IsMobileView { get; }
+
+        public bool IsHistoricReport { get; }
     }
 }

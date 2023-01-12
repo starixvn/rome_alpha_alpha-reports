@@ -4,9 +4,17 @@
     ViewBag.Title = "Win Loss Report";
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query,
+@ReportTitle.Render(new PageHeaderViewModel(
+    Model.Title, 
+    true, 
+    true, 
+    Model.IsStackMode, 
+    Model.IsFilterVisible, 
+    Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), 
+    Request.Url.Query,
     enteredSportResult: Model.TotalEnteredSport,
-    hasEnterOrNonEnterNote: true)
+    hasEnterOrNonEnterNote: true,
+    isHistoricReport: Model.IsHistoricReport)
 
 @Html.Partial("~/Features/WinLoss/Views/Filter.cshtml", Model.FilterViewModel,
     new ViewDataDictionary
