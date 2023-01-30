@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Models.Winloss;
     using App_GlobalResources;
     using Components;
     using Params;
@@ -19,7 +20,8 @@
             IEnumerable<CustInfo> breadcrumbLevel,
             IEnumerable<GroupProductViewModel> groupProducts,
             IEnumerable<ProductDetailViewModel> productsDetails,
-            bool isGroupHeadline = false)
+            bool isGroupHeadline = false,
+            EnteredSportResult totalEnteredSport = null)
             : base(message, param, breadcrumbLevel, groupProducts, productsDetails)
         {
             Title = GetReportNameByLevel(message.CustLevel);
@@ -35,6 +37,8 @@
             IsGroupHeadline = isGroupHeadline;
             CanViewBetLists = !message.IsProtectedMode || !message.CustLevel.IsAgentLevel();
             SSGUID = message.SSGUID;
+
+            TotalEnteredSport = totalEnteredSport;
         }
 
         public PagerViewModel PagerViewModel =>
@@ -57,6 +61,8 @@
         public bool CanViewBetLists { get; }
 
         public string SSGUID { get; }
+
+        public EnteredSportResult TotalEnteredSport { get; }
 
         private string GetReportNameByLevel(UserLevel userLevel)
             => userLevel.IsSuperLevel()

@@ -14,7 +14,10 @@
     Model.Title,
     false, true, false, false,
     Enumerable.Empty<CustInfo>(),
-    string.Empty))
+    string.Empty), 
+    hasEnterOrNonEnterNote: true, 
+    enteredSportResult: Model.TotalEnteredSport,
+    isHistoricReport: Model.IsHistoricReport)
 
 @Html.Partial("~/Features/EnteredResult/Views/FilterNew.cshtml", Model.FilterViewModel)
 

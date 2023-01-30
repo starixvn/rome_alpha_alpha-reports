@@ -16,6 +16,7 @@
         public const string LastMonthOptionValue = "5";
         public const string SinceLastMonthOptionValue = "6";
         public const string SpecificDateOptionValue = "7";
+        public const string OlderThan3MonthsOptionValue = "8";
 
         public DateRangePickerViewModel(
             DateTime minDate,
@@ -24,7 +25,9 @@
             DateTime toDate,
             int userSelectedDateRangeOption,
             bool isRenderSubmitButton = true,
-            IList<string> optionValues = null)
+            IList<string> optionValues = null,
+            bool isSupportHistoricReport = false,
+            bool isHistoricReport = false)
         {
             MinDate = minDate;
             MaxDate = maxDate;
@@ -32,7 +35,7 @@
             ToDate = toDate;
             UserSelectedDateRangeOption = userSelectedDateRangeOption;
             //// TODO: ricky will refactor here
-            var rangeOptions = BuildRangeOptions(userSelectedDateRangeOption);
+            var rangeOptions = BuildRangeOptions(userSelectedDateRangeOption, isSupportHistoricReport, isHistoricReport);
             RangeOptions = optionValues != null ? rangeOptions.Where(item => optionValues.Contains(item.Value)) : rangeOptions;
 
             SelectedRangeOption = RangeOptions.FirstOrDefault(item => item.Value == userSelectedDateRangeOption.ToString());
@@ -56,10 +59,10 @@
 
         public SelectListItem SelectedRangeOption { get; private set; }
 
-        private IEnumerable<SelectListItem> BuildRangeOptions(int userSelectedDateRangeOption)
+        private IEnumerable<SelectListItem> BuildRangeOptions(int userSelectedDateRangeOption, bool isSupportHistoricReport = false, bool isHistoricReport = false)
         {
             // Cannot use static here because Localization.
-            return (new List<SelectListItem>
+            var result = new List<SelectListItem>
             {
                 new SelectListItem { Text = Resources.Today, Value = TodayOptionValue, Selected = true },
                 new SelectListItem { Text = Resources.Yesterday, Value = YesterdayOptionValue },
@@ -69,7 +72,14 @@
                 new SelectListItem { Text = Resources.LastMonth, Value = LastMonthOptionValue },
                 new SelectListItem { Text = Resources.SinceLastMonth, Value = SinceLastMonthOptionValue },
                 new SelectListItem { Text = Resources.SpecificDate, Value = SpecificDateOptionValue }
-            }).Select(item =>
+            };
+
+            if (isSupportHistoricReport && !isHistoricReport)
+            {
+                result.Add(new SelectListItem { Text = Resources.OlderThan3Months, Value = OlderThan3MonthsOptionValue });
+            }
+            
+            return result.Select(item =>
             {
                 item.Selected = item.Value == userSelectedDateRangeOption.ToString();
 

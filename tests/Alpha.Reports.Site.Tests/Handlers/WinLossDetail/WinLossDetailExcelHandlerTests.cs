@@ -42,6 +42,7 @@
             reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
             var reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
+            var winlossService = Substitute.For<WinLossService>();
 
             workbook = Substitute.For<Workbook<WinLossDetailModel>>();
             workbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(workbook);
@@ -52,7 +53,7 @@
             workbook.Sheet(Arg.Any<string>()).Returns(workbook);
 
             this.userFixture = userFixture;
-            winLossDetailExcelHandler = Substitute.ForPartsOf<WinLossDetailExcelHandler>(productService, productDetailService, reportService, workbook);
+            winLossDetailExcelHandler = Substitute.ForPartsOf<WinLossDetailExcelHandler>(productService, productDetailService, reportService, winlossService, workbook);
             winLossDetailExcelHandler.MapPath = (path) => path;
             winLossDetailExcelHandler.IsFileExist = (path) => true;
             SystemTime.Today = DefaultVariablesTest.CurrentDate;

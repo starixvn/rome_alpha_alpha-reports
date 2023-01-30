@@ -126,7 +126,8 @@
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
                 Enumerable.Empty<GroupProductViewModel>(),
-                Enumerable.Empty<ProductDetailViewModel>());
+                Enumerable.Empty<ProductDetailViewModel>(),
+                null);
 
             // Act
             winLossExcelHandler.Handle(message);
@@ -149,7 +150,8 @@
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
                 Enumerable.Empty<GroupProductViewModel>(),
-                Enumerable.Empty<ProductDetailViewModel>());
+                Enumerable.Empty<ProductDetailViewModel>(),
+                null);
 
             // Act
             winLossExcelHandler.Handle(message);

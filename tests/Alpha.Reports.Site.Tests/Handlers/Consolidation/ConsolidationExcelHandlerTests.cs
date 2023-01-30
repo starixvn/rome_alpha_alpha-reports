@@ -57,7 +57,8 @@
                 workbookDetail,
                 consolidationByDateWorkbook,
                 consolidationByProductWorkbook,
-                productDetailService);
+                productDetailService,
+                winLossService);
 
             consolidationExcelHandler.MapPath = (path) => path;
             consolidationExcelHandler.IsFileExist = (path) => true;

@@ -191,7 +191,7 @@ var BaseReport = /** @class */ (function () {
             var iconHelpPosition = _this.$iconInformation.position();
             _this.$reportLegend.css({
                 bottom: "auto",
-                top: iconHelpPosition.top + 60
+                top: _this.$(".entered-non-entered").length > 0 ? iconHelpPosition.top + 90 : iconHelpPosition.top + 60
             });
         };
         this.$ = $;
@@ -234,7 +234,8 @@ var DateRangePickerComponent = /** @class */ (function () {
         var _this = this;
         this.options = new DateRangePickerOption();
         this.quickChooseType = {
-            specificDates: 7
+            specificDates: 7,
+            olderThan3Months: 8
         };
         this.isCompleteInitDateRangePicker = false;
         this.render = function (options) {
@@ -261,7 +262,13 @@ var DateRangePickerComponent = /** @class */ (function () {
                 onQuickChooseChange: function (selectValue) {
                     _this.options.onBeforeQuickChooseChange && _this.options.onBeforeQuickChooseChange();
                     if (_this.isCompleteInitDateRangePicker && selectValue !== _this.quickChooseType.specificDates) {
-                        _this.$reportForm.submit();
+                        if (selectValue === _this.quickChooseType.olderThan3Months) {
+                            _this.$reportForm.find("input[id=IsHistoricReport]").val("true");
+                            _this.$reportForm.find("a[id=historic-report]").trigger("click");
+                        }
+                        else {
+                            _this.$reportForm.submit();
+                        }
                     }
                 }
             });
@@ -1140,7 +1147,7 @@ var WinLossDetailView = /** @class */ (function (_super) {
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
-        this.$reportSwitch = this.$("#report-switch");
+        this.$reportSwitch = this.$("#historic-report");
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
         this.$iconNormalColumn = this.$("#icon-normal-column");

@@ -29,19 +29,21 @@
         private readonly WinLossDetailHandler winLossDetailHandler;
         private readonly UserFixture userFixture;
         private readonly PagedReportData<WinLossDetailModel> reportData;
+        private readonly WinLossService winLossService;
 
         public WinLossDetailHandlerTests(UserFixture userFixture)
         {
             productService = Substitute.For<ProductService>();
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string> { "Product Name" });
             productDetailService= Substitute.For<ProductDetailService>();
+            winLossService = Substitute.For<WinLossService>();
 
             reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
             var reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
             this.userFixture = userFixture;
-            winLossDetailHandler = new WinLossDetailHandler(productService, productDetailService, reportService, userFixture.User);
+            winLossDetailHandler = new WinLossDetailHandler(productService, productDetailService, reportService, winLossService, userFixture.User);
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;

@@ -13,14 +13,9 @@
     @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/EnteredResult/Bundles/enteredresult")
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty))
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty), hasEnterOrNonEnterNote: true, enteredSportResult: Model.TotalEnteredSport, isHistoricReport: Model.IsHistoricReport)
 
 @Html.Partial("~/Features/EnteredResult/Views/Filter.cshtml", Model.FilterViewModel)
-
-<div class="non-entered-note">
-    @DateTime.Now.AddDays(-1).ToShortDateWithSlash(): @yesterdayText <span>@yesterdayValue</span> |
-    @DateTime.Now.ToShortDateWithSlash(): @Resources.NonEntered <span>(@Model.TotalEnteredSport.EnteredSportToday.NonEntered)</span>
-</div>
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tablesorter" id="tbl-enteredresult-report"
        data-totalrecords="@Model.ReportData.Count()">

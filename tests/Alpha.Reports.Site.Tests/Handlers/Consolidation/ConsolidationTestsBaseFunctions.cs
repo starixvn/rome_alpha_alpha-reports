@@ -32,12 +32,16 @@
 
         protected readonly IUser viewer;
         protected PagedReportData<WinLossDetailModel> winLossDetailData;
+
+        protected readonly WinLossService winLossService;
+
         public ConsolidationTestsBaseFunctions(UserFixture userFixture)
         {
             user = userFixture.User;
             productService = Substitute.For<ProductService>();
             productDetailService = Substitute.For<ProductDetailService>();
             reportService = Substitute.For<ConsolidationService>();
+            winLossService = Substitute.For<WinLossService>();
 
             cacheRefService = Substitute.For<CacheRefService>();
             cacheRefService.GetProductName(Arg.Any<int>()).Returns(callInfo => "Product " + callInfo.Args()[0]);

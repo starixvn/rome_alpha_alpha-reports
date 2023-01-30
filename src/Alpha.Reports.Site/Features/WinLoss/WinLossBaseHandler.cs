@@ -4,6 +4,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Alpha.Reports.Constants;
+    using Alpha.Reports.Site.Features.EnteredResult;
     using Extensions;
     using Params;
     using Reports.Models.Winloss;
@@ -14,20 +15,18 @@
         "StyleCop.CSharp.NamingRules",
         "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter",
         Justification = "Reviewed. Suppression is OK here.")]
-    public class WinLossBaseHandler : BaseHandler
+    public class WinLossBaseHandler : EnteredSportResultBaseHandler
     {
         protected readonly ProductService productService;
         protected readonly ProductDetailService productDetailService;
-        protected readonly WinLossService reportService;
 
         public WinLossBaseHandler(
             ProductService productService,
             ProductDetailService productDetailService,
-            WinLossService reportService)
+            WinLossService reportService) : base(reportService)
         {
             this.productService = productService;
             this.productDetailService = productDetailService;
-            this.reportService = reportService;
         }
 
         protected WinLossParam CreateWinLossParamater(WinLossQuery message)

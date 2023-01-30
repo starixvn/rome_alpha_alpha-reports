@@ -61,7 +61,8 @@
                 anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ProductDetailViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
-                new[] { new ConsolidationByUsernameViewModel() });
+                new[] { new ConsolidationByUsernameViewModel() },
+                null);
             var drilldownFromDate = drilldownDate == null ? (DateTime?)null : Convert.ToDateTime(drilldownDate);
             var expectedFromDate = Convert.ToDateTime(expectedDate);
 
@@ -101,7 +102,8 @@
                 anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ProductDetailViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
-                new[] { new ConsolidationByUsernameViewModel() });
+                new[] { new ConsolidationByUsernameViewModel() },
+                null);
             DateTime? drilldownFromDate = null;
             var row = new ConsolidationEntityViewModel(1, 2, "Agent", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
 
@@ -138,7 +140,8 @@
                 anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ProductDetailViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
-                new[] { new ConsolidationByUsernameViewModel() });
+                new[] { new ConsolidationByUsernameViewModel() },
+                null);
             var drilldownFromDate = new DateTime(2017, 9, 1);
 
             // Act

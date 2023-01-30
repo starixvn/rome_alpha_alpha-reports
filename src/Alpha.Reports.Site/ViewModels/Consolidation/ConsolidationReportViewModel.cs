@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Alpha.Reports.Models.Winloss;
     using Components;
     using Constants;
     using Extensions;
@@ -22,7 +23,8 @@
             IEnumerable<GroupProductViewModel> groupProducts,
             IEnumerable<ProductDetailViewModel> productDetails,
             IEnumerable<SelectListItem> currencies,
-            IEnumerable<T> reportData)
+            IEnumerable<T> reportData,
+            EnteredSportResult totalEnteredSport)
         {
             this.message = message;
             this.param = param;
@@ -31,6 +33,7 @@
             ProductDetails = productDetails;
             Currencies = currencies;
             ReportData = reportData;
+            TotalEnteredSport = totalEnteredSport;
         }
 
         public int CustId => message.CustId;
@@ -38,6 +41,10 @@
         public string CustName => message.CustName;
 
         public DateTime MinDate => message.MinDate;
+
+        public bool IsSupportHistoricReport => message.IsSupportHistoricReport;
+
+        public bool IsHistoricReport => message.IsHistoricReport;
 
         public DateTime MaxDate => DateTime.MaxValue;
 
@@ -72,6 +79,8 @@
         public IEnumerable<SelectListItem> Currencies { get; }
 
         public IEnumerable<T> ReportData { get; }
+
+        public EnteredSportResult TotalEnteredSport { get; }
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
           new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);

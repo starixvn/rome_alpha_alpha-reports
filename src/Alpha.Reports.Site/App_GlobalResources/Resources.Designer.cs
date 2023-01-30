@@ -421,7 +421,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can view the report data from {0}. For more historic data, please click to.
+        ///   Looks up a localized string similar to You can view the report data from {0}..
         /// </summary>
         public static string CanOnlyViewDataAfterTimeCurrentReport {
             get {
@@ -1821,6 +1821,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string of2 {
             get {
                 return ResourceManager.GetString("of2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Older Than 3 Months.
+        /// </summary>
+        public static string OlderThan3Months {
+            get {
+                return ResourceManager.GetString("OlderThan3Months", resourceCulture);
             }
         }
         

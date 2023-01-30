@@ -8,8 +8,8 @@
     @ProductDetailMultiSelection.Render(Model.ProductDetailMultiSelectionViewModel)
 
     @(Model.IsHistoricReport
-        ? MonthPicker.Render(Model.MonthPickerViewModel)
-        : DateRangePicker.Render(Model.DateRangePickerViewModel))
+                                ? MonthPicker.Render(Model.MonthPickerViewModel)
+                                : DateRangePicker.Render(Model.DateRangePickerViewModel))
 
     @if (Model.IsHistoricReport)
     {
@@ -25,10 +25,16 @@
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
 
-    <div class="note">
-        <div><span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" data-is-historic-report="@Model.IsHistoricReport.ToString().ToLower()" href="#">@Model.ViewActionMessage</a></div>
-        <div><span class="star">*</span>@Model.SeparateSabaMessage</div>
-    </div>
+    @if (Model.IsHistoricReport)
+    {
+        <div class="note">
+            <div><span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" data-is-historic-report="true" href="#">@Model.ViewActionMessage</a></div>
+        </div>
+    }
+    else
+    {
+        <a id="historic-report" data-is-historic-report="false" href="#"></a>
+    }
 
     @helper RenderHiddenFields()
     {

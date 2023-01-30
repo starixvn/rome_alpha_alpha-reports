@@ -15,6 +15,7 @@
             SRecommendId = viewer.SRecommendId;
             SubAccId = viewer.SubAccId;
             OnUserId = viewer.OnUserId;
+            IsSupportHistoricReport = true;
         }
 
         public int PageIndex { get; set; }

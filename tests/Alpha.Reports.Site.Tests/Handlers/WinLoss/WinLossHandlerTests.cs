@@ -129,7 +129,8 @@
                 winLossParam,
                 custInfoData,
                 Enumerable.Empty<GroupProductViewModel>(),
-                Enumerable.Empty<ProductDetailViewModel>());
+                Enumerable.Empty<ProductDetailViewModel>(),
+                null);
 
             // Act
             var actualWinLossViewModel = winLossHandler.Handle(message);

@@ -7,7 +7,9 @@
     @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/consolidation/consolidation")
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
+@ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query,
+    hasEnterOrNonEnterNote: true,
+    enteredSportResult: Model.TotalEnteredSport)
 
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
@@ -109,7 +111,7 @@
     }
 </table>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Consolidation"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Consolidation",new { IsSupportHistoricReport = true, IsHistoricReport = Model.IsHistoricReport, MinDate = Model.MinDate }))
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/consolidation/consolidation")
 }

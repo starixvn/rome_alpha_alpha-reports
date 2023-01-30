@@ -133,7 +133,7 @@
     <value>Ungroup columns</value>
   </data>
   <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
-    <value>You can view the report data from {0}. For more historic data, please click to</value>
+    <value>You can view the report data from {0}.</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>Today</value>
@@ -1013,5 +1013,8 @@
   </data>
   <data name="HttpError_Default" xml:space="preserve">
     <value>Sorry, there was an unexpected issue on the server. Please seek help from our customer support. [{0}]</value>
+  </data>
+  <data name="OlderThan3Months" xml:space="preserve">
+    <value>Older Than 3 Months</value>
   </data>
 </root>

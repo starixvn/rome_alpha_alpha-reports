@@ -88,7 +88,7 @@
         var iconHelpPosition = this.$iconInformation.position();
         this.$reportLegend.css({
             bottom: "auto",
-            top: iconHelpPosition.top + 60
+            top: this.$(".entered-non-entered").length > 0 ? iconHelpPosition.top + 90 : iconHelpPosition.top + 60
         });
     };
 

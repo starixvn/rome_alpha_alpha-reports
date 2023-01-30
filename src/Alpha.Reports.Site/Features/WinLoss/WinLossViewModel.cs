@@ -23,7 +23,8 @@
             WinLossParam param,
             IEnumerable<CustInfo> breadcrumbLevel,
             IEnumerable<GroupProductViewModel> groupProducts,
-            IEnumerable<ProductDetailViewModel> productDetails) : base(message, param, breadcrumbLevel, groupProducts, productDetails)
+            IEnumerable<ProductDetailViewModel> productDetails,
+            EnteredSportResult totalEnteredSport) : base(message, param, breadcrumbLevel, groupProducts, productDetails)
         {
             ReportData = reportData;
             GrandTotal = grandTotal;
@@ -34,6 +35,7 @@
             var canSort = reportData != null && reportData.Count() > 1;
             SortPropertyName = canSort ? GetSortedProperty(message.CustLevel, message.SortPropertyName) : DefaultVariables.SortPropertyName;
             IsDescendingSort = canSort && message.IsDescendingSort;
+            TotalEnteredSport = totalEnteredSport;
         }
 
         public IEnumerable<WinLossModel> ReportData { get; }
@@ -49,6 +51,8 @@
         public string SortPropertyName { get; }
 
         public bool IsDescendingSort { get; }
+
+        public EnteredSportResult TotalEnteredSport { get; }
 
         private void BuildResources()
         {

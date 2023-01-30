@@ -75,7 +75,7 @@
             new MonthPickerViewModel(MinDate, FromDate, ToDate);
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
-            new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
+            new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption, isSupportHistoricReport: message.IsSupportHistoricReport, isHistoricReport: message.IsHistoricReport);
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(GroupProducts, UserSelectedProductIds, Language);

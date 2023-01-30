@@ -38,8 +38,9 @@
             Workbook<WinLossDetailModel> workbookForDetail,
             ConsolidationByDateWorkbook consolidationByDateWorkbook,
             ConsolidationByProductWorkbook consolidationByProductWorkbook,
-            ProductDetailService productDetailService) :
-            base(reportService, cacheRefService, viewer, productDetailService)
+            ProductDetailService productDetailService,
+            WinLossService winLossService) :
+            base(reportService, cacheRefService, viewer, productDetailService, winLossService)
         {
             this.consolidationByUsernameWorkbook = consolidationByUsernameWorkbook;
             this.workbookForDetail = workbookForDetail;
@@ -50,11 +51,11 @@
 
         public ExcelFileViewModel Handle(ConsolidationByUsernameExcelQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
-            var reportData = reportService.GetConsolidationByUsername(param);
-            var currencies = reportService
+            var reportData = consolidationService.GetConsolidationByUsername(param);
+            var currencies = consolidationService
                 .GetCurrencies(new GetCurrencyParam(message.ViewerId))
                 .ToDictionary(c => c.Id, c => c.Name);
             var viewModels = BuildConsolidationByUsernameViewModel(reportData, currencies);
@@ -72,11 +73,11 @@
 
         public ExcelFileViewModel Handle(ConsolidationByDateExcelQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
-            var reportData = reportService.GetConsolidationByDate(param);
-            var currencies = reportService
+            var reportData = consolidationService.GetConsolidationByDate(param);
+            var currencies = consolidationService
                 .GetCurrencies(new GetCurrencyParam(message.ViewerId))
                 .ToDictionary(c => c.Id, c => c.Name);
             var viewModels = BuildWinLossByDateViewModel(reportData, currencies);
@@ -94,11 +95,11 @@
 
         public ExcelFileViewModel Handle(ConsolidationByProductExcelQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
-            var reportData = reportService.GetConsolidationByProduct(param);
-            var currencies = reportService
+            var reportData = consolidationService.GetConsolidationByProduct(param);
+            var currencies = consolidationService
                 .GetCurrencies(new GetCurrencyParam(message.ViewerId))
                 .ToDictionary(c => c.Id, c => c.Name);
             var viewModels = BuildWinLossByProductViewModel(reportData, currencies);
@@ -118,12 +119,12 @@
         {
             var winLossDetailQuery = CreateWinLossDetailQuery(message);
 
-            var products = reportService.GetProducts(
+            var products = consolidationService.GetProducts(
                 new GetConslidationReportProductsParam(winLossDetailQuery.ViewerId, winLossDetailQuery.MinDate),
                 message.IsEnableSabaPromotionForHeadline);
             var param = CreateWinLossDetailParam(winLossDetailQuery, products);
 
-            var reportData = reportService.GetWinLossDetail(param);
+            var reportData = consolidationService.GetWinLossDetail(param);
 
             var fileContent = workbookForDetail
                .UseTemplate(GetTemplateInfo(message.CustLevel.GetDirectDownLineLevel().DisplayName))

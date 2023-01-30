@@ -24,7 +24,8 @@ class DateRangePickerComponent {
 
     options = new DateRangePickerOption();
     quickChooseType = {
-        specificDates: 7
+        specificDates: 7,
+        olderThan3Months: 8
     };
     isCompleteInitDateRangePicker = false;
     $reportForm: JQuery;
@@ -59,7 +60,13 @@ class DateRangePickerComponent {
                 this.options.onBeforeQuickChooseChange && this.options.onBeforeQuickChooseChange();
 
                 if (this.isCompleteInitDateRangePicker && selectValue !== this.quickChooseType.specificDates) {
-                    this.$reportForm.submit();
+                    if (selectValue === this.quickChooseType.olderThan3Months) {
+                        this.$reportForm.find("input[id=IsHistoricReport]").val("true");
+                        this.$reportForm.find("a[id=historic-report]").trigger("click");
+                    }
+                    else {
+                        this.$reportForm.submit();
+                    }
                 }
             }
         });

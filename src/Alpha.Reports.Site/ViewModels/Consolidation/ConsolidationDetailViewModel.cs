@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Models.Winloss;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
     using Requests.Consolidation;
@@ -16,7 +17,8 @@
             ConsolidationDetailQuery message,
             IEnumerable<CustInfo> breadcrumbLevel,
             ConsolidationFilterViewModel filterViewModel,
-            WinLossDetailViewModel winLossDetailViewModel) : base(message.CustLevel, breadcrumbLevel)
+            WinLossDetailViewModel winLossDetailViewModel,
+            EnteredSportResult totalEnteredSport) : base(message.CustLevel, breadcrumbLevel)
         {
             this.message = message;
 
@@ -24,6 +26,8 @@
             WinLossDetailViewModel = winLossDetailViewModel;
 
             BreadcrumbActions = GetBreadcrumbActions(breadcrumbLevel);
+
+            TotalEnteredSport = totalEnteredSport;
         }
 
         public string DrilldownFromType => message.DrilldownFromType;
@@ -55,6 +59,14 @@
         public ConsolidationFilterViewModel FilterViewModel { get; }
 
         public WinLossDetailViewModel WinLossDetailViewModel { get; }
+
+        public DateTime MinDate => message.MinDate;
+
+        public bool IsSupportHistoricReport => message.IsSupportHistoricReport;
+
+        public bool IsHistoricReport => message.IsHistoricReport;
+
+        public EnteredSportResult TotalEnteredSport { get; }
 
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(WinLossDetailModel model)
             => new Dictionary<string, object>();

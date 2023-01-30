@@ -12,6 +12,7 @@
         {
             IsEnableSabaPromotion = viewer.IsEnableSabaPromotion;
             IsEnableSabaPromotionForHeadline = viewer.IsEnableSabaPromotionForHeadline;
+            IsSupportHistoricReport = true;
         }
 
         public string UserSelectedProductIds { get; set; }

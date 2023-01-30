@@ -22,7 +22,8 @@
             ProductService productService,
             ProductDetailService productDetailService,
             WinLossDetailService reportService,
-            Workbook<WinLossDetailModel> workbook) : base(productService, productDetailService, reportService)
+            WinLossService winLossService,
+            Workbook<WinLossDetailModel> workbook) : base(productService, productDetailService, reportService, winLossService)
         {
             this.workbook = workbook;
         }
@@ -36,7 +37,7 @@
 
             var winLossDetailParam = CreateParameter(message, message.CustLevel);
 
-            var reportData = message.ReportData ?? reportService.GetWinLossDetail(winLossDetailParam);
+            var reportData = message.ReportData ?? winlossDetailService.GetWinLossDetail(winLossDetailParam);
 
             var fileContent = workbook
                .UseTemplate(GetTemplateInfo(message))

@@ -127,7 +127,7 @@
     <value>상세한 회원의 승리 패배</value>
   </data>
   <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
-    <value>You can view the report data from {0}. For more historic data, please click to </value>
+    <value>You can view the report data from {0}.</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>오늘</value>

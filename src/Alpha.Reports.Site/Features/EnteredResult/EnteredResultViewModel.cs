@@ -12,6 +12,8 @@
 
     public class EnteredResultViewModel
     {
+        private readonly EnteredSportResultQuery message;
+
         public EnteredResultViewModel(
             EnteredSportResultQuery message,
             IEnumerable<EnteredSportResult> reportData,
@@ -22,6 +24,8 @@
             CustLevel = message.CustLevel;
             TotalEnteredSport = totalEnteredSport;
             IsMobileView = isMobile;
+            this.message = message;
+            IsHistoricReport = message.IsHistoricReport;
         }
 
         public DateTime MinDate => SystemTime.Today.AddMonths(-3).FirstDayOfMonth();
@@ -41,7 +45,7 @@
         public EnteredSportResult TotalEnteredSport { get; }
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
-            new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
+            new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption, isSupportHistoricReport: message.IsSupportHistoricReport, isHistoricReport: message.IsHistoricReport);
 
         public EnteredResultFilterViewModel FilterViewModel =>
             new EnteredResultFilterViewModel(
@@ -65,5 +69,7 @@
         }
 
         public bool IsMobileView { get; }
+
+        public bool IsHistoricReport { get; }
     }
 }

@@ -127,7 +127,7 @@
     <value>Chi tiết thắng thua của Member</value>
   </data>
   <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
-    <value>Bạn có thể tra cứu dữ liệu báo cáo từ ngày {0}.Nếu muốn tìm kiếm những dữ liệu cũ hơn, bấm</value>
+    <value>Bạn có thể tra cứu dữ liệu báo cáo từ ngày {0}.</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>Hôm nay</value>
@@ -949,5 +949,8 @@
   </data>
   <data name="HttpError_Default" xml:space="preserve">
     <value>Rất tiếc, đã xảy ra lỗi không mong muốn với máy chủ. Vui lòng liên hệ với bộ phận chăm sóc khách hàng của chúng tôi để được hỗ trợ. [{0}]</value>
+  </data>
+  <data name="OlderThan3Months" xml:space="preserve">
+    <value>Lâu hơn 3 tháng</value>
   </data>
 </root>

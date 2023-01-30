@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Alpha.Reports.Configurations;
+    using Alpha.Reports.Extensions;
     using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
     using Fanex.Logging.Extensions.Web;
@@ -25,7 +26,8 @@
             ProductService productService,
             ProductDetailService productDetailService,
             WinLossDetailService reportService,
-            IUser viewer) : base(productService, productDetailService, reportService)
+            WinLossService winLossService,
+            IUser viewer) : base(productService, productDetailService, reportService, winLossService)
         {
             this.viewer = viewer;
         }
@@ -43,14 +45,16 @@
             var productDetails = productDetailService.GetProductDetails(message.ViewerId, message.Site, message.CurrencyId);
 
             var winLossDetailParam = CreateParameter(message, message.CustLevel);
-            var reportData = reportService.GetWinLossDetail(winLossDetailParam);
+            var reportData = winlossDetailService.GetWinLossDetail(winLossDetailParam);
+            var reportEntered = reportService.GetEnteredSportResults();
             var viewModel = new WinLossDetailViewModel(
                 message,
                 winLossDetailParam,
                 reportData,
                 BuildBreadcrumbLevel(message),
                 BuildProductSelectListItems(winLossDetailParam.UserSelectedProductIds, products),
-                BuildProductDetailViewModels(winLossDetailParam.UserSelectedResourceIds, productDetails));
+                BuildProductDetailViewModels(winLossDetailParam.UserSelectedResourceIds, productDetails),
+                totalEnteredSport: GetTotalEnteredSportYesterdayAndToday(reportEntered));
 
             return viewModel;
         }
@@ -59,6 +63,19 @@
         {
             message.CustId = viewer.Id;
             var result = new List<string>();
+
+            if (message.IsSupportHistoricReport && !message.IsHistoricReport)
+            {
+                result.Add(string.Format(
+                    $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
+            }
+
+            if (message.IsSupportHistoricReport)
+            {
+                result.Add(string.Format(
+                    $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
+            }
+
             result.Add(Resources.Tooltip_NetTurnover);
 
             var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.ViewerId, message.Site, message.CurrencyId);

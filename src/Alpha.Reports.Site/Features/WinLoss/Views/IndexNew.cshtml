@@ -16,7 +16,10 @@
     false, true, false,
     Model.IsFilterVisible,
     Model.BreadcrumbLevel,
-    Model.BreadcrumbLevelJson), Request.Url.Query)
+    Model.BreadcrumbLevelJson), 
+    Request.Url.Query, 
+    hasEnterOrNonEnterNote: true,
+    isHistoricReport: Model.IsHistoricReport)
 
 @Html.Partial("~/Features/WinLoss/Views/FilterNew.cshtml", Model.FilterViewModel,
     new ViewDataDictionary
@@ -111,7 +114,7 @@
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ReportLegend", new { IsSupportHistoricReport = true, IsHistoricReport = Model.IsHistoricReport, MinDate = Model.MinDate }))
 
 @section Scripts {
     <script type="text/javascript">

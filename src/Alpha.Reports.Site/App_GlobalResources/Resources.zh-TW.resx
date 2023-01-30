@@ -127,7 +127,7 @@
     <value>會員輸贏資料</value>
   </data>
   <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
-    <value>您可查看報表數據從 {0}. 如需要查閱三個月前的舊報告，請用</value>
+    <value>您可查看報表數據從 {0}.</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>今日賽事</value>
@@ -930,5 +930,8 @@
   </data>
   <data name="HttpError_Default" xml:space="preserve">
     <value>很抱歉，伺服器發生意外錯誤，請聯繫我們的客服協助處理。[{0}]</value>
+  </data>
+  <data name="OlderThan3Months" xml:space="preserve">
+    <value>3 個月以上</value>
   </data>
 </root>

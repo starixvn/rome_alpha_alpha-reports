@@ -19,6 +19,11 @@
 
         protected static EnteredSportResult GetTotalEnteredSportYesterdayAndToday(IEnumerable<EnteredSportResult> reportData)
         {
+            if (reportData == null || !reportData.Any())
+            {
+                return null;
+            }
+
             int totalEnteredToday = 0,
                 totalNonEnteredToday = 0,
                 totalEnteredYesterday = 0,

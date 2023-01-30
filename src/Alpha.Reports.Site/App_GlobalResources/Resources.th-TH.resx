@@ -127,7 +127,7 @@
     <value>รายละเอียด</value>
   </data>
   <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
-    <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}. ข้อมูลก่อนหน้านี้ กรุณาใช้ </value>
+    <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}.</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>วันนี้</value>
@@ -924,5 +924,8 @@
   </data>
   <data name="HttpError_Default" xml:space="preserve">
     <value>มีปัญหาที่ไม่คาดคิดเกิดขึ้น โปรดติดต่อฝ่ายสนับสนุนลูกค้าหากท่านต้องการความช่วยเหลือ [{0}]</value>
+  </data>
+  <data name="OlderThan3Months" xml:space="preserve">
+    <value>มากกว่า 3 เดือน</value>
   </data>
 </root>
