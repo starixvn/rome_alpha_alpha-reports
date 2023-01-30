@@ -3,10 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.Reports.Configurations;
     using Alpha.Reports.Constants;
     using Alpha.Reports.Extensions;
-    using Alpha.Reports.Models.Consolidation;
     using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
     using MediatR;
@@ -155,12 +153,6 @@
                     $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
             }
 
-            if (message.IsSupportHistoricReport)
-            {
-                result.Add(string.Format(
-                    $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
-            }
-
             var products = consolidationService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
             if (products.Any())
@@ -181,12 +173,6 @@
                     $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
             }
 
-            if (message.IsSupportHistoricReport)
-            {
-                result.Add(string.Format(
-                    $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
-            }
-
             result.Add(Resources.Tooltip_NetTurnover);
 
             var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
@@ -194,6 +180,9 @@
             {
                 result.Add(liveCasinoTooltips);
             }
+
+            message.IsSupportHistoricReport = false;
+            message.IsHistoricReport = false;
 
             var consolidationReportLegend = Handle((ConsolidationLegendQuery)message);
             result.AddRange(consolidationReportLegend.Legends);
