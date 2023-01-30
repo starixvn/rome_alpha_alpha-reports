@@ -931,4 +931,7 @@
   <data name="HttpError_Default" xml:space="preserve">
     <value>很抱歉，服务器发生意外错误，请联系我们的客服协助处理。[{0}]</value>
   </data>
+  <data name="OlderThan3Months" xml:space="preserve">
+    <value>3 个月以上</value>
+  </data>
 </root>

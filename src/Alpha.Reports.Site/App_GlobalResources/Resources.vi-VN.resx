@@ -950,4 +950,7 @@
   <data name="HttpError_Default" xml:space="preserve">
     <value>Rất tiếc, đã xảy ra lỗi không mong muốn với máy chủ. Vui lòng liên hệ với bộ phận chăm sóc khách hàng của chúng tôi để được hỗ trợ. [{0}]</value>
   </data>
+  <data name="OlderThan3Months" xml:space="preserve">
+    <value>Lâu hơn 3 tháng</value>
+  </data>
 </root>

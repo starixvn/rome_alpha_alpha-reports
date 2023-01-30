@@ -925,4 +925,7 @@
   <data name="HttpError_Default" xml:space="preserve">
     <value>มีปัญหาที่ไม่คาดคิดเกิดขึ้น โปรดติดต่อฝ่ายสนับสนุนลูกค้าหากท่านต้องการความช่วยเหลือ [{0}]</value>
   </data>
+  <data name="OlderThan3Months" xml:space="preserve">
+    <value>มากกว่า 3 เดือน</value>
+  </data>
 </root>
