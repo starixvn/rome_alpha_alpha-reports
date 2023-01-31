@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Configurations;
     using Alpha.Reports.Constants;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Site.ViewModels.Components;
@@ -153,6 +154,12 @@
                     $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
             }
 
+            if (message.IsSupportHistoricReport)
+            {
+                result.Add(string.Format(
+                    $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
+            }
+
             var products = consolidationService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
 
             if (products.Any())
@@ -171,6 +178,12 @@
             {
                 result.Add(string.Format(
                     $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
+            }
+
+            if (message.IsSupportHistoricReport)
+            {
+                result.Add(string.Format(
+                    $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
             }
 
             result.Add(Resources.Tooltip_NetTurnover);
