@@ -151,7 +151,6 @@ a {
       content: ')'; }
 
 #tbl-report, #tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
-  margin-top: 12px;
   text-align: right; }
   #tbl-report .visible-stack-mode, #tbl-enteredresult-report .visible-stack-mode, .tbl-outstanding .visible-stack-mode, .tbl-small-width .visible-stack-mode {
     display: none; }
@@ -253,14 +252,12 @@ a {
   .filter label[for="dropdown-statuses"] {
     float: left;
     padding: 3px 10px 0 0; }
-  .filter .report-by {
-    padding-top: 15px; }
-    .filter .report-by span {
-      padding-left: 10px; }
-    .filter .report-by input {
-      margin-right: 0px; }
-    .filter .report-by label {
-      font-weight: normal; }
+  .filter .report-by span {
+    padding-left: 10px; }
+  .filter .report-by input {
+    margin-right: 0px; }
+  .filter .report-by label {
+    font-weight: normal; }
   .filter .radio input[type="radio"] {
     position: relative; }
   .filter #report-by-username {
