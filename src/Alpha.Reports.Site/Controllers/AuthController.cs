@@ -267,8 +267,10 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.ISENABLEDSECURITYCODEINSTATEMENT, Convert.ToBoolean(sessions[21]));
             userSession.SetProperty(SessionKey.SECURITYCODE, sessions[22]);
 
-            SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp = Convert.ToBoolean(sessions[23]);
-            SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode = Convert.ToBoolean(sessions[24]);
+            SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp =
+                SecurityCodeSessionManager.SecurityCodeSession.IsEnabledOtp || Convert.ToBoolean(sessions[23]);
+            SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode =
+                SecurityCodeSessionManager.SecurityCodeSession.IsAlreadyInputSecurityCode || Convert.ToBoolean(sessions[24]);
 
             userSession.SetProperty(SessionKey.ISFORCEDSECURITYCODE, false);
             userSession.SetProperty(SessionKey.ISPASSWORDEXPIRED, false);
@@ -277,6 +279,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.ISNICKNAMELOGINONLY, true);
 
             Session["ONEbook.UM.ByPassUM"] = sessions[33];
+            userSession.SetProperty(SessionKey.BetlistSessionID, sessions[37]);
         }
 
         private void SetUserSessionsAndAuth(string[] parameters, IUserSession userSession)
@@ -331,6 +334,8 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.IndirectUsernameSessionKey, sessions[30]);
             userSession.SetProperty(SessionKey.AUTOFOLLOWBETISDUMMYAGENT, Convert.ToBoolean(sessions[34]));
             userSession.SetProperty(SessionKey.MainSessionID, sessions[35]);
+
+            userSession.SetProperty(SessionKey.BetlistDomainSessionKey, sessions[36]);
 
             SetRealtimeValues(parameters, userSession);
             UpdateReportRoutingRealtime(parameters, userSession);

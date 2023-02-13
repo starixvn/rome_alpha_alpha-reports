@@ -87,8 +87,17 @@
                     var userSession = UserSession.Current;
                     var mainDomain = userSession.GetProperty<string>(SessionKey.MainDomainSessionKey);
                     var mainSessionId = userSession.GetProperty<string>(SessionKey.MainSessionID);
+                    var betlistDomain = userSession.GetProperty<string>(SessionKey.BetlistDomainSessionKey);
+                    var betlistSessionId = userSession.GetProperty<string>(SessionKey.BetlistSessionID);
+                    var betlistAppPath = "/site-betlists";
 
-                    return new Func<string, string>((virtualPath) => $"{mainDomain}/site-betlists/(S({mainSessionId})){virtualPath?.Replace("~", string.Empty)}");
+                    betlistAppPath = string.IsNullOrWhiteSpace(betlistDomain) ? betlistAppPath : string.Empty;
+                    betlistSessionId = betlistSessionId ?? mainSessionId;
+                    betlistDomain = betlistDomain ?? mainDomain;
+                    
+
+
+                    return new Func<string, string>((virtualPath) => $"{betlistDomain}{betlistAppPath}/(S({betlistSessionId})){virtualPath?.Replace("~", string.Empty)}");
                 }
 
                 return MicroSites.BetListsUrl;

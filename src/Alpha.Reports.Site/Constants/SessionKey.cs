@@ -42,5 +42,7 @@
         public const string ISNICKNAMELOGINONLY = "ISNICKNAMELOGINONLY";
         public const string AUTOFOLLOWBETISDUMMYAGENT = "AUTOFOLLOWBETISDUMMYAGENT";
         public const string MainSessionID = "MainSessionID";
+        public const string BetlistDomainSessionKey = "BetlistDomainSessionKey";
+        public const string BetlistSessionID = "BetlistSessionID";
     }
 }
