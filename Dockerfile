@@ -11,17 +11,14 @@ WORKDIR /dev
 
 # Copy files *.sln, *.csproj, packages.config to restore nuget packages
 COPY *.sln .
-COPY src\Alpha.Reports.Site\*.csproj src\Alpha.Reports.Site\
-COPY src\Alpha.Reports.Site\packages.config src\Alpha.Reports.Site\
-
-COPY src\Alpha.Reports\*.csproj src\Alpha.Reports\
-COPY src\Alpha.Reports\packages.config src\Alpha.Reports\
-
-RUN nuget.exe restore Alpha.Reports.Site.sln
-
 COPY src src\
+COPY packages packages\
 
-RUN MSBuild.exe "src\Alpha.Reports.Site\Alpha.Reports.Site.csproj" `
+RUN `
+	# verify nuget packages
+	nuget.exe restore Alpha.Reports.Site.sln `
+	# build project
+	&& MSBuild.exe "src\Alpha.Reports.Site\Alpha.Reports.Site.csproj" `
     /t:Build;WebPublish /m `
     /p:DebugType=None `
     /p:Configuration=Release `

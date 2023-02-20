@@ -1,16 +1,4 @@
 include:
-    - project: "ci/repos-ci/rome_alpha_reports" # Refer to field CI Script Repo at step #3
-      ref: master
-      file: "gitlab-ci.yml"
-
-    - project: "ci/repos-ci/rome_alpha_internalreports"
-      ref: master
-      file: "gitlab-ci-mixing.yml"
-
-    - project: "ci/repos-ci/rome_alpha_stagingreports"
-      ref: master
-      file: "gitlab-ci-mixing.yml"
-
-    - project: "ci/repos-ci/rome_alpha_staginginternalreports"
-      ref: master
-      file: "gitlab-ci-mixing.yml"
+    - project: ci/core-cicd
+      ref: main
+      file: nexcel.gitlab-ci.yml
