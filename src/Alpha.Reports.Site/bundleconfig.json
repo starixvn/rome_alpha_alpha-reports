@@ -37,6 +37,15 @@
     ]
   },
   {
+    "outputFileName": "Features/WinLossDetail/Bundles/winlossdetail-new.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker-new.js",
+      "assets/scripts/components/product-productdetail-dropdown.js",
+      "Features/WinLossDetail/Scripts/winlossdetail-new.js"
+    ]
+  },
+  {
     "outputFileName": "Features/WinLoss/Bundles/winloss.css",
     "inputFiles": [
       "Features/WinLoss/Styles/winloss.css"

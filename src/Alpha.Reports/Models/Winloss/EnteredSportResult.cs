@@ -4,7 +4,6 @@
     {
         public EnteredSportResult()
         {
-
         }
 
         public EnteredSportResult(

@@ -2,72 +2,34 @@
 @using Alpha.Reports.Site.ViewModels.Components;
 @using Alpha.Reports.Site.App_GlobalResources;
 
-@helper Render(DateRangePickerViewModel model, string id = null, IEnumerable<HelperResult> presubmitControls = null)
+@helper Render(DateRangePickerViewModel model)
 {
     <div class="form-group daterangepicker-container">
-        <div class="control date datenew">
-            <div class="input-group date">
-                <input type="hidden" id="from-date" name="FromDate" value="@model.FromDate.ToShortDateWithSlash()" />
-                <input type="hidden" id="to-date" name="ToDate" value="@model.ToDate.ToShortDateWithSlash()" />
-
-                <input class="form-control ui_nexdatepicker_datetextbox ui_nexdatepicker_todate"
-                       id="@(string.IsNullOrWhiteSpace(id) ? "daterangepicker" : id)"
-                       readonly="readonly"
-                       data-startdate="@model.FromDate.ToShortDateWithSlash()"
-                       data-enddate="@model.ToDate.ToShortDateWithSlash()"
+        <label>Date Range</label>
+        <div class="control ">
+            <div id="from-date-container" class="input-group date fromdate">
+                <input type="text"
+                       class="ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate form-control"
+                       id="daterange-picker"
+                       autocomplete="off"
+                       readonly
                        data-mindate="@model.MinDate.ToShortDateWithSlash()"
                        data-maxdate="@model.MaxDate.ToShortDateWithSlash()"
-                       data-applylabel="@Resources.Apply"
-                       data-cancellabel="@Resources.Cancel"
-                       value="@Alpha.Reports.Utils.SystemTime.Today" />
+                       data-fromdate="@model.FromDate.ToShortDateWithSlash()"
+                       data-todate="@model.ToDate.ToShortDateWithSlash()"
+                       data-currentdate="@DateTime.Today.ToShortDateWithSlash()"
+                       data-label-today="@Resources.Today"
+                       data-label-yesterday="@Resources.Yesterday"
+                       data-label-thisweek="@Resources.ThisWeek"
+                       data-label-lastweek="@Resources.LastWeek"
+                       data-label-thismonth="@Resources.ThisMonth"
+                       data-label-lastmonth="@Resources.LastMonth"
+                       data-label-sincelastmonth="@Resources.SinceLastMonth"
+                       data-label-specificdate="@Resources.SpecificDate" />
                 <span class="input-group-addon">
-                    <span id="calendar-trigger" class="icon-calendar"></span>
+                    <span class="icon-calendar" id="fdate_trigger"></span>
                 </span>
             </div>
-        </div>
-    </div>
-
-    if (presubmitControls != null)
-    {
-        foreach (var presubmitControl in presubmitControls)
-        {
-            @presubmitControl
-        }
-    }
-
-    if (model.IsRenderSubmitButton)
-    {
-        <div class="form-group submit-container">
-            <input type="submit" value="@Resources.Submit" class="btn-submit" />
-        </div>
-    }
-
-    <div class="form-group daterange-container">
-        <div class="dropdown daterange-dropdown" id="dropdown-daterange">
-            <input type="hidden"
-                   name="UserSelectedDateRangeOption"
-                   id="hidden-range-option"
-                   value="@model.SelectedRangeOption.Value" />
-            <button class="btn-submit dropdown-toggle"
-                    type="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
-                <span id="range-label">@model.SelectedRangeOption.Text</span>
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="range-label">
-                @foreach (var rangeOption in model.RangeOptions)
-                {
-                    <li>
-                        <a href="#"
-                           class="range-option"
-                           data-value="@rangeOption.Value">
-                            @rangeOption.Text
-                        </a>
-                    </li>
-                }
-            </ul>
         </div>
     </div>
 }

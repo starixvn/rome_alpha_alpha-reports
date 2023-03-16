@@ -1,0 +1,59 @@
+﻿@model NewWinLossDetailViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Win Loss Detail Report";
+    var today = DateTime.Today;
+    var yesterday = today.AddDays(-1);
+}
+@section Styles {
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/daterangepicker")
+}
+@section Scripts {
+    @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/daterangepicker")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/WinLossDetail/Bundles/winlossdetail-new")
+}
+<div class="page-title">
+    <div class="entered-non-entered">
+        @if (Model.TotalEnteredSport.EnteredSportYesterday.NonEntered > 0)
+        {
+            <div class="icon-non-entered">
+                <div class="text">@yesterday.ToMMDDWithSlash(): @Resources.NonEntered</div>
+                <div class="number">@Model.TotalEnteredSport.EnteredSportYesterday.NonEntered</div>
+                <div class="icon-clock"></div>
+            </div>
+        }
+        else
+        {
+            <div class="icon-entered">
+                <div class="text">@yesterday.ToMMDDWithSlash(): @Resources.Entered</div>
+                <div class="icon-check-circle"></div>
+            </div>
+        }
+        <div class="icon-non-entered">
+            <div class="text">@today.ToMMDDWithSlash(): @Resources.NonEntered</div>
+            <div class="number">@Model.TotalEnteredSport.EnteredSportToday.NonEntered</div>
+            <div class="icon-clock"></div>
+        </div>
+        <a href="javascript:;"><span class="icon icon-information-outline report-legend"></span></a>
+    </div>
+    <div class="text-title pull-left" style="clear: both">@Model.Title</div>
+    <div class="list-icon">
+        <ul>
+            <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+            <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+            <li class="normalview-element"><span id="icon-stack-column" class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
+            <li class="stackcolumnview-element"><span id="icon-normal-column" class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
+        </ul>
+    </div>
+</div>
+<form class="form-inline filter" role="form" id="report-form">
+    @DateRangePickerNew.Render(Model.DateRangePickerViewModel)
+    @ProductAndProductDetailDropdown.Render(Model.Products, Model.ProductDetails, Model.Language)
+    <div class="form-group submit-container">
+        <input type="submit" value="@Resources.Submit" class="btn-submit" />
+    </div>
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+</form>
+<div id="tbl-report-container"></div>

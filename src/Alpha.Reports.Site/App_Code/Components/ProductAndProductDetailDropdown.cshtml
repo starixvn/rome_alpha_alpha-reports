@@ -1,0 +1,49 @@
+﻿@using Alpha.Reports.Site.App_GlobalResources;
+@using Alpha.Reports.Site.ViewModels.Components;
+
+@helper Render(IEnumerable<GroupProductViewModel> products, IEnumerable<ProductDetailViewModel> productDetails, string language)
+{
+    <div class="form-group" id="product-multiselect-container">
+        <select class="select-multiple"
+                id="dropdown-product"
+                multiple
+                data-label-select-products="@Resources.SelectProducts"
+                data-label-selected="@Resources.Selected"
+                data-label-all-products="@Resources.AllProducts"
+                data-label-select-all="@Resources.SelectAll">
+            @foreach (var group in products)
+            {
+                if (group.HasGroupName)
+                {
+                    <optgroup label="@group.Group.Name">
+                        @foreach (var product in group.Products)
+                        {
+                            <option value="@product.Value" @(product.Selected ? " selected=selected" : string.Empty) data-isnested="1">@product.Text</option>
+                        }
+                    </optgroup>
+                }
+                else
+                {
+                    foreach (var product in group.Products)
+                    {
+                        <option value="@product.Value" @(product.Selected ? " selected=selected" : string.Empty)>@product.Text</option>
+                    }
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group" id="product-detail-multiselect-container">
+        <select class="select-multiple"
+                id="dropdown-product-detail"
+                multiple
+                data-label-select-product-detail="@Resources.SelectNone"
+                data-label-selected="@Resources.Selected"
+                data-label-all-product-detail="@Resources.SelectAll">
+            @foreach (var product in productDetails)
+            {
+                <option value="@product.Value" @(product.Selected ? "selected=selected" : string.Empty)
+                        data-productid="@product.ProductId">@product.Text</option>
+            }
+        </select>
+    </div>
+}

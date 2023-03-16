@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Threading.Tasks;
     using Criteria.WinLossDetail;
     using Fanex.Common.Extensions;
     using Models;
@@ -11,6 +12,8 @@
     public interface WinLossDetailDataAccess
     {
         PagedReportData<WinLossDetailModel> GetData(WinLossDetailCriteria criteria);
+
+        Task<PagedReportData<WinLossDetailModel>> GetDataAsync(WinLossDetailCriteria criteria);
     }
 
     public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
@@ -69,6 +72,38 @@
                 superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) : null);
 
             return winLossDetail;
+        }
+
+        public async Task<PagedReportData<WinLossDetailModel>> GetDataAsync(WinLossDetailCriteria criteria)
+        {
+            var winLossDetails = new List<WinLossDetailModel>();
+            var totalWinLoss = new WinLossDetailModel();
+
+            if (criteria.IsValid())
+            {
+                using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+                {
+                    using (var reader = await db.ExecuteReaderAsync(criteria))
+                    {
+                        while (reader.Read())
+                        {
+                            winLossDetails.Add(BuildWinLossDetail(reader, criteria.ReportLevel));
+                        }
+
+                        if (reader.NextResult() && reader.Read())
+                        {
+                            totalWinLoss = BuildWinLossDetail(reader, criteria.ReportLevel);
+                        }
+                    }
+                }
+            }
+
+            return new PagedReportData<WinLossDetailModel>(
+                winLossDetails,
+                criteria.PageIndex,
+                criteria.PageSize,
+                criteria.TotalRecords,
+                totalWinLoss);
         }
     }
 }

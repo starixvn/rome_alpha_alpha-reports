@@ -1,11 +1,12 @@
 ﻿namespace Alpha.Reports.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Criteria;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models;
-    using System;
-    using System.Collections.Generic;
 
     public interface ReportDateService
     {
@@ -18,10 +19,14 @@
         IEnumerable<TimeRange> GetTimeRangesToGetReportDataBetweenTables(DateTime fromDate, DateTime toDate);
 
         string GetStoreMappingSuffix(DateTime fromDate);
+
+        // Async methods
+        Task<BalanceUpDayAndMoveBetsDay> GetBalanceUpDayAndMoveBetsDayAsync();
     }
 
     public class ReportDateServiceImpl : ReportDateService
     {
+        private const int CacheBalanceUpDayAndMoveBetsDayInMinutes = 2;
         public const string BetTrans14SPSuffix = "_14";
         public const string WarehouseSPSuffix = "_WH";
 
@@ -53,7 +58,7 @@
 
                     return reportDates;
                 },
-                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(2)));
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheBalanceUpDayAndMoveBetsDayInMinutes)));
 
             return balanceUpDayAndMoveBetsDay;
         }
@@ -94,5 +99,12 @@
             : fromDate >= GetBalanceUpDay()
             ? BetTrans14SPSuffix
             : WarehouseSPSuffix;
+
+        // Async methods
+        public Task<BalanceUpDayAndMoveBetsDay> GetBalanceUpDayAndMoveBetsDayAsync()
+            => cacheService.GetOrSetAsync(
+                BalanceUpDayAndMoveBetsDayCacheKey,
+                () => dynamicRepository.Get<BalanceUpDayAndMoveBetsDay>(new GetBalanceUpDayAndMoveBetsDayCriteria()),
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheBalanceUpDayAndMoveBetsDayInMinutes)));
     }
 }

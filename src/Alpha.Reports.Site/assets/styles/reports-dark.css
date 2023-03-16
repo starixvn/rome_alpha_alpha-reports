@@ -149,6 +149,8 @@ a {
       content: '('; }
     .page-title .breadcrumb:after {
       content: ')'; }
+  .page-title .report-legend {
+    margin: 3px 0 0 5px; }
 
 #tbl-report, #tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
   text-align: right; }
@@ -588,4 +590,3 @@ table.dataTable thead th, table.dataTable tfoot th {
 
 #tbl-enteredresult-report tbody tr td {
   border-top: 1px solid #3E3F41; }
-

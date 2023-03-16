@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Criteria;
     using Extensions;
     using Fanex.Caching;
@@ -30,10 +31,19 @@
         IEnumerable<byte> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int viewerId, string site, int currencyId);
 
         bool CanViewBySite(int viewerId, string site, int currencyId, int productId);
+
+        // Async methods
+        Task<IEnumerable<Product>> GetProductsForCustomerAsync(
+            int viewerId,
+            string site,
+            int currencyId,
+            DateTime? minReportDate = null,
+            bool isEnableSabaPromotion = false);
     }
 
     public class ProductServiceImpl : ProductService
     {
+        private const int ProductsCacheInDay = 1;
         private const int CustProductsCacheTimeInMinutes = 5;
         private const string ProductsCacheKey = "Alpha.Reports.Services.Impl.ProductServiceImpl.Products";
         private readonly Func<int, bool> canViewProduct;
@@ -89,17 +99,25 @@
                     .Where(product => canViewProduct(product.Id) || CanViewBySite(viewerId, site, currencyId, product.Id))
                     .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
+            
+            return GetProductsForCustomer(custProducts, minReportDate, isEnableSabaPromotion);
+        }
+
+        private IEnumerable<Product> GetProductsForCustomer(IEnumerable<Product> custProducts, DateTime? minReportDate, bool isEnableSabaPromotion)
+        {
             if (custProducts != null)
             {
-                custProducts = custProducts
-                    .Where(product => IsRemainSupportProduct(product, minReportDate));
-            }
+                custProducts = custProducts.Where(product => IsRemainSupportProduct(product, minReportDate));
 
-            if (isEnableSabaPromotion)
-            {
-                var sabaProduct = new Product(SabaPromotionProductId, null, custProducts.Max(product => product.EndOfSupportDate), 0, 0, getProductName);
-                var sabaProducts = new List<Product> { sabaProduct };
-                custProducts = sabaProducts.Concat(custProducts);
+                if (isEnableSabaPromotion)
+                {
+                    var sabaProducts = new[]
+                    {
+                        new Product(SabaPromotionProductId, null, custProducts.Max(product => product.EndOfSupportDate), 0, 0, getProductName)
+                    };
+
+                    custProducts = sabaProducts.Concat(custProducts);
+                }
             }
 
             return custProducts;
@@ -170,9 +188,32 @@
                 .GetOrSet(
                 ProductsCacheKey,
                 () => dynamicRepository.Fetch<Product>(new GetProductsCriteria()),
-                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(1)));
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(ProductsCacheInDay)));
 
             return products;
+        }
+
+        // Async methods
+        public async Task<IEnumerable<Product>> GetProductsForCustomerAsync(
+            int viewerId,
+            string site,
+            int currencyId,
+            DateTime? minReportDate = null,
+            bool isEnableSabaPromotion = false)
+        {
+            if (viewerId <= 0)
+            {
+                return Enumerable.Empty<Product>();
+            }
+
+            var custProducts = await cacheService.GetOrSetAsync(
+                $"Alpha.Reports.Services.Impl.ProductsForCustomer-{viewerId}",
+                () => GetProductsForReport()
+                    .Where(product => canViewProduct(product.Id) || CanViewBySite(viewerId, site, currencyId, product.Id))
+                    .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)),
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
+
+            return GetProductsForCustomer(custProducts, minReportDate, isEnableSabaPromotion);
         }
     }
 }

@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Alpha.PartialUM.Services;
-    using Configurations;
     using Criteria.WinLoss;
     using DataAccesses;
     using Extensions;
@@ -18,10 +18,18 @@
         IEnumerable<EnteredSportResult> GetEnteredSportResults();
 
         IEnumerable<WinLossModel> GetWinLoss(WinLossParam param);
+
+        // Async methods
+        Task<EnteredSportResult> GetTotalEnteredSportYesterdayAndTodayAsync();
+
+        EnteredSportResult GetTotalEnteredSportYesterdayAndToday(IEnumerable<EnteredSportResult> dailyEnteredSportData);
+
+        Task<IEnumerable<EnteredSportResult>> GetEnteredSportResultsAsync();
     }
 
     public class WinLossServiceImpl : WinLossService
     {
+        private const int EnteredResultsCacheInMinutes = 1;
         private const string EnteredResultsCacheKey = "Alpha.Reports.Services.Impl.WinLossServiceImpl.EnteredResults";
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
@@ -54,13 +62,11 @@
 
         public IEnumerable<EnteredSportResult> GetEnteredSportResults()
         {
-            bool includeTestData = SiteSettings.LocalTest;
-
             var reportData = cacheService
                  .GetOrSet(
                  EnteredResultsCacheKey,
-                 () => GetDataEnteredSportResults(includeTestData),
-                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(1)));
+                 () => GetDataEnteredSportResults(),
+                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(EnteredResultsCacheInMinutes)));
 
             return reportData;
         }
@@ -93,9 +99,9 @@
             return winlossData;
         }
 
-        internal IEnumerable<EnteredSportResult> GetDataEnteredSportResults(bool includeTestData)
+        internal IEnumerable<EnteredSportResult> GetDataEnteredSportResults()
         {
-            var criteria = new DailyEnteredSportCriteria(includeTestData);
+            var criteria = new DailyEnteredSportCriteria();
 
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
@@ -113,5 +119,43 @@
 
             return Enumerable.Empty<EnteredSportResult>();
         }
+
+        // Async methods
+        public async Task<EnteredSportResult> GetTotalEnteredSportYesterdayAndTodayAsync()
+            => GetTotalEnteredSportYesterdayAndToday(await GetEnteredSportResultsAsync());
+
+        public EnteredSportResult GetTotalEnteredSportYesterdayAndToday(IEnumerable<EnteredSportResult> dailyEnteredSportData)
+        {
+            int totalEnteredToday = 0,
+                totalNonEnteredToday = 0,
+                totalEnteredYesterday = 0,
+                totalNonEnteredYesterday = 0;
+
+            foreach (var data in dailyEnteredSportData)
+            {
+                if (data.EnteredSportToday != null)
+                {
+                    totalEnteredToday += data.EnteredSportToday.Entered;
+                    totalNonEnteredToday += data.EnteredSportToday.NonEntered;
+                }
+
+                if (data.EnteredSportYesterday != null)
+                {
+                    totalEnteredYesterday += data.EnteredSportYesterday.Entered;
+                    totalNonEnteredYesterday += data.EnteredSportYesterday.NonEntered;
+                }
+            }
+
+            var totalToday = new DailyEnteredSport(totalEnteredToday, totalNonEnteredToday);
+            var totalYesterday = new DailyEnteredSport(totalEnteredYesterday, totalNonEnteredYesterday);
+
+            return new EnteredSportResult(0, string.Empty, totalToday, totalYesterday);
+        }
+
+        public Task<IEnumerable<EnteredSportResult>> GetEnteredSportResultsAsync()
+            => cacheService.GetOrSetAsync(
+                 EnteredResultsCacheKey,
+                 () => GetDataEnteredSportResults(),
+                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(EnteredResultsCacheInMinutes)));
     }
 }

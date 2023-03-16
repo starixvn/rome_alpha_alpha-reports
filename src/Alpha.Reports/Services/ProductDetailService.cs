@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using Alpha.Reports.Configurations;
     using Alpha.Reports.Constants;
     using Alpha.Reports.Criteria;
@@ -27,6 +28,11 @@
         IDictionary<int, string> GetProductNamesExportExcel(IEnumerable<int> selectedResourceIds);
 
         IEnumerable<int> RemoveProductIds(IEnumerable<int> productIds, IEnumerable<int> userSelectedResourceIds);
+
+        // Async methods
+        Task<IEnumerable<ProductDetail>> GetProductDetailsAsync(int viewerId, string site, int currencyId);
+
+        Task<string> BuildProductDetailsXMLAsync(IEnumerable<int> validProductIds, IEnumerable<int> validResourceIds);
     }
 
     public class ProductDetailServiceImpl : ProductDetailService
@@ -100,10 +106,16 @@
         }
 
         public string BuildProductDetailsXML(IEnumerable<int> validProductIds, IEnumerable<int> validResourceIds)
+            => BuildProductDetailsXML(GetProductDetails(), validProductIds, validResourceIds);
+
+        private static string BuildProductDetailsXML(
+            IEnumerable<ProductDetail> productDetails,
+            IEnumerable<int> validProductIds,
+            IEnumerable<int> validResourceIds)
         {
             var validProductDetails = new List<ProductDetail>();
 
-            GetProductDetails()
+            productDetails
                 .Where(p => validProductIds.Contains(p.ProductId))
                 .GroupBy(p => p.ProductId)
                 .ToList()
@@ -115,9 +127,34 @@
                     }
                 });
 
-            return validProductDetails.Any()
-                ? BuildProductDetailsXML(validProductDetails)
-                : string.Empty;
+            return validProductDetails.Count == 0
+                ? string.Empty
+                : BuildProductDetailsXML(validProductDetails);
+        }
+
+        private static string BuildProductDetailsXML(IEnumerable<ProductDetail> productDetails)
+        {
+            var xml = new StringBuilder("<ROOT>");
+            foreach (var product in productDetails)
+            {
+                foreach (var leagueId in product.LeagueGroupIds)
+                {
+                    foreach (var typeId in product.TicketTypeIds)
+                    {
+                        xml.AppendFormat(
+                            "<ProductDetail ProductId=\"{0}\" Sporttype=\"{1}\" Bettype=\"{2}\" LeagueGroupId=\"{3}\" TicketType=\"{4}\"/>",
+                            product.ProductId,
+                            product.SportType,
+                            product.BetType,
+                            leagueId,
+                            typeId);
+                    }
+                }
+            }
+
+            xml.Append("</ROOT>");
+
+            return xml.ToString();
         }
 
         public IDictionary<int, string> GetProductNamesExportExcel(IEnumerable<int> selectedResourceIds)
@@ -189,31 +226,6 @@
                 () => dynamicRepository.Fetch<ProductDetail>(new GetProductsDetailCriteria()).OrderBy(product => product.ProductId).ThenBy(product => product.Order),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(ProductDetailsCacheInDay)));
 
-        private static string BuildProductDetailsXML(IEnumerable<ProductDetail> productDetails)
-        {
-            var xml = new StringBuilder("<ROOT>");
-            foreach (var product in productDetails)
-            {
-                foreach (var leagueId in product.LeagueGroupIds)
-                {
-                    foreach (var typeId in product.TicketTypeIds)
-                    {
-                        xml.AppendFormat(
-                            "<ProductDetail ProductId=\"{0}\" Sporttype=\"{1}\" Bettype=\"{2}\" LeagueGroupId=\"{3}\" TicketType=\"{4}\"/>",
-                            product.ProductId,
-                            product.SportType,
-                            product.BetType,
-                            leagueId,
-                            typeId);
-                    }
-                }
-            }
-
-            xml.Append("</ROOT>");
-
-            return xml.ToString();
-        }
-
         private static bool IsSelectAllProductDetails(string resourceIds)
             => resourceIds != null && resourceIds == DefaultVariables.AllProductDetails;
 
@@ -251,5 +263,37 @@
 
         private static bool IsSupportProductDetail(int productId)
             => SiteSettings.ProductOfferProductDetail.Any(i => i == productId);
+
+        // Async methods
+        public async Task<IEnumerable<ProductDetail>> GetProductDetailsAsync(int viewerId, string site, int currencyId)
+        {
+            if (viewerId <= 0)
+            {
+                return Enumerable.Empty<ProductDetail>();
+            }
+
+            var canViewProductDetails = CanViewProductDetails(viewerId, site, currencyId);
+
+            return await ConfiguredCacheService.GetOrSetAsync(
+                $"{ProductDetailsCacheKey}-{viewerId}",
+                () => GetProductDetails()
+                    .Where(p => canViewProductDetails.ContainsKey(p.ProductId))
+                    .Select(product =>
+                    {
+                        product.DisplayName = cacheRefService.GetResourceDataByRefIdAndResourceId(product.RefId, product.ResourceId);
+
+                        return product;
+                    }),
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductDetailsCacheInMinutes)));
+        }
+
+        private async Task<IEnumerable<ProductDetail>> GetProductDetailsAsync()
+            => await ConfiguredCacheService.GetOrSetAsync(
+                ProductDetailsCacheKey,
+                () => dynamicRepository.Fetch<ProductDetail>(new GetProductsDetailCriteria()).OrderBy(product => product.ProductId).ThenBy(product => product.Order),
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(ProductDetailsCacheInDay)));
+
+        public async Task<string> BuildProductDetailsXMLAsync(IEnumerable<int> validProductIds, IEnumerable<int> validResourceIds)
+            => BuildProductDetailsXML(await GetProductDetailsAsync(), validProductIds, validResourceIds);
     }
 }
