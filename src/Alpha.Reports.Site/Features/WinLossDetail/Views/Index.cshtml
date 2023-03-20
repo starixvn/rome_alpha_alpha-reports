@@ -47,8 +47,16 @@
     </div>
 </div>
 <form class="form-inline filter" role="form" id="report-form">
+    <div class="switch-version">
+        <a href="#" class="btn-switch-version" id="btnSwithVersion">
+            <span class="icon-refresh2"></span>
+            <span class="hidden-pc">Old version</span>
+            <span class="hidden-mobile">Switch to old version</span>
+        </a>
+    </div>
     @DateRangePickerNew.Render(Model.DateRangePickerViewModel)
     @ProductAndProductDetailDropdown.Render(Model.Products, Model.ProductDetails, Model.Language)
+
     <div class="form-group submit-container">
         <input type="submit" value="@Resources.Submit" class="btn-submit" />
     </div>
