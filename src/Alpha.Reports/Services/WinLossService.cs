@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Alpha.PartialUM.Services;
+    using Alpha.Reports.Utils;
     using Criteria.WinLoss;
     using DataAccesses;
     using Extensions;
@@ -130,6 +131,8 @@
                 totalNonEnteredToday = 0,
                 totalEnteredYesterday = 0,
                 totalNonEnteredYesterday = 0;
+            var today = SystemTime.Today;
+            var yesterday = today.AddDays(-1);
 
             foreach (var data in dailyEnteredSportData)
             {
@@ -137,17 +140,19 @@
                 {
                     totalEnteredToday += data.EnteredSportToday.Entered;
                     totalNonEnteredToday += data.EnteredSportToday.NonEntered;
+                    today = data.EnteredSportToday.EventDate;
                 }
 
                 if (data.EnteredSportYesterday != null)
                 {
                     totalEnteredYesterday += data.EnteredSportYesterday.Entered;
                     totalNonEnteredYesterday += data.EnteredSportYesterday.NonEntered;
+                    yesterday = data.EnteredSportYesterday.EventDate;
                 }
             }
 
-            var totalToday = new DailyEnteredSport(totalEnteredToday, totalNonEnteredToday);
-            var totalYesterday = new DailyEnteredSport(totalEnteredYesterday, totalNonEnteredYesterday);
+            var totalToday = new DailyEnteredSport(today, totalEnteredToday, totalNonEnteredToday);
+            var totalYesterday = new DailyEnteredSport(yesterday, totalEnteredYesterday, totalNonEnteredYesterday);
 
             return new EnteredSportResult(0, string.Empty, totalToday, totalYesterday);
         }

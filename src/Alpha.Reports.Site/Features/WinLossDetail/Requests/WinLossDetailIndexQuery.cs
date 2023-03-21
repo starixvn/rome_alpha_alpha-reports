@@ -10,8 +10,14 @@
         public WinLossDetailIndexQuery(IUser viewer) : base(viewer)
         {
             IsEnableSabaPromotion = viewer.IsEnableSabaPromotion;
+            IsProtectedMode = viewer.IsProtectedMode;
+            SubAccId = viewer.SubAccId;
         }
 
         public bool IsEnableSabaPromotion { get; }
+
+        public bool IsProtectedMode { get; }
+
+        public int SubAccId { get; }
     }
 }

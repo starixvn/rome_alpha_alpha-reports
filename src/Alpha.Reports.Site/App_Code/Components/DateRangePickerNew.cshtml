@@ -2,34 +2,33 @@
 @using Alpha.Reports.Site.ViewModels.Components;
 @using Alpha.Reports.Site.App_GlobalResources;
 
-@helper Render(DateRangePickerViewModelNew model)
+@helper Render(DateRangePickerNewViewModel model)
 {
     <div class="form-group daterangepicker-container">
-        <label>Date Range</label>
-        <div class="control ">
-            <div id="from-date-container" class="input-group date fromdate">
-                <input type="text"
-                       class="ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate form-control"
-                       id="daterange-picker"
-                       autocomplete="off"
-                       readonly
-                       data-mindate="@model.MinDate.ToShortDateWithSlash()"
-                       data-maxdate="@model.MaxDate.ToShortDateWithSlash()"
-                       data-fromdate="@model.FromDate.ToShortDateWithSlash()"
-                       data-todate="@model.ToDate.ToShortDateWithSlash()"
-                       data-currentdate="@model.CurrentDate.ToShortDateWithSlash()"
-                       data-label-today="@Resources.Today"
-                       data-label-yesterday="@Resources.Yesterday"
-                       data-label-thisweek="@Resources.ThisWeek"
-                       data-label-lastweek="@Resources.LastWeek"
-                       data-label-thismonth="@Resources.ThisMonth"
-                       data-label-lastmonth="@Resources.LastMonth"
-                       data-label-sincelastmonth="@Resources.SinceLastMonth"
-                       data-label-specificdate="@Resources.SpecificDate" />
-                <span class="input-group-addon">
-                    <span class="icon-calendar" id="fdate_trigger"></span>
-                </span>
-            </div>
+        <div class="input-group date">
+            <input type="text"
+                   class="form-control"
+                   id="daterange-picker"
+                   autocomplete="off"
+                   readonly
+                   data-mindate="@model.MinDate.ToShortDateWithSlash()"
+                   data-maxdate="@model.MaxDate.ToShortDateWithSlash()"
+                   data-fromdate="@model.FromDate.ToShortDateWithSlash()"
+                   data-todate="@model.ToDate.ToShortDateWithSlash()"
+                   data-currentdate="@model.CurrentDate.ToShortDateWithSlash()"
+                   data-label-today="@Resources.Today"
+                   data-label-yesterday="@Resources.Yesterday"
+                   data-label-thisweek="@Resources.ThisWeek"
+                   data-label-lastweek="@Resources.LastWeek"
+                   data-label-thismonth="@Resources.ThisMonth"
+                   data-label-lastmonth="@Resources.LastMonth"
+                   data-label-sincelastmonth="@Resources.SinceLastMonth"
+                   data-label-specificdate="@Resources.SpecificDate"
+                   data-label-olderthan3months="@Resources.OlderThan3Months"
+                   data-isshowhistory="@Convert.ToByte(model.IsShowHistory)" />
+            <label class="input-group-addon" for="daterange-picker">
+                <span class="icon-calendar"></span>
+            </label>
         </div>
     </div>
 }

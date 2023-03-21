@@ -2,78 +2,40 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Win Loss Detail Report";
-    var today = DateTime.Today;
-    var yesterday = today.AddDays(-1);
 }
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/daterangepicker")
-    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/data-table")
 }
 @section Scripts {
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/daterangepicker")
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
-    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/WinLossDetail/Bundles/winlossdetail-new")
+    @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WinLossDetail/Bundles/winlossdetail-new")
 }
 <div class="page-title">
-    <div class="entered-non-entered">
-        @if (Model.TotalEnteredSport.EnteredSportYesterday.NonEntered > 0)
-        {
-            <div class="icon-non-entered">
-                <div class="text">@yesterday.ToMMDDWithSlash(): @Resources.NonEntered</div>
-                <div class="number">@Model.TotalEnteredSport.EnteredSportYesterday.NonEntered</div>
-                <div class="icon-clock"></div>
-            </div>
-        }
-        else
-        {
-            <div class="icon-entered">
-                <div class="text">@yesterday.ToMMDDWithSlash(): @Resources.Entered</div>
-                <div class="icon-check-circle"></div>
-            </div>
-        }
-        <div class="icon-non-entered">
-            <div class="text">@today.ToMMDDWithSlash(): @Resources.NonEntered</div>
-            <div class="number">@Model.TotalEnteredSport.EnteredSportToday.NonEntered</div>
-            <div class="icon-clock"></div>
-        </div>
-        <a href="javascript:;"><span class="icon icon-information-outline report-legend"></span></a>
-    </div>
-    <div class="text-title pull-left" style="clear: both">@Model.Title</div>
+    <div class="text-title pull-left">@Model.Title</div>
+    <a href="javascript:;"><span class="icon icon-information-outline icon-report-legend" id="icon-report-legend"></span></a>
+    <div class="entered-non-entered" id="total-entered-non-entered"></div>
     <div class="list-icon">
         <ul>
             <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
             <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
-            <li class="normalview-element"><span id="icon-stack-column" class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
-            <li class="stackcolumnview-element"><span id="icon-normal-column" class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
         </ul>
     </div>
 </div>
-<form action="@Url.Action("GetData", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLossDetail")"
-      class="form-inline filter"
-      role="form"
-      id="report-form">
+<div class="form-inline filter">
+    <div class="switch-version">
+        <a href="@Url.Action("Index", $"{SiteSettings.ReportRouting}WinLossDetail")" class="btn-switch-version" target="main">
+            <span class="icon-refresh2"></span>
+            <span class="hidden-pc">Old version</span>
+            <span class="hidden-mobile">Switch to old version</span>
+        </a>
+    </div>
     @DateRangePickerNew.Render(Model.DateRangePickerViewModel)
     @ProductAndProductDetailDropdown.Render(Model.Products, Model.ProductDetails)
-    <div class="form-group submit-container">
-        <input type="submit" value="@Resources.Submit" class="btn-submit" />
-    </div>
-    <div class="form-group">
-        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
-    </div>
-    <div class="note">
-        <span class="star">*</span>You can view the report data from 03/10/2023.
-        <a href="#">Click here to view report</a>
-    </div>
-    <div class="quick-chose">
-        <a href="#" class="item-quick-chose active">26 - 04 mar</a>
-        <a href="#" class="item-quick-chose">12 - 18 feb</a>
-        <a href="#" class="item-quick-chose">19 - 25 feb</ahref="#">
-        <a href="#" class="item-quick-chose">29 - 04 feb</a>
-        <a href="#" class="item-quick-chose">29 - 04 feb</a>
-    </div>
-</form>
-
-<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover" style="width: 100%" id="tbl-report">
+    @VisibleColumnsDropdown.Render(Model.Columns)
+    <div class="label-week-box" id="labelWeekRange"></div>
+</div>
+<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tblRpt-hover hide" style="width: 100%" id="tbl-report">
     <thead>
         <tr>
             <th class="sorting" rowspan="2">@Resources.Username</th>
@@ -81,38 +43,15 @@
             <th rowspan="2" class="sorting">@Resources.Turnover</th>
             <th rowspan="2" class="sorting">@Resources.NetTurnover</th>
             <th rowspan="2" class="sorting">@Resources.GrossComm</th>
-            <th rowspan="2" class="col-combine sorting">
-                <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>@Resources.NetTurnoverAndGrossComm
-            </th>
             <th colspan="3" class="col-level">@Resources.Member</th>
-            <th class="col-combine sorting" rowspan="2">
-                @Resources.Member
-                <br />
-                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
-            </th>
             <th colspan="3" class="col-level">@Resources.Agent</th>
-            <th class="col-combine sorting" rowspan="2">
-                @Resources.Agent
-                <br />
-                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
-            </th>
-            @if (Model.CustLevel.IsMasterOrSuperLevel())
+            @if (Model.ViewerLevel.IsMasterOrSuperLevel())
             {
                 <th colspan="3" class="col-level">@Resources.Master</th>
-                <th class="col-combine sorting" rowspan="2">
-                    @Resources.Master
-                    <br />
-                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
-                </th>
             }
-            @if (Model.CustLevel.IsSuperLevel())
+            @if (Model.ViewerLevel.IsSuperLevel())
             {
                 <th colspan="3" class="col-level">@Resources.Super</th>
-                <th class="col-combine sorting" rowspan="2">
-                    @Resources.Super
-                    <br />
-                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
-                </th>
             }
             <th class="sorting" rowspan="2">@Resources.Company</th>
         </tr>
@@ -123,13 +62,13 @@
             <th class="sorting">@Resources.WinLoss</th>
             <th class="sorting">@Resources.Comm</th>
             <th class="sorting">@Resources.Total</th>
-            @if (Model.CustLevel.IsMasterOrSuperLevel())
+            @if (Model.ViewerLevel.IsMasterOrSuperLevel())
             {
                 <th class="sorting">@Resources.WinLoss</th>
                 <th class="sorting">@Resources.Comm</th>
                 <th class="sorting">@Resources.Total</th>
             }
-            @if (Model.CustLevel.IsSuperLevel())
+            @if (Model.ViewerLevel.IsSuperLevel())
             {
                 <th class="sorting">@Resources.WinLoss</th>
                 <th class="sorting">@Resources.Comm</th>
@@ -139,7 +78,7 @@
     </thead>
     <tbody></tbody>
     <tfoot>
-        <tr class="tbl-footer">
+        <tr class="tbl-footer hide" id="tbl-footer">
             <td>@Resources.Total</td>
             <td></td>
             <td></td>
@@ -151,19 +90,14 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            @if (Model.CustLevel.IsMasterOrSuperLevel())
+            @if (Model.ViewerLevel.IsMasterOrSuperLevel())
             {
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
             }
-            @if (Model.CustLevel.IsSuperLevel())
+            @if (Model.ViewerLevel.IsSuperLevel())
             {
-                <td class="altercol"></td>
                 <td class="altercol"></td>
                 <td class="altercol"></td>
                 <td class="altercol"></td>
@@ -172,6 +106,30 @@
         </tr>
     </tfoot>
 </table>
-<input type="hidden" id="hiddenCustId" value="@Model.CustId" />
-<input type="hidden" id="hiddenCustLevel" value="@Model.CustLevel.Value" />
-<input type="hidden" id="hiddenNoInformation" value="@Resources.NoInformationIsAvailable" />
+<div id="report-pager"
+     data-labelpage="@Resources.Page"
+     data-labelof="@Resources.of"
+     data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("ExcelNew", $"{SiteSettings.ReportRouting}WinLossDetail")">
+    <input type="hidden" id="CustId" name="CustId" />
+    <input type="hidden" id="CustName" name="CustName" />
+    <input type="hidden" id="CustLevelId" name="CustLevelId" />
+    <input type="hidden" id="FromDate" name="FromDate" />
+    <input type="hidden" id="ToDate" name="ToDate" />
+    <input type="hidden" id="ProductIds" name="ProductIds" />
+    <input type="hidden" id="ResourceIds" name="ResourceIds" />
+    <input type="hidden" id="IsHistoricReport" name="IsHistoricReport" />
+</form>
+<input type="hidden" id="hiddenViewerId" value="@Model.ViewerId" />
+<input type="hidden" id="hiddenViewerName" value="@Model.ViewerName" />
+<input type="hidden" id="hiddenViewerLevel" value="@Model.ViewerLevel.Value" />
+<input type="hidden" id="hiddenSubAccId" value="@Model.SubAccId" />
+<input type="hidden" id="hiddenLegendUrl" value="@Url.Action("ReportLegendNew", $"{SiteSettings.ReportRouting}WinLossDetail", new { IsSupportHistoricReport = true, IsHistoricReport = Model.IsHistoricReport, MinDate = Model.DateRangePickerViewModel.MinDate })" />
+<input type="hidden" id="hiddenWinLossDetailUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WinLossDetail")" />
+<input type="hidden" id="hiddenCanViewBetLists" value="@(Model.CanViewBetLists ? 1 : 0)" />
+<input type="hidden" id="hiddenBetListsUrl" value="@Model.BetListsUrl" />
+<input type="hidden" id="hiddenNoInformationText" value="@Resources.NoInformationIsAvailable" />
+<input type="hidden" id="hiddenNonEnteredText" value="@Resources.NonEntered" />
+<input type="hidden" id="hiddenEnteredText" value="@Resources.Entered" />
+<input type="hidden" id="hiddenExportToExcelText" value="@Resources.ExportToExcel" />

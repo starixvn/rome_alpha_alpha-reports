@@ -149,8 +149,8 @@ a {
       content: '('; }
     .page-title .breadcrumb:after {
       content: ')'; }
-  .page-title .report-legend {
-    margin: 3px 0 0 5px; }
+  .page-title .icon-report-legend {
+    margin: 10px 10px 0 10px; }
 
 #tbl-report, #tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
   text-align: right; }
@@ -589,3 +589,14 @@ table.dataTable thead th, table.dataTable tfoot th {
 .table-responsive {
   width: 100%;
   overflow-x: scroll; }
+
+
+.report-legend-container {
+  padding: 12px 0; }
+  .report-legend-container .report-legend-messages {
+    line-height: 28px;
+    margin-bottom: 0; }
+    .report-legend-container .report-legend-messages ul.gross-comm {
+      list-style-type: circle; }
+      .report-legend-container .report-legend-messages ul.gross-comm li {
+        margin-left: 30px; }

@@ -46,14 +46,6 @@
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
     @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
     @Html.Hidden("IsPostBack", "true")
-    <div class="switch-version">
-        <a href="#" class="btn-switch-version" id="btnSwithVersion">
-            <span class="icon-refresh2"></span>
-            <span class="hidden-pc">Old version</span>
-            <span class="hidden-mobile">Switch to old version</span>
-        </a>
-    </div>
-
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)

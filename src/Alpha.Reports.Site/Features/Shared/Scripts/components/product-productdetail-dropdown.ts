@@ -1,8 +1,18 @@
 ﻿"use strict";
-
 interface JQuery {
     multiselect(option: any): void;
     multiselect(method: string, value: any): void;
+}
+
+class ProductAndProductDetailDropdownOption {
+    constructor(
+        public onDropdownHidden = Function(),
+        public productSelectorId = "dropdown-product",
+        public productDetailSelectorId = "dropdown-product-detail") {
+        this.onDropdownHidden = onDropdownHidden;
+        this.productSelectorId = productSelectorId;
+        this.productDetailSelectorId = productDetailSelectorId;
+    }
 }
 
 class ProductAndProductDetailDropdownComponent {
@@ -15,13 +25,13 @@ class ProductAndProductDetailDropdownComponent {
         this.$ = $;
     }
 
-    render() {
-        this.renderProduct();
-        this.renderProductDetail();
+    render(options: ProductAndProductDetailDropdownOption) {
+        this.renderProduct(options);
+        this.renderProductDetail(options);
     }
 
-    private renderProduct() {
-        this.$dropdownProduct = this.$("#dropdown-product");
+    private renderProduct(options: ProductAndProductDetailDropdownOption) {
+        this.$dropdownProduct = this.$("#" + options.productSelectorId);
         this.$dropdownProduct.multiselect({
             maxHeight: 300,
             numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
@@ -32,7 +42,8 @@ class ProductAndProductDetailDropdownComponent {
             includeSelectAllOption: true,
             onChange: (option, checked) => this.checkOrUncheckProductDetail(checked, option.context.value),
             enableCollapsibleOptGroups: true,
-            optionClass: this.optionClass
+            optionClass: this.optionClass,
+            onDropdownHidden: options.onDropdownHidden
         });
 
         this.$dropdownProduct.next().find(".multiselect-container li").removeClass("hidden");
@@ -70,8 +81,8 @@ class ProductAndProductDetailDropdownComponent {
         }
     };
 
-    private renderProductDetail() {
-        this.$dropdownProductDetail = this.$("#dropdown-product-detail");
+    private renderProductDetail(options: ProductAndProductDetailDropdownOption) {
+        this.$dropdownProductDetail = this.$("#" + options.productDetailSelectorId);
         const selectAllText = this.$dropdownProductDetail.data("label-all-product-detail");
 
         this.$dropdownProductDetail.multiselect({
@@ -82,7 +93,8 @@ class ProductAndProductDetailDropdownComponent {
             allSelectedText: selectAllText,
             selectAllText: selectAllText,
             includeSelectAllOption: true,
-            onChange: this.onChangeProductDetail
+            onChange: this.onChangeProductDetail,
+            onDropdownHidden: options.onDropdownHidden
         });
 
         // Cannot use build in function 'onSelectAll'.

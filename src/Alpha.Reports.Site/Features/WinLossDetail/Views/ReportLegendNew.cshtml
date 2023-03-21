@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "";
+    var isShowLegends = Model.Legends.Any();
+    var isShowGrossComm = Model.GrossCommNotes.Any();
+}
+
+@model ReportLegendViewModel
+
+@if (isShowLegends || isShowGrossComm)
+{
+    <div class="report-legend-container">
+        <ul class="report-legend-messages">
+            @if (isShowLegends)
+            {
+                foreach (var legend in Model.Legends)
+                {
+                    <li>@legend</li>
+                }
+            }
+            @if (isShowGrossComm)
+            {
+                <li>
+                    - @Resources.GrossComm:
+                    <ul class="gross-comm">
+                        @foreach (var note in Model.GrossCommNotes)
+                        {
+                            <li>@note</li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+}

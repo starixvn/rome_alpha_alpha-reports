@@ -1,4 +1,18 @@
 "use strict";
+var ProductAndProductDetailDropdownOption = /** @class */ (function () {
+    function ProductAndProductDetailDropdownOption(onDropdownHidden, productSelectorId, productDetailSelectorId) {
+        if (onDropdownHidden === void 0) { onDropdownHidden = Function(); }
+        if (productSelectorId === void 0) { productSelectorId = "dropdown-product"; }
+        if (productDetailSelectorId === void 0) { productDetailSelectorId = "dropdown-product-detail"; }
+        this.onDropdownHidden = onDropdownHidden;
+        this.productSelectorId = productSelectorId;
+        this.productDetailSelectorId = productDetailSelectorId;
+        this.onDropdownHidden = onDropdownHidden;
+        this.productSelectorId = productSelectorId;
+        this.productDetailSelectorId = productDetailSelectorId;
+    }
+    return ProductAndProductDetailDropdownOption;
+}());
 var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
     function ProductAndProductDetailDropdownComponent($) {
         var _this = this;
@@ -31,13 +45,13 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
         };
         this.$ = $;
     }
-    ProductAndProductDetailDropdownComponent.prototype.render = function () {
-        this.renderProduct();
-        this.renderProductDetail();
+    ProductAndProductDetailDropdownComponent.prototype.render = function (productAndProductDetailDropdownOption) {
+        this.renderProduct(productAndProductDetailDropdownOption);
+        this.renderProductDetail(productAndProductDetailDropdownOption);
     };
-    ProductAndProductDetailDropdownComponent.prototype.renderProduct = function () {
+    ProductAndProductDetailDropdownComponent.prototype.renderProduct = function (productAndProductDetailDropdownOption) {
         var _this = this;
-        this.$dropdownProduct = this.$("#dropdown-product");
+        this.$dropdownProduct = this.$("#" + productAndProductDetailDropdownOption.productSelectorId);
         this.$dropdownProduct.multiselect({
             maxHeight: 300,
             numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
@@ -48,7 +62,10 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             includeSelectAllOption: true,
             onChange: function (option, checked) { return _this.checkOrUncheckProductDetail(checked, option.context.value); },
             enableCollapsibleOptGroups: true,
-            optionClass: this.optionClass
+            optionClass: this.optionClass,
+            onDropdownHidden: function () {
+                productAndProductDetailDropdownOption.onDropdownHidden(_this.getProductSelectedItems(), _this.getProductDetailSelectedItems());
+            }
         });
         this.$dropdownProduct.next().find(".multiselect-container li").removeClass("hidden");
         this.$dropdownProductContainer = this.$dropdownProduct.parent().find(".multiselect.btn");
@@ -74,8 +91,9 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             this.$dropdownProductContainer.addClass("error");
         }
     };
-    ProductAndProductDetailDropdownComponent.prototype.renderProductDetail = function () {
-        this.$dropdownProductDetail = this.$("#dropdown-product-detail");
+    ProductAndProductDetailDropdownComponent.prototype.renderProductDetail = function (productAndProductDetailDropdownOption) {
+        var _this = this;
+        this.$dropdownProductDetail = this.$("#" + productAndProductDetailDropdownOption.productDetailSelectorId);
         var selectAllText = this.$dropdownProductDetail.data("label-all-product-detail");
         this.$dropdownProductDetail.multiselect({
             maxHeight: 300,
@@ -85,7 +103,10 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             allSelectedText: selectAllText,
             selectAllText: selectAllText,
             includeSelectAllOption: true,
-            onChange: this.onChangeProductDetail
+            onChange: this.onChangeProductDetail,
+            onDropdownHidden: function () {
+                productAndProductDetailDropdownOption.onDropdownHidden(_this.getProductSelectedItems(), _this.getProductDetailSelectedItems());
+            }
         });
         // Cannot use build in function 'onSelectAll'.
         // Must register CheckAll checkbox event manually.

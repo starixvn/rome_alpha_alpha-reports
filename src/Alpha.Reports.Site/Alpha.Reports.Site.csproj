@@ -536,8 +536,6 @@
     <Content Include="App_Data\SPNames\Docker\DBTXN.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Themes\error2-dark.png" />
     <Content Include="App_Themes\error2.png" />
-    <TypeScriptCompile Include="assets\scripts\components\daterangepicker-new.ts" />
-    <TypeScriptCompile Include="assets\scripts\components\product-productdetail-dropdown.ts" />
     <Content Include="ex-main\Error.aspx" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.min.css">
@@ -551,6 +549,7 @@
     </Content>
     <Content Include="Features\EnteredResult\Styles\enteredresult-dark.scss" />
     <Content Include="App_Code\Components\ProductAndProductDetailDropdown.cshtml" />
+    <Content Include="App_Code\Components\VisibleColumnsDropdown.cshtml" />
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
@@ -562,6 +561,18 @@
     <Content Include="Features\EnteredResult\Styles\enteredresult.min.css">
       <DependentUpon>enteredresult.css</DependentUpon>
     </Content>
+    <Content Include="Features\Shared\Styles\report-legend-dark.css">
+      <DependentUpon>report-legend-dark.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\report-legend-dark.min.css">
+      <DependentUpon>report-legend-dark.css</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\report-legend.css">
+      <DependentUpon>report-legend.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\report-legend.min.css">
+      <DependentUpon>report-legend.css</DependentUpon>
+    </Content>
     <Content Include="Features\WinLossDetail\Bundles\winlossdetail-new.js" />
     <Content Include="Features\WinLossDetail\Bundles\winlossdetail-new.min.js">
       <DependentUpon>winlossdetail-new.js</DependentUpon>
@@ -570,6 +581,13 @@
     <Content Include="Features\WinLossDetail\Bundles\winlossdetail.min.js">
       <DependentUpon>winlossdetail.js</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Features\Shared\Scripts\components\breadcrumb-level.ts" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\components\daterangepicker-jquery.ts" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\components\product-productdetail-dropdown.ts" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\components\total-entered-nonentered.ts" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\components\visible-columns-dropdown.ts" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\components\week-range.ts" />
+    <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail-new-viewmodel.ts" />
     <Content Include="Web.AppSettings.local_2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
@@ -631,7 +649,6 @@
     <TypeScriptCompile Include="assets\scripts\components\simple-tooltip.ts" />
     <TypeScriptCompile Include="assets\scripts\components\single-selection-dropdown.ts" />
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
-    <TypeScriptCompile Include="assets\scripts\components\week-range.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\betcredittracking\betcredithistory\betcredithistory-tests.ts" />
@@ -749,16 +766,20 @@
     <Compile Include="Controllers\StatementController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\WinLossByProductController.cs" />
-    <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailHandlerNew.cs" />
+    <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailBaseNewHandler.cs" />
+    <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcelNewHandler.cs" />
+    <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailNewHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailBaseHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcelHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailHandler.cs" />
-    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailQueryNew.cs" />
+    <Compile Include="Features\WinLossDetail\Requests\ReportLegendNewQuery.cs" />
+    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcelNewQuery.cs" />
+    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailNewQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailIndexQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\ReportLegendQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcelQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailQuery.cs" />
-    <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailViewModelNew.cs" />
+    <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailNewViewModel.cs" />
     <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailIndexViewModel.cs" />
     <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailViewModel.cs" />
     <Compile Include="Features\WinLossDetail\WinLossDetailController.cs" />
@@ -938,7 +959,7 @@
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModel.cs" />
     <Compile Include="ViewModels\Components\CurrencySelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
-    <Compile Include="ViewModels\Components\DateRangePickerViewModelNew.cs" />
+    <Compile Include="ViewModels\Components\DateRangePickerNewViewModel.cs" />
     <Compile Include="ViewModels\Components\GroupProductViewModel.cs" />
     <Compile Include="ViewModels\Components\InfoIconWithTargetURLViewModel.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
@@ -1835,6 +1856,9 @@
     <Content Include="Features\WinLossDetail\Views\Index.cshtml" />
     <Content Include="Features\WinLossDetail\Views\ReportData.cshtml" />
     <Content Include="Features\WinLossDetail\Views\ReportLegend.cshtml" />
+    <Content Include="Features\WinLossDetail\Views\ReportLegendNew.cshtml" />
+    <Content Include="Features\Shared\Styles\report-legend.scss" />
+    <Content Include="Features\Shared\Styles\report-legend-dark.scss" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1927,7 +1951,6 @@
     <TypeScriptCompile Include="Features\EnteredResult\Scripts\enteredresult.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\base-historic-report.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\base-report-new.ts" />
-    <TypeScriptCompile Include="Features\Shared\Scripts\daterangepicker-new.ts" />
     <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail-new.ts" />
     <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail.ts" />
     <TypeScriptCompile Include="Features\WinLoss\Scripts\winloss-new.ts" />
@@ -2001,6 +2024,7 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.8.22.0.31243\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Features\Shared\ViewModels\" />
     <Folder Include="Features\WinLossDetail\Styles\" />
   </ItemGroup>
   <ItemGroup />

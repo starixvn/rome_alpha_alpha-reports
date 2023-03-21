@@ -33,6 +33,18 @@
         bool CanViewBySite(int viewerId, string site, int currencyId, int productId);
 
         // Async methods
+        Task<IEnumerable<byte>> GetProductsNeedDelayTimeToSumarizeDataByCustomerAsync(int viewerId, string site, int currencyId);
+
+        Task<IEnumerable<ProductsByRefTable>> GetProductsNeedDelayTimeToSumarizeDataAsync();
+
+        Task<IEnumerable<Product>> FilterProductsByCustomerAsync(
+            int viewerId,
+            string site,
+            int currencyId,
+            IEnumerable<int> productIds,
+            DateTime? minReportDate = null,
+            bool isEnableSabaPromotion = false);
+
         Task<IEnumerable<int>> FilterProductIdsByCustomerAsync(
             int viewerId,
             string site,
@@ -107,7 +119,7 @@
                     .Where(product => canViewProduct(product.Id) || CanViewBySite(viewerId, site, currencyId, product.Id))
                     .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
-            
+
             return GetProductsForCustomer(custProducts, minReportDate, isEnableSabaPromotion);
         }
 
@@ -202,6 +214,30 @@
         }
 
         // Async methods
+        public async Task<IEnumerable<byte>> GetProductsNeedDelayTimeToSumarizeDataByCustomerAsync(int viewerId, string site, int currencyId)
+        {
+            var data = await GetProductsNeedDelayTimeToSumarizeDataAsync();
+
+            return data.Where(product => canViewProduct(product.ProductId) || CanViewBySite(viewerId, site, currencyId, product.ProductId)).Select(product => product.ProductId);
+        }
+
+        public async Task<IEnumerable<ProductsByRefTable>> GetProductsNeedDelayTimeToSumarizeDataAsync()
+            => await cacheService
+              .GetOrSetAsync(
+              "Alpha.Reports.Services.Impl.ProductsNeedDelayTimeToSumarizeData",
+              () => dynamicRepository.Fetch<ProductsByRefTable>(new GetProductsByRefTableCriteria(null)),
+              new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
+
+        public async Task<IEnumerable<Product>> FilterProductsByCustomerAsync(
+            int viewerId,
+            string site,
+            int currencyId,
+            IEnumerable<int> productIds,
+            DateTime? minReportDate = null,
+            bool isEnableSabaPromotion = false)
+            => (await GetProductsForCustomerAsync(viewerId, site, currencyId, minReportDate, isEnableSabaPromotion))
+                .Where(product => productIds.Contains(product.Id));
+
         public async Task<IEnumerable<int>> FilterProductIdsByCustomerAsync(
             int viewerId,
             string site,

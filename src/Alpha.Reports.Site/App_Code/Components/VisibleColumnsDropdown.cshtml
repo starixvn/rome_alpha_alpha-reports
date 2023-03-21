@@ -1,0 +1,19 @@
+﻿@using Alpha.Reports.Site.App_GlobalResources;
+
+@helper Render(IEnumerable<System.Web.Mvc.SelectListItem> columns)
+{
+    <div class="form-group" id="column-multiselect-container">
+        <select class="select-multiple"
+                id="dropdown-column"
+                multiple
+                data-label-select-columns="Select Columns"
+                data-label-selected="@Resources.Selected"
+                data-label-all-columns="All Columns"
+                data-label-select-all="@Resources.SelectAll">
+                @foreach (var item in columns)
+                {
+                    <option value="@item.Value" @(item.Selected ? "selected=selected" : string.Empty)>@item.Text</option>
+                }
+        </select>
+    </div>
+}

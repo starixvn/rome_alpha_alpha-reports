@@ -3,21 +3,24 @@
     "outputFileName": "assets/bundles/super.css",
     "inputFiles": [
       "assets/styles/reports.css",
-      "assets/styles/themes/page-title-super.css"
+      "assets/styles/themes/page-title-super.css",
+      "Features/Shared/Styles/report-legend.css"
     ]
   },
   {
     "outputFileName": "assets/bundles/master.css",
     "inputFiles": [
       "assets/styles/reports.css",
-      "assets/styles/themes/page-title-master.css"
+      "assets/styles/themes/page-title-master.css",
+      "Features/Shared/Styles/report-legend.css"
     ]
   },
   {
     "outputFileName": "assets/bundles/agent.css",
     "inputFiles": [
       "assets/styles/reports.css",
-      "assets/styles/themes/page-title-agent.css"
+      "assets/styles/themes/page-title-agent.css",
+      "Features/Shared/Styles/report-legend.css"
     ]
   },
   {
@@ -40,9 +43,13 @@
     "outputFileName": "Features/WinLossDetail/Bundles/winlossdetail-new.js",
     "inputFiles": [
       "assets/scripts/core.js",
-      "assets/scripts/components/daterangepicker-new.js",
-      "assets/scripts/components/week-range.js",
-      "assets/scripts/components/product-productdetail-dropdown.js",
+      "Features/Shared/Scripts/components/total-entered-nonentered.js",
+      "Features/Shared/Scripts/components/daterangepicker-jquery.js",
+      "Features/Shared/Scripts/components/product-productdetail-dropdown.js",
+      "Features/Shared/Scripts/components/visible-columns-dropdown.js",
+      "Features/Shared/Scripts/components/week-range.js",
+      "Features/Shared/Scripts/components/breadcrumb-level.js",
+      "Features/WinLossDetail/Scripts/winlossdetail-new-viewmodel.js",
       "Features/WinLossDetail/Scripts/winlossdetail-new.js"
     ]
   },
@@ -443,21 +450,24 @@
     "outputFileName": "assets/bundles/super-dark.css",
     "inputFiles": [
       "assets/styles/reports-dark.css",
-      "assets/styles/themes/page-title-super-dark.css"
+      "assets/styles/themes/page-title-super-dark.css",
+      "Features/Shared/Styles/report-legend-dark.css"
     ]
   },
   {
     "outputFileName": "assets/bundles/master-dark.css",
     "inputFiles": [
       "assets/styles/reports-dark.css",
-      "assets/styles/themes/page-title-master-dark.css"
+      "assets/styles/themes/page-title-master-dark.css",
+      "Features/Shared/Styles/report-legend-dark.css"
     ]
   },
   {
     "outputFileName": "assets/bundles/agent-dark.css",
     "inputFiles": [
       "assets/styles/reports-dark.css",
-      "assets/styles/themes/page-title-agent-dark.css"
+      "assets/styles/themes/page-title-agent-dark.css",
+      "Features/Shared/Styles/report-legend-dark.css"
     ]
   },
   {

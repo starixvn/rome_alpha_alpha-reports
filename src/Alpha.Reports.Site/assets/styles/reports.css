@@ -149,8 +149,8 @@ a {
       content: '('; }
     .page-title .breadcrumb:after {
       content: ')'; }
-  .page-title .report-legend {
-    margin: 3px 0 0 5px; }
+  .page-title .icon-report-legend {
+    margin: 10px 10px 0 10px; }
 
 #tbl-report, #tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
   text-align: right; }

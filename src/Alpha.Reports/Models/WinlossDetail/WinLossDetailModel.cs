@@ -1,4 +1,6 @@
-﻿namespace Alpha.Reports.Models.WinLossDetail
+﻿using Newtonsoft.Json;
+
+namespace Alpha.Reports.Models.WinLossDetail
 {
     public class WinLossDetailModel
     {
@@ -46,8 +48,10 @@
 
         public NetWinLoss AgentNetWinLoss { get; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public NetWinLoss MasterNetWinLoss { get; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public NetWinLoss SuperNetWinLoss { get; }
 
         public decimal Company =>
