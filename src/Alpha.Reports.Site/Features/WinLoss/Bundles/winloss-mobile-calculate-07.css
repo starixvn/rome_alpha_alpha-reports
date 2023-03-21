@@ -131,7 +131,6 @@ input[type="checkbox"] {
 .multiselect-container.dropdown-menu .multiselect-nested-item a {
   padding-left: 35px; }
 
-
 .bootstrap-datetimepicker-widget {
   font-size: 100%; }
   .bootstrap-datetimepicker-widget.dropdown-menu .datepicker-days .table-condensed tr {
@@ -167,7 +166,6 @@ input[type="checkbox"] {
 @media (orientation: landscape) {
   .input-group.date .input-group-addon {
     padding-right: 8px; } }
-
 
 .monpickr-wrap-parent, .daypickr-wrap-parent {
   height: 51.42857px !important; }
@@ -212,7 +210,6 @@ input[type="checkbox"] {
 .monpickr-wrap-parent .monpickr-wrap, .monpickr-wrap-parent .daypickr-wrap, .daypickr-wrap-parent .monpickr-wrap, .daypickr-wrap-parent .daypickr-wrap, .monpickr-wrap-parent .monpickr-wrap .monpickr, .monpickr-wrap-parent .monpickr-wrap .daypickr, .monpickr-wrap-parent .daypickr-wrap .monpickr, .monpickr-wrap-parent .daypickr-wrap .daypickr, .daypickr-wrap-parent .monpickr-wrap .monpickr, .daypickr-wrap-parent .monpickr-wrap .daypickr, .daypickr-wrap-parent .daypickr-wrap .monpickr, .daypickr-wrap-parent .daypickr-wrap .daypickr, .monpickr-wrap-parent .monpickr-wrap .monpickr-selected-month, .monpickr-wrap-parent .monpickr-wrap .daypickr-selected-day, .monpickr-wrap-parent .daypickr-wrap .monpickr-selected-month, .monpickr-wrap-parent .daypickr-wrap .daypickr-selected-day, .daypickr-wrap-parent .monpickr-wrap .monpickr-selected-month, .daypickr-wrap-parent .monpickr-wrap .daypickr-selected-day, .daypickr-wrap-parent .daypickr-wrap .monpickr-selected-month, .daypickr-wrap-parent .daypickr-wrap .daypickr-selected-day {
   width: 100% !important;
   height: 100% !important; }
-
 
 /*******************************************/
 /* Effect of dropdownlist */
@@ -314,7 +311,6 @@ input[type="checkbox"] {
     line-height: 26px; }
   .tblRpt thead th, .tblRpt tbody td, .tblRpt tfoot td {
     height: 48.57143px; } }
-
 
 @media (orientation: landscape) {
   .filter.filter-with-history .form-group .date {

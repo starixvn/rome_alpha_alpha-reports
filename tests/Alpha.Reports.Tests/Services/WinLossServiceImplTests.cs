@@ -170,7 +170,7 @@
             cacheRefService.GetSportName(2).Returns("BasketBall");
 
             // Act
-            var actualEnteredSportResultData = winLossServiceImpl.GetDataEnteredSportResults(false);
+            var actualEnteredSportResultData = winLossServiceImpl.GetDataEnteredSportResults();
 
             // Assert
             var result = compareLogic.Compare(expectedEnteredSportResultData.ToList(), actualEnteredSportResultData.ToList());
@@ -186,7 +186,7 @@
             dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dailyEnteredSportData);
 
             // Act
-            var actualEnteredSportResultData = winLossServiceImpl.GetDataEnteredSportResults(false);
+            var actualEnteredSportResultData = winLossServiceImpl.GetDataEnteredSportResults();
 
             // Assert
             var result = compareLogic.Compare(expectedEnteredSportResultData, actualEnteredSportResultData);

@@ -566,6 +566,10 @@
     <Content Include="Features\WinLossDetail\Bundles\winlossdetail-new.min.js">
       <DependentUpon>winlossdetail-new.js</DependentUpon>
     </Content>
+    <Content Include="Features\WinLossDetail\Bundles\winlossdetail.js" />
+    <Content Include="Features\WinLossDetail\Bundles\winlossdetail.min.js">
+      <DependentUpon>winlossdetail.js</DependentUpon>
+    </Content>
     <Content Include="Web.AppSettings.local_2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
@@ -627,6 +631,7 @@
     <TypeScriptCompile Include="assets\scripts\components\simple-tooltip.ts" />
     <TypeScriptCompile Include="assets\scripts\components\single-selection-dropdown.ts" />
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\week-range.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\betcredittracking\betcredithistory\betcredithistory-tests.ts" />
@@ -744,14 +749,21 @@
     <Compile Include="Controllers\StatementController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\WinLossByProductController.cs" />
-    <Compile Include="Features\WinLossDetail\NewWinLossDetailController.cs" />
-    <Compile Include="Features\WinLossDetail\NewWinLossDetailHandler.cs" />
-    <Compile Include="Features\WinLossDetail\Requests\GetWinLossDetailQuery.cs" />
-    <Compile Include="Features\WinLossDetail\Requests\NewWinLossDetailQuery.cs" />
-    <Compile Include="Features\WinLossDetail\ViewModels\NewWinLossDetailViewModel.cs" />
+    <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailHandlerNew.cs" />
+    <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailBaseHandler.cs" />
+    <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcelHandler.cs" />
+    <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailHandler.cs" />
+    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailQueryNew.cs" />
+    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailIndexQuery.cs" />
+    <Compile Include="Features\WinLossDetail\Requests\ReportLegendQuery.cs" />
+    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcelQuery.cs" />
+    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailQuery.cs" />
+    <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailViewModelNew.cs" />
+    <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailIndexViewModel.cs" />
+    <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailViewModel.cs" />
+    <Compile Include="Features\WinLossDetail\WinLossDetailController.cs" />
     <Compile Include="Features\WinLoss\WinLossController.cs" />
     <Compile Include="Controllers\RiskAnalysisIPMatchingController.cs" />
-    <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -831,9 +843,6 @@
     <Compile Include="Handlers\LeagueHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandler.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandler.cs" />
-    <Compile Include="Handlers\WinLossDetail\WinLossDetailBaseHandler.cs" />
-    <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandler.cs" />
-    <Compile Include="Handlers\WinLossDetail\WinLossDetailHandler.cs" />
     <Compile Include="Features\WinLoss\WinLossBaseHandler.cs" />
     <Compile Include="Features\EnteredResult\EnteredSportResultExcelHandler.cs" />
     <Compile Include="Features\EnteredResult\EnteredSportResultHandler.cs" />
@@ -916,11 +925,8 @@
     <Compile Include="Requests\Statement\SMAStatementQuery.cs" />
     <Compile Include="Requests\Statement\StatementDetailExcelQuery.cs" />
     <Compile Include="Requests\Statement\StatementDetailsQuery.cs" />
-    <Compile Include="Requests\WinLossDetail\ReportLegendQuery.cs" />
     <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisExcelQuery.cs" />
     <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisQuery.cs" />
-    <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
-    <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
     <Compile Include="Features\EnteredResult\Requests\EnteredSportResultQuery.cs" />
     <Compile Include="Features\EnteredResult\Requests\EnteredSportResultExcelQuery.cs" />
     <Compile Include="Features\WinLoss\Requests\WinLossExcelQuery.cs" />
@@ -932,6 +938,7 @@
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModel.cs" />
     <Compile Include="ViewModels\Components\CurrencySelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
+    <Compile Include="ViewModels\Components\DateRangePickerViewModelNew.cs" />
     <Compile Include="ViewModels\Components\GroupProductViewModel.cs" />
     <Compile Include="ViewModels\Components\InfoIconWithTargetURLViewModel.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
@@ -996,7 +1003,6 @@
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\Statement\StatementDetailViewModel.cs" />
-    <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLossReportBaseViewModel.cs" />
     <Compile Include="Features\EnteredResult\EnteredResultFilterViewModel.cs" />
     <Compile Include="Features\EnteredResult\EnteredResultViewModel.cs" />
@@ -1129,7 +1135,6 @@
     <TypeScriptCompile Include="assets\scripts\winlossanalysis\winlossanalysis.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossbyproduct\winlossbyproduct.ts" />
     <TypeScriptCompile Include="assets\scripts\pokergames-winlossdetail\pokergames-winlossdetail.ts" />
-    <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="App_Data\SPNames\UAT\DBARC.bodb_Archive.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBCust.CustDB.DownlineNet.xml">
@@ -1269,10 +1274,6 @@
     <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.js" />
     <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.min.js">
       <DependentUpon>winlossbyproduct.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
-    <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
-      <DependentUpon>winlossdetail.js</DependentUpon>
     </Content>
     <Content Include="assets\scripts\tests\apps\betchoicematching\betMatchingResources.js" />
     <Content Include="assets\scripts\tests\libs\autocomplete.js" />
@@ -1666,8 +1667,6 @@
     <Content Include="App_Code\Components\MonthPicker.cshtml" />
     <Content Include="App_Code\Components\NoInformation.cshtml" />
     <Content Include="App_Code\Components\ProductMultiSelection.cshtml" />
-    <Content Include="Views\WinLossDetail\Filter.cshtml" />
-    <Content Include="Views\WinLossDetail\Index.cshtml" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
@@ -1831,7 +1830,11 @@
     <Content Include="Features\WinLossDetail\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Features\WinLossDetail\Views\IndexNew.cshtml" />
+    <Content Include="Features\WinLossDetail\Views\Filter.cshtml" />
     <Content Include="Features\WinLossDetail\Views\Index.cshtml" />
+    <Content Include="Features\WinLossDetail\Views\ReportData.cshtml" />
+    <Content Include="Features\WinLossDetail\Views\ReportLegend.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1847,7 +1850,6 @@
     <Content Include="Views\Shared\InvalidReport.cshtml" />
     <Content Include="Views\Statement\SMAStatement.cshtml" />
     <Content Include="Views\ReportLegend\Index.cshtml" />
-    <Content Include="Views\WinLossDetail\ReportLegend.cshtml" />
     <Content Include="Views\WinLossAnalysis\Filter.cshtml" />
     <Content Include="Views\WinLossAnalysis\Index.cshtml" />
     <Content Include="Views\MatchWinLoss\Index.cshtml" />
@@ -1868,7 +1870,6 @@
     <Content Include="Views\Consolidation\ConsolidationDetail.cshtml" />
     <Content Include="Views\Consolidation\ExportExcel.cshtml" />
     <Content Include="Views\Consolidation\Filter.cshtml" />
-    <Content Include="Views\WinLossDetail\ReportData.cshtml" />
     <Content Include="Views\CommissionByBettype\Guidelines.cshtml" />
     <Content Include="Views\ProgressiveContribution\Index.cshtml" />
     <Content Include="Views\ProgressiveContribution\ReportLegend.cshtml" />
@@ -1928,6 +1929,7 @@
     <TypeScriptCompile Include="Features\Shared\Scripts\base-report-new.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\daterangepicker-new.ts" />
     <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail-new.ts" />
+    <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail.ts" />
     <TypeScriptCompile Include="Features\WinLoss\Scripts\winloss-new.ts" />
     <TypeScriptCompile Include="Features\WinLoss\Scripts\winloss.ts" />
     <TypeScriptCompile Include="typings\globals\bootstrap\index.d.ts" />

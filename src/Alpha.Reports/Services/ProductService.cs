@@ -33,6 +33,14 @@
         bool CanViewBySite(int viewerId, string site, int currencyId, int productId);
 
         // Async methods
+        Task<IEnumerable<int>> FilterProductIdsByCustomerAsync(
+            int viewerId,
+            string site,
+            int currencyId,
+            IEnumerable<int> productIds,
+            DateTime? minReportDate = null,
+            bool isEnableSabaPromotion = false);
+
         Task<IEnumerable<Product>> GetProductsForCustomerAsync(
             int viewerId,
             string site,
@@ -194,6 +202,21 @@
         }
 
         // Async methods
+        public async Task<IEnumerable<int>> FilterProductIdsByCustomerAsync(
+            int viewerId,
+            string site,
+            int currencyId,
+            IEnumerable<int> productIds,
+            DateTime? minReportDate = null,
+            bool isEnableSabaPromotion = false)
+        {
+            var customerProductIds = (await GetProductsForCustomerAsync(viewerId, site, currencyId, minReportDate, isEnableSabaPromotion)).Select(product => product.Id);
+
+            return !productIds.Any()
+                ? customerProductIds
+                : customerProductIds.Where(product => productIds.Contains(product));
+        }
+
         public async Task<IEnumerable<Product>> GetProductsForCustomerAsync(
             int viewerId,
             string site,

@@ -1,0 +1,166 @@
+﻿@model WinLossDetailIndexViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Win Loss Detail Report";
+    var today = DateTime.Today;
+    var yesterday = today.AddDays(-1);
+}
+@section Styles {
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/daterangepicker")
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/data-table")
+}
+@section Scripts {
+    @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/daterangepicker")
+    @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/WinLossDetail/Bundles/winlossdetail-new")
+}
+<div class="page-title">
+    <div class="entered-non-entered">
+        @if (Model.TotalEnteredSport.EnteredSportYesterday.NonEntered > 0)
+        {
+            <div class="icon-non-entered">
+                <div class="text">@yesterday.ToMMDDWithSlash(): @Resources.NonEntered</div>
+                <div class="number">@Model.TotalEnteredSport.EnteredSportYesterday.NonEntered</div>
+                <div class="icon-clock"></div>
+            </div>
+        }
+        else
+        {
+            <div class="icon-entered">
+                <div class="text">@yesterday.ToMMDDWithSlash(): @Resources.Entered</div>
+                <div class="icon-check-circle"></div>
+            </div>
+        }
+        <div class="icon-non-entered">
+            <div class="text">@today.ToMMDDWithSlash(): @Resources.NonEntered</div>
+            <div class="number">@Model.TotalEnteredSport.EnteredSportToday.NonEntered</div>
+            <div class="icon-clock"></div>
+        </div>
+        <a href="javascript:;"><span class="icon icon-information-outline report-legend"></span></a>
+    </div>
+    <div class="text-title pull-left" style="clear: both">@Model.Title</div>
+    <div class="list-icon">
+        <ul>
+            <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+            <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+            <li class="normalview-element"><span id="icon-stack-column" class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
+            <li class="stackcolumnview-element"><span id="icon-normal-column" class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
+        </ul>
+    </div>
+</div>
+<form action="@Url.Action("GetData", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLossDetail")"
+      class="form-inline filter"
+      role="form"
+      id="report-form">
+    @DateRangePickerNew.Render(Model.DateRangePickerViewModel)
+    @ProductAndProductDetailDropdown.Render(Model.Products, Model.ProductDetails)
+    <div class="form-group submit-container">
+        <input type="submit" value="@Resources.Submit" class="btn-submit" />
+    </div>
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+</form>
+
+<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover" style="width: 100%" id="tbl-report">
+    <thead>
+        <tr>
+            <th class="sorting" rowspan="2">@Resources.Username</th>
+            <th class="sorting" rowspan="2">@Resources.BetCount</th>
+            <th rowspan="2" class="sorting">@Resources.Turnover</th>
+            <th rowspan="2" class="sorting">@Resources.NetTurnover</th>
+            <th rowspan="2" class="sorting">@Resources.GrossComm</th>
+            <th rowspan="2" class="col-combine sorting">
+                <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>@Resources.NetTurnoverAndGrossComm
+            </th>
+            <th colspan="3" class="col-level">@Resources.Member</th>
+            <th class="col-combine sorting" rowspan="2">
+                @Resources.Member
+                <br />
+                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+            </th>
+            <th colspan="3" class="col-level">@Resources.Agent</th>
+            <th class="col-combine sorting" rowspan="2">
+                @Resources.Agent
+                <br />
+                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+            </th>
+            @if (Model.CustLevel.IsMasterOrSuperLevel())
+            {
+                <th colspan="3" class="col-level">@Resources.Master</th>
+                <th class="col-combine sorting" rowspan="2">
+                    @Resources.Master
+                    <br />
+                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                </th>
+            }
+            @if (Model.CustLevel.IsSuperLevel())
+            {
+                <th colspan="3" class="col-level">@Resources.Super</th>
+                <th class="col-combine sorting" rowspan="2">
+                    @Resources.Super
+                    <br />
+                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                </th>
+            }
+            <th class="sorting" rowspan="2">@Resources.Company</th>
+        </tr>
+        <tr class="thead-row2">
+            <th class="sorting">@Resources.WinLoss</th>
+            <th class="sorting">@Resources.Comm</th>
+            <th class="sorting">@Resources.Total</th>
+            <th class="sorting">@Resources.WinLoss</th>
+            <th class="sorting">@Resources.Comm</th>
+            <th class="sorting">@Resources.Total</th>
+            @if (Model.CustLevel.IsMasterOrSuperLevel())
+            {
+                <th class="sorting">@Resources.WinLoss</th>
+                <th class="sorting">@Resources.Comm</th>
+                <th class="sorting">@Resources.Total</th>
+            }
+            @if (Model.CustLevel.IsSuperLevel())
+            {
+                <th class="sorting">@Resources.WinLoss</th>
+                <th class="sorting">@Resources.Comm</th>
+                <th class="sorting">@Resources.Total</th>
+            }
+        </tr>
+    </thead>
+    <tbody></tbody>
+    <tfoot>
+        <tr class="tbl-footer">
+            <td>@Resources.Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            @if (Model.CustLevel.IsMasterOrSuperLevel())
+            {
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            }
+            @if (Model.CustLevel.IsSuperLevel())
+            {
+                <td class="altercol"></td>
+                <td class="altercol"></td>
+                <td class="altercol"></td>
+                <td class="altercol"></td>
+            }
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+<input type="hidden" id="hiddenCustId" value="@Model.CustId" />
+<input type="hidden" id="hiddenCustLevel" value="@Model.CustLevel.Value" />
+<input type="hidden" id="hiddenNoInformation" value="@Resources.NoInformationIsAvailable" />

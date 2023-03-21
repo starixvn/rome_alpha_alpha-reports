@@ -905,16 +905,16 @@ var LinkBuilderComponent = /** @class */ (function () {
     return LinkBuilderComponent;
 }());
 //# sourceMappingURL=link-builder.js.map
-/// <reference path="../core.ts" />
-/// <reference path="../base-report.ts" />
-/// <reference path="../components/daterangepicker.ts" />
-/// <reference path="../components/monthpicker.ts" />
-/// <reference path="../components/pager.ts" />
-/// <reference path="../components/productmultiselection.ts" />
-/// <reference path="../components/productdetail-multiselection.ts" />
-/// <reference path="../components/sort.ts" />
-/// <reference path="../components/link-builder.ts" />
-/// <reference path="../components/tooltip.ts" />
+/// <reference path="../../../assets/scripts/core.ts" />
+/// <reference path="../../../assets/scripts/base-report.ts" />
+/// <reference path="../../../assets/scripts/components/daterangepicker.ts" />
+/// <reference path="../../../assets/scripts/components/monthpicker.ts" />
+/// <reference path="../../../assets/scripts/components/pager.ts" />
+/// <reference path="../../../assets/scripts/components/productmultiselection.ts" />
+/// <reference path="../../../assets/scripts/components/productdetail-multiselection.ts" />
+/// <reference path="../../../assets/scripts/components/sort.ts" />
+/// <reference path="../../../assets/scripts/components/link-builder.ts" />
+/// <reference path="../../../assets/scripts/components/tooltip.ts" />
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {

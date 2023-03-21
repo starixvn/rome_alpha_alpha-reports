@@ -1,40 +1,34 @@
-﻿namespace Alpha.Reports.Site.Features.WinLossDetail.ViewModels
+﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
 {
-    using System;
     using System.Collections.Generic;
     using Alpha.Reports.Models;
     using Alpha.Reports.Models.Winloss;
     using Alpha.Reports.Site.App_GlobalResources;
-    using Alpha.Reports.Site.Features.WinLossDetail.Requests;
+    using Alpha.Reports.Site.Requests.WinLossDetail;
     using Alpha.Reports.Site.ViewModels.Components;
+    using Alpha.Reports.Utils;
 
-    public class NewWinLossDetailViewModel
+    public class WinLossDetailIndexViewModel
     {
-        public NewWinLossDetailViewModel(
-            NewWinLossDetailQuery message,
+        public WinLossDetailIndexViewModel(
+            WinLossDetailIndexQuery message,
             IEnumerable<GroupProductViewModel> products,
             IEnumerable<ProductDetailViewModel> productDetails,
             EnteredSportResult totalEnteredSport)
         {
-            Title = GetReportTitle(message.CustLevel);
-            Language = message.Language;
-            DateRangePickerViewModel = new DateRangePickerViewModel(
-                message.MinDate,
-                DateTime.Today,
-                message.FromDate,
-                message.ToDate,
-                0);
+            CustId = message.CustId;
+            CustLevel = message.CustLevel;
+            DateRangePickerViewModel = new DateRangePickerViewModelNew(message.MinDate, SystemTime.Today, message.FromDate, message.ToDate);
             Products = products;
             ProductDetails = productDetails;
             TotalEnteredSport = totalEnteredSport;
-
         }
 
-        public string Title { get; }
+        public int CustId { get; }
 
-        public string Language { get; }
+        public UserLevel CustLevel { get; }
 
-        public DateRangePickerViewModel DateRangePickerViewModel { get; }
+        public DateRangePickerViewModelNew DateRangePickerViewModel { get; }
 
         public IEnumerable<GroupProductViewModel> Products { get; }
 
@@ -42,10 +36,10 @@
 
         public EnteredSportResult TotalEnteredSport { get; }
 
-        private static string GetReportTitle(UserLevel userLevel)
-            => userLevel.IsSuperLevel()
+        public string Title
+            => CustLevel.IsSuperLevel()
             ? Resources.MasterWinLossDetail
-            : userLevel.IsMasterLevel()
+            : CustLevel.IsMasterLevel()
                 ? Resources.AgentWinLossDetail
                 : Resources.MemberWinLossDetail;
     }

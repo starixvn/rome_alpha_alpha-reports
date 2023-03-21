@@ -27,7 +27,6 @@ class DateRangePickerNewComponent {
             endDate: this.toDate,
             minDate: dateRangePicker.data("mindate"),
             maxDate: dateRangePicker.data("maxdate"),
-            drops: "auto"
         }, (start, end, label) => {
             this.fromDate = start.format(localeFormat);
             this.toDate = end.format(localeFormat);
@@ -37,17 +36,17 @@ class DateRangePickerNewComponent {
 
     private getRangeDates(dateRangePicker: JQuery) {
         const today = moment(dateRangePicker.data("currentdate"));
-        const yesterday = today.clone().subtract(1, "d");
-        const thisWeekStartOfDay = today.clone().startOf("isoWeek");
-        const lastMonthStartOfDay = today.clone().subtract(1, "M").startOf("M")
+        const yesterday = moment(today).subtract(1, "d");
+        const thisWeekStartOfDay = moment(today).startOf("isoWeek");
+        const lastMonthStartOfDay = moment(today).subtract(1, "M").startOf("M")
 
         const ranges = {};
         ranges[dateRangePicker.data("label-today")] = [today, today];
         ranges[dateRangePicker.data("label-yesterday")] = [yesterday, yesterday];
         ranges[dateRangePicker.data("label-thisweek")] = [thisWeekStartOfDay, today];
-        ranges[dateRangePicker.data("label-lastweek")] = [thisWeekStartOfDay.clone().subtract(7, "d"), thisWeekStartOfDay.clone().subtract(1, "d")];
-        ranges[dateRangePicker.data("label-thismonth")] = [today.clone().startOf("M"), today];
-        ranges[dateRangePicker.data("label-lastmonth")] = [lastMonthStartOfDay, lastMonthStartOfDay.clone().endOf("M")];
+        ranges[dateRangePicker.data("label-lastweek")] = [moment(thisWeekStartOfDay).subtract(1, "w"), moment(thisWeekStartOfDay).subtract(1, "d")];
+        ranges[dateRangePicker.data("label-thismonth")] = [moment(today).startOf("M"), today];
+        ranges[dateRangePicker.data("label-lastmonth")] = [lastMonthStartOfDay, moment(lastMonthStartOfDay).endOf("M")];
         ranges[dateRangePicker.data("label-sincelastmonth")] = [lastMonthStartOfDay, today];
 
         return ranges;

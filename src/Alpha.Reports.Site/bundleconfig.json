@@ -21,7 +21,7 @@
     ]
   },
   {
-    "outputFileName": "assets/bundles/winlossdetail/winlossdetail.js",
+    "outputFileName": "Features/WinLossDetail/Bundles/winlossdetail.js",
     "inputFiles": [
       "assets/scripts/core.js",
       "assets/scripts/base-report.js",
@@ -33,7 +33,7 @@
       "assets/scripts/components/sort.js",
       "assets/scripts/components/tooltip.js",
       "assets/scripts/components/link-builder.js",
-      "assets/scripts/winlossdetail/winlossdetail.js"
+      "Features/WinLossDetail/Scripts/winlossdetail.js"
     ]
   },
   {
@@ -41,6 +41,7 @@
     "inputFiles": [
       "assets/scripts/core.js",
       "assets/scripts/components/daterangepicker-new.js",
+      "assets/scripts/components/week-range.js",
       "assets/scripts/components/product-productdetail-dropdown.js",
       "Features/WinLossDetail/Scripts/winlossdetail-new.js"
     ]
