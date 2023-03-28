@@ -218,14 +218,16 @@ class WinLossDetailViewNew {
 
     private buildDataTableToolbar() {
         this.$("#dataTable_toolbar").html([
-            '<div class="breadcrumb-container pull-left">',
+            '<div class="breadcrumb-table">',
+            '<div class="breadcrumb-container">',
             '<ul class="breadcrumb hide" id="breadcrumb"></ul>',
             '</div>',
-            '<div class="list-icon pull-right">',
+            '<div class="list-icon">',
             '<ul><li class="normalview-element"><span id="icon-excel" class="icon-excel" title="',
             this.viewModel.ExportToExcelText,
             '"></span></li>',
-            '</ul></div>'
+            '</ul></div>',
+            '</div>'
         ].join(""));
 
         this.breadcrumbLevelComponent.init(
