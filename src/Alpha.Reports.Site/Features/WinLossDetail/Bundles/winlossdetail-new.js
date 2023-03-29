@@ -452,6 +452,124 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
 }());
 //# sourceMappingURL=product-productdetail-dropdown.js.map
 "use strict";
+var ProductAndSubProductDropdownOption = /** @class */ (function () {
+    function ProductAndSubProductDropdownOption(products, productDetails, onDropdownHidden, selectorId) {
+        if (onDropdownHidden === void 0) { onDropdownHidden = Function(); }
+        if (selectorId === void 0) { selectorId = "ddlProduct"; }
+        this.products = products;
+        this.productDetails = productDetails;
+        this.onDropdownHidden = onDropdownHidden;
+        this.selectorId = selectorId;
+        this.products = products;
+        this.productDetails = productDetails;
+        this.onDropdownHidden = onDropdownHidden;
+        this.selectorId = selectorId;
+    }
+    return ProductAndSubProductDropdownOption;
+}());
+var ProductAndSubProductDropdownComponent = /** @class */ (function () {
+    function ProductAndSubProductDropdownComponent($) {
+        this.$ = $;
+    }
+    ProductAndSubProductDropdownComponent.prototype.render = function (options) {
+        var _this = this;
+        var productDetailObject = this.buildProductDetailObject(options.productDetails);
+        var productList = [];
+        options.products.forEach(function (item) {
+            var isGroup = typeof item.Products !== "undefined";
+            var cssClass = isGroup ? "groupproduct" : "product";
+            var productItem = _this.buildCheckboxProduct(item, productDetailObject, cssClass);
+            if (isGroup) {
+                productItem.items = item.Products.map(function (item) { return _this.buildCheckboxProduct(item, productDetailObject); });
+            }
+            productList.push(productItem);
+        });
+        this.$dropdownProduct = this.$("#ddlProduct").fanexMultiSelect({
+            checkAllText: "Select All",
+            selectedText: "# Selected",
+            noneSelectedText: "None Selected",
+            noItemFoundText: "No Product Found",
+            useCustomCheckAllText: true,
+            customCheckAllText: "All (#)",
+            showFilter: true,
+            filterPlaceHolder: "",
+            isCheckAll: true,
+            minWidth: 250,
+            //maxHeight: 250,
+            listData: productList,
+            onLeave: options.onDropdownHidden
+        });
+    };
+    ProductAndSubProductDropdownComponent.prototype.buildProductDetailObject = function (productDetails) {
+        var _this = this;
+        var productDetailObject = {};
+        productDetails.forEach(function (item) {
+            var items = productDetailObject[item.ProductId];
+            if (typeof items === "undefined") {
+                items = [];
+                productDetailObject[item.ProductId] = items;
+            }
+            items.push(_this.buildCheckboxProductDetail(item));
+        });
+        return productDetailObject;
+    };
+    ProductAndSubProductDropdownComponent.prototype.buildCheckboxProduct = function (product, productDetailObject, cssClass) {
+        if (cssClass === void 0) { cssClass = "product"; }
+        var checkboxItem = this.buildCheckboxItem(product, cssClass);
+        checkboxItem.items = productDetailObject[product.Id];
+        return checkboxItem;
+    };
+    ProductAndSubProductDropdownComponent.prototype.buildCheckboxProductDetail = function (product) {
+        return this.buildCheckboxItem(product, "productdetail", product.ProductId);
+    };
+    ProductAndSubProductDropdownComponent.prototype.buildCheckboxItem = function (item, cssClass, name) {
+        if (name === void 0) { name = undefined; }
+        return {
+            id: cssClass + "-" + item.Id,
+            name: name,
+            value: item.Id,
+            text: item.Name,
+            cssClass: cssClass,
+            checked: true,
+            enable: true
+        };
+    };
+    ProductAndSubProductDropdownComponent.prototype.getSelectedItems = function () {
+        var productIds = this.getSelectedProductIds();
+        var result = this.getSelectedResourceIds();
+        return {
+            productIds: this.uniqe(productIds.concat(result.parentProductIds)).join(),
+            resourceIds: result.resourceIds.join()
+        };
+    };
+    ProductAndSubProductDropdownComponent.prototype.getSelectedProductIds = function () {
+        var productIds = [];
+        this.$dropdownProduct.fanexMultiSelect("getItemsByCondition", '.product > input[type="checkbox"]:checked').each(function () {
+            productIds.push(this.value);
+        });
+        return productIds;
+    };
+    ProductAndSubProductDropdownComponent.prototype.getSelectedResourceIds = function () {
+        var parentProductIds = [];
+        var resourceIds = [];
+        this.$dropdownProduct.fanexMultiSelect("getItemsByCondition", '.productdetail > input[type="checkbox"]:checked').each(function () {
+            parentProductIds.push(this.name);
+            resourceIds.push(this.value);
+        });
+        return { parentProductIds: parentProductIds, resourceIds: resourceIds, };
+    };
+    ProductAndSubProductDropdownComponent.prototype.uniqe = function (array) {
+        var uniqeObject = {};
+        return array.filter(function (item) {
+            return uniqeObject.hasOwnProperty(item)
+                ? false
+                : (uniqeObject[item] = true);
+        });
+    };
+    return ProductAndSubProductDropdownComponent;
+}());
+//# sourceMappingURL=product-subproduct-dropdown.js.map
+"use strict";
 var VisibleColumnDropdownOption = /** @class */ (function () {
     function VisibleColumnDropdownOption(visibleColumnKey, onDropdownHidden, selectorId) {
         if (onDropdownHidden === void 0) { onDropdownHidden = Function(); }
@@ -637,351 +755,3 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
     return BreadcrumbLevelComponent;
 }());
 //# sourceMappingURL=breadcrumb-level.js.map
-"use strict";
-var WinLossDetailNewViewModel = /** @class */ (function () {
-    function WinLossDetailNewViewModel($) {
-        this.$ = $;
-    }
-    WinLossDetailNewViewModel.prototype.init = function () {
-        this.ViewerId = +this.$("#hiddenViewerId").val();
-        this.ViewerName = this.$("#hiddenViewerName").val();
-        this.ViewerLevel = +this.$("#hiddenViewerLevel").val();
-        this.ViewerLevelIsMasterOrSuper = this.ViewerLevel >= CustomerLevel.Master;
-        this.ViewerLevelIsSuper = this.ViewerLevel === CustomerLevel.Super;
-        this.SubAccId = +this.$("#hiddenSubAccId").val();
-        this.LegendUrl = this.$("#hiddenLegendUrl").val();
-        this.WinLossDetailUrl = this.$("#hiddenWinLossDetailUrl").val();
-        this.CanViewBetLists = this.$("#hiddenCanViewBetLists").val() === "1";
-        this.BetListsUrl = this.$("#hiddenBetListsUrl").val();
-        this.NoInformationText = this.$("#hiddenNoInformationText").val();
-        this.NonEnteredText = this.$("#hiddenNonEnteredText").val();
-        this.EnteredText = this.$("#hiddenEnteredText").val();
-        this.ExportToExcelText = this.$("#hiddenExportToExcelText").val();
-    };
-    return WinLossDetailNewViewModel;
-}());
-var CustomerLevel;
-(function (CustomerLevel) {
-    CustomerLevel[CustomerLevel["Super"] = 4] = "Super";
-    CustomerLevel[CustomerLevel["Master"] = 3] = "Master";
-    CustomerLevel[CustomerLevel["Agent"] = 2] = "Agent";
-})(CustomerLevel || (CustomerLevel = {}));
-//# sourceMappingURL=winlossdetail-new-viewmodel.js.map
-"use strict";
-var WinLossDetailViewNew = /** @class */ (function () {
-    function WinLossDetailViewNew($, totalEnteredNonEnteredComponent, dateRangePickerComponent, productAndProductDetailDropdownComponent, visibleColumnDropdownComponent, weekRangeComponent, breadcrumbLevelComponent, viewModel) {
-        this.masterColumnIndexes = [11, 12, 13];
-        this.superColumnIndexes = [14, 15, 16];
-        this.$ = $;
-        this.totalEnteredNonEnteredComponent = totalEnteredNonEnteredComponent;
-        this.dateRangePickerComponent = dateRangePickerComponent;
-        this.productAndProductDetailDropdownComponent = productAndProductDetailDropdownComponent;
-        this.visibleColumnDropdownComponent = visibleColumnDropdownComponent;
-        this.weekRangeComponent = weekRangeComponent;
-        this.breadcrumbLevelComponent = breadcrumbLevelComponent;
-        this.viewModel = viewModel;
-    }
-    WinLossDetailViewNew.prototype.openFullscreen = function () {
-        var element = document.documentElement;
-        if (element.requestFullscreen) {
-            element.requestFullscreen();
-        }
-        else if (element.webkitRequestFullscreen) { /* Safari */
-            element.webkitRequestFullscreen();
-        }
-        else if (element.msRequestFullscreen) { /* IE11 */
-            element.msRequestFullscreen();
-        }
-    };
-    WinLossDetailViewNew.prototype.closeFullscreen = function () {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
-        else if (document.webkitExitFullscreen) { /* Safari */
-            document.webkitExitFullscreen();
-        }
-        else if (document.msExitFullscreen) { /* IE11 */
-            document.msExitFullscreen();
-        }
-    };
-    WinLossDetailViewNew.prototype.init = function () {
-        this.tableJQuery = this.$("#tbl-report");
-        this.tableFooterJQuery = this.tableJQuery.find("#tbl-footer");
-        this.viewModel.init();
-        this.globalFormData = {
-            custId: this.viewModel.ViewerId,
-            custName: this.viewModel.ViewerName,
-            custLevelId: this.viewModel.ViewerLevel
-        };
-        this.renderComponents();
-        this.bindEvents();
-        this.getWinLossDetailDataAndRenderWeekRange();
-    };
-    WinLossDetailViewNew.prototype.renderComponents = function () {
-        var _this = this;
-        this.totalEnteredNonEnteredComponent.init(new TotalEnteredNonEnteredOption(this.viewModel.NonEnteredText, this.viewModel.EnteredText));
-        this.dateRangePickerComponent.render(new DateRangePickerJQueryOption(function () { return _this.getWinLossDetailDataAndRenderWeekRange(); }));
-        this.productAndProductDetailDropdownComponent.render(new ProductAndProductDetailDropdownOption(function () { return _this.getWinLossDetailDataAndRenderWeekRange(); }));
-        this.visibleColumns = this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption("WinLossDetail_" + this.viewModel.ViewerId + "_" + this.viewModel.SubAccId + ":Columns", function (columns) {
-            _this.visibleColumns = columns;
-            var _loop_1 = function (key, value) {
-                var visible = value;
-                var keyInt = +key;
-                if (_this.superColumnIndexes.find(function (i) { return i === keyInt; })) {
-                    visible = visible && _this.getVisibleSuperColumn();
-                }
-                else if (_this.masterColumnIndexes.find(function (i) { return i === keyInt; })) {
-                    visible = visible && _this.getVisibleMasterColumn();
-                }
-                _this.dataTableObject.column(key).visible(visible);
-            };
-            for (var _i = 0, _a = Object.entries(columns); _i < _a.length; _i++) {
-                var _b = _a[_i], key = _b[0], value = _b[1];
-                _loop_1(key, value);
-            }
-        }));
-        this.weekRangeComponent.init(new WeekRangeOption(function (fromDate, toDate) {
-            _this.globalFormData.fromDate = fromDate;
-            _this.globalFormData.toDate = toDate;
-            _this.getWinLossDetailData(_this.globalFormData);
-        }));
-    };
-    WinLossDetailViewNew.prototype.bindEvents = function () {
-        var _this = this;
-        this.$("#icon-report-legend").click(function () {
-            return top.window["popupManager"].open(_this.viewModel.LegendUrl, undefined, 800, 540, "modal-mobile-friendly");
-        });
-        this.$(".icon-filter").click(this.openFullscreen);
-    };
-    WinLossDetailViewNew.prototype.buildDataTableOptions = function (dataSet) {
-        var _this = this;
-        var self = this;
-        return {
-            data: dataSet,
-            columns: this.buildDataTableColumns(),
-            ordering: true,
-            order: [0, "asc"],
-            paging: false,
-            searching: false,
-            bInfo: false,
-            dom: '<"#dataTable_toolbar">t<"bottom"ilp<"clear">>',
-            fixedHeader: true,
-            language: {
-                zeroRecords: this.viewModel.NoInformationText
-            },
-            initComplete: function () {
-                _this.buildDataTableToolbar();
-                _this.tableJQuery.removeClass("hide");
-            },
-            footerCallback: function () {
-                self.updateTotalFooter(this.api());
-            },
-            drawCallback: function () { return _this.bindDrilldownLinks(); }
-        };
-    };
-    WinLossDetailViewNew.prototype.buildDataTableColumns = function () {
-        var _this = this;
-        var columnIndex = 1; // Start at BetCount
-        var columns = [];
-        columns.push({
-            data: "CustName",
-            className: "text-left",
-            render: function (data, type, row) {
-                if (type === "display") {
-                    if (_this.isAgentView()) {
-                        if (_this.viewModel.CanViewBetLists) {
-                            return "<a class=\"betlists-link\" href=\"javascript:;\" data-custid=\"" + row.CustId + "\" data-custname=\"" + data + "\">" + data + "</a>";
-                        }
-                        return data;
-                    }
-                    var custLevelId = _this.globalFormData.custLevelId - 1;
-                    return "<a class=\"downline-link\" href=\"javascript:;\" data-custid=\"" + row.CustId + "\" data-custname=\"" + data + "\" data-custlevelid=\"" + custLevelId + "\">" + data + "</a>";
-                }
-                return data;
-            }
-        }, { data: "BetCount", render: this.formatInt, visible: this.visibleColumns[columnIndex++] }, { data: "Turnover", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] }, { data: "NetTurnover", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] }, { data: "GrossComm", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] }, { data: "MemberNetWinLoss.WinLoss", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] }, { data: "MemberNetWinLoss.Comm", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] }, { data: "MemberNetWinLoss.Total", render: this.formatDecimal, className: "bold", visible: this.visibleColumns[columnIndex++] }, { data: "AgentNetWinLoss.WinLoss", render: this.formatDecimal, className: "altercol", visible: this.visibleColumns[columnIndex++] }, { data: "AgentNetWinLoss.Comm", render: this.formatDecimal, className: "altercol", visible: this.visibleColumns[columnIndex++] }, { data: "AgentNetWinLoss.Total", render: this.formatDecimal, className: "bold altercol", visible: this.visibleColumns[columnIndex++] });
-        this.viewModel.ViewerLevelIsMasterOrSuper && columns.push({ data: "MasterNetWinLoss.WinLoss", render: this.formatDecimal, defaultContent: "", visible: this.visibleColumns[columnIndex++] }, { data: "MasterNetWinLoss.Comm", render: this.formatDecimal, defaultContent: "", visible: this.visibleColumns[columnIndex++] }, { data: "MasterNetWinLoss.Total", render: this.formatDecimal, className: "bold", defaultContent: "", visible: this.visibleColumns[columnIndex++] });
-        this.viewModel.ViewerLevelIsSuper && columns.push({ data: "SuperNetWinLoss.WinLoss", render: this.formatDecimal, className: "altercol", defaultContent: "", visible: this.visibleColumns[columnIndex++] }, { data: "SuperNetWinLoss.Comm", render: this.formatDecimal, className: "altercol", defaultContent: "", visible: this.visibleColumns[columnIndex++] }, { data: "SuperNetWinLoss.Total", render: this.formatDecimal, className: "bold altercol", defaultContent: "", visible: this.visibleColumns[columnIndex++] });
-        columns.push({ data: "Company", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] });
-        return columns;
-    };
-    WinLossDetailViewNew.prototype.buildDataTableToolbar = function () {
-        var _this = this;
-        this.$("#dataTable_toolbar").html([
-            '<div class="breadcrumb-table">',
-            '<div class="breadcrumb-container">',
-            '<ul class="breadcrumb hide" id="breadcrumb"></ul>',
-            '</div>',
-            '<div class="list-icon">',
-            '<ul><li class="normalview-element"><span id="icon-excel" class="icon-excel" title="',
-            this.viewModel.ExportToExcelText,
-            '"></span></li>',
-            '</ul></div>',
-            '</div>'
-        ].join(""));
-        this.breadcrumbLevelComponent.init(new BreadcrumbLevelOption(function (custId, custName, custLevelId) {
-            _this.globalFormData.custId = custId;
-            _this.globalFormData.custName = custName;
-            _this.globalFormData.custLevelId = custLevelId;
-            _this.getWinLossDetailData(_this.globalFormData, function () {
-                _this.breadcrumbLevelComponent.removeBreadcrumbLevel(custLevelId);
-                _this.setVisibleColumns();
-            });
-        }), this.viewModel.ViewerId, this.viewModel.ViewerName, this.viewModel.ViewerLevel);
-        this.$("#icon-excel").click(function () {
-            var exportExcelForm = _this.$("#export-excel-form");
-            exportExcelForm.find("#CustId").val(_this.globalFormData.custId);
-            exportExcelForm.find("#CustName").val(_this.globalFormData.custName);
-            exportExcelForm.find("#CustLevelId").val(_this.globalFormData.custLevelId);
-            exportExcelForm.find("#FromDate").val(_this.globalFormData.fromDate);
-            exportExcelForm.find("#ToDate").val(_this.globalFormData.toDate);
-            exportExcelForm.find("#ProductIds").val(_this.globalFormData.productIds);
-            exportExcelForm.find("#ResourceIds").val(_this.globalFormData.resourceIds);
-            //exportExcelForm.find("#IsHistoricReport").val(this.globalFormData.custLevelId);
-            exportExcelForm.submit();
-        });
-    };
-    WinLossDetailViewNew.prototype.bindDrilldownLinks = function () {
-        var _this = this;
-        this.$(".betlists-link").off().click(function (e) {
-            var $this = _this.$(e.target);
-            var custId = $this.data("custid");
-            var custName = $this.data("custname");
-            var betListsParams = _this.$.extend({}, _this.globalFormData, { custId: custId, custName: custName });
-            $this.attr("href", _this.viewModel.BetListsUrl + "?" + _this.$.param(betListsParams));
-        });
-        this.$(".downline-link").off().click(function (e) {
-            e.preventDefault();
-            var $this = _this.$(e.target);
-            var custId = $this.data("custid");
-            var custName = $this.data("custname");
-            var custLevelId = $this.data("custlevelid");
-            _this.globalFormData.custId = custId;
-            _this.globalFormData.custName = custName;
-            _this.globalFormData.custLevelId = custLevelId;
-            _this.getWinLossDetailData(_this.globalFormData, function () {
-                _this.breadcrumbLevelComponent.addBreadcrumbLevel(custId, custName, custLevelId);
-                _this.setVisibleColumns();
-            });
-        });
-    };
-    WinLossDetailViewNew.prototype.updateTotalFooter = function (api) {
-        var columnIndex = 1; // Start at Bet Count
-        this.$(api.column(columnIndex++).footer()).html(this.formatInt(this.globalTotalData.BetCount));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.Turnover));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.NetTurnover));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.GrossComm));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.MemberNetWinLoss.WinLoss));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.MemberNetWinLoss.Comm));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.MemberNetWinLoss.Total));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.AgentNetWinLoss.WinLoss));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.AgentNetWinLoss.Comm));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.AgentNetWinLoss.Total));
-        if (this.viewModel.ViewerLevelIsMasterOrSuper) {
-            columnIndex = this.updateTotalFooterMasterSuper(api, this.globalTotalData.MasterNetWinLoss, columnIndex);
-        }
-        if (this.viewModel.ViewerLevelIsSuper) {
-            columnIndex = this.updateTotalFooterMasterSuper(api, this.globalTotalData.SuperNetWinLoss, columnIndex);
-        }
-        this.$(api.column(columnIndex).footer()).html(this.formatDecimal(this.globalTotalData.Company));
-    };
-    WinLossDetailViewNew.prototype.updateTotalFooterMasterSuper = function (api, sm, columnIndex) {
-        var winLoss = "";
-        var comm = "";
-        var total = "";
-        if (sm) {
-            winLoss = this.formatDecimal(sm.WinLoss);
-            comm = this.formatDecimal(sm.Comm);
-            total = this.formatDecimal(sm.Total);
-        }
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(winLoss));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(comm));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(total));
-        return columnIndex;
-    };
-    WinLossDetailViewNew.prototype.isAgentView = function () {
-        return this.globalFormData.custLevelId === CustomerLevel.Agent;
-    };
-    WinLossDetailViewNew.prototype.getWinLossDetailDataAndRenderWeekRange = function () {
-        var _this = this;
-        this.globalFormData.productIds = this.productAndProductDetailDropdownComponent.getProductSelectedItems();
-        this.globalFormData.resourceIds = this.productAndProductDetailDropdownComponent.getProductDetailSelectedItems();
-        this.$.extend(this.globalFormData, this.dateRangePickerComponent.getDateRangeValues());
-        this.getWinLossDetailData(this.globalFormData, function () { return _this.weekRangeComponent.render(_this.globalFormData); });
-    };
-    WinLossDetailViewNew.prototype.getWinLossDetailData = function (formData, callback) {
-        var _this = this;
-        if (callback === void 0) { callback = Function(); }
-        this.tableJQuery.block();
-        this.$.get(this.viewModel.WinLossDetailUrl + "?" + this.$.param(formData), function (data) {
-            callback();
-            _this.renderWinLossDetailReport(data);
-            _this.tableJQuery.unblock();
-        }).fail(function (jqXHR) {
-            _this.tableJQuery.unblock();
-            if (jqXHR.status === 429) {
-                window.location.href = window.top["alpha"].urls.mainRootPath + "error/blocked";
-            }
-        });
-    };
-    WinLossDetailViewNew.prototype.renderWinLossDetailReport = function (data) {
-        var winlossDetail = data.WinLossDetail;
-        this.globalTotalData = winlossDetail.TotalData;
-        this.totalEnteredNonEnteredComponent.render(data.TotalEnteredSport);
-        if (this.dataTableObject) {
-            this.dataTableObject.clear();
-            this.dataTableObject.rows.add(winlossDetail.DataSource).draw();
-        }
-        else {
-            this.dataTableObject = this.tableJQuery.DataTable(this.buildDataTableOptions(winlossDetail.DataSource));
-        }
-        var hasData = winlossDetail.TotalRecords > 0;
-        if (hasData) {
-            this.tableFooterJQuery.removeClass("hide");
-            winlossDetail.TotalRecords > 1
-                ? this.tableJQuery.addClass("tablesorter")
-                : this.tableJQuery.removeClass("tablesorter");
-        }
-        else {
-            this.tableFooterJQuery.addClass("hide");
-            this.tableJQuery.removeClass("tablesorter");
-        }
-    };
-    WinLossDetailViewNew.prototype.formatInt = function (value) {
-        return $.fn.dataTable.render.number(",", ".", 0).display(value);
-    };
-    WinLossDetailViewNew.prototype.formatDecimal = function (value) {
-        var text = $.fn.dataTable.render.number(",", ".", 2).display(Math.round(Math.abs(value) * 100) / 100);
-        return value >= 0 ? text : "-" + text;
-    };
-    WinLossDetailViewNew.prototype.setVisibleColumns = function () {
-        var _this = this;
-        var visibleSuper = this.getVisibleSuperColumn();
-        if (typeof visibleSuper !== "undefined") {
-            this.superColumnIndexes.forEach(function (item) {
-                return _this.dataTableObject.column(item).visible(visibleSuper && _this.visibleColumns[item]);
-            });
-        }
-        var visibleMaster = this.getVisibleMasterColumn();
-        if (typeof visibleMaster !== "undefined") {
-            this.masterColumnIndexes.forEach(function (item) {
-                return _this.dataTableObject.column(item).visible(visibleMaster && _this.visibleColumns[item]);
-            });
-        }
-    };
-    WinLossDetailViewNew.prototype.getVisibleSuperColumn = function () {
-        if (this.viewModel.ViewerLevelIsSuper) {
-            return this.globalFormData.custLevelId === this.viewModel.ViewerLevel;
-        }
-    };
-    WinLossDetailViewNew.prototype.getVisibleMasterColumn = function () {
-        if (this.viewModel.ViewerLevelIsMasterOrSuper) {
-            return this.globalFormData.custLevelId >= CustomerLevel.Master;
-        }
-    };
-    return WinLossDetailViewNew;
-}());
-$(function () {
-    new WinLossDetailViewNew($, new TotalEnteredNonEnteredComponent($, moment), new DateRangePickerJQueryComponent($), new ProductAndProductDetailDropdownComponent($), new VisibleColumnDropdownComponent($), new WeekRangeComponent($, moment), new BreadcrumbLevelComponent($), new WinLossDetailNewViewModel($)).init();
-});
-//# sourceMappingURL=winlossdetail-new.js.map
