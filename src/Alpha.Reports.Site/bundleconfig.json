@@ -46,6 +46,7 @@
       "Features/Shared/Scripts/components/total-entered-nonentered.js",
       "Features/Shared/Scripts/components/daterangepicker-jquery.js",
       "Features/Shared/Scripts/components/product-productdetail-dropdown.js",
+      "Features/Shared/Scripts/components/product-productdetail-dropdown-old.js",
       "Features/Shared/Scripts/components/visible-columns-dropdown.js",
       "Features/Shared/Scripts/components/week-range.js",
       "Features/Shared/Scripts/components/breadcrumb-level.js",

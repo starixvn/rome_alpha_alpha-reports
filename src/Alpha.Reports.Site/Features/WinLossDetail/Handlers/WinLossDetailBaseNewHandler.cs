@@ -21,7 +21,7 @@
             this.productDetailService = productDetailService;
         }
 
-        protected async Task<WinLossDetailParam> CreateParameter(WinLossDetailNewQuery message, UserLevel userLevel)
+        protected async Task<WinLossDetailParam> CreateParameter(WinLossDetailGetDataQuery message, UserLevel userLevel)
         {
             var validUserSelectedProductIdsTask = productService.FilterProductIdsByCustomerAsync(
                 message.ViewerId,

@@ -27,7 +27,7 @@
 
             var winLossDetails = new List<WinLossDetailModel>();
             var totalWinLoss = new WinLossDetailModel();
-            if(criteria.IsValid())
+            if (criteria.IsValid())
             {
                 using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
                 {
@@ -37,7 +37,7 @@
                         {
                             while (reader.Read())
                             {
-                                winLossDetails.Add(BuildWinLossDetail(reader, criteria.ReportLevel));
+                                winLossDetails.Add(BuildWinLossDetail(reader, criteria.ReportLevel, false));
                             }
 
                             if (reader.NextResult() && reader.Read())
@@ -47,7 +47,7 @@
                         }
                     }
                 }
-            }            
+            }
 
             return new PagedReportData<WinLossDetailModel>(
                 winLossDetails,
@@ -57,13 +57,20 @@
                 totalWinLoss);
         }
 
-        private WinLossDetailModel BuildWinLossDetail(IDataReader reader, UserLevel reportLevel)
+        private WinLossDetailModel BuildWinLossDetail(IDataReader reader, UserLevel reportLevel, bool isTotal = true)
         {
-            var winLossDetail = new WinLossDetailModel(
+            string firstName = null, lastName = null;
+            if (!isTotal)
+            {
+                firstName = reader.ToString("FirstName");
+                lastName = reader.ToString("LastName");
+            }
+
+            return new WinLossDetailModel(
                 custId: reader.ToInt("CustId"),
                 custName: reader.ToString("CustName"),
-                firstName: null,//reader.ToString("FirstName"),
-                lastName: null,// reader.ToString("LastName"),
+                firstName: firstName,
+                lastName: lastName,
                 turnover: reader.ToDecimal("Turnover"),
                 netTurnover: reader.ToDecimal("NetTurnover"),
                 grossComm: reader.ToDecimal("GrossComm"),
@@ -72,8 +79,6 @@
                 agentNetWinLoss: new NetWinLoss(reader.ToDecimal("AgWinLoss"), reader.ToDecimal("AgComm")),
                 masterNetWinLoss: reportLevel.IsMasterOrSuperLevel() ? new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm")) : null,
                 superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) : null);
-
-            return winLossDetail;
         }
 
         public async Task<PagedReportData<WinLossDetailModel>> GetDataAsync(WinLossDetailCriteria criteria)
@@ -89,7 +94,7 @@
                     {
                         while (reader.Read())
                         {
-                            winLossDetails.Add(BuildWinLossDetail(reader, criteria.ReportLevel));
+                            winLossDetails.Add(BuildWinLossDetail(reader, criteria.ReportLevel, false));
                         }
 
                         if (reader.NextResult() && reader.Read())

@@ -47,11 +47,14 @@ class ProductAndProductDetailDropdownComponent {
             filterPlaceHolder: ddlProduct.data("label-filterplaceholder"),
             noItemFoundText: ddlProduct.data("label-noitemfound"),
             isCheckAll: true,
-            minWidth: 250,
+            minWidth: 290,
             //maxHeight: 250,
+            showTooltip: false,
             listData: productList,
             onLeave: options.onDropdownHidden
         });
+
+        this.dropdownProduct.fanexMultiSelect("toggleCollapseExpandAll");
     }
 
     private buildProductDetailObject(productDetails) {

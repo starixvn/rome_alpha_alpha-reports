@@ -13,9 +13,8 @@ class WinLossDetailNewViewModel {
     CanViewBetLists: boolean;
     BetListsUrl: string;
     NoInformationText: string;
-    NonEnteredText: string;
-    EnteredText: string;
     ExportToExcelText: string;
+    MomentLocale: string;
 
     constructor($: JQueryStatic) {
         this.$ = $;
@@ -33,8 +32,14 @@ class WinLossDetailNewViewModel {
         this.CanViewBetLists = this.$("#hiddenCanViewBetLists").val() === "1";
         this.BetListsUrl = this.$("#hiddenBetListsUrl").val();
         this.NoInformationText = this.$("#hiddenNoInformationText").val();
-        this.NonEnteredText = this.$("#hiddenNonEnteredText").val();
-        this.EnteredText = this.$("#hiddenEnteredText").val();
         this.ExportToExcelText = this.$("#hiddenExportToExcelText").val();
+        const locale = {
+            "th-TH": "th",
+            "vi-VN": "vi",
+            "zh-CN": "zh-cn",
+            "zh-TW": "zh-tw",
+            "default": "en"
+        };
+        this.MomentLocale = locale[window.top.$("#language").data("currentlanguage")] || locale.default;
     }
 }

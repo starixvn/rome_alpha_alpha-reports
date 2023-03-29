@@ -1,21 +1,15 @@
 "use strict";
 var WeekRangeOption = /** @class */ (function () {
-    function WeekRangeOption(onClick, selectorId, textFromDateFormat, textToDateFormat, valueDateFormat) {
+    function WeekRangeOption(onClick, language, selectorId) {
         if (onClick === void 0) { onClick = Function(); }
+        if (language === void 0) { language = "en"; }
         if (selectorId === void 0) { selectorId = "labelWeekRange"; }
-        if (textFromDateFormat === void 0) { textFromDateFormat = "DD"; }
-        if (textToDateFormat === void 0) { textToDateFormat = "DD MMM"; }
-        if (valueDateFormat === void 0) { valueDateFormat = "MM/DD/YYYY"; }
         this.onClick = onClick;
+        this.language = language;
         this.selectorId = selectorId;
-        this.textFromDateFormat = textFromDateFormat;
-        this.textToDateFormat = textToDateFormat;
-        this.valueDateFormat = valueDateFormat;
         this.onClick = onClick;
+        this.language = language;
         this.selectorId = selectorId;
-        this.textFromDateFormat = textFromDateFormat;
-        this.textToDateFormat = textToDateFormat;
-        this.valueDateFormat = valueDateFormat;
     }
     return WeekRangeOption;
 }());
@@ -30,6 +24,7 @@ var WeekRangeComponent = /** @class */ (function () {
     };
     WeekRangeComponent.prototype.render = function (formData) {
         var _this = this;
+        this.moment.locale(this.weekRangeOption.language);
         this.labelWeekRange.html(this.buildWeekRangeHtml(formData.fromDate, formData.toDate));
         var labelWeeks = this.labelWeekRange.find(".label-week");
         labelWeeks
@@ -48,11 +43,11 @@ var WeekRangeComponent = /** @class */ (function () {
         while (endDate.diff(startDate, "d") >= 0) {
             var endDateStartOfWeek = this.moment(endDate).startOf("isoWeek");
             var startDateOrEndDateStartOfWeek = startDate.isBefore(endDateStartOfWeek) ? endDateStartOfWeek : startDate;
-            var fromDateValue = startDateOrEndDateStartOfWeek.format(this.weekRangeOption.valueDateFormat);
-            var toDateValue = endDate.format(this.weekRangeOption.valueDateFormat);
+            var fromDateValue = startDateOrEndDateStartOfWeek.format(alphaReports.format.shortDateWithSlash_DatePicker);
+            var toDateValue = endDate.format(alphaReports.format.shortDateWithSlash_DatePicker);
             var label = startDateOrEndDateStartOfWeek.isSame(endDate)
-                ? endDate.format(this.weekRangeOption.textToDateFormat)
-                : startDateOrEndDateStartOfWeek.format(this.weekRangeOption.textFromDateFormat) + " - " + endDate.format(this.weekRangeOption.textToDateFormat);
+                ? endDate.format(alphaReports.format.dayMonthName)
+                : startDateOrEndDateStartOfWeek.format(alphaReports.format.day) + " - " + endDate.format(alphaReports.format.dayMonthName);
             weekRange.push("<a href=\"javascript:;\" class=\"label-week\" data-fromdate=\"" + fromDateValue + "\" data-todate=\"" + toDateValue + "\">" + label + "</a>");
             endDate = this.moment(endDateStartOfWeek).subtract(1, "d");
         }

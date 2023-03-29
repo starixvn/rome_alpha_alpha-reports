@@ -15,7 +15,7 @@
 
     public class WinLossDetailNewHandler : WinLossDetailBaseNewHandler,
         IAsyncRequestHandler<WinLossDetailIndexQuery, WinLossDetailIndexViewModel>,
-        IAsyncRequestHandler<WinLossDetailNewQuery, WinLossDetailNewViewModel>,
+        IAsyncRequestHandler<WinLossDetailGetDataQuery, WinLossDetailNewViewModel>,
         IAsyncRequestHandler<ReportLegendNewQuery, ReportLegendViewModel>
     {
         private readonly WinLossService winlossService;
@@ -45,7 +45,7 @@
                 await totalEnteredSportTask);
         }
 
-        public async Task<WinLossDetailNewViewModel> Handle(WinLossDetailNewQuery message)
+        public async Task<WinLossDetailNewViewModel> Handle(WinLossDetailGetDataQuery message)
         {
             var winLossDetailParam = await CreateParameter(message, message.CustLevel);
             var reportDataTask = winlossDetailService.GetWinLossDetailAsync(winLossDetailParam);

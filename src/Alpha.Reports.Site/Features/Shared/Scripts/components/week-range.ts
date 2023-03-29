@@ -2,15 +2,11 @@
 class WeekRangeOption {
     constructor(
         public onClick = Function(),
-        public selectorId = "labelWeekRange",
-        public textFromDateFormat = "DD",
-        public textToDateFormat = "DD MMM",
-        public valueDateFormat = "MM/DD/YYYY") {
+        public language = "en",
+        public selectorId = "labelWeekRange") {
         this.onClick = onClick;
+        this.language = language;
         this.selectorId = selectorId;
-        this.textFromDateFormat = textFromDateFormat;
-        this.textToDateFormat = textToDateFormat;
-        this.valueDateFormat = valueDateFormat;
     }
 }
 
@@ -31,6 +27,7 @@ class WeekRangeComponent {
     }
 
     render(formData) {
+        this.moment.locale(this.weekRangeOption.language);
         this.labelWeekRange.html(this.buildWeekRangeHtml(formData.fromDate, formData.toDate));
         const labelWeeks = this.labelWeekRange.find(".label-week");
         labelWeeks
@@ -52,11 +49,11 @@ class WeekRangeComponent {
             const endDateStartOfWeek = this.moment(endDate).startOf("isoWeek");
             const startDateOrEndDateStartOfWeek = startDate.isBefore(endDateStartOfWeek) ? endDateStartOfWeek : startDate;
 
-            const fromDateValue = startDateOrEndDateStartOfWeek.format(this.weekRangeOption.valueDateFormat);
-            const toDateValue = endDate.format(this.weekRangeOption.valueDateFormat);
+            const fromDateValue = startDateOrEndDateStartOfWeek.format(alphaReports.format.shortDateWithSlash_DatePicker);
+            const toDateValue = endDate.format(alphaReports.format.shortDateWithSlash_DatePicker);
             const label = startDateOrEndDateStartOfWeek.isSame(endDate)
-                ? endDate.format(this.weekRangeOption.textToDateFormat)
-                : `${startDateOrEndDateStartOfWeek.format(this.weekRangeOption.textFromDateFormat)} - ${endDate.format(this.weekRangeOption.textToDateFormat)}`;
+                ? endDate.format(alphaReports.format.dayMonthName)
+                : `${startDateOrEndDateStartOfWeek.format(alphaReports.format.day)} - ${endDate.format(alphaReports.format.dayMonthName)}`;
             weekRange.push(`<a href="javascript:;" class="label-week" data-fromdate="${fromDateValue}" data-todate="${toDateValue}">${label}</a>`);
 
             endDate = this.moment(endDateStartOfWeek).subtract(1, "d");

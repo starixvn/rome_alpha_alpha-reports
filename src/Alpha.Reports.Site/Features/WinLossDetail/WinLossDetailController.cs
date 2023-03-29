@@ -11,8 +11,8 @@
     public class WinLossDetailController : ReportBaseController
     {
         private const string IndexPath = "~/Features/WinLossDetail/Views/Index.cshtml";
-        private const string IndexNewPath = "~/Features/WinLossDetail/Views/IndexNew.cshtml";
         private const string ReportLegendPath = "~/Features/WinLossDetail/Views/ReportLegend.cshtml";
+        private const string IndexNewPath = "~/Features/WinLossDetail/Views/IndexNew.cshtml";
         private const string ReportLegendNewPath = "~/Features/WinLossDetail/Views/ReportLegendNew.cshtml";
 
         public WinLossDetailController(IMediator mediator) : base(mediator)
@@ -38,7 +38,7 @@
         public Task<ActionResult> IndexNew(WinLossDetailIndexQuery message)
             => ViewAsync(IndexNewPath, message);
 
-        public Task<ActionResult> GetData(WinLossDetailNewQuery message)
+        public Task<ActionResult> GetData(WinLossDetailGetDataQuery message)
             => JsonAsync<WinLossDetailNewViewModel>(message);
 
         public Task<FileContentResult> ExcelNew(WinLossDetailExcelNewQuery message)

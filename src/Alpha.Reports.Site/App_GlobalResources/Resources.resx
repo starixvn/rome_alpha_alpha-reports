@@ -1035,4 +1035,16 @@
   <data name="SearchProduct" xml:space="preserve">
     <value>Search Product</value>
   </data>
+  <data name="FirstLastName" xml:space="preserve">
+    <value>First/ Last Name</value>
+  </data>
+  <data name="ClassicView" xml:space="preserve">
+    <value>Classic View</value>
+  </data>
+  <data name="NewView" xml:space="preserve">
+    <value>New View</value>
+  </data>
+  <data name="ProductDetail" xml:space="preserve">
+    <value>Product Detail</value>
+  </data>
 </root>

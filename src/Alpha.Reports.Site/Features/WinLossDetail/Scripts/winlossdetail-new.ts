@@ -5,16 +5,6 @@ interface Window {
     productDetailList: any
 }
 
-interface Document {
-    webkitExitFullscreen(): void;
-    msExitFullscreen(): void;
-}
-
-interface HTMLElement {
-    webkitRequestFullscreen(): void;
-    msRequestFullscreen(): void;
-}
-
 interface Object {
     entries: any;
 }
@@ -23,6 +13,7 @@ class WinLossDetailViewNew extends BaseReportView {
     private totalEnteredNonEnteredComponent: TotalEnteredNonEnteredComponent;
     private dateRangePickerComponent: DateRangePickerJQueryComponent;
     private productAndProductDetailDropdownComponent: ProductAndProductDetailDropdownComponent;
+    private productAndProductDetailDropdownOldComponent: ProductAndProductDetailDropdownOldComponent;
     private visibleColumnDropdownComponent: VisibleColumnDropdownComponent;
     private weekRangeComponent: WeekRangeComponent
     private breadcrumbLevelComponent: BreadcrumbLevelComponent;
@@ -43,6 +34,7 @@ class WinLossDetailViewNew extends BaseReportView {
         totalEnteredNonEnteredComponent: TotalEnteredNonEnteredComponent,
         dateRangePickerComponent: DateRangePickerJQueryComponent,
         productAndProductDetailDropdownComponent: ProductAndProductDetailDropdownComponent,
+        productAndProductDetailDropdownOldComponent: ProductAndProductDetailDropdownOldComponent,
         visibleColumnDropdownComponent: VisibleColumnDropdownComponent,
         weekRangeComponent: WeekRangeComponent,
         breadcrumbLevelComponent: BreadcrumbLevelComponent,
@@ -53,6 +45,7 @@ class WinLossDetailViewNew extends BaseReportView {
         this.totalEnteredNonEnteredComponent = totalEnteredNonEnteredComponent;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productAndProductDetailDropdownComponent = productAndProductDetailDropdownComponent;
+        this.productAndProductDetailDropdownOldComponent = productAndProductDetailDropdownOldComponent;
         this.visibleColumnDropdownComponent = visibleColumnDropdownComponent;
         this.weekRangeComponent = weekRangeComponent;
         this.breadcrumbLevelComponent = breadcrumbLevelComponent;
@@ -79,10 +72,7 @@ class WinLossDetailViewNew extends BaseReportView {
     }
 
     private renderComponents() {
-        this.totalEnteredNonEnteredComponent.init(new TotalEnteredNonEnteredOption(
-            this.viewModel.NonEnteredText,
-            this.viewModel.EnteredText
-        ));
+        this.totalEnteredNonEnteredComponent.init();
 
         this.dateRangePickerComponent.render(new DateRangePickerJQueryOption(() => this.getWinLossDetailDataAndRenderWeekRange()));
 
@@ -90,6 +80,12 @@ class WinLossDetailViewNew extends BaseReportView {
             this.productList,
             this.productDetailList,
             () => this.getWinLossDetailDataAndRenderWeekRange()));
+
+        this.productAndProductDetailDropdownOldComponent.render(new ProductAndProductDetailDropdownOldOption(
+            () => this.getWinLossDetailDataAndRenderWeekRange(),
+            "dropdown-product-old",
+            "dropdown-product-detail-old"
+        ));
 
         this.visibleColumns = this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption(
             `WinLossDetail_${this.viewModel.ViewerId}_${this.viewModel.SubAccId}:Columns`,
@@ -113,7 +109,7 @@ class WinLossDetailViewNew extends BaseReportView {
             this.globalFormData.fromDate = fromDate;
             this.globalFormData.toDate = toDate;
             this.getWinLossDetailData(this.globalFormData);
-        }));
+        }, this.viewModel.MomentLocale));
     }
 
     private buildDataTableOptions(dataSet) {
@@ -126,7 +122,7 @@ class WinLossDetailViewNew extends BaseReportView {
             paging: false,
             searching: false,
             bInfo: false,
-            dom: '<"#dataTable_toolbar">t<"bottom"ilp<"clear">>',
+            dom: '<"#dataTable_toolbar">t',
             fixedHeader: true,
             language: {
                 zeroRecords: this.viewModel.NoInformationText
@@ -168,17 +164,20 @@ class WinLossDetailViewNew extends BaseReportView {
             },
             {
                 data: null,
-                render: function (data, type, row) {
-                    if (type === "display") {
-                        if (row.FirstName && row.LastName) {
-                            return `${row.FirstName}/ ${row.LastName}`;
-                        }
-
+                className: "text-left",
+                render: (data, type, row) => {
+                    if (type === "display" || type === "sort") {
                         if (!row.FirstName && !row.LastName) {
                             return "";
                         }
 
-                        return row.FirstName + row.LastName;
+                        const fullname = row.FirstName && row.LastName
+                            ? `${row.FirstName}/ ${row.LastName}`
+                            : row.FirstName + row.LastName;
+
+                        return type === "sort"
+                            ? fullname
+                            : this.renderEllipsis(fullname, 15);
                     }
 
                     return data;
@@ -214,16 +213,10 @@ class WinLossDetailViewNew extends BaseReportView {
 
     private buildDataTableToolbar() {
         this.$("#dataTable_toolbar").html([
-            '<div class="breadcrumb-table">',
-            '<div class="breadcrumb-container">',
-            '<ul class="breadcrumb hide" id="breadcrumb"></ul>',
-            '</div>',
-            '<div class="list-icon">',
-            '<ul><li class="normalview-element"><span id="icon-excel" class="icon-excel" title="',
+            '<div class="breadcrumb-table"><div class="breadcrumb-container"><ul class="breadcrumb hide" id="breadcrumb"></ul></div>',
+            '<div class="list-icon"><ul><li class="normalview-element"><span id="icon-excel" class="icon-excel" title="',
             this.viewModel.ExportToExcelText,
-            '"></span></li>',
-            '</ul></div>',
-            '</div>'
+            '"></span></li></ul></div></div>'
         ].join(""));
 
         this.breadcrumbLevelComponent.init(new BreadcrumbLevelOption(
@@ -255,6 +248,8 @@ class WinLossDetailViewNew extends BaseReportView {
     }
 
     private bindDrilldownLinks() {
+        this.$('[data-toggle="tooltip"]').tooltip();
+
         this.$(".betlists-link").off().click((e) => {
             const $this = this.$(e.target);
             const custId = $this.data("custid");
@@ -307,18 +302,18 @@ class WinLossDetailViewNew extends BaseReportView {
     }
 
     private updateTotalFooterMasterSuper(api: any, sm: any, columnIndex: number) {
-        let winLoss = 0;
-        let comm = 0;
-        let total = 0;
+        let winLoss = "";
+        let comm = "";
+        let total = "";
         if (sm) {
             winLoss = this.formatDecimal(sm.WinLoss);
             comm = this.formatDecimal(sm.Comm);
             total = this.formatDecimal(sm.Total);
         }
 
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(winLoss));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(comm));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(total));
+        this.$(api.column(columnIndex++).footer()).html(winLoss);
+        this.$(api.column(columnIndex++).footer()).html(comm);
+        this.$(api.column(columnIndex++).footer()).html(total);
 
         return columnIndex;
     }
@@ -362,10 +357,14 @@ class WinLossDetailViewNew extends BaseReportView {
             this.dataTableObject = this.tableJQuery.DataTable(this.buildDataTableOptions(winlossDetail.DataSource));
         }
 
-        const hasData = winlossDetail.TotalRecords > 0;
+        this.updateTableFooterAndSort(winlossDetail.TotalRecords);
+    }
+
+    private updateTableFooterAndSort(totalRecords: number) {
+        const hasData = totalRecords > 0;
         if (hasData) {
             this.tableFooterJQuery.removeClass("hide");
-            winlossDetail.TotalRecords > 1
+            totalRecords > 1
                 ? this.tableJQuery.addClass("tablesorter")
                 : this.tableJQuery.removeClass("tablesorter");
         } else {
@@ -407,10 +406,18 @@ $(function () {
         new TotalEnteredNonEnteredComponent($, moment),
         new DateRangePickerJQueryComponent($),
         new ProductAndProductDetailDropdownComponent($),
+        new ProductAndProductDetailDropdownOldComponent($),
         new VisibleColumnDropdownComponent($),
         new WeekRangeComponent($, moment),
         new BreadcrumbLevelComponent($),
         new WinLossDetailNewViewModel($),
         window.productList,
         window.productDetailList).init();
+
+    //$(window).on('load scroll resize', function () {
+    //    var winLeft = $(window).scrollLeft();
+    //    console.log(winLeft);
+    //    $('#dataTable_toolbar').css('transform', 'translateX(' + winLeft + 'px)');
+
+    //});
 });

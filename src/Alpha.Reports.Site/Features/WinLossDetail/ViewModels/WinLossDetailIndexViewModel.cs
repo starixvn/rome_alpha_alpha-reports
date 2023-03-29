@@ -27,8 +27,8 @@
             DateRangePickerViewModel = new DateRangePickerNewViewModel(
                 message.FromDate,
                 message.ToDate,
-                message.MinDate.GetGreaterDate(message.LimitedDateToShowInfo),
-                SystemTime.Today.AddYears(-3).FirstDayOfYear());
+                message.MinDate,
+                message.HistoricMinDate);
             Products = products;
             ProductDetails = productDetails;
             TotalEnteredSport = totalEnteredSport;

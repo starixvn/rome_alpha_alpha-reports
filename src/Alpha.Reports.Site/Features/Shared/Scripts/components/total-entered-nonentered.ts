@@ -1,30 +1,21 @@
 ﻿"use strict";
 
-class TotalEnteredNonEnteredOption {
-    constructor(
-        public nonEnteredText: string,
-        public enteredText: string,
-        public selectorId = "total-entered-non-entered",
-        public dateFormat = "MM/DD") {
-        this.selectorId = selectorId;
-        this.dateFormat = dateFormat;
-    }
-}
-
 class TotalEnteredNonEnteredComponent {
     private $: JQueryStatic;
     private moment: moment.MomentStatic;
-    private totalEnteredNonEnteredOption: TotalEnteredNonEnteredOption;
     private totalEnteredNonEntered: JQuery;
+    private labelNonEntered: string;
+    private labelEntered: string;
 
     constructor($: JQueryStatic, moment: moment.MomentStatic) {
         this.$ = $;
         this.moment = moment;
     }
 
-    init(options: TotalEnteredNonEnteredOption) {
-        this.totalEnteredNonEnteredOption = options;
-        this.totalEnteredNonEntered = this.$("#" + options.selectorId);
+    init(selector = "total-entered-non-entered") {
+        this.totalEnteredNonEntered = this.$("#" + selector);
+        this.labelNonEntered = this.totalEnteredNonEntered.data("label-nonentered");
+        this.labelEntered = this.totalEnteredNonEntered.data("label-entered");
     }
 
     render(data: any) {
@@ -39,9 +30,9 @@ class TotalEnteredNonEnteredComponent {
     private renderNonEntered(html: string[], data: any) {
         html.push(
             '<div class="icon-non-entered"><div class="text">',
-            this.moment(data.EventDate).format(this.totalEnteredNonEnteredOption.dateFormat),
+            this.moment(data.EventDate).format(alphaReports.format.monthDayWithSlash),
             ': ',
-            this.totalEnteredNonEnteredOption.nonEnteredText,
+            this.labelNonEntered,
             '</div><div class="number">',
             data.NonEntered,
             '</div><div class="icon-clock"></div></div>');
@@ -50,9 +41,9 @@ class TotalEnteredNonEnteredComponent {
     private renderEntered(html: string[], data: any) {
         html.push(
             '<div class="icon-entered"><div class="text">',
-            this.moment(data.EventDate).format(this.totalEnteredNonEnteredOption.dateFormat),
+            this.moment(data.EventDate).format(alphaReports.format.monthDayWithSlash),
             ': ',
-            this.totalEnteredNonEnteredOption.enteredText,
+            this.labelEntered,
             '</div><div class="icon-check-circle"></div>');
     }
 }

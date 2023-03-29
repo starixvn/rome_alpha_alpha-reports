@@ -1,15 +1,12 @@
 "use strict";
 var DateRangePickerJQueryOption = /** @class */ (function () {
-    function DateRangePickerJQueryOption(onClosed, selectorId, dateFormat) {
+    function DateRangePickerJQueryOption(onClosed, selectorId) {
         if (onClosed === void 0) { onClosed = Function(); }
         if (selectorId === void 0) { selectorId = "daterange-picker"; }
-        if (dateFormat === void 0) { dateFormat = "MM/DD/YYYY"; }
         this.onClosed = onClosed;
         this.selectorId = selectorId;
-        this.dateFormat = dateFormat;
         this.onClosed = onClosed;
         this.selectorId = selectorId;
-        this.dateFormat = dateFormat;
     }
     return DateRangePickerJQueryOption;
 }());
@@ -36,8 +33,8 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
                 _this.renderDateRangePicker(dateRangePicker, options, true);
             }
             else {
-                _this.fromDate = moment(obj.date1).format(options.dateFormat);
-                _this.toDate = moment(obj.date2).format(options.dateFormat);
+                _this.fromDate = moment(obj.date1).format(alphaReports.format.shortDateWithSlash_DatePicker);
+                _this.toDate = moment(obj.date2).format(alphaReports.format.shortDateWithSlash_DatePicker);
             }
         }).bind("datepicker-closed", function () {
             options.onClosed();
@@ -48,12 +45,15 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
         var dateRangeOptions;
         if (this.isHistoricReport) {
             var today = moment(dateRangePicker.data("currentdate"));
-            this.fromDate = moment(today).startOf("M").format(options.dateFormat);
-            this.toDate = today.format(options.dateFormat);
+            this.fromDate = moment(today).startOf("M").format(alphaReports.format.shortDateWithSlash_DatePicker);
+            this.toDate = today.format(alphaReports.format.shortDateWithSlash_DatePicker);
             dateRangeOptions = {
                 startDate: dateRangePicker.data("historicmindate"),
-                endDate: moment(today).endOf("M").format(options.dateFormat),
+                endDate: moment(today).endOf("M").format(alphaReports.format.shortDateWithSlash_DatePicker),
                 customShortcuts: this.getHistoricPredefinedRanges(dateRangePicker),
+                maxDays: 31,
+                monthSelect: true,
+                yearSelect: true
             };
         }
         else {
@@ -66,7 +66,7 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
             };
         }
         return this.$.extend({
-            format: options.dateFormat,
+            format: alphaReports.format.shortDateWithSlash_DatePicker,
             separator: " - ",
             language: "en",
             showShortcuts: true,
@@ -76,6 +76,7 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
         }, dateRangeOptions);
     };
     DateRangePickerJQueryComponent.prototype.getPredefinedRanges = function (dateRangePicker) {
+        var minDate = moment(dateRangePicker.data("mindate"));
         var today = moment(dateRangePicker.data("currentdate"));
         var todayValue = today.toDate();
         var yesterday = moment(today).subtract(1, "d");
@@ -116,13 +117,19 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
             {
                 name: dateRangePicker.data("label-lastmonth"),
                 dates: function () {
-                    return [lastMonthStartOfDay.toDate(), moment(lastMonthStartOfDay).endOf("M").toDate()];
+                    return [
+                        lastMonthStartOfDay.diff(minDate) >= 0 ? lastMonthStartOfDay.toDate() : minDate.toDate(),
+                        moment(lastMonthStartOfDay).endOf("M").toDate()
+                    ];
                 }
             },
             {
                 name: dateRangePicker.data("label-sincelastmonth"),
                 dates: function () {
-                    return [lastMonthStartOfDay.toDate(), todayValue];
+                    return [
+                        lastMonthStartOfDay.diff(minDate) >= 0 ? lastMonthStartOfDay.toDate() : minDate.toDate(),
+                        todayValue
+                    ];
                 }
             }
         ];

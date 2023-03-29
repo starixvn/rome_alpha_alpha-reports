@@ -3,11 +3,9 @@
 class DateRangePickerJQueryOption {
     constructor(
         public onClosed = Function(),
-        public selectorId = "daterange-picker",
-        public dateFormat = "MM/DD/YYYY") {
+        public selectorId = "daterange-picker") {
         this.onClosed = onClosed;
         this.selectorId = selectorId;
-        this.dateFormat = dateFormat;
     }
 }
 
@@ -38,8 +36,8 @@ class DateRangePickerJQueryComponent {
                     dateRangePicker.data("dateRangePicker").destroy();
                     this.renderDateRangePicker(dateRangePicker, options, true);
                 } else {
-                    this.fromDate = moment(obj.date1).format(options.dateFormat);
-                    this.toDate = moment(obj.date2).format(options.dateFormat);
+                    this.fromDate = moment(obj.date1).format(alphaReports.format.shortDateWithSlash_DatePicker);
+                    this.toDate = moment(obj.date2).format(alphaReports.format.shortDateWithSlash_DatePicker);
                 }
             }).bind("datepicker-closed", function () {
                 options.onClosed();
@@ -52,15 +50,15 @@ class DateRangePickerJQueryComponent {
         let dateRangeOptions: any;
         if (this.isHistoricReport) {
             const today = moment(dateRangePicker.data("currentdate"));
-            this.fromDate = moment(today).startOf("M").format(options.dateFormat);
-            this.toDate = today.format(options.dateFormat);
+            this.fromDate = moment(today).startOf("M").format(alphaReports.format.shortDateWithSlash_DatePicker);
+            this.toDate = today.format(alphaReports.format.shortDateWithSlash_DatePicker);
             dateRangeOptions = {
                 startDate: dateRangePicker.data("historicmindate"),
-                endDate: moment(today).endOf("M").format(options.dateFormat),
+                endDate: moment(today).endOf("M").format(alphaReports.format.shortDateWithSlash_DatePicker),
                 customShortcuts: this.getHistoricPredefinedRanges(dateRangePicker),
-                //batchMode: "month",
-                //monthSelect: true,
-                //yearSelect: true,
+                maxDays: 31,
+                monthSelect: true,
+                yearSelect: true
             };
         } else {
             this.fromDate = dateRangePicker.data("fromdate");
@@ -73,7 +71,7 @@ class DateRangePickerJQueryComponent {
         }
 
         return this.$.extend({
-            format: options.dateFormat,
+            format: alphaReports.format.shortDateWithSlash_DatePicker,
             separator: " - ",
             language: "en",
             showShortcuts: true,
@@ -84,6 +82,7 @@ class DateRangePickerJQueryComponent {
     }
 
     private getPredefinedRanges(dateRangePicker: JQuery) {
+        const minDate = moment(dateRangePicker.data("mindate"));
         const today = moment(dateRangePicker.data("currentdate"));
         const todayValue = today.toDate();
         const yesterday = moment(today).subtract(1, "d");
@@ -125,13 +124,19 @@ class DateRangePickerJQueryComponent {
             {
                 name: dateRangePicker.data("label-lastmonth"),
                 dates: function () {
-                    return [lastMonthStartOfDay.toDate(), moment(lastMonthStartOfDay).endOf("M").toDate()];
+                    return [
+                        lastMonthStartOfDay.diff(minDate) >= 0 ? lastMonthStartOfDay.toDate() : minDate.toDate(),
+                        moment(lastMonthStartOfDay).endOf("M").toDate()
+                    ];
                 }
             },
             {
                 name: dateRangePicker.data("label-sincelastmonth"),
                 dates: function () {
-                    return [lastMonthStartOfDay.toDate(), todayValue];
+                    return [
+                        lastMonthStartOfDay.diff(minDate) >= 0 ? lastMonthStartOfDay.toDate() : minDate.toDate(),
+                        todayValue
+                    ];
                 }
             }
         ];

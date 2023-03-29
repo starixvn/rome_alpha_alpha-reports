@@ -18,16 +18,17 @@
 <div class="page-title">
     <div class="text-title pull-left">@Model.Title</div>
     <a href="javascript:;"><span class="icon icon-information-outline icon-report-legend" id="icon-report-legend"></span></a>
-    <div class="entered-non-entered" id="total-entered-non-entered"></div>
+    @TotalEnteredNonEntered.Render()
 </div>
 <div class="form-inline filter">
     <div class="switch-version">
         <a href="@Url.Action("Index", $"{SiteSettings.ReportRouting}WinLossDetail")" class="btn-switch-version" target="main">
             <span class="icon-swap-horizontal"></span>
-            <span class="text">Classic view</span>
+            <span class="text">@Resources.ClassicView</span>
         </a>
     </div>
     @DateRangePickerJQuery.Render(Model.DateRangePickerViewModel)
+    @ProductAndProductDetailDropdownOld.Render(Model.Products, Model.ProductDetails)
     @ProductAndProductDetailDropdown.Render()
     @VisibleColumnsDropdown.Render(Model.Columns)
     <div class="label-week-box" id="labelWeekRange"></div>
@@ -104,10 +105,6 @@
         </tr>
     </tfoot>
 </table>
-<div id="report-pager"
-     data-labelpage="@Resources.Page"
-     data-labelof="@Resources.of"
-     data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("ExcelNew", $"{SiteSettings.ReportRouting}WinLossDetail")">
     <input type="hidden" id="CustId" name="CustId" />
@@ -128,6 +125,4 @@
 <input type="hidden" id="hiddenCanViewBetLists" value="@(Model.CanViewBetLists ? 1 : 0)" />
 <input type="hidden" id="hiddenBetListsUrl" value="@Model.BetListsUrl" />
 <input type="hidden" id="hiddenNoInformationText" value="@Resources.NoInformationIsAvailable" />
-<input type="hidden" id="hiddenNonEnteredText" value="@Resources.NonEntered" />
-<input type="hidden" id="hiddenEnteredText" value="@Resources.Entered" />
 <input type="hidden" id="hiddenExportToExcelText" value="@Resources.ExportToExcel" />

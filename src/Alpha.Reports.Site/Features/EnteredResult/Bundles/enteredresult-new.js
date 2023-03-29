@@ -5,7 +5,10 @@ var AlphaReports = /** @class */ (function () {
         this.format = {
             monthFormat: "MMMM - yyyy",
             shortDateWithSlash_DatePicker: "MM/DD/YYYY",
-            shortDateWithSlash_MonthPicker: "MM/dd/yyyy"
+            shortDateWithSlash_MonthPicker: "MM/dd/yyyy",
+            monthDayWithSlash: "MM/DD",
+            dayMonthName: "DD MMM",
+            day: "DD"
         };
         this.sort = {
             none: 0,

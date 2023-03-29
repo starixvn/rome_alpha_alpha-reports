@@ -448,6 +448,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Classic View.
+        /// </summary>
+        public static string ClassicView {
+            get {
+                return ResourceManager.GetString("ClassicView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Close {
@@ -1735,6 +1744,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New View.
+        /// </summary>
+        public static string NewView {
+            get {
+                return ResourceManager.GetString("NewView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Next.
         /// </summary>
         public static string Next {
@@ -2037,6 +2055,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product Detail.
+        /// </summary>
+        public static string ProductDetail {
+            get {
+                return ResourceManager.GetString("ProductDetail", resourceCulture);
             }
         }
         

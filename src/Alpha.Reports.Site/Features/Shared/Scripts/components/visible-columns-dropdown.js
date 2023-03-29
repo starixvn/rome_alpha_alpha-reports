@@ -37,8 +37,9 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
             useCustomCheckAllText: true,
             customCheckAllText: ddlColumn.data("label-all") + " (#)",
             isCheckAll: isCheckAll,
-            minWidth: 250,
+            minWidth: 220,
             //maxHeight: 250,
+            showTooltip: false,
             listData: ddlColumnOptions.map(function () {
                 return {
                     value: this.value,
