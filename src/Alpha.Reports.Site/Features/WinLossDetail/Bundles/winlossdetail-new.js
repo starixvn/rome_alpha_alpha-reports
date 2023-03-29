@@ -776,14 +776,16 @@ var WinLossDetailViewNew = /** @class */ (function () {
     WinLossDetailViewNew.prototype.buildDataTableToolbar = function () {
         var _this = this;
         this.$("#dataTable_toolbar").html([
-            '<div class="breadcrumb-container pull-left">',
+            '<div class="breadcrumb-table">',
+            '<div class="breadcrumb-container">',
             '<ul class="breadcrumb hide" id="breadcrumb"></ul>',
             '</div>',
-            '<div class="list-icon pull-right">',
+            '<div class="list-icon">',
             '<ul><li class="normalview-element"><span id="icon-excel" class="icon-excel" title="',
             this.viewModel.ExportToExcelText,
             '"></span></li>',
-            '</ul></div>'
+            '</ul></div>',
+            '</div>'
         ].join(""));
         this.breadcrumbLevelComponent.init(new BreadcrumbLevelOption(function (custId, custName, custLevelId) {
             _this.globalFormData.custId = custId;
