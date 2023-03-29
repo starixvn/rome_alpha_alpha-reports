@@ -62,6 +62,8 @@
             var winLossDetail = new WinLossDetailModel(
                 custId: reader.ToInt("CustId"),
                 custName: reader.ToString("CustName"),
+                firstName: null,//reader.ToString("FirstName"),
+                lastName: null,// reader.ToString("LastName"),
                 turnover: reader.ToDecimal("Turnover"),
                 netTurnover: reader.ToDecimal("NetTurnover"),
                 grossComm: reader.ToDecimal("GrossComm"),

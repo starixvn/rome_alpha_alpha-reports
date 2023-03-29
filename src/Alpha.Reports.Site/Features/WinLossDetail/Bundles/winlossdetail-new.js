@@ -232,7 +232,6 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
                 startDate: dateRangePicker.data("historicmindate"),
                 endDate: moment(today).endOf("M").format(options.dateFormat),
                 customShortcuts: this.getHistoricPredefinedRanges(dateRangePicker),
-                batchMode: "month",
             };
         }
         else {
@@ -331,147 +330,25 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
 //# sourceMappingURL=daterangepicker-jquery.js.map
 "use strict";
 var ProductAndProductDetailDropdownOption = /** @class */ (function () {
-    function ProductAndProductDetailDropdownOption(onDropdownHidden, productSelectorId, productDetailSelectorId) {
+    function ProductAndProductDetailDropdownOption(products, productDetails, onDropdownHidden, selectorId) {
         if (onDropdownHidden === void 0) { onDropdownHidden = Function(); }
-        if (productSelectorId === void 0) { productSelectorId = "dropdown-product"; }
-        if (productDetailSelectorId === void 0) { productDetailSelectorId = "dropdown-product-detail"; }
+        if (selectorId === void 0) { selectorId = "dropdown-product"; }
+        this.products = products;
+        this.productDetails = productDetails;
         this.onDropdownHidden = onDropdownHidden;
-        this.productSelectorId = productSelectorId;
-        this.productDetailSelectorId = productDetailSelectorId;
+        this.selectorId = selectorId;
+        this.products = products;
+        this.productDetails = productDetails;
         this.onDropdownHidden = onDropdownHidden;
-        this.productSelectorId = productSelectorId;
-        this.productDetailSelectorId = productDetailSelectorId;
+        this.selectorId = selectorId;
     }
     return ProductAndProductDetailDropdownOption;
 }());
 var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
     function ProductAndProductDetailDropdownComponent($) {
-        var _this = this;
-        this.optionClass = function (element) {
-            if (_this.$(element).data("isnested") === 1) {
-                return "multiselect-nested-item";
-            }
-        };
-        this.onChangeProductDetail = function (option, checked) {
-            var productId = _this.$(option.context).data("productid");
-            if (checked) {
-                if (!_this.$dropdownProduct.find("option[value=\"" + productId + "\"]:selected").length) {
-                    _this.$dropdownProduct.multiselect("select", productId);
-                }
-            }
-            else {
-                if (!_this.$dropdownProductDetail.find("option[data-productid=\"" + productId + "\"]:selected").length) {
-                    _this.$dropdownProduct.multiselect("deselect", productId);
-                }
-            }
-            _this.validateProduct();
-        };
-        this.onSelectAllProductDetail = function (e) {
-            var productIds = [];
-            _this.$dropdownProductDetail.find("option").each(function (_, item) { return productIds.push(_this.$(item).data("productid")); });
-            var uniqueProductIds = productIds.filter(function (value, index) { return productIds.indexOf(value) === index; });
-            var checked = _this.$(e.target).is(":checked");
-            _this.$dropdownProduct.multiselect(checked ? "select" : "deselect", uniqueProductIds);
-            _this.validateProduct();
-        };
         this.$ = $;
     }
     ProductAndProductDetailDropdownComponent.prototype.render = function (options) {
-        this.renderProduct(options);
-        this.renderProductDetail(options);
-    };
-    ProductAndProductDetailDropdownComponent.prototype.renderProduct = function (options) {
-        var _this = this;
-        this.$dropdownProduct = this.$("#" + options.productSelectorId);
-        this.$dropdownProduct.multiselect({
-            maxHeight: 300,
-            numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
-            nonSelectedText: this.$dropdownProduct.data("label-select-products"),
-            nSelectedText: " " + this.$dropdownProduct.data("label-selected"),
-            allSelectedText: this.$dropdownProduct.data("label-all-products"),
-            selectAllText: this.$dropdownProduct.data("label-select-all"),
-            includeSelectAllOption: true,
-            onChange: function (option, checked) { return _this.checkOrUncheckProductDetail(checked, option.context.value); },
-            enableCollapsibleOptGroups: true,
-            optionClass: this.optionClass,
-            onDropdownHidden: options.onDropdownHidden
-        });
-        this.$dropdownProduct.next().find(".multiselect-container li").removeClass("hidden");
-        this.$dropdownProductContainer = this.$dropdownProduct.parent().find(".multiselect.btn");
-        // Cannot use build in function 'onSelectAll'.
-        // Must register CheckAll checkbox event manually.
-        this.$("#product-multiselect-container .multiselect-all input[type=checkbox]").change(function (e) { return _this.checkOrUncheckProductDetail(_this.$(e.target).is(":checked")); });
-    };
-    ProductAndProductDetailDropdownComponent.prototype.checkOrUncheckProductDetail = function (checked, productId) {
-        if (productId === void 0) { productId = undefined; }
-        this.validateProduct();
-        var optionElements = productId
-            ? this.$dropdownProductDetail.find("option[data-productid=\"" + productId + "\"]")
-            : this.$dropdownProductDetail.find("option");
-        var selectedProductIds = [];
-        optionElements.each(function (_, item) { return selectedProductIds.push(item["value"]); });
-        this.$dropdownProductDetail.multiselect(checked ? "select" : "deselect", selectedProductIds);
-    };
-    ProductAndProductDetailDropdownComponent.prototype.validateProduct = function () {
-        if (this.$dropdownProduct.find("option:selected").length) {
-            this.$dropdownProductContainer.removeClass("error");
-        }
-        else {
-            this.$dropdownProductContainer.addClass("error");
-        }
-    };
-    ProductAndProductDetailDropdownComponent.prototype.renderProductDetail = function (options) {
-        this.$dropdownProductDetail = this.$("#" + options.productDetailSelectorId);
-        var selectAllText = this.$dropdownProductDetail.data("label-all-product-detail");
-        this.$dropdownProductDetail.multiselect({
-            maxHeight: 300,
-            numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
-            nonSelectedText: this.$dropdownProductDetail.data("label-select-product-detail"),
-            nSelectedText: " " + this.$dropdownProductDetail.data("label-selected"),
-            allSelectedText: selectAllText,
-            selectAllText: selectAllText,
-            includeSelectAllOption: true,
-            onChange: this.onChangeProductDetail,
-            onDropdownHidden: options.onDropdownHidden
-        });
-        // Cannot use build in function 'onSelectAll'.
-        // Must register CheckAll checkbox event manually.
-        this.$("#product-detail-multiselect-container .multiselect-all input[type=checkbox]").change(this.onSelectAllProductDetail);
-    };
-    ProductAndProductDetailDropdownComponent.prototype.getProductSelectedItems = function () {
-        var selectedProductIds = [];
-        this.$dropdownProduct.find("option:selected").each(function (_, item) { return selectedProductIds.push(item["value"]); });
-        return selectedProductIds.join();
-    };
-    ProductAndProductDetailDropdownComponent.prototype.getProductDetailSelectedItems = function () {
-        var selectedProductDetailIds = [];
-        this.$dropdownProductDetail.find("option:selected").each(function (_, item) { return selectedProductDetailIds.push(item["value"]); });
-        return selectedProductDetailIds.join();
-    };
-    return ProductAndProductDetailDropdownComponent;
-}());
-//# sourceMappingURL=product-productdetail-dropdown.js.map
-"use strict";
-var ProductAndSubProductDropdownOption = /** @class */ (function () {
-    function ProductAndSubProductDropdownOption(products, productDetails, onDropdownHidden, selectorId) {
-        if (onDropdownHidden === void 0) { onDropdownHidden = Function(); }
-        if (selectorId === void 0) { selectorId = "ddlProduct"; }
-        this.products = products;
-        this.productDetails = productDetails;
-        this.onDropdownHidden = onDropdownHidden;
-        this.selectorId = selectorId;
-        this.products = products;
-        this.productDetails = productDetails;
-        this.onDropdownHidden = onDropdownHidden;
-        this.selectorId = selectorId;
-    }
-    return ProductAndSubProductDropdownOption;
-}());
-var ProductAndSubProductDropdownComponent = /** @class */ (function () {
-    function ProductAndSubProductDropdownComponent($) {
-        this.$ = $;
-    }
-    ProductAndSubProductDropdownComponent.prototype.render = function (options) {
         var _this = this;
         var productDetailObject = this.buildProductDetailObject(options.productDetails);
         var productList = [];
@@ -484,15 +361,16 @@ var ProductAndSubProductDropdownComponent = /** @class */ (function () {
             }
             productList.push(productItem);
         });
-        this.$dropdownProduct = this.$("#ddlProduct").fanexMultiSelect({
-            checkAllText: "Select All",
-            selectedText: "# Selected",
-            noneSelectedText: "None Selected",
-            noItemFoundText: "No Product Found",
+        var ddlProduct = this.$("#" + options.selectorId);
+        this.dropdownProduct = ddlProduct.fanexMultiSelect({
+            checkAllText: ddlProduct.data("label-selectall"),
+            selectedText: "# " + ddlProduct.data("label-selected"),
+            noneSelectedText: ddlProduct.data("label-noneselected"),
             useCustomCheckAllText: true,
-            customCheckAllText: "All (#)",
+            customCheckAllText: ddlProduct.data("label-all") + " (#)",
             showFilter: true,
-            filterPlaceHolder: "",
+            filterPlaceHolder: ddlProduct.data("label-filterplaceholder"),
+            noItemFoundText: ddlProduct.data("label-noitemfound"),
             isCheckAll: true,
             minWidth: 250,
             //maxHeight: 250,
@@ -500,7 +378,7 @@ var ProductAndSubProductDropdownComponent = /** @class */ (function () {
             onLeave: options.onDropdownHidden
         });
     };
-    ProductAndSubProductDropdownComponent.prototype.buildProductDetailObject = function (productDetails) {
+    ProductAndProductDetailDropdownComponent.prototype.buildProductDetailObject = function (productDetails) {
         var _this = this;
         var productDetailObject = {};
         productDetails.forEach(function (item) {
@@ -513,16 +391,16 @@ var ProductAndSubProductDropdownComponent = /** @class */ (function () {
         });
         return productDetailObject;
     };
-    ProductAndSubProductDropdownComponent.prototype.buildCheckboxProduct = function (product, productDetailObject, cssClass) {
+    ProductAndProductDetailDropdownComponent.prototype.buildCheckboxProduct = function (product, productDetailObject, cssClass) {
         if (cssClass === void 0) { cssClass = "product"; }
         var checkboxItem = this.buildCheckboxItem(product, cssClass);
         checkboxItem.items = productDetailObject[product.Id];
         return checkboxItem;
     };
-    ProductAndSubProductDropdownComponent.prototype.buildCheckboxProductDetail = function (product) {
+    ProductAndProductDetailDropdownComponent.prototype.buildCheckboxProductDetail = function (product) {
         return this.buildCheckboxItem(product, "productdetail", product.ProductId);
     };
-    ProductAndSubProductDropdownComponent.prototype.buildCheckboxItem = function (item, cssClass, name) {
+    ProductAndProductDetailDropdownComponent.prototype.buildCheckboxItem = function (item, cssClass, name) {
         if (name === void 0) { name = undefined; }
         return {
             id: cssClass + "-" + item.Id,
@@ -534,7 +412,7 @@ var ProductAndSubProductDropdownComponent = /** @class */ (function () {
             enable: true
         };
     };
-    ProductAndSubProductDropdownComponent.prototype.getSelectedItems = function () {
+    ProductAndProductDetailDropdownComponent.prototype.getSelectedItems = function () {
         var productIds = this.getSelectedProductIds();
         var result = this.getSelectedResourceIds();
         return {
@@ -542,23 +420,23 @@ var ProductAndSubProductDropdownComponent = /** @class */ (function () {
             resourceIds: result.resourceIds.join()
         };
     };
-    ProductAndSubProductDropdownComponent.prototype.getSelectedProductIds = function () {
+    ProductAndProductDetailDropdownComponent.prototype.getSelectedProductIds = function () {
         var productIds = [];
-        this.$dropdownProduct.fanexMultiSelect("getItemsByCondition", '.product > input[type="checkbox"]:checked').each(function () {
+        this.dropdownProduct.fanexMultiSelect("getItemsByCondition", '.product > input[type="checkbox"]:checked').each(function () {
             productIds.push(this.value);
         });
         return productIds;
     };
-    ProductAndSubProductDropdownComponent.prototype.getSelectedResourceIds = function () {
+    ProductAndProductDetailDropdownComponent.prototype.getSelectedResourceIds = function () {
         var parentProductIds = [];
         var resourceIds = [];
-        this.$dropdownProduct.fanexMultiSelect("getItemsByCondition", '.productdetail > input[type="checkbox"]:checked').each(function () {
+        this.dropdownProduct.fanexMultiSelect("getItemsByCondition", '.productdetail > input[type="checkbox"]:checked').each(function () {
             parentProductIds.push(this.name);
             resourceIds.push(this.value);
         });
         return { parentProductIds: parentProductIds, resourceIds: resourceIds, };
     };
-    ProductAndSubProductDropdownComponent.prototype.uniqe = function (array) {
+    ProductAndProductDetailDropdownComponent.prototype.uniqe = function (array) {
         var uniqeObject = {};
         return array.filter(function (item) {
             return uniqeObject.hasOwnProperty(item)
@@ -566,9 +444,9 @@ var ProductAndSubProductDropdownComponent = /** @class */ (function () {
                 : (uniqeObject[item] = true);
         });
     };
-    return ProductAndSubProductDropdownComponent;
+    return ProductAndProductDetailDropdownComponent;
 }());
-//# sourceMappingURL=product-subproduct-dropdown.js.map
+//# sourceMappingURL=product-productdetail-dropdown.js.map
 "use strict";
 var VisibleColumnDropdownOption = /** @class */ (function () {
     function VisibleColumnDropdownOption(visibleColumnKey, onDropdownHidden, selectorId) {
@@ -589,35 +467,46 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
     }
     VisibleColumnDropdownComponent.prototype.render = function (options) {
         var _this = this;
-        this.$dropdownColumn = this.$("#" + options.selectorId);
-        this.$dropdownColumn.multiselect({
-            maxHeight: 300,
-            numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
-            nonSelectedText: this.$dropdownColumn.data("label-select-columns"),
-            nSelectedText: " " + this.$dropdownColumn.data("label-selected"),
-            allSelectedText: this.$dropdownColumn.data("label-all-columns"),
-            selectAllText: this.$dropdownColumn.data("label-select-all"),
-            includeSelectAllOption: true,
-            onDropdownHidden: function () { return _this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden); }
-        });
+        var isCheckAll = true;
+        var ddlColumn = this.$("#" + options.selectorId);
+        var ddlColumnOptions = ddlColumn.find("option");
+        var visibleColumnObject = {};
         var visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
-        if (visibleColumns) {
-            this.$dropdownColumn.multiselect("select", visibleColumns.split(","));
+        if (typeof visibleColumns !== "undefined") {
+            var visibleColumnArray = visibleColumns.split(",");
+            visibleColumnArray.forEach(function (item) {
+                visibleColumnObject[item] = true;
+            });
+            isCheckAll = ddlColumnOptions.length === visibleColumnArray.length;
         }
-        else {
-            this.$dropdownColumn.multiselect("selectAll", false);
-            this.$dropdownColumn.multiselect("updateButtonText");
-        }
+        this.dropdownColumn = ddlColumn.fanexMultiSelect({
+            checkAllText: ddlColumn.data("label-selectall"),
+            selectedText: "# " + ddlColumn.data("label-selected"),
+            noneSelectedText: ddlColumn.data("label-noneselected"),
+            useCustomCheckAllText: true,
+            customCheckAllText: ddlColumn.data("label-all") + " (#)",
+            isCheckAll: isCheckAll,
+            minWidth: 250,
+            //maxHeight: 250,
+            listData: ddlColumnOptions.map(function () {
+                return {
+                    value: this.value,
+                    text: this.innerText,
+                    cssClass: "visible-column",
+                    checked: isCheckAll || visibleColumnObject.hasOwnProperty(this.value),
+                    enable: true
+                };
+            }),
+            onLeave: function () { return _this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden); }
+        });
         return this.getColumns();
     };
     VisibleColumnDropdownComponent.prototype.onDropdownHidden = function (visibleColumnKey, callback) {
-        var _this = this;
         var selectedColumnsValue = [];
         var columns = {};
-        this.$dropdownColumn.find("option").each(function (_, item) {
-            var $this = _this.$(item);
-            var value = $this.val();
-            var checked = $this.is(":checked");
+        this.dropdownColumn.fanexMultiSelect("getItemsByCondition", '.visible-column > input[type="checkbox"]').each(function () {
+            var value = this.value;
+            var checked = this.checked;
             checked && selectedColumnsValue.push(value);
             columns[value] = checked;
         });
@@ -625,11 +514,9 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
         callback(columns);
     };
     VisibleColumnDropdownComponent.prototype.getColumns = function () {
-        var _this = this;
         var columns = {};
-        this.$dropdownColumn.find("option").each(function (_, item) {
-            var $this = _this.$(item);
-            columns[$this.val()] = $this.is(":checked");
+        this.dropdownColumn.fanexMultiSelect("getItemsByCondition", '.visible-column > input[type="checkbox"]').each(function () {
+            columns[this.value] = this.checked;
         });
         return columns;
     };
@@ -701,11 +588,17 @@ var WeekRangeComponent = /** @class */ (function () {
 //# sourceMappingURL=week-range.js.map
 "use strict";
 var BreadcrumbLevelOption = /** @class */ (function () {
-    function BreadcrumbLevelOption(onClick, selectorId) {
+    function BreadcrumbLevelOption(custId, custName, custLevelId, onClick, selectorId) {
         if (onClick === void 0) { onClick = Function(); }
         if (selectorId === void 0) { selectorId = "breadcrumb"; }
+        this.custId = custId;
+        this.custName = custName;
+        this.custLevelId = custLevelId;
         this.onClick = onClick;
         this.selectorId = selectorId;
+        this.custId = custId;
+        this.custName = custName;
+        this.custLevelId = custLevelId;
         this.onClick = onClick;
         this.selectorId = selectorId;
     }
@@ -716,13 +609,17 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
         this.breadcrumbs = [];
         this.$ = $;
     }
-    BreadcrumbLevelComponent.prototype.init = function (options, custId, custName, custLevelId) {
+    BreadcrumbLevelComponent.prototype.init = function (options) {
         this.breadcrumbLevelOption = options;
         this.breadcrumbSelector = this.$("#" + options.selectorId);
-        this.addBreadcrumbLevel(custId, custName, custLevelId);
+        this.addBreadcrumbLevel({
+            custId: options.custId,
+            custName: options.custName,
+            custLevelId: options.custLevelId
+        });
     };
-    BreadcrumbLevelComponent.prototype.addBreadcrumbLevel = function (custId, custName, custLevelId) {
-        this.breadcrumbs.push({ custId: custId, custName: custName, custLevelId: custLevelId });
+    BreadcrumbLevelComponent.prototype.addBreadcrumbLevel = function (breadcrumbData) {
+        this.breadcrumbs.push(breadcrumbData);
         this.render();
     };
     BreadcrumbLevelComponent.prototype.removeBreadcrumbLevel = function (custLevelId) {
@@ -745,7 +642,11 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
                 e.preventDefault();
                 var $this = _this.$(e.target);
                 $this.addClass("active");
-                _this.breadcrumbLevelOption.onClick($this.data("custid"), $this.data("custname"), $this.data("custlevelid"));
+                _this.breadcrumbLevelOption.onClick({
+                    custId: $this.data("custid"),
+                    custName: $this.data("custname"),
+                    custLevelId: $this.data("custlevelid")
+                });
             });
         }
         else {
@@ -755,3 +656,35 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
     return BreadcrumbLevelComponent;
 }());
 //# sourceMappingURL=breadcrumb-level.js.map
+"use strict";
+var CustomerLevel;
+(function (CustomerLevel) {
+    CustomerLevel[CustomerLevel["Super"] = 4] = "Super";
+    CustomerLevel[CustomerLevel["Master"] = 3] = "Master";
+    CustomerLevel[CustomerLevel["Agent"] = 2] = "Agent";
+})(CustomerLevel || (CustomerLevel = {}));
+var BaseReportView = /** @class */ (function () {
+    function BaseReportView($) {
+        this.$ = $;
+    }
+    BaseReportView.prototype.initReportLegend = function (legendUrl, width, height) {
+        this.$("#icon-report-legend").click(function () {
+            top.window["popupManager"].open(legendUrl, undefined, width, height, "modal-mobile-friendly");
+        });
+    };
+    BaseReportView.prototype.isNotUndefined = function (value) {
+        return !this.isUndefined(value);
+    };
+    BaseReportView.prototype.isUndefined = function (value) {
+        return typeof value === "undefined";
+    };
+    BaseReportView.prototype.formatInt = function (value) {
+        return $.fn.dataTable.render.number(",", ".", 0).display(value);
+    };
+    BaseReportView.prototype.formatDecimal = function (value) {
+        var text = $.fn.dataTable.render.number(",", ".", 2).display(Math.round(Math.abs(value) * 100) / 100);
+        return value >= 0 ? text : "-" + text;
+    };
+    return BaseReportView;
+}());
+//# sourceMappingURL=base-report-view.js.map

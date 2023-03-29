@@ -38,9 +38,3 @@ class WinLossDetailNewViewModel {
         this.ExportToExcelText = this.$("#hiddenExportToExcelText").val();
     }
 }
-
-enum CustomerLevel {
-    Super = 4,
-    Master = 3,
-    Agent = 2
-}

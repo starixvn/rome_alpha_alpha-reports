@@ -19,12 +19,10 @@ interface Object {
     entries: any;
 }
 
-class WinLossDetailViewNew {
-    private $: JQueryStatic;
+class WinLossDetailViewNew extends BaseReportView {
     private totalEnteredNonEnteredComponent: TotalEnteredNonEnteredComponent;
     private dateRangePickerComponent: DateRangePickerJQueryComponent;
     private productAndProductDetailDropdownComponent: ProductAndProductDetailDropdownComponent;
-    private productAndSubProductDropdownComponent: ProductAndSubProductDropdownComponent;
     private visibleColumnDropdownComponent: VisibleColumnDropdownComponent;
     private weekRangeComponent: WeekRangeComponent
     private breadcrumbLevelComponent: BreadcrumbLevelComponent;
@@ -35,8 +33,8 @@ class WinLossDetailViewNew {
     private tableFooterJQuery: JQuery;
     private dataTableObject: any;
     private visibleColumns: any;
-    private masterColumnIndexes: any = [11, 12, 13];
-    private superColumnIndexes: any = [14, 15, 16];
+    private masterColumnIndexes: any = [12, 13, 14];
+    private superColumnIndexes: any = [15, 16, 17];
     private productList: any;
     private productDetailList: any;
 
@@ -45,46 +43,22 @@ class WinLossDetailViewNew {
         totalEnteredNonEnteredComponent: TotalEnteredNonEnteredComponent,
         dateRangePickerComponent: DateRangePickerJQueryComponent,
         productAndProductDetailDropdownComponent: ProductAndProductDetailDropdownComponent,
-        productAndSubProductDropdownComponent: ProductAndSubProductDropdownComponent,
         visibleColumnDropdownComponent: VisibleColumnDropdownComponent,
         weekRangeComponent: WeekRangeComponent,
         breadcrumbLevelComponent: BreadcrumbLevelComponent,
         viewModel: WinLossDetailNewViewModel,
         productList: any,
         productDetailList: any) {
-        this.$ = $;
+        super($);
         this.totalEnteredNonEnteredComponent = totalEnteredNonEnteredComponent;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productAndProductDetailDropdownComponent = productAndProductDetailDropdownComponent;
-        this.productAndSubProductDropdownComponent = productAndSubProductDropdownComponent;
         this.visibleColumnDropdownComponent = visibleColumnDropdownComponent;
         this.weekRangeComponent = weekRangeComponent;
         this.breadcrumbLevelComponent = breadcrumbLevelComponent;
         this.viewModel = viewModel;
         this.productList = productList;
         this.productDetailList = productDetailList;
-    }
-
-    private openFullscreen() {
-        const element = document.documentElement;
-
-        if (element.requestFullscreen) {
-            element.requestFullscreen();
-        } else if (element.webkitRequestFullscreen) { /* Safari */
-            element.webkitRequestFullscreen();
-        } else if (element.msRequestFullscreen) { /* IE11 */
-            element.msRequestFullscreen();
-        }
-    }
-
-    private closeFullscreen() {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) { /* Safari */
-            document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { /* IE11 */
-            document.msExitFullscreen();
-        }
     }
 
     init() {
@@ -99,7 +73,7 @@ class WinLossDetailViewNew {
         };
 
         this.renderComponents();
-        this.bindEvents();
+        this.initReportLegend(this.viewModel.LegendUrl, 800, 540);
 
         this.getWinLossDetailDataAndRenderWeekRange();
     }
@@ -112,14 +86,10 @@ class WinLossDetailViewNew {
 
         this.dateRangePickerComponent.render(new DateRangePickerJQueryOption(() => this.getWinLossDetailDataAndRenderWeekRange()));
 
-        this.productAndProductDetailDropdownComponent.render(
-            new ProductAndProductDetailDropdownOption(() => this.getWinLossDetailDataAndRenderWeekRange()));
-
-        this.productAndSubProductDropdownComponent.render(new ProductAndSubProductDropdownOption(
+        this.productAndProductDetailDropdownComponent.render(new ProductAndProductDetailDropdownOption(
             this.productList,
             this.productDetailList,
-            () => this.getWinLossDetailDataAndRenderWeekRange()
-        ));
+            () => this.getWinLossDetailDataAndRenderWeekRange()));
 
         this.visibleColumns = this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption(
             `WinLossDetail_${this.viewModel.ViewerId}_${this.viewModel.SubAccId}:Columns`,
@@ -144,18 +114,6 @@ class WinLossDetailViewNew {
             this.globalFormData.toDate = toDate;
             this.getWinLossDetailData(this.globalFormData);
         }));
-    }
-
-    private bindEvents() {
-        this.$("#icon-report-legend").click(() =>
-            top.window["popupManager"].open(
-                this.viewModel.LegendUrl,
-                undefined,
-                800,
-                540,
-                "modal-mobile-friendly"));
-
-        this.$(".icon-filter").click(this.openFullscreen);
     }
 
     private buildDataTableOptions(dataSet) {
@@ -185,7 +143,7 @@ class WinLossDetailViewNew {
     }
 
     private buildDataTableColumns() {
-        let columnIndex = 1; // Start at BetCount
+        let columnIndex = 1; // Start at First/Last Name
         const columns = [];
         columns.push(
             {
@@ -208,6 +166,24 @@ class WinLossDetailViewNew {
                     return data;
                 }
             },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    if (type === "display") {
+                        if (row.FirstName && row.LastName) {
+                            return `${row.FirstName}/ ${row.LastName}`;
+                        }
+
+                        if (!row.FirstName && !row.LastName) {
+                            return "";
+                        }
+
+                        return row.FirstName + row.LastName;
+                    }
+
+                    return data;
+                },
+                visible: this.visibleColumns[columnIndex++] },
             { data: "BetCount", render: this.formatInt, visible: this.visibleColumns[columnIndex++] },
             { data: "Turnover", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
             { data: "NetTurnover", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
@@ -215,9 +191,9 @@ class WinLossDetailViewNew {
             { data: "MemberNetWinLoss.WinLoss", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
             { data: "MemberNetWinLoss.Comm", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
             { data: "MemberNetWinLoss.Total", render: this.formatDecimal, className: "bold", visible: this.visibleColumns[columnIndex++] },
-            { data: "AgentNetWinLoss.WinLoss", render: this.formatDecimal, className: "altercol", visible: this.visibleColumns[columnIndex++] },
-            { data: "AgentNetWinLoss.Comm", render: this.formatDecimal, className: "altercol", visible: this.visibleColumns[columnIndex++] },
-            { data: "AgentNetWinLoss.Total", render: this.formatDecimal, className: "bold altercol", visible: this.visibleColumns[columnIndex++] });
+            { data: "AgentNetWinLoss.WinLoss", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
+            { data: "AgentNetWinLoss.Comm", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
+            { data: "AgentNetWinLoss.Total", render: this.formatDecimal, className: "bold", visible: this.visibleColumns[columnIndex++] });
 
         this.viewModel.ViewerLevelIsMasterOrSuper && columns.push(
             { data: "MasterNetWinLoss.WinLoss", render: this.formatDecimal, defaultContent: "", visible: this.visibleColumns[columnIndex++] },
@@ -226,9 +202,9 @@ class WinLossDetailViewNew {
         );
 
         this.viewModel.ViewerLevelIsSuper && columns.push(
-            { data: "SuperNetWinLoss.WinLoss", render: this.formatDecimal, className: "altercol", defaultContent: "", visible: this.visibleColumns[columnIndex++] },
-            { data: "SuperNetWinLoss.Comm", render: this.formatDecimal, className: "altercol", defaultContent: "", visible: this.visibleColumns[columnIndex++] },
-            { data: "SuperNetWinLoss.Total", render: this.formatDecimal, className: "bold altercol", defaultContent: "", visible: this.visibleColumns[columnIndex++] }
+            { data: "SuperNetWinLoss.WinLoss", render: this.formatDecimal, defaultContent: "", visible: this.visibleColumns[columnIndex++] },
+            { data: "SuperNetWinLoss.Comm", render: this.formatDecimal, defaultContent: "", visible: this.visibleColumns[columnIndex++] },
+            { data: "SuperNetWinLoss.Total", render: this.formatDecimal, className: "bold", defaultContent: "", visible: this.visibleColumns[columnIndex++] }
         );
 
         columns.push({ data: "Company", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] });
@@ -250,21 +226,19 @@ class WinLossDetailViewNew {
             '</div>'
         ].join(""));
 
-        this.breadcrumbLevelComponent.init(
-            new BreadcrumbLevelOption((custId: number, custName: string, custLevelId: number) => {
-                this.globalFormData.custId = custId;
-                this.globalFormData.custName = custName;
-                this.globalFormData.custLevelId = custLevelId;
+        this.breadcrumbLevelComponent.init(new BreadcrumbLevelOption(
+            this.viewModel.ViewerId,
+            this.viewModel.ViewerName,
+            this.viewModel.ViewerLevel,
+            breadcrumbData => {
+                this.$.extend(this.globalFormData, breadcrumbData);
                 this.getWinLossDetailData(
                     this.globalFormData,
                     () => {
-                        this.breadcrumbLevelComponent.removeBreadcrumbLevel(custLevelId);
+                        this.breadcrumbLevelComponent.removeBreadcrumbLevel(breadcrumbData.custLevelId);
                         this.setVisibleColumns();
                     });
-            }),
-            this.viewModel.ViewerId,
-            this.viewModel.ViewerName,
-            this.viewModel.ViewerLevel);
+            }));
 
         this.$("#icon-excel").click(() => {
             const exportExcelForm = this.$("#export-excel-form");
@@ -292,25 +266,24 @@ class WinLossDetailViewNew {
         this.$(".downline-link").off().click((e) => {
             e.preventDefault();
             const $this = this.$(e.target);
-            const custId = $this.data("custid");
-            const custName = $this.data("custname");
-            const custLevelId = $this.data("custlevelid");
-
-            this.globalFormData.custId = custId;
-            this.globalFormData.custName = custName;
-            this.globalFormData.custLevelId = custLevelId
+            const breadcrumbData = {
+                custId: $this.data("custid"),
+                custName: $this.data("custname"),
+                custLevelId: $this.data("custlevelid")
+            };
+            this.$.extend(this.globalFormData, breadcrumbData);
 
             this.getWinLossDetailData(
                 this.globalFormData,
                 () => {
-                    this.breadcrumbLevelComponent.addBreadcrumbLevel(custId, custName, custLevelId);
+                    this.breadcrumbLevelComponent.addBreadcrumbLevel(breadcrumbData);
                     this.setVisibleColumns();
                 });
         });
     }
 
     private updateTotalFooter(api) {
-        let columnIndex = 1; // Start at Bet Count
+        let columnIndex = 2; // Start at Bet Count
         this.$(api.column(columnIndex++).footer()).html(this.formatInt(this.globalTotalData.BetCount));
         this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.Turnover));
         this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.NetTurnover));
@@ -334,9 +307,9 @@ class WinLossDetailViewNew {
     }
 
     private updateTotalFooterMasterSuper(api: any, sm: any, columnIndex: number) {
-        let winLoss = "";
-        let comm = "";
-        let total = "";
+        let winLoss = 0;
+        let comm = 0;
+        let total = 0;
         if (sm) {
             winLoss = this.formatDecimal(sm.WinLoss);
             comm = this.formatDecimal(sm.Comm);
@@ -356,7 +329,7 @@ class WinLossDetailViewNew {
 
     private getWinLossDetailDataAndRenderWeekRange() {
         const dateRange = this.dateRangePickerComponent.getDateRangeValues();
-        const productsAndResources = this.productAndSubProductDropdownComponent.getSelectedItems();
+        const productsAndResources = this.productAndProductDetailDropdownComponent.getSelectedItems();
         this.$.extend(this.globalFormData, dateRange, productsAndResources);
 
         this.getWinLossDetailData(this.globalFormData, () => this.weekRangeComponent.render(this.globalFormData));
@@ -401,24 +374,15 @@ class WinLossDetailViewNew {
         }
     }
 
-    private formatInt(value) {
-        return $.fn.dataTable.render.number(",", ".", 0).display(value);
-    }
-
-    private formatDecimal(value) {
-        const text = $.fn.dataTable.render.number(",", ".", 2).display(Math.round(Math.abs(value) * 100) / 100);
-        return value >= 0 ? text : "-" + text;
-    }
-
     private setVisibleColumns() {
         const visibleSuper = this.getVisibleSuperColumn();
-        if (typeof visibleSuper !== "undefined") {
+        if (this.isNotUndefined(visibleSuper)) {
             this.superColumnIndexes.forEach(item =>
                 this.dataTableObject.column(item).visible(visibleSuper && this.visibleColumns[item]));
         }
 
         const visibleMaster = this.getVisibleMasterColumn();
-        if (typeof visibleMaster !== "undefined") {
+        if (this.isNotUndefined(visibleMaster)) {
             this.masterColumnIndexes.forEach(item =>
                 this.dataTableObject.column(item).visible(visibleMaster && this.visibleColumns[item]));
         }
@@ -443,7 +407,6 @@ $(function () {
         new TotalEnteredNonEnteredComponent($, moment),
         new DateRangePickerJQueryComponent($),
         new ProductAndProductDetailDropdownComponent($),
-        new ProductAndSubProductDropdownComponent($),
         new VisibleColumnDropdownComponent($),
         new WeekRangeComponent($, moment),
         new BreadcrumbLevelComponent($),

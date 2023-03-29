@@ -11,6 +11,8 @@ namespace Alpha.Reports.Models.WinLossDetail
         public WinLossDetailModel(
             int custId,
             string custName,
+            string firstName,
+            string lastName,
             decimal grossComm,
             decimal netTurnover,
             decimal turnover,
@@ -22,6 +24,8 @@ namespace Alpha.Reports.Models.WinLossDetail
         {
             CustId = custId;
             CustName = custName;
+            FirstName = firstName;
+            LastName = lastName;
             GrossComm = grossComm;
             NetTurnover = netTurnover;
             Turnover = turnover;
@@ -35,6 +39,10 @@ namespace Alpha.Reports.Models.WinLossDetail
         public int CustId { get; }
 
         public string CustName { get; }
+
+        public string FirstName { get; }
+
+        public string LastName { get; }
 
         public decimal Turnover { get; }
 

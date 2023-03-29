@@ -43,20 +43,6 @@
                         })))
                 : Enumerable.Empty<GroupProductViewModel>();
 
-        protected internal static IEnumerable<GroupProductViewModel> BuildProductSelectListItems(IEnumerable<Product> products)
-            => products?.Any() == true
-                ? products
-                    .GroupBy(product => new { product.Type, product.TypeName })
-                    .Select(grp => new GroupProductViewModel(
-                        new SelectListGroup { Name = grp.Key.TypeName },
-                        grp.Select(product => new SelectListItem
-                        {
-                            Text = product.DisplayName,
-                            Value = product.Id.ToString(),
-                            Selected = true
-                        })))
-                : Enumerable.Empty<GroupProductViewModel>();
-
         protected internal static IEnumerable<ProductViewModel> BuildProductViewModels(IEnumerable<Product> products)
         {
             var productList = new List<ProductViewModel>();
@@ -91,11 +77,6 @@
             => productDetails.Any()
                 ? productDetails.Select(p =>
                     new ProductDetailViewModel(p.ProductId, p.ResourceId, p.DisplayName, userSelectedResourceIds.Contains(p.ResourceId)))
-                : Enumerable.Empty<ProductDetailViewModel>();
-
-        protected internal static IEnumerable<ProductDetailViewModel> BuildProductDetailViewModels(IEnumerable<ProductDetail> productDetails)
-            => productDetails.Any()
-                ? productDetails.Select(p => new ProductDetailViewModel(p.ProductId, p.ResourceId, p.DisplayName, true))
                 : Enumerable.Empty<ProductDetailViewModel>();
 
         protected internal static IEnumerable<ProductDetailNewViewModel> BuildProductDetailNewViewModels(IEnumerable<ProductDetail> productDetails)

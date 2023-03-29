@@ -54,7 +54,6 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
                 startDate: dateRangePicker.data("historicmindate"),
                 endDate: moment(today).endOf("M").format(options.dateFormat),
                 customShortcuts: this.getHistoricPredefinedRanges(dateRangePicker),
-                batchMode: "month",
             };
         }
         else {

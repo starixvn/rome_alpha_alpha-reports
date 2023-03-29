@@ -550,6 +550,7 @@
     <Content Include="Features\EnteredResult\Styles\enteredresult-dark.scss" />
     <Content Include="App_Code\Components\ProductAndProductDetailDropdown.cshtml" />
     <Content Include="App_Code\Components\VisibleColumnsDropdown.cshtml" />
+    <Content Include="App_Code\Components\DateRangePickerJQuery.cshtml" />
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
@@ -561,7 +562,6 @@
     <Content Include="Features\EnteredResult\Styles\enteredresult.min.css">
       <DependentUpon>enteredresult.css</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="Features\Shared\Scripts\components\product-subproduct-dropdown.ts" />
     <Content Include="Features\Shared\Styles\report-legend-dark.css">
       <DependentUpon>report-legend-dark.scss</DependentUpon>
     </Content>
@@ -582,6 +582,7 @@
     <Content Include="Features\WinLossDetail\Bundles\winlossdetail.min.js">
       <DependentUpon>winlossdetail.js</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Features\Shared\Scripts\base-report-view.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\breadcrumb-level.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\daterangepicker-jquery.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\product-productdetail-dropdown.ts" />
@@ -1826,7 +1827,6 @@
     </Content>
     <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.scss" />
     <Content Include="Features\Outstanding\Views\IndexNew.cshtml" />
-    <Content Include="App_Code\Components\DateRangePickerNew.cshtml" />
     <Content Include="App_Code\Components\ProductDetailMultiSelection.cshtml" />
     <Content Include="Features\WinLoss\Styles\winloss.scss" />
     <Content Include="Features\Shared\Styles\datepicker-mobile-07.scss" />

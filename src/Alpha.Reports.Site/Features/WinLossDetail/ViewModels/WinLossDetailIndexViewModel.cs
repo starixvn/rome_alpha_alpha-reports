@@ -15,10 +15,8 @@
     {
         public WinLossDetailIndexViewModel(
             WinLossDetailIndexQuery message,
-            IEnumerable<GroupProductViewModel> products,
-            IEnumerable<ProductViewModel> productList,
-            IEnumerable<ProductDetailViewModel> productDetails,
-            IEnumerable<ProductDetailNewViewModel> productDetailList,
+            IEnumerable<ProductViewModel> products,
+            IEnumerable<ProductDetailNewViewModel> productDetails,
             EnteredSportResult totalEnteredSport)
         {
             ViewerId = message.ViewerId;
@@ -32,9 +30,7 @@
                 message.MinDate.GetGreaterDate(message.LimitedDateToShowInfo),
                 SystemTime.Today.AddYears(-3).FirstDayOfYear());
             Products = products;
-            ProductList = productList;
             ProductDetails = productDetails;
-            ProductDetailList = productDetailList;
             TotalEnteredSport = totalEnteredSport;
         }
 
@@ -52,19 +48,16 @@
 
         public DateRangePickerNewViewModel DateRangePickerViewModel { get; }
 
-        public IEnumerable<GroupProductViewModel> Products { get; }
+        public IEnumerable<ProductViewModel> Products { get; }
 
-        public IEnumerable<ProductViewModel> ProductList { get; }
-
-        public IEnumerable<ProductDetailViewModel> ProductDetails { get; }
-
-        public IEnumerable<ProductDetailNewViewModel> ProductDetailList { get; }
+        public IEnumerable<ProductDetailNewViewModel> ProductDetails { get; }
 
         public IEnumerable<SelectListItem> Columns
         {
             get
             {
-                var columnIndex = 1; // Start at BetCount
+                var columnIndex = 1; // Start at First/Last Name
+                yield return new SelectListItem { Value = columnIndex++.ToString(), Text = Resources.FirstLastName };
                 yield return new SelectListItem { Value = columnIndex++.ToString(), Text = Resources.BetCount };
 
                 yield return new SelectListItem { Value = columnIndex++.ToString(), Text = Resources.Turnover };

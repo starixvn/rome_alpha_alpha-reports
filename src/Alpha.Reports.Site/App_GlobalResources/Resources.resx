@@ -1019,5 +1019,20 @@
   </data>
   <data name="GrossCommNoteForRoundingProblem" xml:space="preserve">
     <value>Gross Comm values may differ at each level due to rounding to 4 decimal places.</value>
+    </data>
+  <data name="Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="DateRange" xml:space="preserve">
+    <value>Date Range</value>
+  </data>
+  <data name="NoneSelected" xml:space="preserve">
+    <value>None Selected</value>
+  </data>
+  <data name="NoProductFound" xml:space="preserve">
+    <value>No Product Found</value>
+  </data>
+  <data name="SearchProduct" xml:space="preserve">
+    <value>Search Product</value>
   </data>
 </root>

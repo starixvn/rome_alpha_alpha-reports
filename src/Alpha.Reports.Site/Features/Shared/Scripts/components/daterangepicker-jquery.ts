@@ -58,7 +58,7 @@ class DateRangePickerJQueryComponent {
                 startDate: dateRangePicker.data("historicmindate"),
                 endDate: moment(today).endOf("M").format(options.dateFormat),
                 customShortcuts: this.getHistoricPredefinedRanges(dateRangePicker),
-                batchMode: "month",
+                //batchMode: "month",
                 //monthSelect: true,
                 //yearSelect: true,
             };

@@ -457,6 +457,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Columns.
+        /// </summary>
+        public static string Columns {
+            get {
+                return ResourceManager.GetString("Columns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comm.
         /// </summary>
         public static string Comm {
@@ -696,6 +705,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Date {
             get {
                 return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date Range.
+        /// </summary>
+        public static string DateRange {
+            get {
+                return ResourceManager.GetString("DateRange", resourceCulture);
             }
         }
         
@@ -1753,6 +1771,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None Selected.
+        /// </summary>
+        public static string NoneSelected {
+            get {
+                return ResourceManager.GetString("NoneSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Product Found.
+        /// </summary>
+        public static string NoProductFound {
+            get {
+                return ResourceManager.GetString("NoProductFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are not authorized on this function..
         /// </summary>
         public static string NotAuthorized {
@@ -2100,6 +2136,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string SabaSportsNote {
             get {
                 return ResourceManager.GetString("SabaSportsNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Product.
+        /// </summary>
+        public static string SearchProduct {
+            get {
+                return ResourceManager.GetString("SearchProduct", resourceCulture);
             }
         }
         

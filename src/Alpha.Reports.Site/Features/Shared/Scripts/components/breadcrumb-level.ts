@@ -1,8 +1,14 @@
 ﻿"use strict";
 class BreadcrumbLevelOption {
     constructor(
+        public custId: number,
+        public custName: string,
+        public custLevelId: number,
         public onClick = Function(),
         public selectorId = "breadcrumb") {
+        this.custId = custId;
+        this.custName = custName;
+        this.custLevelId = custLevelId;
         this.onClick = onClick;
         this.selectorId = selectorId;
     }
@@ -18,14 +24,18 @@ class BreadcrumbLevelComponent {
         this.$ = $;
     }
 
-    init(options: BreadcrumbLevelOption, custId: number, custName: string, custLevelId: number) {
+    init(options: BreadcrumbLevelOption) {
         this.breadcrumbLevelOption = options;
         this.breadcrumbSelector = this.$("#" + options.selectorId);
-        this.addBreadcrumbLevel(custId, custName, custLevelId);
+        this.addBreadcrumbLevel({
+            custId: options.custId,
+            custName: options.custName,
+            custLevelId: options.custLevelId
+        });
     }
 
-    addBreadcrumbLevel(custId: number, custName: string, custLevelId: number) {
-        this.breadcrumbs.push({ custId, custName, custLevelId });
+    addBreadcrumbLevel(breadcrumbData: any) {
+        this.breadcrumbs.push(breadcrumbData);
         this.render();
     }
 
@@ -50,7 +60,11 @@ class BreadcrumbLevelComponent {
                     e.preventDefault();
                     const $this = this.$(e.target);
                     $this.addClass("active");
-                    this.breadcrumbLevelOption.onClick($this.data("custid"), $this.data("custname"), $this.data("custlevelid"));
+                    this.breadcrumbLevelOption.onClick({
+                        custId: $this.data("custid"),
+                        custName: $this.data("custname"),
+                        custLevelId: $this.data("custlevelid")
+                    });
                 });
         } else {
             this.breadcrumbSelector.addClass("hide").html("");

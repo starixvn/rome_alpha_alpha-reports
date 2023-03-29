@@ -18,35 +18,46 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
     }
     VisibleColumnDropdownComponent.prototype.render = function (options) {
         var _this = this;
-        this.$dropdownColumn = this.$("#" + options.selectorId);
-        this.$dropdownColumn.multiselect({
-            maxHeight: 300,
-            numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
-            nonSelectedText: this.$dropdownColumn.data("label-select-columns"),
-            nSelectedText: " " + this.$dropdownColumn.data("label-selected"),
-            allSelectedText: this.$dropdownColumn.data("label-all-columns"),
-            selectAllText: this.$dropdownColumn.data("label-select-all"),
-            includeSelectAllOption: true,
-            onDropdownHidden: function () { return _this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden); }
-        });
+        var isCheckAll = true;
+        var ddlColumn = this.$("#" + options.selectorId);
+        var ddlColumnOptions = ddlColumn.find("option");
+        var visibleColumnObject = {};
         var visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
-        if (visibleColumns) {
-            this.$dropdownColumn.multiselect("select", visibleColumns.split(","));
+        if (typeof visibleColumns !== "undefined") {
+            var visibleColumnArray = visibleColumns.split(",");
+            visibleColumnArray.forEach(function (item) {
+                visibleColumnObject[item] = true;
+            });
+            isCheckAll = ddlColumnOptions.length === visibleColumnArray.length;
         }
-        else {
-            this.$dropdownColumn.multiselect("selectAll", false);
-            this.$dropdownColumn.multiselect("updateButtonText");
-        }
+        this.dropdownColumn = ddlColumn.fanexMultiSelect({
+            checkAllText: ddlColumn.data("label-selectall"),
+            selectedText: "# " + ddlColumn.data("label-selected"),
+            noneSelectedText: ddlColumn.data("label-noneselected"),
+            useCustomCheckAllText: true,
+            customCheckAllText: ddlColumn.data("label-all") + " (#)",
+            isCheckAll: isCheckAll,
+            minWidth: 250,
+            //maxHeight: 250,
+            listData: ddlColumnOptions.map(function () {
+                return {
+                    value: this.value,
+                    text: this.innerText,
+                    cssClass: "visible-column",
+                    checked: isCheckAll || visibleColumnObject.hasOwnProperty(this.value),
+                    enable: true
+                };
+            }),
+            onLeave: function () { return _this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden); }
+        });
         return this.getColumns();
     };
     VisibleColumnDropdownComponent.prototype.onDropdownHidden = function (visibleColumnKey, callback) {
-        var _this = this;
         var selectedColumnsValue = [];
         var columns = {};
-        this.$dropdownColumn.find("option").each(function (_, item) {
-            var $this = _this.$(item);
-            var value = $this.val();
-            var checked = $this.is(":checked");
+        this.dropdownColumn.fanexMultiSelect("getItemsByCondition", '.visible-column > input[type="checkbox"]').each(function () {
+            var value = this.value;
+            var checked = this.checked;
             checked && selectedColumnsValue.push(value);
             columns[value] = checked;
         });
@@ -54,11 +65,9 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
         callback(columns);
     };
     VisibleColumnDropdownComponent.prototype.getColumns = function () {
-        var _this = this;
         var columns = {};
-        this.$dropdownColumn.find("option").each(function (_, item) {
-            var $this = _this.$(item);
-            columns[$this.val()] = $this.is(":checked");
+        this.dropdownColumn.fanexMultiSelect("getItemsByCondition", '.visible-column > input[type="checkbox"]').each(function () {
+            columns[this.value] = this.checked;
         });
         return columns;
     };

@@ -13,32 +13,47 @@ class VisibleColumnDropdownOption {
 
 class VisibleColumnDropdownComponent {
     private $: JQueryStatic;
-    private $dropdownColumn: JQuery;
+    private dropdownColumn: JQuery;
 
     constructor($: JQueryStatic) {
         this.$ = $;
     }
 
     render(options: VisibleColumnDropdownOption) {
-        this.$dropdownColumn = this.$("#" + options.selectorId);
-        this.$dropdownColumn.multiselect({
-            maxHeight: 300,
-            numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
-            nonSelectedText: this.$dropdownColumn.data("label-select-columns"),
-            nSelectedText: ` ${this.$dropdownColumn.data("label-selected")}`,
-            allSelectedText: this.$dropdownColumn.data("label-all-columns"),
-            selectAllText: this.$dropdownColumn.data("label-select-all"),
-            includeSelectAllOption: true,
-            onDropdownHidden: () => this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden)
-        });
+        let isCheckAll = true;
+        const ddlColumn = this.$("#" + options.selectorId);
+        const ddlColumnOptions = ddlColumn.find("option");
 
+        const visibleColumnObject = {};
         const visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
-        if (visibleColumns) {
-            this.$dropdownColumn.multiselect("select", visibleColumns.split(","));
-        } else {
-            this.$dropdownColumn.multiselect("selectAll", false)
-            this.$dropdownColumn.multiselect("updateButtonText");
+        if (typeof visibleColumns !== "undefined") {
+            const visibleColumnArray = visibleColumns.split(",");
+            visibleColumnArray.forEach(function (item) {
+                visibleColumnObject[item] = true;
+            });
+            isCheckAll = ddlColumnOptions.length === visibleColumnArray.length;
         }
+
+        this.dropdownColumn = ddlColumn.fanexMultiSelect({
+            checkAllText: ddlColumn.data("label-selectall"),
+            selectedText: "# " + ddlColumn.data("label-selected"),
+            noneSelectedText: ddlColumn.data("label-noneselected"),
+            useCustomCheckAllText: true,
+            customCheckAllText: ddlColumn.data("label-all") + " (#)",
+            isCheckAll: isCheckAll,
+            minWidth: 250,
+            //maxHeight: 250,
+            listData: ddlColumnOptions.map(function () {
+                return {
+                    value: this.value,
+                    text: this.innerText,
+                    cssClass: "visible-column",
+                    checked: isCheckAll || visibleColumnObject.hasOwnProperty(this.value),
+                    enable: true
+                };
+            }),
+            onLeave: () => this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden)
+        });
 
         return this.getColumns();
     }
@@ -46,13 +61,14 @@ class VisibleColumnDropdownComponent {
     private onDropdownHidden(visibleColumnKey: string, callback: Function) {
         const selectedColumnsValue = [];
         const columns = {};
-        this.$dropdownColumn.find("option").each((_, item) => {
-            const $this = this.$(item);
-            const value = $this.val();
-            const checked = $this.is(":checked");
-            checked && selectedColumnsValue.push(value);
-            columns[value] = checked;
-        });
+        this.dropdownColumn.fanexMultiSelect(
+            "getItemsByCondition",
+            '.visible-column > input[type="checkbox"]').each(function () {
+                const value = this.value;
+                const checked = this.checked;
+                checked && selectedColumnsValue.push(value);
+                columns[value] = checked;
+            });
 
         alphaReports.localStorage.set(visibleColumnKey, selectedColumnsValue.join());
         callback(columns);
@@ -60,10 +76,11 @@ class VisibleColumnDropdownComponent {
 
     getColumns() {
         const columns = {};
-        this.$dropdownColumn.find("option").each((_, item) => {
-            const $this = this.$(item);
-            columns[$this.val()] = $this.is(":checked");
-        });
+        this.dropdownColumn.fanexMultiSelect(
+            "getItemsByCondition",
+            '.visible-column > input[type="checkbox"]').each(function () {
+                columns[this.value] = this.checked;
+            });
 
         return columns;
     }

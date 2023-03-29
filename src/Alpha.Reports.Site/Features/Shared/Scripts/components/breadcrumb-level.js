@@ -1,10 +1,16 @@
 "use strict";
 var BreadcrumbLevelOption = /** @class */ (function () {
-    function BreadcrumbLevelOption(onClick, selectorId) {
+    function BreadcrumbLevelOption(custId, custName, custLevelId, onClick, selectorId) {
         if (onClick === void 0) { onClick = Function(); }
         if (selectorId === void 0) { selectorId = "breadcrumb"; }
+        this.custId = custId;
+        this.custName = custName;
+        this.custLevelId = custLevelId;
         this.onClick = onClick;
         this.selectorId = selectorId;
+        this.custId = custId;
+        this.custName = custName;
+        this.custLevelId = custLevelId;
         this.onClick = onClick;
         this.selectorId = selectorId;
     }
@@ -15,13 +21,17 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
         this.breadcrumbs = [];
         this.$ = $;
     }
-    BreadcrumbLevelComponent.prototype.init = function (options, custId, custName, custLevelId) {
+    BreadcrumbLevelComponent.prototype.init = function (options) {
         this.breadcrumbLevelOption = options;
         this.breadcrumbSelector = this.$("#" + options.selectorId);
-        this.addBreadcrumbLevel(custId, custName, custLevelId);
+        this.addBreadcrumbLevel({
+            custId: options.custId,
+            custName: options.custName,
+            custLevelId: options.custLevelId
+        });
     };
-    BreadcrumbLevelComponent.prototype.addBreadcrumbLevel = function (custId, custName, custLevelId) {
-        this.breadcrumbs.push({ custId: custId, custName: custName, custLevelId: custLevelId });
+    BreadcrumbLevelComponent.prototype.addBreadcrumbLevel = function (breadcrumbData) {
+        this.breadcrumbs.push(breadcrumbData);
         this.render();
     };
     BreadcrumbLevelComponent.prototype.removeBreadcrumbLevel = function (custLevelId) {
@@ -44,7 +54,11 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
                 e.preventDefault();
                 var $this = _this.$(e.target);
                 $this.addClass("active");
-                _this.breadcrumbLevelOption.onClick($this.data("custid"), $this.data("custname"), $this.data("custlevelid"));
+                _this.breadcrumbLevelOption.onClick({
+                    custId: $this.data("custid"),
+                    custName: $this.data("custname"),
+                    custLevelId: $this.data("custlevelid")
+                });
             });
         }
         else {
