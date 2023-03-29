@@ -561,6 +561,7 @@
     <Content Include="Features\EnteredResult\Styles\enteredresult.min.css">
       <DependentUpon>enteredresult.css</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Features\Shared\Scripts\components\product-subproduct-dropdown.ts" />
     <Content Include="Features\Shared\Styles\report-legend-dark.css">
       <DependentUpon>report-legend-dark.scss</DependentUpon>
     </Content>
@@ -732,6 +733,8 @@
     <Compile Include="Features\BetCreditTracking\ViewModels\MoveStatementHistoryViewModel.cs" />
     <Compile Include="Features\EnteredResult\EnteredSportResultBaseHandler.cs" />
     <Compile Include="Features\EnteredResult\EnteredSportResultWorkbook.cs" />
+    <Compile Include="Features\Shared\ViewModels\Components\ProductDetailNewViewModel.cs" />
+    <Compile Include="Features\Shared\ViewModels\Components\ProductViewModel.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTController.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
@@ -2024,7 +2027,6 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.8.22.0.31243\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Features\Shared\ViewModels\" />
     <Folder Include="Features\WinLossDetail\Styles\" />
   </ItemGroup>
   <ItemGroup />

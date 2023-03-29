@@ -1,5 +1,10 @@
 ﻿"use strict";
 
+interface Window {
+    productList: any,
+    productDetailList: any
+}
+
 interface Document {
     webkitExitFullscreen(): void;
     msExitFullscreen(): void;
@@ -19,6 +24,7 @@ class WinLossDetailViewNew {
     private totalEnteredNonEnteredComponent: TotalEnteredNonEnteredComponent;
     private dateRangePickerComponent: DateRangePickerJQueryComponent;
     private productAndProductDetailDropdownComponent: ProductAndProductDetailDropdownComponent;
+    private productAndSubProductDropdownComponent: ProductAndSubProductDropdownComponent;
     private visibleColumnDropdownComponent: VisibleColumnDropdownComponent;
     private weekRangeComponent: WeekRangeComponent
     private breadcrumbLevelComponent: BreadcrumbLevelComponent;
@@ -31,24 +37,32 @@ class WinLossDetailViewNew {
     private visibleColumns: any;
     private masterColumnIndexes: any = [11, 12, 13];
     private superColumnIndexes: any = [14, 15, 16];
+    private productList: any;
+    private productDetailList: any;
 
     constructor(
         $: JQueryStatic,
         totalEnteredNonEnteredComponent: TotalEnteredNonEnteredComponent,
         dateRangePickerComponent: DateRangePickerJQueryComponent,
         productAndProductDetailDropdownComponent: ProductAndProductDetailDropdownComponent,
+        productAndSubProductDropdownComponent: ProductAndSubProductDropdownComponent,
         visibleColumnDropdownComponent: VisibleColumnDropdownComponent,
         weekRangeComponent: WeekRangeComponent,
         breadcrumbLevelComponent: BreadcrumbLevelComponent,
-        viewModel: WinLossDetailNewViewModel) {
+        viewModel: WinLossDetailNewViewModel,
+        productList: any,
+        productDetailList: any) {
         this.$ = $;
         this.totalEnteredNonEnteredComponent = totalEnteredNonEnteredComponent;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productAndProductDetailDropdownComponent = productAndProductDetailDropdownComponent;
+        this.productAndSubProductDropdownComponent = productAndSubProductDropdownComponent;
         this.visibleColumnDropdownComponent = visibleColumnDropdownComponent;
         this.weekRangeComponent = weekRangeComponent;
         this.breadcrumbLevelComponent = breadcrumbLevelComponent;
         this.viewModel = viewModel;
+        this.productList = productList;
+        this.productDetailList = productDetailList;
     }
 
     private openFullscreen() {
@@ -100,6 +114,12 @@ class WinLossDetailViewNew {
 
         this.productAndProductDetailDropdownComponent.render(
             new ProductAndProductDetailDropdownOption(() => this.getWinLossDetailDataAndRenderWeekRange()));
+
+        this.productAndSubProductDropdownComponent.render(new ProductAndSubProductDropdownOption(
+            this.productList,
+            this.productDetailList,
+            () => this.getWinLossDetailDataAndRenderWeekRange()
+        ));
 
         this.visibleColumns = this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption(
             `WinLossDetail_${this.viewModel.ViewerId}_${this.viewModel.SubAccId}:Columns`,
@@ -255,7 +275,7 @@ class WinLossDetailViewNew {
             exportExcelForm.find("#ToDate").val(this.globalFormData.toDate);
             exportExcelForm.find("#ProductIds").val(this.globalFormData.productIds);
             exportExcelForm.find("#ResourceIds").val(this.globalFormData.resourceIds);
-            //exportExcelForm.find("#IsHistoricReport").val(this.globalFormData.custLevelId);
+            exportExcelForm.find("#IsHistoricReport").val(this.globalFormData.isHistoricReport);
             exportExcelForm.submit();
         });
     }
@@ -335,9 +355,9 @@ class WinLossDetailViewNew {
     }
 
     private getWinLossDetailDataAndRenderWeekRange() {
-        this.globalFormData.productIds = this.productAndProductDetailDropdownComponent.getProductSelectedItems();
-        this.globalFormData.resourceIds = this.productAndProductDetailDropdownComponent.getProductDetailSelectedItems();
-        this.$.extend(this.globalFormData, this.dateRangePickerComponent.getDateRangeValues());
+        const dateRange = this.dateRangePickerComponent.getDateRangeValues();
+        const productsAndResources = this.productAndSubProductDropdownComponent.getSelectedItems();
+        this.$.extend(this.globalFormData, dateRange, productsAndResources);
 
         this.getWinLossDetailData(this.globalFormData, () => this.weekRangeComponent.render(this.globalFormData));
     }
@@ -423,8 +443,11 @@ $(function () {
         new TotalEnteredNonEnteredComponent($, moment),
         new DateRangePickerJQueryComponent($),
         new ProductAndProductDetailDropdownComponent($),
+        new ProductAndSubProductDropdownComponent($),
         new VisibleColumnDropdownComponent($),
         new WeekRangeComponent($, moment),
         new BreadcrumbLevelComponent($),
-        new WinLossDetailNewViewModel($)).init();
+        new WinLossDetailNewViewModel($),
+        window.productList,
+        window.productDetailList).init();
 });

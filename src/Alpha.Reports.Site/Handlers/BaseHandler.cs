@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.Features.Shared.ViewModels.Components;
     using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
     using Reports.Constants;
@@ -56,6 +57,34 @@
                         })))
                 : Enumerable.Empty<GroupProductViewModel>();
 
+        protected internal static IEnumerable<ProductViewModel> BuildProductViewModels(IEnumerable<Product> products)
+        {
+            var productList = new List<ProductViewModel>();
+
+            if (products?.Any() == true)
+            {
+                products
+                    .GroupBy(product => new { product.Type, product.TypeName })
+                    .ToList()
+                    .ForEach(item =>
+                    {
+                        if (item.Key.Type == 0)
+                        {
+                            productList.AddRange(item.Select(p => new ProductViewModel(p.Id, p.DisplayName, null)));
+                        }
+                        else
+                        {
+                            productList.Add(new ProductViewModel(
+                                item.Key.Type,
+                                item.Key.TypeName,
+                                item.Select(p => new ProductViewModel(p.Id, p.DisplayName, null))));
+                        }
+                    });
+            }
+
+            return productList;
+        }
+
         protected internal static IEnumerable<ProductDetailViewModel> BuildProductDetailViewModels(
             IEnumerable<int> userSelectedResourceIds,
             IEnumerable<ProductDetail> productDetails)
@@ -68,6 +97,11 @@
             => productDetails.Any()
                 ? productDetails.Select(p => new ProductDetailViewModel(p.ProductId, p.ResourceId, p.DisplayName, true))
                 : Enumerable.Empty<ProductDetailViewModel>();
+
+        protected internal static IEnumerable<ProductDetailNewViewModel> BuildProductDetailNewViewModels(IEnumerable<ProductDetail> productDetails)
+            => productDetails.Any()
+                ? productDetails.Select(p => new ProductDetailNewViewModel(p.ProductId, p.ResourceId, p.DisplayName))
+                : Enumerable.Empty<ProductDetailNewViewModel>();
 
         protected internal IEnumerable<SelectListItem> BuildLeagueSelectListItems(
             IEnumerable<string> userSelectedLeagueIds,

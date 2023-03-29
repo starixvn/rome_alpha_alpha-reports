@@ -7,6 +7,10 @@
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/daterangepicker")
 }
 @section Scripts {
+    <script type="text/javascript">
+        var productList = $.parseJSON('@Html.Raw(JsonConvert.SerializeObject(Model.ProductList, new JsonSerializerSettings { Formatting = Formatting.None, NullValueHandling = NullValueHandling.Ignore }))');
+        var productDetailList = $.parseJSON('@Html.Raw(JsonConvert.SerializeObject(Model.ProductDetailList, new JsonSerializerSettings { Formatting = Formatting.None, NullValueHandling = NullValueHandling.Ignore }))');
+    </script>
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/daterangepicker")
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
     @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WinLossDetail/Bundles/winlossdetail-new")
@@ -31,7 +35,11 @@
         </a>
     </div>
     @DateRangePickerNew.Render(Model.DateRangePickerViewModel)
-    @ProductAndProductDetailDropdown.Render(Model.Products, Model.ProductDetails)
+    @*@ProductAndProductDetailDropdown.Render(Model.Products, Model.ProductDetails)*@
+    <div class="form-group">
+        <label class="label-form-control">@Resources.Product</label>
+        <div id="ddlProduct"></div>
+    </div>
     @VisibleColumnsDropdown.Render(Model.Columns)
     <div class="label-week-box" id="labelWeekRange"></div>
 </div>

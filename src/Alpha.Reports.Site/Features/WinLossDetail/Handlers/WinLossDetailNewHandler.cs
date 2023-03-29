@@ -41,7 +41,9 @@
             return new WinLossDetailIndexViewModel(
                 message,
                 BuildProductSelectListItems(await productsTask),
+                BuildProductViewModels(await productsTask),
                 BuildProductDetailViewModels(await productDetailsTask),
+                BuildProductDetailNewViewModels(await productDetailsTask),
                 await totalEnteredSportTask);
         }
 

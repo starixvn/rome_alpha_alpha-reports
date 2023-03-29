@@ -6,6 +6,7 @@
     using Alpha.Reports.Models;
     using Alpha.Reports.Models.Winloss;
     using Alpha.Reports.Site.App_GlobalResources;
+    using Alpha.Reports.Site.Features.Shared.ViewModels.Components;
     using Alpha.Reports.Site.Requests.WinLossDetail;
     using Alpha.Reports.Site.ViewModels.Components;
     using Alpha.Reports.Utils;
@@ -15,7 +16,9 @@
         public WinLossDetailIndexViewModel(
             WinLossDetailIndexQuery message,
             IEnumerable<GroupProductViewModel> products,
+            IEnumerable<ProductViewModel> productList,
             IEnumerable<ProductDetailViewModel> productDetails,
+            IEnumerable<ProductDetailNewViewModel> productDetailList,
             EnteredSportResult totalEnteredSport)
         {
             ViewerId = message.ViewerId;
@@ -29,7 +32,9 @@
                 message.MinDate.GetGreaterDate(message.LimitedDateToShowInfo),
                 SystemTime.Today.AddYears(-3).FirstDayOfYear());
             Products = products;
+            ProductList = productList;
             ProductDetails = productDetails;
+            ProductDetailList = productDetailList;
             TotalEnteredSport = totalEnteredSport;
         }
 
@@ -49,7 +54,11 @@
 
         public IEnumerable<GroupProductViewModel> Products { get; }
 
+        public IEnumerable<ProductViewModel> ProductList { get; }
+
         public IEnumerable<ProductDetailViewModel> ProductDetails { get; }
+
+        public IEnumerable<ProductDetailNewViewModel> ProductDetailList { get; }
 
         public IEnumerable<SelectListItem> Columns
         {
