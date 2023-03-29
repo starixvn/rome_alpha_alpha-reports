@@ -12,6 +12,7 @@
                    autocomplete="off"
                    readonly
                    data-mindate="@model.MinDate.ToShortDateWithSlash()"
+                   data-historicmindate="@model.HistoricMinDate.ToShortDateWithSlash()"
                    data-maxdate="@model.MaxDate.ToShortDateWithSlash()"
                    data-fromdate="@model.FromDate.ToShortDateWithSlash()"
                    data-todate="@model.ToDate.ToShortDateWithSlash()"
@@ -25,7 +26,8 @@
                    data-label-sincelastmonth="@Resources.SinceLastMonth"
                    data-label-specificdate="@Resources.SpecificDate"
                    data-label-olderthan3months="@Resources.OlderThan3Months"
-                   data-isshowhistory="@Convert.ToByte(model.IsShowHistory)" />
+                   data-isshowhistoricreport="@Convert.ToByte(model.IsShowHistoricReport)"
+                   data-label-backtocurrentreport = "@Resources.BackToCurrentReport" />
             <label class="input-group-addon" for="daterange-picker">
                 <span class="icon-calendar"></span>
             </label>

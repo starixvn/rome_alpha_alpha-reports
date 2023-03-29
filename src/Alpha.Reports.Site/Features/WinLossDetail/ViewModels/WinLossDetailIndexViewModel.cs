@@ -8,6 +8,7 @@
     using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Requests.WinLossDetail;
     using Alpha.Reports.Site.ViewModels.Components;
+    using Alpha.Reports.Utils;
 
     public class WinLossDetailIndexViewModel
     {
@@ -25,7 +26,8 @@
             DateRangePickerViewModel = new DateRangePickerNewViewModel(
                 message.FromDate,
                 message.ToDate,
-                message.MinDate.GetGreaterDate(message.LimitedDateToShowInfo));
+                message.MinDate.GetGreaterDate(message.LimitedDateToShowInfo),
+                SystemTime.Today.AddYears(-3).FirstDayOfYear());
             Products = products;
             ProductDetails = productDetails;
             TotalEnteredSport = totalEnteredSport;

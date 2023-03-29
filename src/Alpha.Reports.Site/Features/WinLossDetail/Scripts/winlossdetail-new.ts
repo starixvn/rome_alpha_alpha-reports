@@ -335,11 +335,9 @@ class WinLossDetailViewNew {
     }
 
     private getWinLossDetailDataAndRenderWeekRange() {
-        const dateRange = this.dateRangePickerComponent.getDateRangeValues();
-        this.globalFormData.fromDate = dateRange.fromDate;
-        this.globalFormData.toDate = dateRange.toDate;
         this.globalFormData.productIds = this.productAndProductDetailDropdownComponent.getProductSelectedItems();
         this.globalFormData.resourceIds = this.productAndProductDetailDropdownComponent.getProductDetailSelectedItems();
+        this.$.extend(this.globalFormData, this.dateRangePickerComponent.getDateRangeValues());
 
         this.getWinLossDetailData(this.globalFormData, () => this.weekRangeComponent.render(this.globalFormData));
     }

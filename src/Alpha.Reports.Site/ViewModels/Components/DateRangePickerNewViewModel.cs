@@ -9,6 +9,7 @@
             DateTime fromDate,
             DateTime toDate,
             DateTime minDate,
+            DateTime historicMinDate,
             DateTime? maxDate = null)
         {
             var today = SystemTime.Today;
@@ -16,7 +17,8 @@
             FromDate = fromDate;
             ToDate = toDate;
             MinDate = minDate;
-            MaxDate = maxDate ?? today;
+            HistoricMinDate = historicMinDate;
+            MaxDate = maxDate ?? today.AddDays(1);
             CurrentDate = today;
         }
 
@@ -26,10 +28,12 @@
 
         public DateTime MinDate { get; }
 
+        public DateTime HistoricMinDate { get; }
+
         public DateTime MaxDate { get; }
 
         public DateTime CurrentDate { get; }
 
-        public bool IsShowHistory => MinDate.AddMonths(3) <= CurrentDate;
+        public bool IsShowHistoricReport => MinDate.AddMonths(3) <= CurrentDate;
     }
 }
