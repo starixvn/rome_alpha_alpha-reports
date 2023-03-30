@@ -278,15 +278,15 @@
 
             // Assert
             Assert.True(
-                (decimal)actualMapper.Mappings[Column.B](viewModel) == 3 &&
-                (decimal)actualMapper.Mappings[Column.C](viewModel) == 2 &&
-                (decimal)actualMapper.Mappings[Column.D](viewModel) == 1 &&
-                (decimal)actualMapper.Mappings[Column.E](viewModel) == 2 &&
-                (decimal)actualMapper.Mappings[Column.F](viewModel) == 3 &&
-                (decimal)actualMapper.Mappings[Column.G](viewModel) == 1 &&
-                (decimal)actualMapper.Mappings[Column.H](viewModel) == 2 &&
-                (decimal)actualMapper.Mappings[Column.I](viewModel) == 3 &&
-                (decimal)actualMapper.Mappings[Column.J](viewModel) == -6);
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.I](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.J](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.K](viewModel) == -6);
         }
 
         [Fact]
@@ -312,13 +312,13 @@
 
             // Assert
             Assert.True(
-                (decimal)actualMapper.Mappings[Column.B](viewModel) == 3 &&
-                (decimal)actualMapper.Mappings[Column.C](viewModel) == 2 &&
-                (decimal)actualMapper.Mappings[Column.D](viewModel) == 13 &&
-                (decimal)actualMapper.Mappings[Column.E](viewModel) == 8 &&
-                (decimal)actualMapper.Mappings[Column.F](viewModel) == 9 &&
-                (decimal)actualMapper.Mappings[Column.G](viewModel) == 17 &&
-                (decimal)actualMapper.Mappings[Column.H](viewModel) == -39);
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 13 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 8 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 9 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == 17 &&
+                (decimal)actualMapper.Mappings[Column.I](viewModel) == -39);
         }
 
         [Fact]
@@ -344,13 +344,13 @@
 
             // Assert
             Assert.True(
-                (decimal)actualMapper.Mappings[Column.B](viewModel) == 3 &&
-                (decimal)actualMapper.Mappings[Column.C](viewModel) == 2 &&
-                (decimal)actualMapper.Mappings[Column.D](viewModel) == 17 &&
-                (decimal)actualMapper.Mappings[Column.E](viewModel) == 10 &&
-                (decimal)actualMapper.Mappings[Column.F](viewModel) == 11 &&
-                (decimal)actualMapper.Mappings[Column.G](viewModel) == 21 &&
-                (decimal)actualMapper.Mappings[Column.H](viewModel) == -60);
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 17 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 10 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 11 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == 21 &&
+                (decimal)actualMapper.Mappings[Column.I](viewModel) == -60);
         }
 
         private WinLossExcelQuery CreateExportWinlossExcelQuery(byte custLevelId)

@@ -50,7 +50,7 @@
             var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime), false);
 
             // Act
-            viewmodel.BuildDrillDownLink(new CommissionByBettypeModel(custId, custName, 0, 0, 0, 0, 0), currentUrl);
+            viewmodel.BuildDrillDownLink(new CommissionByBettypeModel(custId, custName, 0, 0, 0, 0, 0, null, null), currentUrl);
 
             // Assert
             UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(

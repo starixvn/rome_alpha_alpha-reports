@@ -3,7 +3,7 @@
 @model CommissionByBettypeViewModel
 @{
     ViewBag.Title = "Commission By Bet Type Report";
-    var sortIndex = 4;
+    var sortIndex = 5;
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.CommissionByBettypeFilter.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
@@ -22,9 +22,10 @@
     <thead class="tableFloatingHeaderOriginal">
         <tr>
             <th class="sorting" data-colindex="0" data-sortedname="@CommissionByBettypeViewModel.SortByCustName">@Resources.Username</th>
-            <th class="sorting" data-colindex="1" data-sortedname="@CommissionByBettypeViewModel.SortByComm1">@Resources.Commission1</th>
-            <th class="sorting" data-colindex="2" data-sortedname="@CommissionByBettypeViewModel.SortByComm2">@Resources.Commission2</th>
-            <th class="sorting" data-colindex="3" data-sortedname="@CommissionByBettypeViewModel.SortByComm3">@Resources.Commission3</th>
+            <th class="sorting" data-colindex="1" data-sortedname="FirstLastName">@Resources.FirstLastName</th>
+            <th class="sorting" data-colindex="2" data-sortedname="@CommissionByBettypeViewModel.SortByComm1">@Resources.Commission1</th>
+            <th class="sorting" data-colindex="3" data-sortedname="@CommissionByBettypeViewModel.SortByComm2">@Resources.Commission2</th>
+            <th class="sorting" data-colindex="4" data-sortedname="@CommissionByBettypeViewModel.SortByComm3">@Resources.Commission3</th>
             @if (Model.ShowMyanmarOddsColumn)
             {
                 <th class="sorting" data-colindex="@sortIndex++" data-sortedname="@CommissionByBettypeViewModel.SortByMyanmarOddsComm">@Resources.SymbolMyanmarOdds</th>
@@ -37,26 +38,30 @@
         <tbody>
             @foreach (var commission in Model.CommissionByBettypes.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
-                <tr>
-                    @if (Model.CustLevel.IsAgentLevel())
-                    {
-                        <td class="text-left">
-                            @commission.CustName
-                        </td>
-                    }
-                    else
-                    {
-                        <td data-islink="true" class="text-left">
-                            <a class="downline-link" href="@Model.BuildDrillDownLink(commission, Request.Url.Query)">@commission.CustName</a>
-                        </td>
-                    }
-                    @RenderCellValue(commission)
-                </tr>
+            <tr>
+                @if (Model.CustLevel.IsAgentLevel())
+                {
+                    <td class="text-left">
+                        @commission.CustName
+                    </td>
+                }
+                else
+                {
+                    <td data-islink="true" class="text-left">
+                        <a class="downline-link" href="@Model.BuildDrillDownLink(commission, Request.Url.Query)">@commission.CustName</a>
+                    </td>
+                }
+                <td class="text-left">
+                    @Model.GetFirstLastName(commission.FirstName, commission.LastName)
+                </td>
+                @RenderCellValue(commission)
+            </tr>
             }
         </tbody>
         <tfoot>
             <tr class="tbl-footer">
                 <td class="text-left">@Resources.Total</td>
+                <td class="text-left"></td>
                 @RenderCellValue(Model.Total)
             </tr>
         </tfoot>
