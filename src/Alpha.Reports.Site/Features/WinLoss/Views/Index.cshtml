@@ -32,7 +32,7 @@
     <thead>
         <tr>
             <th class="sorting" rowspan="2" data-sortedname="CustName" data-colindex="0">@Model.DownLineLevelName</th>
-            <th rowspan="2" class="sorting" data-sortedname="FirstLastName" data-colindex="1">@Resources.FirstLastName</th>
+            <th rowspan="2" class="sorting col-firstlastname" data-sortedname="FirstLastName" data-colindex="1">@Resources.FirstLastName</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="2">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="3">@Resources.GrossComm</th>
             <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="2">
@@ -155,8 +155,8 @@
             }
         </td>
 
-        <td class="text-left col-firstlastname">
-            @Model.GetFirstLastName(data.FirstName, data.LastName)
+        <td class="text-left">
+            <div class="col-firstlastname" title="@Model.GetFirstLastName(data.FirstName, data.LastName)">@Model.GetFirstLastName(data.FirstName, data.LastName)</div>
         </td>
 
         @if (Model.IsStackMode)
