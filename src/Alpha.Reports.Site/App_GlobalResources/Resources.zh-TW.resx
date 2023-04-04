@@ -133,7 +133,7 @@
     <value>今日賽事</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
-    <value>昨天</value>
+    <value>昨日賽事</value>
   </data>
   <data name="LastWeek" xml:space="preserve">
     <value>上週</value>
@@ -271,10 +271,10 @@
     <value>取消分組列</value>
   </data>
   <data name="ThisWeek" xml:space="preserve">
-    <value>这星期</value>
+    <value>本週</value>
   </data>
   <data name="ThisMonth" xml:space="preserve">
-    <value>這個月</value>
+    <value>本月</value>
   </data>
   <data name="HideFilter" xml:space="preserve">
     <value>隱藏篩選</value>
@@ -932,6 +932,6 @@
     <value>很抱歉，伺服器發生意外錯誤，請聯繫我們的客服協助處理。[{0}]</value>
   </data>
   <data name="OlderThan3Months" xml:space="preserve">
-    <value>3 個月以上</value>
+    <value>三個月以上</value>
   </data>
 </root>
