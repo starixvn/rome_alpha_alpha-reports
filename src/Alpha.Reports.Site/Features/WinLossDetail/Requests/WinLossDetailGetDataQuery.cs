@@ -4,7 +4,7 @@
     using Alpha.Reports.Site.ViewModels.WinLossDetail;
     using MediatR;
 
-    public class WinLossDetailGetDataQuery : WinLossDetailIndexQuery, IAsyncRequest<WinLossDetailNewViewModel>
+    public class WinLossDetailGetDataQuery : WinLossDetailNewQuery, IAsyncRequest<WinLossDetailGetDataViewModel>
     {
         public WinLossDetailGetDataQuery(IUser viewer) : base(viewer)
         {

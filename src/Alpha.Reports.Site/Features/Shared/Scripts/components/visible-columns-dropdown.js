@@ -13,14 +13,13 @@ var VisibleColumnDropdownOption = /** @class */ (function () {
     return VisibleColumnDropdownOption;
 }());
 var VisibleColumnDropdownComponent = /** @class */ (function () {
-    function VisibleColumnDropdownComponent($) {
-        this.$ = $;
+    function VisibleColumnDropdownComponent() {
     }
     VisibleColumnDropdownComponent.prototype.render = function (options) {
         var _this = this;
         var isCheckAll = true;
-        var ddlColumn = this.$("#" + options.selectorId);
-        var ddlColumnOptions = ddlColumn.find("option");
+        var dropdown = $("#" + options.selectorId);
+        var dropdownOptions = dropdown.find("option");
         var visibleColumnObject = {};
         var visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
         if (typeof visibleColumns !== "undefined") {
@@ -28,19 +27,22 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
             visibleColumnArray.forEach(function (item) {
                 visibleColumnObject[item] = true;
             });
-            isCheckAll = ddlColumnOptions.length === visibleColumnArray.length;
+            isCheckAll = dropdownOptions.length === visibleColumnArray.length;
         }
-        this.dropdownColumn = ddlColumn.fanexMultiSelect({
-            checkAllText: ddlColumn.data("label-selectall"),
-            selectedText: "# " + ddlColumn.data("label-selected"),
-            noneSelectedText: ddlColumn.data("label-noneselected"),
+        this.dropdownColumn = dropdown.fanexMultiSelect({
+            checkAllText: dropdown.data("label-selectall"),
+            selectedText: "# " + dropdown.data("label-selected"),
+            noneSelectedText: dropdown.data("label-noneselected"),
             useCustomCheckAllText: true,
-            customCheckAllText: ddlColumn.data("label-all") + " (#)",
+            customCheckAllText: dropdown.data("label-all") + " (#)",
+            showFilter: true,
+            filterPlaceHolder: dropdown.data("label-filterplaceholder"),
+            noItemFoundText: dropdown.data("label-noitemfound"),
             isCheckAll: isCheckAll,
             minWidth: 220,
-            //maxHeight: 250,
+            maxHeight: 250,
             showTooltip: false,
-            listData: ddlColumnOptions.map(function () {
+            listData: dropdownOptions.map(function () {
                 return {
                     value: this.value,
                     text: this.innerText,
@@ -51,26 +53,19 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
             }),
             onLeave: function () { return _this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden); }
         });
-        return this.getColumns();
     };
     VisibleColumnDropdownComponent.prototype.onDropdownHidden = function (visibleColumnKey, callback) {
+        var columns = this.getColumns();
         var selectedColumnsValue = [];
-        var columns = {};
-        this.dropdownColumn.fanexMultiSelect("getItemsByCondition", '.visible-column > input[type="checkbox"]').each(function () {
-            var value = this.value;
-            var checked = this.checked;
-            checked && selectedColumnsValue.push(value);
-            columns[value] = checked;
+        Object.entries(columns).forEach(function (_a) {
+            var key = _a[0], value = _a[1];
+            return value && selectedColumnsValue.push(key);
         });
         alphaReports.localStorage.set(visibleColumnKey, selectedColumnsValue.join());
         callback(columns);
     };
     VisibleColumnDropdownComponent.prototype.getColumns = function () {
-        var columns = {};
-        this.dropdownColumn.fanexMultiSelect("getItemsByCondition", '.visible-column > input[type="checkbox"]').each(function () {
-            columns[this.value] = this.checked;
-        });
-        return columns;
+        return this.dropdownColumn.fanexMultiSelect("getAllValues");
     };
     return VisibleColumnDropdownComponent;
 }());

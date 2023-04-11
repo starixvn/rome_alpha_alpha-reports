@@ -1039,12 +1039,24 @@
     <value>First/ Last Name</value>
   </data>
   <data name="ClassicView" xml:space="preserve">
-    <value>Classic View</value>
+    <value>Classic view</value>
   </data>
   <data name="NewView" xml:space="preserve">
-    <value>New View</value>
+    <value>New view</value>
   </data>
   <data name="ProductDetail" xml:space="preserve">
     <value>Product Detail</value>
+  </data>
+  <data name="SearchProductDetail" xml:space="preserve">
+    <value>Search Product Detail</value>
+  </data>
+  <data name="NoProductDetailFound" xml:space="preserve">
+    <value>No Product Detail Found</value>
+  </data>
+  <data name="NoColumnFound" xml:space="preserve">
+    <value>No Column Found</value>
+  </data>
+  <data name="SearchColumn" xml:space="preserve">
+    <value>Search Column</value>
   </data>
 </root>

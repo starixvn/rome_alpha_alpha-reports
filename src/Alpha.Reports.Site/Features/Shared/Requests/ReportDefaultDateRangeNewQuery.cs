@@ -12,32 +12,39 @@
 
         protected ReportDefaultDateRangeNewQuery(IUser viewer) : base(viewer)
         {
-            MinDate = SystemTime.Today.AddMonths(NegativeThree)
-                .FirstDayOfMonth()
+            var today = SystemTime.Today;
+            FromDate = today;
+            ToDate = today;
+            MinDate = today
+                .AddYears(NegativeThree)
+                .FirstDayOfYear()
                 .GetGreaterDate(LimitedDateToShowInfo);
-            FromDate = GetFromDate();
+            HistoricPivotDate = today.AddMonths(NegativeThree).FirstDayOfMonth();
         }
 
         public DateTime FromDate { get; set; }
 
-        public DateTime ToDate { get; set; } = SystemTime.Today;
+        public DateTime ToDate { get; set; }
 
-        public DateTime HistoricMinDate
-            => SystemTime.Today.AddYears(NegativeThree).FirstDayOfYear().GetGreaterDate(LimitedDateToShowInfo);
+        public DateTime HistoricPivotDate { get; }
 
         public override bool IsValid()
             => base.IsValid() && CheckDateRangeConstraint();
 
         public bool CheckDateRangeConstraint()
-            => FromDate <= ToDate
-            && FromDate >= MinDate
-            && (!IsHistoricReport || ToDate.Subtract(FromDate).TotalDays <= 31);
-
-        private DateTime GetFromDate()
         {
-            var fromDate = IsHistoricReport ? SystemTime.Today.FirstDayOfMonth() : SystemTime.Today;
+            if (FromDate <= ToDate && MinDate <= FromDate)
+            {
+                var historicPivotDate = HistoricPivotDate;
+                const int maxDaysInOneMonth = 31;
 
-            return fromDate.GetGreaterDate(LimitedDateToShowInfo);
+                return !(
+                    ToDate < historicPivotDate && ToDate.Subtract(FromDate).TotalDays >= maxDaysInOneMonth
+                    || FromDate < historicPivotDate && historicPivotDate <= ToDate
+                );
+            }
+
+            return false;
         }
     }
 }

@@ -36,7 +36,10 @@
                .Header(Resources.ResourceManager.GetString)
                .Sheet(Resources.DefaultSheetName);
 
-            var winLossDetailParam = await CreateParameter(message, message.CustLevel);
+            var productsTask = productService.GetProductsForCustomerAsync(message.ViewerId, message.Site, message.CurrencyId, message.MinDate, message.IsEnableSabaPromotion);
+            var productDetailsTask = productDetailService.GetProductDetailsAsync(message.ViewerId, message.Site, message.CurrencyId);
+            await Task.WhenAll(productsTask, productDetailsTask);
+            var winLossDetailParam = CreateParameter(message, await productsTask, await productDetailsTask);
             var reportData = await winlossDetailService.GetWinLossDetailAsync(winLossDetailParam);
 
             var fileContent = workbook
@@ -80,9 +83,8 @@
         {
             var mapper = new Mapper<WinLossDetailModel>()
                 .Map(A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)
-                .Map(B, winLossDetail => isTotal ? string.Empty : GetFirstLastName(winLossDetail.FirstName, winLossDetail.LastName));
-
-            mapper.Map(C, winLossDetail => winLossDetail.BetCount)
+                .Map(B, winLossDetail => isTotal ? string.Empty : winLossDetail.FullName)
+                .Map(C, winLossDetail => winLossDetail.BetCount)
                 .Map(D, winLossDetail => winLossDetail.Turnover)
                 .Map(E, winLossDetail => winLossDetail.NetTurnover)
                 .Map(F, winLossDetail => winLossDetail.GrossComm)

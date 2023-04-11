@@ -937,4 +937,13 @@
   <data name="GrossCommNoteForRoundingProblem" xml:space="preserve">
     <value>由于以四个小数点净值，每个级别的总佣金数值可能不同。</value>
   </data>
+  <data name="ClassicView" xml:space="preserve">
+    <value>经典版</value>
+  </data>
+  <data name="FirstLastName" xml:space="preserve">
+    <value>名/ 姓</value>
+  </data>
+  <data name="NewView" xml:space="preserve">
+    <value>新版本</value>
+  </data>
 </root>

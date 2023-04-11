@@ -2,415 +2,297 @@
 
 interface Window {
     productList: any,
-    productDetailList: any
+    productDetailList: any,
+    indexManager: any
 }
 
-interface Object {
-    entries: any;
+interface JQuery {
+    tablesorter(option: any): JQuery;
 }
 
 class WinLossDetailViewNew extends BaseReportView {
     private totalEnteredNonEnteredComponent: TotalEnteredNonEnteredComponent;
     private dateRangePickerComponent: DateRangePickerJQueryComponent;
     private productAndProductDetailDropdownComponent: ProductAndProductDetailDropdownComponent;
-    private productAndProductDetailDropdownOldComponent: ProductAndProductDetailDropdownOldComponent;
     private visibleColumnDropdownComponent: VisibleColumnDropdownComponent;
     private weekRangeComponent: WeekRangeComponent
     private breadcrumbLevelComponent: BreadcrumbLevelComponent;
-    private viewModel: WinLossDetailNewViewModel;
-    private globalFormData: any;
-    private globalTotalData: any;
-    private tableJQuery: JQuery;
-    private tableFooterJQuery: JQuery;
-    private dataTableObject: any;
-    private visibleColumns: any;
-    private masterColumnIndexes: any = [12, 13, 14];
-    private superColumnIndexes: any = [15, 16, 17];
+    private tableReportContainer: JQuery;
+    private tableReport: JQuery;
+    private winLossDetailUrl: string
     private productList: any;
     private productDetailList: any;
+    private globalFormData: any;
+    private sortColumnIndex = 0;
+    private sortIndicator = 0; // asc: 0, desc: 1
 
     constructor(
-        $: JQueryStatic,
         totalEnteredNonEnteredComponent: TotalEnteredNonEnteredComponent,
         dateRangePickerComponent: DateRangePickerJQueryComponent,
         productAndProductDetailDropdownComponent: ProductAndProductDetailDropdownComponent,
-        productAndProductDetailDropdownOldComponent: ProductAndProductDetailDropdownOldComponent,
         visibleColumnDropdownComponent: VisibleColumnDropdownComponent,
         weekRangeComponent: WeekRangeComponent,
         breadcrumbLevelComponent: BreadcrumbLevelComponent,
-        viewModel: WinLossDetailNewViewModel,
         productList: any,
         productDetailList: any) {
-        super($);
+        super();
         this.totalEnteredNonEnteredComponent = totalEnteredNonEnteredComponent;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productAndProductDetailDropdownComponent = productAndProductDetailDropdownComponent;
-        this.productAndProductDetailDropdownOldComponent = productAndProductDetailDropdownOldComponent;
         this.visibleColumnDropdownComponent = visibleColumnDropdownComponent;
         this.weekRangeComponent = weekRangeComponent;
         this.breadcrumbLevelComponent = breadcrumbLevelComponent;
-        this.viewModel = viewModel;
         this.productList = productList;
         this.productDetailList = productDetailList;
     }
 
     init() {
-        this.tableJQuery = this.$("#tbl-report");
-        this.tableFooterJQuery = this.tableJQuery.find("#tbl-footer");
-
-        this.viewModel.init();
-        this.globalFormData = {
-            custId: this.viewModel.ViewerId,
-            custName: this.viewModel.ViewerName,
-            custLevelId: this.viewModel.ViewerLevel
-        };
+        this.tableReportContainer = $("#tbl-report-container");
+        this.winLossDetailUrl = $("#hiddenWinLossDetailUrl").val();
 
         this.renderComponents();
-        this.initReportLegend(this.viewModel.LegendUrl, 800, 540);
-
-        this.getWinLossDetailDataAndRenderWeekRange();
+        this.bindEvents();
+        this.tableReportContainer.removeAttr("style");
     }
 
     private renderComponents() {
         this.totalEnteredNonEnteredComponent.init();
 
-        this.dateRangePickerComponent.render(new DateRangePickerJQueryOption(() => this.getWinLossDetailDataAndRenderWeekRange()));
+        this.dateRangePickerComponent.render(new DateRangePickerJQueryOption((dateRange) => {
+            $.extend(this.globalFormData, dateRange);
+            this.getWinLossDetailDataAndRenderWeekRange();
+        }));
 
         this.productAndProductDetailDropdownComponent.render(new ProductAndProductDetailDropdownOption(
             this.productList,
             this.productDetailList,
-            () => this.getWinLossDetailDataAndRenderWeekRange()));
-
-        this.productAndProductDetailDropdownOldComponent.render(new ProductAndProductDetailDropdownOldOption(
-            () => this.getWinLossDetailDataAndRenderWeekRange(),
-            "dropdown-product-old",
-            "dropdown-product-detail-old"
-        ));
-
-        this.visibleColumns = this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption(
-            `WinLossDetail_${this.viewModel.ViewerId}_${this.viewModel.SubAccId}:Columns`,
-            (columns) => {
-                this.visibleColumns = columns;
-                for (const [key, value] of Object.entries(columns)) {
-                    let visible = value;
-                    const keyInt = +key;
-
-                    if (this.superColumnIndexes.find(i => i === keyInt)) {
-                        visible = visible && this.getVisibleSuperColumn();
-                    } else if (this.masterColumnIndexes.find(i => i === keyInt)) {
-                        visible = visible && this.getVisibleMasterColumn();
-                    }
-
-                    this.dataTableObject.column(key).visible(visible);
-                }
+            (productsAndResources) => {
+                $.extend(this.globalFormData, this.dateRangePickerComponent.getDateRangeValues(), productsAndResources);
+                this.getWinLossDetailDataAndRenderWeekRange();
             }));
 
-        this.weekRangeComponent.init(new WeekRangeOption((fromDate, toDate) => {
-            this.globalFormData.fromDate = fromDate;
-            this.globalFormData.toDate = toDate;
-            this.getWinLossDetailData(this.globalFormData);
-        }, this.viewModel.MomentLocale));
-    }
+        const viewerId = +$("#hiddenViewerId").val();
+        this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption(
+            `WinLossDetail_${viewerId}_${$("#hiddenSubAccId").val()}:Columns`,
+            (visibleColumn) => this.showHideColumns(visibleColumn)));
 
-    private buildDataTableOptions(dataSet) {
-        const self = this;
-        return {
-            data: dataSet,
-            columns: this.buildDataTableColumns(),
-            ordering: true,
-            order: [0, "asc"],
-            paging: false,
-            searching: false,
-            bInfo: false,
-            dom: '<"#dataTable_toolbar">t',
-            fixedHeader: true,
-            language: {
-                zeroRecords: this.viewModel.NoInformationText
-            },
-            initComplete: () => {
-                this.buildDataTableToolbar();
-                this.tableJQuery.removeClass("hide");
-            },
-            footerCallback: function () {
-                self.updateTotalFooter(this.api());
-            },
-            drawCallback: () => this.bindDrilldownLinks()
-        };
-    }
+        const dateRange = this.dateRangePickerComponent.getDateRangeValues();
+        this.weekRangeComponent.init(new WeekRangeOption((dateRange) => {
+            $.extend(this.globalFormData, dateRange);
+            this.getWinLossDetailData();
+        }, this.getMomentLocale()));
+        this.weekRangeComponent.render(dateRange);
 
-    private buildDataTableColumns() {
-        let columnIndex = 1; // Start at First/Last Name
-        const columns = [];
-        columns.push(
-            {
-                data: "CustName",
-                className: "text-left",
-                render: (data, type, row) => {
-                    if (type === "display") {
-                        if (this.isAgentView()) {
-                            if (this.viewModel.CanViewBetLists) {
-                                return `<a class="betlists-link" href="javascript:;" data-custid="${row.CustId}" data-custname="${data}">${data}</a>`;
-                            }
-
-                            return data;
-                        }
-
-                        const custLevelId = this.globalFormData.custLevelId - 1;
-                        return `<a class="downline-link" href="javascript:;" data-custid="${row.CustId}" data-custname="${data}" data-custlevelid="${custLevelId}">${data}</a>`;
-                    }
-
-                    return data;
-                }
-            },
-            {
-                data: null,
-                className: "text-left",
-                render: (data, type, row) => {
-                    if (type === "display" || type === "sort") {
-                        if (!row.FirstName && !row.LastName) {
-                            return "";
-                        }
-
-                        const fullname = row.FirstName && row.LastName
-                            ? `${row.FirstName}/ ${row.LastName}`
-                            : row.FirstName + row.LastName;
-
-                        return type === "sort"
-                            ? fullname
-                            : this.renderEllipsis(fullname, 15);
-                    }
-
-                    return data;
-                },
-                visible: this.visibleColumns[columnIndex++] },
-            { data: "BetCount", render: this.formatInt, visible: this.visibleColumns[columnIndex++] },
-            { data: "Turnover", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
-            { data: "NetTurnover", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
-            { data: "GrossComm", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
-            { data: "MemberNetWinLoss.WinLoss", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
-            { data: "MemberNetWinLoss.Comm", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
-            { data: "MemberNetWinLoss.Total", render: this.formatDecimal, className: "bold", visible: this.visibleColumns[columnIndex++] },
-            { data: "AgentNetWinLoss.WinLoss", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
-            { data: "AgentNetWinLoss.Comm", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] },
-            { data: "AgentNetWinLoss.Total", render: this.formatDecimal, className: "bold", visible: this.visibleColumns[columnIndex++] });
-
-        this.viewModel.ViewerLevelIsMasterOrSuper && columns.push(
-            { data: "MasterNetWinLoss.WinLoss", render: this.formatDecimal, defaultContent: "", visible: this.visibleColumns[columnIndex++] },
-            { data: "MasterNetWinLoss.Comm", render: this.formatDecimal, defaultContent: "", visible: this.visibleColumns[columnIndex++] },
-            { data: "MasterNetWinLoss.Total", render: this.formatDecimal, className: "bold", defaultContent: "", visible: this.visibleColumns[columnIndex++] }
-        );
-
-        this.viewModel.ViewerLevelIsSuper && columns.push(
-            { data: "SuperNetWinLoss.WinLoss", render: this.formatDecimal, defaultContent: "", visible: this.visibleColumns[columnIndex++] },
-            { data: "SuperNetWinLoss.Comm", render: this.formatDecimal, defaultContent: "", visible: this.visibleColumns[columnIndex++] },
-            { data: "SuperNetWinLoss.Total", render: this.formatDecimal, className: "bold", defaultContent: "", visible: this.visibleColumns[columnIndex++] }
-        );
-
-        columns.push({ data: "Company", render: this.formatDecimal, visible: this.visibleColumns[columnIndex++] });
-
-        return columns;
-    }
-
-    private buildDataTableToolbar() {
-        this.$("#dataTable_toolbar").html([
-            '<div class="breadcrumb-table"><div class="breadcrumb-container"><ul class="breadcrumb hide" id="breadcrumb"></ul></div>',
-            '<div class="list-icon"><ul><li class="normalview-element"><span id="icon-excel" class="icon-excel" title="',
-            this.viewModel.ExportToExcelText,
-            '"></span></li></ul></div></div>'
-        ].join(""));
-
+        const breadcrumbLevelJson = $("#hiddenBreadcrumbLevelJson").val();
+        const breadcrumbs = breadcrumbLevelJson.length
+            ? JSON.parse(breadcrumbLevelJson)
+            : [{ custId: viewerId, custName: $("#hiddenViewerName").val(), custLevelId: +$("#hiddenViewerLevel").val() }];
         this.breadcrumbLevelComponent.init(new BreadcrumbLevelOption(
-            this.viewModel.ViewerId,
-            this.viewModel.ViewerName,
-            this.viewModel.ViewerLevel,
-            breadcrumbData => {
-                this.$.extend(this.globalFormData, breadcrumbData);
-                this.getWinLossDetailData(
-                    this.globalFormData,
-                    () => {
-                        this.breadcrumbLevelComponent.removeBreadcrumbLevel(breadcrumbData.custLevelId);
-                        this.setVisibleColumns();
-                    });
+            breadcrumbs,
+            (breadcrumbData) => {
+                $.extend(this.globalFormData, breadcrumbData);
+                this.getWinLossDetailData(() => {
+                    this.breadcrumbLevelComponent.removeBreadcrumbLevel(breadcrumbData.custLevelId);
+                    this.updateCurrentUrl();
+                });
             }));
 
-        this.$("#icon-excel").click(() => {
-            const exportExcelForm = this.$("#export-excel-form");
-            exportExcelForm.find("#CustId").val(this.globalFormData.custId);
-            exportExcelForm.find("#CustName").val(this.globalFormData.custName);
-            exportExcelForm.find("#CustLevelId").val(this.globalFormData.custLevelId);
-            exportExcelForm.find("#FromDate").val(this.globalFormData.fromDate);
-            exportExcelForm.find("#ToDate").val(this.globalFormData.toDate);
-            exportExcelForm.find("#ProductIds").val(this.globalFormData.productIds);
-            exportExcelForm.find("#ResourceIds").val(this.globalFormData.resourceIds);
-            exportExcelForm.find("#IsHistoricReport").val(this.globalFormData.isHistoricReport);
-            exportExcelForm.submit();
+        this.globalFormData = $.extend({}, {
+            custId: +$("#hiddenCustId").val(),
+            custName: $("#hiddenCustName").val(),
+            custLevelId: +$("#hiddenCustLevel").val()
+        }, dateRange, this.productAndProductDetailDropdownComponent.getSelectedItems());
+    }
+
+    private getMomentLocale() {
+        const locale = {
+            "th-TH": "th",
+            "vi-VN": "vi",
+            "zh-CN": "zh-cn",
+            "zh-TW": "zh-tw",
+            "default": "en"
+        };
+
+        return locale[window.top.$("#language").data("currentlanguage")] || locale.default;
+    }
+
+    private getWinLossDetailDataAndRenderWeekRange() {
+        this.getWinLossDetailData(() => {
+            this.weekRangeComponent.render(this.globalFormData);
+            this.updateCurrentUrl();
         });
     }
 
-    private bindDrilldownLinks() {
-        this.$('[data-toggle="tooltip"]').tooltip();
+    private getWinLossDetailData(callback = Function()) {
+        this.tableReportContainer.block();
+        $.get(`${this.winLossDetailUrl}?${$.param(this.globalFormData)}`, (html) => {
+            callback();
+            this.tableReportContainer.html(html);
+            this.bindTableReportEvents();
+            this.totalEnteredNonEnteredComponent.update(
+                { eventDate: this.tableReport.data("yesterday"), nonEntered: this.tableReport.data("non-entered-yesterday") },
+                { eventDate: this.tableReport.data("today"), nonEntered: this.tableReport.data("non-entered-today") });
+            this.tableReportContainer.unblock();
+        }).fail((jqXHR) => {
+            this.tableReportContainer.unblock();
+            if (jqXHR.status === 429) {
+                window.location.href = window.top["alpha"].urls.mainRootPath + "error/blocked";
+            } else if (jqXHR.status === 500 && jqXHR.responseText) {
+                const responseObject = JSON.parse(jqXHR.responseText);
+                if (responseObject.UMFrom && responseObject.UMTo) {
+                    window.location.href = window.top["alpha"].urls.mainRootPath + "partialum/index?" + $.param(responseObject);
+                }
+            }
+        });
+    }
 
-        this.$(".betlists-link").off().click((e) => {
-            const $this = this.$(e.target);
+    private bindEvents() {
+        this.initReportLegend($("#hiddenLegendUrl").val(), 800, 540);
+
+        $("#icon-excel").click((e) => {
+            const $this = $(e.target);
+            $this.attr("href", `${$this.data("url")}?${$.param(this.globalFormData)}`);
+            setTimeout(function () {
+                $this.attr("href", "javascript:;");
+            }, 1000);
+        });
+
+        this.bindTableReportEvents();
+    }
+
+    private bindTableReportEvents() {
+        this.tableReport = this.tableReportContainer.find("#tbl-report");
+        this.tableReport.find('[data-toggle="tooltip"]').tooltip();
+
+        this.tableReport.find(".betlists-link").off().click((e) => {
+            this.tableReport.block();
+            const $this = $(e.target);
             const custId = $this.data("custid");
             const custName = $this.data("custname");
-            const betListsParams = this.$.extend({}, this.globalFormData, { custId, custName });
-            $this.attr("href", `${this.viewModel.BetListsUrl}?${this.$.param(betListsParams)}`);
+            const breadcrumbs = this.breadcrumbLevelComponent.getBreadcrumbs();
+            breadcrumbs.push({ custId, custName, custLevelId: 1 });
+            const breadcrumbLevelJson = JSON.stringify(breadcrumbs);
+            const betListsParams = $.extend({}, this.globalFormData, { custId, custName, breadcrumbLevelJson });
+            $this.attr("href", `${$("#hiddenBetListsUrl").val()}?${$.param(betListsParams)}`);
         });
 
-        this.$(".downline-link").off().click((e) => {
+        this.tableReport.find(".downline-link").off().click((e) => {
             e.preventDefault();
-            const $this = this.$(e.target);
+            const $this = $(e.target);
             const breadcrumbData = {
                 custId: $this.data("custid"),
                 custName: $this.data("custname"),
                 custLevelId: $this.data("custlevelid")
             };
-            this.$.extend(this.globalFormData, breadcrumbData);
+            $.extend(this.globalFormData, breadcrumbData);
 
-            this.getWinLossDetailData(
-                this.globalFormData,
-                () => {
-                    this.breadcrumbLevelComponent.addBreadcrumbLevel(breadcrumbData);
-                    this.setVisibleColumns();
-                });
+            this.getWinLossDetailData(() => {
+                this.breadcrumbLevelComponent.addBreadcrumbLevel(breadcrumbData);
+                this.updateCurrentUrl();
+            });
         });
+
+        this.initTableSorter();
+        this.showHideColumns(this.visibleColumnDropdownComponent.getColumns());
     }
 
-    private updateTotalFooter(api) {
-        let columnIndex = 2; // Start at Bet Count
-        this.$(api.column(columnIndex++).footer()).html(this.formatInt(this.globalTotalData.BetCount));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.Turnover));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.NetTurnover));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.GrossComm));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.MemberNetWinLoss.WinLoss));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.MemberNetWinLoss.Comm));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.MemberNetWinLoss.Total));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.AgentNetWinLoss.WinLoss));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.AgentNetWinLoss.Comm));
-        this.$(api.column(columnIndex++).footer()).html(this.formatDecimal(this.globalTotalData.AgentNetWinLoss.Total));
+    private initTableSorter() {
+        const sortColumns = this.tableReport.find(".sorting");
 
-        if (this.viewModel.ViewerLevelIsMasterOrSuper) {
-            columnIndex = this.updateTotalFooterMasterSuper(api, this.globalTotalData.MasterNetWinLoss, columnIndex);
+        if (this.tableReport.data("cansort")) {
+            const headers = {};
+            sortColumns.each(function (_, item) {
+                const $item = $(item);
+                let colIndex = $item.data("colindex");
+                if (colIndex === -1) {
+                    colIndex = sortColumns.length - 1;
+                    $item.attr("data-colindex", colIndex);
+                }
+
+                const isText = colIndex === 0 || colIndex === 1;
+                headers[colIndex] = { sorter: isText ? "text" : "digit" };
+            });
+
+            this.tableReport.tablesorter({
+                headers: headers,
+                sortList: [[this.sortColumnIndex, this.sortIndicator]]
+            }).bind("sortEnd", () => {
+                const sortedColumns = this.tableReport.find(".sorting-asc, .sorting-desc");
+                if (sortedColumns.length) {
+                    const firstSortedColumn = sortedColumns.eq(0);
+                    this.sortColumnIndex = firstSortedColumn.data("colindex");
+                    this.sortIndicator = firstSortedColumn.hasClass("sorting-desc") ? 1 : 0; // asc: 0, desc: 1
+                }
+            });
+        } else {
+            sortColumns.removeClass("sorting");
+        }
+    }
+
+    private showHideColumns(column) {
+        this.showHideFirstLastName(column);
+        this.showHideSpecificColumn(column, "betcount");
+        this.showHideSpecificColumn(column, "turnover");
+        this.showHideSpecificColumn(column, "netturnover");
+        this.showHideSpecificColumn(column, "grosscomm");
+        this.showHideGroupColumn(column, "p", "groupColumnMember");
+        this.showHideGroupColumn(column, "a", "groupColumnAgent");
+        this.showHideGroupColumn(column, "m", "groupColumnMaster");
+        this.showHideGroupColumn(column, "s", "groupColumnSuper");
+        this.showHideSpecificColumn(column, "company");
+    }
+
+    private showHideFirstLastName(column) {
+        let colspan = 1;
+        if (this.showHideSpecificColumn(column, "fullname")) {
+            colspan++;
         }
 
-        if (this.viewModel.ViewerLevelIsSuper) {
-            columnIndex = this.updateTotalFooterMasterSuper(api, this.globalTotalData.SuperNetWinLoss, columnIndex);
-        }
-
-        this.$(api.column(columnIndex).footer()).html(this.formatDecimal(this.globalTotalData.Company));
+        this.tableReport.find("#totalFirstLastName").attr("colspan", colspan);
     }
 
-    private updateTotalFooterMasterSuper(api: any, sm: any, columnIndex: number) {
-        let winLoss = "";
-        let comm = "";
-        let total = "";
-        if (sm) {
-            winLoss = this.formatDecimal(sm.WinLoss);
-            comm = this.formatDecimal(sm.Comm);
-            total = this.formatDecimal(sm.Total);
-        }
-
-        this.$(api.column(columnIndex++).footer()).html(winLoss);
-        this.$(api.column(columnIndex++).footer()).html(comm);
-        this.$(api.column(columnIndex++).footer()).html(total);
-
-        return columnIndex;
-    }
-
-    private isAgentView() {
-        return this.globalFormData.custLevelId === CustomerLevel.Agent;
-    }
-
-    private getWinLossDetailDataAndRenderWeekRange() {
-        const dateRange = this.dateRangePickerComponent.getDateRangeValues();
-        const productsAndResources = this.productAndProductDetailDropdownComponent.getSelectedItems();
-        this.$.extend(this.globalFormData, dateRange, productsAndResources);
-
-        this.getWinLossDetailData(this.globalFormData, () => this.weekRangeComponent.render(this.globalFormData));
-    }
-
-    private getWinLossDetailData(formData: any, callback = Function()) {
-        this.tableJQuery.block();
-        this.$.get(`${this.viewModel.WinLossDetailUrl}?${this.$.param(formData)}`, (data) => {
-            callback();
-            this.renderWinLossDetailReport(data);
-            this.tableJQuery.unblock();
-        }).fail((jqXHR) => {
-            this.tableJQuery.unblock();
-            if (jqXHR.status === 429) {
-                window.location.href = window.top["alpha"].urls.mainRootPath + "error/blocked";
+    private showHideGroupColumn(column, prefix, groupColumnId) {
+        const groupColumn = this.tableReport.find("#" + groupColumnId);
+        if (groupColumn.length) {
+            let colspan = 0;
+            if (this.showHideSpecificColumn(column, prefix + "winloss")) {
+                colspan++;
             }
-        });
-    }
+            if (this.showHideSpecificColumn(column, prefix + "comm")) {
+                colspan++;
+            }
+            if (this.showHideSpecificColumn(column, prefix + "total")) {
+                colspan++;
+            }
 
-    private renderWinLossDetailReport(data) {
-        const winlossDetail = data.WinLossDetail;
-        this.globalTotalData = winlossDetail.TotalData;
-
-        this.totalEnteredNonEnteredComponent.render(data.TotalEnteredSport);
-
-        if (this.dataTableObject) {
-            this.dataTableObject.clear();
-            this.dataTableObject.rows.add(winlossDetail.DataSource).draw();
-        } else {
-            this.dataTableObject = this.tableJQuery.DataTable(this.buildDataTableOptions(winlossDetail.DataSource));
-        }
-
-        this.updateTableFooterAndSort(winlossDetail.TotalRecords);
-    }
-
-    private updateTableFooterAndSort(totalRecords: number) {
-        const hasData = totalRecords > 0;
-        if (hasData) {
-            this.tableFooterJQuery.removeClass("hide");
-            totalRecords > 1
-                ? this.tableJQuery.addClass("tablesorter")
-                : this.tableJQuery.removeClass("tablesorter");
-        } else {
-            this.tableFooterJQuery.addClass("hide");
-            this.tableJQuery.removeClass("tablesorter");
+            colspan ? groupColumn.attr("colspan", colspan).show() : groupColumn.hide();
         }
     }
 
-    private setVisibleColumns() {
-        const visibleSuper = this.getVisibleSuperColumn();
-        if (this.isNotUndefined(visibleSuper)) {
-            this.superColumnIndexes.forEach(item =>
-                this.dataTableObject.column(item).visible(visibleSuper && this.visibleColumns[item]));
-        }
+    private showHideSpecificColumn(column, key) {
+        const matchedColumns = this.tableReport.find(`[data-colname=${key}]`);
+        const visible = column[key];
+        visible ? matchedColumns.show() : matchedColumns.hide();
 
-        const visibleMaster = this.getVisibleMasterColumn();
-        if (this.isNotUndefined(visibleMaster)) {
-            this.masterColumnIndexes.forEach(item =>
-                this.dataTableObject.column(item).visible(visibleMaster && this.visibleColumns[item]));
-        }
+        return visible;
     }
 
-    private getVisibleSuperColumn() {
-        if (this.viewModel.ViewerLevelIsSuper) {
-            return this.globalFormData.custLevelId === this.viewModel.ViewerLevel;
-        }
-    }
-
-    private getVisibleMasterColumn() {
-        if (this.viewModel.ViewerLevelIsMasterOrSuper) {
-            return this.globalFormData.custLevelId >= CustomerLevel.Master;
+    private updateCurrentUrl() {
+        if (this.globalFormData.productIds) {
+            const formData = $.extend({}, this.globalFormData, { breadcrumbLevelJson: JSON.stringify(this.breadcrumbLevelComponent.getBreadcrumbs()) });
+            window.top.indexManager.updateCurrentUrl($.param(formData));
         }
     }
 }
 
 $(function () {
     new WinLossDetailViewNew(
-        $,
-        new TotalEnteredNonEnteredComponent($, moment),
-        new DateRangePickerJQueryComponent($),
-        new ProductAndProductDetailDropdownComponent($),
-        new ProductAndProductDetailDropdownOldComponent($),
-        new VisibleColumnDropdownComponent($),
-        new WeekRangeComponent($, moment),
-        new BreadcrumbLevelComponent($),
-        new WinLossDetailNewViewModel($),
+        new TotalEnteredNonEnteredComponent(),
+        new DateRangePickerJQueryComponent(),
+        new ProductAndProductDetailDropdownComponent(),
+        new VisibleColumnDropdownComponent(),
+        new WeekRangeComponent(),
+        new BreadcrumbLevelComponent(),
         window.productList,
         window.productDetailList).init();
 

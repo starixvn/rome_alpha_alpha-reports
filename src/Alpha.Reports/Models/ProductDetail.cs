@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Alpha.Reports.Models
+﻿namespace Alpha.Reports.Models
 {
     public class ProductDetail
     {

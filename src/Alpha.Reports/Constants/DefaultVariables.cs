@@ -8,6 +8,7 @@
 
         public const int AllCurrencies = 0;
 
+        public const string AllProducts = "*";
         public const string AllProductDetails = "0";
     }
 }

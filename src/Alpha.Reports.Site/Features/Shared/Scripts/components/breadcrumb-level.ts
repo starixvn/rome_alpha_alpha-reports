@@ -1,53 +1,43 @@
 ﻿"use strict";
 class BreadcrumbLevelOption {
     constructor(
-        public custId: number,
-        public custName: string,
-        public custLevelId: number,
+        public breadcrumbs = [],
         public onClick = Function(),
         public selectorId = "breadcrumb") {
-        this.custId = custId;
-        this.custName = custName;
-        this.custLevelId = custLevelId;
+        this.breadcrumbs = breadcrumbs;
         this.onClick = onClick;
         this.selectorId = selectorId;
     }
 }
 
 class BreadcrumbLevelComponent {
-    private $: JQueryStatic;
     private breadcrumbLevelOption: BreadcrumbLevelOption;
     private breadcrumbSelector;
-    private breadcrumbs = [];
-
-    constructor($) {
-        this.$ = $;
-    }
 
     init(options: BreadcrumbLevelOption) {
         this.breadcrumbLevelOption = options;
-        this.breadcrumbSelector = this.$("#" + options.selectorId);
-        this.addBreadcrumbLevel({
-            custId: options.custId,
-            custName: options.custName,
-            custLevelId: options.custLevelId
-        });
+        this.breadcrumbSelector = $("#" + options.selectorId);
+        this.render();
     }
 
     addBreadcrumbLevel(breadcrumbData: any) {
-        this.breadcrumbs.push(breadcrumbData);
+        this.breadcrumbLevelOption.breadcrumbs.push(breadcrumbData);
         this.render();
     }
 
     removeBreadcrumbLevel(custLevelId: number) {
-        this.breadcrumbs = this.breadcrumbs.filter((item) => item.custLevelId >= custLevelId);
+        this.breadcrumbLevelOption.breadcrumbs = this.breadcrumbLevelOption.breadcrumbs.filter((item) => item.custLevelId >= custLevelId);
         this.render();
     }
 
+    getBreadcrumbs() {
+        return this.breadcrumbLevelOption.breadcrumbs;
+    }
+
     private render() {
-        const breadcrumbLength = this.breadcrumbs.length;
+        const breadcrumbLength = this.breadcrumbLevelOption.breadcrumbs.length;
         if (breadcrumbLength > 1) {
-            const html = this.breadcrumbs.map(function (item, index) {
+            const html = this.breadcrumbLevelOption.breadcrumbs.map(function (item, index) {
                 return index + 1 === breadcrumbLength
                     ? `<li>${item.custName}</li>`
                     : `<li><a class="upline-link" href="javascript:;" data-custid="${item.custId}" data-custname="${item.custName}" data-custlevelid="${item.custLevelId}">${item.custName}</a></li>`;
@@ -55,10 +45,9 @@ class BreadcrumbLevelComponent {
 
             this.breadcrumbSelector
                 .html(html.join(""))
-                .removeClass("hide")
                 .find(".upline-link").off().click((e) => {
                     e.preventDefault();
-                    const $this = this.$(e.target);
+                    const $this = $(e.target);
                     $this.addClass("active");
                     this.breadcrumbLevelOption.onClick({
                         custId: $this.data("custid"),
@@ -67,7 +56,7 @@ class BreadcrumbLevelComponent {
                     });
                 });
         } else {
-            this.breadcrumbSelector.addClass("hide").html("");
+            this.breadcrumbSelector.html("");
         }
     }
 }

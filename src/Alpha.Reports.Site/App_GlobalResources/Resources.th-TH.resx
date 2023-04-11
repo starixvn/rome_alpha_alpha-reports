@@ -931,4 +931,13 @@
   <data name="GrossCommNoteForRoundingProblem" xml:space="preserve">
     <value>ค่ายอดรวมของคอมมิชชั่น อาจแตกต่างกันในแต่ละระดับเนื่องจากการปัดเศษของทศนิยม 4 ตำแหน่ง</value>
   </data>
+  <data name="ClassicView" xml:space="preserve">
+    <value>กลับเป็นมุมมองคลาสสิก</value>
+  </data>
+  <data name="FirstLastName" xml:space="preserve">
+    <value>ชื่อ/ นามสุกล</value>
+  </data>
+  <data name="NewView" xml:space="preserve">
+    <value>ไปยังมุมมองแบบใหม่</value>
+  </data>
 </root>

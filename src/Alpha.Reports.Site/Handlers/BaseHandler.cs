@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using Alpha.Reports.Extensions;
     using Alpha.Reports.Site.Features.Shared.ViewModels.Components;
     using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
@@ -43,12 +44,18 @@
                         })))
                 : Enumerable.Empty<GroupProductViewModel>();
 
-        protected internal static IEnumerable<ProductViewModel> BuildProductViewModels(IEnumerable<Product> products)
+        protected internal static IEnumerable<ProductViewModel> BuildProductViewModels(
+            string userSelectedProductIds,
+            IEnumerable<Product> products)
         {
             var productList = new List<ProductViewModel>();
 
             if (products?.Any() == true)
             {
+                var isSelectAll = DefaultVariables.AllProducts == userSelectedProductIds;
+                var productIdHash = isSelectAll
+                    ? null
+                    : userSelectedProductIds.ToIntDictionary();
                 products
                     .GroupBy(product => new { product.Type, product.TypeName })
                     .ToList()
@@ -56,14 +63,18 @@
                     {
                         if (item.Key.Type == 0)
                         {
-                            productList.AddRange(item.Select(p => new ProductViewModel(p.Id, p.DisplayName, null)));
+                            productList.AddRange(item.Select(p =>
+                                new ProductViewModel(p.Id, p.DisplayName, isSelectAll || productIdHash.ContainsKey(p.Id), null)));
                         }
                         else
                         {
+                            var children = item.Select(
+                                p => new ProductViewModel(p.Id, p.DisplayName, isSelectAll || productIdHash.ContainsKey(p.Id), null)).ToList();
                             productList.Add(new ProductViewModel(
                                 item.Key.Type,
                                 item.Key.TypeName,
-                                item.Select(p => new ProductViewModel(p.Id, p.DisplayName, null))));
+                                children.All(p => p.Checked),
+                                children));
                         }
                     });
             }
@@ -79,10 +90,25 @@
                     new ProductDetailViewModel(p.ProductId, p.ResourceId, p.DisplayName, userSelectedResourceIds.Contains(p.ResourceId)))
                 : Enumerable.Empty<ProductDetailViewModel>();
 
-        protected internal static IEnumerable<ProductDetailNewViewModel> BuildProductDetailNewViewModels(IEnumerable<ProductDetail> productDetails)
-            => productDetails.Any()
-                ? productDetails.Select(p => new ProductDetailNewViewModel(p.ProductId, p.ResourceId, p.DisplayName))
-                : Enumerable.Empty<ProductDetailNewViewModel>();
+        protected internal static IEnumerable<ProductDetailNewViewModel> BuildProductDetailNewViewModels(
+            string userSelectedResourceIds,
+            IEnumerable<ProductDetail> productDetails)
+        {
+            if (productDetails.Any())
+            {
+                var isSelectAll = DefaultVariables.AllProductDetails == userSelectedResourceIds;
+                var resourceIdHash = isSelectAll
+                    ? null
+                    : userSelectedResourceIds.ToIntDictionary();
+                return productDetails.Select(p => new ProductDetailNewViewModel(
+                    p.ProductId,
+                    p.ResourceId,
+                    p.DisplayName,
+                    isSelectAll || resourceIdHash.ContainsKey(p.ResourceId)));
+            }
+
+            return Enumerable.Empty<ProductDetailNewViewModel>();
+        }
 
         protected internal IEnumerable<SelectListItem> BuildLeagueSelectListItems(
             IEnumerable<string> userSelectedLeagueIds,

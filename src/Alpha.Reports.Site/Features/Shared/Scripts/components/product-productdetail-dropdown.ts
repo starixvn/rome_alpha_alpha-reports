@@ -5,137 +5,151 @@ class ProductAndProductDetailDropdownOption {
         public products: any,
         public productDetails: any,
         public onDropdownHidden = Function(),
-        public selectorId = "dropdown-product") {
+        public selectorProductId = "dropdown-product",
+        public selectorProductDetailId = "dropdown-product-detail") {
         this.products = products;
         this.productDetails = productDetails;
         this.onDropdownHidden = onDropdownHidden;
-        this.selectorId = selectorId;
+        this.selectorProductId = selectorProductId;
+        this.selectorProductDetailId = selectorProductDetailId;
     }
 }
 
 class ProductAndProductDetailDropdownComponent {
-    private $: JQueryStatic;
     private dropdownProduct: JQuery;
-
-    constructor($: JQueryStatic) {
-        this.$ = $;
-    }
+    private dropdownProductDetail: JQuery;
 
     render(options: ProductAndProductDetailDropdownOption) {
-        const productDetailObject = this.buildProductDetailObject(options.productDetails);
+        this.renderProductDetailDropdown(options);
+        this.renderProductDropdown(options);
+    }
 
-        const productList = [];
-        options.products.forEach((item) => {
-            const isGroup = typeof item.Products !== "undefined";
-            const cssClass = isGroup ? "groupproduct" : "product";
-            const productItem: any = this.buildCheckboxProduct(item, productDetailObject, cssClass);
-            if (isGroup) {
-                productItem.items = item.Products.map(item => this.buildCheckboxProduct(item, productDetailObject));
-            }
-
-            productList.push(productItem);
+    private renderProductDetailDropdown(options: ProductAndProductDetailDropdownOption) {
+        const self = this;
+        const productDetailList = options.productDetails.map(function (item) {
+            return self.buildCheckboxItem(item, {
+                productId: item.ProductId
+            });
         });
 
-        const ddlProduct = this.$("#" + options.selectorId);
-        this.dropdownProduct = ddlProduct.fanexMultiSelect({
-            checkAllText: ddlProduct.data("label-selectall"),
-            selectedText: "# " + ddlProduct.data("label-selected"),
-            noneSelectedText: ddlProduct.data("label-noneselected"),
+        const dropdown = $("#" + options.selectorProductDetailId);
+        this.dropdownProductDetail = dropdown.fanexMultiSelect({
+            checkAllText: dropdown.data("label-selectall"),
+            selectedText: "# " + dropdown.data("label-selected"),
+            noneSelectedText: dropdown.data("label-noneselected"),
             useCustomCheckAllText: true,
-            customCheckAllText: ddlProduct.data("label-all") + " (#)",
+            customCheckAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
-            filterPlaceHolder: ddlProduct.data("label-filterplaceholder"),
-            noItemFoundText: ddlProduct.data("label-noitemfound"),
-            isCheckAll: true,
-            minWidth: 290,
-            //maxHeight: 250,
+            filterPlaceHolder: dropdown.data("label-filterplaceholder"),
+            noItemFoundText: dropdown.data("label-noitemfound"),
+            minWidth: 250,
+            maxHeight: 250,
             showTooltip: false,
-            listData: productList,
-            onLeave: options.onDropdownHidden
-        });
+            listData: productDetailList,
+            onLeave: function () {
+                const productIds = self.dropdownProductDetail.fanexMultiSelect("getUncheckedProductIds");
+                if (productIds.length) {
+                    self.dropdownProduct.fanexMultiSelect("uncheck", productIds);
+                }
 
-        this.dropdownProduct.fanexMultiSelect("toggleCollapseExpandAll");
+                options.onDropdownHidden(self.getSelectedItems());
+            }
+        });
     }
 
-    private buildProductDetailObject(productDetails) {
-        const productDetailObject = {};
+    private renderProductDropdown(options: ProductAndProductDetailDropdownOption) {
+        const self = this;
+        const productIdWithSubProductIds = {};
+        const uncheckedProductIds = [];
+        const productList = options.products.map(function (item) {
+            const checkboxItem: any = self.buildCheckboxItem(item);
 
-        productDetails.forEach((item) => {
-            let items = productDetailObject[item.ProductId];
-            if (typeof items === "undefined") {
-                items = [];
-                productDetailObject[item.ProductId] = items;
+            if (item.Products) {
+                const subProductIds = [];
+                productIdWithSubProductIds[item.Id] = subProductIds;
+
+                checkboxItem.items = item.Products.map(function (item) {
+                    subProductIds.push(item.Id);
+                    item.Checked || uncheckedProductIds.push(item.Id);
+                    return self.buildCheckboxItem(item);
+                });
+            } else {
+                item.Checked || uncheckedProductIds.push(item.Id);
             }
 
-            items.push(this.buildCheckboxProductDetail(item));
+            return checkboxItem;
         });
 
-        return productDetailObject;
+        const dropdown = $("#" + options.selectorProductId);
+        this.dropdownProduct = dropdown.fanexMultiSelect({
+            checkAllText: dropdown.data("label-selectall"),
+            selectedText: "# " + dropdown.data("label-selected"),
+            noneSelectedText: dropdown.data("label-noneselected"),
+            useCustomCheckAllText: true,
+            customCheckAllText: dropdown.data("label-all") + " (#)",
+            showFilter: true,
+            filterPlaceHolder: dropdown.data("label-filterplaceholder"),
+            noItemFoundText: dropdown.data("label-noitemfound"),
+            minWidth: 250,
+            maxHeight: 250,
+            showTooltip: false,
+            expandGroupsByDefault: false,
+            listData: productList,
+            onCheck: function () {
+                const checked = this.checked;
+                const productId = this.value;
+                const subProductIds = productIdWithSubProductIds[productId];
+                if (subProductIds) {
+                    subProductIds.forEach(function (id) {
+                        self.handleOnCheckProduct(id, checked);
+                    });
+                } else {
+                    self.handleOnCheckProduct(productId, checked);
+                }
+            },
+            onCheckAll: function () {
+                const checked = this.checked;
+                self.dropdownProductDetail.fanexMultiSelect("showAllItems", checked);
+                self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
+            },
+            onLeave: function () {
+                const productIds = self.dropdownProduct.fanexMultiSelect("getCheckedValues");
+                const isError = productIds.length === 0;
+                self.dropdownProduct.fanexMultiSelect("addError", isError);
+                isError || options.onDropdownHidden({
+                    productIds,
+                    resourceIds: self.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
+                });
+            }
+        });
+
+        this.initState(uncheckedProductIds);
     }
 
-    private buildCheckboxProduct(product: any, productDetailObject: any, cssClass = "product") {
-        const checkboxItem: any = this.buildCheckboxItem(product, cssClass);
-        checkboxItem.items = productDetailObject[product.Id];
-
-        return checkboxItem;
+    private initState(uncheckedProductIds) {
+        if (uncheckedProductIds.length) {
+            uncheckedProductIds.forEach((item) => this.handleOnCheckProduct(item, false));
+        }
     }
 
-    private buildCheckboxProductDetail(product: any) {
-        return this.buildCheckboxItem(product, "productdetail", product.ProductId);
+    private handleOnCheckProduct(productId, checked) {
+        const action = checked ? "showItemsByCustomAttributes" : "hideItemsByCustomAttributes";
+        this.dropdownProductDetail.fanexMultiSelect(action, { productId });
     }
 
-    private buildCheckboxItem(item: any, cssClass: string, name = undefined) {
+    private buildCheckboxItem(item, attributes = undefined) {
         return {
-            id: cssClass + "-" + item.Id,
-            name: name,
             value: item.Id,
             text: item.Name,
-            cssClass: cssClass,
-            checked: true,
-            enable: true
+            checked: item.Checked,
+            attributes
         }
     }
 
     getSelectedItems() {
-        const productIds = this.getSelectedProductIds();
-        const result = this.getSelectedResourceIds();
-
         return {
-            productIds: this.uniqe(productIds.concat(result.parentProductIds)).join(),
-            resourceIds: result.resourceIds.join()
+            productIds: this.dropdownProduct.fanexMultiSelect("getCheckedValues"),
+            resourceIds: this.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
         };
-    }
-
-    private getSelectedProductIds() {
-        const productIds = [];
-        this.dropdownProduct.fanexMultiSelect(
-            "getItemsByCondition",
-            '.product > input[type="checkbox"]:checked').each(function () {
-                productIds.push(this.value);
-            });
-
-        return productIds;
-    }
-
-    private getSelectedResourceIds() {
-        const parentProductIds = [];
-        const resourceIds = [];
-        this.dropdownProduct.fanexMultiSelect(
-            "getItemsByCondition",
-            '.productdetail > input[type="checkbox"]:checked').each(function () {
-                parentProductIds.push(this.name);
-                resourceIds.push(this.value);
-            });
-
-        return { parentProductIds, resourceIds, };
-    }
-
-    private uniqe(array) {
-        const uniqeObject = {};
-        return array.filter(function (item) {
-            return uniqeObject.hasOwnProperty(item)
-                ? false
-                : (uniqeObject[item] = true);
-        });
     }
 }

@@ -83,6 +83,7 @@
                 param.UserSelectedProductIds,
                 param.ReportLevel,
                 param.ProductDetailsXML);
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             return await dataAccess.GetDataAsync(criteria);
         }

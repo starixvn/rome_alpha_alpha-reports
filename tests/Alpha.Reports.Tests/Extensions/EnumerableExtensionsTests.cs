@@ -29,6 +29,8 @@
                 winLossDetails.Add(new WinLossDetailModel(
                     i,
                     $"Cust Name {i}",
+                    string.Empty,
+                    string.Empty,
                     i,
                     i,
                     i,
@@ -41,6 +43,8 @@
                 ascendingSortedListByWinLoss.Add(new WinLossDetailModel(
                     i,
                     $"Cust Name {i}",
+                    string.Empty,
+                    string.Empty,
                     i,
                     i,
                     i,
@@ -54,6 +58,8 @@
                 descendingSortedListByWinLoss.Add(new WinLossDetailModel(
                     descendingValue,
                     $"Cust Name {descendingValue}",
+                    string.Empty,
+                    string.Empty,
                     descendingValue,
                     descendingValue,
                     descendingValue,

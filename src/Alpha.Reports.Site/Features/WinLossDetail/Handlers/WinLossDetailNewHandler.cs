@@ -14,8 +14,8 @@
     using MediatR;
 
     public class WinLossDetailNewHandler : WinLossDetailBaseNewHandler,
-        IAsyncRequestHandler<WinLossDetailIndexQuery, WinLossDetailIndexViewModel>,
-        IAsyncRequestHandler<WinLossDetailGetDataQuery, WinLossDetailNewViewModel>,
+        IAsyncRequestHandler<WinLossDetailNewQuery, WinLossDetailNewViewModel>,
+        //IAsyncRequestHandler<WinLossDetailGetDataQuery, WinLossDetailGetDataViewModel>,
         IAsyncRequestHandler<ReportLegendNewQuery, ReportLegendViewModel>
     {
         private readonly WinLossService winlossService;
@@ -31,29 +31,35 @@
             this.winlossDetailService = winlossDetailService;
         }
 
-        public async Task<WinLossDetailIndexViewModel> Handle(WinLossDetailIndexQuery message)
+        public async Task<WinLossDetailNewViewModel> Handle(WinLossDetailNewQuery message)
         {
             var productsTask = productService.GetProductsForCustomerAsync(message.ViewerId, message.Site, message.CurrencyId, message.MinDate, message.IsEnableSabaPromotion);
             var productDetailsTask = productDetailService.GetProductDetailsAsync(message.ViewerId, message.Site, message.CurrencyId);
             var totalEnteredSportTask = winlossService.GetTotalEnteredSportYesterdayAndTodayAsync();
             await Task.WhenAll(productsTask, productDetailsTask, totalEnteredSportTask);
+            var products = (await productsTask).ToList();
+            var productDetails = (await productDetailsTask).ToList();
 
-            return new WinLossDetailIndexViewModel(
+            var winLossDetailParam = CreateParameter(message, products, productDetails);
+            var reportData = await winlossDetailService.GetWinLossDetailAsync(winLossDetailParam);
+
+            return new WinLossDetailNewViewModel(
                 message,
-                BuildProductViewModels(await productsTask),
-                BuildProductDetailNewViewModels(await productDetailsTask),
-                await totalEnteredSportTask);
+                BuildProductViewModels(message.ProductIds, products),
+                BuildProductDetailNewViewModels(message.ResourceIds, productDetails),
+                await totalEnteredSportTask,
+                reportData);
         }
 
-        public async Task<WinLossDetailNewViewModel> Handle(WinLossDetailGetDataQuery message)
-        {
-            var winLossDetailParam = await CreateParameter(message, message.CustLevel);
-            var reportDataTask = winlossDetailService.GetWinLossDetailAsync(winLossDetailParam);
-            var totalEnteredSportTask = winlossService.GetTotalEnteredSportYesterdayAndTodayAsync();
-            await Task.WhenAll(reportDataTask, totalEnteredSportTask);
+        //public async Task<WinLossDetailGetDataViewModel> Handle(WinLossDetailGetDataQuery message)
+        //{
+        //    var winLossDetailParam = await CreateParameter(message, message.CustLevel);
+        //    var reportDataTask = winlossDetailService.GetWinLossDetailAsync(winLossDetailParam);
+        //    var totalEnteredSportTask = winlossService.GetTotalEnteredSportYesterdayAndTodayAsync();
+        //    await Task.WhenAll(reportDataTask, totalEnteredSportTask);
 
-            return new WinLossDetailNewViewModel(await reportDataTask, await totalEnteredSportTask);
-        }
+        //    return new WinLossDetailGetDataViewModel(await reportDataTask, await totalEnteredSportTask);
+        //}
 
         public async Task<ReportLegendViewModel> Handle(ReportLegendNewQuery message)
             => new ReportLegendViewModel(await GetReportLegend(message), GetGrossCommNotes(message.ViewerLevel));

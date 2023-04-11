@@ -14,7 +14,6 @@
     using Reports.Models.WinLossDetail;
     using Services;
     using Site.Handlers.WinLossDetail;
-    using Site.Requests.Consolidation;
     using Site.Requests.WinLossDetail;
     using Utils;
     using Xunit;
@@ -214,7 +213,7 @@
         {
             // Arrange
             var netWinLoss = new NetWinLoss(1, 2);
-            var viewModel = new WinLossDetailModel(1, "CustName", 2, 3, 4, 5, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var viewModel = new WinLossDetailModel(1, "CustName", string.Empty, string.Empty, 2, 3, 4, 5, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
             var message = new WinLossDetailExcelQuery(userFixture.User);
 
             // Act
@@ -229,7 +228,7 @@
         {
             // Arrange
             var netWinLoss = new NetWinLoss(1, 2);
-            var viewModel = new WinLossDetailModel(1, "CustName", 2, 3, 4, 5, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var viewModel = new WinLossDetailModel(1, "CustName", string.Empty, string.Empty, 2, 3, 4, 5, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
             var message = new WinLossDetailExcelQuery(userFixture.User);
 
             // Act
@@ -247,7 +246,7 @@
         {
             // Arrange
             var netWinLoss = new NetWinLoss(1, 2);
-            var viewModel = new WinLossDetailModel(1, "CustName", 2, 3, 4, 5, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var viewModel = new WinLossDetailModel(1, "CustName", string.Empty, string.Empty, 2, 3, 4, 5, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
             var user = Substitute.For<IUser>();
             user.LevelId.Returns(roleId);
             var message = new WinLossDetailExcelQuery(user);
@@ -274,7 +273,7 @@
         {
             // Arrange
             var netWinLoss = new NetWinLoss(1, 2);
-            var viewModel = new WinLossDetailModel(1, "CustName", 2, 3, 4, 5, netWinLoss, netWinLoss, null, null);
+            var viewModel = new WinLossDetailModel(1, "CustName", string.Empty, string.Empty, 2, 3, 4, 5, netWinLoss, netWinLoss, null, null);
             var user = Substitute.For<IUser>();
             user.LevelId.Returns((byte)2);
             var message = new WinLossDetailExcelQuery(user);
@@ -291,7 +290,7 @@
         {
             // Arrange
             var netWinLoss = new NetWinLoss(1, 2);
-            var viewModel = new WinLossDetailModel(1, "CustName", 2, 3, 4, 5, netWinLoss, netWinLoss, netWinLoss, null);
+            var viewModel = new WinLossDetailModel(1, "CustName", string.Empty, string.Empty, 2, 3, 4, 5, netWinLoss, netWinLoss, netWinLoss, null);
             var user = Substitute.For<IUser>();
             user.LevelId.Returns((byte)3);
             var message = new WinLossDetailExcelQuery(user);
@@ -312,7 +311,7 @@
         {
             // Arrange
             var netWinLoss = new NetWinLoss(1, 2);
-            var viewModel = new WinLossDetailModel(1, "CustName", 2, 3, 4, 5, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var viewModel = new WinLossDetailModel(1, "CustName", string.Empty, string.Empty, 2, 3, 4, 5, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
             var user = Substitute.For<IUser>();
             user.LevelId.Returns((byte)4);
             var message = new WinLossDetailExcelQuery(user);

@@ -38,25 +38,45 @@
     </td>
 }
 
+@helper RenderNumberCell(decimal cellValue, string cellClass, string colname)
+{
+    <td @(string.IsNullOrWhiteSpace(cellClass) ? string.Empty : "class=" + cellClass) data-colname="@colname">
+        @FormatNumber(cellValue)
+    </td>
+}
+
 @helper DisplayUserLevelText(UserLevel userLevel)
 {
-if (userLevel.IsMemberLevel())
-{
+    if (userLevel.IsMemberLevel())
+    {
         @Resources.Member;
-}
+    }
 
-if (userLevel.IsAgentLevel())
-{
+    if (userLevel.IsAgentLevel())
+    {
         @Resources.Agent;
-}
+    }
 
-if (userLevel.IsMasterLevel())
-{
+    if (userLevel.IsMasterLevel())
+    {
         @Resources.Master;
+    }
+
+    if (userLevel.IsSuperLevel())
+    {
+        @Resources.Super;
+    }
 }
 
-if (userLevel.IsSuperLevel())
+@helper ShowTextEllipsis(string text, int length)
 {
-        @Resources.Super;
-}
+    var textLength = text.Length;
+    if (textLength > length)
+    {
+        <div data-toggle="tooltip" data-placement="bottom" title="@text">@text.Substring(0, length)...</div>
+    }
+    else
+    {
+        <span>@text</span>
+    }
 }

@@ -1,5 +1,9 @@
 ﻿"use strict";
 
+interface Object {
+    entries: any;
+}
+
 class VisibleColumnDropdownOption {
     constructor(
         public visibleColumnKey,
@@ -12,17 +16,12 @@ class VisibleColumnDropdownOption {
 }
 
 class VisibleColumnDropdownComponent {
-    private $: JQueryStatic;
     private dropdownColumn: JQuery;
-
-    constructor($: JQueryStatic) {
-        this.$ = $;
-    }
 
     render(options: VisibleColumnDropdownOption) {
         let isCheckAll = true;
-        const ddlColumn = this.$("#" + options.selectorId);
-        const ddlColumnOptions = ddlColumn.find("option");
+        const dropdown = $("#" + options.selectorId);
+        const dropdownOptions = dropdown.find("option");
 
         const visibleColumnObject = {};
         const visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
@@ -31,20 +30,23 @@ class VisibleColumnDropdownComponent {
             visibleColumnArray.forEach(function (item) {
                 visibleColumnObject[item] = true;
             });
-            isCheckAll = ddlColumnOptions.length === visibleColumnArray.length;
+            isCheckAll = dropdownOptions.length === visibleColumnArray.length;
         }
 
-        this.dropdownColumn = ddlColumn.fanexMultiSelect({
-            checkAllText: ddlColumn.data("label-selectall"),
-            selectedText: "# " + ddlColumn.data("label-selected"),
-            noneSelectedText: ddlColumn.data("label-noneselected"),
+        this.dropdownColumn = dropdown.fanexMultiSelect({
+            checkAllText: dropdown.data("label-selectall"),
+            selectedText: "# " + dropdown.data("label-selected"),
+            noneSelectedText: dropdown.data("label-noneselected"),
             useCustomCheckAllText: true,
-            customCheckAllText: ddlColumn.data("label-all") + " (#)",
+            customCheckAllText: dropdown.data("label-all") + " (#)",
+            showFilter: true,
+            filterPlaceHolder: dropdown.data("label-filterplaceholder"),
+            noItemFoundText: dropdown.data("label-noitemfound"),
             isCheckAll: isCheckAll,
             minWidth: 220,
-            //maxHeight: 250,
+            maxHeight: 250,
             showTooltip: false,
-            listData: ddlColumnOptions.map(function () {
+            listData: dropdownOptions.map(function () {
                 return {
                     value: this.value,
                     text: this.innerText,
@@ -55,34 +57,19 @@ class VisibleColumnDropdownComponent {
             }),
             onLeave: () => this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden)
         });
-
-        return this.getColumns();
     }
 
     private onDropdownHidden(visibleColumnKey: string, callback: Function) {
-        const selectedColumnsValue = [];
-        const columns = {};
-        this.dropdownColumn.fanexMultiSelect(
-            "getItemsByCondition",
-            '.visible-column > input[type="checkbox"]').each(function () {
-                const value = this.value;
-                const checked = this.checked;
-                checked && selectedColumnsValue.push(value);
-                columns[value] = checked;
-            });
+        const columns = this.getColumns();
 
+        const selectedColumnsValue = [];
+        Object.entries(columns).forEach(([key, value]) => value && selectedColumnsValue.push(key));
         alphaReports.localStorage.set(visibleColumnKey, selectedColumnsValue.join());
+
         callback(columns);
     }
 
     getColumns() {
-        const columns = {};
-        this.dropdownColumn.fanexMultiSelect(
-            "getItemsByCondition",
-            '.visible-column > input[type="checkbox"]').each(function () {
-                columns[this.value] = this.checked;
-            });
-
-        return columns;
+        return this.dropdownColumn.fanexMultiSelect("getAllValues");
     }
 }

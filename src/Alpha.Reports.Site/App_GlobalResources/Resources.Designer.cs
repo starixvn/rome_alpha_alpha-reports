@@ -448,7 +448,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Classic View.
+        ///   Looks up a localized string similar to Classic view.
         /// </summary>
         public static string ClassicView {
             get {
@@ -876,6 +876,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string FilterByUsername_Placeholder {
             get {
                 return ResourceManager.GetString("FilterByUsername_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First/ Last Name.
+        /// </summary>
+        public static string FirstLastName {
+            get {
+                return ResourceManager.GetString("FirstLastName", resourceCulture);
             }
         }
         
@@ -1744,7 +1753,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New View.
+        ///   Looks up a localized string similar to New view.
         /// </summary>
         public static string NewView {
             get {
@@ -1767,6 +1776,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Column Found.
+        /// </summary>
+        public static string NoColumnFound {
+            get {
+                return ResourceManager.GetString("NoColumnFound", resourceCulture);
             }
         }
         
@@ -1794,6 +1812,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string NoneSelected {
             get {
                 return ResourceManager.GetString("NoneSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Product Detail Found.
+        /// </summary>
+        public static string NoProductDetailFound {
+            get {
+                return ResourceManager.GetString("NoProductDetailFound", resourceCulture);
             }
         }
         
@@ -2167,11 +2194,29 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search Column.
+        /// </summary>
+        public static string SearchColumn {
+            get {
+                return ResourceManager.GetString("SearchColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search Product.
         /// </summary>
         public static string SearchProduct {
             get {
                 return ResourceManager.GetString("SearchProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Product Detail.
+        /// </summary>
+        public static string SearchProductDetail {
+            get {
+                return ResourceManager.GetString("SearchProductDetail", resourceCulture);
             }
         }
         

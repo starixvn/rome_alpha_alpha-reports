@@ -956,4 +956,13 @@
   <data name="GrossCommNoteForRoundingProblem" xml:space="preserve">
     <value>Giá trị Tổng Hoa Hồng có thể khác nhau ở mỗi cấp do làm tròn đến 4 chữ số thập phân.</value>
   </data>
+  <data name="ClassicView" xml:space="preserve">
+    <value>Phiên bản cũ</value>
+  </data>
+  <data name="FirstLastName" xml:space="preserve">
+    <value>Tên/ Họ</value>
+  </data>
+  <data name="NewView" xml:space="preserve">
+    <value>Phiên bản mới</value>
+  </data>
 </root>

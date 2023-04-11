@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
-    using System.Threading.Tasks;
-    using Alpha.Reports.Extensions;
+    using System.Collections.Generic;
     using Alpha.Reports.Models;
     using Alpha.Reports.Params;
     using Alpha.Reports.Services;
@@ -21,24 +20,14 @@
             this.productDetailService = productDetailService;
         }
 
-        protected async Task<WinLossDetailParam> CreateParameter(WinLossDetailGetDataQuery message, UserLevel userLevel)
+        protected WinLossDetailParam CreateParameter(
+            WinLossDetailNewQuery message, 
+            IEnumerable<Product> products,
+            IEnumerable<ProductDetail> productDetails)
         {
-            var validUserSelectedProductIdsTask = productService.FilterProductIdsByCustomerAsync(
-                message.ViewerId,
-                message.Site,
-                message.CurrencyId,
-                message.ProductIds.ToListInt(),
-                message.MinDate,
-                message.IsEnableSabaPromotion);
-            var validUserSelectedResourceIdsTask = productDetailService.FilterResourceIdsByCustomerAsync(
-                message.ViewerId,
-                message.Site,
-                message.CurrencyId,
-                message.ResourceIds);
-            await Task.WhenAll(validUserSelectedProductIdsTask, validUserSelectedResourceIdsTask);
-            var validUserSelectedProductIds = await validUserSelectedProductIdsTask;
-            var validUserSelectedResourceIds = await validUserSelectedResourceIdsTask;
-            validUserSelectedProductIds = await productDetailService.RemoveProductIdsAsync(validUserSelectedProductIds, validUserSelectedResourceIds);
+            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(products, message.ProductIds);
+            var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(productDetails, message.ResourceIds);
+            validUserSelectedProductIds = productDetailService.RemoveProductIds(validUserSelectedProductIds, validUserSelectedResourceIds, productDetails);
 
             return new WinLossDetailParam(
                 message.CustId,
@@ -52,11 +41,11 @@
                 message.LimitedDateToShowInfo,
                 validUserSelectedProductIds,
                 validUserSelectedResourceIds,
-                userLevel,
+                message.CustLevel,
                 null,
                 false,
                 message.IsHistoricReport,
-                await productDetailService.BuildProductDetailsXMLAsync(validUserSelectedProductIds, validUserSelectedResourceIds),
+                productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds),
                 message.IsEnableSabaPromotion);
         }
     }

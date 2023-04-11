@@ -1,5 +1,4 @@
 ﻿@using Alpha.Reports.Site.App_GlobalResources;
-@using Alpha.Reports.Site.ViewModels.Components;
 
 @helper Render()
 {
@@ -12,5 +11,15 @@
              data-label-all="@Resources.All"
              data-label-noitemfound="@Resources.NoProductFound"
              data-label-filterplaceholder="@Resources.SearchProduct"></div>
+    </div>
+    <div class="form-group">
+        <label class="label-form-control">@Resources.ProductDetail</label>
+        <div id="dropdown-product-detail"
+             data-label-selectall="@Resources.SelectAll"
+             data-label-selected="@Resources.Selected"
+             data-label-noneselected="@Resources.NoneSelected"
+             data-label-all="@Resources.All"
+             data-label-noitemfound="@Resources.NoProductDetailFound"
+             data-label-filterplaceholder="@Resources.SearchProductDetail"></div>
     </div>
 }

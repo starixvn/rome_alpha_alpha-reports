@@ -551,11 +551,10 @@
     <Content Include="App_Code\Components\ProductAndProductDetailDropdown.cshtml" />
     <Content Include="App_Code\Components\VisibleColumnsDropdown.cshtml" />
     <Content Include="App_Code\Components\DateRangePickerJQuery.cshtml" />
+    <Content Include="App_Code\Components\ReportTitleNew.cshtml" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\AgentNew.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\MasterNew.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\MemberNew.xls" />
-    <Content Include="App_Code\Components\TotalEnteredNonEntered.cshtml" />
-    <Content Include="App_Code\Components\ProductAndProductDetailDropdownOld.cshtml" />
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
@@ -590,12 +589,10 @@
     <TypeScriptCompile Include="Features\Shared\Scripts\base-report-view.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\breadcrumb-level.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\daterangepicker-jquery.ts" />
-    <TypeScriptCompile Include="Features\Shared\Scripts\components\product-productdetail-dropdown-old.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\product-productdetail-dropdown.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\total-entered-nonentered.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\visible-columns-dropdown.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\week-range.ts" />
-    <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail-new-viewmodel.ts" />
     <Content Include="Web.AppSettings.local_2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
@@ -741,6 +738,7 @@
     <Compile Include="Features\EnteredResult\EnteredSportResultBaseHandler.cs" />
     <Compile Include="Features\EnteredResult\EnteredSportResultWorkbook.cs" />
     <Compile Include="Features\Shared\Requests\ReportDefaultDateRangeNewQuery.cs" />
+    <Compile Include="Features\Shared\ViewModels\Components\DateRangePickerNewViewModel.cs" />
     <Compile Include="Features\Shared\ViewModels\Components\ProductDetailNewViewModel.cs" />
     <Compile Include="Features\Shared\ViewModels\Components\ProductViewModel.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTController.cs">
@@ -786,12 +784,12 @@
     <Compile Include="Features\WinLossDetail\Requests\ReportLegendNewQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcelNewQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailGetDataQuery.cs" />
-    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailIndexQuery.cs" />
+    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailNewQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\ReportLegendQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcelQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailQuery.cs" />
+    <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailGetDataViewModel.cs" />
     <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailNewViewModel.cs" />
-    <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailIndexViewModel.cs" />
     <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailViewModel.cs" />
     <Compile Include="Features\WinLossDetail\WinLossDetailController.cs" />
     <Compile Include="Features\WinLoss\WinLossController.cs" />
@@ -970,7 +968,6 @@
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModel.cs" />
     <Compile Include="ViewModels\Components\CurrencySelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
-    <Compile Include="ViewModels\Components\DateRangePickerNewViewModel.cs" />
     <Compile Include="ViewModels\Components\GroupProductViewModel.cs" />
     <Compile Include="ViewModels\Components\InfoIconWithTargetURLViewModel.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
@@ -1869,6 +1866,7 @@
     <Content Include="Features\WinLossDetail\Views\ReportLegendNew.cshtml" />
     <Content Include="Features\Shared\Styles\report-legend.scss" />
     <Content Include="Features\Shared\Styles\report-legend-dark.scss" />
+    <Content Include="Features\WinLossDetail\Views\ReportDataNew.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

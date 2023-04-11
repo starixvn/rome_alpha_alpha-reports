@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.ViewModels.Components
+﻿namespace Alpha.Reports.Site.Features.Shared.ViewModels.Components
 {
     using System;
     using Alpha.Reports.Utils;
@@ -8,16 +8,16 @@
         public DateRangePickerNewViewModel(
             DateTime fromDate,
             DateTime toDate,
+            DateTime historicPivotDate,
             DateTime minDate,
-            DateTime historicMinDate,
             DateTime? maxDate = null)
         {
             var today = SystemTime.Today;
 
             FromDate = fromDate;
             ToDate = toDate;
+            HistoricPivotDate = historicPivotDate;
             MinDate = minDate;
-            HistoricMinDate = historicMinDate;
             MaxDate = maxDate ?? today.AddDays(1);
             CurrentDate = today;
         }
@@ -26,14 +26,12 @@
 
         public DateTime ToDate { get; }
 
-        public DateTime MinDate { get; }
+        public DateTime HistoricPivotDate { get; }
 
-        public DateTime HistoricMinDate { get; }
+        public DateTime MinDate { get; }
 
         public DateTime MaxDate { get; }
 
         public DateTime CurrentDate { get; }
-
-        public bool IsShowHistoricReport => MinDate.AddMonths(3) <= CurrentDate;
     }
 }

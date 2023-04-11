@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Alpha.Reports.Constants;
     using Criteria;
     using Extensions;
     using Fanex.Caching;
@@ -17,6 +18,8 @@
         IEnumerable<Product> GetProductsForCustomer(int viewerId, string site, int currencyId, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
 
         IEnumerable<int> FilterProductIdsByCustomer(int viewerId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
+
+        IEnumerable<int> FilterProductIdsByCustomer(IEnumerable<Product> products, string userSelectedProductIds);
 
         IEnumerable<Product> FilterProductsByCustomer(int viewerId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
 
@@ -38,14 +41,6 @@
         Task<IEnumerable<ProductsByRefTable>> GetProductsNeedDelayTimeToSumarizeDataAsync();
 
         Task<IEnumerable<Product>> FilterProductsByCustomerAsync(
-            int viewerId,
-            string site,
-            int currencyId,
-            IEnumerable<int> productIds,
-            DateTime? minReportDate = null,
-            bool isEnableSabaPromotion = false);
-
-        Task<IEnumerable<int>> FilterProductIdsByCustomerAsync(
             int viewerId,
             string site,
             int currencyId,
@@ -102,6 +97,19 @@
             return productIdList;
         }
 
+        public IEnumerable<int> FilterProductIdsByCustomer(IEnumerable<Product> products, string userSelectedProductIds)
+        {
+            var productIds = products.Select(product => product.Id);
+
+            if (DefaultVariables.AllProducts != userSelectedProductIds)
+            {
+                var productIdsHash = userSelectedProductIds.ToIntDictionary();
+                productIds = productIds.Where(productId => productIdsHash.ContainsKey(productId));
+            }
+
+            return productIds.ToList();
+        }
+
         public IEnumerable<Product> FilterProductsByCustomer(int viewerId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false)
             => GetProductsForCustomer(viewerId, site, currencyId, minReportDate, isEnableSabaPromotion).Where(product => productIds.Contains(product.Id));
 
@@ -131,12 +139,10 @@
 
                 if (isEnableSabaPromotion)
                 {
-                    var sabaProducts = new[]
+                    custProducts = new[]
                     {
                         new Product(SabaPromotionProductId, null, custProducts.Max(product => product.EndOfSupportDate), 0, 0, getProductName)
-                    };
-
-                    custProducts = sabaProducts.Concat(custProducts);
+                    }.Concat(custProducts);
                 }
             }
 
@@ -242,16 +248,12 @@
             int viewerId,
             string site,
             int currencyId,
-            IEnumerable<int> productIds,
+            IDictionary<int, bool> userSelectedProductIds,
             DateTime? minReportDate = null,
             bool isEnableSabaPromotion = false)
-        {
-            var customerProductIds = (await GetProductsForCustomerAsync(viewerId, site, currencyId, minReportDate, isEnableSabaPromotion)).Select(product => product.Id);
-
-            return !productIds.Any()
-                ? customerProductIds
-                : customerProductIds.Where(product => productIds.Contains(product));
-        }
+            => (await GetProductsForCustomerAsync(viewerId, site, currencyId, minReportDate, isEnableSabaPromotion))
+            .Where(product => userSelectedProductIds.ContainsKey(product.Id))
+            .Select(product => product.Id);
 
         public async Task<IEnumerable<Product>> GetProductsForCustomerAsync(
             int viewerId,

@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace Alpha.Reports.Models.WinLossDetail
+﻿namespace Alpha.Reports.Models.WinLossDetail
 {
+    using Newtonsoft.Json;
+
     public class WinLossDetailModel
     {
         public WinLossDetailModel()
@@ -43,6 +43,24 @@ namespace Alpha.Reports.Models.WinLossDetail
         public string FirstName { get; }
 
         public string LastName { get; }
+
+        public string FullName
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(FirstName) && string.IsNullOrWhiteSpace(LastName))
+                {
+                    return string.Empty;
+                }
+
+                if (!string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(LastName))
+                {
+                    return $"{FirstName}/ {LastName}";
+                }
+
+                return $"{FirstName}{LastName}";
+            }
+        }
 
         public decimal Turnover { get; }
 

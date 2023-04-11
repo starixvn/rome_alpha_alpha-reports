@@ -42,7 +42,7 @@
 
                             if (reader.NextResult() && reader.Read())
                             {
-                                totalWinLoss = BuildWinLossDetail(reader, criteria.ReportLevel);
+                                totalWinLoss = BuildWinLossDetail(reader, criteria.ReportLevel, true);
                             }
                         }
                     }
@@ -57,7 +57,7 @@
                 totalWinLoss);
         }
 
-        private WinLossDetailModel BuildWinLossDetail(IDataReader reader, UserLevel reportLevel, bool isTotal = true)
+        private WinLossDetailModel BuildWinLossDetail(IDataReader reader, UserLevel reportLevel, bool isTotal)
         {
             string firstName = null, lastName = null;
             if (!isTotal)
@@ -99,7 +99,7 @@
 
                         if (reader.NextResult() && reader.Read())
                         {
-                            totalWinLoss = BuildWinLossDetail(reader, criteria.ReportLevel);
+                            totalWinLoss = BuildWinLossDetail(reader, criteria.ReportLevel, true);
                         }
                     }
                 }

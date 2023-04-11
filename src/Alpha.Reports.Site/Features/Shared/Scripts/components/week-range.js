@@ -14,9 +14,7 @@ var WeekRangeOption = /** @class */ (function () {
     return WeekRangeOption;
 }());
 var WeekRangeComponent = /** @class */ (function () {
-    function WeekRangeComponent($, moment) {
-        this.$ = $;
-        this.moment = moment;
+    function WeekRangeComponent() {
     }
     WeekRangeComponent.prototype.init = function (options) {
         this.weekRangeOption = options;
@@ -24,24 +22,24 @@ var WeekRangeComponent = /** @class */ (function () {
     };
     WeekRangeComponent.prototype.render = function (formData) {
         var _this = this;
-        this.moment.locale(this.weekRangeOption.language);
+        moment.locale(this.weekRangeOption.language);
         this.labelWeekRange.html(this.buildWeekRangeHtml(formData.fromDate, formData.toDate));
         var labelWeeks = this.labelWeekRange.find(".label-week");
         labelWeeks
             .off()
             .click(function (e) {
-            var $this = _this.$(e.target);
+            var $this = $(e.target);
             labelWeeks.removeClass("active");
             $this.addClass("active");
-            _this.weekRangeOption.onClick($this.data("fromdate"), $this.data("todate"));
+            _this.weekRangeOption.onClick({ fromDate: $this.data("fromdate"), toDate: $this.data("todate") });
         });
     };
     WeekRangeComponent.prototype.buildWeekRangeHtml = function (fromDate, toDate) {
         var weekRange = [];
-        var startDate = this.moment(fromDate);
-        var endDate = this.moment(toDate);
+        var startDate = moment(fromDate);
+        var endDate = moment(toDate);
         while (endDate.diff(startDate, "d") >= 0) {
-            var endDateStartOfWeek = this.moment(endDate).startOf("isoWeek");
+            var endDateStartOfWeek = moment(endDate).startOf("isoWeek");
             var startDateOrEndDateStartOfWeek = startDate.isBefore(endDateStartOfWeek) ? endDateStartOfWeek : startDate;
             var fromDateValue = startDateOrEndDateStartOfWeek.format(alphaReports.format.shortDateWithSlash_DatePicker);
             var toDateValue = endDate.format(alphaReports.format.shortDateWithSlash_DatePicker);
@@ -49,7 +47,7 @@ var WeekRangeComponent = /** @class */ (function () {
                 ? endDate.format(alphaReports.format.dayMonthName)
                 : startDateOrEndDateStartOfWeek.format(alphaReports.format.day) + " - " + endDate.format(alphaReports.format.dayMonthName);
             weekRange.push("<a href=\"javascript:;\" class=\"label-week\" data-fromdate=\"" + fromDateValue + "\" data-todate=\"" + toDateValue + "\">" + label + "</a>");
-            endDate = this.moment(endDateStartOfWeek).subtract(1, "d");
+            endDate = moment(endDateStartOfWeek).subtract(1, "d");
         }
         return weekRange.join("");
     };

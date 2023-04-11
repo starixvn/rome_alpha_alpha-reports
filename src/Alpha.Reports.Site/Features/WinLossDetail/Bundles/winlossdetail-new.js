@@ -5,7 +5,10 @@ var AlphaReports = /** @class */ (function () {
         this.format = {
             monthFormat: "MMMM - yyyy",
             shortDateWithSlash_DatePicker: "MM/DD/YYYY",
-            shortDateWithSlash_MonthPicker: "MM/dd/yyyy"
+            shortDateWithSlash_MonthPicker: "MM/dd/yyyy",
+            monthDayWithSlash: "MM/DD",
+            dayMonthName: "DD MMM",
+            day: "DD"
         };
         this.sort = {
             none: 0,
@@ -138,29 +141,30 @@ var alphaReports = new AlphaReports($, store);
 //# sourceMappingURL=core.js.map
 "use strict";
 var TotalEnteredNonEnteredComponent = /** @class */ (function () {
-    function TotalEnteredNonEnteredComponent($, moment) {
-        this.$ = $;
-        this.moment = moment;
+    function TotalEnteredNonEnteredComponent() {
     }
-    TotalEnteredNonEnteredComponent.prototype.init = function (selector) {
-        if (selector === void 0) { selector = "total-entered-non-entered"; }
-        this.totalEnteredNonEntered = this.$("#" + selector);
-        this.labelNonEntered = this.totalEnteredNonEntered.data("label-nonentered");
-        this.labelEntered = this.totalEnteredNonEntered.data("label-entered");
+    TotalEnteredNonEnteredComponent.prototype.init = function () {
+        this.nonEnteredYesterdayContainer = $("#total-non-entered-yesterday");
+        this.eventDateYesterday = $(".event-date-yesterday");
+        this.nonEnteredYesterday = this.nonEnteredYesterdayContainer.find("#total-non-entered-yesterday-number");
+        this.enteredYesterdayContainer = $("#total-entered-yesterday");
+        var nonEnteredTodayContainer = $("#total-non-entered-today");
+        this.eventDateToday = nonEnteredTodayContainer.find("#total-non-entered-today-text");
+        this.nonEnteredToday = nonEnteredTodayContainer.find("#total-non-entered-today-number");
     };
-    TotalEnteredNonEnteredComponent.prototype.render = function (data) {
-        var html = [];
-        data.EnteredSportYesterday.NonEntered
-            ? this.renderNonEntered(html, data.EnteredSportYesterday)
-            : this.renderEntered(html, data.EnteredSportYesterday);
-        this.renderNonEntered(html, data.EnteredSportToday);
-        this.totalEnteredNonEntered.html(html.join(""));
-    };
-    TotalEnteredNonEnteredComponent.prototype.renderNonEntered = function (html, data) {
-        html.push('<div class="icon-non-entered"><div class="text">', this.moment(data.EventDate).format(alphaReports.format.monthDayWithSlash), ': ', this.labelNonEntered, '</div><div class="number">', data.NonEntered, '</div><div class="icon-clock"></div></div>');
-    };
-    TotalEnteredNonEnteredComponent.prototype.renderEntered = function (html, data) {
-        html.push('<div class="icon-entered"><div class="text">', this.moment(data.EventDate).format(alphaReports.format.monthDayWithSlash), ': ', this.labelEntered, '</div><div class="icon-check-circle"></div>');
+    TotalEnteredNonEnteredComponent.prototype.update = function (yesterday, today) {
+        this.eventDateYesterday.text(yesterday.eventDate);
+        if (yesterday.nonEntered > 0) {
+            this.enteredYesterdayContainer.hide();
+            this.nonEnteredYesterday.text(alphaReports.formatNumber(yesterday.nonEntered));
+            this.nonEnteredYesterdayContainer.show();
+        }
+        else {
+            this.nonEnteredYesterdayContainer.hide();
+            this.enteredYesterdayContainer.show();
+        }
+        this.eventDateToday.text(today.eventDate);
+        this.nonEnteredToday.text(alphaReports.formatNumber(today.nonEntered));
     };
     return TotalEnteredNonEnteredComponent;
 }());
@@ -178,69 +182,46 @@ var DateRangePickerJQueryOption = /** @class */ (function () {
     return DateRangePickerJQueryOption;
 }());
 var DateRangePickerJQueryComponent = /** @class */ (function () {
-    function DateRangePickerJQueryComponent($) {
-        this.isHistoricReport = false;
-        this.$ = $;
+    function DateRangePickerJQueryComponent() {
     }
     DateRangePickerJQueryComponent.prototype.render = function (options) {
-        this.renderDateRangePicker(this.$("#" + options.selectorId), options);
-    };
-    DateRangePickerJQueryComponent.prototype.renderDateRangePicker = function (dateRangePicker, options, raiseOnClosedEvent) {
         var _this = this;
-        if (raiseOnClosedEvent === void 0) { raiseOnClosedEvent = false; }
-        var olderThan3Months = dateRangePicker.data("label-olderthan3months");
-        var backToCurrentReport = dateRangePicker.data("label-backtocurrentreport");
+        var dateRangePicker = $("#" + options.selectorId);
+        var historicPivotDate = moment(dateRangePicker.data("historicpivotdate"));
+        this.fromDate = dateRangePicker.data("fromdate");
+        this.toDate = dateRangePicker.data("todate");
         dateRangePicker
-            .dateRangePicker(this.getDateRangeOptions(dateRangePicker, options))
-            .bind("datepicker-change", function (_, obj) {
-            if (obj.value === olderThan3Months || obj.value === backToCurrentReport) {
-                _this.isHistoricReport = obj.value === olderThan3Months;
-                dateRangePicker.off();
-                dateRangePicker.data("dateRangePicker").destroy();
-                _this.renderDateRangePicker(dateRangePicker, options, true);
-            }
-            else {
-                _this.fromDate = moment(obj.date1).format(alphaReports.format.shortDateWithSlash_DatePicker);
-                _this.toDate = moment(obj.date2).format(alphaReports.format.shortDateWithSlash_DatePicker);
-            }
-        }).bind("datepicker-closed", function () {
-            options.onClosed();
-        }).data("dateRangePicker").setDateRange(this.fromDate, this.toDate, false);
-        raiseOnClosedEvent && options.onClosed();
-    };
-    DateRangePickerJQueryComponent.prototype.getDateRangeOptions = function (dateRangePicker, options) {
-        var dateRangeOptions;
-        if (this.isHistoricReport) {
-            var today = moment(dateRangePicker.data("currentdate"));
-            this.fromDate = moment(today).startOf("M").format(alphaReports.format.shortDateWithSlash_DatePicker);
-            this.toDate = today.format(alphaReports.format.shortDateWithSlash_DatePicker);
-            dateRangeOptions = {
-                startDate: dateRangePicker.data("historicmindate"),
-                endDate: moment(today).endOf("M").format(alphaReports.format.shortDateWithSlash_DatePicker),
-                customShortcuts: this.getHistoricPredefinedRanges(dateRangePicker),
-                maxDays: 31,
-                monthSelect: true,
-                yearSelect: true
-            };
-        }
-        else {
-            this.fromDate = dateRangePicker.data("fromdate");
-            this.toDate = dateRangePicker.data("todate");
-            dateRangeOptions = {
-                startDate: dateRangePicker.data("mindate"),
-                endDate: dateRangePicker.data("maxdate"),
-                customShortcuts: this.getPredefinedRanges(dateRangePicker)
-            };
-        }
-        return this.$.extend({
+            .dateRangePicker({
             format: alphaReports.format.shortDateWithSlash_DatePicker,
             separator: " - ",
             language: "en",
+            startDate: dateRangePicker.data("mindate"),
+            endDate: dateRangePicker.data("maxdate"),
             showShortcuts: true,
             shortcuts: null,
+            customShortcuts: this.getPredefinedRanges(dateRangePicker),
             duration: 0,
-            singleMonth: true
-        }, dateRangeOptions);
+            singleMonth: true,
+            monthSelect: true,
+            yearSelect: true
+        }).bind("datepicker-change", function (_, obj) {
+            var startDate = moment(obj.date1);
+            var endDate = moment(obj.date2);
+            if (endDate.isBefore(historicPivotDate) && endDate.diff(startDate, "d") > 30) {
+                alert("Out of date range: from and to is between 31 days.");
+                dateRangePicker.data("dateRangePicker").setDateRange(_this.fromDate, _this.toDate, false);
+                return;
+            }
+            if (startDate.isBefore(historicPivotDate) && endDate.isSameOrAfter(historicPivotDate)) {
+                alert("Out of date range: gap between normal and history mode.");
+                dateRangePicker.data("dateRangePicker").setDateRange(_this.fromDate, _this.toDate, false);
+                return;
+            }
+            _this.fromDate = startDate.format(alphaReports.format.shortDateWithSlash_DatePicker);
+            _this.toDate = endDate.format(alphaReports.format.shortDateWithSlash_DatePicker);
+        })
+            .bind("datepicker-closed", function () { return options.onClosed(_this.getDateRangeValues()); })
+            .data("dateRangePicker").setDateRange(this.fromDate, this.toDate, false);
     };
     DateRangePickerJQueryComponent.prototype.getPredefinedRanges = function (dateRangePicker) {
         var minDate = moment(dateRangePicker.data("mindate"));
@@ -249,7 +230,7 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
         var yesterday = moment(today).subtract(1, "d");
         var thisWeekStartOfDay = moment(today).startOf("isoWeek");
         var lastMonthStartOfDay = moment(today).subtract(1, "M").startOf("M");
-        var ranges = [
+        return [
             {
                 name: dateRangePicker.data("label-today"),
                 dates: function () {
@@ -300,147 +281,158 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
                 }
             }
         ];
-        if (dateRangePicker.data("isshowhistoricreport") === 1) {
-            ranges.push({
-                name: dateRangePicker.data("label-olderthan3months"),
-                dates: function () {
-                    return [undefined, undefined];
-                }
-            });
-        }
-        return ranges;
-    };
-    DateRangePickerJQueryComponent.prototype.getHistoricPredefinedRanges = function (dateRangePicker) {
-        return [{
-                name: dateRangePicker.data("label-backtocurrentreport"),
-                dates: function () {
-                    return [undefined, undefined];
-                }
-            }];
     };
     DateRangePickerJQueryComponent.prototype.getDateRangeValues = function () {
-        return { fromDate: this.fromDate, toDate: this.toDate, isHistoricReport: this.isHistoricReport };
+        return { fromDate: this.fromDate, toDate: this.toDate };
     };
     return DateRangePickerJQueryComponent;
 }());
 //# sourceMappingURL=daterangepicker-jquery.js.map
 "use strict";
 var ProductAndProductDetailDropdownOption = /** @class */ (function () {
-    function ProductAndProductDetailDropdownOption(products, productDetails, onDropdownHidden, selectorId) {
+    function ProductAndProductDetailDropdownOption(products, productDetails, onDropdownHidden, selectorProductId, selectorProductDetailId) {
         if (onDropdownHidden === void 0) { onDropdownHidden = Function(); }
-        if (selectorId === void 0) { selectorId = "dropdown-product"; }
+        if (selectorProductId === void 0) { selectorProductId = "dropdown-product"; }
+        if (selectorProductDetailId === void 0) { selectorProductDetailId = "dropdown-product-detail"; }
         this.products = products;
         this.productDetails = productDetails;
         this.onDropdownHidden = onDropdownHidden;
-        this.selectorId = selectorId;
+        this.selectorProductId = selectorProductId;
+        this.selectorProductDetailId = selectorProductDetailId;
         this.products = products;
         this.productDetails = productDetails;
         this.onDropdownHidden = onDropdownHidden;
-        this.selectorId = selectorId;
+        this.selectorProductId = selectorProductId;
+        this.selectorProductDetailId = selectorProductDetailId;
     }
     return ProductAndProductDetailDropdownOption;
 }());
 var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
-    function ProductAndProductDetailDropdownComponent($) {
-        this.$ = $;
+    function ProductAndProductDetailDropdownComponent() {
     }
     ProductAndProductDetailDropdownComponent.prototype.render = function (options) {
-        var _this = this;
-        var productDetailObject = this.buildProductDetailObject(options.productDetails);
-        var productList = [];
-        options.products.forEach(function (item) {
-            var isGroup = typeof item.Products !== "undefined";
-            var cssClass = isGroup ? "groupproduct" : "product";
-            var productItem = _this.buildCheckboxProduct(item, productDetailObject, cssClass);
-            if (isGroup) {
-                productItem.items = item.Products.map(function (item) { return _this.buildCheckboxProduct(item, productDetailObject); });
-            }
-            productList.push(productItem);
+        this.renderProductDetailDropdown(options);
+        this.renderProductDropdown(options);
+    };
+    ProductAndProductDetailDropdownComponent.prototype.renderProductDetailDropdown = function (options) {
+        var self = this;
+        var productDetailList = options.productDetails.map(function (item) {
+            return self.buildCheckboxItem(item, {
+                productId: item.ProductId
+            });
         });
-        var ddlProduct = this.$("#" + options.selectorId);
-        this.dropdownProduct = ddlProduct.fanexMultiSelect({
-            checkAllText: ddlProduct.data("label-selectall"),
-            selectedText: "# " + ddlProduct.data("label-selected"),
-            noneSelectedText: ddlProduct.data("label-noneselected"),
+        var dropdown = $("#" + options.selectorProductDetailId);
+        this.dropdownProductDetail = dropdown.fanexMultiSelect({
+            checkAllText: dropdown.data("label-selectall"),
+            selectedText: "# " + dropdown.data("label-selected"),
+            noneSelectedText: dropdown.data("label-noneselected"),
             useCustomCheckAllText: true,
-            customCheckAllText: ddlProduct.data("label-all") + " (#)",
+            customCheckAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
-            filterPlaceHolder: ddlProduct.data("label-filterplaceholder"),
-            noItemFoundText: ddlProduct.data("label-noitemfound"),
-            isCheckAll: true,
-            minWidth: 290,
-            //maxHeight: 250,
+            filterPlaceHolder: dropdown.data("label-filterplaceholder"),
+            noItemFoundText: dropdown.data("label-noitemfound"),
+            minWidth: 250,
+            maxHeight: 250,
             showTooltip: false,
-            listData: productList,
-            onLeave: options.onDropdownHidden
-        });
-        this.dropdownProduct.fanexMultiSelect("toggleCollapseExpandAll");
-    };
-    ProductAndProductDetailDropdownComponent.prototype.buildProductDetailObject = function (productDetails) {
-        var _this = this;
-        var productDetailObject = {};
-        productDetails.forEach(function (item) {
-            var items = productDetailObject[item.ProductId];
-            if (typeof items === "undefined") {
-                items = [];
-                productDetailObject[item.ProductId] = items;
+            listData: productDetailList,
+            onLeave: function () {
+                var productIds = self.dropdownProductDetail.fanexMultiSelect("getUncheckedProductIds");
+                if (productIds.length) {
+                    self.dropdownProduct.fanexMultiSelect("uncheck", productIds);
+                }
+                options.onDropdownHidden(self.getSelectedItems());
             }
-            items.push(_this.buildCheckboxProductDetail(item));
         });
-        return productDetailObject;
     };
-    ProductAndProductDetailDropdownComponent.prototype.buildCheckboxProduct = function (product, productDetailObject, cssClass) {
-        if (cssClass === void 0) { cssClass = "product"; }
-        var checkboxItem = this.buildCheckboxItem(product, cssClass);
-        checkboxItem.items = productDetailObject[product.Id];
-        return checkboxItem;
+    ProductAndProductDetailDropdownComponent.prototype.renderProductDropdown = function (options) {
+        var self = this;
+        var productIdWithSubProductIds = {};
+        var uncheckedProductIds = [];
+        var productList = options.products.map(function (item) {
+            var checkboxItem = self.buildCheckboxItem(item);
+            if (item.Products) {
+                var subProductIds_1 = [];
+                productIdWithSubProductIds[item.Id] = subProductIds_1;
+                checkboxItem.items = item.Products.map(function (item) {
+                    subProductIds_1.push(item.Id);
+                    item.Checked || uncheckedProductIds.push(item.Id);
+                    return self.buildCheckboxItem(item);
+                });
+            }
+            else {
+                item.Checked || uncheckedProductIds.push(item.Id);
+            }
+            return checkboxItem;
+        });
+        var dropdown = $("#" + options.selectorProductId);
+        this.dropdownProduct = dropdown.fanexMultiSelect({
+            checkAllText: dropdown.data("label-selectall"),
+            selectedText: "# " + dropdown.data("label-selected"),
+            noneSelectedText: dropdown.data("label-noneselected"),
+            useCustomCheckAllText: true,
+            customCheckAllText: dropdown.data("label-all") + " (#)",
+            showFilter: true,
+            filterPlaceHolder: dropdown.data("label-filterplaceholder"),
+            noItemFoundText: dropdown.data("label-noitemfound"),
+            minWidth: 250,
+            maxHeight: 250,
+            showTooltip: false,
+            expandGroupsByDefault: false,
+            listData: productList,
+            onCheck: function () {
+                var checked = this.checked;
+                var productId = this.value;
+                var subProductIds = productIdWithSubProductIds[productId];
+                if (subProductIds) {
+                    subProductIds.forEach(function (id) {
+                        self.handleOnCheckProduct(id, checked);
+                    });
+                }
+                else {
+                    self.handleOnCheckProduct(productId, checked);
+                }
+            },
+            onCheckAll: function () {
+                var checked = this.checked;
+                self.dropdownProductDetail.fanexMultiSelect("showAllItems", checked);
+                self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
+            },
+            onLeave: function () {
+                var productIds = self.dropdownProduct.fanexMultiSelect("getCheckedValues");
+                var isError = productIds.length === 0;
+                self.dropdownProduct.fanexMultiSelect("addError", isError);
+                isError || options.onDropdownHidden({
+                    productIds: productIds,
+                    resourceIds: self.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
+                });
+            }
+        });
+        this.initState(uncheckedProductIds);
     };
-    ProductAndProductDetailDropdownComponent.prototype.buildCheckboxProductDetail = function (product) {
-        return this.buildCheckboxItem(product, "productdetail", product.ProductId);
+    ProductAndProductDetailDropdownComponent.prototype.initState = function (uncheckedProductIds) {
+        var _this = this;
+        if (uncheckedProductIds.length) {
+            uncheckedProductIds.forEach(function (item) { return _this.handleOnCheckProduct(item, false); });
+        }
     };
-    ProductAndProductDetailDropdownComponent.prototype.buildCheckboxItem = function (item, cssClass, name) {
-        if (name === void 0) { name = undefined; }
+    ProductAndProductDetailDropdownComponent.prototype.handleOnCheckProduct = function (productId, checked) {
+        var action = checked ? "showItemsByCustomAttributes" : "hideItemsByCustomAttributes";
+        this.dropdownProductDetail.fanexMultiSelect(action, { productId: productId });
+    };
+    ProductAndProductDetailDropdownComponent.prototype.buildCheckboxItem = function (item, attributes) {
+        if (attributes === void 0) { attributes = undefined; }
         return {
-            id: cssClass + "-" + item.Id,
-            name: name,
             value: item.Id,
             text: item.Name,
-            cssClass: cssClass,
-            checked: true,
-            enable: true
+            checked: item.Checked,
+            attributes: attributes
         };
     };
     ProductAndProductDetailDropdownComponent.prototype.getSelectedItems = function () {
-        var productIds = this.getSelectedProductIds();
-        var result = this.getSelectedResourceIds();
         return {
-            productIds: this.uniqe(productIds.concat(result.parentProductIds)).join(),
-            resourceIds: result.resourceIds.join()
+            productIds: this.dropdownProduct.fanexMultiSelect("getCheckedValues"),
+            resourceIds: this.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
         };
-    };
-    ProductAndProductDetailDropdownComponent.prototype.getSelectedProductIds = function () {
-        var productIds = [];
-        this.dropdownProduct.fanexMultiSelect("getItemsByCondition", '.product > input[type="checkbox"]:checked').each(function () {
-            productIds.push(this.value);
-        });
-        return productIds;
-    };
-    ProductAndProductDetailDropdownComponent.prototype.getSelectedResourceIds = function () {
-        var parentProductIds = [];
-        var resourceIds = [];
-        this.dropdownProduct.fanexMultiSelect("getItemsByCondition", '.productdetail > input[type="checkbox"]:checked').each(function () {
-            parentProductIds.push(this.name);
-            resourceIds.push(this.value);
-        });
-        return { parentProductIds: parentProductIds, resourceIds: resourceIds, };
-    };
-    ProductAndProductDetailDropdownComponent.prototype.uniqe = function (array) {
-        var uniqeObject = {};
-        return array.filter(function (item) {
-            return uniqeObject.hasOwnProperty(item)
-                ? false
-                : (uniqeObject[item] = true);
-        });
     };
     return ProductAndProductDetailDropdownComponent;
 }());
@@ -460,14 +452,13 @@ var VisibleColumnDropdownOption = /** @class */ (function () {
     return VisibleColumnDropdownOption;
 }());
 var VisibleColumnDropdownComponent = /** @class */ (function () {
-    function VisibleColumnDropdownComponent($) {
-        this.$ = $;
+    function VisibleColumnDropdownComponent() {
     }
     VisibleColumnDropdownComponent.prototype.render = function (options) {
         var _this = this;
         var isCheckAll = true;
-        var ddlColumn = this.$("#" + options.selectorId);
-        var ddlColumnOptions = ddlColumn.find("option");
+        var dropdown = $("#" + options.selectorId);
+        var dropdownOptions = dropdown.find("option");
         var visibleColumnObject = {};
         var visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
         if (typeof visibleColumns !== "undefined") {
@@ -475,19 +466,22 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
             visibleColumnArray.forEach(function (item) {
                 visibleColumnObject[item] = true;
             });
-            isCheckAll = ddlColumnOptions.length === visibleColumnArray.length;
+            isCheckAll = dropdownOptions.length === visibleColumnArray.length;
         }
-        this.dropdownColumn = ddlColumn.fanexMultiSelect({
-            checkAllText: ddlColumn.data("label-selectall"),
-            selectedText: "# " + ddlColumn.data("label-selected"),
-            noneSelectedText: ddlColumn.data("label-noneselected"),
+        this.dropdownColumn = dropdown.fanexMultiSelect({
+            checkAllText: dropdown.data("label-selectall"),
+            selectedText: "# " + dropdown.data("label-selected"),
+            noneSelectedText: dropdown.data("label-noneselected"),
             useCustomCheckAllText: true,
-            customCheckAllText: ddlColumn.data("label-all") + " (#)",
+            customCheckAllText: dropdown.data("label-all") + " (#)",
+            showFilter: true,
+            filterPlaceHolder: dropdown.data("label-filterplaceholder"),
+            noItemFoundText: dropdown.data("label-noitemfound"),
             isCheckAll: isCheckAll,
             minWidth: 220,
-            //maxHeight: 250,
+            maxHeight: 250,
             showTooltip: false,
-            listData: ddlColumnOptions.map(function () {
+            listData: dropdownOptions.map(function () {
                 return {
                     value: this.value,
                     text: this.innerText,
@@ -498,26 +492,19 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
             }),
             onLeave: function () { return _this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden); }
         });
-        return this.getColumns();
     };
     VisibleColumnDropdownComponent.prototype.onDropdownHidden = function (visibleColumnKey, callback) {
+        var columns = this.getColumns();
         var selectedColumnsValue = [];
-        var columns = {};
-        this.dropdownColumn.fanexMultiSelect("getItemsByCondition", '.visible-column > input[type="checkbox"]').each(function () {
-            var value = this.value;
-            var checked = this.checked;
-            checked && selectedColumnsValue.push(value);
-            columns[value] = checked;
+        Object.entries(columns).forEach(function (_a) {
+            var key = _a[0], value = _a[1];
+            return value && selectedColumnsValue.push(key);
         });
         alphaReports.localStorage.set(visibleColumnKey, selectedColumnsValue.join());
         callback(columns);
     };
     VisibleColumnDropdownComponent.prototype.getColumns = function () {
-        var columns = {};
-        this.dropdownColumn.fanexMultiSelect("getItemsByCondition", '.visible-column > input[type="checkbox"]').each(function () {
-            columns[this.value] = this.checked;
-        });
-        return columns;
+        return this.dropdownColumn.fanexMultiSelect("getAllValues");
     };
     return VisibleColumnDropdownComponent;
 }());
@@ -538,9 +525,7 @@ var WeekRangeOption = /** @class */ (function () {
     return WeekRangeOption;
 }());
 var WeekRangeComponent = /** @class */ (function () {
-    function WeekRangeComponent($, moment) {
-        this.$ = $;
-        this.moment = moment;
+    function WeekRangeComponent() {
     }
     WeekRangeComponent.prototype.init = function (options) {
         this.weekRangeOption = options;
@@ -548,24 +533,24 @@ var WeekRangeComponent = /** @class */ (function () {
     };
     WeekRangeComponent.prototype.render = function (formData) {
         var _this = this;
-        this.moment.locale(this.weekRangeOption.language);
+        moment.locale(this.weekRangeOption.language);
         this.labelWeekRange.html(this.buildWeekRangeHtml(formData.fromDate, formData.toDate));
         var labelWeeks = this.labelWeekRange.find(".label-week");
         labelWeeks
             .off()
             .click(function (e) {
-            var $this = _this.$(e.target);
+            var $this = $(e.target);
             labelWeeks.removeClass("active");
             $this.addClass("active");
-            _this.weekRangeOption.onClick($this.data("fromdate"), $this.data("todate"));
+            _this.weekRangeOption.onClick({ fromDate: $this.data("fromdate"), toDate: $this.data("todate") });
         });
     };
     WeekRangeComponent.prototype.buildWeekRangeHtml = function (fromDate, toDate) {
         var weekRange = [];
-        var startDate = this.moment(fromDate);
-        var endDate = this.moment(toDate);
+        var startDate = moment(fromDate);
+        var endDate = moment(toDate);
         while (endDate.diff(startDate, "d") >= 0) {
-            var endDateStartOfWeek = this.moment(endDate).startOf("isoWeek");
+            var endDateStartOfWeek = moment(endDate).startOf("isoWeek");
             var startDateOrEndDateStartOfWeek = startDate.isBefore(endDateStartOfWeek) ? endDateStartOfWeek : startDate;
             var fromDateValue = startDateOrEndDateStartOfWeek.format(alphaReports.format.shortDateWithSlash_DatePicker);
             var toDateValue = endDate.format(alphaReports.format.shortDateWithSlash_DatePicker);
@@ -573,7 +558,7 @@ var WeekRangeComponent = /** @class */ (function () {
                 ? endDate.format(alphaReports.format.dayMonthName)
                 : startDateOrEndDateStartOfWeek.format(alphaReports.format.day) + " - " + endDate.format(alphaReports.format.dayMonthName);
             weekRange.push("<a href=\"javascript:;\" class=\"label-week\" data-fromdate=\"" + fromDateValue + "\" data-todate=\"" + toDateValue + "\">" + label + "</a>");
-            endDate = this.moment(endDateStartOfWeek).subtract(1, "d");
+            endDate = moment(endDateStartOfWeek).subtract(1, "d");
         }
         return weekRange.join("");
     };
@@ -582,59 +567,52 @@ var WeekRangeComponent = /** @class */ (function () {
 //# sourceMappingURL=week-range.js.map
 "use strict";
 var BreadcrumbLevelOption = /** @class */ (function () {
-    function BreadcrumbLevelOption(custId, custName, custLevelId, onClick, selectorId) {
+    function BreadcrumbLevelOption(breadcrumbs, onClick, selectorId) {
+        if (breadcrumbs === void 0) { breadcrumbs = []; }
         if (onClick === void 0) { onClick = Function(); }
         if (selectorId === void 0) { selectorId = "breadcrumb"; }
-        this.custId = custId;
-        this.custName = custName;
-        this.custLevelId = custLevelId;
+        this.breadcrumbs = breadcrumbs;
         this.onClick = onClick;
         this.selectorId = selectorId;
-        this.custId = custId;
-        this.custName = custName;
-        this.custLevelId = custLevelId;
+        this.breadcrumbs = breadcrumbs;
         this.onClick = onClick;
         this.selectorId = selectorId;
     }
     return BreadcrumbLevelOption;
 }());
 var BreadcrumbLevelComponent = /** @class */ (function () {
-    function BreadcrumbLevelComponent($) {
-        this.breadcrumbs = [];
-        this.$ = $;
+    function BreadcrumbLevelComponent() {
     }
     BreadcrumbLevelComponent.prototype.init = function (options) {
         this.breadcrumbLevelOption = options;
-        this.breadcrumbSelector = this.$("#" + options.selectorId);
-        this.addBreadcrumbLevel({
-            custId: options.custId,
-            custName: options.custName,
-            custLevelId: options.custLevelId
-        });
+        this.breadcrumbSelector = $("#" + options.selectorId);
+        this.render();
     };
     BreadcrumbLevelComponent.prototype.addBreadcrumbLevel = function (breadcrumbData) {
-        this.breadcrumbs.push(breadcrumbData);
+        this.breadcrumbLevelOption.breadcrumbs.push(breadcrumbData);
         this.render();
     };
     BreadcrumbLevelComponent.prototype.removeBreadcrumbLevel = function (custLevelId) {
-        this.breadcrumbs = this.breadcrumbs.filter(function (item) { return item.custLevelId >= custLevelId; });
+        this.breadcrumbLevelOption.breadcrumbs = this.breadcrumbLevelOption.breadcrumbs.filter(function (item) { return item.custLevelId >= custLevelId; });
         this.render();
+    };
+    BreadcrumbLevelComponent.prototype.getBreadcrumbs = function () {
+        return this.breadcrumbLevelOption.breadcrumbs;
     };
     BreadcrumbLevelComponent.prototype.render = function () {
         var _this = this;
-        var breadcrumbLength = this.breadcrumbs.length;
+        var breadcrumbLength = this.breadcrumbLevelOption.breadcrumbs.length;
         if (breadcrumbLength > 1) {
-            var html = this.breadcrumbs.map(function (item, index) {
+            var html = this.breadcrumbLevelOption.breadcrumbs.map(function (item, index) {
                 return index + 1 === breadcrumbLength
                     ? "<li>" + item.custName + "</li>"
                     : "<li><a class=\"upline-link\" href=\"javascript:;\" data-custid=\"" + item.custId + "\" data-custname=\"" + item.custName + "\" data-custlevelid=\"" + item.custLevelId + "\">" + item.custName + "</a></li>";
             });
             this.breadcrumbSelector
                 .html(html.join(""))
-                .removeClass("hide")
                 .find(".upline-link").off().click(function (e) {
                 e.preventDefault();
-                var $this = _this.$(e.target);
+                var $this = $(e.target);
                 $this.addClass("active");
                 _this.breadcrumbLevelOption.onClick({
                     custId: $this.data("custid"),
@@ -644,45 +622,20 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
             });
         }
         else {
-            this.breadcrumbSelector.addClass("hide").html("");
+            this.breadcrumbSelector.html("");
         }
     };
     return BreadcrumbLevelComponent;
 }());
 //# sourceMappingURL=breadcrumb-level.js.map
 "use strict";
-var CustomerLevel;
-(function (CustomerLevel) {
-    CustomerLevel[CustomerLevel["Super"] = 4] = "Super";
-    CustomerLevel[CustomerLevel["Master"] = 3] = "Master";
-    CustomerLevel[CustomerLevel["Agent"] = 2] = "Agent";
-})(CustomerLevel || (CustomerLevel = {}));
 var BaseReportView = /** @class */ (function () {
-    function BaseReportView($) {
-        this.$ = $;
+    function BaseReportView() {
     }
     BaseReportView.prototype.initReportLegend = function (legendUrl, width, height) {
-        this.$("#icon-report-legend").click(function () {
-            top.window["popupManager"].open(legendUrl, undefined, width, height, "modal-mobile-friendly");
+        $("#icon-report-legend").click(function () {
+            top.window["popupManager"].open(typeof legendUrl === "function" ? legendUrl() : legendUrl, undefined, width, height, "modal-mobile-friendly");
         });
-    };
-    BaseReportView.prototype.isNotUndefined = function (value) {
-        return !this.isUndefined(value);
-    };
-    BaseReportView.prototype.isUndefined = function (value) {
-        return typeof value === "undefined";
-    };
-    BaseReportView.prototype.formatInt = function (value) {
-        return $.fn.dataTable.render.number(",", ".", 0).display(value);
-    };
-    BaseReportView.prototype.formatDecimal = function (value) {
-        var text = $.fn.dataTable.render.number(",", ".", 2).display(Math.round(Math.abs(value) * 100) / 100);
-        return value >= 0 ? text : "-" + text;
-    };
-    BaseReportView.prototype.renderEllipsis = function (value, cutoff) {
-        return value.length > cutoff
-            ? "<span data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"" + value + "\">" + value.substr(0, cutoff) + "&#8230;</span>"
-            : value;
     };
     return BaseReportView;
 }());

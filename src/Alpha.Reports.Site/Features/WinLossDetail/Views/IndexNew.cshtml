@@ -1,25 +1,23 @@
-﻿@model WinLossDetailIndexViewModel
+﻿@model WinLossDetailNewViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Win Loss Detail Report";
+    var jsonSettings = new JsonSerializerSettings { Formatting = Formatting.None, NullValueHandling = NullValueHandling.Ignore };
 }
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/daterangepicker")
 }
 @section Scripts {
     <script type="text/javascript">
-        var productList = $.parseJSON('@Html.Raw(JsonConvert.SerializeObject(Model.Products, new JsonSerializerSettings { Formatting = Formatting.None, NullValueHandling = NullValueHandling.Ignore }))');
-        var productDetailList = $.parseJSON('@Html.Raw(JsonConvert.SerializeObject(Model.ProductDetails, new JsonSerializerSettings { Formatting = Formatting.None, NullValueHandling = NullValueHandling.Ignore }))');
+        var productList = $.parseJSON('@Html.Raw(JsonConvert.SerializeObject(Model.Products, jsonSettings))');
+        var productDetailList = $.parseJSON('@Html.Raw(JsonConvert.SerializeObject(Model.ProductDetails, jsonSettings))');
     </script>
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/daterangepicker")
-    @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
     @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WinLossDetail/Bundles/winlossdetail-new")
 }
-<div class="page-title">
-    <div class="text-title pull-left">@Model.Title</div>
-    <a href="javascript:;"><span class="icon icon-information-outline icon-report-legend" id="icon-report-legend"></span></a>
-    @TotalEnteredNonEntered.Render()
-</div>
+@ReportTitleNew.Render(Model.ViewerLevel.IsSuperLevel()
+    ? Resources.MasterWinLossDetail
+    : Model.ViewerLevel.IsMasterLevel() ? Resources.AgentWinLossDetail : Resources.MemberWinLossDetail, Model.TotalEnteredSport)
 <div class="form-inline filter">
     <div class="switch-version">
         <a href="@Url.Action("Index", $"{SiteSettings.ReportRouting}WinLossDetail")" class="btn-switch-version" target="main">
@@ -28,101 +26,37 @@
         </a>
     </div>
     @DateRangePickerJQuery.Render(Model.DateRangePickerViewModel)
-    @ProductAndProductDetailDropdownOld.Render(Model.Products, Model.ProductDetails)
     @ProductAndProductDetailDropdown.Render()
     @VisibleColumnsDropdown.Render(Model.Columns)
     <div class="label-week-box" id="labelWeekRange"></div>
 </div>
-<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tblRpt-hover hide" style="width: 100%" id="tbl-report">
-    <thead>
-        <tr>
-            <th rowspan="2" class="sorting">@Resources.Username</th>
-            <th rowspan="2" class="sorting">@Resources.FirstLastName</th>
-            <th rowspan="2" class="sorting">@Resources.BetCount</th>
-            <th rowspan="2" class="sorting">@Resources.Turnover</th>
-            <th rowspan="2" class="sorting">@Resources.NetTurnover</th>
-            <th rowspan="2" class="sorting">@Resources.GrossComm</th>
-            <th colspan="3" class="col-level">@Resources.Member</th>
-            <th colspan="3" class="col-level">@Resources.Agent</th>
-            @if (Model.ViewerLevel.IsMasterOrSuperLevel())
-            {
-                <th colspan="3" class="col-level">@Resources.Master</th>
-            }
-            @if (Model.ViewerLevel.IsSuperLevel())
-            {
-                <th colspan="3" class="col-level">@Resources.Super</th>
-            }
-            <th class="sorting" rowspan="2">@Resources.Company</th>
-        </tr>
-        <tr class="thead-row2">
-            <th class="sorting">@Resources.WinLoss</th>
-            <th class="sorting">@Resources.Comm</th>
-            <th class="sorting">@Resources.Total</th>
-            <th class="sorting">@Resources.WinLoss</th>
-            <th class="sorting">@Resources.Comm</th>
-            <th class="sorting">@Resources.Total</th>
-            @if (Model.ViewerLevel.IsMasterOrSuperLevel())
-            {
-                <th class="sorting">@Resources.WinLoss</th>
-                <th class="sorting">@Resources.Comm</th>
-                <th class="sorting">@Resources.Total</th>
-            }
-            @if (Model.ViewerLevel.IsSuperLevel())
-            {
-                <th class="sorting">@Resources.WinLoss</th>
-                <th class="sorting">@Resources.Comm</th>
-                <th class="sorting">@Resources.Total</th>
-            }
-        </tr>
-    </thead>
-    <tbody></tbody>
-    <tfoot>
-        <tr class="tbl-footer hide" id="tbl-footer">
-            <td colspan="2" class="text-right">@Resources.Total</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            @if (Model.ViewerLevel.IsMasterOrSuperLevel())
-            {
-                <td></td>
-                <td></td>
-                <td></td>
-            }
-            @if (Model.ViewerLevel.IsSuperLevel())
-            {
-                <td></td>
-                <td></td>
-                <td></td>
-            }
-            <td></td>
-        </tr>
-    </tfoot>
-</table>
-<form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("ExcelNew", $"{SiteSettings.ReportRouting}WinLossDetail")">
-    <input type="hidden" id="CustId" name="CustId" />
-    <input type="hidden" id="CustName" name="CustName" />
-    <input type="hidden" id="CustLevelId" name="CustLevelId" />
-    <input type="hidden" id="FromDate" name="FromDate" />
-    <input type="hidden" id="ToDate" name="ToDate" />
-    <input type="hidden" id="ProductIds" name="ProductIds" />
-    <input type="hidden" id="ResourceIds" name="ResourceIds" />
-    <input type="hidden" id="IsHistoricReport" name="IsHistoricReport" />
-</form>
+<div class="breadcrumb-table">
+    <div class="breadcrumb-container">
+        <ul class="breadcrumb" id="breadcrumb"></ul>
+    </div>
+    <div class="list-icon">
+        <ul>
+            <li>
+                <a href="javacript:;"
+                   id="icon-excel"
+                   class="icon icon-excel"
+                   title="@Resources.ExportToExcel"
+                   data-url="@Url.Action("ExcelNew", $"{SiteSettings.ReportRouting}WinLossDetail")"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div style="visibility:hidden" id="tbl-report-container">
+    @Html.Partial("~/Features/WinLossDetail/Views/ReportDataNew.cshtml", Model)
+</div>
 <input type="hidden" id="hiddenViewerId" value="@Model.ViewerId" />
 <input type="hidden" id="hiddenViewerName" value="@Model.ViewerName" />
 <input type="hidden" id="hiddenViewerLevel" value="@Model.ViewerLevel.Value" />
 <input type="hidden" id="hiddenSubAccId" value="@Model.SubAccId" />
-<input type="hidden" id="hiddenLegendUrl" value="@Url.Action("ReportLegendNew", $"{SiteSettings.ReportRouting}WinLossDetail", new { IsSupportHistoricReport = true, IsHistoricReport = Model.IsHistoricReport, MinDate = Model.DateRangePickerViewModel.MinDate })" />
+<input type="hidden" id="hiddenCustId" value="@Model.CustId" />
+<input type="hidden" id="hiddenCustName" value="@Model.CustName" />
+<input type="hidden" id="hiddenCustLevel" value="@Model.CustLevel.Value" />
+<input type="hidden" id="hiddenLegendUrl" value="@Url.Action("ReportLegendNew", $"{SiteSettings.ReportRouting}WinLossDetail", new { IsSupportHistoricReport = true, MinDate = Model.DateRangePickerViewModel.MinDate })" />
 <input type="hidden" id="hiddenWinLossDetailUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WinLossDetail")" />
-<input type="hidden" id="hiddenCanViewBetLists" value="@(Model.CanViewBetLists ? 1 : 0)" />
 <input type="hidden" id="hiddenBetListsUrl" value="@Model.BetListsUrl" />
-<input type="hidden" id="hiddenNoInformationText" value="@Resources.NoInformationIsAvailable" />
-<input type="hidden" id="hiddenExportToExcelText" value="@Resources.ExportToExcel" />
+<input type="hidden" id="hiddenBreadcrumbLevelJson" value="@Model.BreadcrumbLevelJson" />

@@ -657,10 +657,12 @@ table.dataTable {
     width: 100%;
     overflow-x: scroll;
 }
+
 // Customize tooltip
 .tooltip {
     background: none;
     border: 0;
+
     &.in {
         opacity: 1;
     }

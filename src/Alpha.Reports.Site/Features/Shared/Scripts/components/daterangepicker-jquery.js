@@ -11,69 +11,46 @@ var DateRangePickerJQueryOption = /** @class */ (function () {
     return DateRangePickerJQueryOption;
 }());
 var DateRangePickerJQueryComponent = /** @class */ (function () {
-    function DateRangePickerJQueryComponent($) {
-        this.isHistoricReport = false;
-        this.$ = $;
+    function DateRangePickerJQueryComponent() {
     }
     DateRangePickerJQueryComponent.prototype.render = function (options) {
-        this.renderDateRangePicker(this.$("#" + options.selectorId), options);
-    };
-    DateRangePickerJQueryComponent.prototype.renderDateRangePicker = function (dateRangePicker, options, raiseOnClosedEvent) {
         var _this = this;
-        if (raiseOnClosedEvent === void 0) { raiseOnClosedEvent = false; }
-        var olderThan3Months = dateRangePicker.data("label-olderthan3months");
-        var backToCurrentReport = dateRangePicker.data("label-backtocurrentreport");
+        var dateRangePicker = $("#" + options.selectorId);
+        var historicPivotDate = moment(dateRangePicker.data("historicpivotdate"));
+        this.fromDate = dateRangePicker.data("fromdate");
+        this.toDate = dateRangePicker.data("todate");
         dateRangePicker
-            .dateRangePicker(this.getDateRangeOptions(dateRangePicker, options))
-            .bind("datepicker-change", function (_, obj) {
-            if (obj.value === olderThan3Months || obj.value === backToCurrentReport) {
-                _this.isHistoricReport = obj.value === olderThan3Months;
-                dateRangePicker.off();
-                dateRangePicker.data("dateRangePicker").destroy();
-                _this.renderDateRangePicker(dateRangePicker, options, true);
-            }
-            else {
-                _this.fromDate = moment(obj.date1).format(alphaReports.format.shortDateWithSlash_DatePicker);
-                _this.toDate = moment(obj.date2).format(alphaReports.format.shortDateWithSlash_DatePicker);
-            }
-        }).bind("datepicker-closed", function () {
-            options.onClosed();
-        }).data("dateRangePicker").setDateRange(this.fromDate, this.toDate, false);
-        raiseOnClosedEvent && options.onClosed();
-    };
-    DateRangePickerJQueryComponent.prototype.getDateRangeOptions = function (dateRangePicker, options) {
-        var dateRangeOptions;
-        if (this.isHistoricReport) {
-            var today = moment(dateRangePicker.data("currentdate"));
-            this.fromDate = moment(today).startOf("M").format(alphaReports.format.shortDateWithSlash_DatePicker);
-            this.toDate = today.format(alphaReports.format.shortDateWithSlash_DatePicker);
-            dateRangeOptions = {
-                startDate: dateRangePicker.data("historicmindate"),
-                endDate: moment(today).endOf("M").format(alphaReports.format.shortDateWithSlash_DatePicker),
-                customShortcuts: this.getHistoricPredefinedRanges(dateRangePicker),
-                maxDays: 31,
-                monthSelect: true,
-                yearSelect: true
-            };
-        }
-        else {
-            this.fromDate = dateRangePicker.data("fromdate");
-            this.toDate = dateRangePicker.data("todate");
-            dateRangeOptions = {
-                startDate: dateRangePicker.data("mindate"),
-                endDate: dateRangePicker.data("maxdate"),
-                customShortcuts: this.getPredefinedRanges(dateRangePicker)
-            };
-        }
-        return this.$.extend({
+            .dateRangePicker({
             format: alphaReports.format.shortDateWithSlash_DatePicker,
             separator: " - ",
             language: "en",
+            startDate: dateRangePicker.data("mindate"),
+            endDate: dateRangePicker.data("maxdate"),
             showShortcuts: true,
             shortcuts: null,
+            customShortcuts: this.getPredefinedRanges(dateRangePicker),
             duration: 0,
-            singleMonth: true
-        }, dateRangeOptions);
+            singleMonth: true,
+            monthSelect: true,
+            yearSelect: true
+        }).bind("datepicker-change", function (_, obj) {
+            var startDate = moment(obj.date1);
+            var endDate = moment(obj.date2);
+            if (endDate.isBefore(historicPivotDate) && endDate.diff(startDate, "d") > 30) {
+                alert("Out of date range: from and to is between 31 days.");
+                dateRangePicker.data("dateRangePicker").setDateRange(_this.fromDate, _this.toDate, false);
+                return;
+            }
+            if (startDate.isBefore(historicPivotDate) && endDate.isSameOrAfter(historicPivotDate)) {
+                alert("Out of date range: gap between normal and history mode.");
+                dateRangePicker.data("dateRangePicker").setDateRange(_this.fromDate, _this.toDate, false);
+                return;
+            }
+            _this.fromDate = startDate.format(alphaReports.format.shortDateWithSlash_DatePicker);
+            _this.toDate = endDate.format(alphaReports.format.shortDateWithSlash_DatePicker);
+        })
+            .bind("datepicker-closed", function () { return options.onClosed(_this.getDateRangeValues()); })
+            .data("dateRangePicker").setDateRange(this.fromDate, this.toDate, false);
     };
     DateRangePickerJQueryComponent.prototype.getPredefinedRanges = function (dateRangePicker) {
         var minDate = moment(dateRangePicker.data("mindate"));
@@ -82,7 +59,7 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
         var yesterday = moment(today).subtract(1, "d");
         var thisWeekStartOfDay = moment(today).startOf("isoWeek");
         var lastMonthStartOfDay = moment(today).subtract(1, "M").startOf("M");
-        var ranges = [
+        return [
             {
                 name: dateRangePicker.data("label-today"),
                 dates: function () {
@@ -133,26 +110,9 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
                 }
             }
         ];
-        if (dateRangePicker.data("isshowhistoricreport") === 1) {
-            ranges.push({
-                name: dateRangePicker.data("label-olderthan3months"),
-                dates: function () {
-                    return [undefined, undefined];
-                }
-            });
-        }
-        return ranges;
-    };
-    DateRangePickerJQueryComponent.prototype.getHistoricPredefinedRanges = function (dateRangePicker) {
-        return [{
-                name: dateRangePicker.data("label-backtocurrentreport"),
-                dates: function () {
-                    return [undefined, undefined];
-                }
-            }];
     };
     DateRangePickerJQueryComponent.prototype.getDateRangeValues = function () {
-        return { fromDate: this.fromDate, toDate: this.toDate, isHistoricReport: this.isHistoricReport };
+        return { fromDate: this.fromDate, toDate: this.toDate };
     };
     return DateRangePickerJQueryComponent;
 }());
