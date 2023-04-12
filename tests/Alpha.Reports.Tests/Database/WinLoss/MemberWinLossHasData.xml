@@ -9,8 +9,6 @@
     <MemberComm>3</MemberComm>
     <AgWinLoss>4</AgWinLoss>
     <AgComm>5</AgComm>
-    <FirstName></FirstName>
-    <LastName></LastName>
   </TableWinLoss>
   <TableWinLoss>
     <CustId>2</CustId>
@@ -21,7 +19,5 @@
     <MemberComm>9</MemberComm>
     <AgWinLoss>10</AgWinLoss>
     <AgComm>11</AgComm>
-    <FirstName></FirstName>
-    <LastName></LastName>
   </TableWinLoss>
 </WinLoss>

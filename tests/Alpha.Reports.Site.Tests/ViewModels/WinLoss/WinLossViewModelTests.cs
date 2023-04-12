@@ -125,7 +125,7 @@
             message.IsHistoricReport = false;
             var winlossParam = new WinLossParam(1, 1, string.Empty, 1, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, new List<int> { 1 }, UserLevel.Agent, false, string.Empty);
             var winlossViewModel = CreateWinLossViewModel(message, winlossParam);
-            var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null, null, null);
+            var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
             var expectedRouteValues = new Dictionary<string, object>
@@ -168,7 +168,7 @@
                             Enumerable.Empty<GroupProductViewModel>(),
                             Enumerable.Empty<ProductDetailViewModel>(),
                             null);
-            var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null, null, null);
+            var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
             // Act

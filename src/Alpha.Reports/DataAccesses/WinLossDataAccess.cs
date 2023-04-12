@@ -54,9 +54,7 @@
                  memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")) : null,
                  agentNetWinLoss: NetWinLoss.ReadAgentNetWinLoss(reader, reportLevel),
                  masterNetWinLoss: NetWinLoss.ReadMasterNetWinLoss(reader, reportLevel),
-                 superNetWinLoss: NetWinLoss.ReadSuperNetWinLoss(reader, reportLevel),
-                 firstName: reader.ToString("firstname"),
-                 lastName: reader.ToString("lastname"));
+                 superNetWinLoss: NetWinLoss.ReadSuperNetWinLoss(reader, reportLevel));
 
             return winLoss;
         }

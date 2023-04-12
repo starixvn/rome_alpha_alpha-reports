@@ -43,7 +43,7 @@
                 memberNetWinLoss: null,
                 agentNetWinLoss: null,
                 masterNetWinLoss: new NetWinLoss(5, (decimal)0.2),
-                superNetWinLoss: new NetWinLoss((decimal)5.2), firstName: null, lastName: null);
+                superNetWinLoss: new NetWinLoss((decimal)5.2));
 
             var winLoss = new WinLossModel(
                 custId: 1266,
@@ -53,7 +53,7 @@
                 memberNetWinLoss: null,
                 agentNetWinLoss: null,
                 masterNetWinLoss: new NetWinLoss(5, (decimal)0.2),
-                superNetWinLoss: new NetWinLoss((decimal)5.2), firstName: null, lastName: null);
+                superNetWinLoss: new NetWinLoss((decimal)5.2));
 
             var expectedWinLoss = new WinLossModel(
                 custId: 1265,
@@ -63,7 +63,7 @@
                 memberNetWinLoss: null,
                 agentNetWinLoss: null,
                 masterNetWinLoss: new NetWinLoss(10, (decimal)0.4),
-                superNetWinLoss: new NetWinLoss((decimal)10.4), firstName: null, lastName: null);
+                superNetWinLoss: new NetWinLoss((decimal)10.4));
 
             // Act
             var actuaWinLoss = currentWinLoss.Add(winLoss);

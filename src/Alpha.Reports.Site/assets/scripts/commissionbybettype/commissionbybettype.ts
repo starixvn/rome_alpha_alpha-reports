@@ -39,10 +39,7 @@ class CommissionByBettype extends BaseReport {
             parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
             true,
             this.sorter.afterSort,
-            {
-                0: { sorter: "text" },
-                1: { sorter: "text" }
-            }));
+            { 0: { sorter: "text" } }));
         this.$tableReport.stickyTableHeaders();
 
         this.initHelp();

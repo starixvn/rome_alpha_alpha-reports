@@ -14,9 +14,7 @@
             NetWinLoss memberNetWinLoss,
             NetWinLoss agentNetWinLoss,
             NetWinLoss masterNetWinLoss,
-            NetWinLoss superNetWinLoss,
-            string firstName,
-            string lastName)
+            NetWinLoss superNetWinLoss)
         {
             CustId = custId;
             CustName = custName;
@@ -26,8 +24,6 @@
             AgentNetWinLoss = agentNetWinLoss;
             MasterNetWinLoss = masterNetWinLoss;
             SuperNetWinLoss = superNetWinLoss;
-            FirstName = firstName;
-            LastName = lastName;
         }
 
         public int CustId { get; }
@@ -45,10 +41,6 @@
         public NetWinLoss MasterNetWinLoss { get; private set; }
 
         public NetWinLoss SuperNetWinLoss { get; private set; }
-
-        public string FirstName { get; }
-
-        public string LastName { get; }
 
         public decimal Company
         {

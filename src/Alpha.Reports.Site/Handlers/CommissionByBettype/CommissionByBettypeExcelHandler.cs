@@ -58,12 +58,11 @@
         {
             var mapper = new Mapper<CommissionByBettypeModel>()
                 .Map(Column.A, commission => isTotal ? Resources.Total : commission.CustName)
-                .Map(Column.B, commission => isTotal ? string.Empty : GetFirstLastName(commission.FirstName, commission.LastName))
-                .Map(Column.C, commission => commission.Comm1)
-                .Map(Column.D, commission => commission.Comm2)
-                .Map(Column.E, commission => commission.Comm3)
-                .Map(Column.F, commission => commission.MyanmarOddsComm)
-                .Map(Column.G, commission => commission.CasinoComm);
+                .Map(Column.B, commission => commission.Comm1)
+                .Map(Column.C, commission => commission.Comm2)
+                .Map(Column.D, commission => commission.Comm3)
+                .Map(Column.E, commission => commission.MyanmarOddsComm)
+                .Map(Column.F, commission => commission.CasinoComm);
 
             return mapper;
         }

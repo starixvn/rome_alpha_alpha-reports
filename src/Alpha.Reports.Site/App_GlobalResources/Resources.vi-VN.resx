@@ -953,7 +953,4 @@
   <data name="OlderThan3Months" xml:space="preserve">
     <value>Lâu hơn 3 tháng</value>
   </data>
-  <data name="FirstLastName" xml:space="preserve">
-    <value>Tên/ Họ</value>
-  </data>
 </root>

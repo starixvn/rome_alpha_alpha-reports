@@ -8,8 +8,6 @@
     <MAgTotal>2</MAgTotal>
     <SAgWinLoss>3</SAgWinLoss>
     <SAgComm>4</SAgComm>
-    <FirstName></FirstName>
-    <LastName></LastName>
   </TableWinLoss>
   <TableWinLoss>
     <CustId>2</CustId>
@@ -19,7 +17,5 @@
     <MAgTotal>7</MAgTotal>
     <SAgWinLoss>8</SAgWinLoss>
     <SAgComm>9</SAgComm>
-    <FirstName></FirstName>
-    <LastName></LastName>
   </TableWinLoss>
 </WinLoss>

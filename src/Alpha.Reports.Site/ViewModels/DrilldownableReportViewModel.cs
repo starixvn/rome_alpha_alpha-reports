@@ -55,20 +55,5 @@
         protected abstract IDictionary<string, object> GetDownlineLinkRouteValues(T model);
 
         protected abstract IDictionary<string, object> GetBetListLinkRouteValues(T model);
-
-        public string GetFirstLastName(string firstName, string lastName)
-        {
-            if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName))
-            {
-                return string.Empty;
-            }
-
-            if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastName))
-            {
-                return $"{firstName}/ {lastName}";
-            }
-
-            return $"{firstName}{lastName}";
-        }
     }
 }

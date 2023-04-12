@@ -928,7 +928,4 @@
   <data name="OlderThan3Months" xml:space="preserve">
     <value>มากกว่า 3 เดือน</value>
   </data>
-  <data name="FirstLastName" xml:space="preserve">
-    <value>ชื่อ/ นามสุกล</value>
-  </data>
 </root>
