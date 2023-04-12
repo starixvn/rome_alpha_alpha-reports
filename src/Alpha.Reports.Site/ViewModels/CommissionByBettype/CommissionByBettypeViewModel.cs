@@ -72,7 +72,7 @@
 
         public int GetNumCols()
         {
-            int numCols = 6;
+            int numCols = 7;
             if (ShowMyanmarOddsColumn)
             {
                 numCols++;

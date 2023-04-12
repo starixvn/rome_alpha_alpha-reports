@@ -27,10 +27,10 @@
             // Arrange
             var reportData = new List<WinLossModel>
             {
-                new WinLossModel(1, "CustName", 1, 1, null, null, null, null)
+                new WinLossModel(1, "CustName", 1, 1, null, null, null, null, null, null)
             };
 
-            var expectedGrandTotal = new WinLossModel(0, null, 1, 1, null, null, null, null);
+            var expectedGrandTotal = new WinLossModel(0, null, 1, 1, null, null, null, null, null, null);
 
             // Act
             var actualGrandTotal = handler.AccumulateGrandTotal(reportData);

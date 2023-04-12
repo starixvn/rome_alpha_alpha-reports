@@ -137,7 +137,10 @@ class WinLossView extends BaseReport {
             canSort,
             true,
             this.sortComponent.afterSort,
-            { 0: { sorter: "text" } }));
+            {
+                0: { sorter: "text" },
+                1: { sorter: "text" }
+            }));
     };
 
     public registerEvents() {

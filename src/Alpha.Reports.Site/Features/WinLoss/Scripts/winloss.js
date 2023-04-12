@@ -83,7 +83,10 @@ var WinLossView = /** @class */ (function (_super) {
         };
         _this.bindSorting = function () {
             var canSort = parseInt(_this.$tableReport.data("totalrecords"), 0) > 1;
-            _this.sortComponent.render(new SortOption(_this.$tableReport, canSort, true, _this.sortComponent.afterSort, { 0: { sorter: "text" } }));
+            _this.sortComponent.render(new SortOption(_this.$tableReport, canSort, true, _this.sortComponent.afterSort, {
+                0: { sorter: "text" },
+                1: { sorter: "text" }
+            }));
         };
         _this.onFilterEvent = function () {
             var currentHideState = _this.$reportForm.hasClass("hide");

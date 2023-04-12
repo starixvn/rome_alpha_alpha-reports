@@ -853,6 +853,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to First/ Last Name.
+        /// </summary>
+        public static string FirstLastName {
+            get {
+                return ResourceManager.GetString("FirstLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accumulated Total = Opening Balance + Win/Loss + Commission + Transfer Amt.
         /// </summary>
         public static string Formular_Accumulated_Total {

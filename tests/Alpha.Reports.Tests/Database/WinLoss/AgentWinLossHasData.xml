@@ -8,6 +8,8 @@
     <AgTotal>2</AgTotal>
     <MAgWinLoss>3</MAgWinLoss>
     <MAgComm>4</MAgComm>
+    <FirstName></FirstName>
+    <LastName></LastName>
   </TableWinLoss>
   <TableWinLoss>
     <CustId>2</CustId>
@@ -17,5 +19,7 @@
     <AgTotal>7</AgTotal>
     <MAgWinLoss>8</MAgWinLoss>
     <MAgComm>9</MAgComm>
+    <FirstName></FirstName>
+    <LastName></LastName>
   </TableWinLoss>
 </WinLoss>
