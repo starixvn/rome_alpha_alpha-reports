@@ -5,7 +5,7 @@
 @helper Render(string title, EnteredSportResult enteredSportResult)
 {
     var hasNonEnteredYerterday = enteredSportResult.EnteredSportYesterday.NonEntered > 0;
-    <div class="page-title">
+    <div class="page-title page-title-entered">
         <div class="text-title pull-left">@title</div>
         <a href="javascript:;"><span class="icon icon-information-outline icon-report-legend" id="icon-report-legend"></span></a>
         <div class="entered-non-entered">

@@ -107,6 +107,14 @@ a {
   display: table;
   width: 100%;
   position: relative; }
+  .page-title-entered {
+    display: flex;
+    flex-wrap: wrap; }
+    .page-title-entered .entered-non-entered {
+      order: 1;
+      width: 100%; }
+    .page-title-entered > * {
+      order: 2; }
   .page-title .hidefilter-element {
     display: none; }
   .page-title.hide-filter .showfilter-element {
