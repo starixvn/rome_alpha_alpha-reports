@@ -108,6 +108,13 @@ a {
 }
 
 // Tables
+.wrapper-table-scrollable {
+    position: relative;
+
+    .scrollable {
+        position: unset !important;
+    }
+}
 .scrollable {
     overflow: auto;
 }

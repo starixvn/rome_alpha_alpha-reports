@@ -46,8 +46,10 @@
         </ul>
     </div>
 </div>
-<div style="visibility:hidden" id="tbl-report-container" class="scrollable">
-    @Html.Partial("~/Features/WinLossDetail/Views/ReportDataNew.cshtml", Model)
+<div class="wrapper-table-scrollable">
+    <div style="visibility:hidden" id="tbl-report-container" class="scrollable">
+        @Html.Partial("~/Features/WinLossDetail/Views/ReportDataNew.cshtml", Model)
+    </div>
 </div>
 <input type="hidden" id="hiddenViewerId" value="@Model.ViewerId" />
 <input type="hidden" id="hiddenViewerName" value="@Model.ViewerName" />

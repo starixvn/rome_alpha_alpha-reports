@@ -108,6 +108,13 @@ a {
 }
 
 // Tables
+.wrapper-table-scrollable {
+    position: relative;
+
+    .scrollable {
+        position: unset !important;
+    }
+}
 .scrollable {
     overflow: auto;
 }
@@ -610,7 +617,7 @@ a {
             float: left;
             width: auto;
         }
-    }    
+    }
 }
 
 @media only screen and (max-device-width : $screen-device-lower768) and (orientation: portrait) {

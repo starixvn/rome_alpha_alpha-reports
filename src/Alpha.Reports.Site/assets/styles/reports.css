@@ -152,6 +152,11 @@ a {
   .page-title .icon-report-legend {
     margin: 10px 10px 0 10px; }
 
+.wrapper-table-scrollable {
+  position: relative; }
+  .wrapper-table-scrollable .scrollable {
+    position: unset !important; }
+
 .scrollable {
   overflow: auto; }
 
