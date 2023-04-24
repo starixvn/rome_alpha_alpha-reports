@@ -24,20 +24,6 @@ a {
     width: 100%;
     position: relative;
 
-    &-entered {
-        display: flex;
-        flex-wrap: wrap;
-
-        .entered-non-entered {
-            order: 1;
-            width: 100%;
-        }
-
-        > * {
-            order: 2;
-        }
-    }
-
     .hidefilter-element {
         display: none;
     }
@@ -580,6 +566,25 @@ a {
 
     .table-container {
         padding-top: 20px;
+    }
+    .page-title {
+        display: table;
+        width: 100%;
+        position: relative;
+
+        &-entered {
+            display: flex;
+            flex-wrap: wrap;
+
+            .entered-non-entered {
+                order: 1;
+                width: 100%;
+            }
+
+            > * {
+                order: 2;
+            }
+        }
     }
 }
 

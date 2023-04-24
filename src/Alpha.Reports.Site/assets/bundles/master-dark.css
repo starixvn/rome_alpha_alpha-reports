@@ -107,14 +107,6 @@ a {
   display: table;
   width: 100%;
   position: relative; }
-  .page-title-entered {
-    display: flex;
-    flex-wrap: wrap; }
-    .page-title-entered .entered-non-entered {
-      order: 1;
-      width: 100%; }
-    .page-title-entered > * {
-      order: 2; }
   .page-title .hidefilter-element {
     display: none; }
   .page-title.hide-filter .showfilter-element {
@@ -546,7 +538,19 @@ a {
     .tooltip.bottom {
       padding-bottom: 0; }
   .table-container {
-    padding-top: 20px; } }
+    padding-top: 20px; }
+  .page-title {
+    display: table;
+    width: 100%;
+    position: relative; }
+    .page-title-entered {
+      display: flex;
+      flex-wrap: wrap; }
+      .page-title-entered .entered-non-entered {
+        order: 1;
+        width: 100%; }
+      .page-title-entered > * {
+        order: 2; } }
 
 @media only screen and (max-device-width: 767px) and (orientation: landscape) {
   .filter .daterange-picker {
