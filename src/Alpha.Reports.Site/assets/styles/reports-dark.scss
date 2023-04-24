@@ -122,6 +122,9 @@ a {
 }
 
 // Tables
+.scrollable {
+    overflow: auto;
+}
 #tbl-report {
     text-align: right;
 

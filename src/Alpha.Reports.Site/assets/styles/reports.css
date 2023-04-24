@@ -160,6 +160,9 @@ a {
   .page-title .icon-report-legend {
     margin: 10px 10px 0 10px; }
 
+.scrollable {
+  overflow: auto; }
+
 #tbl-report, #tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
   text-align: right; }
   #tbl-report .visible-stack-mode, #tbl-enteredresult-report .visible-stack-mode, .tbl-outstanding .visible-stack-mode, .tbl-small-width .visible-stack-mode {
