@@ -113,13 +113,7 @@ class ProductAndProductDetailDropdownComponent {
                 self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
             },
             onLeave: function () {
-                const productIds = self.dropdownProduct.fanexMultiSelect("getCheckedValues");
-                const isError = productIds.length === 0;
-                self.dropdownProduct.fanexMultiSelect("addError", isError);
-                isError || options.onDropdownHidden({
-                    productIds,
-                    resourceIds: self.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
-                });
+                options.onDropdownHidden(self.getSelectedItems());
             }
         });
 
@@ -147,9 +141,12 @@ class ProductAndProductDetailDropdownComponent {
     }
 
     getSelectedItems() {
-        return {
+        const productsAndResources = {
             productIds: this.dropdownProduct.fanexMultiSelect("getCheckedValues"),
             resourceIds: this.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
         };
+
+        this.dropdownProduct.fanexMultiSelect("addError", productsAndResources.productIds.length === 0);
+        return productsAndResources;
     }
 }

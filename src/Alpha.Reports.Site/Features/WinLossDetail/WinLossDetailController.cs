@@ -10,11 +10,7 @@
     [AllowProtectedMode]
     public class WinLossDetailController : ReportBaseController
     {
-        private const string IndexPath = "~/Features/WinLossDetail/Views/Index.cshtml";
-        private const string ReportLegendPath = "~/Features/WinLossDetail/Views/ReportLegend.cshtml";
-        private const string IndexNewPath = "~/Features/WinLossDetail/Views/IndexNew.cshtml";
-        private const string GetDataNewPath = "~/Features/WinLossDetail/Views/ReportDataNew.cshtml";
-        private const string ReportLegendNewPath = "~/Features/WinLossDetail/Views/ReportLegendNew.cshtml";
+        private const string BasePath = "~/Features/WinLossDetail/Views";
 
         public WinLossDetailController(IMediator mediator) : base(mediator)
         {
@@ -24,28 +20,28 @@
         [Route("winlossdetail/agent")]
         [Route("winlossdetail/member")]
         public ActionResult Index(WinLossDetailQuery message)
-            => View<WinLossDetailViewModel>(IndexPath, message);
+            => View<WinLossDetailViewModel>($"{BasePath}/{nameof(Index)}.cshtml", message);
 
         [HttpGet]
         public ActionResult Excel(WinLossDetailExcelQuery message)
             => ExcelView(message);
 
         public ActionResult ReportLegend(ReportLegendQuery message)
-            => View(ReportLegendPath, message);
+            => View($"{BasePath}/{nameof(ReportLegend)}.cshtml", message);
 
         [Route("winlossdetail/masternew")]
         [Route("winlossdetail/agentnew")]
         [Route("winlossdetail/membernew")]
         public Task<ActionResult> IndexNew(WinLossDetailNewQuery message)
-            => ViewAsync(IndexNewPath, message);
+            => ViewAsync<WinLossDetailNewViewModel>($"{BasePath}/{nameof(IndexNew)}.cshtml", message);
 
-        public Task<ActionResult> GetData(WinLossDetailNewQuery message)
-            => ViewAsync(GetDataNewPath, message);
+        public Task<ActionResult> GetData(WinLossDetailGetDataQuery message)
+            => ViewAsync($"{BasePath}/ReportDataNew.cshtml", message);
 
         public Task<FileContentResult> ExcelNew(WinLossDetailExcelNewQuery message)
             => ExcelViewAsync(message);
 
-        public Task<ActionResult> ReportLegendNew(ReportLegendNewQuery message)
-            => ViewAsync(ReportLegendNewPath, message);
+        public ActionResult ReportLegendNew(ReportLegendQuery message)
+            => View($"{BasePath}/{nameof(ReportLegendNew)}.cshtml", message);
     }
 }

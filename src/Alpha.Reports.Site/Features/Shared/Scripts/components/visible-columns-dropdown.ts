@@ -7,9 +7,11 @@ interface Object {
 class VisibleColumnDropdownOption {
     constructor(
         public visibleColumnKey,
+        public listColumn,
         public onDropdownHidden = Function(),
         public selectorId = "dropdown-column") {
         this.visibleColumnKey = visibleColumnKey;
+        this.listColumn = listColumn;
         this.onDropdownHidden = onDropdownHidden;
         this.selectorId = selectorId;
     }
@@ -21,7 +23,6 @@ class VisibleColumnDropdownComponent {
     render(options: VisibleColumnDropdownOption) {
         let isCheckAll = true;
         const dropdown = $("#" + options.selectorId);
-        const dropdownOptions = dropdown.find("option");
 
         const visibleColumnObject = {};
         const visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
@@ -30,7 +31,7 @@ class VisibleColumnDropdownComponent {
             visibleColumnArray.forEach(function (item) {
                 visibleColumnObject[item] = true;
             });
-            isCheckAll = dropdownOptions.length === visibleColumnArray.length;
+            isCheckAll = options.listColumn.length === visibleColumnArray.length;
         }
 
         this.dropdownColumn = dropdown.fanexMultiSelect({
@@ -46,13 +47,11 @@ class VisibleColumnDropdownComponent {
             minWidth: 220,
             maxHeight: 250,
             showTooltip: false,
-            listData: dropdownOptions.map(function () {
+            listData: options.listColumn.map(function (item) {
                 return {
-                    value: this.value,
-                    text: this.innerText,
-                    cssClass: "visible-column",
-                    checked: isCheckAll || visibleColumnObject.hasOwnProperty(this.value),
-                    enable: true
+                    value: item.value,
+                    text: item.text,
+                    checked: isCheckAll || visibleColumnObject.hasOwnProperty(item.value)
                 };
             }),
             onLeave: () => this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden)

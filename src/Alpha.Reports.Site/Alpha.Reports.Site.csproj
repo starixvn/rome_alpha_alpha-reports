@@ -781,7 +781,6 @@
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailBaseHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcelHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailHandler.cs" />
-    <Compile Include="Features\WinLossDetail\Requests\ReportLegendNewQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcelNewQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailGetDataQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailNewQuery.cs" />

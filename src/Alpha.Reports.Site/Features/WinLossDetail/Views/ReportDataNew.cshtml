@@ -1,10 +1,13 @@
-﻿@model WinLossDetailNewViewModel
+﻿@model WinLossDetailGetDataViewModel
 @{
     var custLevelIsMasterOrSuperLevel = Model.CustLevel.IsMasterOrSuperLevel();
     var custLevelIsSuperLevel = Model.CustLevel.IsSuperLevel();
     var custLevelIsAgentLevel = Model.CustLevel.IsAgentLevel();
     var custLevelDirectDownlineLevelValue = Model.CustLevel.GetDirectDownLineLevel().Value;
     var theadIndex = 0;
+    var totalColumns = custLevelIsSuperLevel
+        ? 19
+        : Model.CustLevel.IsMasterLevel() ? 16 : 13;
 }
 <table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover"
        id="tbl-report"
@@ -15,23 +18,23 @@
        data-non-entered-today="@Model.TotalEnteredSport.EnteredSportToday.NonEntered">
     <thead>
         <tr>
-            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)">@Resources.Username</th>
+            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="username">@Resources.Username</th>
             <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="fullname">@Resources.FirstLastName</th>
             <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="betcount">@Resources.BetCount</th>
             <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="turnover">@Resources.Turnover</th>
             <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="netturnover">@Resources.NetTurnover</th>
             <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="grosscomm">@Resources.GrossComm</th>
-            <th colspan="3" class="col-level" id="groupColumnMember">@Resources.Member</th>
-            <th colspan="3" class="col-level" id="groupColumnAgent">@Resources.Agent</th>
+            <th colspan="3" id="groupColumnMember">@Resources.Member</th>
+            <th colspan="3" id="groupColumnAgent">@Resources.Agent</th>
             @if (custLevelIsMasterOrSuperLevel)
             {
-                <th colspan="3" class="col-level" id="groupColumnMaster">@Resources.Master</th>
+                <th colspan="3" id="groupColumnMaster">@Resources.Master</th>
             }
             @if (custLevelIsSuperLevel)
             {
-                <th colspan="3" class="col-level" id="groupColumnSuper">@Resources.Super</th>
+                <th colspan="3" id="groupColumnSuper">@Resources.Super</th>
             }
-            <th rowspan="2" class="sorting" data-colindex="-1"  data-colname="company">@Resources.Company</th>
+            <th rowspan="2" class="sorting" data-colindex="@(totalColumns - 1)"  data-colname="company">@Resources.Company</th>
         </tr>
         <tr class="thead-row2">
             <th class="sorting" data-colindex="@(theadIndex++)" data-colname="pwinloss">@Resources.WinLoss</th>
@@ -68,9 +71,6 @@
     }
     else
     {
-        var totalColumns = custLevelIsSuperLevel
-            ? 18
-            : Model.CustLevel.IsMasterLevel() ? 15 : 12;
         @NoInformation.Render(colspan: totalColumns)
     }
 </table>
@@ -100,15 +100,15 @@
             </td>
             <td class="text-left" data-colname="fullname">@HtmlHelpers.ShowTextEllipsis(data.FullName, 12)</td>
         }
-        <td class="col-number-of-tickets" data-colname="betcount">@HtmlHelpers.FormatNumber(data.BetCount)</td>
-        @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover", "turnover")
-        @HtmlHelpers.RenderNumberCell(data.NetTurnover, "col-net-turnover", "netturnover")
-        @HtmlHelpers.RenderNumberCell(data.GrossComm, "col-gross-com", "grosscomm")
+        <td data-colname="betcount">@HtmlHelpers.FormatNumber(data.BetCount)</td>
+        @HtmlHelpers.RenderNumberCell(data.Turnover, string.Empty, "turnover")
+        @HtmlHelpers.RenderNumberCell(data.NetTurnover, string.Empty, "netturnover")
+        @HtmlHelpers.RenderNumberCell(data.GrossComm, string.Empty, "grosscomm")
         @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss, "p")
         @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, "a")
         @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss, "m")
         @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, "s")
-        <td class="col-company" data-colname="company">@HtmlHelpers.FormatNumber(data.Company)</td>
+        <td data-colname="company">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>
 }
 
@@ -119,7 +119,7 @@
         return;
     }
 
-    @HtmlHelpers.RenderNumberCell(netWinLoss.WinLoss.Value, $"col-{level.DisplayName.ToLower()}-winloss", $"{prefix}winloss")
+    @HtmlHelpers.RenderNumberCell(netWinLoss.WinLoss.Value, string.Empty, $"{prefix}winloss")
     @HtmlHelpers.RenderNumberCell(netWinLoss.Comm.Value, string.Empty, $"{prefix}comm")
     @HtmlHelpers.RenderNumberCell(netWinLoss.Total, "bold", $"{prefix}total")
 }

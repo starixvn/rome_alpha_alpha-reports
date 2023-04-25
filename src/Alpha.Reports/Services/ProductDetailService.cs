@@ -17,8 +17,6 @@
     {
         IEnumerable<int> FilterResourceIdsByCustomer(int viewerId, string site, int currencyId, string resourceIds);
 
-        IEnumerable<int> FilterResourceIdsByCustomer(IEnumerable<ProductDetail> productDetails, string userSelectedResourceIds);
-
         IEnumerable<int> FilterResourceIdsByCustomerForConsolidationReport(int custId, string resourceIds, IEnumerable<Product> products);
 
         IEnumerable<ProductDetail> GetProductDetails(int viewerId, string site, int currencyId);
@@ -32,7 +30,9 @@
             IEnumerable<int> validResourceIds,
             IEnumerable<ProductDetail> productDetails);
 
-        IDictionary<int, string> GetProductNamesExportExcel(IEnumerable<int> selectedResourceIds);
+        IDictionary<int, string> GetProductNamesExportExcel(
+            IEnumerable<int> selectedResourceIds,
+            IEnumerable<ProductDetail> productDetails = null);
 
         IEnumerable<int> RemoveProductIds(IEnumerable<int> productIds, IEnumerable<int> userSelectedResourceIds);
 
@@ -70,19 +70,6 @@
 
         public IEnumerable<int> FilterResourceIdsByCustomer(int viewerId, string site, int currencyId, string resourceIds)
             => FilterResourceIdsByCustomer(GetProductDetails(viewerId, site, currencyId), resourceIds);
-
-        public IEnumerable<int> FilterResourceIdsByCustomer(IEnumerable<ProductDetail> productDetails, string userSelectedResourceIds)
-        {
-            var resourceIds = productDetails.Select(p => p.ResourceId);
-
-            if (!IsSelectAllProductDetails(userSelectedResourceIds))
-            {
-                var resourceIdsHash = userSelectedResourceIds.ToIntDictionary();
-                resourceIds = resourceIds.Where(id => resourceIdsHash.ContainsKey(id));
-            }
-
-            return resourceIds.ToList();
-        }
 
         public IEnumerable<int> FilterResourceIdsByCustomerForConsolidationReport(int custId, string resourceIds, IEnumerable<Product> products)
             => FilterResourceIdsByCustomer(GetProductDetailsForConsolidationReport(custId, products), resourceIds);
@@ -180,11 +167,13 @@
             return xml.ToString();
         }
 
-        public IDictionary<int, string> GetProductNamesExportExcel(IEnumerable<int> selectedResourceIds)
+        public IDictionary<int, string> GetProductNamesExportExcel(
+            IEnumerable<int> selectedResourceIds,
+            IEnumerable<ProductDetail> productDetails = null)
         {
             var productNames = new Dictionary<int, string>();
 
-            GetProductDetails()
+            (productDetails ?? GetProductDetails())
                 .GroupBy(p => p.ProductId)
                 .ToList()
                 .ForEach(group =>
@@ -233,6 +222,20 @@
                 });
 
             return removedProductIds;
+        }
+
+        private static IEnumerable<int> FilterResourceIdsByCustomer(IEnumerable<ProductDetail> productDetails, string resourceIds)
+        {
+            if (IsSelectAllProductDetails(resourceIds))
+            {
+                return productDetails.Select(p => p.ResourceId);
+            }
+
+            var resourceIdsHash = resourceIds.ToIntDictionary();
+
+            return productDetails
+                .Where(p => resourceIdsHash.ContainsKey(p.ResourceId))
+                .Select(p => p.ResourceId);
         }
 
         private IEnumerable<ProductDetail> GetProductDetails()

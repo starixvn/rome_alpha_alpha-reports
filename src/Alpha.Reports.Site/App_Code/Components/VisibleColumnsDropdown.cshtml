@@ -1,21 +1,17 @@
 ﻿@using Alpha.Reports.Site.App_GlobalResources;
 
-@helper Render(IEnumerable<System.Web.Mvc.SelectListItem> columns)
+@helper Render()
 {
     <div class="form-group">
         <label class="label-form-control">@Resources.Columns</label>
-        <select class="select-multiple"
-                id="dropdown-column"
-                data-label-selectall="@Resources.SelectAll"
-                data-label-selected="@Resources.Selected"
-                data-label-noneselected="@Resources.NoneSelected"
-                data-label-all="@Resources.All"
-                data-label-noitemfound="@Resources.NoColumnFound"
-                data-label-filterplaceholder="@Resources.SearchColumn">
-                @foreach (var item in columns)
-                {
-                    <option value="@item.Value" @(item.Selected ? "selected=selected" : string.Empty)>@item.Text</option>
-                }
-        </select>
+        <div class="select-multiple"
+             id="dropdown-column"
+             data-label-selectall="@Resources.SelectAll"
+             data-label-selected="@Resources.Selected"
+             data-label-noneselected="@Resources.NoneSelected"
+             data-label-all="@Resources.All"
+             data-label-noitemfound="@Resources.NoColumnFound"
+             data-label-filterplaceholder="@Resources.SearchColumn">
+        </div>
     </div>
 }

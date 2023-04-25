@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Alpha.Reports.Constants;
     using Criteria;
     using Extensions;
     using Fanex.Caching;
@@ -18,8 +17,6 @@
         IEnumerable<Product> GetProductsForCustomer(int viewerId, string site, int currencyId, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
 
         IEnumerable<int> FilterProductIdsByCustomer(int viewerId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
-
-        IEnumerable<int> FilterProductIdsByCustomer(IEnumerable<Product> products, string userSelectedProductIds);
 
         IEnumerable<Product> FilterProductsByCustomer(int viewerId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
 
@@ -36,18 +33,6 @@
         bool CanViewBySite(int viewerId, string site, int currencyId, int productId);
 
         // Async methods
-        Task<IEnumerable<byte>> GetProductsNeedDelayTimeToSumarizeDataByCustomerAsync(int viewerId, string site, int currencyId);
-
-        Task<IEnumerable<ProductsByRefTable>> GetProductsNeedDelayTimeToSumarizeDataAsync();
-
-        Task<IEnumerable<Product>> FilterProductsByCustomerAsync(
-            int viewerId,
-            string site,
-            int currencyId,
-            IEnumerable<int> productIds,
-            DateTime? minReportDate = null,
-            bool isEnableSabaPromotion = false);
-
         Task<IEnumerable<Product>> GetProductsForCustomerAsync(
             int viewerId,
             string site,
@@ -95,19 +80,6 @@
                 : customerProductIds.Where(product => productIds.Contains(product));
 
             return productIdList;
-        }
-
-        public IEnumerable<int> FilterProductIdsByCustomer(IEnumerable<Product> products, string userSelectedProductIds)
-        {
-            var productIds = products.Select(product => product.Id);
-
-            if (DefaultVariables.AllProducts != userSelectedProductIds)
-            {
-                var productIdsHash = userSelectedProductIds.ToIntDictionary();
-                productIds = productIds.Where(productId => productIdsHash.ContainsKey(productId));
-            }
-
-            return productIds.ToList();
         }
 
         public IEnumerable<Product> FilterProductsByCustomer(int viewerId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false)
@@ -220,41 +192,6 @@
         }
 
         // Async methods
-        public async Task<IEnumerable<byte>> GetProductsNeedDelayTimeToSumarizeDataByCustomerAsync(int viewerId, string site, int currencyId)
-        {
-            var data = await GetProductsNeedDelayTimeToSumarizeDataAsync();
-
-            return data.Where(product => canViewProduct(product.ProductId) || CanViewBySite(viewerId, site, currencyId, product.ProductId)).Select(product => product.ProductId);
-        }
-
-        public async Task<IEnumerable<ProductsByRefTable>> GetProductsNeedDelayTimeToSumarizeDataAsync()
-            => await cacheService
-              .GetOrSetAsync(
-              "Alpha.Reports.Services.Impl.ProductsNeedDelayTimeToSumarizeData",
-              () => dynamicRepository.Fetch<ProductsByRefTable>(new GetProductsByRefTableCriteria(null)),
-              new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
-
-        public async Task<IEnumerable<Product>> FilterProductsByCustomerAsync(
-            int viewerId,
-            string site,
-            int currencyId,
-            IEnumerable<int> productIds,
-            DateTime? minReportDate = null,
-            bool isEnableSabaPromotion = false)
-            => (await GetProductsForCustomerAsync(viewerId, site, currencyId, minReportDate, isEnableSabaPromotion))
-                .Where(product => productIds.Contains(product.Id));
-
-        public async Task<IEnumerable<int>> FilterProductIdsByCustomerAsync(
-            int viewerId,
-            string site,
-            int currencyId,
-            IDictionary<int, bool> userSelectedProductIds,
-            DateTime? minReportDate = null,
-            bool isEnableSabaPromotion = false)
-            => (await GetProductsForCustomerAsync(viewerId, site, currencyId, minReportDate, isEnableSabaPromotion))
-            .Where(product => userSelectedProductIds.ContainsKey(product.Id))
-            .Select(product => product.Id);
-
         public async Task<IEnumerable<Product>> GetProductsForCustomerAsync(
             int viewerId,
             string site,

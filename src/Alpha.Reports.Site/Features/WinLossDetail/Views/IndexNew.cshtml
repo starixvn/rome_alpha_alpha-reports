@@ -27,9 +27,33 @@
     </div>
     @DateRangePickerJQuery.Render(Model.DateRangePickerViewModel)
     @ProductAndProductDetailDropdown.Render()
-    @VisibleColumnsDropdown.Render(Model.Columns)
-    <div class="label-week-box" id="labelWeekRange"></div>
+    <div class="form-group">
+        <label class="label-form-control">@Resources.Columns</label>
+        <div class="select-multiple"
+             id="dropdown-column"
+             data-label-selectall="@Resources.SelectAll"
+             data-label-selected="@Resources.Selected"
+             data-label-noneselected="@Resources.NoneSelected"
+             data-label-all="@Resources.All"
+             data-label-noitemfound="@Resources.NoColumnFound"
+             data-label-filterplaceholder="@Resources.SearchColumn"
+             data-label-fullname="@Resources.FirstLastName"
+             data-label-betcount="@Resources.BetCount"
+             data-label-turnover="@Resources.Turnover"
+             data-label-netturnover="@Resources.NetTurnover"
+             data-label-grosscomm="@Resources.GrossComm"
+             data-label-member="@Resources.Member"
+             data-label-agent="@Resources.Agent"
+             data-label-master="@Resources.Master"
+             data-label-super="@Resources.Super"
+             data-label-winloss="@Resources.WinLoss"
+             data-label-comm="@Resources.Comm"
+             data-label-total="@Resources.Total"
+             data-label-company="@Resources.Company">
+        </div>
+    </div>
 </div>
+<div class="label-week-box" id="labelWeekRange"></div>
 <div class="breadcrumb-table">
     <div class="breadcrumb-container">
         <ul class="breadcrumb" id="breadcrumb"></ul>

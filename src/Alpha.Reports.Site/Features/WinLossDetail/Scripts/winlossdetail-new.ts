@@ -23,7 +23,7 @@ class WinLossDetailViewNew extends BaseReportView {
     private productList: any;
     private productDetailList: any;
     private globalFormData: any;
-    private sortColumnIndex = 0;
+    private sortColumnName = "username";
     private sortIndicator = 0; // asc: 0, desc: 1
 
     constructor(
@@ -52,14 +52,24 @@ class WinLossDetailViewNew extends BaseReportView {
 
         this.renderComponents();
         this.bindEvents();
+
+        // remove style="visibility:hidden"
+        // TableSorter cannot run with style="display:none"
         this.tableReportContainer.removeAttr("style");
     }
 
     private renderComponents() {
+        const viewerId = +$("#hiddenViewerId").val();
+        const viewerLevel = +$("#hiddenViewerLevel").val();
+
         this.totalEnteredNonEnteredComponent.init();
 
         this.dateRangePickerComponent.render(new DateRangePickerJQueryOption((dateRange) => {
             $.extend(this.globalFormData, dateRange);
+            if (this.isInvalidGlobalFormData()) {
+                return;
+            }
+
             this.getWinLossDetailDataAndRenderWeekRange();
         }));
 
@@ -68,16 +78,24 @@ class WinLossDetailViewNew extends BaseReportView {
             this.productDetailList,
             (productsAndResources) => {
                 $.extend(this.globalFormData, this.dateRangePickerComponent.getDateRangeValues(), productsAndResources);
+                if (this.isInvalidGlobalFormData()) {
+                    return;
+                }
+
                 this.getWinLossDetailDataAndRenderWeekRange();
             }));
 
-        const viewerId = +$("#hiddenViewerId").val();
         this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption(
             `WinLossDetail_${viewerId}_${$("#hiddenSubAccId").val()}:Columns`,
+            this.getListColumn(viewerLevel),
             (visibleColumn) => this.showHideColumns(visibleColumn)));
 
         const dateRange = this.dateRangePickerComponent.getDateRangeValues();
         this.weekRangeComponent.init(new WeekRangeOption((dateRange) => {
+            if (this.isInvalidGlobalFormData()) {
+                return;
+            }
+
             $.extend(this.globalFormData, dateRange);
             this.getWinLossDetailData();
         }, this.getMomentLocale()));
@@ -86,10 +104,14 @@ class WinLossDetailViewNew extends BaseReportView {
         const breadcrumbLevelJson = $("#hiddenBreadcrumbLevelJson").val();
         const breadcrumbs = breadcrumbLevelJson.length
             ? JSON.parse(breadcrumbLevelJson)
-            : [{ custId: viewerId, custName: $("#hiddenViewerName").val(), custLevelId: +$("#hiddenViewerLevel").val() }];
+            : [{ custId: viewerId, custName: $("#hiddenViewerName").val(), custLevelId: viewerLevel }];
         this.breadcrumbLevelComponent.init(new BreadcrumbLevelOption(
             breadcrumbs,
             (breadcrumbData) => {
+                if (this.isInvalidGlobalFormData()) {
+                    return;
+                }
+
                 $.extend(this.globalFormData, breadcrumbData);
                 this.getWinLossDetailData(() => {
                     this.breadcrumbLevelComponent.removeBreadcrumbLevel(breadcrumbData.custLevelId);
@@ -146,6 +168,10 @@ class WinLossDetailViewNew extends BaseReportView {
         });
     }
 
+    private isInvalidGlobalFormData() {
+        return this.globalFormData.productIds.length === 0;
+    }
+
     private bindEvents() {
         this.initReportLegend($("#hiddenLegendUrl").val(), 800, 540);
 
@@ -165,6 +191,10 @@ class WinLossDetailViewNew extends BaseReportView {
         this.tableReport.find('[data-toggle="tooltip"]').tooltip();
 
         this.tableReport.find(".betlists-link").off().click((e) => {
+            if (this.isInvalidGlobalFormData()) {
+                return;
+            }
+
             this.tableReport.block();
             const $this = $(e.target);
             const custId = $this.data("custid");
@@ -178,6 +208,10 @@ class WinLossDetailViewNew extends BaseReportView {
 
         this.tableReport.find(".downline-link").off().click((e) => {
             e.preventDefault();
+            if (this.isInvalidGlobalFormData()) {
+                return;
+            }
+
             const $this = $(e.target);
             const breadcrumbData = {
                 custId: $this.data("custid"),
@@ -201,32 +235,78 @@ class WinLossDetailViewNew extends BaseReportView {
 
         if (this.tableReport.data("cansort")) {
             const headers = {};
-            sortColumns.each(function (_, item) {
-                const $item = $(item);
-                let colIndex = $item.data("colindex");
-                if (colIndex === -1) {
-                    colIndex = sortColumns.length - 1;
-                    $item.attr("data-colindex", colIndex);
-                }
-
-                const isText = colIndex === 0 || colIndex === 1;
-                headers[colIndex] = { sorter: isText ? "text" : "digit" };
+            sortColumns.each(function (index) {
+                headers[index] = { sorter: index === 0 || index === 1 ? "text" : "digit" };
             });
 
             this.tableReport.tablesorter({
                 headers: headers,
-                sortList: [[this.sortColumnIndex, this.sortIndicator]]
+                sortList: [[this.mapSortColumnNameToIndex(), this.sortIndicator]]
             }).bind("sortEnd", () => {
                 const sortedColumns = this.tableReport.find(".sorting-asc, .sorting-desc");
                 if (sortedColumns.length) {
                     const firstSortedColumn = sortedColumns.eq(0);
-                    this.sortColumnIndex = firstSortedColumn.data("colindex");
+                    this.sortColumnName = firstSortedColumn.data("colname");
                     this.sortIndicator = firstSortedColumn.hasClass("sorting-desc") ? 1 : 0; // asc: 0, desc: 1
                 }
             });
         } else {
             sortColumns.removeClass("sorting");
         }
+    }
+
+    private mapSortColumnNameToIndex() {
+        const tableHeaderCells = this.tableReport.find(`thead th[data-colname=${this.sortColumnName}]`);
+        if (tableHeaderCells.length) {
+            return tableHeaderCells.eq(0).data("colindex");
+        }
+
+        // reset to default
+        this.sortColumnName = "username";
+        this.sortIndicator = 0;
+        return 0;
+    }
+
+    private getListColumn(viewerLevel: number) {
+        const dropdown = $("#dropdown-column");
+        const member = dropdown.data("label-member");
+        const agent = dropdown.data("label-agent");
+        const winloss = dropdown.data("label-winloss");
+        const comm = dropdown.data("label-comm");
+        const total = dropdown.data("label-total");
+        const listColumn = [
+            { value: "fullname", text: dropdown.data("label-fullname") },
+            { value: "betcount", text: dropdown.data("label-betcount") },
+            { value: "turnover", text: dropdown.data("label-turnover") },
+            { value: "netturnover", text: dropdown.data("label-netturnover") },
+            { value: "grosscomm", text: dropdown.data("label-grosscomm") },
+            { value: "pwinloss", text: member + " " + winloss },
+            { value: "pcomm", text: member + " " + comm },
+            { value: "ptotal", text: member + " " + total },
+            { value: "awinloss", text: agent + " " + winloss },
+            { value: "acomm", text: agent + " " + comm },
+            { value: "atotal", text: agent + " " + total },
+        ];
+
+        if (viewerLevel >= 3) { // master or super
+            const master = dropdown.data("label-master");
+            listColumn.push(
+                { value: "mwinloss", text: master + " " + winloss },
+                { value: "mcomm", text: master + " " + comm },
+                { value: "mtotal", text: master + " " + total });
+        }
+
+        if (viewerLevel === 4) { // super
+            const superText = dropdown.data("label-super");
+            listColumn.push(
+                { value: "swinloss", text: superText + " " + winloss },
+                { value: "scomm", text: superText + " " + comm },
+                { value: "stotal", text: superText + " " + total });
+        }
+
+        listColumn.push({ value: "company", text: dropdown.data("label-company") });
+
+        return listColumn;
     }
 
     private showHideColumns(column) {
@@ -295,11 +375,4 @@ $(function () {
         new BreadcrumbLevelComponent(),
         window.productList,
         window.productDetailList).init();
-
-    //$(window).on('load scroll resize', function () {
-    //    var winLeft = $(window).scrollLeft();
-    //    console.log(winLeft);
-    //    $('#dataTable_toolbar').css('transform', 'translateX(' + winLeft + 'px)');
-
-    //});
 });

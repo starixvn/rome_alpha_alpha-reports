@@ -1,6 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Alpha.Reports.Models;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -16,70 +18,63 @@
         WinLossDetailBaseNewHandler,
         IAsyncRequestHandler<WinLossDetailExcelNewQuery, ExcelFileViewModel>
     {
-        private readonly WinLossDetailService winlossDetailService;
         private readonly Workbook<WinLossDetailModel> workbook;
 
         public WinLossDetailExcelNewHandler(
             ProductService productService,
             ProductDetailService productDetailService,
             WinLossDetailService winlossDetailService,
-            Workbook<WinLossDetailModel> workbook) : base(productService, productDetailService)
+            Workbook<WinLossDetailModel> workbook) : base(productService, productDetailService, winlossDetailService)
         {
-            this.winlossDetailService = winlossDetailService;
             this.workbook = workbook;
         }
 
         public async Task<ExcelFileViewModel> Handle(WinLossDetailExcelNewQuery message)
         {
             workbook
-               .UseTemplate(GetTemplateInfo(message))
+               .UseTemplate(GetTemplateInfo(message.CustLevel))
                .Header(Resources.ResourceManager.GetString)
                .Sheet(Resources.DefaultSheetName);
 
-            var productsTask = productService.GetProductsForCustomerAsync(message.ViewerId, message.Site, message.CurrencyId, message.MinDate, message.IsEnableSabaPromotion);
-            var productDetailsTask = productDetailService.GetProductDetailsAsync(message.ViewerId, message.Site, message.CurrencyId);
-            await Task.WhenAll(productsTask, productDetailsTask);
-            var winLossDetailParam = CreateParameter(message, await productsTask, await productDetailsTask);
+            var productsAndProductDetails = await GetProductsAndProductDetails(message);
+            var products = productsAndProductDetails.Item1;
+            var productDetails = productsAndProductDetails.Item2;
+
+            var winLossDetailParam = CreateParameter(message, products, productDetails);
             var reportData = await winlossDetailService.GetWinLossDetailAsync(winLossDetailParam);
 
             var fileContent = workbook
-                .Title(GetReportTitle(winLossDetailParam))
-                .Body(reportData.DataSource, GetBodyRowMapper(message))
-                .Footer(reportData.TotalData, GetTotalRowMapper(message))
+                .Title(GetReportTitle(winLossDetailParam, productDetails))
+                .Body(reportData.DataSource, GetRowMapper(message.CustLevel, false))
+                .Footer(reportData.TotalData, GetRowMapper(message.CustLevel, true))
                 .ExportToBytes();
 
-            return new ExcelFileViewModel(GetExcelFileName(message, winLossDetailParam), fileContent);
+            return new ExcelFileViewModel(GetExcelFileName(message), fileContent);
         }
 
-        private string GetReportTitle(WinLossDetailParam param)
+        private string GetReportTitle(WinLossDetailParam param, IEnumerable<ProductDetail> productDetails)
         {
-            var replacedProductNames = productDetailService.GetProductNamesExportExcel(param.UserSelectedResourceIds);
+            var replacedProductNames = productDetailService.GetProductNamesExportExcel(param.UserSelectedResourceIds, productDetails);
             var productNames = productService.ConcatProductNames(param.UserSelectedProductIds, replacedProductNames);
 
             return $"{Resources.WinLossDetail} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()} {Resources.of2} {productNames}";
         }
 
-        private string GetExcelFileName(WinLossDetailExcelNewQuery message, WinLossDetailParam winLossDetailParam)
+        private string GetExcelFileName(WinLossDetailExcelNewQuery message)
             => string.Join(
                 "-",
                 Resources.WinLossDetail,
                 message.CustName,
-                winLossDetailParam.FromDate.ToShortDateWithSlash(),
-                winLossDetailParam.ToDate.ToShortDateWithSlash());
+                message.FromDate.ToShortDateWithSlash(),
+                message.ToDate.ToShortDateWithSlash());
 
-        private TemplateInfo GetTemplateInfo(WinLossDetailExcelNewQuery message)
+        private TemplateInfo GetTemplateInfo(UserLevel custLevel)
             => new TemplateInfo(
-                GetExcelTemplatePath($"{message.CustLevel.GetDirectDownLineLevel().DisplayName}New"),
+                GetExcelTemplatePath($"{custLevel.GetDirectDownLineLevel().DisplayName}New"),
                 noInfomationText: Resources.NoInformationIsAvailable)
             .FreezePanel(4, B);
 
-        private Mapper<WinLossDetailModel> GetBodyRowMapper(WinLossDetailExcelNewQuery message)
-            => GetRowMapper(message, isTotal: false);
-
-        private Mapper<WinLossDetailModel> GetTotalRowMapper(WinLossDetailExcelNewQuery message)
-            => GetRowMapper(message, isTotal: true);
-
-        internal Mapper<WinLossDetailModel> GetRowMapper(WinLossDetailExcelNewQuery message, bool isTotal)
+        internal Mapper<WinLossDetailModel> GetRowMapper(UserLevel custLevel, bool isTotal)
         {
             var mapper = new Mapper<WinLossDetailModel>()
                 .Map(A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)
@@ -95,12 +90,12 @@
                 .Map(K, winLossDetail => winLossDetail.AgentNetWinLoss.Comm)
                 .Map(L, winLossDetail => winLossDetail.AgentNetWinLoss.Total);
 
-            if (message.CustLevel.IsAgentLevel())
+            if (custLevel.IsAgentLevel())
             {
                 mapper.Map(M, winLossDetail => winLossDetail.Company);
             }
 
-            if (message.CustLevel.IsMasterOrSuperLevel())
+            if (custLevel.IsMasterOrSuperLevel())
             {
                 mapper
                     .Map(M, winLossDetail => winLossDetail.MasterNetWinLoss.WinLoss)
@@ -108,12 +103,12 @@
                     .Map(O, winLossDetail => winLossDetail.MasterNetWinLoss.Total);
             }
 
-            if (message.CustLevel.IsMasterLevel())
+            if (custLevel.IsMasterLevel())
             {
                 mapper.Map(P, winLossDetail => winLossDetail.Company);
             }
 
-            if (message.CustLevel.IsSuperLevel())
+            if (custLevel.IsSuperLevel())
             {
                 mapper
                     .Map(P, winLossDetail => winLossDetail.SuperNetWinLoss.WinLoss)

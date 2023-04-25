@@ -7,15 +7,23 @@
     public class WinLossDetailGetDataViewModel
     {
         public WinLossDetailGetDataViewModel(
-            PagedReportData<WinLossDetailModel> winLossDetail,
-            EnteredSportResult totalEnteredSport)
+            UserLevel custLevel,
+            bool canViewBetLists,
+            EnteredSportResult totalEnteredSport,
+            PagedReportData<WinLossDetailModel> winLossDetail)
         {
-            WinLossDetail = winLossDetail;
+            CustLevel = custLevel;
+            CanViewBetLists = canViewBetLists;
             TotalEnteredSport = totalEnteredSport;
+            WinLossDetail = winLossDetail;
         }
 
-        public PagedReportData<WinLossDetailModel> WinLossDetail { get; }
+        public UserLevel CustLevel { get; }
+
+        public bool CanViewBetLists { get; }
 
         public EnteredSportResult TotalEnteredSport { get; }
+
+        public PagedReportData<WinLossDetailModel> WinLossDetail { get; }
     }
 }

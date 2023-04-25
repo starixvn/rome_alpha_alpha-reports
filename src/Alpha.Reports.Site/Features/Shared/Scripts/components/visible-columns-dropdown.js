@@ -1,12 +1,14 @@
 "use strict";
 var VisibleColumnDropdownOption = /** @class */ (function () {
-    function VisibleColumnDropdownOption(visibleColumnKey, onDropdownHidden, selectorId) {
+    function VisibleColumnDropdownOption(visibleColumnKey, listColumn, onDropdownHidden, selectorId) {
         if (onDropdownHidden === void 0) { onDropdownHidden = Function(); }
         if (selectorId === void 0) { selectorId = "dropdown-column"; }
         this.visibleColumnKey = visibleColumnKey;
+        this.listColumn = listColumn;
         this.onDropdownHidden = onDropdownHidden;
         this.selectorId = selectorId;
         this.visibleColumnKey = visibleColumnKey;
+        this.listColumn = listColumn;
         this.onDropdownHidden = onDropdownHidden;
         this.selectorId = selectorId;
     }
@@ -19,7 +21,6 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
         var _this = this;
         var isCheckAll = true;
         var dropdown = $("#" + options.selectorId);
-        var dropdownOptions = dropdown.find("option");
         var visibleColumnObject = {};
         var visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
         if (typeof visibleColumns !== "undefined") {
@@ -27,7 +28,7 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
             visibleColumnArray.forEach(function (item) {
                 visibleColumnObject[item] = true;
             });
-            isCheckAll = dropdownOptions.length === visibleColumnArray.length;
+            isCheckAll = options.listColumn.length === visibleColumnArray.length;
         }
         this.dropdownColumn = dropdown.fanexMultiSelect({
             checkAllText: dropdown.data("label-selectall"),
@@ -42,13 +43,11 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
             minWidth: 220,
             maxHeight: 250,
             showTooltip: false,
-            listData: dropdownOptions.map(function () {
+            listData: options.listColumn.map(function (item) {
                 return {
-                    value: this.value,
-                    text: this.innerText,
-                    cssClass: "visible-column",
-                    checked: isCheckAll || visibleColumnObject.hasOwnProperty(this.value),
-                    enable: true
+                    value: item.value,
+                    text: item.text,
+                    checked: isCheckAll || visibleColumnObject.hasOwnProperty(item.value)
                 };
             }),
             onLeave: function () { return _this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden); }
