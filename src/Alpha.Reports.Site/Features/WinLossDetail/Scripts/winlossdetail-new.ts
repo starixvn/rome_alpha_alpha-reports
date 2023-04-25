@@ -176,6 +176,11 @@ class WinLossDetailViewNew extends BaseReportView {
         this.initReportLegend($("#hiddenLegendUrl").val(), 800, 540);
 
         $("#icon-excel").click((e) => {
+            if (this.isInvalidGlobalFormData()) {
+                e.preventDefault();
+                return;
+            }
+
             const $this = $(e.target);
             $this.attr("href", `${$this.data("url")}?${$.param(this.globalFormData)}`);
             setTimeout(function () {

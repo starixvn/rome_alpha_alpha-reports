@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
+    using Alpha.Reports.Configurations;
     using MediatR;
     using Reports.Models;
     using ViewModels.WinLossDetail;
@@ -16,6 +17,7 @@
             SubAccId = viewer.SubAccId;
             OnUserId = viewer.OnUserId;
             IsSupportHistoricReport = true;
+            IsOfferNewWinLossDetailReport = SiteSettings.IsOfferNewWinLossDetailReport(viewer.Site);
         }
 
         public int PageIndex { get; set; }
@@ -31,5 +33,7 @@
         public int SubAccId { get; }
 
         public int OnUserId { get; }
+
+        public bool IsOfferNewWinLossDetailReport { get; }
     }
 }

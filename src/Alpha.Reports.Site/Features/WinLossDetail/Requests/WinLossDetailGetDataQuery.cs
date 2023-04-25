@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
     using System.Collections.Generic;
+    using Alpha.Reports.Configurations;
     using Alpha.Reports.Constants;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Models;
@@ -14,6 +15,7 @@
         {
             IsEnableSabaPromotion = viewer.IsEnableSabaPromotion;
             IsProtectedMode = viewer.IsProtectedMode;
+            IsOfferNewWinLossDetailReport = SiteSettings.IsOfferNewWinLossDetailReport(viewer.Site);
         }
 
         public string ProductIds { get; set; } = DefaultVariables.AllProducts;
@@ -55,5 +57,10 @@
         }
 
         public bool IsSelectAllProductDetails => DefaultVariables.AllProductDetails == ResourceIds;
+
+        public bool IsOfferNewWinLossDetailReport { get; }
+
+        public override bool IsValid()
+            => base.IsValid() && IsOfferNewWinLossDetailReport;
     }
 }

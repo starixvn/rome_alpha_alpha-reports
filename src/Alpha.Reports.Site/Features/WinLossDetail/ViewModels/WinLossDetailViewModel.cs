@@ -39,6 +39,7 @@
             SSGUID = message.SSGUID;
 
             TotalEnteredSport = totalEnteredSport;
+            IsOfferNewWinLossDetailReport = message.IsOfferNewWinLossDetailReport;
         }
 
         public PagerViewModel PagerViewModel =>
@@ -63,6 +64,8 @@
         public string SSGUID { get; }
 
         public EnteredSportResult TotalEnteredSport { get; }
+
+        public bool IsOfferNewWinLossDetailReport { get; }
 
         private string GetReportNameByLevel(UserLevel userLevel)
             => userLevel.IsSuperLevel()

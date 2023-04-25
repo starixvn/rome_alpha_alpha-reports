@@ -757,6 +757,10 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         var _this = this;
         this.initReportLegend($("#hiddenLegendUrl").val(), 800, 540);
         $("#icon-excel").click(function (e) {
+            if (_this.isInvalidGlobalFormData()) {
+                e.preventDefault();
+                return;
+            }
             var $this = $(e.target);
             $this.attr("href", $this.data("url") + "?" + $.param(_this.globalFormData));
             setTimeout(function () {
