@@ -117,6 +117,10 @@ a {
 }
 .scrollable {
     overflow: auto;
+
+    .blockOverlay {
+        opacity: 0 !important;
+    }
 }
 #tbl-report {
     text-align: right;
