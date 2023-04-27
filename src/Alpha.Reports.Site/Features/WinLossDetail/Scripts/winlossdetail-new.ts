@@ -363,6 +363,39 @@ class WinLossDetailViewNew extends BaseReportView {
             } catch (e) {
 
             }
+    }
+
+    private addMoreParamsForStatistic() {
+        let moreParams: any = {};
+        const productAndProductDetail = this.productAndProductDetailDropdownComponent.getUncheckedValues();
+        if (productAndProductDetail.unselectedProductIds) {
+            moreParams.unselectedProductIds = productAndProductDetail.unselectedProductIds;
+        } else {
+            delete this.globalFormData.unselectedProductIds;
+        }
+
+        if (productAndProductDetail.unselectedResourceIds) {
+            moreParams.unselectedResourceIds = productAndProductDetail.unselectedResourceIds;
+        } else {
+            delete this.globalFormData.unselectedResourceIds;
+        }
+
+        const hideColumns = this.visibleColumnDropdownComponent.getHideColumns();
+        if (hideColumns) {
+            moreParams.hideColumns = hideColumns;
+        } else {
+            delete this.globalFormData.hideColumns;
+        }
+
+        $.extend(this.globalFormData, moreParams);
+    }
+
+    private addIsWeekSelectionForStatistic() {
+        this.globalFormData.isWeekSelection = 1;
+    }
+
+    private removeIsWeekSelectionForStatistic() {
+        delete this.globalFormData.isWeekSelection;
         }
     }
 
