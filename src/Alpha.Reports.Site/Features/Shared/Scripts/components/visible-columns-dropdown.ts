@@ -71,4 +71,8 @@ class VisibleColumnDropdownComponent {
     getColumns() {
         return this.dropdownColumn.fanexMultiSelect("getAllValues");
     }
+
+    getHideColumns() {
+        return this.dropdownColumn.fanexMultiSelect("getUncheckedValues");
+    }
 }

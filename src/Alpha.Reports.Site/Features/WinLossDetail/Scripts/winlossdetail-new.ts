@@ -61,6 +61,8 @@ class WinLossDetailViewNew extends BaseReportView {
     private renderComponents() {
         const viewerId = +$("#hiddenViewerId").val();
         const viewerLevel = +$("#hiddenViewerLevel").val();
+        const weekFromDate = $("#week-from-date");
+        const weekToDate = $("#week-to-date");
 
         this.totalEnteredNonEnteredComponent.init();
 
@@ -96,10 +98,15 @@ class WinLossDetailViewNew extends BaseReportView {
                 return;
             }
 
+            this.addIsWeekSelectionForStatistic();
+
             $.extend(this.globalFormData, dateRange);
             this.getWinLossDetailData();
         }, this.getMomentLocale()));
-        this.weekRangeComponent.render(dateRange);
+        const activeWeekRange = weekFromDate.length > 0 && weekToDate.length > 0
+            ? { weekFromDate: weekFromDate.val(), weekToDate: weekToDate.val() }
+            : undefined;
+        this.weekRangeComponent.render(dateRange, activeWeekRange);
 
         const breadcrumbLevelJson = $("#hiddenBreadcrumbLevelJson").val();
         const breadcrumbs = breadcrumbLevelJson.length
@@ -123,7 +130,12 @@ class WinLossDetailViewNew extends BaseReportView {
             custId: +$("#hiddenCustId").val(),
             custName: $("#hiddenCustName").val(),
             custLevelId: +$("#hiddenCustLevel").val()
-        }, dateRange, this.productAndProductDetailDropdownComponent.getSelectedItems());
+        }, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues());
+        // update fromDate/toDate of globalFormData if activeWeekRange is NOT undefined
+        if (activeWeekRange) {
+            this.globalFormData.fromDate = activeWeekRange.weekFromDate;
+            this.globalFormData.toDate = activeWeekRange.weekToDate;
+        }
     }
 
     private getMomentLocale() {
@@ -140,12 +152,14 @@ class WinLossDetailViewNew extends BaseReportView {
 
     private getWinLossDetailDataAndRenderWeekRange() {
         this.getWinLossDetailData(() => {
-            this.weekRangeComponent.render(this.globalFormData);
+            this.weekRangeComponent.render(this.globalFormData, undefined);
             this.updateCurrentUrl();
         });
     }
 
     private getWinLossDetailData(callback = Function()) {
+        this.addMoreParamsForStatistic();
+
         this.tableReportContainer.block();
         $.get(`${this.winLossDetailUrl}?${$.param(this.globalFormData)}`, (html) => {
             callback();
@@ -165,7 +179,7 @@ class WinLossDetailViewNew extends BaseReportView {
                     window.location.href = window.top["alpha"].urls.mainRootPath + "partialum/index?" + $.param(responseObject);
                 }
             }
-        });
+        }).always(() => this.removeIsWeekSelectionForStatistic());
     }
 
     private isInvalidGlobalFormData() {
@@ -207,7 +221,9 @@ class WinLossDetailViewNew extends BaseReportView {
             const breadcrumbs = this.breadcrumbLevelComponent.getBreadcrumbs();
             breadcrumbs.push({ custId, custName, custLevelId: 1 });
             const breadcrumbLevelJson = JSON.stringify(breadcrumbs);
-            const betListsParams = $.extend({}, this.globalFormData, { custId, custName, breadcrumbLevelJson });
+            const dateRange = this.dateRangePickerComponent.getDateRangeValues();
+            let betListsParams = this.weekRangeComponent.getActiveWeekRange();
+            $.extend(betListsParams, this.globalFormData, dateRange, { custId, custName, breadcrumbLevelJson });
             $this.attr("href", `${$("#hiddenBetListsUrl").val()}?${$.param(betListsParams)}`);
         });
 
@@ -367,6 +383,39 @@ class WinLossDetailViewNew extends BaseReportView {
             const formData = $.extend({}, this.globalFormData, { breadcrumbLevelJson: JSON.stringify(this.breadcrumbLevelComponent.getBreadcrumbs()) });
             window.top.indexManager.updateCurrentUrl($.param(formData));
         }
+    }
+
+    private addMoreParamsForStatistic() {
+        let moreParams: any = {};
+        const productAndProductDetail = this.productAndProductDetailDropdownComponent.getUncheckedValues();
+        if (productAndProductDetail.unselectedProductIds) {
+            moreParams.unselectedProductIds = productAndProductDetail.unselectedProductIds;
+        } else {
+            delete this.globalFormData.unselectedProductIds;
+        }
+
+        if (productAndProductDetail.unselectedResourceIds) {
+            moreParams.unselectedResourceIds = productAndProductDetail.unselectedResourceIds;
+        } else {
+            delete this.globalFormData.unselectedResourceIds;
+        }
+
+        const hideColumns = this.visibleColumnDropdownComponent.getHideColumns();
+        if (hideColumns) {
+            moreParams.hideColumns = hideColumns;
+        } else {
+            delete this.globalFormData.hideColumns;
+        }
+
+        $.extend(this.globalFormData, moreParams);
+    }
+
+    private addIsWeekSelectionForStatistic() {
+        this.globalFormData.isWeekSelection = 1;
+    }
+
+    private removeIsWeekSelectionForStatistic() {
+        delete this.globalFormData.isWeekSelection;
     }
 }
 

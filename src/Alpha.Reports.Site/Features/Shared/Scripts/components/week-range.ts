@@ -3,7 +3,7 @@ class WeekRangeOption {
     constructor(
         public onClick = Function(),
         public language = "en",
-        public selectorId = "labelWeekRange") {
+        public selectorId = "week-range-container") {
         this.onClick = onClick;
         this.language = language;
         this.selectorId = selectorId;
@@ -12,17 +12,17 @@ class WeekRangeOption {
 
 class WeekRangeComponent {
     private weekRangeOption: WeekRangeOption;
-    private labelWeekRange: JQuery;
+    private weekRangeContainer: JQuery;
 
     init(options: WeekRangeOption) {
         this.weekRangeOption = options;
-        this.labelWeekRange = $("#" + options.selectorId);
+        this.weekRangeContainer = $("#" + options.selectorId);
     }
 
-    render(formData) {
+    render(dateRange, activeWeekRange) {
         moment.locale(this.weekRangeOption.language);
-        this.labelWeekRange.html(this.buildWeekRangeHtml(formData.fromDate, formData.toDate));
-        const labelWeeks = this.labelWeekRange.find(".label-week");
+        this.weekRangeContainer.html(this.buildWeekRangeHtml(dateRange, activeWeekRange));
+        const labelWeeks = this.weekRangeContainer.find(".label-week");
         labelWeeks
             .off()
             .click((e) => {
@@ -33,10 +33,10 @@ class WeekRangeComponent {
             });
     }
 
-    private buildWeekRangeHtml(fromDate: string, toDate: string) {
+    private buildWeekRangeHtml(dateRange, activeWeekRange) {
         const weekRange = [];
-        const startDate = moment(fromDate);
-        let endDate = moment(toDate);
+        const startDate = moment(dateRange.fromDate);
+        let endDate = moment(dateRange.toDate);
 
         while (endDate.diff(startDate, "d") >= 0) {
             const endDateStartOfWeek = moment(endDate).startOf("isoWeek");
@@ -47,11 +47,27 @@ class WeekRangeComponent {
             const label = startDateOrEndDateStartOfWeek.isSame(endDate)
                 ? endDate.format(alphaReports.format.dayMonthName)
                 : `${startDateOrEndDateStartOfWeek.format(alphaReports.format.day)} - ${endDate.format(alphaReports.format.dayMonthName)}`;
-            weekRange.push(`<a href="javascript:;" class="label-week" data-fromdate="${fromDateValue}" data-todate="${toDateValue}">${label}</a>`);
+            const activeClassName = activeWeekRange
+                && activeWeekRange.weekFromDate === fromDateValue
+                && activeWeekRange.weekToDate === toDateValue ? " active" : ""
+            weekRange.push(`<a href="javascript:;" class="label-week${activeClassName}" data-fromdate="${fromDateValue}" data-todate="${toDateValue}">${label}</a>`);
 
             endDate = moment(endDateStartOfWeek).subtract(1, "d");
         }
 
         return weekRange.join("");
+    }
+
+    getActiveWeekRange() {
+        const activeWeekRange = this.weekRangeContainer.find(".label-week.active");
+        if (activeWeekRange.length) {
+            const firstActiveWeekRange = activeWeekRange.eq(0);
+            return {
+                weekFromDate: firstActiveWeekRange.data("fromdate"),
+                weekToDate: firstActiveWeekRange.data("todate"),
+            };
+        }
+
+        return {};
     }
 }

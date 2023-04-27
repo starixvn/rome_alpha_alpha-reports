@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
 {
     using System.Collections.Generic;
+    using Alpha.Reports.Extensions;
     using Alpha.Reports.Models;
     using Alpha.Reports.Models.Winloss;
     using Alpha.Reports.Models.WinLossDetail;
@@ -32,6 +33,8 @@
             ProductDetails = productDetails;
             ResourceIds = message.ResourceIds;
             BreadcrumbLevelJson = message.BreadcrumbLevelJson;
+            WeekFromDate = message.WeekFromDate.HasValue ? message.WeekFromDate.Value.ToShortDateWithSlash() : string.Empty;
+            WeekToDate = message.WeekToDate.HasValue ? message.WeekToDate.Value.ToShortDateWithSlash() : string.Empty;
         }
 
         public int ViewerId { get; }
@@ -59,5 +62,9 @@
         public string ResourceIds { get; }
 
         public string BreadcrumbLevelJson { get; }
+
+        public string WeekFromDate { get; }
+
+        public string WeekToDate { get; }
     }
 }

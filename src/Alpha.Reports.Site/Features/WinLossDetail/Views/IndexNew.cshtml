@@ -53,7 +53,7 @@
         </div>
     </div>
 </div>
-<div class="label-week-box" id="labelWeekRange"></div>
+<div class="label-week-box" id="week-range-container"></div>
 <div class="breadcrumb-table">
     <div class="breadcrumb-container">
         <ul class="breadcrumb" id="breadcrumb"></ul>
@@ -86,3 +86,8 @@
 <input type="hidden" id="hiddenWinLossDetailUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WinLossDetail")" />
 <input type="hidden" id="hiddenBetListsUrl" value="@Model.BetListsUrl" />
 <input type="hidden" id="hiddenBreadcrumbLevelJson" value="@Model.BreadcrumbLevelJson" />
+@if (!string.IsNullOrWhiteSpace(Model.WeekFromDate) && !string.IsNullOrWhiteSpace(Model.WeekToDate))
+{
+    @Html.Hidden("week-from-date", Model.WeekFromDate)
+    @Html.Hidden("week-to-date", Model.WeekToDate)
+}

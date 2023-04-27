@@ -66,6 +66,9 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
     VisibleColumnDropdownComponent.prototype.getColumns = function () {
         return this.dropdownColumn.fanexMultiSelect("getAllValues");
     };
+    VisibleColumnDropdownComponent.prototype.getHideColumns = function () {
+        return this.dropdownColumn.fanexMultiSelect("getUncheckedValues");
+    };
     return VisibleColumnDropdownComponent;
 }());
 //# sourceMappingURL=visible-columns-dropdown.js.map

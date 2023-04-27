@@ -52,7 +52,7 @@ class ProductAndProductDetailDropdownComponent {
                     self.dropdownProduct.fanexMultiSelect("uncheck", productIds);
                 }
 
-                options.onDropdownHidden(self.getSelectedItems());
+                options.onDropdownHidden(self.getCheckedValues());
             }
         });
     }
@@ -113,7 +113,7 @@ class ProductAndProductDetailDropdownComponent {
                 self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
             },
             onLeave: function () {
-                options.onDropdownHidden(self.getSelectedItems());
+                options.onDropdownHidden(self.getCheckedValues());
             }
         });
 
@@ -140,7 +140,7 @@ class ProductAndProductDetailDropdownComponent {
         }
     }
 
-    getSelectedItems() {
+    getCheckedValues() {
         const productsAndResources = {
             productIds: this.dropdownProduct.fanexMultiSelect("getCheckedValues"),
             resourceIds: this.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
@@ -148,5 +148,12 @@ class ProductAndProductDetailDropdownComponent {
 
         this.dropdownProduct.fanexMultiSelect("addError", productsAndResources.productIds.length === 0);
         return productsAndResources;
+    }
+
+    getUncheckedValues() {
+        return {
+            unselectedProductIds: this.dropdownProduct.fanexMultiSelect("getUncheckedValues"),
+            unselectedResourceIds: this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
+        };
     }
 }

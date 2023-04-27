@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
+    using System;
     using System.Collections.Generic;
     using Alpha.Reports.Configurations;
     using Alpha.Reports.Constants;
@@ -58,9 +59,26 @@
 
         public bool IsSelectAllProductDetails => DefaultVariables.AllProductDetails == ResourceIds;
 
+        public DateTime? WeekFromDate { get; set; }
+
+        public DateTime? WeekToDate { get; set; }
+
         public bool IsOfferNewWinLossDetailReport { get; }
 
         public override bool IsValid()
-            => base.IsValid() && IsOfferNewWinLossDetailReport;
+            => base.IsValid() && IsValidWeekRange() && IsOfferNewWinLossDetailReport;
+
+        private bool IsValidWeekRange()
+        {
+            if (!WeekFromDate.HasValue && !WeekToDate.HasValue)
+            {
+                return true;
+            }
+
+            return WeekFromDate.HasValue
+                && WeekToDate.HasValue
+                && WeekFromDate.Value >= FromDate
+                && WeekToDate.Value <= ToDate;
+        }
     }
 }
