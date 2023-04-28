@@ -331,7 +331,7 @@ class WinLossDetailViewNew extends BaseReportView {
     }
 
     private showHideColumns(column) {
-        this.showHideFirstLastName(column);
+        this.showHideSpecificColumn(column, "fullname");
         this.showHideSpecificColumn(column, "betcount");
         this.showHideSpecificColumn(column, "turnover");
         this.showHideSpecificColumn(column, "netturnover");
@@ -341,15 +341,6 @@ class WinLossDetailViewNew extends BaseReportView {
         this.showHideGroupColumn(column, "m", "groupColumnMaster");
         this.showHideGroupColumn(column, "s", "groupColumnSuper");
         this.showHideSpecificColumn(column, "company");
-    }
-
-    private showHideFirstLastName(column) {
-        let colspan = 1;
-        if (this.showHideSpecificColumn(column, "fullname")) {
-            colspan++;
-        }
-
-        this.tableReport.find("#totalFirstLastName").attr("colspan", colspan);
     }
 
     private showHideGroupColumn(column, prefix, groupColumnId) {

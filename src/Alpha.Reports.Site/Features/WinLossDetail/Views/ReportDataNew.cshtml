@@ -80,7 +80,8 @@
     <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
         @if (isTotalRow)
         {
-            <td colspan="2" id="totalFirstLastName">@Resources.Total</td>
+            <td class="text-left">@Resources.Total</td>
+            <td data-colname="fullname"></td>
         }
         else
         {
