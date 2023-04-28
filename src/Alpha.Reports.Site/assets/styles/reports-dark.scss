@@ -185,10 +185,10 @@ a {
                     left: 0;
                     box-shadow: inset -1px 0px 0 #5F626B;
                     background-color: #4C2511;
+                }
 
-                    + td {
-                        border-left: 0 !important;
-                    }
+                &:nth-child(2) {
+                    border-left: 0 !important;
                 }
             }
         }

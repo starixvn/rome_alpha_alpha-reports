@@ -886,7 +886,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         return listColumn;
     };
     WinLossDetailViewNew.prototype.showHideColumns = function (column) {
-        this.showHideFirstLastName(column);
+        this.showHideSpecificColumn(column, "fullname");
         this.showHideSpecificColumn(column, "betcount");
         this.showHideSpecificColumn(column, "turnover");
         this.showHideSpecificColumn(column, "netturnover");
@@ -896,13 +896,6 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         this.showHideGroupColumn(column, "m", "groupColumnMaster");
         this.showHideGroupColumn(column, "s", "groupColumnSuper");
         this.showHideSpecificColumn(column, "company");
-    };
-    WinLossDetailViewNew.prototype.showHideFirstLastName = function (column) {
-        var colspan = 1;
-        if (this.showHideSpecificColumn(column, "fullname")) {
-            colspan++;
-        }
-        this.tableReport.find("#totalFirstLastName").attr("colspan", colspan);
     };
     WinLossDetailViewNew.prototype.showHideGroupColumn = function (column, prefix, groupColumnId) {
         var groupColumn = this.tableReport.find("#" + groupColumnId);

@@ -9,6 +9,7 @@
     public class ReportDefaultDateRangeNewQuery : ReportBaseQuery
     {
         private const int NegativeThree = -3;
+        private const int HistoryMaxDateRange = 31;
 
         protected ReportDefaultDateRangeNewQuery(IUser viewer) : base(viewer)
         {
@@ -36,11 +37,10 @@
             if (FromDate <= ToDate && MinDate <= FromDate)
             {
                 var historicPivotDate = HistoricPivotDate;
-                const int maxDaysInOneMonth = 31;
 
                 return !(
-                    ToDate < historicPivotDate && ToDate.Subtract(FromDate).TotalDays >= maxDaysInOneMonth
-                    || FromDate < historicPivotDate && historicPivotDate <= ToDate
+                    ToDate < historicPivotDate && ToDate.Subtract(FromDate).TotalDays >= HistoryMaxDateRange
+                    || FromDate < historicPivotDate && historicPivotDate <= ToDate && ToDate.Subtract(FromDate).TotalDays >= HistoryMaxDateRange
                 );
             }
 

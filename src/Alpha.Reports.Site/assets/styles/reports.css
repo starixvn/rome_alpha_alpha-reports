@@ -200,6 +200,9 @@ a {
   box-shadow: inset -1px 0px 0 #d1d1d1;
   background-color: #7f3d1d; }
 
+.tblRpt-freeze-body tfoot tr td:nth-child(2) {
+  border-left: 0; }
+
 #tbl-report, #tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
   text-align: right; }
   #tbl-report .visible-stack-mode, #tbl-enteredresult-report .visible-stack-mode, .tbl-outstanding .visible-stack-mode, .tbl-small-width .visible-stack-mode {

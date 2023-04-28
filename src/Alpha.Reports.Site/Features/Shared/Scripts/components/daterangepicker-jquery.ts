@@ -1,5 +1,9 @@
 ﻿"use strict";
 
+interface Window {
+    bootboxAlert: any;
+}
+
 class DateRangePickerJQueryOption {
     constructor(
         public onClosed = Function(),
@@ -10,12 +14,14 @@ class DateRangePickerJQueryOption {
 }
 
 class DateRangePickerJQueryComponent {
+    private historyMaxDateRange = 30;
     private fromDate: string;
     private toDate: string;
 
     render(options: DateRangePickerJQueryOption) {
         const dateRangePicker = $("#" + options.selectorId);
-        const historicPivotDate = moment(dateRangePicker.data("historicpivotdate"));
+        const historicPivotDateText = dateRangePicker.data("historicpivotdate");
+        const historicPivotDate = moment(historicPivotDateText);
         this.fromDate = dateRangePicker.data("fromdate");
         this.toDate = dateRangePicker.data("todate");
 
@@ -36,14 +42,14 @@ class DateRangePickerJQueryComponent {
             }).bind("datepicker-change", (_, obj) => {
                 const startDate = moment(obj.date1)
                 const endDate = moment(obj.date2);
-                if (endDate.isBefore(historicPivotDate) && endDate.diff(startDate, "d") > 30) {
-                    alert("Out of date range: from and to is between 31 days.");
+                if (endDate.isBefore(historicPivotDate) && endDate.diff(startDate, "d") > this.historyMaxDateRange) {
+                    window.top.bootboxAlert(`Data before ${historicPivotDateText} can be retrieved ${this.historyMaxDateRange + 1} days in max, please review your date range.`);
                     dateRangePicker.data("dateRangePicker").setDateRange(this.fromDate, this.toDate, false);
                     return;
                 }
 
-                if (startDate.isBefore(historicPivotDate) && endDate.isSameOrAfter(historicPivotDate)) {
-                    alert("Out of date range: gap between normal and history mode.");
+                if (startDate.isBefore(historicPivotDate) && endDate.isSameOrAfter(historicPivotDate) && endDate.diff(startDate, "d") > this.historyMaxDateRange) {
+                    window.top.bootboxAlert(`Data before ${historicPivotDateText} can be retrieved ${this.historyMaxDateRange + 1} days in max, please review your date range.`);
                     dateRangePicker.data("dateRangePicker").setDateRange(this.fromDate, this.toDate, false);
                     return;
                 }

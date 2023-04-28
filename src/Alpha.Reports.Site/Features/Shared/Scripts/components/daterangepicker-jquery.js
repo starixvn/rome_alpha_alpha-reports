@@ -12,11 +12,13 @@ var DateRangePickerJQueryOption = /** @class */ (function () {
 }());
 var DateRangePickerJQueryComponent = /** @class */ (function () {
     function DateRangePickerJQueryComponent() {
+        this.historyMaxDateRange = 30;
     }
     DateRangePickerJQueryComponent.prototype.render = function (options) {
         var _this = this;
         var dateRangePicker = $("#" + options.selectorId);
-        var historicPivotDate = moment(dateRangePicker.data("historicpivotdate"));
+        var historicPivotDateText = dateRangePicker.data("historicpivotdate");
+        var historicPivotDate = moment(historicPivotDateText);
         this.fromDate = dateRangePicker.data("fromdate");
         this.toDate = dateRangePicker.data("todate");
         dateRangePicker
@@ -36,13 +38,13 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
         }).bind("datepicker-change", function (_, obj) {
             var startDate = moment(obj.date1);
             var endDate = moment(obj.date2);
-            if (endDate.isBefore(historicPivotDate) && endDate.diff(startDate, "d") > 30) {
-                alert("Out of date range: from and to is between 31 days.");
+            if (endDate.isBefore(historicPivotDate) && endDate.diff(startDate, "d") > _this.historyMaxDateRange) {
+                window.top.bootboxAlert("Data before " + historicPivotDateText + " can be retrieved " + (_this.historyMaxDateRange + 1) + " days in max, please review your date range.");
                 dateRangePicker.data("dateRangePicker").setDateRange(_this.fromDate, _this.toDate, false);
                 return;
             }
-            if (startDate.isBefore(historicPivotDate) && endDate.isSameOrAfter(historicPivotDate)) {
-                alert("Out of date range: gap between normal and history mode.");
+            if (startDate.isBefore(historicPivotDate) && endDate.isSameOrAfter(historicPivotDate) && endDate.diff(startDate, "d") > _this.historyMaxDateRange) {
+                window.top.bootboxAlert("Data before " + historicPivotDateText + " can be retrieved " + (_this.historyMaxDateRange + 1) + " days in max, please review your date range.");
                 dateRangePicker.data("dateRangePicker").setDateRange(_this.fromDate, _this.toDate, false);
                 return;
             }

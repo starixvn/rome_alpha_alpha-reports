@@ -20,7 +20,7 @@
     : Model.ViewerLevel.IsMasterLevel() ? Resources.AgentWinLossDetail : Resources.MemberWinLossDetail, Model.TotalEnteredSport)
 <div class="form-inline filter">
     <div class="switch-version">
-        <a href="@Url.Action("Index", $"{SiteSettings.ReportRouting}WinLossDetail")" class="btn-switch-version" target="main">
+        <a href="@Url.Action(Model.ViewerLevel.GetDirectDownLineLevel().DisplayName, $"{SiteSettings.ReportRouting}WinLossDetail")" class="btn-switch-version" target="main">
             <span class="icon-swap-horizontal"></span>
             <span class="text">@Resources.ClassicView</span>
         </a>

@@ -198,8 +198,9 @@ a {
   left: 0;
   box-shadow: inset -1px 0px 0 #5F626B;
   background-color: #4C2511; }
-  .tblRpt-freeze-body tfoot tr td:first-child + td {
-    border-left: 0 !important; }
+
+.tblRpt-freeze-body tfoot tr td:nth-child(2) {
+  border-left: 0 !important; }
 
 #tbl-report, #tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
   text-align: right; }

@@ -39,6 +39,7 @@
             SSGUID = message.SSGUID;
 
             TotalEnteredSport = totalEnteredSport;
+            ViewerLevel = message.ViewerLevel;
             IsOfferNewWinLossDetailReport = message.IsOfferNewWinLossDetailReport;
         }
 
@@ -64,6 +65,8 @@
         public string SSGUID { get; }
 
         public EnteredSportResult TotalEnteredSport { get; }
+
+        public UserLevel ViewerLevel { get; }
 
         public bool IsOfferNewWinLossDetailReport { get; }
 
