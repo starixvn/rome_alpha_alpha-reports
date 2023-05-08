@@ -159,11 +159,34 @@ a {
 
 .scrollable {
   overflow: auto;
-  border-left: 1px solid #5F626B; }
+  max-height: 76vh;
+  border-left: 1px solid #5F626B;
+  border-top: 1px solid #5F626B; }
   .scrollable .blockOverlay {
     opacity: 0 !important; }
   .scrollable .tblRpt-freeze-body {
     border: 0; }
+
+.tblRpt-freeze-head thead tr {
+  background-color: #383838; }
+  .tblRpt-freeze-head thead tr th {
+    position: sticky !important;
+    top: 0;
+    border-top: 0 !important;
+    border-bottom: 0 !important; }
+    .tblRpt-freeze-head thead tr th:before {
+      position: absolute;
+      content: "";
+      left: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 1px;
+      background-color: #5F626B; }
+    .tblRpt-freeze-head thead tr th#groupColumnMember:before, .tblRpt-freeze-head thead tr th#groupColumnAgent:before, .tblRpt-freeze-head thead tr th#groupColumnMaster:before, .tblRpt-freeze-head thead tr th#groupColumnSuper:before {
+      bottom: 0; }
+  .tblRpt-freeze-head thead tr:nth-child(2) th {
+    top: 28px;
+    border-bottom: 0 !important; }
 
 .tblRpt-freeze-body thead tr:first-child th:first-child {
   position: sticky;
@@ -172,6 +195,8 @@ a {
   border-left: 0 !important;
   border-right: 0 !important;
   box-shadow: inset -1px 0px 0 #5F626B; }
+  .tblRpt-freeze-body thead tr:first-child th:first-child:before {
+    bottom: 0; }
 
 .tblRpt-freeze-body thead tr:first-child th:nth-child(2) {
   border-left: 0 !important; }
@@ -187,6 +212,9 @@ a {
 
 .tblRpt-freeze-body tbody tr:nth-child(2n) .col-username {
   background-color: #262829; }
+
+.tblRpt-freeze-body tbody tr td:nth-child(1) {
+  border-top: 0 !important; }
 
 .tblRpt-freeze-body tbody tr td:nth-child(2) {
   border-left: 0 !important; }

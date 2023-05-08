@@ -159,11 +159,31 @@ a {
 
 .scrollable {
   overflow: auto;
-  border-left: 1px solid #d1d1d1; }
+  max-height: 76vh;
+  border-left: 1px solid #d1d1d1;
+  border-top: 1px solid #d1d1d1; }
   .scrollable .blockOverlay {
     opacity: 0 !important; }
   .scrollable .tblRpt-freeze-body {
     border: 0; }
+
+.tblRpt-freeze-head thead tr th {
+  position: sticky !important;
+  top: 0;
+  border-top: 0 !important;
+  border-bottom-color: transparent !important; }
+  .tblRpt-freeze-head thead tr th:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 1px;
+    background-color: #d1d1d1; }
+
+.tblRpt-freeze-head thead tr:nth-child(2) th {
+  top: 28px;
+  border-bottom-color: transparent !important; }
 
 .tblRpt-freeze-body thead tr:first-child th:first-child {
   position: sticky;
