@@ -277,6 +277,7 @@ class WinLossDetailViewNew extends BaseReportView {
 
         this.initTableSorter();
         this.showHideColumns(this.visibleColumnDropdownComponent.getColumns());
+        this.tableReport.stickyTableHeaders();
     }
 
     private initTableSorter() {

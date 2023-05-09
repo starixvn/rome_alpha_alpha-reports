@@ -171,35 +171,30 @@ var TotalEnteredNonEnteredComponent = /** @class */ (function () {
 //# sourceMappingURL=total-entered-nonentered.js.map
 "use strict";
 var DateRangePickerJQueryOption = /** @class */ (function () {
-    function DateRangePickerJQueryOption(onClosed, language, selectorId) {
+    function DateRangePickerJQueryOption(onClosed, selectorId) {
         if (onClosed === void 0) { onClosed = Function(); }
-        if (language === void 0) { language = "default"; }
         if (selectorId === void 0) { selectorId = "daterange-picker"; }
         this.onClosed = onClosed;
-        this.language = language;
         this.selectorId = selectorId;
         this.onClosed = onClosed;
-        this.language = language;
         this.selectorId = selectorId;
     }
     return DateRangePickerJQueryOption;
 }());
 var DateRangePickerJQueryComponent = /** @class */ (function () {
     function DateRangePickerJQueryComponent() {
-        this.historyMaxDateRange = 30;
     }
     DateRangePickerJQueryComponent.prototype.render = function (options) {
         var _this = this;
         var dateRangePicker = $("#" + options.selectorId);
-        this.historicPivotDateText = dateRangePicker.data("historicpivotdate");
-        var historicPivotDate = moment(this.historicPivotDateText);
+        var historicPivotDate = moment(dateRangePicker.data("historicpivotdate"));
         this.fromDate = dateRangePicker.data("fromdate");
         this.toDate = dateRangePicker.data("todate");
         dateRangePicker
             .dateRangePicker({
             format: alphaReports.format.shortDateWithSlash_DatePicker,
             separator: " - ",
-            language: options.language,
+            language: "en",
             startDate: dateRangePicker.data("mindate"),
             endDate: dateRangePicker.data("maxdate"),
             showShortcuts: true,
@@ -212,23 +207,13 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
         }).bind("datepicker-change", function (_, obj) {
             var startDate = moment(obj.date1);
             var endDate = moment(obj.date2);
-            if (endDate.isBefore(historicPivotDate) && endDate.diff(startDate, "d") > _this.historyMaxDateRange) {
-                try {
-                    window.top.bootboxAlert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
-                }
-                catch (e) {
-                    alert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
-                }
+            if (endDate.isBefore(historicPivotDate) && endDate.diff(startDate, "d") > 30) {
+                alert("Out of date range: from and to is between 31 days.");
                 dateRangePicker.data("dateRangePicker").setDateRange(_this.fromDate, _this.toDate, false);
                 return;
             }
-            if (startDate.isBefore(historicPivotDate) && endDate.isSameOrAfter(historicPivotDate) && endDate.diff(startDate, "d") > _this.historyMaxDateRange) {
-                try {
-                    window.top.bootboxAlert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
-                }
-                catch (e) {
-                    alert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
-                }
+            if (startDate.isBefore(historicPivotDate) && endDate.isSameOrAfter(historicPivotDate)) {
+                alert("Out of date range: gap between normal and history mode.");
                 dateRangePicker.data("dateRangePicker").setDateRange(_this.fromDate, _this.toDate, false);
                 return;
             }
@@ -300,9 +285,6 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
     DateRangePickerJQueryComponent.prototype.getDateRangeValues = function () {
         return { fromDate: this.fromDate, toDate: this.toDate };
     };
-    DateRangePickerJQueryComponent.prototype.getHistoricPivotDate = function () {
-        return this.historicPivotDateText;
-    };
     return DateRangePickerJQueryComponent;
 }());
 //# sourceMappingURL=daterangepicker-jquery.js.map
@@ -327,7 +309,6 @@ var ProductAndProductDetailDropdownOption = /** @class */ (function () {
 }());
 var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
     function ProductAndProductDetailDropdownComponent() {
-        this.onlyShowHistoricProductIds = [];
     }
     ProductAndProductDetailDropdownComponent.prototype.render = function (options) {
         this.renderProductDetailDropdown(options);
@@ -342,10 +323,11 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
         });
         var dropdown = $("#" + options.selectorProductDetailId);
         this.dropdownProductDetail = dropdown.fanexMultiSelect({
-            selectAllText: dropdown.data("label-selectall"),
+            checkAllText: dropdown.data("label-selectall"),
             selectedText: "# " + dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
-            customSelectAllText: dropdown.data("label-all") + " (#)",
+            useCustomCheckAllText: true,
+            customCheckAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),
@@ -358,25 +340,23 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
                 if (productIds.length) {
                     self.dropdownProduct.fanexMultiSelect("uncheck", productIds);
                 }
-                options.onDropdownHidden(self.getCheckedValues());
+                options.onDropdownHidden(self.getSelectedItems());
             }
         });
     };
     ProductAndProductDetailDropdownComponent.prototype.renderProductDropdown = function (options) {
-        var _this = this;
+        var self = this;
         var productIdWithSubProductIds = {};
         var uncheckedProductIds = [];
         var productList = options.products.map(function (item) {
-            item.OnlyShowHistoric && _this.onlyShowHistoricProductIds.push(item.Id);
-            var checkboxItem = _this.buildCheckboxItem(item);
+            var checkboxItem = self.buildCheckboxItem(item);
             if (item.Products) {
                 var subProductIds_1 = [];
                 productIdWithSubProductIds[item.Id] = subProductIds_1;
                 checkboxItem.items = item.Products.map(function (item) {
-                    item.OnlyShowHistoric && _this.onlyShowHistoricProductIds.push(item.Id);
                     subProductIds_1.push(item.Id);
                     item.Checked || uncheckedProductIds.push(item.Id);
-                    return _this.buildCheckboxItem(item);
+                    return self.buildCheckboxItem(item);
                 });
             }
             else {
@@ -384,13 +364,13 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             }
             return checkboxItem;
         });
-        var self = this;
         var dropdown = $("#" + options.selectorProductId);
         this.dropdownProduct = dropdown.fanexMultiSelect({
-            selectAllText: dropdown.data("label-selectall"),
+            checkAllText: dropdown.data("label-selectall"),
             selectedText: "# " + dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
-            customSelectAllText: dropdown.data("label-all") + " (#)",
+            useCustomCheckAllText: true,
+            customCheckAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),
@@ -418,7 +398,7 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
                 self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
             },
             onLeave: function () {
-                options.onDropdownHidden(self.getCheckedValues());
+                options.onDropdownHidden(self.getSelectedItems());
             }
         });
         this.initState(uncheckedProductIds);
@@ -442,27 +422,13 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             attributes: attributes
         };
     };
-    ProductAndProductDetailDropdownComponent.prototype.getCheckedValues = function () {
+    ProductAndProductDetailDropdownComponent.prototype.getSelectedItems = function () {
         var productsAndResources = {
             productIds: this.dropdownProduct.fanexMultiSelect("getCheckedValues"),
             resourceIds: this.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
         };
         this.dropdownProduct.fanexMultiSelect("addError", productsAndResources.productIds.length === 0);
         return productsAndResources;
-    };
-    ProductAndProductDetailDropdownComponent.prototype.getUncheckedValues = function () {
-        return {
-            unselectedProductIds: this.dropdownProduct.fanexMultiSelect("getUncheckedValues"),
-            unselectedResourceIds: this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
-        };
-    };
-    ProductAndProductDetailDropdownComponent.prototype.showHistoricProducts = function () {
-        this.onlyShowHistoricProductIds.length
-            && this.dropdownProduct.fanexMultiSelect("showItemsByValues", this.onlyShowHistoricProductIds);
-    };
-    ProductAndProductDetailDropdownComponent.prototype.hideHistoricProducts = function () {
-        this.onlyShowHistoricProductIds.length
-            && this.dropdownProduct.fanexMultiSelect("hideItemsByValues", this.onlyShowHistoricProductIds);
     };
     return ProductAndProductDetailDropdownComponent;
 }());
@@ -500,10 +466,11 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
             isCheckAll = options.listColumn.length === visibleColumnArray.length;
         }
         this.dropdownColumn = dropdown.fanexMultiSelect({
-            selectAllText: dropdown.data("label-selectall"),
+            checkAllText: dropdown.data("label-selectall"),
             selectedText: "# " + dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
-            customSelectAllText: dropdown.data("label-all") + " (#)",
+            useCustomCheckAllText: true,
+            customCheckAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),
@@ -534,9 +501,6 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
     VisibleColumnDropdownComponent.prototype.getColumns = function () {
         return this.dropdownColumn.fanexMultiSelect("getAllValues");
     };
-    VisibleColumnDropdownComponent.prototype.getHideColumns = function () {
-        return this.dropdownColumn.fanexMultiSelect("getUncheckedValues");
-    };
     return VisibleColumnDropdownComponent;
 }());
 //# sourceMappingURL=visible-columns-dropdown.js.map
@@ -545,7 +509,7 @@ var WeekRangeOption = /** @class */ (function () {
     function WeekRangeOption(onClick, language, selectorId) {
         if (onClick === void 0) { onClick = Function(); }
         if (language === void 0) { language = "en"; }
-        if (selectorId === void 0) { selectorId = "week-range-container"; }
+        if (selectorId === void 0) { selectorId = "labelWeekRange"; }
         this.onClick = onClick;
         this.language = language;
         this.selectorId = selectorId;
@@ -560,13 +524,13 @@ var WeekRangeComponent = /** @class */ (function () {
     }
     WeekRangeComponent.prototype.init = function (options) {
         this.weekRangeOption = options;
-        this.weekRangeContainer = $("#" + options.selectorId);
+        this.labelWeekRange = $("#" + options.selectorId);
     };
-    WeekRangeComponent.prototype.render = function (dateRange, activeWeekRange) {
+    WeekRangeComponent.prototype.render = function (formData) {
         var _this = this;
         moment.locale(this.weekRangeOption.language);
-        this.weekRangeContainer.html(this.buildWeekRangeHtml(dateRange, activeWeekRange));
-        var labelWeeks = this.weekRangeContainer.find(".label-week");
+        this.labelWeekRange.html(this.buildWeekRangeHtml(formData.fromDate, formData.toDate));
+        var labelWeeks = this.labelWeekRange.find(".label-week");
         labelWeeks
             .off()
             .click(function (e) {
@@ -576,10 +540,10 @@ var WeekRangeComponent = /** @class */ (function () {
             _this.weekRangeOption.onClick({ fromDate: $this.data("fromdate"), toDate: $this.data("todate") });
         });
     };
-    WeekRangeComponent.prototype.buildWeekRangeHtml = function (dateRange, activeWeekRange) {
+    WeekRangeComponent.prototype.buildWeekRangeHtml = function (fromDate, toDate) {
         var weekRange = [];
-        var startDate = moment(dateRange.fromDate);
-        var endDate = moment(dateRange.toDate);
+        var startDate = moment(fromDate);
+        var endDate = moment(toDate);
         while (endDate.diff(startDate, "d") >= 0) {
             var endDateStartOfWeek = moment(endDate).startOf("isoWeek");
             var startDateOrEndDateStartOfWeek = startDate.isBefore(endDateStartOfWeek) ? endDateStartOfWeek : startDate;
@@ -588,24 +552,10 @@ var WeekRangeComponent = /** @class */ (function () {
             var label = startDateOrEndDateStartOfWeek.isSame(endDate)
                 ? endDate.format(alphaReports.format.dayMonthName)
                 : startDateOrEndDateStartOfWeek.format(alphaReports.format.day) + " - " + endDate.format(alphaReports.format.dayMonthName);
-            var activeClassName = activeWeekRange
-                && activeWeekRange.weekFromDate === fromDateValue
-                && activeWeekRange.weekToDate === toDateValue ? " active" : "";
-            weekRange.push("<a href=\"javascript:;\" class=\"label-week" + activeClassName + "\" data-fromdate=\"" + fromDateValue + "\" data-todate=\"" + toDateValue + "\">" + label + "</a>");
+            weekRange.push("<a href=\"javascript:;\" class=\"label-week\" data-fromdate=\"" + fromDateValue + "\" data-todate=\"" + toDateValue + "\">" + label + "</a>");
             endDate = moment(endDateStartOfWeek).subtract(1, "d");
         }
         return weekRange.join("");
-    };
-    WeekRangeComponent.prototype.getActiveWeekRange = function () {
-        var activeWeekRange = this.weekRangeContainer.find(".label-week.active");
-        if (activeWeekRange.length) {
-            var firstActiveWeekRange = activeWeekRange.eq(0);
-            return {
-                weekFromDate: firstActiveWeekRange.data("fromdate"),
-                weekToDate: firstActiveWeekRange.data("todate"),
-            };
-        }
-        return {};
     };
     return WeekRangeComponent;
 }());
@@ -677,12 +627,9 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
 var BaseReportView = /** @class */ (function () {
     function BaseReportView() {
     }
-    BaseReportView.prototype.initReportLegend = function (legendUrl) {
-        $.get(legendUrl, function (html) {
-            $("body").append(html);
-            $("#icon-report-legend").click(function () {
-                $("#report-legend").modal({ show: true, backdrop: false });
-            });
+    BaseReportView.prototype.initReportLegend = function (legendUrl, width, height) {
+        $("#icon-report-legend").click(function () {
+            top.window["popupManager"].open(typeof legendUrl === "function" ? legendUrl() : legendUrl, undefined, width, height, "modal-mobile-friendly");
         });
     };
     return BaseReportView;
@@ -704,7 +651,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var WinLossDetailViewNew = /** @class */ (function (_super) {
     __extends(WinLossDetailViewNew, _super);
-    function WinLossDetailViewNew(totalEnteredNonEnteredComponent, dateRangePickerComponent, productAndProductDetailDropdownComponent, visibleColumnDropdownComponent, weekRangeComponent, breadcrumbLevelComponent, productList, productDetailList, columnList) {
+    function WinLossDetailViewNew(totalEnteredNonEnteredComponent, dateRangePickerComponent, productAndProductDetailDropdownComponent, visibleColumnDropdownComponent, weekRangeComponent, breadcrumbLevelComponent, productList, productDetailList) {
         var _this = _super.call(this) || this;
         _this.sortColumnName = "username";
         _this.sortIndicator = 0; // asc: 0, desc: 1
@@ -716,7 +663,6 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         _this.breadcrumbLevelComponent = breadcrumbLevelComponent;
         _this.productList = productList;
         _this.productDetailList = productDetailList;
-        _this.columnList = columnList;
         return _this;
     }
     WinLossDetailViewNew.prototype.init = function () {
@@ -732,18 +678,14 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         var _this = this;
         var viewerId = +$("#hiddenViewerId").val();
         var viewerLevel = +$("#hiddenViewerLevel").val();
-        var weekFromDate = $("#hiddenWeekFromDate");
-        var weekToDate = $("#hiddenWeekToDate");
-        var currentLanguage = $("#language").data("currentlanguage");
         this.totalEnteredNonEnteredComponent.init();
         this.dateRangePickerComponent.render(new DateRangePickerJQueryOption(function (dateRange) {
-            _this.constraintDateRangeAndProductDropdownList(dateRange);
-            $.extend(_this.globalFormData, dateRange, _this.productAndProductDetailDropdownComponent.getCheckedValues());
+            $.extend(_this.globalFormData, dateRange);
             if (_this.isInvalidGlobalFormData()) {
                 return;
             }
             _this.getWinLossDetailDataAndRenderWeekRange();
-        }, this.getDateRangePickerLocale(currentLanguage)));
+        }));
         this.productAndProductDetailDropdownComponent.render(new ProductAndProductDetailDropdownOption(this.productList, this.productDetailList, function (productsAndResources) {
             $.extend(_this.globalFormData, _this.dateRangePickerComponent.getDateRangeValues(), productsAndResources);
             if (_this.isInvalidGlobalFormData()) {
@@ -751,21 +693,16 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             }
             _this.getWinLossDetailDataAndRenderWeekRange();
         }));
+        this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption("WinLossDetail_" + viewerId + "_" + $("#hiddenSubAccId").val() + ":Columns", this.getListColumn(viewerLevel), function (visibleColumn) { return _this.showHideColumns(visibleColumn); }));
         var dateRange = this.dateRangePickerComponent.getDateRangeValues();
-        this.constraintDateRangeAndProductDropdownList(dateRange);
-        this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption("WinLossDetail_" + viewerId + "_" + $("#hiddenSubAccId").val() + ":Columns", this.columnList, function (visibleColumn) { return _this.showHideColumns(visibleColumn); }));
         this.weekRangeComponent.init(new WeekRangeOption(function (dateRange) {
             if (_this.isInvalidGlobalFormData()) {
                 return;
             }
-            _this.addIsWeekSelectionForStatistic();
             $.extend(_this.globalFormData, dateRange);
             _this.getWinLossDetailData();
-        }, this.getMomentLocale(currentLanguage)));
-        var activeWeekRange = weekFromDate.length > 0 && weekToDate.length > 0
-            ? { weekFromDate: weekFromDate.val(), weekToDate: weekToDate.val() }
-            : undefined;
-        this.weekRangeComponent.render(dateRange, activeWeekRange);
+        }, this.getMomentLocale()));
+        this.weekRangeComponent.render(dateRange);
         var breadcrumbLevelJson = $("#hiddenBreadcrumbLevelJson").val();
         var breadcrumbs = breadcrumbLevelJson.length
             ? JSON.parse(breadcrumbLevelJson)
@@ -784,32 +721,9 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             custId: +$("#hiddenCustId").val(),
             custName: $("#hiddenCustName").val(),
             custLevelId: +$("#hiddenCustLevel").val()
-        }, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues());
-        // update fromDate/toDate of globalFormData if activeWeekRange is NOT undefined
-        if (activeWeekRange) {
-            this.globalFormData.fromDate = activeWeekRange.weekFromDate;
-            this.globalFormData.toDate = activeWeekRange.weekToDate;
-        }
+        }, dateRange, this.productAndProductDetailDropdownComponent.getSelectedItems());
     };
-    WinLossDetailViewNew.prototype.constraintDateRangeAndProductDropdownList = function (dateRange) {
-        var historicPivotDate = moment(this.dateRangePickerComponent.getHistoricPivotDate());
-        if (moment(dateRange.fromDate).isSameOrAfter(historicPivotDate)) {
-            this.productAndProductDetailDropdownComponent.hideHistoricProducts();
-        }
-        else {
-            this.productAndProductDetailDropdownComponent.showHistoricProducts();
-        }
-    };
-    WinLossDetailViewNew.prototype.getDateRangePickerLocale = function (language) {
-        var locale = {
-            "th-TH": "th",
-            "vi-VN": "vi",
-            "zh-CN": "cn",
-            "zh-TW": "tc"
-        };
-        return locale[language] || "default";
-    };
-    WinLossDetailViewNew.prototype.getMomentLocale = function (language) {
+    WinLossDetailViewNew.prototype.getMomentLocale = function () {
         var locale = {
             "th-TH": "th",
             "vi-VN": "vi",
@@ -817,19 +731,18 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             "zh-TW": "zh-tw",
             "default": "en"
         };
-        return locale[language] || locale.default;
+        return locale[window.top.$("#language").data("currentlanguage")] || locale.default;
     };
     WinLossDetailViewNew.prototype.getWinLossDetailDataAndRenderWeekRange = function () {
         var _this = this;
         this.getWinLossDetailData(function () {
-            _this.weekRangeComponent.render(_this.globalFormData, undefined);
+            _this.weekRangeComponent.render(_this.globalFormData);
             _this.updateCurrentUrl();
         });
     };
     WinLossDetailViewNew.prototype.getWinLossDetailData = function (callback) {
         var _this = this;
         if (callback === void 0) { callback = Function(); }
-        this.addMoreParamsForStatistic();
         this.tableReportContainer.block();
         $.get(this.winLossDetailUrl + "?" + $.param(this.globalFormData), function (html) {
             callback();
@@ -848,14 +761,14 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
                     window.location.href = window.top["alpha"].urls.mainRootPath + "partialum/index?" + $.param(responseObject);
                 }
             }
-        }).always(function () { return _this.removeIsWeekSelectionForStatistic(); });
+        });
     };
     WinLossDetailViewNew.prototype.isInvalidGlobalFormData = function () {
         return this.globalFormData.productIds.length === 0;
     };
     WinLossDetailViewNew.prototype.bindEvents = function () {
         var _this = this;
-        this.initReportLegend($("#hiddenLegendUrl").val());
+        this.initReportLegend($("#hiddenLegendUrl").val(), 800, 540);
         $("#icon-excel").click(function (e) {
             if (_this.isInvalidGlobalFormData()) {
                 e.preventDefault();
@@ -884,9 +797,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             var breadcrumbs = _this.breadcrumbLevelComponent.getBreadcrumbs();
             breadcrumbs.push({ custId: custId, custName: custName, custLevelId: 1 });
             var breadcrumbLevelJson = JSON.stringify(breadcrumbs);
-            var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
-            var betListsParams = _this.weekRangeComponent.getActiveWeekRange();
-            $.extend(betListsParams, _this.globalFormData, dateRange, { custId: custId, custName: custName, breadcrumbLevelJson: breadcrumbLevelJson });
+            var betListsParams = $.extend({}, _this.globalFormData, { custId: custId, custName: custName, breadcrumbLevelJson: breadcrumbLevelJson });
             $this.attr("href", $("#hiddenBetListsUrl").val() + "?" + $.param(betListsParams));
         });
         this.tableReport.find(".downline-link").off().click(function (e) {
@@ -943,6 +854,37 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         this.sortIndicator = 0;
         return 0;
     };
+    WinLossDetailViewNew.prototype.getListColumn = function (viewerLevel) {
+        var dropdown = $("#dropdown-column");
+        var member = dropdown.data("label-member");
+        var agent = dropdown.data("label-agent");
+        var winloss = dropdown.data("label-winloss");
+        var comm = dropdown.data("label-comm");
+        var total = dropdown.data("label-total");
+        var listColumn = [
+            { value: "fullname", text: dropdown.data("label-fullname") },
+            { value: "betcount", text: dropdown.data("label-betcount") },
+            { value: "turnover", text: dropdown.data("label-turnover") },
+            { value: "netturnover", text: dropdown.data("label-netturnover") },
+            { value: "grosscomm", text: dropdown.data("label-grosscomm") },
+            { value: "pwinloss", text: member + " " + winloss },
+            { value: "pcomm", text: member + " " + comm },
+            { value: "ptotal", text: member + " " + total },
+            { value: "awinloss", text: agent + " " + winloss },
+            { value: "acomm", text: agent + " " + comm },
+            { value: "atotal", text: agent + " " + total },
+        ];
+        if (viewerLevel >= 3) { // master or super
+            var master = dropdown.data("label-master");
+            listColumn.push({ value: "mwinloss", text: master + " " + winloss }, { value: "mcomm", text: master + " " + comm }, { value: "mtotal", text: master + " " + total });
+        }
+        if (viewerLevel === 4) { // super
+            var superText = dropdown.data("label-super");
+            listColumn.push({ value: "swinloss", text: superText + " " + winloss }, { value: "scomm", text: superText + " " + comm }, { value: "stotal", text: superText + " " + total });
+        }
+        listColumn.push({ value: "company", text: dropdown.data("label-company") });
+        return listColumn;
+    };
     WinLossDetailViewNew.prototype.showHideColumns = function (column) {
         this.showHideSpecificColumn(column, "fullname");
         this.showHideSpecificColumn(column, "betcount");
@@ -980,46 +922,12 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     WinLossDetailViewNew.prototype.updateCurrentUrl = function () {
         if (this.globalFormData.productIds) {
             var formData = $.extend({}, this.globalFormData, { breadcrumbLevelJson: JSON.stringify(this.breadcrumbLevelComponent.getBreadcrumbs()) });
-            try {
-                window.top.indexManager.updateCurrentUrl($.param(formData));
-            }
-            catch (e) {
-            }
+            window.top.indexManager.updateCurrentUrl($.param(formData));
         }
-    };
-    WinLossDetailViewNew.prototype.addMoreParamsForStatistic = function () {
-        var moreParams = {};
-        var productAndProductDetail = this.productAndProductDetailDropdownComponent.getUncheckedValues();
-        if (productAndProductDetail.unselectedProductIds) {
-            moreParams.unselectedProductIds = productAndProductDetail.unselectedProductIds;
-        }
-        else {
-            delete this.globalFormData.unselectedProductIds;
-        }
-        if (productAndProductDetail.unselectedResourceIds) {
-            moreParams.unselectedResourceIds = productAndProductDetail.unselectedResourceIds;
-        }
-        else {
-            delete this.globalFormData.unselectedResourceIds;
-        }
-        var hideColumns = this.visibleColumnDropdownComponent.getHideColumns();
-        if (hideColumns) {
-            moreParams.hideColumns = hideColumns;
-        }
-        else {
-            delete this.globalFormData.hideColumns;
-        }
-        $.extend(this.globalFormData, moreParams);
-    };
-    WinLossDetailViewNew.prototype.addIsWeekSelectionForStatistic = function () {
-        this.globalFormData.isWeekSelection = 1;
-    };
-    WinLossDetailViewNew.prototype.removeIsWeekSelectionForStatistic = function () {
-        delete this.globalFormData.isWeekSelection;
     };
     return WinLossDetailViewNew;
 }(BaseReportView));
 $(function () {
-    new WinLossDetailViewNew(new TotalEnteredNonEnteredComponent(), new DateRangePickerJQueryComponent(), new ProductAndProductDetailDropdownComponent(), new VisibleColumnDropdownComponent(), new WeekRangeComponent(), new BreadcrumbLevelComponent(), window.productList, window.productDetailList, window.columnList).init();
+    new WinLossDetailViewNew(new TotalEnteredNonEnteredComponent(), new DateRangePickerJQueryComponent(), new ProductAndProductDetailDropdownComponent(), new VisibleColumnDropdownComponent(), new WeekRangeComponent(), new BreadcrumbLevelComponent(), window.productList, window.productDetailList).init();
 });
 //# sourceMappingURL=winlossdetail-new.js.map
