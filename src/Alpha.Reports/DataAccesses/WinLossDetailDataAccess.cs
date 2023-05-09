@@ -105,6 +105,14 @@
                 }
             }
 
+            if (winLossDetails.Count > 0)
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    winLossDetails.Add(winLossDetails[0]);
+                }
+            }
+
             return new PagedReportData<WinLossDetailModel>(
                 winLossDetails,
                 criteria.PageIndex,
