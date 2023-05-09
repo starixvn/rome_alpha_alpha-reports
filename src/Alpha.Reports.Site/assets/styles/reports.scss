@@ -128,25 +128,7 @@ a {
         border: 0;
     }
 }
-.tblRpt-freeze-head {
-    thead {
-        tr {
-            th {
-                position: sticky !important;
-                top: 0;
-                border-top: 0 !important;
-                border-bottom-color: transparent !important;                
-            }
 
-            &:nth-child(2) {
-                th {
-                    top: 28px;
-                    border-bottom-color: transparent !important;
-                }
-            }
-        }
-    }
-}
 .tblRpt-freeze-body {
     thead {
         tr {
@@ -154,11 +136,9 @@ a {
                 th {
                     &:first-child {
                         position: sticky;
-                        left: 1px;
                         z-index: 40;
                         border-left: 0 !important;
                         border-right: 0 !important;
-                        box-shadow: inset -1px 0px 0 $table-border-color;
 
                         &:before {
                             position: absolute;
@@ -178,7 +158,7 @@ a {
     tbody {
         .col-username {
             position: sticky;
-            z-index: 20;
+            z-index: 2;
             left: 1px;
             background: $table-even-bg;
             box-shadow: inset -1px 0px 0 $table-border-color;

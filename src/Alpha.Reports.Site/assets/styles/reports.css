@@ -166,23 +166,11 @@ a {
   .scrollable .tblRpt-freeze-body {
     border: 0; }
 
-.tblRpt-freeze-head thead tr th {
-  position: sticky !important;
-  top: 0;
-  border-top: 0 !important;
-  border-bottom-color: transparent !important; }
-
-.tblRpt-freeze-head thead tr:nth-child(2) th {
-  top: 28px;
-  border-bottom-color: transparent !important; }
-
 .tblRpt-freeze-body thead tr:first-child th:first-child {
   position: sticky;
-  left: 1px;
   z-index: 40;
   border-left: 0 !important;
-  border-right: 0 !important;
-  box-shadow: inset -1px 0px 0 #d1d1d1; }
+  border-right: 0 !important; }
   .tblRpt-freeze-body thead tr:first-child th:first-child:before {
     position: absolute;
     content: "";
@@ -194,7 +182,7 @@ a {
 
 .tblRpt-freeze-body tbody .col-username {
   position: sticky;
-  z-index: 20;
+  z-index: 2;
   left: 1px;
   background: #fff;
   box-shadow: inset -1px 0px 0 #d1d1d1;
