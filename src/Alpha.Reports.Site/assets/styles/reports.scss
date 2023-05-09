@@ -242,6 +242,16 @@ a {
             &:nth-child(2n) {
                 .col-username {
                     background-color: $table-odd-bg;
+
+                    &:before {
+                        position: absolute;
+                        content: "";
+                        left: -1px;
+                        top: 0;
+                        width: 1px;
+                        height: 100%;
+                        background-color: $table-odd-bg;
+                    }
                 }
             }
 
@@ -249,6 +259,16 @@ a {
                 &[colspan] {
                     border-left: 0;
                     box-shadow: inset 1px 0px 0 $table-border-color;
+                }
+
+                &:before {
+                    position: absolute;
+                    content: "";
+                    left: -1px;
+                    top: 0;
+                    width: 1px;
+                    height: 100%;
+                    background-color: #ffffff;
                 }
             }
         }

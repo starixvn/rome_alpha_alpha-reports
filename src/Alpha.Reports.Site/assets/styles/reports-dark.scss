@@ -161,6 +161,20 @@ a {
     }
 }
 .tblRpt-freeze-header {
+    &.tblRpt-freeze-body {
+        thead {
+            tr {
+                &:first-child {
+                    th {
+                        &:first-child {
+                            box-shadow: inset -1px 0px 0 #5F626B, inset 0px -1px 0 #5F626B;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     thead {
         tr {
             th {
@@ -218,6 +232,16 @@ a {
             }
         }
     }
+
+    tbody {
+        tr {
+            &:nth-child(1) {
+                td {
+                    border-top: 0 !important;
+                }
+            }
+        }
+    }
 }
 .tblRpt-freeze-body {
  
@@ -228,7 +252,7 @@ a {
                 th {
                     &:first-child {
                         box-shadow: inset 1px 0px 0 #5F626B;
-                        left: 0;
+                        left: 1px;
                         position: sticky;
                         position: -webkit-sticky !important;
                         z-index: 40;
@@ -277,6 +301,16 @@ a {
             &:nth-child(2n) {
                 .col-username {
                     background-color: #262829;
+
+                    &:before {
+                        position: absolute;
+                        content: "";
+                        left: -1px;
+                        top: 0;
+                        width: 1px;
+                        height: 100%;
+                        background-color: #262829;
+                    }
                 }
             }
 
@@ -284,6 +318,16 @@ a {
                 &[colspan] {
                     border-left: 0 !important;
                     box-shadow: inset 1px 0px 0 #5F626B;
+                }
+
+                &:before {
+                    position: absolute;
+                    content: "";
+                    left: -1px;
+                    top: 0;
+                    width: 1px;
+                    height: 100%;
+                    background-color: #181919;
                 }
             }
         }
@@ -296,7 +340,7 @@ a {
                     position: sticky;
                     position: -webkit-sticky !important;
                     z-index: 20;
-                    left: 0;
+                    left: 1px;
                     background-color: #4C2511;
                     border-right: 0 !important;
                     border-left: 0 !important;
