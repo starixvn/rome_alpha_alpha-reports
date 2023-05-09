@@ -159,7 +159,6 @@ a {
 
 .scrollable {
   overflow: auto;
-  max-height: 76vh;
   border-left: 1px solid #d1d1d1;
   border-top: 1px solid #d1d1d1; }
   .scrollable .blockOverlay {
@@ -172,14 +171,6 @@ a {
   top: 0;
   border-top: 0 !important;
   border-bottom-color: transparent !important; }
-  .tblRpt-freeze-head thead tr th:before {
-    position: absolute;
-    content: "";
-    left: 0;
-    bottom: -1px;
-    width: 100%;
-    height: 1px;
-    background-color: #d1d1d1; }
 
 .tblRpt-freeze-head thead tr:nth-child(2) th {
   top: 28px;
@@ -187,19 +178,24 @@ a {
 
 .tblRpt-freeze-body thead tr:first-child th:first-child {
   position: sticky;
-  left: 0;
+  left: 1px;
   z-index: 40;
   border-left: 0 !important;
   border-right: 0 !important;
   box-shadow: inset -1px 0px 0 #d1d1d1; }
-
-.tblRpt-freeze-body thead tr:first-child th:nth-child(2) {
-  border-left: 0; }
+  .tblRpt-freeze-body thead tr:first-child th:first-child:before {
+    position: absolute;
+    content: "";
+    left: -1px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #666; }
 
 .tblRpt-freeze-body tbody .col-username {
   position: sticky;
   z-index: 20;
-  left: 0;
+  left: 1px;
   background: #fff;
   box-shadow: inset -1px 0px 0 #d1d1d1;
   border-right: 0 !important;
@@ -207,21 +203,43 @@ a {
 
 .tblRpt-freeze-body tbody tr:nth-child(2n) .col-username {
   background-color: #eae9ee; }
+  .tblRpt-freeze-body tbody tr:nth-child(2n) .col-username:before {
+    position: absolute;
+    content: "";
+    left: -1px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #eae9ee; }
 
-.tblRpt-freeze-body tbody tr td:nth-child(2) {
+.tblRpt-freeze-body tbody tr td[colspan] {
   border-left: 0; }
+
+.tblRpt-freeze-body tbody tr td:before {
+  position: absolute;
+  content: "";
+  left: -1px;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background-color: #ffffff; }
 
 .tblRpt-freeze-body tfoot tr td:first-child {
   border-left: 0;
   border-right: 0;
   position: sticky;
   z-index: 20;
-  left: 0;
+  left: 1px;
   box-shadow: inset -1px 0px 0 #d1d1d1;
   background-color: #7f3d1d; }
-
-.tblRpt-freeze-body tfoot tr td:nth-child(2) {
-  border-left: 0; }
+  .tblRpt-freeze-body tfoot tr td:first-child:before {
+    position: absolute;
+    content: "";
+    left: -1px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #7f3d1d; }
 
 #tbl-report, #tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
   text-align: right; }
