@@ -173,6 +173,7 @@ a {
 
 .tblRpt-freeze-header thead tr th {
   position: sticky !important;
+  position: -webkit-sticky !important;
   top: 0 !important;
   border-top: 0 !important;
   box-shadow: inset 0 1px 0 #5F626B; }
@@ -207,6 +208,7 @@ a {
   box-shadow: inset 1px 0px 0 #5F626B;
   left: 0;
   position: sticky;
+  position: -webkit-sticky !important;
   z-index: 40;
   border-left: 0 !important;
   height: 100%; }
@@ -221,6 +223,7 @@ a {
 
 .tblRpt-freeze-body tbody .col-username {
   position: sticky;
+  position: -webkit-sticky !important;
   z-index: 2;
   left: 0;
   background: #181919;
@@ -245,6 +248,7 @@ a {
 
 .tblRpt-freeze-body tfoot tr td:first-child {
   position: sticky;
+  position: -webkit-sticky !important;
   z-index: 20;
   left: 0;
   background-color: #4C2511;
