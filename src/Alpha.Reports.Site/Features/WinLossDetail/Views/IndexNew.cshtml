@@ -15,6 +15,9 @@
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/daterangepicker")
     @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WinLossDetail/Bundles/winlossdetail-new")
 }
+<div class="flex">
+    <div class="top-filter">
+
 @ReportTitleNew.Render(Model.ViewerLevel.IsSuperLevel()
     ? Resources.MasterWinLossDetail
     : Model.ViewerLevel.IsMasterLevel() ? Resources.AgentWinLossDetail : Resources.MemberWinLossDetail, Model.TotalEnteredSport)
@@ -70,10 +73,12 @@
         </ul>
     </div>
 </div>
+</div>
 <div class="wrapper-table-scrollable">
     <div style="visibility:hidden" id="tbl-report-container" class="scrollable">
         @Html.Partial("~/Features/WinLossDetail/Views/ReportDataNew.cshtml", Model)
     </div>
+</div>
 </div>
 <input type="hidden" id="hiddenViewerId" value="@Model.ViewerId" />
 <input type="hidden" id="hiddenViewerName" value="@Model.ViewerName" />

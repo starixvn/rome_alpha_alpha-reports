@@ -152,23 +152,40 @@ a {
   .page-title .icon-report-legend {
     margin: 10px 10px 0 10px; }
 
+.flex {
+  display: flex;
+  flex-direction: column;
+  height: 100%; }
+  .flex .wrapper-table-scrollable {
+    flex: 1;
+    overflow: auto; }
+
 .wrapper-table-scrollable {
   position: relative; }
   .wrapper-table-scrollable .scrollable {
     position: unset !important; }
 
-.scrollable {
-  overflow: auto;
-  border-left: 1px solid #5F626B; }
-  .scrollable .blockOverlay {
-    opacity: 0 !important; }
-  .scrollable .tblRpt-freeze-body {
-    border: 0; }
+.scrollable .blockOverlay {
+  opacity: 0 !important; }
+
+.scrollable .tblRpt-freeze-body {
+  border: 0; }
 
 .tblRpt-freeze-body thead tr:first-child th:first-child {
+  box-shadow: inset 1px 0px 0 #5F626B;
+  left: 0;
   position: sticky;
   z-index: 40;
-  border-left: 0 !important; }
+  border-left: 0 !important;
+  height: 100%; }
+  .tblRpt-freeze-body thead tr:first-child th:first-child:before {
+    position: absolute;
+    content: "";
+    right: -1px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #5F626B; }
 
 .tblRpt-freeze-body tbody .col-username {
   position: sticky;
@@ -176,7 +193,8 @@ a {
   left: 0;
   background: #181919;
   border-right: 0 !important;
-  border-left: 0 !important; }
+  border-left: 0 !important;
+  box-shadow: inset 1px 0px 0 #5F626B; }
   .tblRpt-freeze-body tbody .col-username:before {
     position: absolute;
     content: "";
@@ -190,23 +208,25 @@ a {
   background-color: #262829; }
 
 .tblRpt-freeze-body tbody tr td[colspan] {
-  border-left: 0 !important; }
+  border-left: 0 !important;
+  box-shadow: inset 1px 0px 0 #5F626B; }
 
 .tblRpt-freeze-body tfoot tr td:first-child {
-  border-left: 0 !important;
   position: sticky;
   z-index: 20;
-  left: 1px;
-  box-shadow: inset -1px 0px 0 #5F626B;
-  background-color: #4C2511; }
+  left: 0;
+  background-color: #4C2511;
+  border-right: 0 !important;
+  border-left: 0 !important;
+  box-shadow: inset 1px 0px 0 #5F626B; }
   .tblRpt-freeze-body tfoot tr td:first-child:before {
     position: absolute;
     content: "";
-    left: -1px;
+    right: -1px;
     top: 0;
     width: 1px;
     height: 100%;
-    background-color: #4C2511; }
+    background-color: #5F626B; }
 
 #tbl-report, #tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
   text-align: right; }

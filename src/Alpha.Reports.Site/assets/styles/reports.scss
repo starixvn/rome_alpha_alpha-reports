@@ -108,6 +108,16 @@ a {
 }
 
 // Tables
+.flex {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .wrapper-table-scrollable {
+        flex: 1;
+        overflow: auto;
+    }
+}
 .wrapper-table-scrollable {
     position: relative;
 
@@ -116,9 +126,6 @@ a {
     }
 }
 .scrollable {
-    overflow: auto;
-    border-left: 1px solid $table-border-color;
-    border-top: 1px solid $table-border-color;
 
     .blockOverlay {
         opacity: 0 !important;
@@ -136,18 +143,21 @@ a {
                 th {
                     &:first-child {
                         position: sticky;
+                        left: 0;
                         z-index: 40;
                         border-left: 0 !important;
                         border-right: 0 !important;
+                        box-shadow: inset 1px 0px 0 $table-border-color;
+                        height: 100%;
 
                         &:before {
                             position: absolute;
                             content: "";
-                            left: -1px;
+                            right: -1px;
                             top: 0;
                             width: 1px;
                             height: 100%;
-                            background-color: #666;
+                            background-color: $table-border-color;
                         }
                     }
                 }
@@ -159,43 +169,34 @@ a {
         .col-username {
             position: sticky;
             z-index: 2;
-            left: 1px;
+            left: 0;
             background: $table-even-bg;
-            box-shadow: inset -1px 0px 0 $table-border-color;
             border-right: 0 !important;
             border-left: 0 !important;
+            box-shadow: inset 1px 0px 0 $table-border-color;
+
+            &:before {
+                position: absolute;
+                content: "";
+                right: -1px;
+                top: 0;
+                width: 1px;
+                height: 100%;
+                background-color: $table-border-color;
+            }
         }
 
         tr {
             &:nth-child(2n) {
                 .col-username {
                     background-color: $table-odd-bg;
-
-                    &:before {
-                        position: absolute;
-                        content: "";
-                        left: -1px;
-                        top: 0;
-                        width: 1px;
-                        height: 100%;
-                        background-color: $table-odd-bg;
-                    }
                 }
             }
 
             td {
                 &[colspan] {
                     border-left: 0;
-                }
-
-                &:before {
-                    position: absolute;
-                    content: "";
-                    left: -1px;
-                    top: 0;
-                    width: 1px;
-                    height: 100%;
-                    background-color: #ffffff;
+                    box-shadow: inset 1px 0px 0 $table-border-color;
                 }
             }
         }
@@ -205,22 +206,22 @@ a {
         tr {
             td {
                 &:first-child {
-                    border-left: 0;
-                    border-right: 0;
                     position: sticky;
                     z-index: 20;
-                    left: 1px;
-                    box-shadow: inset -1px 0px 0 $table-border-color;
+                    left: 0;
+                    box-shadow: inset 1px 0px 0 $table-border-color;
                     background-color: $table-footer-bg;
+                    border-right: 0 !important;
+                    border-left: 0 !important;
 
                     &:before {
                         position: absolute;
                         content: "";
-                        left: -1px;
+                        right: -1px;
                         top: 0;
                         width: 1px;
                         height: 100%;
-                        background-color: $table-footer-bg;
+                        background-color: $table-border-color;
                     }
                 }
             }
