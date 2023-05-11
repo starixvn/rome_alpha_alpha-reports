@@ -147,7 +147,7 @@ class WinLossDetailViewNew extends BaseReportView {
             "default": "en"
         };
 
-        return locale[window.top.$("#language").data("currentlanguage")] || locale.default;
+        return locale[$("#language").data("currentlanguage")] || locale.default;
     }
 
     private getWinLossDetailDataAndRenderWeekRange() {
@@ -372,7 +372,11 @@ class WinLossDetailViewNew extends BaseReportView {
     private updateCurrentUrl() {
         if (this.globalFormData.productIds) {
             const formData = $.extend({}, this.globalFormData, { breadcrumbLevelJson: JSON.stringify(this.breadcrumbLevelComponent.getBreadcrumbs()) });
-            window.top.indexManager.updateCurrentUrl($.param(formData));
+            try {
+                window.top.indexManager.updateCurrentUrl($.param(formData));
+            } catch (e) {
+
+            }
         }
     }
 

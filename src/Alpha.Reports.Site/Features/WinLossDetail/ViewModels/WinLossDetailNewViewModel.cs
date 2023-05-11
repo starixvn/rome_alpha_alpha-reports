@@ -35,6 +35,7 @@
             BreadcrumbLevelJson = message.BreadcrumbLevelJson;
             WeekFromDate = message.WeekFromDate.HasValue ? message.WeekFromDate.Value.ToShortDateWithSlash() : string.Empty;
             WeekToDate = message.WeekToDate.HasValue ? message.WeekToDate.Value.ToShortDateWithSlash() : string.Empty;
+            Language = message.Language;
         }
 
         public int ViewerId { get; }
@@ -66,5 +67,7 @@
         public string WeekFromDate { get; }
 
         public string WeekToDate { get; }
+
+        public string Language { get; }
     }
 }

@@ -152,6 +152,9 @@ a {
   .page-title .icon-report-legend {
     margin: 10px 10px 0 10px; }
 
+.tblRpt.alternative-row-table tbody .even-row, .tblRpt.alternative-row-table tbody .even, .tblRpt.alternative-row-table tbody tr:nth-child(2n) {
+  background-color: #eae9ee; }
+
 .flex {
   display: flex;
   flex-direction: column;
@@ -309,7 +312,8 @@ a {
 .filter {
   display: table;
   width: 100%;
-  clear: both; }
+  clear: both;
+  padding-right: 150px; }
   .filter #historicreport-switch {
     text-decoration: none !important; }
   .filter .multiselect .multiselect-selected-text {

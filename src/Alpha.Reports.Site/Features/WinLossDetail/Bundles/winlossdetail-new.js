@@ -767,7 +767,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             "zh-TW": "zh-tw",
             "default": "en"
         };
-        return locale[window.top.$("#language").data("currentlanguage")] || locale.default;
+        return locale[$("#language").data("currentlanguage")] || locale.default;
     };
     WinLossDetailViewNew.prototype.getWinLossDetailDataAndRenderWeekRange = function () {
         var _this = this;
@@ -961,7 +961,11 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     WinLossDetailViewNew.prototype.updateCurrentUrl = function () {
         if (this.globalFormData.productIds) {
             var formData = $.extend({}, this.globalFormData, { breadcrumbLevelJson: JSON.stringify(this.breadcrumbLevelComponent.getBreadcrumbs()) });
-            window.top.indexManager.updateCurrentUrl($.param(formData));
+            try {
+                window.top.indexManager.updateCurrentUrl($.param(formData));
+            }
+            catch (e) {
+            }
         }
     };
     WinLossDetailViewNew.prototype.addMoreParamsForStatistic = function () {

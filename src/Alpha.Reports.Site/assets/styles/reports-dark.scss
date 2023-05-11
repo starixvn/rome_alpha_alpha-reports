@@ -108,6 +108,15 @@ a {
 }
 
 // Tables
+.tblRpt {
+    &.alternative-row-table {
+        tbody {
+            .even-row, .even, tr:nth-child(2n) {
+                background-color: #262829;
+            }
+        }
+    }
+}
 .flex {
     display: flex;
     flex-direction: column;
@@ -394,6 +403,7 @@ a {
     display: table;
     width: 100%;
     clear: both;
+    padding-right: 150px;
 
     #historicreport-switch {
         text-decoration: none !important;
