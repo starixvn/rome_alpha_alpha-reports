@@ -934,4 +934,7 @@
   <data name="OlderThan3Months" xml:space="preserve">
     <value>三个月以上</value>
   </data>
+  <data name="GrossCommNoteForRoundingProblem" xml:space="preserve">
+    <value>由于以四个小数点净值，每个级别的总佣金数值可能不同。</value>
+  </data>
 </root>

@@ -167,7 +167,7 @@
                 result.Add(string.Format(Resources.DelayIssueLegend, string.Join(", ", productService.GetProductNames(products))));
             }
 
-            return new ReportLegendViewModel(result, GetConsolidationReportGrossCommNotes());
+            return new ReportLegendViewModel(result, GetConsolidationReportGrossCommNotes(message.ViewerLevel));
         }
 
         public ReportLegendViewModel Handle(ConsolidationDetailLegendQuery message)
@@ -278,13 +278,17 @@
             return breadcrumbLevel;
         }
 
-        private IEnumerable<string> GetConsolidationReportGrossCommNotes()
-            => new List<string>
+        private IEnumerable<string> GetConsolidationReportGrossCommNotes(UserLevel viewerLevel)
+        {
+            yield return Resources.GrossCommNoteForConsolidationReportSuper;
+            yield return Resources.GrossCommNoteForConsolidationReportMaster;
+            yield return Resources.GrossCommNoteForConsolidationReportAgent;
+            yield return Resources.GrossCommNoteForCasino;
+
+            if (viewerLevel.IsNotAgentLevel())
             {
-                Resources.GrossCommNoteForConsolidationReportSuper,
-                Resources.GrossCommNoteForConsolidationReportMaster,
-                Resources.GrossCommNoteForConsolidationReportAgent,
-                Resources.GrossCommNoteForCasino
-            };
+                yield return Resources.GrossCommNoteForRoundingProblem;
+            }
+        }
     }
 }

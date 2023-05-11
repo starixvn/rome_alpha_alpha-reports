@@ -180,6 +180,11 @@
 
             grossCommNotes.Add(Resources.GrossCommNoteForCasino);
 
+            if (viewerLevel.IsNotAgentLevel())
+            {
+                grossCommNotes.Add(Resources.GrossCommNoteForRoundingProblem);
+            }
+
             return grossCommNotes;
         }
 

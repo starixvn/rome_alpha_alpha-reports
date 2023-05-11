@@ -953,4 +953,7 @@
   <data name="OlderThan3Months" xml:space="preserve">
     <value>Lâu hơn 3 tháng</value>
   </data>
+  <data name="GrossCommNoteForRoundingProblem" xml:space="preserve">
+    <value>Giá trị Tổng Hoa Hồng có thể khác nhau ở mỗi cấp do làm tròn đến 4 chữ số thập phân.</value>
+  </data>
 </root>

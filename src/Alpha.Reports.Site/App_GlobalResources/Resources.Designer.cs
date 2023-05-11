@@ -1033,6 +1033,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gross Comm values may differ at each level due to rounding to 4 decimal places..
+        /// </summary>
+        public static string GrossCommNoteForRoundingProblem {
+            get {
+                return ResourceManager.GetString("GrossCommNoteForRoundingProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to member closing balance of each day within selected date range..
         /// </summary>
         public static string Guidelines_AccumulatedTotal_Member {
