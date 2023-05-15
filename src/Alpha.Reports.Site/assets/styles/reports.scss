@@ -152,6 +152,7 @@ a {
                 position: -webkit-sticky !important;
                 top: 0 !important;
                 border-top: 0 !important;
+                background-clip: padding-box;
 
                 &#groupColumnMember, &#groupColumnAgent, &#groupColumnMaster, &#groupColumnSuper {
                     border-bottom: 0 !important;

@@ -178,7 +178,8 @@ a {
   position: sticky !important;
   position: -webkit-sticky !important;
   top: 0 !important;
-  border-top: 0 !important; }
+  border-top: 0 !important;
+  background-clip: padding-box; }
   .tblRpt-freeze-header thead tr th#groupColumnMember, .tblRpt-freeze-header thead tr th#groupColumnAgent, .tblRpt-freeze-header thead tr th#groupColumnMaster, .tblRpt-freeze-header thead tr th#groupColumnSuper {
     border-bottom: 0 !important; }
 

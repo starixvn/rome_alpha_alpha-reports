@@ -179,7 +179,8 @@ a {
   position: -webkit-sticky !important;
   top: 0 !important;
   border-top: 0 !important;
-  box-shadow: inset 0 1px 0 #5F626B; }
+  box-shadow: inset 0 1px 0 #5F626B;
+  background-clip: padding-box; }
   .tblRpt-freeze-header thead tr th:before {
     position: absolute;
     content: "";
