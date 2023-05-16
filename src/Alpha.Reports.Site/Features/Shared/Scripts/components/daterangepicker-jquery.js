@@ -1,11 +1,14 @@
 "use strict";
 var DateRangePickerJQueryOption = /** @class */ (function () {
-    function DateRangePickerJQueryOption(onClosed, selectorId) {
+    function DateRangePickerJQueryOption(onClosed, language, selectorId) {
         if (onClosed === void 0) { onClosed = Function(); }
+        if (language === void 0) { language = "default"; }
         if (selectorId === void 0) { selectorId = "daterange-picker"; }
         this.onClosed = onClosed;
+        this.language = language;
         this.selectorId = selectorId;
         this.onClosed = onClosed;
+        this.language = language;
         this.selectorId = selectorId;
     }
     return DateRangePickerJQueryOption;
@@ -17,15 +20,15 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
     DateRangePickerJQueryComponent.prototype.render = function (options) {
         var _this = this;
         var dateRangePicker = $("#" + options.selectorId);
-        var historicPivotDateText = dateRangePicker.data("historicpivotdate");
-        var historicPivotDate = moment(historicPivotDateText);
+        this.historicPivotDateText = dateRangePicker.data("historicpivotdate");
+        var historicPivotDate = moment(this.historicPivotDateText);
         this.fromDate = dateRangePicker.data("fromdate");
         this.toDate = dateRangePicker.data("todate");
         dateRangePicker
             .dateRangePicker({
             format: alphaReports.format.shortDateWithSlash_DatePicker,
             separator: " - ",
-            language: "en",
+            language: options.language,
             startDate: dateRangePicker.data("mindate"),
             endDate: dateRangePicker.data("maxdate"),
             showShortcuts: true,
@@ -39,12 +42,22 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
             var startDate = moment(obj.date1);
             var endDate = moment(obj.date2);
             if (endDate.isBefore(historicPivotDate) && endDate.diff(startDate, "d") > _this.historyMaxDateRange) {
-                window.top.bootboxAlert("Data before " + historicPivotDateText + " can be retrieved " + (_this.historyMaxDateRange + 1) + " days in max, please review your date range.");
+                try {
+                    window.top.bootboxAlert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
+                }
+                catch (e) {
+                    alert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
+                }
                 dateRangePicker.data("dateRangePicker").setDateRange(_this.fromDate, _this.toDate, false);
                 return;
             }
             if (startDate.isBefore(historicPivotDate) && endDate.isSameOrAfter(historicPivotDate) && endDate.diff(startDate, "d") > _this.historyMaxDateRange) {
-                window.top.bootboxAlert("Data before " + historicPivotDateText + " can be retrieved " + (_this.historyMaxDateRange + 1) + " days in max, please review your date range.");
+                try {
+                    window.top.bootboxAlert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
+                }
+                catch (e) {
+                    alert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
+                }
                 dateRangePicker.data("dateRangePicker").setDateRange(_this.fromDate, _this.toDate, false);
                 return;
             }
@@ -115,6 +128,9 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
     };
     DateRangePickerJQueryComponent.prototype.getDateRangeValues = function () {
         return { fromDate: this.fromDate, toDate: this.toDate };
+    };
+    DateRangePickerJQueryComponent.prototype.getHistoricPivotDate = function () {
+        return this.historicPivotDateText;
     };
     return DateRangePickerJQueryComponent;
 }());

@@ -103,7 +103,11 @@
             return GetProductsForCustomer(custProducts, minReportDate, isEnableSabaPromotion);
         }
 
-        private IEnumerable<Product> GetProductsForCustomer(IEnumerable<Product> custProducts, DateTime? minReportDate, bool isEnableSabaPromotion)
+        private IEnumerable<Product> GetProductsForCustomer(
+            IEnumerable<Product> custProducts,
+            DateTime? minReportDate,
+            bool isEnableSabaPromotion,
+            bool isCalculateSabaPromotion = true)
         {
             if (custProducts != null)
             {
@@ -113,7 +117,7 @@
                 {
                     custProducts = new[]
                     {
-                        new Product(SabaPromotionProductId, null, custProducts.Max(product => product.EndOfSupportDate), 0, 0, getProductName)
+                        new Product(SabaPromotionProductId, null, isCalculateSabaPromotion ? custProducts.Max(product => product.EndOfSupportDate) : null, 0, 0, getProductName)
                     }.Concat(custProducts);
                 }
             }
@@ -211,7 +215,7 @@
                     .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
 
-            return GetProductsForCustomer(custProducts, minReportDate, isEnableSabaPromotion);
+            return GetProductsForCustomer(custProducts, minReportDate, isEnableSabaPromotion, false);
         }
     }
 }

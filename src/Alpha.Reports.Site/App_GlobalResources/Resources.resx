@@ -1019,7 +1019,7 @@
   </data>
   <data name="GrossCommNoteForRoundingProblem" xml:space="preserve">
     <value>Gross Comm values may differ at each level due to rounding to 4 decimal places.</value>
-    </data>
+  </data>
   <data name="Columns" xml:space="preserve">
     <value>Columns</value>
   </data>
@@ -1044,19 +1044,28 @@
   <data name="NewView" xml:space="preserve">
     <value>New view</value>
   </data>
-  <data name="ProductDetail" xml:space="preserve">
-    <value>Product Detail</value>
+  <data name="ProductDetails" xml:space="preserve">
+    <value>Product Details</value>
   </data>
-  <data name="SearchProductDetail" xml:space="preserve">
-    <value>Search Product Detail</value>
+  <data name="SearchProductDetails" xml:space="preserve">
+    <value>Search Product Details</value>
   </data>
-  <data name="NoProductDetailFound" xml:space="preserve">
-    <value>No Product Detail Found</value>
+  <data name="NoProductDetailsFound" xml:space="preserve">
+    <value>No Product Details Found</value>
   </data>
-  <data name="NoColumnFound" xml:space="preserve">
-    <value>No Column Found</value>
+  <data name="NoColumnsFound" xml:space="preserve">
+    <value>No Columns Found</value>
   </data>
-  <data name="SearchColumn" xml:space="preserve">
-    <value>Search Column</value>
+  <data name="SearchColumns" xml:space="preserve">
+    <value>Search Columns</value>
+  </data>
+  <data name="MaxDataRetrieveHistoryError" xml:space="preserve">
+    <value>Data before {0} can be retrieved 31 days in max, please review your date range.</value>
+  </data>
+  <data name="HistoryDataCanViewNote" xml:space="preserve">
+    <value>Historical data prior to {0}, can be viewed for up to 31 days.</value>
+  </data>
+  <data name="ReportDataCanViewNote" xml:space="preserve">
+    <value>Report data starting from {0}, can be viewed for up to 90 days +.</value>
   </data>
 </root>

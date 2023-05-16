@@ -9,5 +9,7 @@
         public ReportLegendQuery(IUser viewer) : base(viewer)
         {
         }
+
+        public bool IsNew { get; set; }
     }
 }

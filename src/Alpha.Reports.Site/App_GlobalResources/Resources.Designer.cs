@@ -1213,6 +1213,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Historical data prior to {0}, can be viewed for up to 31 days..
+        /// </summary>
+        public static string HistoryDataCanViewNote {
+            get {
+                return ResourceManager.GetString("HistoryDataCanViewNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Racing.
         /// </summary>
         public static string HorseRacing {
@@ -1528,6 +1537,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data before {0} can be retrieved 31 days in max, please review your date range..
+        /// </summary>
+        public static string MaxDataRetrieveHistoryError {
+            get {
+                return ResourceManager.GetString("MaxDataRetrieveHistoryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to May.
         /// </summary>
         public static string May {
@@ -1780,11 +1798,11 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Column Found.
+        ///   Looks up a localized string similar to No Columns Found.
         /// </summary>
-        public static string NoColumnFound {
+        public static string NoColumnsFound {
             get {
-                return ResourceManager.GetString("NoColumnFound", resourceCulture);
+                return ResourceManager.GetString("NoColumnsFound", resourceCulture);
             }
         }
         
@@ -1816,11 +1834,11 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Product Detail Found.
+        ///   Looks up a localized string similar to No Product Details Found.
         /// </summary>
-        public static string NoProductDetailFound {
+        public static string NoProductDetailsFound {
             get {
-                return ResourceManager.GetString("NoProductDetailFound", resourceCulture);
+                return ResourceManager.GetString("NoProductDetailsFound", resourceCulture);
             }
         }
         
@@ -2086,11 +2104,11 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product Detail.
+        ///   Looks up a localized string similar to Product Details.
         /// </summary>
-        public static string ProductDetail {
+        public static string ProductDetails {
             get {
-                return ResourceManager.GetString("ProductDetail", resourceCulture);
+                return ResourceManager.GetString("ProductDetails", resourceCulture);
             }
         }
         
@@ -2167,6 +2185,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report data starting from {0}, can be viewed for up to 90 days +..
+        /// </summary>
+        public static string ReportDataCanViewNote {
+            get {
+                return ResourceManager.GetString("ReportDataCanViewNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Results.
         /// </summary>
         public static string Results {
@@ -2194,11 +2221,11 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Column.
+        ///   Looks up a localized string similar to Search Columns.
         /// </summary>
-        public static string SearchColumn {
+        public static string SearchColumns {
             get {
-                return ResourceManager.GetString("SearchColumn", resourceCulture);
+                return ResourceManager.GetString("SearchColumns", resourceCulture);
             }
         }
         
@@ -2212,11 +2239,11 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Product Detail.
+        ///   Looks up a localized string similar to Search Product Details.
         /// </summary>
-        public static string SearchProductDetail {
+        public static string SearchProductDetails {
             get {
-                return ResourceManager.GetString("SearchProductDetail", resourceCulture);
+                return ResourceManager.GetString("SearchProductDetails", resourceCulture);
             }
         }
         

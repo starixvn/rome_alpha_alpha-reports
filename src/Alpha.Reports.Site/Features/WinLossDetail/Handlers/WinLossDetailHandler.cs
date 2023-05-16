@@ -64,10 +64,20 @@
             message.CustId = viewer.Id;
             var result = new List<string>();
 
-            if (message.IsSupportHistoricReport && !message.IsHistoricReport)
+            if (message.IsNew)
             {
                 result.Add(string.Format(
-                    $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
+                    $"- {Resources.ReportDataCanViewNote}", message.MinDate.ToShortDateWithSlash()));
+                result.Add(string.Format(
+                    $"- {Resources.HistoryDataCanViewNote}", message.MinDate.ToShortDateWithSlash()));
+            }
+            else
+            {
+                if (message.IsSupportHistoricReport && !message.IsHistoricReport)
+                {
+                    result.Add(string.Format(
+                        $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
+                }
             }
 
             if (message.IsSupportHistoricReport)

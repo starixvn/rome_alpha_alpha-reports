@@ -124,17 +124,29 @@
                     {
                         if (item.Key.Type == 0)
                         {
-                            productList.AddRange(item.Select(p =>
-                                new ProductViewModel(p.Id, p.DisplayName, isSelectAll || userSelectedProductIds.ContainsKey(p.Id), null)));
+                            productList.AddRange(item.Select(p => new ProductViewModel(
+                                p.Id,
+                                p.DisplayName,
+                                isSelectAll || userSelectedProductIds.ContainsKey(p.Id),
+                                p.EndOfSupportDate.HasValue && p.EndOfSupportDate < message.HistoricPivotDate,
+                                null)));
                         }
                         else
                         {
-                            var children = item.Select(
-                                p => new ProductViewModel(p.Id, p.DisplayName, isSelectAll || userSelectedProductIds.ContainsKey(p.Id), null)).ToList();
+                            var children = item.Select(p => new ProductViewModel(
+                                p.Id,
+                                p.DisplayName,
+                                isSelectAll || userSelectedProductIds.ContainsKey(p.Id),
+                                p.EndOfSupportDate.HasValue && p.EndOfSupportDate < message.HistoricPivotDate,
+                                null)).ToList();
+                            var isGroupProductChecked = message.FromDate >= message.HistoricPivotDate
+                                ? children.Where(p => !p.OnlyShowHistoric).All(p => p.Checked)
+                                : children.All(p => p.Checked);
                             productList.Add(new ProductViewModel(
                                 item.Key.Type,
                                 item.Key.TypeName,
-                                children.All(p => p.Checked),
+                                isGroupProductChecked,
+                                false,
                                 children));
                         }
                     });

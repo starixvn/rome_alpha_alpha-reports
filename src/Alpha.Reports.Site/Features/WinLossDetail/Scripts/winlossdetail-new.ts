@@ -3,6 +3,7 @@
 interface Window {
     productList: any,
     productDetailList: any,
+    columnList: any,
     indexManager: any
 }
 
@@ -22,6 +23,7 @@ class WinLossDetailViewNew extends BaseReportView {
     private winLossDetailUrl: string
     private productList: any;
     private productDetailList: any;
+    private columnList: any;
     private globalFormData: any;
     private sortColumnName = "username";
     private sortIndicator = 0; // asc: 0, desc: 1
@@ -34,7 +36,8 @@ class WinLossDetailViewNew extends BaseReportView {
         weekRangeComponent: WeekRangeComponent,
         breadcrumbLevelComponent: BreadcrumbLevelComponent,
         productList: any,
-        productDetailList: any) {
+        productDetailList: any,
+        columnList: any) {
         super();
         this.totalEnteredNonEnteredComponent = totalEnteredNonEnteredComponent;
         this.dateRangePickerComponent = dateRangePickerComponent;
@@ -44,6 +47,7 @@ class WinLossDetailViewNew extends BaseReportView {
         this.breadcrumbLevelComponent = breadcrumbLevelComponent;
         this.productList = productList;
         this.productDetailList = productDetailList;
+        this.columnList = columnList;
     }
 
     init() {
@@ -61,19 +65,21 @@ class WinLossDetailViewNew extends BaseReportView {
     private renderComponents() {
         const viewerId = +$("#hiddenViewerId").val();
         const viewerLevel = +$("#hiddenViewerLevel").val();
-        const weekFromDate = $("#week-from-date");
-        const weekToDate = $("#week-to-date");
+        const weekFromDate = $("#hiddenWeekFromDate");
+        const weekToDate = $("#hiddenWeekToDate");
+        const currentLanguage = $("#language").data("currentlanguage");
 
         this.totalEnteredNonEnteredComponent.init();
 
         this.dateRangePickerComponent.render(new DateRangePickerJQueryOption((dateRange) => {
-            $.extend(this.globalFormData, dateRange);
+            this.constraintDateRangeAndProductDropdownList(dateRange);
+            $.extend(this.globalFormData, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues());
             if (this.isInvalidGlobalFormData()) {
                 return;
             }
 
             this.getWinLossDetailDataAndRenderWeekRange();
-        }));
+        }, this.getDateRangePickerLocale(currentLanguage)));
 
         this.productAndProductDetailDropdownComponent.render(new ProductAndProductDetailDropdownOption(
             this.productList,
@@ -87,12 +93,14 @@ class WinLossDetailViewNew extends BaseReportView {
                 this.getWinLossDetailDataAndRenderWeekRange();
             }));
 
+        const dateRange = this.dateRangePickerComponent.getDateRangeValues();
+        this.constraintDateRangeAndProductDropdownList(dateRange);
+
         this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption(
             `WinLossDetail_${viewerId}_${$("#hiddenSubAccId").val()}:Columns`,
-            this.getListColumn(viewerLevel),
+            this.columnList,
             (visibleColumn) => this.showHideColumns(visibleColumn)));
 
-        const dateRange = this.dateRangePickerComponent.getDateRangeValues();
         this.weekRangeComponent.init(new WeekRangeOption((dateRange) => {
             if (this.isInvalidGlobalFormData()) {
                 return;
@@ -102,7 +110,7 @@ class WinLossDetailViewNew extends BaseReportView {
 
             $.extend(this.globalFormData, dateRange);
             this.getWinLossDetailData();
-        }, this.getMomentLocale()));
+        }, this.getMomentLocale(currentLanguage)));
         const activeWeekRange = weekFromDate.length > 0 && weekToDate.length > 0
             ? { weekFromDate: weekFromDate.val(), weekToDate: weekToDate.val() }
             : undefined;
@@ -138,7 +146,27 @@ class WinLossDetailViewNew extends BaseReportView {
         }
     }
 
-    private getMomentLocale() {
+    private constraintDateRangeAndProductDropdownList(dateRange) {
+        const historicPivotDate = moment(this.dateRangePickerComponent.getHistoricPivotDate());
+        if (moment(dateRange.fromDate).isSameOrAfter(historicPivotDate)) {
+            this.productAndProductDetailDropdownComponent.hideHistoricProducts();
+        } else {
+            this.productAndProductDetailDropdownComponent.showHistoricProducts();
+        }
+    }
+
+    private getDateRangePickerLocale(language: string) {
+        const locale = {
+            "th-TH": "th",
+            "vi-VN": "vi",
+            "zh-CN": "cn",
+            "zh-TW": "tc"
+        };
+
+        return locale[language] || "default";
+    }
+
+    private getMomentLocale(language: string) {
         const locale = {
             "th-TH": "th",
             "vi-VN": "vi",
@@ -147,7 +175,7 @@ class WinLossDetailViewNew extends BaseReportView {
             "default": "en"
         };
 
-        return locale[$("#language").data("currentlanguage")] || locale.default;
+        return locale[language] || locale.default;
     }
 
     private getWinLossDetailDataAndRenderWeekRange() {
@@ -187,7 +215,7 @@ class WinLossDetailViewNew extends BaseReportView {
     }
 
     private bindEvents() {
-        this.initReportLegend($("#hiddenLegendUrl").val(), 800, 540);
+        this.initReportLegend($("#hiddenLegendUrl").val(), 800, 570);
 
         $("#icon-excel").click((e) => {
             if (this.isInvalidGlobalFormData()) {
@@ -288,48 +316,6 @@ class WinLossDetailViewNew extends BaseReportView {
         return 0;
     }
 
-    private getListColumn(viewerLevel: number) {
-        const dropdown = $("#dropdown-column");
-        const member = dropdown.data("label-member");
-        const agent = dropdown.data("label-agent");
-        const winloss = dropdown.data("label-winloss");
-        const comm = dropdown.data("label-comm");
-        const total = dropdown.data("label-total");
-        const listColumn = [
-            { value: "fullname", text: dropdown.data("label-fullname") },
-            { value: "betcount", text: dropdown.data("label-betcount") },
-            { value: "turnover", text: dropdown.data("label-turnover") },
-            { value: "netturnover", text: dropdown.data("label-netturnover") },
-            { value: "grosscomm", text: dropdown.data("label-grosscomm") },
-            { value: "pwinloss", text: member + " " + winloss },
-            { value: "pcomm", text: member + " " + comm },
-            { value: "ptotal", text: member + " " + total },
-            { value: "awinloss", text: agent + " " + winloss },
-            { value: "acomm", text: agent + " " + comm },
-            { value: "atotal", text: agent + " " + total },
-        ];
-
-        if (viewerLevel >= 3) { // master or super
-            const master = dropdown.data("label-master");
-            listColumn.push(
-                { value: "mwinloss", text: master + " " + winloss },
-                { value: "mcomm", text: master + " " + comm },
-                { value: "mtotal", text: master + " " + total });
-        }
-
-        if (viewerLevel === 4) { // super
-            const superText = dropdown.data("label-super");
-            listColumn.push(
-                { value: "swinloss", text: superText + " " + winloss },
-                { value: "scomm", text: superText + " " + comm },
-                { value: "stotal", text: superText + " " + total });
-        }
-
-        listColumn.push({ value: "company", text: dropdown.data("label-company") });
-
-        return listColumn;
-    }
-
     private showHideColumns(column) {
         this.showHideSpecificColumn(column, "fullname");
         this.showHideSpecificColumn(column, "betcount");
@@ -423,5 +409,6 @@ $(function () {
         new WeekRangeComponent(),
         new BreadcrumbLevelComponent(),
         window.productList,
-        window.productDetailList).init();
+        window.productDetailList,
+        window.columnList).init();
 });

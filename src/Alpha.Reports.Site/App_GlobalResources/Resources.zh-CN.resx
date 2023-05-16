@@ -946,4 +946,43 @@
   <data name="NewView" xml:space="preserve">
     <value>新版本</value>
   </data>
+  <data name="Columns" xml:space="preserve">
+    <value>专栏</value>
+  </data>
+  <data name="DateRange" xml:space="preserve">
+    <value>日期范围</value>
+  </data>
+  <data name="NoColumnsFound" xml:space="preserve">
+    <value>无法找寻专栏</value>
+  </data>
+  <data name="NoProductDetailsFound" xml:space="preserve">
+    <value>无法找到产品资料</value>
+  </data>
+  <data name="NoProductFound" xml:space="preserve">
+    <value>无法找到产品</value>
+  </data>
+  <data name="ProductDetails" xml:space="preserve">
+    <value>产品资料</value>
+  </data>
+  <data name="SearchColumns" xml:space="preserve">
+    <value>搜索专栏</value>
+  </data>
+  <data name="SearchProduct" xml:space="preserve">
+    <value>搜索产品</value>
+  </data>
+  <data name="SearchProductDetails" xml:space="preserve">
+    <value>搜索产品资料</value>
+  </data>
+  <data name="MaxDataRetrieveHistoryError" xml:space="preserve">
+    <value>{0} 之前的数据最多可以取回31天，请审查您的日期范围。</value>
+  </data>
+  <data name="NoneSelected" xml:space="preserve">
+    <value>无选择</value>
+  </data>
+  <data name="HistoryDataCanViewNote" xml:space="preserve">
+    <value>{0}以前的历史资料，其检视日期为31天。</value>
+  </data>
+  <data name="ReportDataCanViewNote" xml:space="preserve">
+    <value>{0}后的报表资料，其可检视日期为90天或以上。</value>
+  </data>
 </root>

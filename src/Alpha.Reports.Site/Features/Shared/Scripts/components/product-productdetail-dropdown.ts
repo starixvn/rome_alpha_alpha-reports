@@ -18,6 +18,7 @@ class ProductAndProductDetailDropdownOption {
 class ProductAndProductDetailDropdownComponent {
     private dropdownProduct: JQuery;
     private dropdownProductDetail: JQuery;
+    private onlyShowHistoricProductIds = [];
 
     render(options: ProductAndProductDetailDropdownOption) {
         this.renderProductDetailDropdown(options);
@@ -34,11 +35,10 @@ class ProductAndProductDetailDropdownComponent {
 
         const dropdown = $("#" + options.selectorProductDetailId);
         this.dropdownProductDetail = dropdown.fanexMultiSelect({
-            checkAllText: dropdown.data("label-selectall"),
+            selectAllText: dropdown.data("label-selectall"),
             selectedText: "# " + dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
-            useCustomCheckAllText: true,
-            customCheckAllText: dropdown.data("label-all") + " (#)",
+            customSelectAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),
@@ -58,20 +58,21 @@ class ProductAndProductDetailDropdownComponent {
     }
 
     private renderProductDropdown(options: ProductAndProductDetailDropdownOption) {
-        const self = this;
         const productIdWithSubProductIds = {};
         const uncheckedProductIds = [];
-        const productList = options.products.map(function (item) {
-            const checkboxItem: any = self.buildCheckboxItem(item);
+        const productList = options.products.map((item) => {
+            item.OnlyShowHistoric && this.onlyShowHistoricProductIds.push(item.Id);
+            const checkboxItem: any = this.buildCheckboxItem(item);
 
             if (item.Products) {
                 const subProductIds = [];
                 productIdWithSubProductIds[item.Id] = subProductIds;
 
-                checkboxItem.items = item.Products.map(function (item) {
+                checkboxItem.items = item.Products.map((item) => {
+                    item.OnlyShowHistoric && this.onlyShowHistoricProductIds.push(item.Id);
                     subProductIds.push(item.Id);
                     item.Checked || uncheckedProductIds.push(item.Id);
-                    return self.buildCheckboxItem(item);
+                    return this.buildCheckboxItem(item);
                 });
             } else {
                 item.Checked || uncheckedProductIds.push(item.Id);
@@ -80,13 +81,13 @@ class ProductAndProductDetailDropdownComponent {
             return checkboxItem;
         });
 
+        const self = this;
         const dropdown = $("#" + options.selectorProductId);
         this.dropdownProduct = dropdown.fanexMultiSelect({
-            checkAllText: dropdown.data("label-selectall"),
+            selectAllText: dropdown.data("label-selectall"),
             selectedText: "# " + dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
-            useCustomCheckAllText: true,
-            customCheckAllText: dropdown.data("label-all") + " (#)",
+            customSelectAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),
@@ -155,5 +156,15 @@ class ProductAndProductDetailDropdownComponent {
             unselectedProductIds: this.dropdownProduct.fanexMultiSelect("getUncheckedValues"),
             unselectedResourceIds: this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
         };
+    }
+
+    showHistoricProducts() {
+        this.onlyShowHistoricProductIds.length
+            && this.dropdownProduct.fanexMultiSelect("showItemsByValues", this.onlyShowHistoricProductIds);
+    }
+
+    hideHistoricProducts() {
+        this.onlyShowHistoricProductIds.length
+            && this.dropdownProduct.fanexMultiSelect("hideItemsByValues", this.onlyShowHistoricProductIds);
     }
 }

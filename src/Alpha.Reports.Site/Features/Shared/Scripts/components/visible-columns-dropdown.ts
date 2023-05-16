@@ -35,11 +35,10 @@ class VisibleColumnDropdownComponent {
         }
 
         this.dropdownColumn = dropdown.fanexMultiSelect({
-            checkAllText: dropdown.data("label-selectall"),
+            selectAllText: dropdown.data("label-selectall"),
             selectedText: "# " + dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
-            useCustomCheckAllText: true,
-            customCheckAllText: dropdown.data("label-all") + " (#)",
+            customSelectAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),

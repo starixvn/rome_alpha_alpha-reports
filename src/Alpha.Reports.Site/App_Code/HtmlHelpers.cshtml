@@ -80,3 +80,13 @@
         <span>@text</span>
     }
 }
+
+@helper RenderSwitchVersionButton(string buttonText, string href)
+{
+    <div class="switch-version">
+        <a href="@href" class="btn-switch-version" target="main">
+            <span class="icon-swap-horizontal"></span>
+            <span class="text">@buttonText</span>
+        </a>
+    </div>
+}

@@ -19,6 +19,7 @@ var ProductAndProductDetailDropdownOption = /** @class */ (function () {
 }());
 var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
     function ProductAndProductDetailDropdownComponent() {
+        this.onlyShowHistoricProductIds = [];
     }
     ProductAndProductDetailDropdownComponent.prototype.render = function (options) {
         this.renderProductDetailDropdown(options);
@@ -33,11 +34,10 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
         });
         var dropdown = $("#" + options.selectorProductDetailId);
         this.dropdownProductDetail = dropdown.fanexMultiSelect({
-            checkAllText: dropdown.data("label-selectall"),
+            selectAllText: dropdown.data("label-selectall"),
             selectedText: "# " + dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
-            useCustomCheckAllText: true,
-            customCheckAllText: dropdown.data("label-all") + " (#)",
+            customSelectAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),
@@ -55,18 +55,20 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
         });
     };
     ProductAndProductDetailDropdownComponent.prototype.renderProductDropdown = function (options) {
-        var self = this;
+        var _this = this;
         var productIdWithSubProductIds = {};
         var uncheckedProductIds = [];
         var productList = options.products.map(function (item) {
-            var checkboxItem = self.buildCheckboxItem(item);
+            item.OnlyShowHistoric && _this.onlyShowHistoricProductIds.push(item.Id);
+            var checkboxItem = _this.buildCheckboxItem(item);
             if (item.Products) {
                 var subProductIds_1 = [];
                 productIdWithSubProductIds[item.Id] = subProductIds_1;
                 checkboxItem.items = item.Products.map(function (item) {
+                    item.OnlyShowHistoric && _this.onlyShowHistoricProductIds.push(item.Id);
                     subProductIds_1.push(item.Id);
                     item.Checked || uncheckedProductIds.push(item.Id);
-                    return self.buildCheckboxItem(item);
+                    return _this.buildCheckboxItem(item);
                 });
             }
             else {
@@ -74,13 +76,13 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             }
             return checkboxItem;
         });
+        var self = this;
         var dropdown = $("#" + options.selectorProductId);
         this.dropdownProduct = dropdown.fanexMultiSelect({
-            checkAllText: dropdown.data("label-selectall"),
+            selectAllText: dropdown.data("label-selectall"),
             selectedText: "# " + dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
-            useCustomCheckAllText: true,
-            customCheckAllText: dropdown.data("label-all") + " (#)",
+            customSelectAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),
@@ -145,6 +147,14 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             unselectedProductIds: this.dropdownProduct.fanexMultiSelect("getUncheckedValues"),
             unselectedResourceIds: this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
         };
+    };
+    ProductAndProductDetailDropdownComponent.prototype.showHistoricProducts = function () {
+        this.onlyShowHistoricProductIds.length
+            && this.dropdownProduct.fanexMultiSelect("showItemsByValues", this.onlyShowHistoricProductIds);
+    };
+    ProductAndProductDetailDropdownComponent.prototype.hideHistoricProducts = function () {
+        this.onlyShowHistoricProductIds.length
+            && this.dropdownProduct.fanexMultiSelect("hideItemsByValues", this.onlyShowHistoricProductIds);
     };
     return ProductAndProductDetailDropdownComponent;
 }());

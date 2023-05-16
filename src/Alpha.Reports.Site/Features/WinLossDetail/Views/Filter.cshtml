@@ -3,19 +3,14 @@
 <form class="form-inline filter @(Model.Visible ? string.Empty:"hide")" role="form" id="report-form">
     @if ((bool)ViewData["IsOfferNewWinLossDetailReport"])
     {
-        <div class="switch-version">
-            <a href="@Url.Action($"{ViewData["DirectDownLineLevelName"]}New", $"{SiteSettings.ReportRouting}WinLossDetail")" class="btn-switch-version" target="main">
-                <span class="icon-swap-horizontal"></span>
-                <span class="text">@Resources.NewView</span>
-            </a>
-        </div>
+        @HtmlHelpers.RenderSwitchVersionButton(Resources.NewView, Url.Action($"{ViewData["DirectDownLineLevelName"]}New", $"{SiteSettings.ReportRouting}WinLossDetail"))
     }
     @RenderHiddenFields()
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
     @ProductDetailMultiSelection.Render(Model.ProductDetailMultiSelectionViewModel)
     @(Model.IsHistoricReport
-        ? MonthPicker.Render(Model.MonthPickerViewModel)
-        : DateRangePicker.Render(Model.DateRangePickerViewModel))
+                ? MonthPicker.Render(Model.MonthPickerViewModel)
+                : DateRangePicker.Render(Model.DateRangePickerViewModel))
     @if (Model.IsHistoricReport)
     {
         <div class="form-group">
