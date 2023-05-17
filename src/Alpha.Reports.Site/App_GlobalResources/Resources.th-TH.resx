@@ -928,4 +928,7 @@
   <data name="OlderThan3Months" xml:space="preserve">
     <value>มากกว่า 3 เดือน</value>
   </data>
+  <data name="GrossCommNoteForRoundingProblem" xml:space="preserve">
+    <value>ค่ายอดรวมของคอมมิชชั่น อาจแตกต่างกันในแต่ละระดับเนื่องจากการปัดเศษของทศนิยม 4 ตำแหน่ง</value>
+  </data>
 </root>
