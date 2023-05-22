@@ -9,7 +9,7 @@
         ? 19
         : Model.CustLevel.IsMasterLevel() ? 16 : 13;
 }
-<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tblRpt-freeze-body tblRpt-freeze-header"
+<table class="tblRpt tblRpt-bordered alternative-row-table-new width-100per tablesorter tblRpt-hover tblRpt-freeze-body tblRpt-freeze-header"
        id="tbl-report"
        data-cansort="@(Model.WinLossDetail.MoreThanOne() ? 1 : 0)"
        data-yesterday="@Model.TotalEnteredSport.EnteredSportYesterday.EventDate.ToMMDDWithSlash()"

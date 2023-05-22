@@ -109,7 +109,7 @@ a {
 
 // Tables
 .tblRpt {
-    &.alternative-row-table {
+    &.alternative-row-table-new {
         tbody {
             .even-row, .even, tr:nth-child(2n) {
                 background-color: $table-odd-bg;
@@ -169,6 +169,8 @@ a {
     }
 }
 .tblRpt-freeze-body {
+    transform: scale(1.001);
+
     thead {
         tr {
             &:first-child {
@@ -208,6 +210,7 @@ a {
             border-right: 0 !important;
             border-left: 0 !important;
             box-shadow: inset 1px 0px 0 $table-border-color;
+            background-clip: padding-box;
 
             &:before {
                 position: absolute;
@@ -239,6 +242,7 @@ a {
     tfoot {
         tr {
             td {
+                border-bottom: 0!important;
                 &:first-child {
                     position: sticky;
                     position: -webkit-sticky !important;
@@ -265,6 +269,10 @@ a {
 }
 #tbl-report {
     text-align: right;
+
+    &.tblRpt-bordered tfoot > tr > td {
+        border-top: 0 !important;
+    }
 
     .visible-stack-mode {
         display: none;
