@@ -208,65 +208,71 @@ a {
     background-color: transparent;
     box-shadow: inset 0 -1px 0 #5F626B; }
 
-.tblRpt-freeze-body {
-  transform: scale(1.001); }
-  .tblRpt-freeze-body thead tr:first-child th:first-child {
-    box-shadow: inset 1px 0px 0 #5F626B;
-    left: 0;
-    position: sticky;
-    position: -webkit-sticky !important;
-    z-index: 40;
-    border-left: 0 !important;
-    height: 100%; }
-    .tblRpt-freeze-body thead tr:first-child th:first-child:before {
-      position: absolute;
-      content: "";
-      right: -1px;
-      top: 0;
-      width: 1px;
-      height: 100%;
-      background-color: #5F626B; }
-  .tblRpt-freeze-body tbody .col-username {
-    position: sticky;
-    position: -webkit-sticky !important;
-    z-index: 2;
-    left: 0;
-    background: #181919;
-    border-right: 0 !important;
-    border-left: 0 !important;
-    box-shadow: inset 1px 0px 0 #5F626B;
-    background-clip: padding-box; }
-    .tblRpt-freeze-body tbody .col-username:before {
-      position: absolute;
-      content: "";
-      right: -1px;
-      top: 0;
-      width: 1px;
-      height: 100%;
-      background-color: #5F626B; }
-  .tblRpt-freeze-body tbody tr:nth-child(2n) .col-username {
-    background-color: #262829; }
-  .tblRpt-freeze-body tbody tr td[colspan] {
-    border-left: 0 !important;
-    box-shadow: inset 1px 0px 0 #5F626B; }
-  .tblRpt-freeze-body tfoot tr td:first-child {
-    position: sticky;
-    position: -webkit-sticky !important;
-    z-index: 20;
-    left: 0;
-    background-color: #4C2511;
-    border-right: 0 !important;
-    border-left: 0 !important;
-    box-shadow: inset 1px 0px 0 #5F626B;
-    background-clip: padding-box; }
-    .tblRpt-freeze-body tfoot tr td:first-child:before {
-      position: absolute;
-      content: "";
-      right: -1px;
-      top: 0;
-      width: 1px;
-      height: 100%;
-      background-color: #5F626B; }
+@-moz-document url-prefix() {
+  .tblRpt-freeze-body {
+    transform: scale(1.001); } }
+
+.tblRpt-freeze-body thead tr:first-child th:first-child {
+  box-shadow: inset 1px 0px 0 #5F626B;
+  left: 0;
+  position: sticky;
+  position: -webkit-sticky !important;
+  z-index: 40;
+  border-left: 0 !important;
+  height: 100%; }
+  .tblRpt-freeze-body thead tr:first-child th:first-child:before {
+    position: absolute;
+    content: "";
+    right: -1px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #5F626B; }
+
+.tblRpt-freeze-body tbody .col-username {
+  position: sticky;
+  position: -webkit-sticky !important;
+  z-index: 2;
+  left: 0;
+  background: #181919;
+  border-right: 0 !important;
+  border-left: 0 !important;
+  box-shadow: inset 1px 0px 0 #5F626B;
+  background-clip: padding-box; }
+  .tblRpt-freeze-body tbody .col-username:before {
+    position: absolute;
+    content: "";
+    right: -1px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #5F626B; }
+
+.tblRpt-freeze-body tbody tr:nth-child(2n) .col-username {
+  background-color: #262829; }
+
+.tblRpt-freeze-body tbody tr td[colspan] {
+  border-left: 0 !important;
+  box-shadow: inset 1px 0px 0 #5F626B; }
+
+.tblRpt-freeze-body tfoot tr td:first-child {
+  position: sticky;
+  position: -webkit-sticky !important;
+  z-index: 20;
+  left: 0;
+  background-color: #4C2511;
+  border-right: 0 !important;
+  border-left: 0 !important;
+  box-shadow: inset 1px 0px 0 #5F626B;
+  background-clip: padding-box; }
+  .tblRpt-freeze-body tfoot tr td:first-child:before {
+    position: absolute;
+    content: "";
+    right: -1px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #5F626B; }
 
 #tbl-report, #tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
   text-align: right; }

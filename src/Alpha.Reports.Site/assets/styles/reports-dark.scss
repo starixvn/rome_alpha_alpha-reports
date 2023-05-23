@@ -204,7 +204,9 @@ a {
     }
 }
 .tblRpt-freeze-body {
-    transform: scale(1.001);
+    @-moz-document url-prefix() {
+        transform: scale(1.001);
+    }
 
     thead {
         tr {
