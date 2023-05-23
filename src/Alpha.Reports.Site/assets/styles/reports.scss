@@ -110,9 +110,23 @@ a {
 // Tables
 .tblRpt {
     &.alternative-row-table-new {
+        background-color: #7f3d1d;
+
         tbody {
+            tr {
+                background-color: #ffffff;
+
+                td {
+                    background-color: #ffffff;
+                }
+            }
+
             .even-row, .even, tr:nth-child(2n) {
                 background-color: $table-odd-bg;
+
+                td {
+                    background-color: $table-odd-bg;
+                }
             }
         }
     }
@@ -135,6 +149,7 @@ a {
     }
 }
 .scrollable {
+   
 
     .blockOverlay {
         opacity: 0 !important;
@@ -169,10 +184,6 @@ a {
     }
 }
 .tblRpt-freeze-body {
-    @-moz-document url-prefix() {
-        transform: scale(1.001);
-    }
-
     thead {
         tr {
             &:first-child {
@@ -242,7 +253,11 @@ a {
     }
 
     tfoot {
+        background-color: #7f3d1d;
+
         tr {
+            background-color: #7f3d1d;
+
             td {
                 border-bottom: 0 !important;
 

@@ -110,9 +110,23 @@ a {
 // Tables
 .tblRpt {
     &.alternative-row-table-new {
+        background-color: #4C2511;
+
         tbody {
+            tr {
+                background: #181919;
+
+                td {
+                    background-color: #181919;
+                }
+            }
+
             .even-row, .even, tr:nth-child(2n) {
                 background-color: #262829;
+
+                td {
+                    background-color: #262829;
+                }
             }
         }
     }
@@ -191,11 +205,11 @@ a {
                             content: "";
                             bottom: -1px;
                             top: auto;
-                            left: 0;
+                            left: 1px;
                             width: 100%;
                             height: 100%;
                             background-color: transparent;
-                            box-shadow: inset 0 -1px 0 #5F626B;
+                            box-shadow: inset 0 -1px 0 #5F626B, inset -1px 0px 0 #5F626B;
                         }
                     }
                 }
@@ -204,9 +218,7 @@ a {
     }
 }
 .tblRpt-freeze-body {
-    @-moz-document url-prefix() {
-        transform: scale(1.001);
-    }
+ 
 
     thead {
         tr {
