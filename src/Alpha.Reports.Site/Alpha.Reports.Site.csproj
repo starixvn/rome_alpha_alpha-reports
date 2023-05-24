@@ -555,6 +555,7 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\AgentNew.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\MasterNew.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\MemberNew.xls" />
+    <Content Include="App_Code\Components\UsernameAutoSuggestion.cshtml" />
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
@@ -591,6 +592,7 @@
     <TypeScriptCompile Include="Features\Shared\Scripts\components\daterangepicker-jquery.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\product-productdetail-dropdown.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\total-entered-nonentered.ts" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\components\username-autosuggestion.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\visible-columns-dropdown.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\week-range.ts" />
     <Content Include="Web.AppSettings.local_2.config">

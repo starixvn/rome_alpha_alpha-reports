@@ -40,6 +40,7 @@
         ];
     </script>
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/daterangepicker")
+    @StaticResources.AssetScripts.RenderCommon("/bundles/site-memberinfo/credit-balance")
     @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WinLossDetail/Bundles/winlossdetail-new")
 }
 <div class="flex">
@@ -51,6 +52,7 @@
             @HtmlHelpers.RenderSwitchVersionButton(Resources.ClassicView, Url.Action(Model.ViewerLevel.GetDirectDownLineLevel().DisplayName, $"{SiteSettings.ReportRouting}WinLossDetail"))
             @DateRangePickerJQuery.Render(Model.DateRangePickerViewModel)
             @ProductAndProductDetailDropdown.Render()
+            @UsernameAutoSuggestion.Render()
             @VisibleColumnsDropdown.Render()
         </div>
         <div class="label-week-box" id="week-range-container"></div>
@@ -60,6 +62,7 @@
             </div>
             <div class="list-icon">
                 <ul>
+                    <li><span id="icon-copy" class="icon icon-content-copy" title="@Resources.Copy"></span></li>
                     <li>
                         <a href="javacript:;"
                            id="icon-excel"
@@ -87,6 +90,7 @@
 <input type="hidden" id="hiddenLegendUrl" value="@Url.Action("ReportLegend", $"{SiteSettings.ReportRouting}WinLossDetail", new { IsNew = canViewHistory, IsSupportHistoricReport = true, MinDate = canViewHistory ? Model.DateRangePickerViewModel.HistoricPivotDate : Model.DateRangePickerViewModel.MinDate })" />
 <input type="hidden" id="hiddenWinLossDetailUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WinLossDetail")" />
 <input type="hidden" id="hiddenBetListsUrl" value="@Model.BetListsUrl" />
+<input type="hidden" id="hiddenUsernameAutoSuggestionUrl" value="@Model.UsernameAutoSuggestionUrl" />
 <input type="hidden" id="hiddenBreadcrumbLevelJson" value="@Model.BreadcrumbLevelJson" />
 @if (!string.IsNullOrWhiteSpace(Model.WeekFromDate) && !string.IsNullOrWhiteSpace(Model.WeekToDate))
 {

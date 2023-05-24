@@ -1046,4 +1046,13 @@
   <data name="ReportDataCanViewNote" xml:space="preserve">
     <value>Dữ liệu báo cáo từ ngày {0} trở đi có thể được tra cứu đến 90 ngày hoặc hơn.</value>
   </data>
+  <data name="UsernameOrFirstLastName" xml:space="preserve">
+    <value>Tên đăng nhập hoặc Tên/Họ</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>Đã sao chép</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Sao chép</value>
+  </data>
 </root>

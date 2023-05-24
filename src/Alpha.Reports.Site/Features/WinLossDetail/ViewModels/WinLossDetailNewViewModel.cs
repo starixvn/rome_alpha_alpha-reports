@@ -7,6 +7,7 @@
     using Alpha.Reports.Models.WinLossDetail;
     using Alpha.Reports.Site.Features.Shared.ViewModels.Components;
     using Alpha.Reports.Site.Requests.WinLossDetail;
+    using Alpha.Web.Helpers;
 
     public class WinLossDetailNewViewModel : WinLossDetailGetDataViewModel
     {
@@ -51,6 +52,8 @@
         public string CustName { get; }
 
         public string BetListsUrl => Helpers.UrlHelper.MapBetListPath("~/WinLoss/IndexNew");
+
+        public string UsernameAutoSuggestionUrl => MicroSites.MemberInfoUrl("~/UserNameSuggestion/GetUsernamesSuggestion");
 
         public DateRangePickerNewViewModel DateRangePickerViewModel { get; }
 

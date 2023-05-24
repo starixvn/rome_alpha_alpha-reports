@@ -15,6 +15,7 @@ class WinLossDetailViewNew extends BaseReportView {
     private totalEnteredNonEnteredComponent: TotalEnteredNonEnteredComponent;
     private dateRangePickerComponent: DateRangePickerJQueryComponent;
     private productAndProductDetailDropdownComponent: ProductAndProductDetailDropdownComponent;
+    private usernameAutoSuggestionComponent: UsernameAutoSuggestionComponent;
     private visibleColumnDropdownComponent: VisibleColumnDropdownComponent;
     private weekRangeComponent: WeekRangeComponent
     private breadcrumbLevelComponent: BreadcrumbLevelComponent;
@@ -32,6 +33,7 @@ class WinLossDetailViewNew extends BaseReportView {
         totalEnteredNonEnteredComponent: TotalEnteredNonEnteredComponent,
         dateRangePickerComponent: DateRangePickerJQueryComponent,
         productAndProductDetailDropdownComponent: ProductAndProductDetailDropdownComponent,
+        usernameAutoSuggestionComponent: UsernameAutoSuggestionComponent,
         visibleColumnDropdownComponent: VisibleColumnDropdownComponent,
         weekRangeComponent: WeekRangeComponent,
         breadcrumbLevelComponent: BreadcrumbLevelComponent,
@@ -42,6 +44,7 @@ class WinLossDetailViewNew extends BaseReportView {
         this.totalEnteredNonEnteredComponent = totalEnteredNonEnteredComponent;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productAndProductDetailDropdownComponent = productAndProductDetailDropdownComponent;
+        this.usernameAutoSuggestionComponent = usernameAutoSuggestionComponent;
         this.visibleColumnDropdownComponent = visibleColumnDropdownComponent;
         this.weekRangeComponent = weekRangeComponent;
         this.breadcrumbLevelComponent = breadcrumbLevelComponent;
@@ -95,6 +98,14 @@ class WinLossDetailViewNew extends BaseReportView {
 
         const dateRange = this.dateRangePickerComponent.getDateRangeValues();
         this.constraintDateRangeAndProductDropdownList(dateRange);
+
+        this.usernameAutoSuggestionComponent.init(new UsernameAutoSuggestionOption(
+            $("#hiddenUsernameAutoSuggestionUrl").val(),
+            viewerId,
+            false,
+            function (username) {
+                console.log(username);
+            }));
 
         this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption(
             `WinLossDetail_${viewerId}_${$("#hiddenSubAccId").val()}:Columns`,
@@ -439,6 +450,7 @@ $(function () {
         new TotalEnteredNonEnteredComponent(),
         new DateRangePickerJQueryComponent(),
         new ProductAndProductDetailDropdownComponent(),
+        new UsernameAutoSuggestionComponent(),
         new VisibleColumnDropdownComponent(),
         new WeekRangeComponent(),
         new BreadcrumbLevelComponent(),

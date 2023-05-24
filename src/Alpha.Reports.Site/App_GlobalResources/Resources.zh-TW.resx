@@ -988,4 +988,13 @@
   <data name="nSelected" xml:space="preserve">
     <value>已選 #</value>
   </data>
+  <data name="UsernameOrFirstLastName" xml:space="preserve">
+    <value>用戶名或名/姓</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>複製</value>
+  </data>
 </root>

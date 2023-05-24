@@ -1071,4 +1071,13 @@
   <data name="nSelected" xml:space="preserve">
     <value># Selected</value>
   </data>
+  <data name="UsernameOrFirstLastName" xml:space="preserve">
+    <value>Username or First/Last Name</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>Copied</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
 </root>
