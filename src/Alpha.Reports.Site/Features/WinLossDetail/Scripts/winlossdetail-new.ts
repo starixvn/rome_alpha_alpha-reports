@@ -19,6 +19,7 @@ class WinLossDetailViewNew extends BaseReportView {
     private visibleColumnDropdownComponent: VisibleColumnDropdownComponent;
     private weekRangeComponent: WeekRangeComponent
     private breadcrumbLevelComponent: BreadcrumbLevelComponent;
+    private winLossDetailCopyHtml: WinLossDetailCopyHtml;
     private tableReportContainer: JQuery;
     private tableReport: JQuery;
     private winLossDetailUrl: string
@@ -37,6 +38,7 @@ class WinLossDetailViewNew extends BaseReportView {
         visibleColumnDropdownComponent: VisibleColumnDropdownComponent,
         weekRangeComponent: WeekRangeComponent,
         breadcrumbLevelComponent: BreadcrumbLevelComponent,
+        winLossDetailCopyHtml: WinLossDetailCopyHtml,
         productList: any,
         productDetailList: any,
         columnList: any) {
@@ -48,6 +50,7 @@ class WinLossDetailViewNew extends BaseReportView {
         this.visibleColumnDropdownComponent = visibleColumnDropdownComponent;
         this.weekRangeComponent = weekRangeComponent;
         this.breadcrumbLevelComponent = breadcrumbLevelComponent;
+        this.winLossDetailCopyHtml = winLossDetailCopyHtml;
         this.productList = productList;
         this.productDetailList = productDetailList;
         this.columnList = columnList;
@@ -228,6 +231,8 @@ class WinLossDetailViewNew extends BaseReportView {
     private bindEvents() {
         this.initReportLegend($("#hiddenLegendUrl").val());
 
+        this.winLossDetailCopyHtml.init();
+
         $("#icon-excel").click((e) => {
             if (this.isInvalidGlobalFormData()) {
                 e.preventDefault();
@@ -239,7 +244,7 @@ class WinLossDetailViewNew extends BaseReportView {
             setTimeout(function () {
                 $this.attr("href", "javascript:;");
             }, 1000);
-        });
+        }).tooltip();
 
         this.bindTableReportEvents();
     }
@@ -355,14 +360,14 @@ class WinLossDetailViewNew extends BaseReportView {
                 colspan++;
             }
 
-            colspan ? groupColumn.attr("colspan", colspan).show() : groupColumn.hide();
+            colspan ? groupColumn.attr("colspan", colspan).removeClass("hide") : groupColumn.addClass("hide");
         }
     }
 
     private showHideSpecificColumn(column, key) {
         const matchedColumns = this.tableReport.find(`[data-colname=${key}]`);
         const visible = column[key];
-        visible ? matchedColumns.show() : matchedColumns.hide();
+        visible ? matchedColumns.removeClass("hide") : matchedColumns.addClass("hide");
 
         return visible;
     }
@@ -454,6 +459,7 @@ $(function () {
         new VisibleColumnDropdownComponent(),
         new WeekRangeComponent(),
         new BreadcrumbLevelComponent(),
+        new WinLossDetailCopyHtml(Clipboard),
         window.productList,
         window.productDetailList,
         window.columnList).init();

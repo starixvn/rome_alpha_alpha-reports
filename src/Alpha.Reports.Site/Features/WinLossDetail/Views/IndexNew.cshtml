@@ -6,7 +6,7 @@
     var canViewHistory = Model.DateRangePickerViewModel.MinDate < Model.DateRangePickerViewModel.HistoricPivotDate;
 }
 @section Styles {
-    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/daterangepicker")
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-reports/winlossdetail-new")
 }
 @section Scripts {
     <script type="text/javascript">
@@ -39,8 +39,7 @@
             { value: "company", text: '@Resources.Company' }
         ];
     </script>
-    @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/daterangepicker")
-    @StaticResources.AssetScripts.RenderCommon("/bundles/site-memberinfo/credit-balance")
+    @StaticResources.AssetScripts.RenderCommon("/bundles/site-reports/winlossdetail-new")
     @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WinLossDetail/Bundles/winlossdetail-new")
 }
 <div class="flex">
@@ -62,11 +61,13 @@
             </div>
             <div class="list-icon">
                 <ul>
-                    <li><span id="icon-copy" class="icon icon-content-copy" title="@Resources.Copy"></span></li>
+                    <li><span id="icon-copy" class="icon icon-content-copy" data-toggle="tooltip" data-placement="top" title="@Resources.Copy"></span></li>
                     <li>
                         <a href="javacript:;"
                            id="icon-excel"
                            class="icon icon-excel icon-excel-new"
+                           data-toggle="tooltip"
+                           data-placement="top"
                            title="@Resources.ExportToExcel"
                            data-url="@Url.Action("ExcelNew", $"{SiteSettings.ReportRouting}WinLossDetail")"></a>
                     </li>
@@ -98,3 +99,5 @@
     <input type="hidden" id="hiddenWeekToDate" value="@Model.WeekToDate" />
 }
 <input type="hidden" id="language" data-currentlanguage="@Model.Language" />
+<input type="hidden" id="hiddenCopyText" value="@Resources.Copy" />
+<input type="hidden" id="hiddenCopiedText" value="@Resources.Copied" />

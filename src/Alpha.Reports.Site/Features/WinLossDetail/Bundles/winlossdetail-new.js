@@ -171,12 +171,15 @@ var TotalEnteredNonEnteredComponent = /** @class */ (function () {
 //# sourceMappingURL=total-entered-nonentered.js.map
 "use strict";
 var DateRangePickerJQueryOption = /** @class */ (function () {
-    function DateRangePickerJQueryOption(onClosed, selectorId) {
+    function DateRangePickerJQueryOption(onClosed, language, selectorId) {
         if (onClosed === void 0) { onClosed = Function(); }
+        if (language === void 0) { language = "default"; }
         if (selectorId === void 0) { selectorId = "daterange-picker"; }
         this.onClosed = onClosed;
+        this.language = language;
         this.selectorId = selectorId;
         this.onClosed = onClosed;
+        this.language = language;
         this.selectorId = selectorId;
     }
     return DateRangePickerJQueryOption;
@@ -188,15 +191,15 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
     DateRangePickerJQueryComponent.prototype.render = function (options) {
         var _this = this;
         var dateRangePicker = $("#" + options.selectorId);
-        var historicPivotDateText = dateRangePicker.data("historicpivotdate");
-        var historicPivotDate = moment(historicPivotDateText);
+        this.historicPivotDateText = dateRangePicker.data("historicpivotdate");
+        var historicPivotDate = moment(this.historicPivotDateText);
         this.fromDate = dateRangePicker.data("fromdate");
         this.toDate = dateRangePicker.data("todate");
         dateRangePicker
             .dateRangePicker({
             format: alphaReports.format.shortDateWithSlash_DatePicker,
             separator: " - ",
-            language: "en",
+            language: options.language,
             startDate: dateRangePicker.data("mindate"),
             endDate: dateRangePicker.data("maxdate"),
             showShortcuts: true,
@@ -210,12 +213,22 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
             var startDate = moment(obj.date1);
             var endDate = moment(obj.date2);
             if (endDate.isBefore(historicPivotDate) && endDate.diff(startDate, "d") > _this.historyMaxDateRange) {
-                window.top.bootboxAlert("Data before " + historicPivotDateText + " can be retrieved " + (_this.historyMaxDateRange + 1) + " days in max, please review your date range.");
+                try {
+                    window.top.bootboxAlert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
+                }
+                catch (e) {
+                    alert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
+                }
                 dateRangePicker.data("dateRangePicker").setDateRange(_this.fromDate, _this.toDate, false);
                 return;
             }
             if (startDate.isBefore(historicPivotDate) && endDate.isSameOrAfter(historicPivotDate) && endDate.diff(startDate, "d") > _this.historyMaxDateRange) {
-                window.top.bootboxAlert("Data before " + historicPivotDateText + " can be retrieved " + (_this.historyMaxDateRange + 1) + " days in max, please review your date range.");
+                try {
+                    window.top.bootboxAlert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
+                }
+                catch (e) {
+                    alert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
+                }
                 dateRangePicker.data("dateRangePicker").setDateRange(_this.fromDate, _this.toDate, false);
                 return;
             }
@@ -287,6 +300,9 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
     DateRangePickerJQueryComponent.prototype.getDateRangeValues = function () {
         return { fromDate: this.fromDate, toDate: this.toDate };
     };
+    DateRangePickerJQueryComponent.prototype.getHistoricPivotDate = function () {
+        return this.historicPivotDateText;
+    };
     return DateRangePickerJQueryComponent;
 }());
 //# sourceMappingURL=daterangepicker-jquery.js.map
@@ -311,6 +327,7 @@ var ProductAndProductDetailDropdownOption = /** @class */ (function () {
 }());
 var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
     function ProductAndProductDetailDropdownComponent() {
+        this.onlyShowHistoricProductIds = [];
     }
     ProductAndProductDetailDropdownComponent.prototype.render = function (options) {
         this.renderProductDetailDropdown(options);
@@ -325,11 +342,10 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
         });
         var dropdown = $("#" + options.selectorProductDetailId);
         this.dropdownProductDetail = dropdown.fanexMultiSelect({
-            checkAllText: dropdown.data("label-selectall"),
+            selectAllText: dropdown.data("label-selectall"),
             selectedText: "# " + dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
-            useCustomCheckAllText: true,
-            customCheckAllText: dropdown.data("label-all") + " (#)",
+            customSelectAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),
@@ -347,18 +363,20 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
         });
     };
     ProductAndProductDetailDropdownComponent.prototype.renderProductDropdown = function (options) {
-        var self = this;
+        var _this = this;
         var productIdWithSubProductIds = {};
         var uncheckedProductIds = [];
         var productList = options.products.map(function (item) {
-            var checkboxItem = self.buildCheckboxItem(item);
+            item.OnlyShowHistoric && _this.onlyShowHistoricProductIds.push(item.Id);
+            var checkboxItem = _this.buildCheckboxItem(item);
             if (item.Products) {
                 var subProductIds_1 = [];
                 productIdWithSubProductIds[item.Id] = subProductIds_1;
                 checkboxItem.items = item.Products.map(function (item) {
+                    item.OnlyShowHistoric && _this.onlyShowHistoricProductIds.push(item.Id);
                     subProductIds_1.push(item.Id);
                     item.Checked || uncheckedProductIds.push(item.Id);
-                    return self.buildCheckboxItem(item);
+                    return _this.buildCheckboxItem(item);
                 });
             }
             else {
@@ -366,13 +384,13 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             }
             return checkboxItem;
         });
+        var self = this;
         var dropdown = $("#" + options.selectorProductId);
         this.dropdownProduct = dropdown.fanexMultiSelect({
-            checkAllText: dropdown.data("label-selectall"),
+            selectAllText: dropdown.data("label-selectall"),
             selectedText: "# " + dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
-            useCustomCheckAllText: true,
-            customCheckAllText: dropdown.data("label-all") + " (#)",
+            customSelectAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),
@@ -438,6 +456,14 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             unselectedResourceIds: this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
         };
     };
+    ProductAndProductDetailDropdownComponent.prototype.showHistoricProducts = function () {
+        this.onlyShowHistoricProductIds.length
+            && this.dropdownProduct.fanexMultiSelect("showItemsByValues", this.onlyShowHistoricProductIds);
+    };
+    ProductAndProductDetailDropdownComponent.prototype.hideHistoricProducts = function () {
+        this.onlyShowHistoricProductIds.length
+            && this.dropdownProduct.fanexMultiSelect("hideItemsByValues", this.onlyShowHistoricProductIds);
+    };
     return ProductAndProductDetailDropdownComponent;
 }());
 //# sourceMappingURL=product-productdetail-dropdown.js.map
@@ -474,11 +500,10 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
             isCheckAll = options.listColumn.length === visibleColumnArray.length;
         }
         this.dropdownColumn = dropdown.fanexMultiSelect({
-            checkAllText: dropdown.data("label-selectall"),
+            selectAllText: dropdown.data("label-selectall"),
             selectedText: "# " + dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
-            useCustomCheckAllText: true,
-            customCheckAllText: dropdown.data("label-all") + " (#)",
+            customSelectAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),
@@ -676,7 +701,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var WinLossDetailViewNew = /** @class */ (function (_super) {
     __extends(WinLossDetailViewNew, _super);
-    function WinLossDetailViewNew(totalEnteredNonEnteredComponent, dateRangePickerComponent, productAndProductDetailDropdownComponent, visibleColumnDropdownComponent, weekRangeComponent, breadcrumbLevelComponent, productList, productDetailList) {
+    function WinLossDetailViewNew(totalEnteredNonEnteredComponent, dateRangePickerComponent, productAndProductDetailDropdownComponent, visibleColumnDropdownComponent, weekRangeComponent, breadcrumbLevelComponent, productList, productDetailList, columnList) {
         var _this = _super.call(this) || this;
         _this.sortColumnName = "username";
         _this.sortIndicator = 0; // asc: 0, desc: 1
@@ -688,6 +713,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         _this.breadcrumbLevelComponent = breadcrumbLevelComponent;
         _this.productList = productList;
         _this.productDetailList = productDetailList;
+        _this.columnList = columnList;
         return _this;
     }
     WinLossDetailViewNew.prototype.init = function () {
@@ -703,16 +729,18 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         var _this = this;
         var viewerId = +$("#hiddenViewerId").val();
         var viewerLevel = +$("#hiddenViewerLevel").val();
-        var weekFromDate = $("#week-from-date");
-        var weekToDate = $("#week-to-date");
+        var weekFromDate = $("#hiddenWeekFromDate");
+        var weekToDate = $("#hiddenWeekToDate");
+        var currentLanguage = $("#language").data("currentlanguage");
         this.totalEnteredNonEnteredComponent.init();
         this.dateRangePickerComponent.render(new DateRangePickerJQueryOption(function (dateRange) {
-            $.extend(_this.globalFormData, dateRange);
+            _this.constraintDateRangeAndProductDropdownList(dateRange);
+            $.extend(_this.globalFormData, dateRange, _this.productAndProductDetailDropdownComponent.getCheckedValues());
             if (_this.isInvalidGlobalFormData()) {
                 return;
             }
             _this.getWinLossDetailDataAndRenderWeekRange();
-        }));
+        }, this.getDateRangePickerLocale(currentLanguage)));
         this.productAndProductDetailDropdownComponent.render(new ProductAndProductDetailDropdownOption(this.productList, this.productDetailList, function (productsAndResources) {
             $.extend(_this.globalFormData, _this.dateRangePickerComponent.getDateRangeValues(), productsAndResources);
             if (_this.isInvalidGlobalFormData()) {
@@ -720,8 +748,9 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             }
             _this.getWinLossDetailDataAndRenderWeekRange();
         }));
-        this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption("WinLossDetail_" + viewerId + "_" + $("#hiddenSubAccId").val() + ":Columns", this.getListColumn(viewerLevel), function (visibleColumn) { return _this.showHideColumns(visibleColumn); }));
         var dateRange = this.dateRangePickerComponent.getDateRangeValues();
+        this.constraintDateRangeAndProductDropdownList(dateRange);
+        this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption("WinLossDetail_" + viewerId + "_" + $("#hiddenSubAccId").val() + ":Columns", this.columnList, function (visibleColumn) { return _this.showHideColumns(visibleColumn); }));
         this.weekRangeComponent.init(new WeekRangeOption(function (dateRange) {
             if (_this.isInvalidGlobalFormData()) {
                 return;
@@ -729,7 +758,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             _this.addIsWeekSelectionForStatistic();
             $.extend(_this.globalFormData, dateRange);
             _this.getWinLossDetailData();
-        }, this.getMomentLocale()));
+        }, this.getMomentLocale(currentLanguage)));
         var activeWeekRange = weekFromDate.length > 0 && weekToDate.length > 0
             ? { weekFromDate: weekFromDate.val(), weekToDate: weekToDate.val() }
             : undefined;
@@ -759,7 +788,25 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             this.globalFormData.toDate = activeWeekRange.weekToDate;
         }
     };
-    WinLossDetailViewNew.prototype.getMomentLocale = function () {
+    WinLossDetailViewNew.prototype.constraintDateRangeAndProductDropdownList = function (dateRange) {
+        var historicPivotDate = moment(this.dateRangePickerComponent.getHistoricPivotDate());
+        if (moment(dateRange.fromDate).isSameOrAfter(historicPivotDate)) {
+            this.productAndProductDetailDropdownComponent.hideHistoricProducts();
+        }
+        else {
+            this.productAndProductDetailDropdownComponent.showHistoricProducts();
+        }
+    };
+    WinLossDetailViewNew.prototype.getDateRangePickerLocale = function (language) {
+        var locale = {
+            "th-TH": "th",
+            "vi-VN": "vi",
+            "zh-CN": "cn",
+            "zh-TW": "tc"
+        };
+        return locale[language] || "default";
+    };
+    WinLossDetailViewNew.prototype.getMomentLocale = function (language) {
         var locale = {
             "th-TH": "th",
             "vi-VN": "vi",
@@ -767,7 +814,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             "zh-TW": "zh-tw",
             "default": "en"
         };
-        return locale[$("#language").data("currentlanguage")] || locale.default;
+        return locale[language] || locale.default;
     };
     WinLossDetailViewNew.prototype.getWinLossDetailDataAndRenderWeekRange = function () {
         var _this = this;
@@ -805,7 +852,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     };
     WinLossDetailViewNew.prototype.bindEvents = function () {
         var _this = this;
-        this.initReportLegend($("#hiddenLegendUrl").val(), 800, 540);
+        this.initReportLegend($("#hiddenLegendUrl").val(), 800, 570);
         $("#icon-excel").click(function (e) {
             if (_this.isInvalidGlobalFormData()) {
                 e.preventDefault();
@@ -893,37 +940,6 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         this.sortIndicator = 0;
         return 0;
     };
-    WinLossDetailViewNew.prototype.getListColumn = function (viewerLevel) {
-        var dropdown = $("#dropdown-column");
-        var member = dropdown.data("label-member");
-        var agent = dropdown.data("label-agent");
-        var winloss = dropdown.data("label-winloss");
-        var comm = dropdown.data("label-comm");
-        var total = dropdown.data("label-total");
-        var listColumn = [
-            { value: "fullname", text: dropdown.data("label-fullname") },
-            { value: "betcount", text: dropdown.data("label-betcount") },
-            { value: "turnover", text: dropdown.data("label-turnover") },
-            { value: "netturnover", text: dropdown.data("label-netturnover") },
-            { value: "grosscomm", text: dropdown.data("label-grosscomm") },
-            { value: "pwinloss", text: member + " " + winloss },
-            { value: "pcomm", text: member + " " + comm },
-            { value: "ptotal", text: member + " " + total },
-            { value: "awinloss", text: agent + " " + winloss },
-            { value: "acomm", text: agent + " " + comm },
-            { value: "atotal", text: agent + " " + total },
-        ];
-        if (viewerLevel >= 3) { // master or super
-            var master = dropdown.data("label-master");
-            listColumn.push({ value: "mwinloss", text: master + " " + winloss }, { value: "mcomm", text: master + " " + comm }, { value: "mtotal", text: master + " " + total });
-        }
-        if (viewerLevel === 4) { // super
-            var superText = dropdown.data("label-super");
-            listColumn.push({ value: "swinloss", text: superText + " " + winloss }, { value: "scomm", text: superText + " " + comm }, { value: "stotal", text: superText + " " + total });
-        }
-        listColumn.push({ value: "company", text: dropdown.data("label-company") });
-        return listColumn;
-    };
     WinLossDetailViewNew.prototype.showHideColumns = function (column) {
         this.showHideSpecificColumn(column, "fullname");
         this.showHideSpecificColumn(column, "betcount");
@@ -1001,6 +1017,6 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     return WinLossDetailViewNew;
 }(BaseReportView));
 $(function () {
-    new WinLossDetailViewNew(new TotalEnteredNonEnteredComponent(), new DateRangePickerJQueryComponent(), new ProductAndProductDetailDropdownComponent(), new VisibleColumnDropdownComponent(), new WeekRangeComponent(), new BreadcrumbLevelComponent(), window.productList, window.productDetailList).init();
+    new WinLossDetailViewNew(new TotalEnteredNonEnteredComponent(), new DateRangePickerJQueryComponent(), new ProductAndProductDetailDropdownComponent(), new VisibleColumnDropdownComponent(), new WeekRangeComponent(), new BreadcrumbLevelComponent(), window.productList, window.productDetailList, window.columnList).init();
 });
 //# sourceMappingURL=winlossdetail-new.js.map

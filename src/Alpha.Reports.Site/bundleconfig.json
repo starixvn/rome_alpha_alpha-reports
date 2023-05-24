@@ -51,6 +51,7 @@
       "Features/Shared/Scripts/components/week-range.js",
       "Features/Shared/Scripts/components/breadcrumb-level.js",
       "Features/Shared/Scripts/base-report-view.js",
+      "Features/WinLossDetail/Scripts/winlossdetail-copyhtml.js",
       "Features/WinLossDetail/Scripts/winlossdetail-new.js"
     ]
   },
