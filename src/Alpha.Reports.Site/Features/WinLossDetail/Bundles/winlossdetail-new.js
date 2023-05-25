@@ -468,6 +468,60 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
 }());
 //# sourceMappingURL=product-productdetail-dropdown.js.map
 "use strict";
+var UsernameAutoSuggestionOption = /** @class */ (function () {
+    function UsernameAutoSuggestionOption(url, custId, directDownlines, onEnter, selectorId) {
+        if (directDownlines === void 0) { directDownlines = true; }
+        if (onEnter === void 0) { onEnter = Function(); }
+        if (selectorId === void 0) { selectorId = "txt-username"; }
+        this.url = url;
+        this.custId = custId;
+        this.directDownlines = directDownlines;
+        this.onEnter = onEnter;
+        this.selectorId = selectorId;
+        this.url = url;
+        this.custId = custId;
+        this.directDownlines = directDownlines;
+        this.onEnter = onEnter;
+        this.selectorId = selectorId;
+    }
+    return UsernameAutoSuggestionOption;
+}());
+var UsernameAutoSuggestionComponent = /** @class */ (function () {
+    function UsernameAutoSuggestionComponent() {
+    }
+    UsernameAutoSuggestionComponent.prototype.init = function (options) {
+        var usernameInput = $("#" + options.selectorId);
+        var urlAndQueryString = options.url + "?custid=" + options.custId + "&directdownlines=" + options.directDownlines + "&isaccinfo=false";
+        var typeaheadOptions = {
+            source: function (query, process) {
+                return $.get(urlAndQueryString + "&suggestionquery=" + query, process);
+            },
+            items: 10,
+            minLength: 2,
+            highlighter: function (displayText) {
+                var parts = displayText.split("#");
+                return parts[0] + " <br/> " + parts[1];
+            },
+            displayText: function (item) {
+                var nickname = item.UserName2 ? " (" + item.UserName2 + ")" : "";
+                return "" + item.UserName + nickname + "#" + item.FirstName + " " + item.LastName;
+            },
+            autoSelect: false,
+            afterSelect: function (item) {
+                usernameInput.val(item.UserName);
+            },
+            delay: 200
+        };
+        usernameInput
+            .typeahead(typeaheadOptions)
+            .on("keyup", function (e) {
+            e.keyCode === 13 && options.onEnter($.trim(usernameInput.val()));
+        });
+    };
+    return UsernameAutoSuggestionComponent;
+}());
+//# sourceMappingURL=username-autosuggestion.js.map
+"use strict";
 var VisibleColumnDropdownOption = /** @class */ (function () {
     function VisibleColumnDropdownOption(visibleColumnKey, listColumn, onDropdownHidden, selectorId) {
         if (onDropdownHidden === void 0) { onDropdownHidden = Function(); }
@@ -701,13 +755,14 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var WinLossDetailViewNew = /** @class */ (function (_super) {
     __extends(WinLossDetailViewNew, _super);
-    function WinLossDetailViewNew(totalEnteredNonEnteredComponent, dateRangePickerComponent, productAndProductDetailDropdownComponent, visibleColumnDropdownComponent, weekRangeComponent, breadcrumbLevelComponent, productList, productDetailList, columnList) {
+    function WinLossDetailViewNew(totalEnteredNonEnteredComponent, dateRangePickerComponent, productAndProductDetailDropdownComponent, usernameAutoSuggestionComponent, visibleColumnDropdownComponent, weekRangeComponent, breadcrumbLevelComponent, productList, productDetailList, columnList) {
         var _this = _super.call(this) || this;
         _this.sortColumnName = "username";
         _this.sortIndicator = 0; // asc: 0, desc: 1
         _this.totalEnteredNonEnteredComponent = totalEnteredNonEnteredComponent;
         _this.dateRangePickerComponent = dateRangePickerComponent;
         _this.productAndProductDetailDropdownComponent = productAndProductDetailDropdownComponent;
+        _this.usernameAutoSuggestionComponent = usernameAutoSuggestionComponent;
         _this.visibleColumnDropdownComponent = visibleColumnDropdownComponent;
         _this.weekRangeComponent = weekRangeComponent;
         _this.breadcrumbLevelComponent = breadcrumbLevelComponent;
@@ -750,6 +805,9 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         }));
         var dateRange = this.dateRangePickerComponent.getDateRangeValues();
         this.constraintDateRangeAndProductDropdownList(dateRange);
+        this.usernameAutoSuggestionComponent.init(new UsernameAutoSuggestionOption($("#hiddenUsernameAutoSuggestionUrl").val(), viewerId, false, function (username) {
+            console.log(username);
+        }));
         this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption("WinLossDetail_" + viewerId + "_" + $("#hiddenSubAccId").val() + ":Columns", this.columnList, function (visibleColumn) { return _this.showHideColumns(visibleColumn); }));
         this.weekRangeComponent.init(new WeekRangeOption(function (dateRange) {
             if (_this.isInvalidGlobalFormData()) {
@@ -1017,6 +1075,6 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     return WinLossDetailViewNew;
 }(BaseReportView));
 $(function () {
-    new WinLossDetailViewNew(new TotalEnteredNonEnteredComponent(), new DateRangePickerJQueryComponent(), new ProductAndProductDetailDropdownComponent(), new VisibleColumnDropdownComponent(), new WeekRangeComponent(), new BreadcrumbLevelComponent(), window.productList, window.productDetailList, window.columnList).init();
+    new WinLossDetailViewNew(new TotalEnteredNonEnteredComponent(), new DateRangePickerJQueryComponent(), new ProductAndProductDetailDropdownComponent(), new UsernameAutoSuggestionComponent(), new VisibleColumnDropdownComponent(), new WeekRangeComponent(), new BreadcrumbLevelComponent(), window.productList, window.productDetailList, window.columnList).init();
 });
 //# sourceMappingURL=winlossdetail-new.js.map
