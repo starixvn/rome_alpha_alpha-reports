@@ -11,7 +11,7 @@ class WinLossDetailCopyHtml {
     init() {
         $("#icon-copy").tooltip();
         const clipboard = new this.clipboard("#icon-copy", {
-            text: (trigger) => this._copyTableHtml($("#tbl-report"))
+            text: () => this._copyTableHtml($("#tbl-report"))
         });
 
         if (window.document.queryCommandSupported && window.document.queryCommandSupported("copy")) {

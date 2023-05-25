@@ -1,26 +1,26 @@
 ﻿"use strict";
-class WeekRangeOption {
+class WeekSelectionOption {
     constructor(
         public onClick = Function(),
         public language = "en",
-        public selectorId = "week-range-container") {
+        public selectorId = "week-selection") {
         this.onClick = onClick;
         this.language = language;
         this.selectorId = selectorId;
     }
 }
 
-class WeekRangeComponent {
-    private weekRangeOption: WeekRangeOption;
+class WeekSelectionComponent {
+    private weekSelectionOption: WeekSelectionOption;
     private weekRangeContainer: JQuery;
 
-    init(options: WeekRangeOption) {
-        this.weekRangeOption = options;
+    init(options: WeekSelectionOption) {
+        this.weekSelectionOption = options;
         this.weekRangeContainer = $("#" + options.selectorId);
     }
 
     render(dateRange, activeWeekRange) {
-        moment.locale(this.weekRangeOption.language);
+        moment.locale(this.weekSelectionOption.language);
         this.weekRangeContainer.html(this.buildWeekRangeHtml(dateRange, activeWeekRange));
         const labelWeeks = this.weekRangeContainer.find(".label-week");
         labelWeeks
@@ -29,7 +29,7 @@ class WeekRangeComponent {
                 const $this = $(e.target);
                 labelWeeks.removeClass("active");
                 $this.addClass("active");
-                this.weekRangeOption.onClick({ fromDate: $this.data("fromdate"), toDate: $this.data("todate") });
+                this.weekSelectionOption.onClick({ fromDate: $this.data("fromdate"), toDate: $this.data("todate") });
             });
     }
 
@@ -58,13 +58,13 @@ class WeekRangeComponent {
         return weekRange.join("");
     }
 
-    getActiveWeekRange() {
-        const activeWeekRange = this.weekRangeContainer.find(".label-week.active");
-        if (activeWeekRange.length) {
-            const firstActiveWeekRange = activeWeekRange.eq(0);
+    getActiveWeek() {
+        const activeWeek = this.weekRangeContainer.find(".label-week.active");
+        if (activeWeek.length) {
+            const firstActiveWeek = activeWeek.eq(0);
             return {
-                weekFromDate: firstActiveWeekRange.data("fromdate"),
-                weekToDate: firstActiveWeekRange.data("todate"),
+                weekFromDate: firstActiveWeek.data("fromdate"),
+                weekToDate: firstActiveWeek.data("todate"),
             };
         }
 

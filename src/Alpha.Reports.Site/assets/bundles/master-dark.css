@@ -332,6 +332,48 @@ a {
     max-width: 120px;
     white-space: normal; }
 
+.tooltip.in {
+  opacity: 1; }
+
+.tooltip .tooltip-inner {
+  border: 1px solid #9F9F9F;
+  color: #EDEDED;
+  font-weight: bold;
+  background-color: #2E2E2E;
+  text-align: left;
+  -webkit-border-radius: 2px;
+  -khtml-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5); }
+
+.tooltip.top .tooltip-arrow {
+  display: none; }
+
+.tooltip.top .tooltip-inner:after, .tooltip.top .tooltip-inner:before {
+  bottom: 0;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute; }
+
+.tooltip.top .tooltip-inner:after {
+  border-color: transparent;
+  border-top-color: #2E2E2E;
+  border-width: 8px;
+  margin-left: -8px;
+  margin-bottom: -10px; }
+
+.tooltip.top .tooltip-inner:before {
+  border-color: transparent;
+  border-top-color: #999999;
+  border-width: 10px;
+  margin-left: -10px;
+  margin-bottom: -14px; }
+
 .note .star {
   color: #E54748;
   padding-right: 8px; }
@@ -341,6 +383,10 @@ a {
   width: 100%;
   clear: both;
   padding-right: 150px; }
+  .filter #txt-username {
+    width: 190px; }
+    .filter #txt-username + .dropdown-menu li a:hover {
+      background-color: #3c3c3c; }
   .filter #historicreport-switch {
     text-decoration: none !important; }
   .filter .multiselect .multiselect-selected-text {

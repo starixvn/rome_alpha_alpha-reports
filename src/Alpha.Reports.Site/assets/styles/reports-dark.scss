@@ -459,7 +459,57 @@ a {
         white-space: normal;
     }
 }
+// Customize tooltip
+.tooltip {
 
+    &.in {
+        opacity: 1;
+    }
+
+    .tooltip-inner {
+        border: 1px solid #9F9F9F;
+        color: #EDEDED;
+        font-weight: bold;
+        background-color: #2E2E2E;
+        text-align: left;
+        @include border-radius(2px);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    &.top {
+        .tooltip-arrow {
+            display: none;
+        }
+
+        .tooltip-inner {
+            &:after, &:before {
+                bottom: 0;
+                left: 50%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+            }
+
+            &:after {
+                border-color: transparent;
+                border-top-color: #2E2E2E;
+                border-width: 8px;
+                margin-left: -8px;
+                margin-bottom: -10px;
+            }
+
+            &:before {
+                border-color: transparent;
+                border-top-color: #999999;
+                border-width: 10px;
+                margin-left: -10px;
+                margin-bottom: -14px;
+            }
+        }
+    }
+}
 // Filter
 .note {
     .star {
@@ -474,6 +524,20 @@ a {
     clear: both;
     padding-right: 150px;
 
+    #txt-username {
+        width: 190px;
+
+        + .dropdown-menu {
+            li {
+                a {
+                    &:hover {
+                        background-color: #3c3c3c;
+                    }
+                }
+            }
+        }
+    }
+    
     &.switch-new-view {
         .btn-switch-version {
             background: #3b4652;
