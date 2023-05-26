@@ -412,6 +412,21 @@ a {
     clear: both;
     padding-right: 150px;
 
+    &.switch-new-view {
+        .btn-switch-version {
+            background: #d3dfec;
+            color: #0b599c;
+            border-color: #d3dfec;
+            padding: 6px 12px;
+            align-items: center;
+            font-weight: 500;
+
+            .icon-swap-horizontal {
+                top: 0;
+            }
+        }
+    }
+
     #historicreport-switch {
         text-decoration: none !important;
     }

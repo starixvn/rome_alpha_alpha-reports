@@ -341,6 +341,15 @@ a {
   width: 100%;
   clear: both;
   padding-right: 150px; }
+  .filter.switch-new-view .btn-switch-version {
+    background: #3b4652;
+    color: #ededed;
+    border-color: #3b4652;
+    padding: 6px 12px;
+    align-items: center;
+    font-weight: 500; }
+    .filter.switch-new-view .btn-switch-version .icon-swap-horizontal {
+      top: 0; }
   .filter #historicreport-switch {
     text-decoration: none !important; }
   .filter .multiselect .multiselect-selected-text {

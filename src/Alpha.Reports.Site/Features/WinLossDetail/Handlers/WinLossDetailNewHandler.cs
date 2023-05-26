@@ -49,7 +49,7 @@
 
             return new WinLossDetailGetDataViewModel(
                 message.CustLevel,
-                !message.IsProtectedMode,
+                !message.IsProtectedMode || !message.CustLevel.IsAgentLevel(),
                 await totalEnteredSportTask,
                 await reportDataTask);
         }

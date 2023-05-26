@@ -428,6 +428,21 @@ a {
     clear: both;
     padding-right: 150px;
 
+    &.switch-new-view {
+        .btn-switch-version {
+            background: #3b4652;
+            color: #ededed;
+            border-color: #3b4652;
+            padding: 6px 12px;
+            align-items: center;
+            font-weight: 500;
+
+            .icon-swap-horizontal {
+                top: 0;
+            }
+        }
+    }
+
     #historicreport-switch {
         text-decoration: none !important;
     }

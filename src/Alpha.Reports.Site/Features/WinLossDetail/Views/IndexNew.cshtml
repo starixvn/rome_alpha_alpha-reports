@@ -24,13 +24,13 @@
             { value: "awinloss", text: '@string.Format("{0} {1}", Resources.Agent, Resources.WinLoss)' },
             { value: "acomm", text: '@string.Format("{0} {1}", Resources.Agent, Resources.Comm)' },
             { value: "atotal", text: '@string.Format("{0} {1}", Resources.Agent, Resources.Total)' },
-            @if (Model.CustLevel.IsMasterOrSuperLevel())
+            @if (Model.ViewerLevel.IsMasterOrSuperLevel())
             {
                 @:{ value: "mwinloss", text: '@string.Format("{0} {1}", Resources.Master, Resources.WinLoss)' },
                 @:{ value: "mcomm", text: '@string.Format("{0} {1}", Resources.Master, Resources.Comm)' },
                 @:{ value: "mtotal", text: '@string.Format("{0} {1}", Resources.Master, Resources.Total)' },
             }
-            @if (Model.CustLevel.IsSuperLevel())
+            @if (Model.ViewerLevel.IsSuperLevel())
             {
                 @:{ value: "swinloss", text: '@string.Format("{0} {1}", Resources.Super, Resources.WinLoss)' },
                 @:{ value: "scomm", text: '@string.Format("{0} {1}", Resources.Super, Resources.Comm)' },

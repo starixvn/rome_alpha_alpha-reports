@@ -1,6 +1,6 @@
 ﻿@model WinLossFilterViewModel
 
-<form class="form-inline filter @(Model.Visible ? string.Empty:"hide")" role="form" id="report-form">
+<form class="form-inline filter switch-new-view @(Model.Visible ? string.Empty:"hide")" role="form" id="report-form">
     @if ((bool)ViewData["IsOfferNewWinLossDetailReport"])
     {
         @HtmlHelpers.RenderSwitchVersionButton(Resources.NewView, Url.Action($"{ViewData["DirectDownLineLevelName"]}New", $"{SiteSettings.ReportRouting}WinLossDetail"))
