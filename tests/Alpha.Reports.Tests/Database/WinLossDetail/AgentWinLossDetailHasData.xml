@@ -3,6 +3,8 @@
   <TableWinLoss>
     <CustId>1</CustId>
     <CustName>Agent1</CustName>
+	<FirstName></FirstName>
+	<LastName></LastName>
     <Turnover>0</Turnover>
     <NetTurnover>1</NetTurnover>
     <GrossComm>2</GrossComm>
@@ -18,6 +20,8 @@
   <TableWinLoss>
     <CustId>11</CustId>
     <CustName>Agent2</CustName>
+	<FirstName></FirstName>
+	<LastName></LastName>
     <Turnover>10</Turnover>
     <NetTurnover>11</NetTurnover>
     <GrossComm>12</GrossComm>

@@ -351,7 +351,8 @@
                 "In Master's view: the commission (without PT) that Super can receive from upline on each Master.",
                 "In Agent's view: the commission (without PT) that Master can receive from upline on each Agent.",
                 "In Member's view: the commission (without PT) that Agent can receive from upline on each Member.",
-                "In some Casino products, if the Position Taking/Commission Rate is changed during a game or a day, the Gross Comm value displayed on the report will be the approximate value calculated from the average Position Taking/Commission Rate."
+                "In some Casino products, if the Position Taking/Commission Rate is changed during a game or a day, the Gross Comm value displayed on the report will be the approximate value calculated from the average Position Taking/Commission Rate.",
+                "Gross Comm values may differ at each level due to rounding to 4 decimal places."
             };
 
             // Act

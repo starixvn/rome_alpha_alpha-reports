@@ -16,7 +16,8 @@
             IEnumerable<ProductViewModel> products,
             IEnumerable<ProductDetailNewViewModel> productDetails,
             EnteredSportResult totalEnteredSport,
-            PagedReportData<WinLossDetailModel> winLossDetail) : base(message.CustLevel, !message.IsProtectedMode, totalEnteredSport, winLossDetail)
+            PagedReportData<WinLossDetailModel> winLossDetail)
+            : base(message, totalEnteredSport, winLossDetail)
         {
             ViewerId = message.ViewerId;
             ViewerName = message.CustName;
@@ -33,7 +34,7 @@
             ProductIds = message.ProductIds;
             ProductDetails = productDetails;
             ResourceIds = message.ResourceIds;
-            BreadcrumbLevelJson = message.BreadcrumbLevelJson;
+            Username = message.Username;
             WeekFromDate = message.WeekFromDate.HasValue ? message.WeekFromDate.Value.ToShortDateWithSlash() : string.Empty;
             WeekToDate = message.WeekToDate.HasValue ? message.WeekToDate.Value.ToShortDateWithSlash() : string.Empty;
             Language = message.Language;
@@ -65,7 +66,7 @@
 
         public string ResourceIds { get; }
 
-        public string BreadcrumbLevelJson { get; }
+        public string Username { get; }
 
         public string WeekFromDate { get; }
 

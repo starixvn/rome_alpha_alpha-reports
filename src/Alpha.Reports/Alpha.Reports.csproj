@@ -221,6 +221,7 @@
     <Compile Include="Criteria\BetChoiceMatching\BetChoiceMatchingCriteria.cs" />
     <Compile Include="Criteria\BetChoiceMatching\BetChoiceUplinesCriteria.cs" />
     <Compile Include="Criteria\Consolidation\GetSMAPositionTakingCriteria.cs" />
+    <Compile Include="Criteria\GetCustomerLevelCriteria.cs" />
     <Compile Include="Criteria\GetOfferedProductsBySiteCriteria.cs" />
     <Compile Include="Criteria\GetProductsDetailCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
@@ -314,6 +315,7 @@
     <Compile Include="Models\BetChoiceMatching\MemberWinLossOperators.cs" />
     <Compile Include="Models\Consolidation\ConsolidationEntity.cs" />
     <Compile Include="Models\Consolidation\SMAPositionTaking.cs" />
+    <Compile Include="Models\CustomerLevel.cs" />
     <Compile Include="Models\IPRange.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
@@ -396,6 +398,7 @@
     <Compile Include="Services\BetChoiceMatchingService.cs" />
     <Compile Include="Services\CacheRefService.cs" />
     <Compile Include="Services\ConsolidationService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\LeagueService.cs" />
     <Compile Include="Services\CommissionByBettypeService.cs" />
     <Compile Include="Services\MatchWinLossDetailService.cs" />

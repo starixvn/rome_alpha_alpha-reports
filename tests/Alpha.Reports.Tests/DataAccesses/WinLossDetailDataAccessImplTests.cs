@@ -69,7 +69,7 @@
                 1,
                 0,
                 0,
-                new WinLossDetailModel(0, "Total", string.Empty, string.Empty, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), new NetWinLoss(29, 210)));
+                new WinLossDetailModel(0, "Total", null, null, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), new NetWinLoss(29, 210)));
 
             // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
@@ -108,7 +108,7 @@
                 1,
                 0,
                 0,
-                new WinLossDetailModel(0, "Total", string.Empty, string.Empty, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), null));
+                new WinLossDetailModel(0, "Total", null, null, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), null));
 
             // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
@@ -147,7 +147,7 @@
                 1,
                 0,
                 0,
-                new WinLossDetailModel(0, "Total", string.Empty, string.Empty, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), null, null));
+                new WinLossDetailModel(0, "Total", null, null, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), null, null));
 
             // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);

@@ -23,7 +23,7 @@
 
         public string ResourceIds { get; set; } = DefaultVariables.AllProductDetails;
 
-        public string BreadcrumbLevelJson { get; set; }
+        public string Username { get; set; }
 
         public int PageIndex { get; set; }
 

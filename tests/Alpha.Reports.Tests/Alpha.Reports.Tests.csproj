@@ -263,6 +263,7 @@
     <Compile Include="Criteria\Consolidation\GetProductsCriteriaTests.cs" />
     <Compile Include="Criteria\Consolidation\GetSMAPositionTakingCriteriaTests.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteriaTests.cs" />
+    <Compile Include="Criteria\GetCustomerLevelCriteriaTests.cs" />
     <Compile Include="Criteria\GetProductsByRefTableTests.cs" />
     <Compile Include="Criteria\GetProductsDetailCriteriaTests.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\ProductsForMatchWinLossDetailCriteriaTests.cs" />
@@ -322,6 +323,7 @@
     <Compile Include="Models\Consolidation\ConsolidationByUsernameTests.cs" />
     <Compile Include="Models\Consolidation\ConsolidationProductTests.cs" />
     <Compile Include="Models\Consolidation\SMAPositionTakingTests.cs" />
+    <Compile Include="Services\CustomerServiceImplTests.cs" />
     <Compile Include="TestCases\BetChoiceMatching\BetChoiceMatchingTestCases.cs" />
     <Compile Include="Database\MatchWinLossDetail\MatchWinLossDetailDatabase.cs" />
     <Compile Include="Database\Statement\StatementDatabase.cs" />

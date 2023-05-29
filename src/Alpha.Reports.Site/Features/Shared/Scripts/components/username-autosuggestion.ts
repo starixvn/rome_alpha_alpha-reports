@@ -4,19 +4,22 @@ class UsernameAutoSuggestionOption {
         public url: string,
         public custId: number,
         public directDownlines = true,
-        public onEnter = Function(),
+        public initialUsername = "",
+        public onBlur = Function(),
         public selectorId = "txt-username") {
         this.url = url;
         this.custId = custId;
         this.directDownlines = directDownlines;
-        this.onEnter = onEnter;
+        this.onBlur = onBlur;
         this.selectorId = selectorId;
     }
 }
 
 class UsernameAutoSuggestionComponent {
+    private usernameInput: JQuery;
+
     init(options: UsernameAutoSuggestionOption) {
-        const usernameInput = $("#" + options.selectorId);
+        this.usernameInput = $("#" + options.selectorId);
         const urlAndQueryString = `${options.url}?custid=${options.custId}&directdownlines=${options.directDownlines}&isaccinfo=false`;
 
         const typeaheadOptions = {
@@ -34,16 +37,21 @@ class UsernameAutoSuggestionComponent {
                 return `${item.UserName}${nickname}#${item.FirstName} ${item.LastName}`;
             },
             autoSelect: false,
-            afterSelect: function (item) {
-                usernameInput.val(item.UserName);
-            },
+            afterSelect: (item) => this.usernameInput.val(item.UserName),
             delay: 200
         };
 
-        usernameInput
+        this.usernameInput
             .typeahead(typeaheadOptions)
-            .on("keyup", function (e) {
-                e.keyCode === 13 && options.onEnter($.trim(usernameInput.val()));
-            });
+            .blur(() => options.onBlur($.trim(this.usernameInput.val())))
+            .val(options.initialUsername);
+    }
+
+    getUsername() {
+        return $.trim(this.usernameInput.val());
+    }
+
+    resetUsername() {
+        this.usernameInput.val("");
     }
 }

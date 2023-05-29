@@ -16,13 +16,14 @@ class WinLossDetailColumns {
         this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption(
             `WinLossDetail_${$("#hiddenViewerId").val()}_${$("#hiddenSubAccId").val()}:Columns`,
             this.columnList,
-            (visibleColumn) => this._showHideColumns(visibleColumn)));
+            (visibleColumn) => this.showHideColumns(visibleColumn)));
 
-        this._showHideColumns(this.visibleColumnDropdownComponent.getColumns());
+        this.showHideColumns();
     }
 
-    private _showHideColumns(visibleColumn) {
+    showHideColumns(visibleColumn = undefined) {
         const tableReport = $("#tbl-report");
+        visibleColumn = visibleColumn || this.visibleColumnDropdownComponent.getColumns();
         this._showHideSpecificColumn(tableReport, visibleColumn, "fullname");
         this._showHideSpecificColumn(tableReport, visibleColumn, "betcount");
         this._showHideSpecificColumn(tableReport, visibleColumn, "turnover");

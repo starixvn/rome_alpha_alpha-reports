@@ -1,18 +1,20 @@
 "use strict";
 var UsernameAutoSuggestionOption = /** @class */ (function () {
-    function UsernameAutoSuggestionOption(url, custId, directDownlines, onEnter, selectorId) {
+    function UsernameAutoSuggestionOption(url, custId, directDownlines, initialUsername, onBlur, selectorId) {
         if (directDownlines === void 0) { directDownlines = true; }
-        if (onEnter === void 0) { onEnter = Function(); }
+        if (initialUsername === void 0) { initialUsername = ""; }
+        if (onBlur === void 0) { onBlur = Function(); }
         if (selectorId === void 0) { selectorId = "txt-username"; }
         this.url = url;
         this.custId = custId;
         this.directDownlines = directDownlines;
-        this.onEnter = onEnter;
+        this.initialUsername = initialUsername;
+        this.onBlur = onBlur;
         this.selectorId = selectorId;
         this.url = url;
         this.custId = custId;
         this.directDownlines = directDownlines;
-        this.onEnter = onEnter;
+        this.onBlur = onBlur;
         this.selectorId = selectorId;
     }
     return UsernameAutoSuggestionOption;
@@ -21,7 +23,8 @@ var UsernameAutoSuggestionComponent = /** @class */ (function () {
     function UsernameAutoSuggestionComponent() {
     }
     UsernameAutoSuggestionComponent.prototype.init = function (options) {
-        var usernameInput = $("#" + options.selectorId);
+        var _this = this;
+        this.usernameInput = $("#" + options.selectorId);
         var urlAndQueryString = options.url + "?custid=" + options.custId + "&directdownlines=" + options.directDownlines + "&isaccinfo=false";
         var typeaheadOptions = {
             source: function (query, process) {
@@ -38,16 +41,19 @@ var UsernameAutoSuggestionComponent = /** @class */ (function () {
                 return "" + item.UserName + nickname + "#" + item.FirstName + " " + item.LastName;
             },
             autoSelect: false,
-            afterSelect: function (item) {
-                usernameInput.val(item.UserName);
-            },
+            afterSelect: function (item) { return _this.usernameInput.val(item.UserName); },
             delay: 200
         };
-        usernameInput
+        this.usernameInput
             .typeahead(typeaheadOptions)
-            .on("keyup", function (e) {
-            e.keyCode === 13 && options.onEnter($.trim(usernameInput.val()));
-        });
+            .blur(function () { return options.onBlur($.trim(_this.usernameInput.val())); })
+            .val(options.initialUsername);
+    };
+    UsernameAutoSuggestionComponent.prototype.getUsername = function () {
+        return $.trim(this.usernameInput.val());
+    };
+    UsernameAutoSuggestionComponent.prototype.resetUsername = function () {
+        this.usernameInput.val("");
     };
     return UsernameAutoSuggestionComponent;
 }());

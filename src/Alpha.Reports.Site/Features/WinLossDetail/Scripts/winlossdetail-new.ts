@@ -4,6 +4,7 @@ interface Window {
     productList: any,
     productDetailList: any,
     columnList: any,
+    reportTitle: any,
     indexManager: any,
     alpha: any
 }
@@ -24,8 +25,6 @@ class WinLossDetailViewNew extends BaseReportView {
     private tableReportContainer: JQuery;
     private tableReport: JQuery;
     private winLossDetailUrl: string
-    private productList: any;
-    private productDetailList: any;
     private globalFormData: any;
     private sortColumnName = "username";
     private sortIndicator = 0; // asc: 0, desc: 1
@@ -38,9 +37,7 @@ class WinLossDetailViewNew extends BaseReportView {
         winLossDetailColumns: WinLossDetailColumns,
         weekSelectionComponent: WeekSelectionComponent,
         breadcrumbLevelComponent: BreadcrumbLevelComponent,
-        winLossDetailCopyHtml: WinLossDetailCopyHtml,
-        productList: any,
-        productDetailList: any) {
+        winLossDetailCopyHtml: WinLossDetailCopyHtml) {
         super();
         this.totalEnteredNonEnteredComponent = totalEnteredNonEnteredComponent;
         this.dateRangePickerComponent = dateRangePickerComponent;
@@ -50,8 +47,6 @@ class WinLossDetailViewNew extends BaseReportView {
         this.weekSelectionComponent = weekSelectionComponent;
         this.breadcrumbLevelComponent = breadcrumbLevelComponent;
         this.winLossDetailCopyHtml = winLossDetailCopyHtml;
-        this.productList = productList;
-        this.productDetailList = productDetailList;
     }
 
     init() {
@@ -68,16 +63,18 @@ class WinLossDetailViewNew extends BaseReportView {
 
     private renderComponents() {
         const viewerId = +$("#hiddenViewerId").val();
-        const viewerLevel = +$("#hiddenViewerLevel").val();
         const weekFromDate = $("#hiddenWeekFromDate");
         const weekToDate = $("#hiddenWeekToDate");
         const currentLanguage = $("#language").data("currentlanguage");
+        const searchUsername = $("#hiddenUsername").val();
 
         this.totalEnteredNonEnteredComponent.init();
 
         this.dateRangePickerComponent.render(new DateRangePickerJQueryOption((dateRange) => {
             this.constraintDateRangeAndProductDropdownList(dateRange);
-            $.extend(this.globalFormData, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues());
+            const productsAndResources = this.productAndProductDetailDropdownComponent.getCheckedValues();
+            const username = this.usernameAutoSuggestionComponent.getUsername();
+            $.extend(this.globalFormData, dateRange, productsAndResources, { username });
             if (this.isInvalidGlobalFormData()) {
                 return;
             }
@@ -86,10 +83,12 @@ class WinLossDetailViewNew extends BaseReportView {
         }, this.getDateRangePickerLocale(currentLanguage)));
 
         this.productAndProductDetailDropdownComponent.render(new ProductAndProductDetailDropdownOption(
-            this.productList,
-            this.productDetailList,
+            window.productList,
+            window.productDetailList,
             (productsAndResources) => {
-                $.extend(this.globalFormData, this.dateRangePickerComponent.getDateRangeValues(), productsAndResources);
+                const dateRange = this.dateRangePickerComponent.getDateRangeValues();
+                const username = this.usernameAutoSuggestionComponent.getUsername();
+                $.extend(this.globalFormData, dateRange, productsAndResources, { username });
                 if (this.isInvalidGlobalFormData()) {
                     return;
                 }
@@ -104,8 +103,20 @@ class WinLossDetailViewNew extends BaseReportView {
             $("#hiddenUsernameAutoSuggestionUrl").val(),
             viewerId,
             false,
-            function (username) {
-                console.log(username);
+            searchUsername,
+            (username) => {
+                const dateRange = this.dateRangePickerComponent.getDateRangeValues();
+                const productsAndResources = this.productAndProductDetailDropdownComponent.getCheckedValues();
+                $.extend(this.globalFormData, dateRange, productsAndResources, { username });
+                // reset params: custId, custName, custLevelId
+                delete this.globalFormData.custId;
+                delete this.globalFormData.custName;
+                delete this.globalFormData.custLevelId;
+                if (this.isInvalidGlobalFormData()) {
+                    return;
+                }
+
+                this.getWinLossDetailDataAndRenderWeekRange(true);
             }));
 
         this.winLossDetailColumns.init();
@@ -125,28 +136,29 @@ class WinLossDetailViewNew extends BaseReportView {
             : undefined;
         this.weekSelectionComponent.render(dateRange, activeWeekRange);
 
-        const breadcrumbLevelJson = $("#hiddenBreadcrumbLevelJson").val();
-        const breadcrumbs = breadcrumbLevelJson.length
-            ? JSON.parse(breadcrumbLevelJson)
-            : [{ custId: viewerId, custName: $("#hiddenViewerName").val(), custLevelId: viewerLevel }];
         this.breadcrumbLevelComponent.init(new BreadcrumbLevelOption(
-            breadcrumbs,
+            this.buildBreadcrumbs(),
             (breadcrumbData) => {
                 if (this.isInvalidGlobalFormData()) {
                     return;
                 }
+
+                this.usernameAutoSuggestionComponent.resetUsername();
+                delete this.globalFormData.username;
 
                 $.extend(this.globalFormData, breadcrumbData);
                 this.getWinLossDetailData(() => {
                     this.breadcrumbLevelComponent.removeBreadcrumbLevel(breadcrumbData.custLevelId);
                     this.updateCurrentUrl();
                 });
-            }));
+            },
+            window.reportTitle));
 
         this.globalFormData = $.extend({}, {
             custId: +$("#hiddenCustId").val(),
             custName: $("#hiddenCustName").val(),
-            custLevelId: +$("#hiddenCustLevel").val()
+            custLevelId: +$("#hiddenCustLevel").val(),
+            username: searchUsername
         }, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues());
         // update fromDate/toDate of globalFormData if activeWeekRange is NOT undefined
         if (activeWeekRange) {
@@ -187,9 +199,10 @@ class WinLossDetailViewNew extends BaseReportView {
         return locale[language] || locale.default;
     }
 
-    private getWinLossDetailDataAndRenderWeekRange() {
+    private getWinLossDetailDataAndRenderWeekRange(isRebuildBreadcrumb: boolean = false) {
         this.getWinLossDetailData(() => {
             this.weekSelectionComponent.render(this.globalFormData, undefined);
+            isRebuildBreadcrumb && this.breadcrumbLevelComponent.setBreadcrumbs(this.buildBreadcrumbs())
             this.updateCurrentUrl();
         });
     }
@@ -199,12 +212,12 @@ class WinLossDetailViewNew extends BaseReportView {
 
         this.tableReportContainer.block();
         $.get(`${this.winLossDetailUrl}?${$.param(this.globalFormData)}`, (html) => {
-            callback();
             this.tableReportContainer.html(html);
             this.bindTableReportEvents();
             this.totalEnteredNonEnteredComponent.update(
                 { eventDate: this.tableReport.data("yesterday"), nonEntered: this.tableReport.data("non-entered-yesterday") },
                 { eventDate: this.tableReport.data("today"), nonEntered: this.tableReport.data("non-entered-today") });
+            callback();
             this.tableReportContainer.unblock();
         }).fail((jqXHR) => {
             this.tableReportContainer.unblock();
@@ -217,6 +230,21 @@ class WinLossDetailViewNew extends BaseReportView {
                 }
             }
         }).always(() => this.removeIsWeekSelectionForStatistic());
+    }
+
+    private buildBreadcrumbs() {
+        this.tableReport = this.tableReport || this.tableReportContainer.find("#tbl-report");
+        const breadcrumbLevelJson = this.tableReport.data("breadcrumbleveljson");
+        return typeof breadcrumbLevelJson !== "string"
+            ? []
+            : JSON.parse(breadcrumbLevelJson.replace(/'/g, '"'))
+                .map(function (b) {
+                    return {
+                        custId: b.CustId,
+                        custName: b.CustName.toUpperCase(),
+                        custLevelId: b.CustLevelId
+                    };
+                });
     }
 
     private isInvalidGlobalFormData() {
@@ -272,6 +300,9 @@ class WinLossDetailViewNew extends BaseReportView {
                 return;
             }
 
+            this.usernameAutoSuggestionComponent.resetUsername();
+            delete this.globalFormData.username;
+
             const $this = $(e.target);
             const breadcrumbData = {
                 custId: $this.data("custid"),
@@ -287,7 +318,7 @@ class WinLossDetailViewNew extends BaseReportView {
         });
 
         this.initTableSorter();
-        this.tableReport.stickyTableHeaders();
+        this.winLossDetailColumns.showHideColumns();
     }
 
     private initTableSorter() {
@@ -335,39 +366,6 @@ class WinLossDetailViewNew extends BaseReportView {
             } catch (e) {
 
             }
-    }
-
-    private addMoreParamsForStatistic() {
-        let moreParams: any = {};
-        const productAndProductDetail = this.productAndProductDetailDropdownComponent.getUncheckedValues();
-        if (productAndProductDetail.unselectedProductIds) {
-            moreParams.unselectedProductIds = productAndProductDetail.unselectedProductIds;
-        } else {
-            delete this.globalFormData.unselectedProductIds;
-        }
-
-        if (productAndProductDetail.unselectedResourceIds) {
-            moreParams.unselectedResourceIds = productAndProductDetail.unselectedResourceIds;
-        } else {
-            delete this.globalFormData.unselectedResourceIds;
-        }
-
-        const hideColumns = this.visibleColumnDropdownComponent.getHideColumns();
-        if (hideColumns) {
-            moreParams.hideColumns = hideColumns;
-        } else {
-            delete this.globalFormData.hideColumns;
-        }
-
-        $.extend(this.globalFormData, moreParams);
-    }
-
-    private addIsWeekSelectionForStatistic() {
-        this.globalFormData.isWeekSelection = 1;
-    }
-
-    private removeIsWeekSelectionForStatistic() {
-        delete this.globalFormData.isWeekSelection;
         }
     }
 
@@ -414,7 +412,5 @@ $(function () {
         new WinLossDetailColumns(new VisibleColumnDropdownComponent(), window.columnList),
         new WeekSelectionComponent(),
         new BreadcrumbLevelComponent(),
-        new WinLossDetailCopyHtml(Clipboard),
-        window.productList,
-        window.productDetailList).init();
+        new WinLossDetailCopyHtml(Clipboard)).init();
 });

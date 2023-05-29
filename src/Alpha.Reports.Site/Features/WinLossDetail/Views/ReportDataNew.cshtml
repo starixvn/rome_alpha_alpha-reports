@@ -15,7 +15,8 @@
        data-yesterday="@Model.TotalEnteredSport.EnteredSportYesterday.EventDate.ToMMDDWithSlash()"
        data-non-entered-yesterday="@Model.TotalEnteredSport.EnteredSportYesterday.NonEntered"
        data-today="@Model.TotalEnteredSport.EnteredSportToday.EventDate.ToMMDDWithSlash()"
-       data-non-entered-today="@Model.TotalEnteredSport.EnteredSportToday.NonEntered">
+       data-non-entered-today="@Model.TotalEnteredSport.EnteredSportToday.NonEntered"
+       data-breadcrumbleveljson="@Html.Raw(Model.BreadcrumbLevelJson)">
     <thead>
         <tr>
             <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="username">@Resources.Username</th>

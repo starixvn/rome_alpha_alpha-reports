@@ -60,7 +60,8 @@
                 reportDateService.GetMoveBetsDay(),
                 validUserSelectedProductIds,
                 param.ReportLevel,
-                param.ProductDetailsXML);
+                param.ProductDetailsXML,
+                param.Username);
 
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
@@ -82,7 +83,8 @@
                 dayModel.MoveBetsDay,
                 param.UserSelectedProductIds,
                 param.ReportLevel,
-                param.ProductDetailsXML);
+                param.ProductDetailsXML,
+                param.Username);
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             return await dataAccess.GetDataAsync(criteria);

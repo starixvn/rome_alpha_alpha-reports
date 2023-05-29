@@ -594,7 +594,7 @@
     <TypeScriptCompile Include="Features\Shared\Scripts\components\total-entered-nonentered.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\username-autosuggestion.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\visible-columns-dropdown.ts" />
-    <TypeScriptCompile Include="Features\Shared\Scripts\components\week-range.ts" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\components\week-selection.ts" />
     <Content Include="Web.AppSettings.local_2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
@@ -1959,6 +1959,7 @@
     <TypeScriptCompile Include="Features\EnteredResult\Scripts\enteredresult.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\base-historic-report.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\base-report-new.ts" />
+    <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail-columns.ts" />
     <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail-copyhtml.ts" />
     <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail-new.ts" />
     <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail.ts" />

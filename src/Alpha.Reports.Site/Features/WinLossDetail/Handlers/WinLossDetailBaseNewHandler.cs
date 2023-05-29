@@ -16,15 +16,18 @@
         protected readonly ProductService productService;
         protected readonly ProductDetailService productDetailService;
         protected readonly WinLossDetailService winlossDetailService;
+        private readonly CustomerService customerService;
 
         protected WinLossDetailBaseNewHandler(
             ProductService productService,
             ProductDetailService productDetailService,
-            WinLossDetailService winlossDetailService)
+            WinLossDetailService winlossDetailService,
+            CustomerService customerService)
         {
             this.productService = productService;
             this.productDetailService = productDetailService;
             this.winlossDetailService = winlossDetailService;
+            this.customerService = customerService;
         }
 
         protected async Task<Tuple<IEnumerable<Product>, IEnumerable<ProductDetail>>> GetProductsAndProductDetails(
@@ -72,7 +75,8 @@
                 false,
                 message.IsHistoricReport,
                 productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds),
-                message.IsEnableSabaPromotion);
+                message.IsEnableSabaPromotion,
+                message.Username);
         }
 
         private static IEnumerable<int> GetValidUserSelectedProductIds(
@@ -172,6 +176,38 @@
                 p.ResourceId,
                 p.DisplayName,
                 isSelectAll || userSelectedResourceIds.ContainsKey(p.ResourceId)));
+        }
+
+        protected bool BuildWinLossDetailGetDataQuery(WinLossDetailGetDataQuery message)
+        {
+            var isValidUsername = true;
+
+            if (!string.IsNullOrWhiteSpace(message.Username))
+            {
+                var customerLevel = customerService.GetCustomerLevel(message.Username, message.ViewerId);
+                isValidUsername = customerLevel != null;
+
+                if (isValidUsername)
+                {
+                    var custInfo = customerService.GetCustInfo(customerLevel);
+
+                    message.CustId = custInfo.CustId;
+                    message.CustName = custInfo.CustName;
+                    message.CustLevelId = custInfo.CustLevelId;
+
+                    message.BreadcrumbLevel = customerService.GetCustInfoList(customerLevel, message.ViewerLevel).ToList();
+                }
+            }
+
+            if (!message.BreadcrumbLevel.Any())
+            {
+                message.BreadcrumbLevel = new[]
+                {
+                    new CustInfo(message.ViewerId, message.CustName, message.ViewerLevelId)
+                };
+            }
+
+            return isValidUsername;
         }
     }
 }
