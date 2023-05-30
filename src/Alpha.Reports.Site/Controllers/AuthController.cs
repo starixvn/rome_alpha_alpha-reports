@@ -257,10 +257,13 @@ namespace Alpha.Reports.Site.Controllers
 
         private void SetRealtimeValues(string[] parameters, IUserSession userSession)
         {
+            SetOutputValuesToSession(parameters, userSession);
+
             var sessions = parameters[1].Split(';');
 
             userSession.SetProperty(SessionKey.LANGUAGE, sessions[3]);
             userSession.SetProperty(SessionKey.LANGKEY, sessions[4]);
+            userSession.SetProperty(SessionKey.ISPROTECTEDMODESESSIONKEY, Convert.ToBoolean(sessions[13]));
             userSession.SetProperty(SessionKey.DARKMODENAMESESSIONKEY, sessions[14]);
             userSession.SetProperty(SessionKey.MainDomainSessionKey, sessions[15]);
 
@@ -289,8 +292,6 @@ namespace Alpha.Reports.Site.Controllers
             var sessions = parameters[1].Split(';');
             userSession.SetProperty(SessionKey.SUBACCID, Convert.ToInt32(sessions[11]));
 
-            SetOutputValuesToSession(parameters, userSession);
-
             userSession.SetProperty(SessionKey.CUSTID, Convert.ToInt32(sessions[0]));
             userSession.SetProperty(SessionKey.USERNAME, sessions[1]);
             userSession.SetProperty(SessionKey.SITE, sessions[2]);
@@ -301,7 +302,6 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.CustomerDatelimit, Convert.ToDateTime(sessions[9]));
             userSession.SetProperty(SessionKey.ISADMINCANVIEWVNIP, Convert.ToBoolean(sessions[10]));
             userSession.SetProperty(SessionKey.USERLOGINIP, sessions[12]);
-            userSession.SetProperty(SessionKey.ISPROTECTEDMODESESSIONKEY, Convert.ToBoolean(sessions[13]));
             userSession.SetProperty(SessionKey.LoginIP_Browser, sessions[16]);
             userSession.SetProperty(SessionKey.ASSETAPPPATHSESSIONKEY, Session.IsCookieless ? $"{sessions[15]}/assets" : sessions[17]);
 
