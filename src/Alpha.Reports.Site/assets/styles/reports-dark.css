@@ -169,7 +169,9 @@ a {
   height: 100%; }
   .flex .wrapper-table-scrollable {
     flex: 1;
-    overflow: auto; }
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    will-change: scroll-position; }
 
 .wrapper-table-scrollable {
   position: relative; }

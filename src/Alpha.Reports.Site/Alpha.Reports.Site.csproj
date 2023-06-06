@@ -1862,7 +1862,6 @@
     <Content Include="Features\WinLossDetail\Views\Index.cshtml" />
     <Content Include="Features\WinLossDetail\Views\ReportData.cshtml" />
     <Content Include="Features\WinLossDetail\Views\ReportLegend.cshtml" />
-    <Content Include="Features\WinLossDetail\Views\ReportLegendNew.cshtml" />
     <Content Include="Features\Shared\Styles\report-legend.scss" />
     <Content Include="Features\Shared\Styles\report-legend-dark.scss" />
     <Content Include="Features\WinLossDetail\Views\ReportDataNew.cshtml" />

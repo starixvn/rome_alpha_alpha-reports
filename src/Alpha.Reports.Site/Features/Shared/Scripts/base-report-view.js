@@ -2,9 +2,12 @@
 var BaseReportView = /** @class */ (function () {
     function BaseReportView() {
     }
-    BaseReportView.prototype.initReportLegend = function (legendUrl, width, height) {
-        $("#icon-report-legend").click(function () {
-            top.window["popupManager"].open(typeof legendUrl === "function" ? legendUrl() : legendUrl, undefined, width, height, "modal-mobile-friendly");
+    BaseReportView.prototype.initReportLegend = function (legendUrl) {
+        $.get(legendUrl, function (html) {
+            $("body").append(html);
+            $("#icon-report-legend").click(function () {
+                $("#report-legend").modal({ show: true, backdrop: false });
+            });
         });
     };
     return BaseReportView;

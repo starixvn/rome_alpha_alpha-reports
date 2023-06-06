@@ -677,9 +677,12 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
 var BaseReportView = /** @class */ (function () {
     function BaseReportView() {
     }
-    BaseReportView.prototype.initReportLegend = function (legendUrl, width, height) {
-        $("#icon-report-legend").click(function () {
-            top.window["popupManager"].open(typeof legendUrl === "function" ? legendUrl() : legendUrl, undefined, width, height, "modal-mobile-friendly");
+    BaseReportView.prototype.initReportLegend = function (legendUrl) {
+        $.get(legendUrl, function (html) {
+            $("body").append(html);
+            $("#icon-report-legend").click(function () {
+                $("#report-legend").modal({ show: true, backdrop: false });
+            });
         });
     };
     return BaseReportView;
@@ -852,7 +855,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     };
     WinLossDetailViewNew.prototype.bindEvents = function () {
         var _this = this;
-        this.initReportLegend($("#hiddenLegendUrl").val(), 800, 570);
+        this.initReportLegend($("#hiddenLegendUrl").val());
         $("#icon-excel").click(function (e) {
             if (_this.isInvalidGlobalFormData()) {
                 e.preventDefault();

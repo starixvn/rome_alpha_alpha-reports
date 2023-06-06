@@ -40,8 +40,5 @@
 
         public Task<FileContentResult> ExcelNew(WinLossDetailExcelNewQuery message)
             => ExcelViewAsync(message);
-
-        public ActionResult ReportLegendNew(ReportLegendQuery message)
-            => View($"{BasePath}/{nameof(ReportLegendNew)}.cshtml", message);
     }
 }

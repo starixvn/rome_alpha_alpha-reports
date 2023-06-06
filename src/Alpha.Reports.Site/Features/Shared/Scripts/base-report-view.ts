@@ -1,14 +1,12 @@
 ﻿"use strict";
 
 class BaseReportView {
-    protected initReportLegend(legendUrl: string | Function, width: number, height: number) {
-        $("#icon-report-legend").click(function () {
-            top.window["popupManager"].open(
-                typeof legendUrl === "function" ? legendUrl() : legendUrl,
-                undefined,
-                width,
-                height,
-                "modal-mobile-friendly")
+    protected initReportLegend(legendUrl: string) {
+        $.get(legendUrl, function (html) {
+            $("body").append(html);
+            $("#icon-report-legend").click(function () {
+                $("#report-legend").modal({ show: true, backdrop: false });
+            });
         });
     }
 }
