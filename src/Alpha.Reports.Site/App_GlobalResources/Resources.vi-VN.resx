@@ -232,7 +232,7 @@
     <value>Không hiển thị lại</value>
   </data>
   <data name="NoInformationIsAvailable" xml:space="preserve">
-    <value>Thông tin chưa được cập nhật</value>
+    <value>Không có dữ liệu</value>
   </data>
   <data name="TurnoverAbbr" xml:space="preserve">
     <value>Tiền Cược</value>
@@ -966,22 +966,22 @@
     <value>Phiên bản mới</value>
   </data>
   <data name="Columns" xml:space="preserve">
-    <value>Cột</value>
+    <value>Cột Hiển Thị</value>
   </data>
   <data name="DateRange" xml:space="preserve">
-    <value>Phạm vi ngày</value>
+    <value>Thời gian báo cáo</value>
   </data>
   <data name="NoColumnsFound" xml:space="preserve">
     <value>Không tìm thấy Cột nào</value>
   </data>
   <data name="NoProductDetailsFound" xml:space="preserve">
-    <value>Không tìm thấy Chi Tiết Sản Phẩm</value>
+    <value>Không tìm thấy Sản Phẩm Phụ nào</value>
   </data>
   <data name="NoProductFound" xml:space="preserve">
-    <value>Không tìm thấy Sản Phẩm</value>
+    <value>Không tìm thấy Sản Phẩm nào</value>
   </data>
   <data name="ProductDetails" xml:space="preserve">
-    <value>Chi Tiết Sản Phẩm</value>
+    <value>Sản Phẩm Phụ</value>
   </data>
   <data name="SearchColumns" xml:space="preserve">
     <value>Tìm Cột</value>
@@ -990,10 +990,10 @@
     <value>Tìm Sản Phẩm</value>
   </data>
   <data name="SearchProductDetails" xml:space="preserve">
-    <value>Tìm Chi Tiết Sản Phẩm</value>
+    <value>Tìm Sản Phẩm Phụ</value>
   </data>
   <data name="MaxDataRetrieveHistoryError" xml:space="preserve">
-    <value>Dữ liệu từ trước {0} chỉ có thể truy xuất trong vòng 31 ngày, vui lòng xem lại phạm vi ngày.</value>
+    <value>Vui lòng xem lại thời gian báo cáo vì dữ liệu từ trước ngày {0} chỉ có thể được truy xuất trong vòng 31 ngày.</value>
   </data>
   <data name="NoneSelected" xml:space="preserve">
     <value>Chưa chọn mục nào</value>
@@ -1003,5 +1003,8 @@
   </data>
   <data name="ReportDataCanViewNote" xml:space="preserve">
     <value>Dữ liệu báo cáo từ ngày {0} trở đi có thể được tra cứu đến 90 ngày hoặc hơn.</value>
+  </data>
+  <data name="nSelected" xml:space="preserve">
+    <value>Đã chọn #</value>
   </data>
 </root>

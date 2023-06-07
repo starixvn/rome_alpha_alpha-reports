@@ -91,19 +91,30 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
             {
                 name: dateRangePicker.data("label-thisweek"),
                 dates: function () {
-                    return [thisWeekStartOfDay.toDate(), todayValue];
+                    return [
+                        thisWeekStartOfDay.diff(minDate) >= 0 ? thisWeekStartOfDay.toDate() : minDate.toDate(),
+                        todayValue
+                    ];
                 }
             },
             {
                 name: dateRangePicker.data("label-lastweek"),
                 dates: function () {
-                    return [moment(thisWeekStartOfDay).subtract(1, "w").toDate(), moment(thisWeekStartOfDay).subtract(1, "d").toDate()];
+                    var lastWeekStartOfDay = moment(thisWeekStartOfDay).subtract(1, "w");
+                    return [
+                        lastWeekStartOfDay.diff(minDate) >= 0 ? lastWeekStartOfDay.toDate() : minDate.toDate(),
+                        moment(thisWeekStartOfDay).subtract(1, "d").toDate()
+                    ];
                 }
             },
             {
                 name: dateRangePicker.data("label-thismonth"),
                 dates: function () {
-                    return [moment(today).startOf("M").toDate(), todayValue];
+                    var thisMonthStartOfDay = moment(today).startOf("M");
+                    return [
+                        thisMonthStartOfDay.diff(minDate) >= 0 ? thisMonthStartOfDay.toDate() : minDate.toDate(),
+                        todayValue
+                    ];
                 }
             },
             {

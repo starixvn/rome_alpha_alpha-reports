@@ -985,4 +985,7 @@
   <data name="ReportDataCanViewNote" xml:space="preserve">
     <value>{0}后的报表资料，其可检视日期为90天或以上。</value>
   </data>
+  <data name="nSelected" xml:space="preserve">
+    <value>已选 #</value>
+  </data>
 </root>

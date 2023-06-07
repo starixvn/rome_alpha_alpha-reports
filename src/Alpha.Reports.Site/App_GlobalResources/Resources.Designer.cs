@@ -1879,6 +1879,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to # Selected.
+        /// </summary>
+        public static string nSelected {
+            get {
+                return ResourceManager.GetString("nSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number Game.
         /// </summary>
         public static string NumberGame {

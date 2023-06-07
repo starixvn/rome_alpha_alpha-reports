@@ -978,4 +978,7 @@
   <data name="ReportDataCanViewNote" xml:space="preserve">
     <value>ข้อมูลรายงานตั้งแต่วันที่ {0} สามารถเลือกระยะเวลาได้สูงสุด 90 วัน</value>
   </data>
+  <data name="nSelected" xml:space="preserve">
+    <value>ที่เลือกไว้ #</value>
+  </data>
 </root>

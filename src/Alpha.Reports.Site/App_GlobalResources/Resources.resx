@@ -1068,4 +1068,7 @@
   <data name="ReportDataCanViewNote" xml:space="preserve">
     <value>Report data starting from {0}, can be viewed for up to 90 days +.</value>
   </data>
+  <data name="nSelected" xml:space="preserve">
+    <value># Selected</value>
+  </data>
 </root>

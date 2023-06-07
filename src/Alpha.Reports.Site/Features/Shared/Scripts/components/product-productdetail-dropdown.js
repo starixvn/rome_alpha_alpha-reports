@@ -35,7 +35,7 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
         var dropdown = $("#" + options.selectorProductDetailId);
         this.dropdownProductDetail = dropdown.fanexMultiSelect({
             selectAllText: dropdown.data("label-selectall"),
-            selectedText: "# " + dropdown.data("label-selected"),
+            selectedText: dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
             customSelectAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
@@ -77,10 +77,21 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             return checkboxItem;
         });
         var self = this;
+        var handleOnCheckProductInternal = function (productId, checked) {
+            var subProductIds = productIdWithSubProductIds[productId];
+            if (subProductIds) {
+                subProductIds.forEach(function (id) {
+                    self.handleOnCheckProduct(id, checked);
+                });
+            }
+            else {
+                self.handleOnCheckProduct(productId, checked);
+            }
+        };
         var dropdown = $("#" + options.selectorProductId);
         this.dropdownProduct = dropdown.fanexMultiSelect({
             selectAllText: dropdown.data("label-selectall"),
-            selectedText: "# " + dropdown.data("label-selected"),
+            selectedText: dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
             customSelectAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
@@ -92,22 +103,24 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             expandGroupsByDefault: false,
             listData: productList,
             onCheck: function () {
-                var checked = this.checked;
-                var productId = this.value;
-                var subProductIds = productIdWithSubProductIds[productId];
-                if (subProductIds) {
-                    subProductIds.forEach(function (id) {
-                        self.handleOnCheckProduct(id, checked);
-                    });
-                }
-                else {
-                    self.handleOnCheckProduct(productId, checked);
-                }
+                handleOnCheckProductInternal(this.value, this.checked);
             },
             onCheckAll: function () {
                 var checked = this.checked;
-                self.dropdownProductDetail.fanexMultiSelect("showAllItems", checked);
-                self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
+                var checkedValues = self.dropdownProduct.fanexMultiSelect("getCheckedValues");
+                var uncheckedValues = self.dropdownProduct.fanexMultiSelect("getUncheckedValues");
+                if ((checked && !uncheckedValues.length) || (!checked && !checkedValues.length)) {
+                    self.dropdownProductDetail.fanexMultiSelect("showAllItems", checked);
+                    self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
+                }
+                else {
+                    var productIdString = checked
+                        ? checkedValues
+                        : uncheckedValues;
+                    productIdString.split(",").forEach(function (id) {
+                        handleOnCheckProductInternal(id, checked);
+                    });
+                }
             },
             onLeave: function () {
                 options.onDropdownHidden(self.getCheckedValues());
