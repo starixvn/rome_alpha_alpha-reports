@@ -36,6 +36,7 @@ namespace Alpha.Reports.Constants
         public const int SabaClub = 42;
         public const int DummyRNGProductId = 53;
         public const int FGG = 70;
+        public const int YeeBet = 76;
 
         public const int Cashout = 25;
 
@@ -51,6 +52,7 @@ namespace Alpha.Reports.Constants
                 GDG,
                 BigGame,
                 PPLiveCasino,
+                YeeBet,
                 FGG
             };
 
