@@ -482,6 +482,15 @@ a {
     clear: both;
     padding-right: 150px;
 
+    .dropdown-menu {
+        width: 250px;
+
+        > li > a {
+            word-break: break-word;
+            white-space: normal;
+        }
+    }
+
     #txt-username {
         width: 190px;
 

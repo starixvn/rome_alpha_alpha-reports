@@ -408,6 +408,11 @@ a {
   width: 100%;
   clear: both;
   padding-right: 150px; }
+  .filter .dropdown-menu {
+    width: 250px; }
+    .filter .dropdown-menu > li > a {
+      word-break: break-word;
+      white-space: normal; }
   .filter #txt-username {
     width: 190px; }
     .filter #txt-username + .dropdown-menu li a:hover {
