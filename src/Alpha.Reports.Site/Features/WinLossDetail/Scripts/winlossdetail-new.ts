@@ -101,8 +101,9 @@ class WinLossDetailViewNew extends BaseReportView {
 
         this.usernameAutoSuggestionComponent.init(new UsernameAutoSuggestionOption(
             $("#hiddenUsernameAutoSuggestionUrl").val(),
-            viewerId,
-            false,
+            undefined,
+            undefined,
+            undefined,
             searchUsername,
             (username) => {
                 const dateRange = this.dateRangePickerComponent.getDateRangeValues();

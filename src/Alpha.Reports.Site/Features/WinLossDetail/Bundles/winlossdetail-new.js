@@ -262,19 +262,30 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
             {
                 name: dateRangePicker.data("label-thisweek"),
                 dates: function () {
-                    return [thisWeekStartOfDay.toDate(), todayValue];
+                    return [
+                        thisWeekStartOfDay.diff(minDate) >= 0 ? thisWeekStartOfDay.toDate() : minDate.toDate(),
+                        todayValue
+                    ];
                 }
             },
             {
                 name: dateRangePicker.data("label-lastweek"),
                 dates: function () {
-                    return [moment(thisWeekStartOfDay).subtract(1, "w").toDate(), moment(thisWeekStartOfDay).subtract(1, "d").toDate()];
+                    var lastWeekStartOfDay = moment(thisWeekStartOfDay).subtract(1, "w");
+                    return [
+                        lastWeekStartOfDay.diff(minDate) >= 0 ? lastWeekStartOfDay.toDate() : minDate.toDate(),
+                        moment(thisWeekStartOfDay).subtract(1, "d").toDate()
+                    ];
                 }
             },
             {
                 name: dateRangePicker.data("label-thismonth"),
                 dates: function () {
-                    return [moment(today).startOf("M").toDate(), todayValue];
+                    var thisMonthStartOfDay = moment(today).startOf("M");
+                    return [
+                        thisMonthStartOfDay.diff(minDate) >= 0 ? thisMonthStartOfDay.toDate() : minDate.toDate(),
+                        todayValue
+                    ];
                 }
             },
             {
@@ -343,7 +354,7 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
         var dropdown = $("#" + options.selectorProductDetailId);
         this.dropdownProductDetail = dropdown.fanexMultiSelect({
             selectAllText: dropdown.data("label-selectall"),
-            selectedText: "# " + dropdown.data("label-selected"),
+            selectedText: dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
             customSelectAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
@@ -385,10 +396,21 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             return checkboxItem;
         });
         var self = this;
+        var handleOnCheckProductInternal = function (productId, checked) {
+            var subProductIds = productIdWithSubProductIds[productId];
+            if (subProductIds) {
+                subProductIds.forEach(function (id) {
+                    self.handleOnCheckProduct(id, checked);
+                });
+            }
+            else {
+                self.handleOnCheckProduct(productId, checked);
+            }
+        };
         var dropdown = $("#" + options.selectorProductId);
         this.dropdownProduct = dropdown.fanexMultiSelect({
             selectAllText: dropdown.data("label-selectall"),
-            selectedText: "# " + dropdown.data("label-selected"),
+            selectedText: dropdown.data("label-selected"),
             noneSelectedText: dropdown.data("label-noneselected"),
             customSelectAllText: dropdown.data("label-all") + " (#)",
             showFilter: true,
@@ -400,22 +422,24 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             expandGroupsByDefault: false,
             listData: productList,
             onCheck: function () {
-                var checked = this.checked;
-                var productId = this.value;
-                var subProductIds = productIdWithSubProductIds[productId];
-                if (subProductIds) {
-                    subProductIds.forEach(function (id) {
-                        self.handleOnCheckProduct(id, checked);
-                    });
-                }
-                else {
-                    self.handleOnCheckProduct(productId, checked);
-                }
+                handleOnCheckProductInternal(this.value, this.checked);
             },
             onCheckAll: function () {
                 var checked = this.checked;
-                self.dropdownProductDetail.fanexMultiSelect("showAllItems", checked);
-                self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
+                var checkedValues = self.dropdownProduct.fanexMultiSelect("getCheckedValues");
+                var uncheckedValues = self.dropdownProduct.fanexMultiSelect("getUncheckedValues");
+                if ((checked && !uncheckedValues.length) || (!checked && !checkedValues.length)) {
+                    self.dropdownProductDetail.fanexMultiSelect("showAllItems", checked);
+                    self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
+                }
+                else {
+                    var productIdString = checked
+                        ? checkedValues
+                        : uncheckedValues;
+                    productIdString.split(",").forEach(function (id) {
+                        handleOnCheckProductInternal(id, checked);
+                    });
+                }
             },
             onLeave: function () {
                 options.onDropdownHidden(self.getCheckedValues());
@@ -469,19 +493,24 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
 //# sourceMappingURL=product-productdetail-dropdown.js.map
 "use strict";
 var UsernameAutoSuggestionOption = /** @class */ (function () {
-    function UsernameAutoSuggestionOption(url, custId, directDownlines, onEnter, selectorId) {
-        if (directDownlines === void 0) { directDownlines = true; }
-        if (onEnter === void 0) { onEnter = Function(); }
+    function UsernameAutoSuggestionOption(url, custId, directDownlines, isAccInfo, initialUsername, onBlur, selectorId) {
+        if (directDownlines === void 0) { directDownlines = false; }
+        if (isAccInfo === void 0) { isAccInfo = true; }
+        if (initialUsername === void 0) { initialUsername = ""; }
+        if (onBlur === void 0) { onBlur = Function(); }
         if (selectorId === void 0) { selectorId = "txt-username"; }
         this.url = url;
         this.custId = custId;
         this.directDownlines = directDownlines;
-        this.onEnter = onEnter;
+        this.isAccInfo = isAccInfo;
+        this.initialUsername = initialUsername;
+        this.onBlur = onBlur;
         this.selectorId = selectorId;
         this.url = url;
         this.custId = custId;
         this.directDownlines = directDownlines;
-        this.onEnter = onEnter;
+        this.isAccInfo = isAccInfo;
+        this.onBlur = onBlur;
         this.selectorId = selectorId;
     }
     return UsernameAutoSuggestionOption;
@@ -490,11 +519,13 @@ var UsernameAutoSuggestionComponent = /** @class */ (function () {
     function UsernameAutoSuggestionComponent() {
     }
     UsernameAutoSuggestionComponent.prototype.init = function (options) {
-        var usernameInput = $("#" + options.selectorId);
-        var urlAndQueryString = options.url + "?custid=" + options.custId + "&directdownlines=" + options.directDownlines + "&isaccinfo=false";
+        var _this = this;
+        this.usernameInput = $("#" + options.selectorId);
+        var queryString = this.buildQueryString(options);
+        var urlAndQueryString = options.url + "?" + queryString + (queryString.length ? "&" : "");
         var typeaheadOptions = {
             source: function (query, process) {
-                return $.get(urlAndQueryString + "&suggestionquery=" + query, process);
+                return $.get(urlAndQueryString + "suggestionquery=" + query, process);
             },
             items: 10,
             minLength: 2,
@@ -508,15 +539,37 @@ var UsernameAutoSuggestionComponent = /** @class */ (function () {
             },
             autoSelect: false,
             afterSelect: function (item) {
-                usernameInput.val(item.UserName);
+                console.log('afterSelect');
+                _this.usernameInput.val(item.UserName);
             },
             delay: 200
         };
-        usernameInput
+        this.usernameInput
             .typeahead(typeaheadOptions)
-            .on("keyup", function (e) {
-            e.keyCode === 13 && options.onEnter($.trim(usernameInput.val()));
-        });
+            .blur(function () {
+            console.log('onBlur');
+            options.onBlur($.trim(_this.usernameInput.val()));
+        })
+            .val(options.initialUsername);
+    };
+    UsernameAutoSuggestionComponent.prototype.buildQueryString = function (options) {
+        var queryString = [];
+        if (options.custId) {
+            queryString.push("custid=" + options.custId);
+        }
+        if (options.directDownlines) {
+            queryString.push("directdownlines=" + options.directDownlines);
+        }
+        if (!options.isAccInfo) {
+            queryString.push("isaccinfo=" + options.isAccInfo);
+        }
+        return queryString.join('&');
+    };
+    UsernameAutoSuggestionComponent.prototype.getUsername = function () {
+        return $.trim(this.usernameInput.val());
+    };
+    UsernameAutoSuggestionComponent.prototype.resetUsername = function () {
+        this.usernameInput.val("");
     };
     return UsernameAutoSuggestionComponent;
 }());
@@ -595,11 +648,11 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
 }());
 //# sourceMappingURL=visible-columns-dropdown.js.map
 "use strict";
-var WeekRangeOption = /** @class */ (function () {
-    function WeekRangeOption(onClick, language, selectorId) {
+var WeekSelectionOption = /** @class */ (function () {
+    function WeekSelectionOption(onClick, language, selectorId) {
         if (onClick === void 0) { onClick = Function(); }
         if (language === void 0) { language = "en"; }
-        if (selectorId === void 0) { selectorId = "week-range-container"; }
+        if (selectorId === void 0) { selectorId = "week-selection"; }
         this.onClick = onClick;
         this.language = language;
         this.selectorId = selectorId;
@@ -607,18 +660,18 @@ var WeekRangeOption = /** @class */ (function () {
         this.language = language;
         this.selectorId = selectorId;
     }
-    return WeekRangeOption;
+    return WeekSelectionOption;
 }());
-var WeekRangeComponent = /** @class */ (function () {
-    function WeekRangeComponent() {
+var WeekSelectionComponent = /** @class */ (function () {
+    function WeekSelectionComponent() {
     }
-    WeekRangeComponent.prototype.init = function (options) {
-        this.weekRangeOption = options;
+    WeekSelectionComponent.prototype.init = function (options) {
+        this.weekSelectionOption = options;
         this.weekRangeContainer = $("#" + options.selectorId);
     };
-    WeekRangeComponent.prototype.render = function (dateRange, activeWeekRange) {
+    WeekSelectionComponent.prototype.render = function (dateRange, activeWeekRange) {
         var _this = this;
-        moment.locale(this.weekRangeOption.language);
+        moment.locale(this.weekSelectionOption.language);
         this.weekRangeContainer.html(this.buildWeekRangeHtml(dateRange, activeWeekRange));
         var labelWeeks = this.weekRangeContainer.find(".label-week");
         labelWeeks
@@ -627,10 +680,10 @@ var WeekRangeComponent = /** @class */ (function () {
             var $this = $(e.target);
             labelWeeks.removeClass("active");
             $this.addClass("active");
-            _this.weekRangeOption.onClick({ fromDate: $this.data("fromdate"), toDate: $this.data("todate") });
+            _this.weekSelectionOption.onClick({ fromDate: $this.data("fromdate"), toDate: $this.data("todate") });
         });
     };
-    WeekRangeComponent.prototype.buildWeekRangeHtml = function (dateRange, activeWeekRange) {
+    WeekSelectionComponent.prototype.buildWeekRangeHtml = function (dateRange, activeWeekRange) {
         var weekRange = [];
         var startDate = moment(dateRange.fromDate);
         var endDate = moment(dateRange.toDate);
@@ -650,32 +703,36 @@ var WeekRangeComponent = /** @class */ (function () {
         }
         return weekRange.join("");
     };
-    WeekRangeComponent.prototype.getActiveWeekRange = function () {
-        var activeWeekRange = this.weekRangeContainer.find(".label-week.active");
-        if (activeWeekRange.length) {
-            var firstActiveWeekRange = activeWeekRange.eq(0);
+    WeekSelectionComponent.prototype.getActiveWeek = function () {
+        var activeWeek = this.weekRangeContainer.find(".label-week.active");
+        if (activeWeek.length) {
+            var firstActiveWeek = activeWeek.eq(0);
             return {
-                weekFromDate: firstActiveWeekRange.data("fromdate"),
-                weekToDate: firstActiveWeekRange.data("todate"),
+                weekFromDate: firstActiveWeek.data("fromdate"),
+                weekToDate: firstActiveWeek.data("todate"),
             };
         }
         return {};
     };
-    return WeekRangeComponent;
+    return WeekSelectionComponent;
 }());
-//# sourceMappingURL=week-range.js.map
+//# sourceMappingURL=week-selection.js.map
 "use strict";
 var BreadcrumbLevelOption = /** @class */ (function () {
-    function BreadcrumbLevelOption(breadcrumbs, onClick, selectorId) {
+    function BreadcrumbLevelOption(breadcrumbs, onClick, reportTitle, selectorId, reportTitleSelectorId) {
         if (breadcrumbs === void 0) { breadcrumbs = []; }
         if (onClick === void 0) { onClick = Function(); }
         if (selectorId === void 0) { selectorId = "breadcrumb"; }
+        if (reportTitleSelectorId === void 0) { reportTitleSelectorId = "report-title"; }
+        this.breadcrumbs = breadcrumbs;
+        this.onClick = onClick;
+        this.reportTitle = reportTitle;
+        this.selectorId = selectorId;
+        this.reportTitleSelectorId = reportTitleSelectorId;
         this.breadcrumbs = breadcrumbs;
         this.onClick = onClick;
         this.selectorId = selectorId;
-        this.breadcrumbs = breadcrumbs;
-        this.onClick = onClick;
-        this.selectorId = selectorId;
+        this.reportTitleSelectorId = reportTitleSelectorId;
     }
     return BreadcrumbLevelOption;
 }());
@@ -685,6 +742,7 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
     BreadcrumbLevelComponent.prototype.init = function (options) {
         this.breadcrumbLevelOption = options;
         this.breadcrumbSelector = $("#" + options.selectorId);
+        this.reportTitleSelector = $("#" + options.reportTitleSelectorId);
         this.render();
     };
     BreadcrumbLevelComponent.prototype.addBreadcrumbLevel = function (breadcrumbData) {
@@ -698,31 +756,31 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
     BreadcrumbLevelComponent.prototype.getBreadcrumbs = function () {
         return this.breadcrumbLevelOption.breadcrumbs;
     };
+    BreadcrumbLevelComponent.prototype.setBreadcrumbs = function (breadcrumbs) {
+        this.breadcrumbLevelOption.breadcrumbs = breadcrumbs;
+        this.render();
+    };
     BreadcrumbLevelComponent.prototype.render = function () {
         var _this = this;
         var breadcrumbLength = this.breadcrumbLevelOption.breadcrumbs.length;
-        if (breadcrumbLength > 1) {
-            var html = this.breadcrumbLevelOption.breadcrumbs.map(function (item, index) {
-                return index + 1 === breadcrumbLength
-                    ? "<li>" + item.custName + "</li>"
-                    : "<li><a class=\"upline-link\" href=\"javascript:;\" data-custid=\"" + item.custId + "\" data-custname=\"" + item.custName + "\" data-custlevelid=\"" + item.custLevelId + "\">" + item.custName + "</a></li>";
+        var html = this.breadcrumbLevelOption.breadcrumbs.map(function (item, index) {
+            return index + 1 === breadcrumbLength
+                ? "<li>" + item.custName + "</li>"
+                : "<li><a class=\"upline-link\" href=\"javascript:;\" data-custid=\"" + item.custId + "\" data-custname=\"" + item.custName + "\" data-custlevelid=\"" + item.custLevelId + "\">" + item.custName + "</a></li>";
+        });
+        this.reportTitleSelector.text(this.breadcrumbLevelOption.reportTitle[this.breadcrumbLevelOption.breadcrumbs[breadcrumbLength - 1].custLevelId]);
+        this.breadcrumbSelector
+            .html(html.join(""))
+            .find(".upline-link").off().click(function (e) {
+            e.preventDefault();
+            var $this = $(e.target);
+            $this.addClass("active");
+            _this.breadcrumbLevelOption.onClick({
+                custId: $this.data("custid"),
+                custName: $this.data("custname"),
+                custLevelId: $this.data("custlevelid")
             });
-            this.breadcrumbSelector
-                .html(html.join(""))
-                .find(".upline-link").off().click(function (e) {
-                e.preventDefault();
-                var $this = $(e.target);
-                $this.addClass("active");
-                _this.breadcrumbLevelOption.onClick({
-                    custId: $this.data("custid"),
-                    custName: $this.data("custname"),
-                    custLevelId: $this.data("custlevelid")
-                });
-            });
-        }
-        else {
-            this.breadcrumbSelector.html("");
-        }
+        });
     };
     return BreadcrumbLevelComponent;
 }());
@@ -731,14 +789,71 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
 var BaseReportView = /** @class */ (function () {
     function BaseReportView() {
     }
-    BaseReportView.prototype.initReportLegend = function (legendUrl, width, height) {
-        $("#icon-report-legend").click(function () {
-            top.window["popupManager"].open(typeof legendUrl === "function" ? legendUrl() : legendUrl, undefined, width, height, "modal-mobile-friendly");
+    BaseReportView.prototype.initReportLegend = function (legendUrl) {
+        $.get(legendUrl, function (html) {
+            $("body").append(html);
+            $("#icon-report-legend").click(function () {
+                $("#report-legend").modal({ show: true, backdrop: false });
+            });
         });
     };
     return BaseReportView;
 }());
 //# sourceMappingURL=base-report-view.js.map
+"use strict";
+var WinLossDetailColumns = /** @class */ (function () {
+    function WinLossDetailColumns(visibleColumnDropdownComponent, columnList) {
+        this.visibleColumnDropdownComponent = visibleColumnDropdownComponent;
+        this.columnList = columnList;
+    }
+    WinLossDetailColumns.prototype.init = function () {
+        var _this = this;
+        this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption("WinLossDetail_" + $("#hiddenViewerId").val() + "_" + $("#hiddenSubAccId").val() + ":Columns", this.columnList, function (visibleColumn) { return _this.showHideColumns(visibleColumn); }));
+        this.showHideColumns();
+    };
+    WinLossDetailColumns.prototype.showHideColumns = function (visibleColumn) {
+        if (visibleColumn === void 0) { visibleColumn = undefined; }
+        var tableReport = $("#tbl-report");
+        visibleColumn = visibleColumn || this.visibleColumnDropdownComponent.getColumns();
+        this._showHideSpecificColumn(tableReport, visibleColumn, "fullname");
+        this._showHideSpecificColumn(tableReport, visibleColumn, "betcount");
+        this._showHideSpecificColumn(tableReport, visibleColumn, "turnover");
+        this._showHideSpecificColumn(tableReport, visibleColumn, "netturnover");
+        this._showHideSpecificColumn(tableReport, visibleColumn, "grosscomm");
+        this._showHideGroupColumn(tableReport, visibleColumn, "p", "groupColumnMember");
+        this._showHideGroupColumn(tableReport, visibleColumn, "a", "groupColumnAgent");
+        this._showHideGroupColumn(tableReport, visibleColumn, "m", "groupColumnMaster");
+        this._showHideGroupColumn(tableReport, visibleColumn, "s", "groupColumnSuper");
+        this._showHideSpecificColumn(tableReport, visibleColumn, "company");
+    };
+    WinLossDetailColumns.prototype._showHideGroupColumn = function (tableReport, visibleColumn, prefix, groupColumnId) {
+        var groupColumn = tableReport.find("#" + groupColumnId);
+        if (groupColumn.length) {
+            var colspan = 0;
+            if (this._showHideSpecificColumn(tableReport, visibleColumn, prefix + "winloss")) {
+                colspan++;
+            }
+            if (this._showHideSpecificColumn(tableReport, visibleColumn, prefix + "comm")) {
+                colspan++;
+            }
+            if (this._showHideSpecificColumn(tableReport, visibleColumn, prefix + "total")) {
+                colspan++;
+            }
+            colspan ? groupColumn.attr("colspan", colspan).removeClass("hide") : groupColumn.addClass("hide");
+        }
+    };
+    WinLossDetailColumns.prototype._showHideSpecificColumn = function (tableReport, visibleColumn, key) {
+        var matchedColumns = tableReport.find("[data-colname=" + key + "]");
+        var visible = visibleColumn[key];
+        visible ? matchedColumns.removeClass("hide") : matchedColumns.addClass("hide");
+        return visible;
+    };
+    WinLossDetailColumns.prototype.getHideColumns = function () {
+        return this.visibleColumnDropdownComponent.getHideColumns();
+    };
+    return WinLossDetailColumns;
+}());
+//# sourceMappingURL=winlossdetail-columns.js.map
 "use strict";
 var WinLossDetailCopyHtml = /** @class */ (function () {
     function WinLossDetailCopyHtml(clipboard) {
@@ -748,7 +863,7 @@ var WinLossDetailCopyHtml = /** @class */ (function () {
         var _this = this;
         $("#icon-copy").tooltip();
         var clipboard = new this.clipboard("#icon-copy", {
-            text: function (trigger) { return _this._copyTableHtml($("#tbl-report")); }
+            text: function () { return _this._copyTableHtml($("#tbl-report")); }
         });
         if (window.document.queryCommandSupported && window.document.queryCommandSupported("copy")) {
             clipboard.on("success", function (e) {
@@ -843,7 +958,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var WinLossDetailViewNew = /** @class */ (function (_super) {
     __extends(WinLossDetailViewNew, _super);
-    function WinLossDetailViewNew(totalEnteredNonEnteredComponent, dateRangePickerComponent, productAndProductDetailDropdownComponent, usernameAutoSuggestionComponent, visibleColumnDropdownComponent, weekRangeComponent, breadcrumbLevelComponent, winLossDetailCopyHtml, productList, productDetailList, columnList) {
+    function WinLossDetailViewNew(totalEnteredNonEnteredComponent, dateRangePickerComponent, productAndProductDetailDropdownComponent, usernameAutoSuggestionComponent, winLossDetailColumns, weekSelectionComponent, breadcrumbLevelComponent, winLossDetailCopyHtml) {
         var _this = _super.call(this) || this;
         _this.sortColumnName = "username";
         _this.sortIndicator = 0; // asc: 0, desc: 1
@@ -851,13 +966,10 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         _this.dateRangePickerComponent = dateRangePickerComponent;
         _this.productAndProductDetailDropdownComponent = productAndProductDetailDropdownComponent;
         _this.usernameAutoSuggestionComponent = usernameAutoSuggestionComponent;
-        _this.visibleColumnDropdownComponent = visibleColumnDropdownComponent;
-        _this.weekRangeComponent = weekRangeComponent;
+        _this.winLossDetailColumns = winLossDetailColumns;
+        _this.weekSelectionComponent = weekSelectionComponent;
         _this.breadcrumbLevelComponent = breadcrumbLevelComponent;
         _this.winLossDetailCopyHtml = winLossDetailCopyHtml;
-        _this.productList = productList;
-        _this.productDetailList = productDetailList;
-        _this.columnList = columnList;
         return _this;
     }
     WinLossDetailViewNew.prototype.init = function () {
@@ -872,21 +984,25 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     WinLossDetailViewNew.prototype.renderComponents = function () {
         var _this = this;
         var viewerId = +$("#hiddenViewerId").val();
-        var viewerLevel = +$("#hiddenViewerLevel").val();
         var weekFromDate = $("#hiddenWeekFromDate");
         var weekToDate = $("#hiddenWeekToDate");
         var currentLanguage = $("#language").data("currentlanguage");
+        var searchUsername = $("#hiddenUsername").val();
         this.totalEnteredNonEnteredComponent.init();
         this.dateRangePickerComponent.render(new DateRangePickerJQueryOption(function (dateRange) {
             _this.constraintDateRangeAndProductDropdownList(dateRange);
-            $.extend(_this.globalFormData, dateRange, _this.productAndProductDetailDropdownComponent.getCheckedValues());
+            var productsAndResources = _this.productAndProductDetailDropdownComponent.getCheckedValues();
+            var username = _this.usernameAutoSuggestionComponent.getUsername();
+            $.extend(_this.globalFormData, dateRange, productsAndResources, { username: username });
             if (_this.isInvalidGlobalFormData()) {
                 return;
             }
             _this.getWinLossDetailDataAndRenderWeekRange();
         }, this.getDateRangePickerLocale(currentLanguage)));
-        this.productAndProductDetailDropdownComponent.render(new ProductAndProductDetailDropdownOption(this.productList, this.productDetailList, function (productsAndResources) {
-            $.extend(_this.globalFormData, _this.dateRangePickerComponent.getDateRangeValues(), productsAndResources);
+        this.productAndProductDetailDropdownComponent.render(new ProductAndProductDetailDropdownOption(window.productList, window.productDetailList, function (productsAndResources) {
+            var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
+            var username = _this.usernameAutoSuggestionComponent.getUsername();
+            $.extend(_this.globalFormData, dateRange, productsAndResources, { username: username });
             if (_this.isInvalidGlobalFormData()) {
                 return;
             }
@@ -894,11 +1010,21 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         }));
         var dateRange = this.dateRangePickerComponent.getDateRangeValues();
         this.constraintDateRangeAndProductDropdownList(dateRange);
-        this.usernameAutoSuggestionComponent.init(new UsernameAutoSuggestionOption($("#hiddenUsernameAutoSuggestionUrl").val(), viewerId, false, function (username) {
-            console.log(username);
+        this.usernameAutoSuggestionComponent.init(new UsernameAutoSuggestionOption($("#hiddenUsernameAutoSuggestionUrl").val(), undefined, undefined, undefined, searchUsername, function (username) {
+            var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
+            var productsAndResources = _this.productAndProductDetailDropdownComponent.getCheckedValues();
+            $.extend(_this.globalFormData, dateRange, productsAndResources, { username: username });
+            // reset params: custId, custName, custLevelId
+            delete _this.globalFormData.custId;
+            delete _this.globalFormData.custName;
+            delete _this.globalFormData.custLevelId;
+            if (_this.isInvalidGlobalFormData()) {
+                return;
+            }
+            _this.getWinLossDetailDataAndRenderWeekRange(true);
         }));
-        this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption("WinLossDetail_" + viewerId + "_" + $("#hiddenSubAccId").val() + ":Columns", this.columnList, function (visibleColumn) { return _this.showHideColumns(visibleColumn); }));
-        this.weekRangeComponent.init(new WeekRangeOption(function (dateRange) {
+        this.winLossDetailColumns.init();
+        this.weekSelectionComponent.init(new WeekSelectionOption(function (dateRange) {
             if (_this.isInvalidGlobalFormData()) {
                 return;
             }
@@ -909,25 +1035,24 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         var activeWeekRange = weekFromDate.length > 0 && weekToDate.length > 0
             ? { weekFromDate: weekFromDate.val(), weekToDate: weekToDate.val() }
             : undefined;
-        this.weekRangeComponent.render(dateRange, activeWeekRange);
-        var breadcrumbLevelJson = $("#hiddenBreadcrumbLevelJson").val();
-        var breadcrumbs = breadcrumbLevelJson.length
-            ? JSON.parse(breadcrumbLevelJson)
-            : [{ custId: viewerId, custName: $("#hiddenViewerName").val(), custLevelId: viewerLevel }];
-        this.breadcrumbLevelComponent.init(new BreadcrumbLevelOption(breadcrumbs, function (breadcrumbData) {
+        this.weekSelectionComponent.render(dateRange, activeWeekRange);
+        this.breadcrumbLevelComponent.init(new BreadcrumbLevelOption(this.buildBreadcrumbs(), function (breadcrumbData) {
             if (_this.isInvalidGlobalFormData()) {
                 return;
             }
+            _this.usernameAutoSuggestionComponent.resetUsername();
+            delete _this.globalFormData.username;
             $.extend(_this.globalFormData, breadcrumbData);
             _this.getWinLossDetailData(function () {
                 _this.breadcrumbLevelComponent.removeBreadcrumbLevel(breadcrumbData.custLevelId);
                 _this.updateCurrentUrl();
             });
-        }));
+        }, window.reportTitle));
         this.globalFormData = $.extend({}, {
             custId: +$("#hiddenCustId").val(),
             custName: $("#hiddenCustName").val(),
-            custLevelId: +$("#hiddenCustLevel").val()
+            custLevelId: +$("#hiddenCustLevel").val(),
+            username: searchUsername
         }, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues());
         // update fromDate/toDate of globalFormData if activeWeekRange is NOT undefined
         if (activeWeekRange) {
@@ -963,10 +1088,12 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         };
         return locale[language] || locale.default;
     };
-    WinLossDetailViewNew.prototype.getWinLossDetailDataAndRenderWeekRange = function () {
+    WinLossDetailViewNew.prototype.getWinLossDetailDataAndRenderWeekRange = function (isRebuildBreadcrumb) {
         var _this = this;
+        if (isRebuildBreadcrumb === void 0) { isRebuildBreadcrumb = false; }
         this.getWinLossDetailData(function () {
-            _this.weekRangeComponent.render(_this.globalFormData, undefined);
+            _this.weekSelectionComponent.render(_this.globalFormData, undefined);
+            isRebuildBreadcrumb && _this.breadcrumbLevelComponent.setBreadcrumbs(_this.buildBreadcrumbs());
             _this.updateCurrentUrl();
         });
     };
@@ -976,30 +1103,44 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         this.addMoreParamsForStatistic();
         this.tableReportContainer.block();
         $.get(this.winLossDetailUrl + "?" + $.param(this.globalFormData), function (html) {
-            callback();
             _this.tableReportContainer.html(html);
             _this.bindTableReportEvents();
             _this.totalEnteredNonEnteredComponent.update({ eventDate: _this.tableReport.data("yesterday"), nonEntered: _this.tableReport.data("non-entered-yesterday") }, { eventDate: _this.tableReport.data("today"), nonEntered: _this.tableReport.data("non-entered-today") });
+            callback();
             _this.tableReportContainer.unblock();
         }).fail(function (jqXHR) {
             _this.tableReportContainer.unblock();
             if (jqXHR.status === 429) {
-                window.location.href = window.top["alpha"].urls.mainRootPath + "error/blocked";
+                window.location.href = window.top.alpha.urls.mainRootPath + "error/blocked";
             }
             else if (jqXHR.status === 500 && jqXHR.responseText) {
                 var responseObject = JSON.parse(jqXHR.responseText);
                 if (responseObject.UMFrom && responseObject.UMTo) {
-                    window.location.href = window.top["alpha"].urls.mainRootPath + "partialum/index?" + $.param(responseObject);
+                    window.location.href = window.top.alpha.urls.mainRootPath + "partialum/index?" + $.param(responseObject);
                 }
             }
         }).always(function () { return _this.removeIsWeekSelectionForStatistic(); });
+    };
+    WinLossDetailViewNew.prototype.buildBreadcrumbs = function () {
+        this.tableReport = this.tableReport || this.tableReportContainer.find("#tbl-report");
+        var breadcrumbLevelJson = this.tableReport.data("breadcrumbleveljson");
+        return typeof breadcrumbLevelJson !== "string"
+            ? []
+            : JSON.parse(breadcrumbLevelJson.replace(/'/g, '"'))
+                .map(function (b) {
+                return {
+                    custId: b.CustId,
+                    custName: b.CustName.toUpperCase(),
+                    custLevelId: b.CustLevelId
+                };
+            });
     };
     WinLossDetailViewNew.prototype.isInvalidGlobalFormData = function () {
         return this.globalFormData.productIds.length === 0;
     };
     WinLossDetailViewNew.prototype.bindEvents = function () {
         var _this = this;
-        this.initReportLegend($("#hiddenLegendUrl").val(), 800, 570);
+        this.initReportLegend($("#hiddenLegendUrl").val());
         this.winLossDetailCopyHtml.init();
         $("#icon-excel").click(function (e) {
             if (_this.isInvalidGlobalFormData()) {
@@ -1030,7 +1171,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             breadcrumbs.push({ custId: custId, custName: custName, custLevelId: 1 });
             var breadcrumbLevelJson = JSON.stringify(breadcrumbs);
             var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
-            var betListsParams = _this.weekRangeComponent.getActiveWeekRange();
+            var betListsParams = _this.weekSelectionComponent.getActiveWeek();
             $.extend(betListsParams, _this.globalFormData, dateRange, { custId: custId, custName: custName, breadcrumbLevelJson: breadcrumbLevelJson });
             $this.attr("href", $("#hiddenBetListsUrl").val() + "?" + $.param(betListsParams));
         });
@@ -1039,6 +1180,8 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             if (_this.isInvalidGlobalFormData()) {
                 return;
             }
+            _this.usernameAutoSuggestionComponent.resetUsername();
+            delete _this.globalFormData.username;
             var $this = $(e.target);
             var breadcrumbData = {
                 custId: $this.data("custid"),
@@ -1052,7 +1195,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             });
         });
         this.initTableSorter();
-        this.showHideColumns(this.visibleColumnDropdownComponent.getColumns());
+        this.winLossDetailColumns.showHideColumns();
     };
     WinLossDetailViewNew.prototype.initTableSorter = function () {
         var _this = this;
@@ -1088,40 +1231,6 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         this.sortIndicator = 0;
         return 0;
     };
-    WinLossDetailViewNew.prototype.showHideColumns = function (column) {
-        this.showHideSpecificColumn(column, "fullname");
-        this.showHideSpecificColumn(column, "betcount");
-        this.showHideSpecificColumn(column, "turnover");
-        this.showHideSpecificColumn(column, "netturnover");
-        this.showHideSpecificColumn(column, "grosscomm");
-        this.showHideGroupColumn(column, "p", "groupColumnMember");
-        this.showHideGroupColumn(column, "a", "groupColumnAgent");
-        this.showHideGroupColumn(column, "m", "groupColumnMaster");
-        this.showHideGroupColumn(column, "s", "groupColumnSuper");
-        this.showHideSpecificColumn(column, "company");
-    };
-    WinLossDetailViewNew.prototype.showHideGroupColumn = function (column, prefix, groupColumnId) {
-        var groupColumn = this.tableReport.find("#" + groupColumnId);
-        if (groupColumn.length) {
-            var colspan = 0;
-            if (this.showHideSpecificColumn(column, prefix + "winloss")) {
-                colspan++;
-            }
-            if (this.showHideSpecificColumn(column, prefix + "comm")) {
-                colspan++;
-            }
-            if (this.showHideSpecificColumn(column, prefix + "total")) {
-                colspan++;
-            }
-            colspan ? groupColumn.attr("colspan", colspan).removeClass("hide") : groupColumn.addClass("hide");
-        }
-    };
-    WinLossDetailViewNew.prototype.showHideSpecificColumn = function (column, key) {
-        var matchedColumns = this.tableReport.find("[data-colname=" + key + "]");
-        var visible = column[key];
-        visible ? matchedColumns.removeClass("hide") : matchedColumns.addClass("hide");
-        return visible;
-    };
     WinLossDetailViewNew.prototype.updateCurrentUrl = function () {
         if (this.globalFormData.productIds) {
             var formData = $.extend({}, this.globalFormData, { breadcrumbLevelJson: JSON.stringify(this.breadcrumbLevelComponent.getBreadcrumbs()) });
@@ -1147,7 +1256,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         else {
             delete this.globalFormData.unselectedResourceIds;
         }
-        var hideColumns = this.visibleColumnDropdownComponent.getHideColumns();
+        var hideColumns = this.winLossDetailColumns.getHideColumns();
         if (hideColumns) {
             moreParams.hideColumns = hideColumns;
         }
@@ -1165,6 +1274,6 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     return WinLossDetailViewNew;
 }(BaseReportView));
 $(function () {
-    new WinLossDetailViewNew(new TotalEnteredNonEnteredComponent(), new DateRangePickerJQueryComponent(), new ProductAndProductDetailDropdownComponent(), new UsernameAutoSuggestionComponent(), new VisibleColumnDropdownComponent(), new WeekRangeComponent(), new BreadcrumbLevelComponent(), new WinLossDetailCopyHtml(Clipboard), window.productList, window.productDetailList, window.columnList).init();
+    new WinLossDetailViewNew(new TotalEnteredNonEnteredComponent(), new DateRangePickerJQueryComponent(), new ProductAndProductDetailDropdownComponent(), new UsernameAutoSuggestionComponent(), new WinLossDetailColumns(new VisibleColumnDropdownComponent(), window.columnList), new WeekSelectionComponent(), new BreadcrumbLevelComponent(), new WinLossDetailCopyHtml(Clipboard)).init();
 });
 //# sourceMappingURL=winlossdetail-new.js.map

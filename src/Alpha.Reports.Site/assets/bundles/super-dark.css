@@ -169,7 +169,9 @@ a {
   height: 100%; }
   .flex .wrapper-table-scrollable {
     flex: 1;
-    overflow: auto; }
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    will-change: scroll-position; }
 
 .wrapper-table-scrollable {
   position: relative; }
@@ -181,6 +183,9 @@ a {
 
 .scrollable .tblRpt-freeze-body {
   border: 0; }
+
+.tblRpt-freeze-header.tblRpt-freeze-body thead tr:first-child th:first-child {
+  box-shadow: inset -1px 0px 0 #5F626B, inset 0px -1px 0 #5F626B; }
 
 .tblRpt-freeze-header thead tr th {
   position: sticky !important;
@@ -216,9 +221,12 @@ a {
     background-color: transparent;
     box-shadow: inset 0 -1px 0 #5F626B, inset -1px 0px 0 #5F626B; }
 
+.tblRpt-freeze-header.tblRpt-freeze-body tbody tr:nth-child(1) td {
+  border-top: 0 !important; }
+
 .tblRpt-freeze-body thead tr:first-child th:first-child {
   box-shadow: inset 1px 0px 0 #5F626B;
-  left: 0;
+  left: 1px;
   position: sticky;
   position: -webkit-sticky !important;
   z-index: 40;
@@ -254,16 +262,33 @@ a {
 
 .tblRpt-freeze-body tbody tr:nth-child(2n) .col-username {
   background-color: #262829; }
+  .tblRpt-freeze-body tbody tr:nth-child(2n) .col-username:before {
+    position: absolute;
+    content: "";
+    left: -1px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #262829; }
 
 .tblRpt-freeze-body tbody tr td[colspan] {
   border-left: 0 !important;
   box-shadow: inset 1px 0px 0 #5F626B; }
 
+.tblRpt-freeze-body tbody tr td:before {
+  position: absolute;
+  content: "";
+  left: -1px;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background-color: #181919; }
+
 .tblRpt-freeze-body tfoot tr td:first-child {
   position: sticky;
   position: -webkit-sticky !important;
   z-index: 20;
-  left: 0;
+  left: 1px;
   background-color: #4C2511;
   border-right: 0 !important;
   border-left: 0 !important;

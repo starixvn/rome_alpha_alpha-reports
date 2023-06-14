@@ -2,14 +2,16 @@
 class UsernameAutoSuggestionOption {
     constructor(
         public url: string,
-        public custId: number,
-        public directDownlines = true,
+        public custId?: number,
+        public directDownlines = false,
+        public isAccInfo = true,
         public initialUsername = "",
         public onBlur = Function(),
         public selectorId = "txt-username") {
         this.url = url;
         this.custId = custId;
         this.directDownlines = directDownlines;
+        this.isAccInfo = isAccInfo;
         this.onBlur = onBlur;
         this.selectorId = selectorId;
     }
@@ -20,11 +22,12 @@ class UsernameAutoSuggestionComponent {
 
     init(options: UsernameAutoSuggestionOption) {
         this.usernameInput = $("#" + options.selectorId);
-        const urlAndQueryString = `${options.url}?custid=${options.custId}&directdownlines=${options.directDownlines}&isaccinfo=false`;
+        const queryString = this.buildQueryString(options);
+        const urlAndQueryString = `${options.url}?${queryString}${queryString.length ? "&" : ""}`;
 
         const typeaheadOptions = {
             source: function (query: string, process) {
-                return $.get(`${urlAndQueryString}&suggestionquery=${query}`, process);
+                return $.get(`${urlAndQueryString}suggestionquery=${query}`, process);
             },
             items: 10,
             minLength: 2,
@@ -37,14 +40,37 @@ class UsernameAutoSuggestionComponent {
                 return `${item.UserName}${nickname}#${item.FirstName} ${item.LastName}`;
             },
             autoSelect: false,
-            afterSelect: (item) => this.usernameInput.val(item.UserName),
+            afterSelect: (item) => {
+                console.log('afterSelect');
+                this.usernameInput.val(item.UserName);
+            },
             delay: 200
         };
 
         this.usernameInput
             .typeahead(typeaheadOptions)
-            .blur(() => options.onBlur($.trim(this.usernameInput.val())))
+            .blur(() => {
+                console.log('onBlur');
+                options.onBlur($.trim(this.usernameInput.val()));
+            })
             .val(options.initialUsername);
+    }
+
+    private buildQueryString(options: UsernameAutoSuggestionOption) {
+        const queryString = [];
+        if (options.custId) {
+            queryString.push("custid=" + options.custId);
+        }
+
+        if (options.directDownlines) {
+            queryString.push("directdownlines=" + options.directDownlines);
+        }
+
+        if (!options.isAccInfo) {
+            queryString.push("isaccinfo=" + options.isAccInfo);
+        }
+
+        return queryString.join('&');
     }
 
     getUsername() {
