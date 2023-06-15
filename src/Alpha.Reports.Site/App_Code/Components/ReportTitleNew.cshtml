@@ -1,0 +1,32 @@
+﻿@using Alpha.Reports.Site.App_GlobalResources;
+@using Alpha.Reports.Models.Winloss;
+@using Alpha.Reports.Extensions;
+
+@helper Render(string title, EnteredSportResult enteredSportResult)
+{
+    var hasNonEnteredYerterday = enteredSportResult.EnteredSportYesterday.NonEntered > 0;
+    <div class="page-title page-title-entered">
+        <div class="text-title pull-left">@title</div>
+        <a href="javascript:;"><span class="icon icon-information-outline icon-report-legend" id="icon-report-legend"></span></a>
+        <div class="entered-non-entered">
+            <div class="icon-non-entered" id="total-non-entered-yesterday" @(hasNonEnteredYerterday ? string.Empty : "style=display:none")>
+                <div class="text">
+                    <span class="event-date-yesterday">@enteredSportResult.EnteredSportYesterday.EventDate.ToMMDDWithSlash()</span>: @Resources.NonEntered
+                </div>
+                <div class="number" id="total-non-entered-yesterday-number">@enteredSportResult.EnteredSportYesterday.NonEntered</div>
+                <div class="icon-clock"></div>
+            </div>
+            <div class="icon-entered" id="total-entered-yesterday" @(hasNonEnteredYerterday ? "style=display:none" : string.Empty)>
+                <div class="text"><span class="event-date-yesterday">@enteredSportResult.EnteredSportYesterday.EventDate.ToMMDDWithSlash()</span>: @Resources.Entered</div>
+                <div class="icon-check-circle"></div>
+            </div>
+            <div class="icon-non-entered" id="total-non-entered-today">
+                <div class="text">
+                    <span id="total-non-entered-today-text">@enteredSportResult.EnteredSportToday.EventDate.ToMMDDWithSlash()</span>: @Resources.NonEntered
+                </div>
+                <div class="number" id="total-non-entered-today-number">@enteredSportResult.EnteredSportToday.NonEntered</div>
+                <div class="icon-clock"></div>
+            </div>
+        </div>
+    </div>
+}

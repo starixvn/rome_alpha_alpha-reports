@@ -1,50 +1,44 @@
-var DateRangePickerNewOption = /** @class */ (function () {
-    function DateRangePickerNewOption(selectorId, reportFormId, onChange) {
-        if (selectorId === void 0) { selectorId = null; }
-        if (reportFormId === void 0) { reportFormId = null; }
-        if (onChange === void 0) { onChange = null; }
-        this.selectorId = selectorId;
-        this.reportFormId = reportFormId;
-        this.onChange = onChange;
-        this.selectorId = selectorId || "daterangepicker";
-        this.reportFormId = reportFormId || "report-form";
-        this.onChange = onChange;
-    }
-    return DateRangePickerNewOption;
-}());
-var DateRangePickerNewComponent = /** @class */ (function () {
-    function DateRangePickerNewComponent($) {
-        var _this = this;
-        this.quickChooseType = {
-            specificDates: 7
-        };
-        this.isCompleteInitDateRangePicker = false;
-        this.render = function (options) {
-            if (options === void 0) { options = new DateRangePickerNewOption(); }
-            var defaults = {
-                autoApply: false,
-                locale: {
-                    format: alphaReports.format.shortDateWithSlash_DatePicker
-                },
-                onChange: function (start, end, label) {
-                    if (options.onChange) {
-                        options.onChange(start, end, label);
-                    }
-                },
-                onQuickChooseChange: function (selectedValue) {
-                    if (_this.isCompleteInitDateRangePicker && selectedValue !== _this.quickChooseType.specificDates) {
-                        var reportFormEl = _this.$("#" + options.reportFormId);
-                        reportFormEl.submit();
-                    }
-                }
-            };
-            var dateRangePickerEl = _this.$("#" + options.selectorId);
-            dateRangePickerEl.nexDateRangePicker(defaults);
-            _this.isCompleteInitDateRangePicker = true;
-            return dateRangePickerEl;
-        };
-        this.$ = $;
-    }
-    return DateRangePickerNewComponent;
-}());
+//class DateRangePickerNewOption {
+//    constructor(
+//        public selectorId: string = null,
+//        public reportFormId: string = null,
+//        public onChange: Function = null) {
+//        this.selectorId = selectorId || "daterangepicker";
+//        this.reportFormId = reportFormId || "report-form";
+//        this.onChange = onChange;
+//    }
+//}
+//class DateRangePickerNewComponent {
+//    $: JQueryStatic;
+//    quickChooseType = {
+//        specificDates: 7
+//    };
+//    isCompleteInitDateRangePicker = false;
+//    constructor($: JQueryStatic) {
+//        this.$ = $;
+//    }
+//    render = (options: DateRangePickerNewOption = new DateRangePickerNewOption()) => {
+//        const defaults = {
+//            autoApply: false,
+//            locale: {
+//                format: alphaReports.format.shortDateWithSlash_DatePicker
+//            },
+//            onChange: (start, end, label) => {
+//                if (options.onChange) {
+//                    options.onChange(start, end, label);
+//                }
+//            },
+//            onQuickChooseChange: (selectedValue) => {
+//                if (this.isCompleteInitDateRangePicker && selectedValue !== this.quickChooseType.specificDates) {
+//                    let reportFormEl = this.$("#" + options.reportFormId);
+//                    reportFormEl.submit();
+//                }
+//            }
+//        };
+//        let dateRangePickerEl = this.$("#" + options.selectorId);
+//        dateRangePickerEl.nexDateRangePicker(defaults);
+//        this.isCompleteInitDateRangePicker = true;
+//        return dateRangePickerEl;
+//    };
+//}
 //# sourceMappingURL=daterangepicker-new.js.map

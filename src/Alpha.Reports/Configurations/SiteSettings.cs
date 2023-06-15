@@ -128,5 +128,27 @@
         public static string JsVersion => GetConfigValue("JsVersion");
 
         public static bool EnableLogDifferentSessionBetweenMainAndReports { get; } = "1" == GetConfigValue("EnableLogDifferentSessionBetweenMainAndReports");
+
+        private static IDictionary<string, bool> newWinLossDetailReportOfferSites;
+        public static IDictionary<string, bool> NewWinLossDetailReportOfferSites
+        {
+            get
+            {
+                if (newWinLossDetailReportOfferSites == null)
+                {
+                    newWinLossDetailReportOfferSites = new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
+                    (GetConfigValue("NewWinLossDetailReport:OfferSites") ?? string.Empty)
+                        .Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries)
+                        .ToList()
+                        .ForEach(item => newWinLossDetailReportOfferSites[item.Trim()] = true);
+                }
+
+                return newWinLossDetailReportOfferSites;
+            }
+        }
+
+        public static bool IsOfferNewWinLossDetailReport(string customerSite)
+            => NewWinLossDetailReportOfferSites.ContainsKey(customerSite)
+            || NewWinLossDetailReportOfferSites.ContainsKey("*");
     }
 }

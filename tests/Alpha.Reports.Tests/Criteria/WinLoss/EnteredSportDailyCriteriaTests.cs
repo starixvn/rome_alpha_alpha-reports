@@ -11,7 +11,7 @@
         {
             // Arrange
             var expectedSettingKey = "Age_Rpt_MatchSelResultEntered";
-            var enteredSportDailyCriteria = new DailyEnteredSportCriteria(false);
+            var enteredSportDailyCriteria = new DailyEnteredSportCriteria();
 
             // Act
             var actualSettingKey = enteredSportDailyCriteria.GetSettingKey();
@@ -24,7 +24,7 @@
         public void IsValid_Always_ReturnsTrue()
         {
             // Arrange
-            var enteredSportDailyCriteria = new DailyEnteredSportCriteria(false);
+            var enteredSportDailyCriteria = new DailyEnteredSportCriteria();
 
             // Act
             var actualIsValid = enteredSportDailyCriteria.IsValid();
@@ -37,7 +37,7 @@
         public void IncludeTestData_Always_ReturnsIncludeTestDataSetFromConstructor()
         {
             // Arrange
-            var enteredSportDailyCriteria = new DailyEnteredSportCriteria(false);
+            var enteredSportDailyCriteria = new DailyEnteredSportCriteria();
 
             // Act
             var actualIncludeTestData = enteredSportDailyCriteria.IncludeTestData;

@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System;
+    using System.Threading.Tasks;
     using Alpha.PartialUM.Services;
     using Criteria.WinLossDetail;
     using DataAccesses;
@@ -12,6 +13,8 @@
     public interface WinLossDetailService
     {
         PagedReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param);
+
+        Task<PagedReportData<WinLossDetailModel>> GetWinLossDetailAsync(WinLossDetailParam param);
     }
 
     public class WinLossDetailServiceImpl : WinLossDetailService
@@ -64,6 +67,25 @@
             var winLossDetailData = dataAccess.GetData(criteria);
 
             return winLossDetailData;
+        }
+
+        public async Task<PagedReportData<WinLossDetailModel>> GetWinLossDetailAsync(WinLossDetailParam param)
+        {
+            var dayModel = await reportDateService.GetBalanceUpDayAndMoveBetsDayAsync();
+            var criteria = new WinLossDetailCriteria(
+                param.CustId,
+                param.PageIndex,
+                param.PageSize,
+                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                param.ToDate,
+                dayModel.BalanceUpDay,
+                dayModel.MoveBetsDay,
+                param.UserSelectedProductIds,
+                param.ReportLevel,
+                param.ProductDetailsXML);
+            partialUMService.ThrowIfUM(criteria.GetSettingKey());
+
+            return await dataAccess.GetDataAsync(criteria);
         }
     }
 }

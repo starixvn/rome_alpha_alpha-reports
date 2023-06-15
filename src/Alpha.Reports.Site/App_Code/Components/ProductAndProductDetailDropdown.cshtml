@@ -1,0 +1,25 @@
+﻿@using Alpha.Reports.Site.App_GlobalResources;
+
+@helper Render()
+{
+    <div class="form-group">
+        <label class="label-form-control">@Resources.Product</label>
+        <div id="dropdown-product"
+             data-label-selectall="@Resources.SelectAll"
+             data-label-selected="@Resources.nSelected"
+             data-label-noneselected="@Resources.NoneSelected"
+             data-label-all="@Resources.All"
+             data-label-noitemfound="@Resources.NoProductFound"
+             data-label-filterplaceholder="@Resources.SearchProduct"></div>
+    </div>
+    <div class="form-group">
+        <label class="label-form-control">@Resources.ProductDetails</label>
+        <div id="dropdown-product-detail"
+             data-label-selectall="@Resources.SelectAll"
+             data-label-selected="@Resources.nSelected"
+             data-label-noneselected="@Resources.NoneSelected"
+             data-label-all="@Resources.All"
+             data-label-noitemfound="@Resources.NoProductDetailsFound"
+             data-label-filterplaceholder="@Resources.SearchProductDetails"></div>
+    </div>
+}

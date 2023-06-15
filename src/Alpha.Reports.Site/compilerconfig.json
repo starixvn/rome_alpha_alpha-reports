@@ -142,5 +142,13 @@
   {
     "outputFile": "Features/EnteredResult/Styles/enteredresult-dark.css",
     "inputFile": "Features/EnteredResult/Styles/enteredresult-dark.scss"
+  },
+  {
+    "outputFile": "Features/Shared/Styles/report-legend-dark.css",
+    "inputFile": "Features/Shared/Styles/report-legend-dark.scss"
+  },
+  {
+    "outputFile": "Features/Shared/Styles/report-legend.css",
+    "inputFile": "Features/Shared/Styles/report-legend.scss"
   }
 ]

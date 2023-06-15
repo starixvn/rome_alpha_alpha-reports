@@ -1,0 +1,54 @@
+﻿@model WinLossFilterViewModel
+
+<form class="form-inline filter switch-new-view @(Model.Visible ? string.Empty:"hide")" role="form" id="report-form">
+    @if ((bool)ViewData["IsOfferNewWinLossDetailReport"])
+    {
+        @HtmlHelpers.RenderSwitchVersionButton(Resources.NewView, Url.Action($"{ViewData["DirectDownLineLevelName"]}New", $"{SiteSettings.ReportRouting}WinLossDetail"))
+    }
+    @RenderHiddenFields()
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+    @ProductDetailMultiSelection.Render(Model.ProductDetailMultiSelectionViewModel)
+    @(Model.IsHistoricReport
+                ? MonthPicker.Render(Model.MonthPickerViewModel)
+                : DateRangePicker.Render(Model.DateRangePickerViewModel))
+    @if (Model.IsHistoricReport)
+    {
+        <div class="form-group">
+            <input type="submit" value="@Resources.Submit" class="btn-submit" />
+        </div>
+    }
+    <div class="form-group">
+        <span id="icon-information" class="icon-information-outline"></span>
+    </div>
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+    @if (Model.IsHistoricReport)
+    {
+        <div class="note">
+            <div><span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" data-is-historic-report="true" href="#">@Model.ViewActionMessage</a></div>
+        </div>
+    }
+    else
+    {
+        <a id="historic-report" data-is-historic-report="false" href="#"></a>
+    }
+</form>
+
+@helper RenderHiddenFields()
+{
+    @Html.Hidden("IsFilterVisible", Model.Visible ? "true" : "false")
+    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
+
+    @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
+    @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
+    @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
+
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustName", Model.CustName)
+    @Html.Hidden("BreadcrumbLevelJson", Model.BreadcrumbLevelJson)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+
+    @Html.Hidden("IsPostBack", "true")
+    @Html.Hidden("SSGUID", ViewData["SSGUID"] as string)
+}

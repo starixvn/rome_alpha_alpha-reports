@@ -94,8 +94,6 @@
                     betlistAppPath = string.IsNullOrWhiteSpace(betlistDomain) ? betlistAppPath : string.Empty;
                     betlistSessionId = betlistSessionId ?? mainSessionId;
                     betlistDomain = betlistDomain ?? mainDomain;
-                    
-
 
                     return new Func<string, string>((virtualPath) => $"{betlistDomain}{betlistAppPath}/(S({betlistSessionId})){virtualPath?.Replace("~", string.Empty)}");
                 }

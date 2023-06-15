@@ -12,7 +12,10 @@ class AlphaReports {
     format = {
         monthFormat: "MMMM - yyyy",
         shortDateWithSlash_DatePicker: "MM/DD/YYYY",
-        shortDateWithSlash_MonthPicker: "MM/dd/yyyy"
+        shortDateWithSlash_MonthPicker: "MM/dd/yyyy",
+        monthDayWithSlash: "MM/DD",
+        dayMonthName: "DD MMM",
+        day: "DD"
     };
 
     sort = {

@@ -205,8 +205,7 @@
     <value>เงินหมุนเวียน</value>
   </data>
   <data name="NetTurnover" xml:space="preserve">
-    <value>เงินหมุนเวียน
-(ไม่รวมยอดเสมอ)</value>
+    <value>เงินหมุนเวียน (ไม่รวมยอดเสมอ)</value>
   </data>
   <data name="GrossComm" xml:space="preserve">
     <value>ยอดรวมของคอมมิชชั่น</value>
@@ -930,5 +929,56 @@
   </data>
   <data name="GrossCommNoteForRoundingProblem" xml:space="preserve">
     <value>ค่ายอดรวมของคอมมิชชั่น อาจแตกต่างกันในแต่ละระดับเนื่องจากการปัดเศษของทศนิยม 4 ตำแหน่ง</value>
+  </data>
+  <data name="ClassicView" xml:space="preserve">
+    <value>กลับเป็นมุมมองคลาสสิก</value>
+  </data>
+  <data name="FirstLastName" xml:space="preserve">
+    <value>ชื่อ/ นามสุกล</value>
+  </data>
+  <data name="NewView" xml:space="preserve">
+    <value>ไปยังมุมมองแบบใหม่</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>คอลัมน์</value>
+  </data>
+  <data name="DateRange" xml:space="preserve">
+    <value>ช่วงของข้อมูล</value>
+  </data>
+  <data name="NoColumnsFound" xml:space="preserve">
+    <value>ไม่พบคอลัมน์</value>
+  </data>
+  <data name="NoProductDetailsFound" xml:space="preserve">
+    <value>ไม่พบรายละเอียดผลิตภัณฑ์</value>
+  </data>
+  <data name="NoProductFound" xml:space="preserve">
+    <value>ไม่พบผลิตภัณฑ์</value>
+  </data>
+  <data name="ProductDetails" xml:space="preserve">
+    <value>รายละเอียดผลิตภัณฑ์</value>
+  </data>
+  <data name="SearchColumns" xml:space="preserve">
+    <value>ค้นหาคอลัมน์</value>
+  </data>
+  <data name="SearchProduct" xml:space="preserve">
+    <value>ค้นหาผลิตภัณฑ์</value>
+  </data>
+  <data name="SearchProductDetails" xml:space="preserve">
+    <value>ค้นหารายละเอียดผลิตภัณฑ์</value>
+  </data>
+  <data name="MaxDataRetrieveHistoryError" xml:space="preserve">
+    <value>ข้อมูลก่อน {0} สามารถค้นได้สูงสุด 31 วัน กรุณาตรวจทานช่วงของข้อมูลที่คุณเลือก</value>
+  </data>
+  <data name="NoneSelected" xml:space="preserve">
+    <value>ไม่ได้เลือก</value>
+  </data>
+  <data name="HistoryDataCanViewNote" xml:space="preserve">
+    <value>ข้อมูลรายงานก่อนหน้าวันที่ {0} สามารถเลือกระยะเวลาได้สูงสุด 31 วัน</value>
+  </data>
+  <data name="ReportDataCanViewNote" xml:space="preserve">
+    <value>ข้อมูลรายงานตั้งแต่วันที่ {0} สามารถเลือกระยะเวลาได้สูงสุด 90 วัน</value>
+  </data>
+  <data name="nSelected" xml:space="preserve">
+    <value>ที่เลือกไว้ #</value>
   </data>
 </root>

@@ -6,11 +6,17 @@
     {
         public DailyEnteredSport()
         {
-
         }
 
         public DailyEnteredSport(int entered, int nonEntered)
         {
+            Entered = entered;
+            NonEntered = nonEntered;
+        }
+
+        public DailyEnteredSport(DateTime eventDate, int entered, int nonEntered)
+        {
+            EventDate = eventDate;
             Entered = entered;
             NonEntered = nonEntered;
         }

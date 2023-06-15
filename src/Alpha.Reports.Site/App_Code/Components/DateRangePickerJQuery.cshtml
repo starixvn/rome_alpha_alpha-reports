@@ -1,0 +1,35 @@
+﻿@using Alpha.Reports.Extensions;
+@using Alpha.Reports.Site.Features.Shared.ViewModels.Components;
+@using Alpha.Reports.Site.App_GlobalResources;
+
+@helper Render(DateRangePickerNewViewModel model)
+{
+    <div class="form-group daterangepicker-container">
+        <label class="label-form-control">@Resources.DateRange</label>
+        <div class="input-group date datepicker">
+            <input type="text"
+                   class="form-control"
+                   id="daterange-picker"
+                   autocomplete="off"
+                   readonly
+                   data-mindate="@model.MinDate.ToShortDateWithSlash()"
+                   data-maxdate="@model.MaxDate.ToShortDateWithSlash()"
+                   data-fromdate="@model.FromDate.ToShortDateWithSlash()"
+                   data-todate="@model.ToDate.ToShortDateWithSlash()"
+                   data-currentdate="@model.CurrentDate.ToShortDateWithSlash()"
+                   data-historicpivotdate="@model.HistoricPivotDate.ToShortDateWithSlash()"
+                   data-label-today="@Resources.Today"
+                   data-label-yesterday="@Resources.Yesterday"
+                   data-label-thisweek="@Resources.ThisWeek"
+                   data-label-lastweek="@Resources.LastWeek"
+                   data-label-thismonth="@Resources.ThisMonth"
+                   data-label-lastmonth="@Resources.LastMonth"
+                   data-label-sincelastmonth="@Resources.SinceLastMonth"
+                   data-label-specificdate="@Resources.SpecificDate"
+                   data-label-maxdataretrievehistoryerror="@string.Format(Resources.MaxDataRetrieveHistoryError, model.HistoricPivotDate.ToShortDateWithSlash())"/>
+            <label class="input-group-addon" for="daterange-picker">
+                <span class="icon-calendar"></span>
+            </label>
+        </div>
+    </div>
+}
