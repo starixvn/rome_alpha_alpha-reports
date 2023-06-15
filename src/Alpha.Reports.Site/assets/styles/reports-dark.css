@@ -659,6 +659,10 @@ a {
         width: 70%; } }
     #report-legend .modal-dialog .modal-body, #product-pt-list-popup .modal-dialog .modal-body {
       padding-bottom: 0; }
+      @media only screen and (max-device-width: 767px) {
+        #report-legend .modal-dialog .modal-body, #product-pt-list-popup .modal-dialog .modal-body {
+          height: 80vh;
+          overflow: auto; } }
     #report-legend .modal-dialog #msg-content, #product-pt-list-popup .modal-dialog #msg-content {
       padding: 12px 0; }
     #report-legend .modal-dialog .list-msg, #product-pt-list-popup .modal-dialog .list-msg {

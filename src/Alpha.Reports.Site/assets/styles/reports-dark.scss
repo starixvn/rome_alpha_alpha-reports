@@ -765,6 +765,11 @@ a {
 
         .modal-body {
             padding-bottom: 0;
+
+            @media only screen and (max-device-width : 767px) {
+                height: 80vh;
+                overflow: auto;
+            }
         }
 
         #msg-content {
