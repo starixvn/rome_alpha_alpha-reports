@@ -185,6 +185,13 @@ a {
         }
     }
 }
+
+.fullname {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 300px;
+    white-space: nowrap;
+}
 .tblRpt-freeze-body {
     thead {
         tr {
@@ -236,6 +243,24 @@ a {
                 height: 100%;
                 background-color: $table-border-color;
             }
+
+            &:after {
+                position: absolute;
+                content: "";
+                right: -1px;
+                top: 0;
+                width: 1px;
+                height: 100%;
+                background-color: $table-border-color;
+            }
+        }
+
+        [data-colname="fullname"] {
+            max-width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            min-width: 160px;
         }
 
         tr {

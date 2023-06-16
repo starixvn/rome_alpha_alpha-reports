@@ -100,7 +100,7 @@
                     @:@data.CustName
                 }
             </td>
-            <td class="text-left" data-colname="fullname">@HtmlHelpers.ShowTextEllipsis(data.FullName, 12)</td>
+            <td class="text-left" data-colname="fullname"><div class="fullname" data-toggle="tooltip" data-placement="bottom" title="@data.FullName">@data.FullName</div></td>
         }
         <td data-colname="betcount">@HtmlHelpers.FormatNumber(data.BetCount)</td>
         @HtmlHelpers.RenderNumberCell(data.Turnover, string.Empty, "turnover")

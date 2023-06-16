@@ -68,19 +68,6 @@
     }
 }
 
-@helper ShowTextEllipsis(string text, int length)
-{
-    var textLength = text.Length;
-    if (textLength > length)
-    {
-        <div data-toggle="tooltip" data-placement="bottom" title="@text">@text.Substring(0, length)...</div>
-    }
-    else
-    {
-        <span>@text</span>
-    }
-}
-
 @helper RenderSwitchVersionButton(string buttonText, string href)
 {
     <div class="switch-version">

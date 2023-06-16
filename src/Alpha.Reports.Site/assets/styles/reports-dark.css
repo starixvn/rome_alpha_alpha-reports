@@ -224,9 +224,15 @@ a {
 .tblRpt-freeze-header.tblRpt-freeze-body tbody tr:nth-child(1) td {
   border-top: 0 !important; }
 
+.fullname {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 300px;
+  white-space: nowrap; }
+
 .tblRpt-freeze-body thead tr:first-child th:first-child {
   box-shadow: inset 1px 0px 0 #5F626B;
-  left: 1px;
+  left: 0;
   position: sticky;
   position: -webkit-sticky !important;
   z-index: 40;
@@ -259,6 +265,21 @@ a {
     width: 1px;
     height: 100%;
     background-color: #5F626B; }
+  .tblRpt-freeze-body tbody .col-username:after {
+    position: absolute;
+    content: "";
+    right: -1px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #5F626B; }
+
+.tblRpt-freeze-body tbody [data-colname="fullname"] {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-width: 160px; }
 
 .tblRpt-freeze-body tbody tr:nth-child(2n) .col-username {
   background-color: #262829; }
@@ -288,7 +309,7 @@ a {
   position: sticky;
   position: -webkit-sticky !important;
   z-index: 20;
-  left: 1px;
+  left: 0;
   background-color: #4C2511;
   border-right: 0 !important;
   border-left: 0 !important;

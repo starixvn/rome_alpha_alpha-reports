@@ -40,18 +40,15 @@ class UsernameAutoSuggestionComponent {
                 return `${item.UserName}${nickname}#${item.FirstName} ${item.LastName}`;
             },
             autoSelect: false,
-            afterSelect: (item) => {
-                console.log('afterSelect');
-                this.usernameInput.val(item.UserName);
-            },
+            afterSelect: (item) => this.usernameInput.val(item.UserName),
             delay: 200
         };
 
         this.usernameInput
             .typeahead(typeaheadOptions)
             .blur(() => {
-                console.log('onBlur');
-                options.onBlur($.trim(this.usernameInput.val()));
+                const visible = this.usernameInput.next(".typeahead").is(":visible");
+                !visible && options.onBlur($.trim(this.usernameInput.val()));
             })
             .val(options.initialUsername);
     }

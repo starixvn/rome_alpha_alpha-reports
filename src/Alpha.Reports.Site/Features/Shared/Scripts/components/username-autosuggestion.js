@@ -45,17 +45,14 @@ var UsernameAutoSuggestionComponent = /** @class */ (function () {
                 return "" + item.UserName + nickname + "#" + item.FirstName + " " + item.LastName;
             },
             autoSelect: false,
-            afterSelect: function (item) {
-                console.log('afterSelect');
-                _this.usernameInput.val(item.UserName);
-            },
+            afterSelect: function (item) { return _this.usernameInput.val(item.UserName); },
             delay: 200
         };
         this.usernameInput
             .typeahead(typeaheadOptions)
             .blur(function () {
-            console.log('onBlur');
-            options.onBlur($.trim(_this.usernameInput.val()));
+            var visible = _this.usernameInput.next(".typeahead").is(":visible");
+            !visible && options.onBlur($.trim(_this.usernameInput.val()));
         })
             .val(options.initialUsername);
     };
