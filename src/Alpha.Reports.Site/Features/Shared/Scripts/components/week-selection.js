@@ -65,6 +65,12 @@ var WeekSelectionComponent = /** @class */ (function () {
         }
         return {};
     };
+    WeekSelectionComponent.prototype.hide = function () {
+        this.weekRangeContainer.addClass("hide");
+    };
+    WeekSelectionComponent.prototype.show = function () {
+        this.weekRangeContainer.removeClass("hide");
+    };
     return WeekSelectionComponent;
 }());
 //# sourceMappingURL=week-selection.js.map

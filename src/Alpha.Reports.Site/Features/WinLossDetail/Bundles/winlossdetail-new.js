@@ -711,6 +711,12 @@ var WeekSelectionComponent = /** @class */ (function () {
         }
         return {};
     };
+    WeekSelectionComponent.prototype.hide = function () {
+        this.weekRangeContainer.addClass("hide");
+    };
+    WeekSelectionComponent.prototype.show = function () {
+        this.weekRangeContainer.removeClass("hide");
+    };
     return WeekSelectionComponent;
 }());
 //# sourceMappingURL=week-selection.js.map
@@ -792,6 +798,26 @@ var BaseReportView = /** @class */ (function () {
             $("#icon-report-legend").click(function () {
                 $("#report-legend").modal({ show: true, backdrop: false });
             });
+        });
+    };
+    BaseReportView.prototype.initShowHideFilter = function (callback) {
+        var hideFilterText = $("#hiddenHideFilterText").val();
+        var showFilterText = $("#hiddenShowFilterText").val();
+        var iconFilter = $("#icon-filter").click(function () {
+            var isHideFilter = iconFilter.hasClass("icon-arrow-up-drop-circle");
+            if (isHideFilter) {
+                iconFilter
+                    .removeClass("icon-arrow-up-drop-circle")
+                    .addClass("icon-arrow-down-drop-circle")
+                    .attr("title", showFilterText);
+            }
+            else {
+                iconFilter
+                    .removeClass("icon-arrow-down-drop-circle")
+                    .addClass("icon-arrow-up-drop-circle")
+                    .attr("title", hideFilterText);
+            }
+            callback(isHideFilter);
         });
     };
     return BaseReportView;
@@ -980,7 +1006,6 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     };
     WinLossDetailViewNew.prototype.renderComponents = function () {
         var _this = this;
-        var viewerId = +$("#hiddenViewerId").val();
         var weekFromDate = $("#hiddenWeekFromDate");
         var weekToDate = $("#hiddenWeekToDate");
         var currentLanguage = $("#language").data("currentlanguage");
@@ -1138,6 +1163,17 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     WinLossDetailViewNew.prototype.bindEvents = function () {
         var _this = this;
         this.initReportLegend($("#hiddenLegendUrl").val());
+        var formFilter = $("#form-filter");
+        this.initShowHideFilter(function (isHideFilter) {
+            if (isHideFilter) {
+                formFilter.addClass("hide");
+                _this.weekSelectionComponent.hide();
+            }
+            else {
+                formFilter.removeClass("hide");
+                _this.weekSelectionComponent.show();
+            }
+        });
         this.winLossDetailCopyHtml.init();
         $("#icon-excel").click(function (e) {
             if (_this.isInvalidGlobalFormData()) {

@@ -37,7 +37,7 @@
 
     if (isShowLegends || isShowGrossComm)
     {
-        <div class="modal fade message-modal" id="report-legend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade message-modal@(viewModel.MobileFriendly ? " mobile-friendly" : string.Empty)" id="report-legend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

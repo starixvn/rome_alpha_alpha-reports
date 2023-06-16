@@ -62,7 +62,6 @@ class WinLossDetailViewNew extends BaseReportView {
     }
 
     private renderComponents() {
-        const viewerId = +$("#hiddenViewerId").val();
         const weekFromDate = $("#hiddenWeekFromDate");
         const weekToDate = $("#hiddenWeekToDate");
         const currentLanguage = $("#language").data("currentlanguage");
@@ -254,6 +253,17 @@ class WinLossDetailViewNew extends BaseReportView {
 
     private bindEvents() {
         this.initReportLegend($("#hiddenLegendUrl").val());
+
+        const formFilter = $("#form-filter");
+        this.initShowHideFilter((isHideFilter) => {
+            if (isHideFilter) {
+                formFilter.addClass("hide");
+                this.weekSelectionComponent.hide();
+            } else {
+                formFilter.removeClass("hide");
+                this.weekSelectionComponent.show();
+            }
+        });
 
         this.winLossDetailCopyHtml.init();
 

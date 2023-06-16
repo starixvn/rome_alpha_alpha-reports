@@ -56,7 +56,7 @@
 <div class="flex">
     <div class="top-filter">
         @ReportTitleNew.Render(Model.TotalEnteredSport)
-        <div class="form-inline filter">
+        <div class="form-inline filter" id="form-filter">
             @HtmlHelpers.RenderSwitchVersionButton(Resources.ClassicView, Url.Action(Model.ViewerLevel.GetDirectDownLineLevel().DisplayName, $"{SiteSettings.ReportRouting}WinLossDetail"))
             @DateRangePickerJQuery.Render(Model.DateRangePickerViewModel)
             @ProductAndProductDetailDropdown.Render()
@@ -110,3 +110,5 @@
 <input type="hidden" id="language" data-currentlanguage="@Model.Language" />
 <input type="hidden" id="hiddenCopyText" value="@Resources.Copy" />
 <input type="hidden" id="hiddenCopiedText" value="@Resources.Copied" />
+<input type="hidden" id="hiddenHideFilterText" value="@Resources.HideFilter" />
+<input type="hidden" id="hiddenShowFilterText" value="@Resources.ShowFilter" />

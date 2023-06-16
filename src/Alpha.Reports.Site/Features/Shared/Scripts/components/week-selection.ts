@@ -70,4 +70,12 @@ class WeekSelectionComponent {
 
         return {};
     }
+
+    hide() {
+        this.weekRangeContainer.addClass("hide");
+    }
+
+    show() {
+        this.weekRangeContainer.removeClass("hide");
+    }
 }
