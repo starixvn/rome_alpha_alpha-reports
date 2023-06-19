@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
+  <Function Name="Account Info">
+    <Setting Key="Acc_CustomerUpdUserSearch" SpName="Acc_CustomerUpdUserSearch" DbName="DBCust.CustDB.BODBDownlineNetView" Plain="0" />
+  </Function>
   <Function Name="Product">
     <Setting Key="Acc_CustSetting_CheckMacauEnable" SpName="Acc_CustSetting_CheckMacauEnable" DbName="DBCust.CustDB.BODBDownlineNetView" Plain="0" />
   </Function>

@@ -59,6 +59,10 @@ class WinLossDetailViewNew extends BaseReportView {
         // remove style="visibility:hidden"
         // TableSorter cannot run with style="display:none"
         this.tableReportContainer.removeAttr("style");
+
+        setTimeout(function () {
+            window.top.indexManager.initFeedbackFunction(2);
+        }, 1000);
     }
 
     private renderComponents() {

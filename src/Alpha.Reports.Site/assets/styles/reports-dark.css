@@ -678,7 +678,10 @@ a {
       #report-legend.mobile-friendly .modal-dialog, #product-pt-list-popup.mobile-friendly .modal-dialog {
         padding: 0;
         width: 100%;
-        height: 100%; } }
+        height: 100%; }
+        #report-legend.mobile-friendly .modal-dialog .modal-body, #product-pt-list-popup.mobile-friendly .modal-dialog .modal-body {
+          height: 100%;
+          overflow: auto; } }
   #report-legend .modal-dialog, #product-pt-list-popup .modal-dialog {
     width: 800px;
     margin: 0;

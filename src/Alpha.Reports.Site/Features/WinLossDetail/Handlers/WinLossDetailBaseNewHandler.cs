@@ -191,6 +191,16 @@
                 {
                     var custInfo = customerService.GetCustInfo(customerLevel);
 
+                    var nickname = message.ViewerLevel.IsDirectUplineOf(customerLevel.RoleId)
+                        ? customerLevel.Username2
+                        : string.Empty;
+                    customerService.UpdateUserSearch(
+                        message.ViewerId,
+                        customerLevel.Username,
+                        customerLevel.FirstName,
+                        customerLevel.LastName,
+                        nickname);
+
                     message.CustId = custInfo.CustId;
                     message.CustName = custInfo.CustName;
                     message.CustLevelId = custInfo.CustLevelId;

@@ -13,6 +13,8 @@
         CustInfo GetCustInfo(CustomerLevel customerLevel);
 
         IEnumerable<CustInfo> GetCustInfoList(CustomerLevel customerLevel, UserLevel viewerLevel);
+
+        void UpdateUserSearch(int userId, string search, string firstName, string lastName, string nickname);
     }
 
     public class CustomerServiceImpl : CustomerService
@@ -65,5 +67,8 @@
                 yield return new CustInfo(customerLevel.AgentId.Value, customerLevel.AgentName, UserLevel.Agent.Value);
             }
         }
+
+        public void UpdateUserSearch(int userId, string search, string firstName, string lastName, string nickname)
+            => dynamicRepository.Execute(new UpdateUserSearchCriteria(userId, search, firstName, lastName, nickname));
     }
 }

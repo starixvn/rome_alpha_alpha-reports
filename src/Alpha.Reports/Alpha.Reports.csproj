@@ -226,6 +226,7 @@
     <Compile Include="Criteria\GetProductsDetailCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
+    <Compile Include="Criteria\UpdateUserSearchCriteria.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\BetCreditHistoryService.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Criteria\BetCreditHistoryCriteria.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Criteria\GetLogActionsCriteria.cs" />

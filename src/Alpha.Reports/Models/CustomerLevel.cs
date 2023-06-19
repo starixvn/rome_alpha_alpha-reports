@@ -10,6 +10,9 @@
             int custId,
             byte roleId,
             string username,
+            string firstName,
+            string lastName,
+            string username2,
             int? memberId,
             string memberName,
             int? agentId,
@@ -22,6 +25,9 @@
             CustId = custId;
             RoleId = roleId;
             Username = username;
+            FirstName = firstName;
+            LastName = lastName;
+            Username2 = username2;
             MemberId = memberId;
             MemberName = memberName;
             AgentId = agentId;
@@ -37,6 +43,12 @@
         public byte RoleId { get; }
 
         public string Username { get; }
+
+        public string FirstName { get; }
+
+        public string LastName { get; }
+
+        public string Username2 { get; }
 
         public int? MemberId { get; }
 

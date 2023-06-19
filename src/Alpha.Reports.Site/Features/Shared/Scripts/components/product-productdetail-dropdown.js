@@ -77,17 +77,6 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             return checkboxItem;
         });
         var self = this;
-        var handleOnCheckProductInternal = function (productId, checked) {
-            var subProductIds = productIdWithSubProductIds[productId];
-            if (subProductIds) {
-                subProductIds.forEach(function (id) {
-                    self.handleOnCheckProduct(id, checked);
-                });
-            }
-            else {
-                self.handleOnCheckProduct(productId, checked);
-            }
-        };
         var dropdown = $("#" + options.selectorProductId);
         this.dropdownProduct = dropdown.fanexMultiSelect({
             selectAllText: dropdown.data("label-selectall"),
@@ -103,7 +92,20 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             expandGroupsByDefault: false,
             listData: productList,
             onCheck: function () {
-                handleOnCheckProductInternal(this.value, this.checked);
+                var productId = this.value;
+                var checked = this.checked;
+                var subProductIds = productIdWithSubProductIds[productId];
+                if (subProductIds) {
+                    var productIdString = checked
+                        ? self.dropdownProduct.fanexMultiSelect("getCheckedValues")
+                        : self.dropdownProduct.fanexMultiSelect("getUncheckedValues");
+                    productIdString.split(",").forEach(function (id) {
+                        self.handleOnCheckProduct(id, checked);
+                    });
+                }
+                else {
+                    self.handleOnCheckProduct(productId, checked);
+                }
             },
             onCheckAll: function () {
                 var checked = this.checked;
@@ -118,7 +120,7 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
                         ? checkedValues
                         : uncheckedValues;
                     productIdString.split(",").forEach(function (id) {
-                        handleOnCheckProductInternal(id, checked);
+                        self.handleOnCheckProduct(id, checked);
                     });
                 }
             },
