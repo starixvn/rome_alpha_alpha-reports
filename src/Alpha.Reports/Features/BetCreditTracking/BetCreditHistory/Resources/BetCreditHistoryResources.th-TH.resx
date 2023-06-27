@@ -171,4 +171,10 @@
   <data name="won" xml:space="preserve">
     <value>ชนะ</value>
   </data>
+  <data name="Action2" xml:space="preserve">
+    <value>วันที่มีการแข่งขัน เปลี่ยนจาก {0} เป็น {1}</value>
+  </data>
+  <data name="BetPlaced" xml:space="preserve">
+    <value>วางตั๋วเดิมพัน</value>
+  </data>
 </root>

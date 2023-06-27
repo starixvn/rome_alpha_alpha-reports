@@ -21,7 +21,7 @@
     public class BetCreditHistoryServiceImpl : BetCreditHistoryService
     {
         private const string LogActionCacheKey = "Alpha.Reports.BetCreditTracking.BetCreditHistory.LogAction";
-        
+
         private const string TransLogSettled = "TransLog settled,";
         private const string TransLog = "TransLog";
         private const string LC = "LC";
@@ -55,12 +55,12 @@
 
             var reportData = dynamicRepository.Fetch<BetCreditHistoryModel>(criteria);
 
-            foreach(BetCreditHistoryModel row in reportData)
+            foreach (BetCreditHistoryModel row in reportData)
             {
-                row.Action = row.IsUserLogActionId == 1 ? 
-                    GetLogActionName(row.Action, row.ActionId, param.Language) : 
+                row.Action = row.IsUserLogActionId == 1 ?
+                    GetLogActionName(row.Action, row.ActionId, param.Language) :
                     ConvertActionName(row.Action, row.ActionId);
-            }    
+            }
 
             return new BetCreditHistoryResultModel(criteria.ErrorCode, criteria.ErrorMess, reportData, criteria.TotalRows);
         }
@@ -128,12 +128,17 @@
                 case 0:
                     return TransformActionIdEqualsTo0(action);
 
-                case 10:
-                    return GetBetPlaceAsWhichActionMayHaveTransId(action);
+                case 2:
+                    return GetActionName2(action);
 
+                case 10:
+                    return GetActionName10(action);
                 case 11:
                 case 12:
-                    return GetBetPlaceAs(action);
+                    return BetCreditHistoryResources.BetPlaced;
+
+                case 13:
+                    return GetActionName13(action);
 
                 case 20:
                     return TransformActionIdEqualsTo20(action);
@@ -294,7 +299,7 @@
             => action.IndexOf(to, StringComparison.OrdinalIgnoreCase) != -1 &&
                    action.IndexOf(to0, StringComparison.OrdinalIgnoreCase) == -1 &&
                    action.IndexOf(to1, StringComparison.OrdinalIgnoreCase) == -1;
-        
+
 
         private static bool IsMatchPrefixAndSuffixPattern(string str, string prefix, string suffix)
         {
@@ -310,7 +315,7 @@
             return Regex.IsMatch(str, string.Format(prefixPattern, prefix), RegexOptions.IgnoreCase);
         }
 
-        private static string GetActionStatusToStatus(string name ,string action)
+        private static string GetActionStatusToStatus(string name, string action)
         {
             var statusToStatus = action.Split(',')[1];
 
@@ -318,10 +323,10 @@
             var fromStatus = splitStatus[0].Trim().ToLowerInvariant();
             var toStatus = splitStatus[1].Trim().ToLowerInvariant();
 
-            return name + ", " 
-                + BetCreditHistoryResources.ResourceManager.GetString(fromStatus) + " " 
-                + BetCreditHistoryResources.to + " " 
-                + BetCreditHistoryResources.ResourceManager.GetString(toStatus); 
+            return name + ", "
+                + BetCreditHistoryResources.ResourceManager.GetString(fromStatus) + " "
+                + BetCreditHistoryResources.to + " "
+                + BetCreditHistoryResources.ResourceManager.GetString(toStatus);
         }
 
         private static string GetBetUpdatedVoidToStatus(string action)
@@ -341,24 +346,49 @@
                 + BetCreditHistoryResources._void;
         }
 
-        private static string GetBetPlaceAsWhichActionMayHaveTransId(string action)
-        {
-            var afterAs = action.Split(new[] { "as" }, StringSplitOptions.None)[1].Trim();
-            var status = afterAs.Split(' ')[0].Trim().ToLowerInvariant();
-
-            return BetCreditHistoryResources.BetPlacedAs + " " + BetCreditHistoryResources.ResourceManager.GetString(status);
-        }
-
-        private static string GetBetPlaceAs(string action)
-        {
-            var status = action.Split(new[] { "as" }, StringSplitOptions.None)[1].Trim().ToLowerInvariant();
-            return BetCreditHistoryResources.BetPlacedAs + " " + BetCreditHistoryResources.ResourceManager.GetString(status);
-        }
-
         private static string GetTransferSubmitted(string action)
         {
             var refNo = action.Split(new[] { "inserted" }, StringSplitOptions.None)[1].Trim();
             return BetCreditHistoryResources.TransferSubmitted + " " + refNo;
+        }
+
+        private static string GetActionName2(string action)
+        {
+            var strTo = " to ";
+            var toPos = action.ToLowerInvariant().LastIndexOf(strTo);
+
+            var prefixLength = 26;
+            var d1 = action.Substring(prefixLength, toPos - prefixLength);
+            var d2 = action.Substring(toPos + strTo.Length, action.Length - toPos - strTo.Length);
+
+            return string.Format(BetCreditHistoryResources.Action2, d1, d2);
+        }
+
+        private static string GetActionName13(string action)
+        {
+            var strTo = " to ";
+            var toPos = action.ToLowerInvariant().LastIndexOf(strTo);
+
+            var prefixLength = 13;
+            var s1 = action.Substring(prefixLength, toPos - prefixLength).ToLowerInvariant();
+            var s2 = action.Substring(toPos + strTo.Length, action.Length - toPos - strTo.Length).ToLowerInvariant();
+
+            return BetCreditHistoryResources.BetSettled + ", "
+                + BetCreditHistoryResources.ResourceManager.GetString(s1) + " "
+                + BetCreditHistoryResources.to + " "
+                + BetCreditHistoryResources.ResourceManager.GetString(s2);
+        }
+
+        private static string GetActionName10(string action)
+        {
+            var a = action.ToLowerInvariant();
+            var afterAs = action.Split(new[] { "as" }, StringSplitOptions.None)[1].Trim();
+            var status = afterAs.Split(' ')[0].Trim().ToLowerInvariant();
+
+            var waitings = new[] { "waiting", "running" };
+            return waitings.Any(s => a.Contains(s))
+                ? BetCreditHistoryResources.BetPlaced
+                : BetCreditHistoryResources.BetPlacedAs + " " + BetCreditHistoryResources.ResourceManager.GetString(status);
         }
     }
 }
