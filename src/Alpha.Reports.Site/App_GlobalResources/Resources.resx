@@ -1080,4 +1080,7 @@
   <data name="Copy" xml:space="preserve">
     <value>Copy</value>
   </data>
+  <data name="GrossCommRoundingNote" xml:space="preserve">
+    <value>The commission value may differ slightly from the theoretical value (Gross Comm * Position Taking), as it is calculated by summing the commission values (rounded to 4 decimal places) of the sub-tickets.</value>
+  </data>
 </root>

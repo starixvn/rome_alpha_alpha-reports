@@ -66,6 +66,10 @@
                                         </ul>
                                     </li>
                                 }
+                                @if (!string.IsNullOrWhiteSpace(viewModel.CommissionNote))
+                                {
+                                    <li>- @Resources.GrossCommRoundingNote</li>
+                                }
                             </ul>
                         </div>
                     </div>

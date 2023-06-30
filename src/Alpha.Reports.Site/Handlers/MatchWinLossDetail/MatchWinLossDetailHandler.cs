@@ -13,8 +13,8 @@
 
     public class MatchWinLossDetailHandler :
         MatchWinLossDetailBaseHandler,
-        IRequestHandler<MatchWinLossDetailQuery, MatchWinLossDetailReportViewModel>,
-        IRequestHandler<ReportLegendQuery, ReportLegendViewModel>
+        IRequestHandler<ReportLegendQuery, ReportLegendViewModel>,
+        IRequestHandler<MatchWinLossDetailQuery, MatchWinLossDetailReportViewModel>
     {
         public MatchWinLossDetailHandler(
             ProductService productService,
@@ -57,7 +57,7 @@
                 ? leagues.Select(league => league.Id)
                 : message.UserSelectedLeagueIds.Split(',').Select(id => id);
 
-            return new MatchWinLossDetailReportViewModel(
+            var viewModel=  new MatchWinLossDetailReportViewModel(
                 noParlayMatchWinLossDetail,
                 noParlayWinLossTotal,
                 mixParlay,
@@ -68,9 +68,10 @@
                 matchWinLossDetailParam,
                 BuildProductSelectListItems(matchWinLossDetailParam.UserSelectedProductIds, products),
                 BuildLeagueSelectListItems(userSelectedLeagueIds, leagues));
+            return viewModel;
         }
 
         public ReportLegendViewModel Handle(ReportLegendQuery message)
-            => new ReportLegendViewModel(Enumerable.Empty<string>(), GetGrossCommNotes(message.ViewerLevel));
+            => new ReportLegendViewModel(Enumerable.Empty<string>(), GetGrossCommNotesByUserLevel(message.ViewerLevel), string.Empty);
     }
 }

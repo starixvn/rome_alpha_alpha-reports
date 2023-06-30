@@ -130,11 +130,11 @@
                 var isEvenRow = false;
                 foreach (var betType in data.BetTypeWinLoss)
                 {
-                    <tr class="@(isEvenRow? "even-row":string.Empty)">
+                    <tr class="@(isEvenRow ? "even-row" : string.Empty)">
                         @RenderBetTypeRow(
-                            betType,
-                            "<a href=\"" + Model.GetBetListLink(Model.GetBetListLinkRouteValues(data, betType, Model.FromDate, Model.ToDate)) + "\">" + betType.Name + "</a>",
-                            isEvenRow)
+              betType,
+              "<a href=\"" + Model.GetBetListLink(Model.GetBetListLinkRouteValues(data, betType, Model.FromDate, Model.ToDate)) + "\">" + betType.Name + "</a>",
+              isEvenRow)
                     </tr>
                     isEvenRow = !isEvenRow;
                 }
@@ -156,24 +156,24 @@
             {
                 <tr>
                     @RenderBetTypeRow(
-                        Model.MixParlay,
-                        "<a href=\"" + Model.GetParlayBetListLink(Model.MixParlay.Id, Model.FromDate, Model.ToDate) + "\">" + Model.MixParlay.Name + "</a>")
+          Model.MixParlay,
+          "<a href=\"" + Model.GetParlayBetListLink(Model.MixParlay.Id, Model.FromDate, Model.ToDate) + "\">" + Model.MixParlay.Name + "</a>")
                 </tr>
             }
             @if (Model.SystemParlay != null)
             {
                 <tr>
                     @RenderBetTypeRow(
-                        Model.SystemParlay,
-                        "<a href=\"" + Model.GetParlayBetListLink(Model.SystemParlay.Id, Model.FromDate, Model.ToDate) + "\">" + Model.SystemParlay.Name + "</a>")
+          Model.SystemParlay,
+          "<a href=\"" + Model.GetParlayBetListLink(Model.SystemParlay.Id, Model.FromDate, Model.ToDate) + "\">" + Model.SystemParlay.Name + "</a>")
                 </tr>
             }
             @foreach (var parlay in Model.ParlayMatchWinLossDetail)
             {
                 <tr>
                     @RenderBetTypeRow(
-                        parlay,
-                        "<a href=\"" + Model.GetBetListLinkByBetType(parlay.Id, Model.FromDate, Model.ToDate) + "\">" + parlay.Name + "</a>")
+          parlay,
+          "<a href=\"" + Model.GetBetListLinkByBetType(parlay.Id, Model.FromDate, Model.ToDate) + "\">" + parlay.Name + "</a>")
                 </tr>
             }
 
@@ -192,6 +192,7 @@
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
 @Html.Hidden("LoadLeagueURL", Url.Action("LeaguesByCustomer", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}League"))
 @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MatchWinLossDetail"))
+
 <form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MatchWinLossDetail")">
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("FromDate", Model.FromDate)

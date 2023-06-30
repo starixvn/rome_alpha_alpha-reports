@@ -15,6 +15,7 @@
         [HttpGet]
         public ActionResult Excel(MatchWinLossDetailExcelQuery message) => ExcelView(message);
 
-        public ActionResult ReportLegend(ReportLegendQuery message) => View(message);
+        public ActionResult ReportLegend(ReportLegendQuery message)
+            => View("~/Views/ReportLegend/IndexGrossComm.cshtml", message);
     }
 }
