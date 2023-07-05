@@ -38,6 +38,7 @@
             WeekFromDate = message.WeekFromDate.HasValue ? message.WeekFromDate.Value.ToShortDateWithSlash() : string.Empty;
             WeekToDate = message.WeekToDate.HasValue ? message.WeekToDate.Value.ToShortDateWithSlash() : string.Empty;
             Language = message.Language;
+            MainDomain = message.IsInternal ? message.MainDomain : string.Empty;
         }
 
         public int ViewerId { get; }
@@ -73,5 +74,7 @@
         public string WeekToDate { get; }
 
         public string Language { get; }
+
+        public string MainDomain { get; }
     }
 }
