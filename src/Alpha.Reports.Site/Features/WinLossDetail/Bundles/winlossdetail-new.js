@@ -536,11 +536,11 @@ var UsernameAutoSuggestionComponent = /** @class */ (function () {
                 return parts[0] + " <br/> " + parts[1];
             },
             displayText: function (item) {
-                var nickname = item.UserName2 ? " (" + item.UserName2 + ")" : "";
-                return "" + item.UserName + nickname + "#" + item.FirstName + " " + item.LastName;
+                var nickname = item.Username2 ? " (" + item.Username2 + ")" : "";
+                return "" + item.Username + nickname + "#" + item.FirstName + " " + item.LastName;
             },
             autoSelect: false,
-            afterSelect: function (item) { return _this.usernameInput.val(item.UserName); },
+            afterSelect: function (item) { return _this.usernameInput.val(item.Username); },
             delay: 200
         };
         this.usernameInput
@@ -1006,7 +1006,19 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         // TableSorter cannot run with style="display:none"
         this.tableReportContainer.removeAttr("style");
         setTimeout(function () {
-            window.top.indexManager.initFeedbackFunction(2);
+            var mainDomain = $("#hiddenMainDomain").val();
+            if (mainDomain.length) {
+                mainDomain = mainDomain.indexOf("http") === -1
+                    ? location.origin.split(":")[0] + ":" + mainDomain + "/site-main"
+                    : mainDomain;
+                window.top.postMessage({
+                    event_id: "winlossdetailnew-feedback",
+                    feedback_id: 2
+                }, mainDomain);
+            }
+            else {
+                window.top.indexManager.initFeedbackFunction(2);
+            }
         }, 1000);
     };
     WinLossDetailViewNew.prototype.renderComponents = function () {

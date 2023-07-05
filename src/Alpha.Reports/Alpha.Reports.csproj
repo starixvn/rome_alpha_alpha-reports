@@ -224,6 +224,7 @@
     <Compile Include="Criteria\GetCustomerLevelCriteria.cs" />
     <Compile Include="Criteria\GetOfferedProductsBySiteCriteria.cs" />
     <Compile Include="Criteria\GetProductsDetailCriteria.cs" />
+    <Compile Include="Criteria\GetUsernameSuggestionCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
     <Compile Include="Criteria\UpdateUserSearchCriteria.cs" />
@@ -334,6 +335,7 @@
     <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailByProductModel.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailModel.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailByPTModel.cs" />
+    <Compile Include="Models\UsernameSuggestion.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingExcelParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceUplinesParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingParam.cs" />

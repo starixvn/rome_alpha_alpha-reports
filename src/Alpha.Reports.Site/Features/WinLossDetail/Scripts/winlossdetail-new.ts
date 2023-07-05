@@ -61,7 +61,18 @@ class WinLossDetailViewNew extends BaseReportView {
         this.tableReportContainer.removeAttr("style");
 
         setTimeout(function () {
-            window.top.indexManager.initFeedbackFunction(2);
+            let mainDomain = $("#hiddenMainDomain").val();
+            if (mainDomain.length) {
+                mainDomain = mainDomain.indexOf("http") === -1
+                    ? location.origin.split(":")[0] + ":" + mainDomain + "/site-main"
+                    : mainDomain;
+                window.top.postMessage({
+                    event_id: "winlossdetailnew-feedback",
+                    feedback_id: 2
+                }, mainDomain);
+            } else {
+                window.top.indexManager.initFeedbackFunction(2);
+            }
         }, 1000);
     }
 
