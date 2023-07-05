@@ -2,11 +2,11 @@
 @using Alpha.Reports.Models.Winloss;
 @using Alpha.Reports.Extensions;
 
-@helper Render(string title, EnteredSportResult enteredSportResult)
+@helper Render(EnteredSportResult enteredSportResult, string title = "")
 {
     var hasNonEnteredYerterday = enteredSportResult.EnteredSportYesterday.NonEntered > 0;
     <div class="page-title page-title-entered">
-        <div class="text-title pull-left">@title</div>
+        <div class="text-title pull-left" id="report-title">@title</div>
         <a href="javascript:;"><span class="icon icon-information-outline icon-report-legend" id="icon-report-legend"></span></a>
         <div class="entered-non-entered">
             <div class="icon-non-entered" id="total-non-entered-yesterday" @(hasNonEnteredYerterday ? string.Empty : "style=display:none")>
@@ -27,6 +27,9 @@
                 <div class="number" id="total-non-entered-today-number">@enteredSportResult.EnteredSportToday.NonEntered</div>
                 <div class="icon-clock"></div>
             </div>
+        </div>
+        <div class="list-icon">
+            <ul><li><span class="icon-arrow-up-drop-circle icon-filter" id="icon-filter" title="@Resources.HideFilter"></span></li></ul>
         </div>
     </div>
 }

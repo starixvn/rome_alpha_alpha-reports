@@ -82,17 +82,6 @@ class ProductAndProductDetailDropdownComponent {
         });
 
         const self = this;
-        const handleOnCheckProductInternal = function (productId, checked) {
-            const subProductIds = productIdWithSubProductIds[productId];
-            if (subProductIds) {
-                subProductIds.forEach(function (id) {
-                    self.handleOnCheckProduct(id, checked);
-                });
-            } else {
-                self.handleOnCheckProduct(productId, checked);
-            }
-        };
-
         const dropdown = $("#" + options.selectorProductId);
         this.dropdownProduct = dropdown.fanexMultiSelect({
             selectAllText: dropdown.data("label-selectall"),
@@ -108,7 +97,19 @@ class ProductAndProductDetailDropdownComponent {
             expandGroupsByDefault: false,
             listData: productList,
             onCheck: function () {
-                handleOnCheckProductInternal(this.value, this.checked);
+                const productId = this.value;
+                const checked = this.checked
+                const subProductIds = productIdWithSubProductIds[productId];
+                if (subProductIds) {
+                    const productIdString = checked
+                        ? self.dropdownProduct.fanexMultiSelect("getCheckedValues")
+                        : self.dropdownProduct.fanexMultiSelect("getUncheckedValues");
+                    productIdString.split(",").forEach(function (id) {
+                        self.handleOnCheckProduct(id, checked);
+                    });
+                } else {
+                    self.handleOnCheckProduct(productId, checked);
+                }
             },
             onCheckAll: function () {
                 const checked = this.checked;
@@ -123,7 +124,7 @@ class ProductAndProductDetailDropdownComponent {
                         ? checkedValues
                         : uncheckedValues;
                     productIdString.split(",").forEach(function (id) {
-                        handleOnCheckProductInternal(id, checked);
+                        self.handleOnCheckProduct(id, checked);
                     });
                 }
             },

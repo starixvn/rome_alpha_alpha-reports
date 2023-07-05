@@ -24,13 +24,16 @@
             ProductService productService,
             ProductDetailService productDetailService,
             WinLossDetailService winlossDetailService,
-            Workbook<WinLossDetailModel> workbook) : base(productService, productDetailService, winlossDetailService)
+            CustomerService customerService,
+            Workbook<WinLossDetailModel> workbook) : base(productService, productDetailService, winlossDetailService, customerService)
         {
             this.workbook = workbook;
         }
 
         public async Task<ExcelFileViewModel> Handle(WinLossDetailExcelNewQuery message)
         {
+            var isValidUsername = BuildWinLossDetailGetDataQuery(message);
+
             workbook
                .UseTemplate(GetTemplateInfo(message.CustLevel))
                .Header(Resources.ResourceManager.GetString)
@@ -41,7 +44,9 @@
             var productDetails = productsAndProductDetails.Item2;
 
             var winLossDetailParam = CreateParameter(message, products, productDetails);
-            var reportData = await winlossDetailService.GetWinLossDetailAsync(winLossDetailParam);
+            var reportData = isValidUsername
+                ? await winlossDetailService.GetWinLossDetailAsync(winLossDetailParam)
+                : new PagedReportData<WinLossDetailModel>(null, message.PageIndex, message.PageSize, 0, null);
 
             var fileContent = workbook
                 .Title(GetReportTitle(winLossDetailParam, productDetails))

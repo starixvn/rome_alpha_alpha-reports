@@ -1,0 +1,11 @@
+﻿@using Alpha.Reports.Site.App_GlobalResources;
+
+@helper Render()
+{
+    <div class="form-group">
+        <label class="label-form-control">@Resources.Username</label>
+        <div>
+            <input type="text" id="txt-username" placeholder="@Resources.UsernameOrFirstLastName" autocomplete="off" />
+        </div>
+    </div>
+}

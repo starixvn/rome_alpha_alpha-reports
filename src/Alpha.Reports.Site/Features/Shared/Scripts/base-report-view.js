@@ -10,6 +10,26 @@ var BaseReportView = /** @class */ (function () {
             });
         });
     };
+    BaseReportView.prototype.initShowHideFilter = function (callback) {
+        var hideFilterText = $("#hiddenHideFilterText").val();
+        var showFilterText = $("#hiddenShowFilterText").val();
+        var iconFilter = $("#icon-filter").click(function () {
+            var isHideFilter = iconFilter.hasClass("icon-arrow-up-drop-circle");
+            if (isHideFilter) {
+                iconFilter
+                    .removeClass("icon-arrow-up-drop-circle")
+                    .addClass("icon-arrow-down-drop-circle")
+                    .attr("title", showFilterText);
+            }
+            else {
+                iconFilter
+                    .removeClass("icon-arrow-down-drop-circle")
+                    .addClass("icon-arrow-up-drop-circle")
+                    .attr("title", hideFilterText);
+            }
+            callback(isHideFilter);
+        });
+    };
     return BaseReportView;
 }());
 //# sourceMappingURL=base-report-view.js.map

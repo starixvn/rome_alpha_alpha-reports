@@ -53,6 +53,7 @@
                 DateTime.Now,
                 new List<int> { 1, 2 },
                 UserLevel.Super,
+                string.Empty,
                 string.Empty);
 
             var dataSet = WinLossDetailDatabase.MasterWinLoss.CreateDataReader();
@@ -69,7 +70,7 @@
                 1,
                 0,
                 0,
-                new WinLossDetailModel(0, "Total", string.Empty, string.Empty, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), new NetWinLoss(29, 210)));
+                new WinLossDetailModel(0, "Total", null, null, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), new NetWinLoss(29, 210)));
 
             // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
@@ -92,6 +93,7 @@
                 DateTime.Now,
                 new List<int> { 1, 2 },
                 UserLevel.Master,
+                string.Empty,
                 string.Empty);
 
             var dataSet = WinLossDetailDatabase.AgentWinLoss.CreateDataReader();
@@ -108,7 +110,7 @@
                 1,
                 0,
                 0,
-                new WinLossDetailModel(0, "Total", string.Empty, string.Empty, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), null));
+                new WinLossDetailModel(0, "Total", null, null, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), null));
 
             // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
@@ -131,6 +133,7 @@
                 DateTime.Now,
                 new List<int> { 1, 2 },
                 UserLevel.Agent,
+                string.Empty,
                 string.Empty);
 
             var dataSet = WinLossDetailDatabase.MemberWinLoss.CreateDataReader();
@@ -147,7 +150,7 @@
                 1,
                 0,
                 0,
-                new WinLossDetailModel(0, "Total", string.Empty, string.Empty, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), null, null));
+                new WinLossDetailModel(0, "Total", null, null, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), null, null));
 
             // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
@@ -170,6 +173,7 @@
                 DateTime.Now,
                 null,
                 UserLevel.Super,
+                string.Empty,
                 string.Empty);
 
             IDataReader dataReader = null;
@@ -203,6 +207,7 @@
                 DateTime.Now,
                 new List<int> { 1, 2 },
                 UserLevel.Super,
+                string.Empty,
                 string.Empty);
 
             var dataSet = WinLossDetailDatabase.MasterWinLossWinNoTotalTable.CreateDataReader();

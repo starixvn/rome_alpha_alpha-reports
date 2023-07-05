@@ -7,6 +7,7 @@
       <Mapping DataField="LeagueName" ObjectProperty="Name" />
       <Mapping DataField="SportType" ObjectProperty="SportTypeId" />
     </Setting>
+    <Setting Key="Age_Rpt_GetCustomerInfo" SpName="Age_Rpt_GetCustomerInfo" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
   </Function>
   <Function Name="Products">
     <Setting Key="Age_Rpt_GetProductList" SpName="Age_Rpt_GetProductList" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0">

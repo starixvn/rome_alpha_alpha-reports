@@ -189,7 +189,8 @@
                 reportDateService.GetMoveBetsDay(),
                 param.UserSelectedProductIds,
                 param.ReportLevel,
-                param.ProductDetailsXML);
+                param.ProductDetailsXML,
+                param.Username);
 
             var winLossDetailData = winLossDetailDataAccess.GetData(criteria);
 

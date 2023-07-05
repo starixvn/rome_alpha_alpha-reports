@@ -981,4 +981,13 @@
   <data name="nSelected" xml:space="preserve">
     <value>ที่เลือกไว้ #</value>
   </data>
+  <data name="UsernameOrFirstLastName" xml:space="preserve">
+    <value>ยูเซอร์เนม หรือ ชื่อ/นามสุกล</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>คัดลอก</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>สำเนา</value>
+  </data>
 </root>

@@ -104,7 +104,7 @@
                     }
                 }
             }
-
+            
             return new PagedReportData<WinLossDetailModel>(
                 winLossDetails,
                 criteria.PageIndex,

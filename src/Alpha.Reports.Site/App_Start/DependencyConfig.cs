@@ -181,6 +181,7 @@
 
             container.RegisterSingleton<AutoFollowBetService, AutoFollowBetServiceImpl>();
             container.Register<EnteredSportResultWorkbook, EnteredSportResultWorkbookImpl>();
+            container.RegisterSingleton<CustomerService, CustomerServiceImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

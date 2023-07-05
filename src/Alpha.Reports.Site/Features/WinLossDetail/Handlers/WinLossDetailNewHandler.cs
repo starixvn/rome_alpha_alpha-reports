@@ -1,6 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
     using System.Threading.Tasks;
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Models.WinLossDetail;
     using Alpha.Reports.Services;
     using Alpha.Reports.Site.Requests.WinLossDetail;
     using Alpha.Reports.Site.ViewModels.WinLossDetail;
@@ -16,7 +18,8 @@
             ProductService productService,
             ProductDetailService productDetailService,
             WinLossService winlossService,
-            WinLossDetailService winlossDetailService) : base(productService, productDetailService, winlossDetailService)
+            WinLossDetailService winlossDetailService,
+            CustomerService customerService) : base(productService, productDetailService, winlossDetailService, customerService)
         {
             this.winlossService = winlossService;
         }
@@ -27,8 +30,20 @@
             var products = productsAndProductDetails.Item1;
             var productDetails = productsAndProductDetails.Item2;
 
-            var winLossDetailParam = CreateParameter(message, products, productDetails);
-            var reportDataTask = winlossDetailService.GetWinLossDetailAsync(winLossDetailParam);
+            var isValidUsername = BuildWinLossDetailGetDataQuery(message);
+            Task<PagedReportData<WinLossDetailModel>> reportDataTask;
+
+            if (isValidUsername)
+            {
+                var winLossDetailParam = CreateParameter(message, products, productDetails);
+                reportDataTask = winlossDetailService.GetWinLossDetailAsync(winLossDetailParam);
+            }
+            else
+            {
+                reportDataTask = Task.FromResult(
+                    new PagedReportData<WinLossDetailModel>(null, message.PageIndex, message.PageSize, 0, null));
+            }
+            
             var totalEnteredSportTask = winlossService.GetTotalEnteredSportYesterdayAndTodayAsync();
             await Task.WhenAll(reportDataTask, totalEnteredSportTask);
 
@@ -42,16 +57,24 @@
 
         public async Task<WinLossDetailGetDataViewModel> Handle(WinLossDetailGetDataQuery message)
         {
-            var winLossDetailParam = await CreateParameter(message);
-            var reportDataTask = winlossDetailService.GetWinLossDetailAsync(winLossDetailParam);
+            var isValidUsername = BuildWinLossDetailGetDataQuery(message);
+            Task<PagedReportData<WinLossDetailModel>> reportDataTask;
+
+            if (isValidUsername)
+            {
+                var winLossDetailParam = await CreateParameter(message);
+                reportDataTask = winlossDetailService.GetWinLossDetailAsync(winLossDetailParam);
+            }
+            else
+            {
+                reportDataTask = Task.FromResult(
+                    new PagedReportData<WinLossDetailModel>(null, message.PageIndex, message.PageSize, 0, null));
+            }
+            
             var totalEnteredSportTask = winlossService.GetTotalEnteredSportYesterdayAndTodayAsync();
             await Task.WhenAll(reportDataTask, totalEnteredSportTask);
 
-            return new WinLossDetailGetDataViewModel(
-                message.CustLevel,
-                !message.IsProtectedMode || !message.CustLevel.IsAgentLevel(),
-                await totalEnteredSportTask,
-                await reportDataTask);
+            return new WinLossDetailGetDataViewModel(message, await totalEnteredSportTask, await reportDataTask);
         }
     }
 }

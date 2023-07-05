@@ -109,7 +109,7 @@
                     string.Join(", ", productService.GetProductNames(productsNeedDelayTimeToSumarizeData))));
             }
 
-            return new ReportLegendViewModel(result, GetGrossCommNotes(message.ViewerLevel));
+            return new ReportLegendViewModel(result, GetGrossCommNotes(message.ViewerLevel), message.IsNew);
         }
 
         private string BuildTooltipsForLiveCasino(int viewerId, string site, int currencyId)

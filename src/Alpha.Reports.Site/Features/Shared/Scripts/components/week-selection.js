@@ -1,9 +1,9 @@
 "use strict";
-var WeekRangeOption = /** @class */ (function () {
-    function WeekRangeOption(onClick, language, selectorId) {
+var WeekSelectionOption = /** @class */ (function () {
+    function WeekSelectionOption(onClick, language, selectorId) {
         if (onClick === void 0) { onClick = Function(); }
         if (language === void 0) { language = "en"; }
-        if (selectorId === void 0) { selectorId = "week-range-container"; }
+        if (selectorId === void 0) { selectorId = "week-selection"; }
         this.onClick = onClick;
         this.language = language;
         this.selectorId = selectorId;
@@ -11,18 +11,18 @@ var WeekRangeOption = /** @class */ (function () {
         this.language = language;
         this.selectorId = selectorId;
     }
-    return WeekRangeOption;
+    return WeekSelectionOption;
 }());
-var WeekRangeComponent = /** @class */ (function () {
-    function WeekRangeComponent() {
+var WeekSelectionComponent = /** @class */ (function () {
+    function WeekSelectionComponent() {
     }
-    WeekRangeComponent.prototype.init = function (options) {
-        this.weekRangeOption = options;
+    WeekSelectionComponent.prototype.init = function (options) {
+        this.weekSelectionOption = options;
         this.weekRangeContainer = $("#" + options.selectorId);
     };
-    WeekRangeComponent.prototype.render = function (dateRange, activeWeekRange) {
+    WeekSelectionComponent.prototype.render = function (dateRange, activeWeekRange) {
         var _this = this;
-        moment.locale(this.weekRangeOption.language);
+        moment.locale(this.weekSelectionOption.language);
         this.weekRangeContainer.html(this.buildWeekRangeHtml(dateRange, activeWeekRange));
         var labelWeeks = this.weekRangeContainer.find(".label-week");
         labelWeeks
@@ -31,10 +31,10 @@ var WeekRangeComponent = /** @class */ (function () {
             var $this = $(e.target);
             labelWeeks.removeClass("active");
             $this.addClass("active");
-            _this.weekRangeOption.onClick({ fromDate: $this.data("fromdate"), toDate: $this.data("todate") });
+            _this.weekSelectionOption.onClick({ fromDate: $this.data("fromdate"), toDate: $this.data("todate") });
         });
     };
-    WeekRangeComponent.prototype.buildWeekRangeHtml = function (dateRange, activeWeekRange) {
+    WeekSelectionComponent.prototype.buildWeekRangeHtml = function (dateRange, activeWeekRange) {
         var weekRange = [];
         var startDate = moment(dateRange.fromDate);
         var endDate = moment(dateRange.toDate);
@@ -54,17 +54,23 @@ var WeekRangeComponent = /** @class */ (function () {
         }
         return weekRange.join("");
     };
-    WeekRangeComponent.prototype.getActiveWeekRange = function () {
-        var activeWeekRange = this.weekRangeContainer.find(".label-week.active");
-        if (activeWeekRange.length) {
-            var firstActiveWeekRange = activeWeekRange.eq(0);
+    WeekSelectionComponent.prototype.getActiveWeek = function () {
+        var activeWeek = this.weekRangeContainer.find(".label-week.active");
+        if (activeWeek.length) {
+            var firstActiveWeek = activeWeek.eq(0);
             return {
-                weekFromDate: firstActiveWeekRange.data("fromdate"),
-                weekToDate: firstActiveWeekRange.data("todate"),
+                weekFromDate: firstActiveWeek.data("fromdate"),
+                weekToDate: firstActiveWeek.data("todate"),
             };
         }
         return {};
     };
-    return WeekRangeComponent;
+    WeekSelectionComponent.prototype.hide = function () {
+        this.weekRangeContainer.addClass("hide");
+    };
+    WeekSelectionComponent.prototype.show = function () {
+        this.weekRangeContainer.removeClass("hide");
+    };
+    return WeekSelectionComponent;
 }());
-//# sourceMappingURL=week-range.js.map
+//# sourceMappingURL=week-selection.js.map
