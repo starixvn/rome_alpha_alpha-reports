@@ -536,11 +536,11 @@ var UsernameAutoSuggestionComponent = /** @class */ (function () {
                 return parts[0] + " <br/> " + parts[1];
             },
             displayText: function (item) {
-                var nickname = item.UserName2 ? " (" + item.UserName2 + ")" : "";
-                return "" + item.UserName + nickname + "#" + item.FirstName + " " + item.LastName;
+                var nickname = item.Username2 ? " (" + item.Username2 + ")" : "";
+                return "" + item.Username + nickname + "#" + item.FirstName + " " + item.LastName;
             },
             autoSelect: false,
-            afterSelect: function (item) { return _this.usernameInput.val(item.UserName); },
+            afterSelect: function (item) { return _this.usernameInput.val(item.Username); },
             delay: 200
         };
         this.usernameInput

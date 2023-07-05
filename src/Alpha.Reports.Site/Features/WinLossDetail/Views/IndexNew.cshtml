@@ -100,7 +100,7 @@
 <input type="hidden" id="hiddenLegendUrl" value="@Url.Action("ReportLegend", $"{SiteSettings.ReportRouting}WinLossDetail", new { IsNew = canViewHistory, IsSupportHistoricReport = true, MinDate = canViewHistory ? Model.DateRangePickerViewModel.HistoricPivotDate : Model.DateRangePickerViewModel.MinDate })" />
 <input type="hidden" id="hiddenWinLossDetailUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WinLossDetail")" />
 <input type="hidden" id="hiddenBetListsUrl" value="@Model.BetListsUrl" />
-<input type="hidden" id="hiddenUsernameAutoSuggestionUrl" value="@Model.UsernameAutoSuggestionUrl" />
+<input type="hidden" id="hiddenUsernameAutoSuggestionUrl" value="@Url.Action("Get", $"{SiteSettings.ReportRouting}UsernameSuggestion")" />
 <input type="hidden" id="hiddenUsername" value="@Model.Username" />
 @if (!string.IsNullOrWhiteSpace(Model.WeekFromDate) && !string.IsNullOrWhiteSpace(Model.WeekToDate))
 {

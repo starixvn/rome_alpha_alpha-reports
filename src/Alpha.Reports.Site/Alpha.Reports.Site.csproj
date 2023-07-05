@@ -740,6 +740,9 @@
     <Compile Include="Features\EnteredResult\EnteredSportResultBaseHandler.cs" />
     <Compile Include="Features\EnteredResult\EnteredSportResultWorkbook.cs" />
     <Compile Include="Features\Shared\Requests\ReportDefaultDateRangeNewQuery.cs" />
+    <Compile Include="Features\Shared\Requests\UsernameSuggestionQuery.cs" />
+    <Compile Include="Features\Shared\UsernameSuggestionController.cs" />
+    <Compile Include="Features\Shared\UsernameSuggestionHandler.cs" />
     <Compile Include="Features\Shared\ViewModels\Components\DateRangePickerNewViewModel.cs" />
     <Compile Include="Features\Shared\ViewModels\Components\ProductDetailNewViewModel.cs" />
     <Compile Include="Features\Shared\ViewModels\Components\ProductViewModel.cs" />

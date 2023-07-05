@@ -1,6 +1,8 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Alpha.Reports.Criteria;
     using Alpha.Reports.Enumerations;
     using Alpha.Reports.Models;
@@ -15,6 +17,13 @@
         IEnumerable<CustInfo> GetCustInfoList(CustomerLevel customerLevel, UserLevel viewerLevel);
 
         void UpdateUserSearch(int userId, string search, string firstName, string lastName, string nickname);
+
+        Task<IEnumerable<UsernameSuggestion>> GetUsernamesSuggestion(
+            int actorId,
+            string suggestionQuery,
+            bool isInternal,
+            bool directDownline,
+            bool isAccInfo);
     }
 
     public class CustomerServiceImpl : CustomerService
@@ -70,5 +79,18 @@
 
         public void UpdateUserSearch(int userId, string search, string firstName, string lastName, string nickname)
             => dynamicRepository.Execute(new UpdateUserSearchCriteria(userId, search, firstName, lastName, nickname));
+
+        public async Task<IEnumerable<UsernameSuggestion>> GetUsernamesSuggestion(
+            int actorId,
+            string suggestionQuery,
+            bool isInternal,
+            bool directDownline,
+            bool isAccInfo)
+            => (await dynamicRepository.FetchAsync<UsernameSuggestion>(new GetUsernameSuggestionCriteria(
+                actorId,
+                suggestionQuery,
+                isInternal,
+                directDownline,
+                isAccInfo))).OrderBy(item => item.Username);
     }
 }

@@ -36,11 +36,11 @@ class UsernameAutoSuggestionComponent {
                 return `${parts[0]} <br/> ${parts[1]}`;
             },
             displayText: function (item) {
-                const nickname = item.UserName2 ? ` (${item.UserName2})` : "";
-                return `${item.UserName}${nickname}#${item.FirstName} ${item.LastName}`;
+                const nickname = item.Username2 ? ` (${item.Username2})` : "";
+                return `${item.Username}${nickname}#${item.FirstName} ${item.LastName}`;
             },
             autoSelect: false,
-            afterSelect: (item) => this.usernameInput.val(item.UserName),
+            afterSelect: (item) => this.usernameInput.val(item.Username),
             delay: 200
         };
 
