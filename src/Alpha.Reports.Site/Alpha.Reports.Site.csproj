@@ -1915,7 +1915,6 @@
     <Content Include="Views\Consolidation\ReportLegend.cshtml" />
     <Content Include="Views\Consolidation\ReportDetailLegend.cshtml" />
     <Content Include="Views\ReportLegend\IndexGrossComm.cshtml" />
-    <Content Include="Views\MatchWinLossDetail\ReportLegend.cshtml" />
     <Content Include="Features\SuperWinLossDetailByPT\Views\Index.cshtml" />
     <Content Include="Features\SuperWinLossDetailByPT\Views\Filter.cshtml" />
     <Content Include="Features\SuperWinLossDetailByPT\Views\ReportData.cshtml" />

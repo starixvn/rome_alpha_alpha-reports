@@ -997,4 +997,7 @@
   <data name="Copy" xml:space="preserve">
     <value>复制</value>
   </data>
+  <data name="GrossCommRoundingNote" xml:space="preserve">
+    <value>佣金值可能与理论值略有不同（总佣金 * 占成数），因为是通过子注单的佣金值 (四个小数点净值) 相加以计算。</value>
+  </data>
 </root>

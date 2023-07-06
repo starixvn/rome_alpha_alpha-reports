@@ -990,4 +990,7 @@
   <data name="Copy" xml:space="preserve">
     <value>สำเนา</value>
   </data>
+  <data name="GrossCommRoundingNote" xml:space="preserve">
+    <value>ค่าคอมมิชชั่นอาจแตกต่างจากค่าทางทฤษฎีเล็กน้อย (ค่าคอมมิชชันโดยรวม * ค่าความเสี่ยง) เนื่องจากการรวมยอดค่าคอมมิชชันที่ทำการปัดเศษทศนิยม 4 ตำแหน่งของตั๋วย่อยทั้งหมด</value>
+  </data>
 </root>

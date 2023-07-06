@@ -159,8 +159,21 @@
 
         protected internal IEnumerable<string> GetGrossCommNotes(UserLevel viewerLevel)
         {
-            IList<string> grossCommNotes;
+            IList<string> grossCommNotes = GetGrossCommNotesByUserLevel(viewerLevel);
 
+            grossCommNotes.Add(Resources.GrossCommNoteForCasino);
+
+            if (viewerLevel.IsNotAgentLevel())
+            {
+                grossCommNotes.Add(Resources.GrossCommNoteForRoundingProblem);
+            }
+
+            return grossCommNotes;
+        }
+
+        protected IList<string> GetGrossCommNotesByUserLevel(UserLevel viewerLevel)
+        {
+            IList<string> grossCommNotes;
             if (viewerLevel.IsSuperLevel())
             {
                 grossCommNotes = GetSuperGrossCommNotes();
@@ -177,14 +190,6 @@
             {
                 grossCommNotes = new List<string>();
             }
-
-            grossCommNotes.Add(Resources.GrossCommNoteForCasino);
-
-            if (viewerLevel.IsNotAgentLevel())
-            {
-                grossCommNotes.Add(Resources.GrossCommNoteForRoundingProblem);
-            }
-
             return grossCommNotes;
         }
 

@@ -1055,4 +1055,7 @@
   <data name="Copy" xml:space="preserve">
     <value>Sao chép</value>
   </data>
+  <data name="GrossCommRoundingNote" xml:space="preserve">
+    <value>Giá trị hoa hồng có thể chênh lệch nhỏ so với giá trị trên lý thuyết (Hoa Hồng * Position Taking), do được tính bằng tổng giá trị hoa hồng (làm tròn đến 4 chữ số thập phân) của các vé cược phụ.</value>
+  </data>
 </root>
