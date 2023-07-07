@@ -31,8 +31,6 @@
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
-
-            cacheRefService.GetProductName(23).Returns("NG2");
         }
 
         [Theory]
@@ -66,7 +64,6 @@
         [InlineData(3, 90, "Number Wheel", true, "Number Wheel (Live Game)")]
         [InlineData(3, 90, "Number Wheel", false, "Number Wheel (Pre Game)")]
         [InlineData(22, 4001, "Macau Games", false, "Macau Games")]
-        [InlineData(23, 2502, "NG2", false, "NG2")]
         [InlineData(21, 2402, "Odd Even", false, "Odd Even")]
         public void BuildDisplayedBetTypeName_AnyBetTypeId_ReturnsCorrectBetTypeName(
             int productId,

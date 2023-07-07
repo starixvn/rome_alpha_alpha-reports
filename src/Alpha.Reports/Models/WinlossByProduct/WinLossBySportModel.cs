@@ -8,7 +8,6 @@
     {
         private static IDictionary<int, bool> productsHaveBetTypesGroupedBySport = new Dictionary<int, bool>
         {
-            [ProductIdConstants.NG2] = true,
             [ProductIdConstants.VirtualSports] = true
         };
 
