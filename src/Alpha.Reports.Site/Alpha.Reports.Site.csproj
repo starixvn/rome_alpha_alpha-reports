@@ -562,6 +562,51 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\MasterNew.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\MemberNew.xls" />
     <Content Include="App_Code\Components\UsernameAutoSuggestion.cshtml" />
+    <Content Include="App_Data\activitytracking.staging.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.staging2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.staging3.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.staginginternal.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.staginginternal2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.staging.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.staging2.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.staging3.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.staginginternal.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.staginginternal2.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.staging.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.staging2.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.staging3.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.staginginternal.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.staginginternal2.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
@@ -592,6 +637,21 @@
     <Content Include="Features\WinLossDetail\Bundles\winlossdetail.js" />
     <Content Include="Features\WinLossDetail\Bundles\winlossdetail.min.js">
       <DependentUpon>winlossdetail.js</DependentUpon>
+    </Content>
+    <Content Include="Web.staging.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.staging2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.staging3.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.staginginternal.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.staginginternal2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Features\Shared\Scripts\base-report-view.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\breadcrumb-level.ts" />
@@ -1943,6 +2003,36 @@
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
     </Content>
     <Content Include="Web.ConnectionStrings.napinternal2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.staging.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.staging2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.staging3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.staginginternal.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.staginginternal2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.staging.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.staging2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.staging3.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.staginginternal.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.staginginternal2.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
