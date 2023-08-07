@@ -283,6 +283,7 @@ namespace Alpha.Reports.Site.Controllers
 
             Session["ONEbook.UM.ByPassUM"] = sessions[33];
             userSession.SetProperty(SessionKey.BetlistSessionID, sessions[37]);
+            userSession.SetProperty(SessionKey.ReportSessionID, sessions[39]);
         }
 
         private void SetUserSessionsAndAuth(string[] parameters, IUserSession userSession)
@@ -336,6 +337,7 @@ namespace Alpha.Reports.Site.Controllers
             userSession.SetProperty(SessionKey.MainSessionID, sessions[35]);
 
             userSession.SetProperty(SessionKey.BetlistDomainSessionKey, sessions[36]);
+            userSession.SetProperty(SessionKey.ReportDomainSessionKey, sessions[38]);
 
             SetRealtimeValues(parameters, userSession);
             UpdateReportRoutingRealtime(parameters, userSession);
