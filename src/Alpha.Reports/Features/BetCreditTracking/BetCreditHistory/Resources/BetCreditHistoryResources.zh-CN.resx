@@ -171,4 +171,10 @@
   <data name="won" xml:space="preserve">
     <value>赢</value>
   </data>
+  <data name="Action2" xml:space="preserve">
+    <value>活动的日期从{0} 移至 {1}</value>
+  </data>
+  <data name="BetPlaced" xml:space="preserve">
+    <value>投注于</value>
+  </data>
 </root>

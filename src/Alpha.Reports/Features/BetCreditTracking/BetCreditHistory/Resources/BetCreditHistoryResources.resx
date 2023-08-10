@@ -171,4 +171,10 @@
   <data name="won" xml:space="preserve">
     <value>WON</value>
   </data>
+  <data name="BetPlaced" xml:space="preserve">
+    <value>Bet placed</value>
+  </data>
+  <data name="Action2" xml:space="preserve">
+    <value>Event date was moved from {0} to {1}</value>
+  </data>
 </root>
