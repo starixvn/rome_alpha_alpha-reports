@@ -7,8 +7,10 @@
     using System.Reflection;
     using System.Web;
     using System.Web.Helpers;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using System.Web.Security;
     using Alpha.Auth.Filters;
     using Alpha.Logging;
     using Alpha.NetThrottling.Mvc;
@@ -72,8 +74,6 @@
                 .UseCacheService(new UMCacheService(new CacheService()))
                 .UseRestClient(new UMRestClient(umConfig))
                 .UseHttpContext(new HttpContextHelper());
-            GlobalFilters.Filters.Add(new CheckUMFilterAttribute(
-                new MaintenanceService(UMClientManager.RestClient, UMClientManager.CacheService, UMClientManager.UMClientConfigs, UMClientManager.HttpContext), null));
 
             GlobalFilters.Filters.Add(new NoCacheFilter());
             GlobalFilters.Filters.Add(new PartialUMExceptionFilter());
@@ -82,6 +82,12 @@
             GlobalFilters.Filters.Add(new CheckBelongingFilter(isAuthorizedChecking));
             GlobalFilters.Filters.Add(new AfterLoginFlowFilter(isAuthorizedChecking));
             GlobalFilters.Filters.Add(new ProtectedModeFilter(isAuthorizedChecking));
+
+            if (isAuthorizedChecking)
+            {
+                GlobalFilters.Filters.Add(new CheckUMFilterAttribute(
+                new MaintenanceService(UMClientManager.RestClient, UMClientManager.CacheService, UMClientManager.UMClientConfigs, UMClientManager.HttpContext), null));
+            }
 
             SiteSettings.Verify();
 
