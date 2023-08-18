@@ -1,8 +1,5 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Web.Mvc;
     using Alpha.PartialUM.Helpers;
     using Alpha.Reports.Features.AutoFollowBets;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
@@ -19,7 +16,6 @@
     using AlphaPlus.PartialUM.Helpers;
     using AlphaPlus.PartialUM.Services;
     using AlphaPlus.User.Models;
-    using Configurations;
     using Controllers;
     using DataAccesses;
     using Fanex.BetList.Core.Builder;
@@ -46,7 +42,9 @@
     using SimpleInjector;
     using SimpleInjector.Integration.Web;
     using SimpleInjector.Integration.Web.Mvc;
-    using StaticData.Repositories;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Web.Mvc;
 
     public static class DependencyConfig
     {
@@ -198,16 +196,7 @@
             container.RegisterSingleton<StatementDataAccess, StatementDataAccessImpl>();
             container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
             container.RegisterSingleton<ProgressiveContributionDataAccess, ProgressiveContributionDataAccessImpl>();
-
-            if (SiteSettings.EnabledStaticData)
-            {
-                container.Register<IDynamicRepository, ReportExcelRepository>(Lifestyle.Singleton);
-            }
-            else
-            {
-                container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Singleton);
-            }
-
+            container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Singleton);
             container.RegisterSingleton<IPartialUMDataAccess, PartialUMDataAccess>();
         }
 

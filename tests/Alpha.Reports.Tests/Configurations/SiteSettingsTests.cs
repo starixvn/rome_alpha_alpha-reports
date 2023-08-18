@@ -89,23 +89,6 @@
         }
 
         [Fact]
-        public void EnabledStaticData_HasConfig_ReturnsCorrectSetting()
-        {
-            // Arrange
-            SiteSettings.AppSettings = new NameValueCollection
-            {
-                ["EnabledStaticData"] = "1"
-            };
-            var expectedSetting = true;
-
-            // Act
-            var actualSetting = SiteSettings.EnabledStaticData;
-
-            // Assert
-            Assert.Equal(expectedSetting, actualSetting);
-        }
-
-        [Fact]
         public void RemoteRefURL_Always_ReturnsCorrectSetting()
         {
             // Arrange

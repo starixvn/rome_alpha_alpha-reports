@@ -45,8 +45,6 @@
 
         public static string MessageAppPath => GetConfigValue("MessageAppPath") ?? "site-messages";
 
-        public static bool EnabledStaticData => GetConfigValue("EnabledStaticData") == "1";
-
         public static string RemoteRefURL => GetConfigValue("RemoteRefURL");
 
         public static string ReportRouting
