@@ -28,6 +28,7 @@ class WinLossDetailViewNew extends BaseReportView {
     private globalFormData: any;
     private sortColumnName = "username";
     private sortIndicator = 0; // asc: 0, desc: 1
+    private isGettingReportData = false;
 
     constructor(
         totalEnteredNonEnteredComponent: TotalEnteredNonEnteredComponent,
@@ -120,6 +121,7 @@ class WinLossDetailViewNew extends BaseReportView {
             undefined,
             searchUsername,
             (username) => {
+                this.isGettingReportData = true;
                 const dateRange = this.dateRangePickerComponent.getDateRangeValues();
                 const productsAndResources = this.productAndProductDetailDropdownComponent.getCheckedValues();
                 $.extend(this.globalFormData, dateRange, productsAndResources, { username });
@@ -128,6 +130,7 @@ class WinLossDetailViewNew extends BaseReportView {
                 delete this.globalFormData.custName;
                 delete this.globalFormData.custLevelId;
                 if (this.isInvalidGlobalFormData()) {
+                    this.isGettingReportData = false;
                     return;
                 }
 
@@ -137,6 +140,10 @@ class WinLossDetailViewNew extends BaseReportView {
         this.winLossDetailColumns.init();
 
         this.weekSelectionComponent.init(new WeekSelectionOption((dateRange) => {
+            if (this.isGettingReportData) {
+                return;
+            }
+
             if (this.isInvalidGlobalFormData()) {
                 return;
             }
@@ -234,8 +241,10 @@ class WinLossDetailViewNew extends BaseReportView {
                 { eventDate: this.tableReport.data("today"), nonEntered: this.tableReport.data("non-entered-today") });
             callback();
             this.tableReportContainer.unblock();
+            this.isGettingReportData = false;
         }).fail((jqXHR) => {
             this.tableReportContainer.unblock();
+            this.isGettingReportData = false;
             if (jqXHR.status === 429) {
                 window.location.href = window.top.alpha.urls.mainRootPath + "error/blocked";
             } else if (jqXHR.status === 500 && jqXHR.responseText) {
@@ -322,6 +331,10 @@ class WinLossDetailViewNew extends BaseReportView {
 
         this.tableReport.find(".downline-link").off().click((e) => {
             e.preventDefault();
+            if (this.isGettingReportData) {
+                return;
+            }
+
             if (this.isInvalidGlobalFormData()) {
                 return;
             }

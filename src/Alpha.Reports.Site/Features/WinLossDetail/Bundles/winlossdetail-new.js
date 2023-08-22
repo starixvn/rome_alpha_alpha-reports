@@ -987,6 +987,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.sortColumnName = "username";
         _this.sortIndicator = 0; // asc: 0, desc: 1
+        _this.isGettingReportData = false;
         _this.totalEnteredNonEnteredComponent = totalEnteredNonEnteredComponent;
         _this.dateRangePickerComponent = dateRangePickerComponent;
         _this.productAndProductDetailDropdownComponent = productAndProductDetailDropdownComponent;
@@ -1050,6 +1051,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         var dateRange = this.dateRangePickerComponent.getDateRangeValues();
         this.constraintDateRangeAndProductDropdownList(dateRange);
         this.usernameAutoSuggestionComponent.init(new UsernameAutoSuggestionOption($("#hiddenUsernameAutoSuggestionUrl").val(), undefined, undefined, undefined, searchUsername, function (username) {
+            _this.isGettingReportData = true;
             var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
             var productsAndResources = _this.productAndProductDetailDropdownComponent.getCheckedValues();
             $.extend(_this.globalFormData, dateRange, productsAndResources, { username: username });
@@ -1058,12 +1060,16 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             delete _this.globalFormData.custName;
             delete _this.globalFormData.custLevelId;
             if (_this.isInvalidGlobalFormData()) {
+                _this.isGettingReportData = false;
                 return;
             }
             _this.getWinLossDetailDataAndRenderWeekRange(true);
         }));
         this.winLossDetailColumns.init();
         this.weekSelectionComponent.init(new WeekSelectionOption(function (dateRange) {
+            if (_this.isGettingReportData) {
+                return;
+            }
             if (_this.isInvalidGlobalFormData()) {
                 return;
             }
@@ -1147,8 +1153,10 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             _this.totalEnteredNonEnteredComponent.update({ eventDate: _this.tableReport.data("yesterday"), nonEntered: _this.tableReport.data("non-entered-yesterday") }, { eventDate: _this.tableReport.data("today"), nonEntered: _this.tableReport.data("non-entered-today") });
             callback();
             _this.tableReportContainer.unblock();
+            _this.isGettingReportData = false;
         }).fail(function (jqXHR) {
             _this.tableReportContainer.unblock();
+            _this.isGettingReportData = false;
             if (jqXHR.status === 429) {
                 window.location.href = window.top.alpha.urls.mainRootPath + "error/blocked";
             }
@@ -1227,6 +1235,9 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         });
         this.tableReport.find(".downline-link").off().click(function (e) {
             e.preventDefault();
+            if (_this.isGettingReportData) {
+                return;
+            }
             if (_this.isInvalidGlobalFormData()) {
                 return;
             }
