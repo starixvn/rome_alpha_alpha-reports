@@ -56,9 +56,6 @@
     <TypeScriptSourceRoot />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Alpha.ActivityTracking, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.ActivityTracking.1.0.0.3\lib\net461\Alpha.ActivityTracking.dll</HintPath>
-    </Reference>
     <Reference Include="Alpha.Auth, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.Auth.4.0.0-standard2\lib\net461\Alpha.Auth.dll</HintPath>
     </Reference>
@@ -110,14 +107,6 @@
     </Reference>
     <Reference Include="Enums.NET, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7ea1c1650d506225, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Enums.NET.3.0.3\lib\net45\Enums.NET.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.ActivityTracking, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.ActivityTracking.1.0.0.3\lib\net40\Fanex.ActivityTracking.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.ActivityTracking.Web, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.ActivityTracking.Web.1.0.0.3\lib\net40\Fanex.ActivityTracking.Web.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.BetList.Core.2.100.0\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
@@ -407,39 +396,6 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
-    <Content Include="App_Data\activitytracking.local.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.local_2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.local_3.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.napinternal.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.napinternal2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.prod.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.prod_2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.prod_3.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.uat.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.uat_2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.uat_3.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
     <Content Include="App_Data\securitycode.local.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
@@ -504,21 +460,6 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\MasterNew.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\MemberNew.xls" />
     <Content Include="App_Code\Components\UsernameAutoSuggestion.cshtml" />
-    <Content Include="App_Data\activitytracking.staging.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.staging2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.staging3.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.staginginternal.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\activitytracking.staginginternal2.json">
-      <DependentUpon>activitytracking.json</DependentUpon>
-    </Content>
     <Content Include="App_Data\ProductSection.staging.config">
       <DependentUpon>ProductSection.config</DependentUpon>
     </Content>
@@ -603,6 +544,7 @@
     </Content>
     <Content Include="Web.staginginternal2.config">
       <DependentUpon>Web.local.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <TypeScriptCompile Include="Features\Shared\Scripts\base-report-view.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\breadcrumb-level.ts" />
@@ -1826,7 +1768,6 @@
     <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByProduct.xls" />
     <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByUsername.xls" />
     <Content Include="assets\styles\consolidation\consolidation.scss" />
-    <Content Include="App_Data\activitytracking.json" />
     <Content Include="assets\styles\progressivecontribution\progressivecontribution.scss" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Master.xls" />
