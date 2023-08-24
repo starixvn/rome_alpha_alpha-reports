@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Tests.Models
 {
     using System.Collections.Generic;
+    using AlphaPlus.User.Models;
     using Site.Models;
-    using Sunplus.Agent.Model.Entities;
 
     public class UserForTest : User
     {

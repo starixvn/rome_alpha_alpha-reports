@@ -11,10 +11,10 @@
     using Alpha.Reports.Tests.Extensions;
     using Alpha.Reports.Tests.TestCases.BetChoiceMatching;
     using Alpha.Utilities.IP;
+    using AlphaPlus.User.Models;
     using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     [Trait("Category", "BetChoiceMatching")]

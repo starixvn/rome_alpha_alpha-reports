@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Configurations
 {
-    using Sunplus.Agent.Model.Entities;
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;

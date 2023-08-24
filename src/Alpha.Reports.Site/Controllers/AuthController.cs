@@ -12,11 +12,10 @@ using Alpha.Reports.Configurations;
 using Alpha.Reports.Site.Constants;
 using Alpha.SecurityCode.Web;
 using Alpha.Web.Filters;
+using AlphaPlus.User.Models;
 using Fanex.Cryptography.Aes;
 using Newtonsoft.Json;
 using ONEbook.UM.AspNetMVC.Filters;
-using Sunplus.Agent.Model.BL;
-using Sunplus.Agent.Model.Entities;
 
 namespace Alpha.Reports.Site.Controllers
 {
@@ -356,7 +355,7 @@ namespace Alpha.Reports.Site.Controllers
             var outputs = JsonConvert.DeserializeObject<Hashtable>(parameters[2]);
             try
             {
-                UserSessionService.SetUserSessionValues(session, outputs, (userSession, values) => { });
+                UserSessionExtensions.SetUserSessionValues(session, outputs, (userSession, values) => { });
             }
             catch { }
         }

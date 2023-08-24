@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Services
 {
-    using Sunplus.Agent.Model.Entities.Permission;
+    using AlphaPlus.User.Models;
 
     public interface UserPermissionService
     {

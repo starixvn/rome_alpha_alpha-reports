@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Tests.App_Start
 {
+    using Alpha.Reports.Models;
     using Site.App_Start;
-    using Sunplus.Agent.Model.BL.Definitions;
     using Xunit;
 
     public class BetTypeConfigTests

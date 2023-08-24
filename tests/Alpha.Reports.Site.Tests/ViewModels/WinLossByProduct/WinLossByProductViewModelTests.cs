@@ -4,6 +4,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
+    using Alpha.Reports.Models;
     using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Fixtures;
@@ -15,7 +16,6 @@
     using Services;
     using Site.Requests.WinLossByProduct;
     using Site.ViewModels.WinLossByProduct;
-    using Sunplus.Agent.Model.BL.Definitions;
     using Utils;
     using Xunit;
 

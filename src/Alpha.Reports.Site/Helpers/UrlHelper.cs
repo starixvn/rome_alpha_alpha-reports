@@ -7,7 +7,7 @@
     using System.Web;
     using Alpha.Reports.Configurations;
     using Alpha.Reports.Site.Constants;
-    using Sunplus.Agent.Model.Entities;
+    using AlphaPlus.User.Models;
     using Web.Helpers;
 
     public static class UrlHelper
@@ -185,7 +185,7 @@
                 return $"{mainDomain}/site-messages/(S({mainSessionId})){virtualPath?.Replace("~", string.Empty)}";
             }
 
-            return GetAppPath(virtualPath, MicroSites.MessageUrl, Web.Configurations.AppSettings.MessageAppPath);
+            return GetAppPath(virtualPath, MicroSites.MessageUrl, AlphaPlus.Configurations.AppSettings.MessageAppPath);
         }
 
         internal static string GetAppPath(string virtualPath, Func<string, string> getAppPath, string appPath)

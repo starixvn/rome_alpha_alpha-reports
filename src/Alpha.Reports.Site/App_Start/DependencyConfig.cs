@@ -43,14 +43,16 @@
     using SimpleInjector.Integration.Web;
     using SimpleInjector.Integration.Web.Mvc;
     using StaticData.Repositories;
-    using Sunplus.Agent.Model.Base;
-    using Sunplus.Agent.Model.Entities;
-    using Sunplus.Agent.Model.Entities.Permission;
+    using AlphaPlus.User.Models;
+    using AlphaPlus.Configurations;
 
     public static class DependencyConfig
     {
         public static void Init()
         {
+            ConfigurationManager.Init(new ConfigurationHelper());
+            UserSession.Init(new HttpContextHelper());
+
             var container = new Container();
 
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();

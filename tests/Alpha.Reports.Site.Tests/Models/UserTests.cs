@@ -2,9 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using AlphaPlus.User.Models;
     using NSubstitute;
     using Site.Models;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     public class UserTests

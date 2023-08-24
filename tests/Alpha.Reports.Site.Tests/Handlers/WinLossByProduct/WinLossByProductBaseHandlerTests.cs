@@ -2,11 +2,11 @@
 {
     using System.Globalization;
     using System.Threading;
+    using Alpha.Reports.Models;
     using Constants;
     using NSubstitute;
     using Services;
     using Site.Handlers.WinLossByProduct;
-    using Sunplus.Agent.Model.BL.Definitions;
     using Utils;
     using Xunit;
 

@@ -8,9 +8,9 @@
     using Alpha.Reports.Models.BetChoiceMatching;
     using Alpha.Reports.Params.BetChoiceMatching;
     using Alpha.Utilities.IP;
+    using AlphaPlus.User.Models;
     using Fanex.BetList.Core.Constants;
     using Fanex.Data.Repository;
-    using Sunplus.Agent.Model.Entities;
 
     public interface BetChoiceMatchingService
     {
