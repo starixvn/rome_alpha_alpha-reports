@@ -76,10 +76,6 @@
     <Reference Include="Fanex.Data, Version=4.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Data.4.2.2\lib\net461\Fanex.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Data.CrossCutting.WrappingException, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Data.CrossCutting.WrappingException.1.0.0.3\lib\net461\Fanex.Data.CrossCutting.WrappingException.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.Data.Repository, Version=4.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Data.Repository.4.2.2\lib\net461\Fanex.Data.Repository.dll</HintPath>
     </Reference>
