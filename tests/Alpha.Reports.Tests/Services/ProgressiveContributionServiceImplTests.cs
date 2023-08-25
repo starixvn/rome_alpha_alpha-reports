@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.ProgressiveContribution;
@@ -116,7 +116,7 @@
                 DateTime.Now.AddDays(1),
                 limitedDate,
                 Enumerable.Empty<int>(),
-                UserLevel.Super);  
+                UserLevel.Super);
 
             // Act
             progressiveContributionService.GetProgressiveContributions(param);

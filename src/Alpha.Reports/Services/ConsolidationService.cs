@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Criteria.WinLossDetail;
     using Alpha.Reports.DataAccesses;
     using Alpha.Reports.Extensions;

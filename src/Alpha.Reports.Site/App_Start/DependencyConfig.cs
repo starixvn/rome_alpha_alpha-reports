@@ -4,8 +4,6 @@
     using System.Reflection;
     using System.Web.Mvc;
     using Alpha.Reports.Features.AutoFollowBets;
-    using Alpha.PartialUM.DataAccess;
-    using Alpha.PartialUM.Services;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
     using Alpha.Reports.Features.BonusDetail;
@@ -15,6 +13,12 @@
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
     using Alpha.Utilities.IP;
     using Alpha.Web.Helpers;
+    using AlphaPlus.Configurations;
+    using AlphaPlus.PartialUM.DataAccess;
+    using AlphaPlus.PartialUM.Helpers;
+    using AlphaPlus.PartialUM.NetFramework.Helpers;
+    using AlphaPlus.PartialUM.Services;
+    using AlphaPlus.User.Models;
     using Configurations;
     using Controllers;
     using DataAccesses;
@@ -43,8 +47,6 @@
     using SimpleInjector.Integration.Web;
     using SimpleInjector.Integration.Web.Mvc;
     using StaticData.Repositories;
-    using AlphaPlus.User.Models;
-    using AlphaPlus.Configurations;
 
     public static class DependencyConfig
     {
@@ -175,10 +177,11 @@
 
             container.Register<MoveStatementHistoryService, MoveStatementHistoryServiceImpl>();
             container.Register<MoveStatementHistoryWorkbook, MoveStatementHistoryWorkbookImpl>();
-            
+
             container.Register<BetCreditHistoryService, BetCreditHistoryServiceImpl>();
             container.Register<BetCreditHistoryWorkbook, BetCreditHistoryWorkbookImpl>();
 
+            container.RegisterSingleton<IPartialUMSectionHelper, PartialUMSectionHelper>();
             container.RegisterSingleton<IPartialUMService, PartialUMService>();
 
             container.RegisterSingleton<AutoFollowBetService, AutoFollowBetServiceImpl>();

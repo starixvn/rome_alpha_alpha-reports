@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System.Collections.Generic;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Criteria.CommissionByBettype;
     using Fanex.Data.Repository;
     using Models;

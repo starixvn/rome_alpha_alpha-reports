@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Criteria.MatchWinLossDetail;
     using DataAccesses;
     using Extensions;
@@ -76,6 +76,5 @@
 
             return productService.FilterProductsByCustomer(viewerId, site, currencyId, productsForMatchWinLossDetail);
         }
-
     }
 }

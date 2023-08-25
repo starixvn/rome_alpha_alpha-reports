@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Features.SuperWinLossDetailByPT
 {
     using System;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Criteria;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Models;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Params;

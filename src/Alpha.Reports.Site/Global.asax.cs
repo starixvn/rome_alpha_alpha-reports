@@ -12,17 +12,16 @@
     using Alpha.Auth.Filters;
     using Alpha.NetThrottling.Mvc;
     using Alpha.NetThrottling.Utils;
-    using Alpha.PartialUM.Filters;
     using AlphaPlus.Logging;
     using AlphaPlus.Logging.Web;
+    using AlphaPlus.PartialUM.NetFramework.Filters;
     using AlphaPlus.User.Models;
     using App_Start;
     using Auth.Configurations;
     using Configurations;
     using Fanex.Caching;
     using Fanex.Data;
-    using Fanex.Data.CrossCutting.WrappingException;
-    using Fanex.Data.OldConnectionStringProvider;
+    using Fanex.Data.SqlServer;
     using Fanex.Logging.Extensions.Database;
     using Fanex.Logging.Extensions.Web;
     using Fanex.RemotingRef;
@@ -55,11 +54,8 @@
 
             DbSettingProviderManager
                 .StartNewSession()
-                .Use(new OldConnectionStringProvider())
-                .UseDefaultDbSettingProvider(resourcePath: SiteSettings.StoredProcedurePath, enableWatching: true)
-                .Use((settingKey, commandTimeout) => new WrappingExceptionObjectDb(settingKey, commandTimeout))
+                .WithSqlServer(resourcePath: SiteSettings.StoredProcedurePath)
                 .Run();
-
 
             ShareSession.Init();
 

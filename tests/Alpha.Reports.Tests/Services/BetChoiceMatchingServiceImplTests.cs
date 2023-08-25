@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.PartialUM.Services;
     using Alpha.Reports.Criteria.BetChoiceMatching;
     using Alpha.Reports.Models.BetChoiceMatching;
     using Alpha.Reports.Params.BetChoiceMatching;
@@ -11,9 +10,9 @@
     using Alpha.Reports.Tests.Extensions;
     using Alpha.Reports.Tests.TestCases.BetChoiceMatching;
     using Alpha.Utilities.IP;
+    using AlphaPlus.PartialUM.Services;
     using AlphaPlus.User.Models;
     using Fanex.Data.Repository;
-    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Xunit;
 
@@ -26,13 +25,11 @@
         private readonly BetChoiceMatchingService service;
         private readonly CacheRefService cacheRefService;
         private readonly IPartialUMService partialUMService;
-        private readonly CompareLogic compareLogic;
         private readonly DateTime winlostDate = DateTime.Parse("2019-09-09");
         private readonly DateTime moveBetsDay = DateTime.Parse("2019-08-08");
 
         public BetChoiceMatchingServiceImplTests()
         {
-            compareLogic = new CompareLogic();
             repository = Substitute.For<IDynamicRepository>();
             userSession = Substitute.For<IUserSession>();
             ipService = Substitute.For<IPService>();
@@ -45,7 +42,7 @@
         {
             var tickets = BetChoiceMatchingTestCases.Tickets;
             var ips = BetChoiceMatchingTestCases.IPs;
-            var tuple = new Tuple<IEnumerable<BetChoiceMatchingTicketModel>, IEnumerable<BetChoiceMatchingSharedIPModel>>(tickets, ips);
+            var tuple = (tickets, ips);
             cacheRefService.GetOddsTypeName(Arg.Any<string>()).Returns(callInfo =>
             {
                 var oddsType = callInfo.Arg<string>();

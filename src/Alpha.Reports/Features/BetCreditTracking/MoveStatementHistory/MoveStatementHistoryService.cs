@@ -1,8 +1,7 @@
 ﻿namespace Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory
 {
     using System.Linq;
-    using System.Threading.Tasks;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Params;

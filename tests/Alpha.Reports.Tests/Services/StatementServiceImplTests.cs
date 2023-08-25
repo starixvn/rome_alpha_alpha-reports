@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Criteria.Statement;
     using Alpha.Reports.DataAccesses;
     using Alpha.Reports.Models;
@@ -125,7 +125,7 @@
                 .Returns("_14");
             reportDateService.GetStoreMappingSuffix(Arg.Is<DateTime>(date => date == new DateTime(2017, 3, 29)))
                 .Returns("_WH");
-            
+
             // Act
             serviceImpl.GetStatements(param);
 

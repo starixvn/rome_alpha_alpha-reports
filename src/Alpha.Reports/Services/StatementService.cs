@@ -2,13 +2,14 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Criteria.Statement;
     using Alpha.Reports.DataAccesses;
     using Alpha.Reports.Models.Statement;
     using Alpha.Reports.Params.Statement;
     using Extensions;
     using Fanex.Data.Repository;
+    using System;
 
     public interface StatementService
     {
@@ -44,12 +45,11 @@
 
             foreach (var timeRange in timeRanges)
             {
-                var criteria = new GetStatementCriteria(
-                    param.CustId,
-                    timeRange.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
-                    timeRange.ToDate,
-                    balanceUpDay,
-                    reportDateService.GetStoreMappingSuffix(timeRange.FromDate));
+                var storeMappingSuffix = reportDateService.GetStoreMappingSuffix(timeRange.FromDate);
+
+                var criteria = string.Equals(storeMappingSuffix, ReportDateServiceImpl.BetTrans14SPSuffix, StringComparison.OrdinalIgnoreCase)
+                    ? new GetStatementBetTrans14Criteria(param.CustId, timeRange.FromDate.GetGreaterDate(param.LimitedDateToShowInfo), timeRange.ToDate, balanceUpDay)
+                    : new GetStatementCriteria(param.CustId, timeRange.FromDate.GetGreaterDate(param.LimitedDateToShowInfo), timeRange.ToDate, storeMappingSuffix);
 
                 partialUMService.ThrowIfUM(criteria.GetSettingKey());
 

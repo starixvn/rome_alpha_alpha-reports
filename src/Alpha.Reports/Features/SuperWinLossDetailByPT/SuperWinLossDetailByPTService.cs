@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System.Collections.Generic;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Features.SuperWinLossDetailByPT;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Criteria;

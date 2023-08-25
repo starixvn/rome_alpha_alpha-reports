@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Criteria.BetChoiceMatching;
     using Alpha.Reports.Models.BetChoiceMatching;
     using Alpha.Reports.Params.BetChoiceMatching;
@@ -172,9 +172,11 @@
                         case MemberWinLossOperators.GreatorOrEqual:
                             filterUsers = filterUsers.Where(user => !user.IsRunning && user.MemberWinLoss >= param.MemberWinLossValue.Value).ToList();
                             break;
+
                         case MemberWinLossOperators.Equal:
                             filterUsers = filterUsers.Where(user => !user.IsRunning && user.MemberWinLoss == param.MemberWinLossValue.Value).ToList();
                             break;
+
                         default:
                             filterUsers = filterUsers.Where(user => !user.IsRunning && user.MemberWinLoss <= param.MemberWinLossValue.Value).ToList();
                             break;
