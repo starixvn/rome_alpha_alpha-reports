@@ -47,9 +47,6 @@
     <Reference Include="AlphaPlus.PartialUM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AlphaPlus.PartialUM.1.0.0-beta1\lib\netstandard2.0\AlphaPlus.PartialUM.dll</HintPath>
     </Reference>
-    <Reference Include="AlphaPlus.PartialUM.NetFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AlphaPlus.PartialUM.NetFramework.1.0.0-beta1\lib\net461\AlphaPlus.PartialUM.NetFramework.dll</HintPath>
-    </Reference>
     <Reference Include="AlphaPlus.User.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AlphaPlus.User.Models.1.0.0-beta91\lib\netstandard2.0\AlphaPlus.User.Models.dll</HintPath>
     </Reference>

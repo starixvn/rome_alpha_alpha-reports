@@ -12,9 +12,9 @@
     using Alpha.Auth.Filters;
     using Alpha.NetThrottling.Mvc;
     using Alpha.NetThrottling.Utils;
+    using Alpha.PartialUM.Filters;
     using AlphaPlus.Logging;
     using AlphaPlus.Logging.Web;
-    using AlphaPlus.PartialUM.NetFramework.Filters;
     using AlphaPlus.User.Models;
     using App_Start;
     using Auth.Configurations;

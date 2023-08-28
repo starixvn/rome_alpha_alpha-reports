@@ -14,6 +14,7 @@ using Alpha.SecurityCode.Web;
 using Alpha.Web.Filters;
 using AlphaPlus.User.Models;
 using Fanex.Cryptography.Aes;
+using Fanex.Products;
 using Newtonsoft.Json;
 using ONEbook.UM.AspNetMVC.Filters;
 
@@ -355,9 +356,14 @@ namespace Alpha.Reports.Site.Controllers
             var outputs = JsonConvert.DeserializeObject<Hashtable>(parameters[2]);
             try
             {
-                UserSessionExtensions.SetUserSessionValues(session, outputs, (userSession, values) => { });
+                UserSessionExtensions.SetUserSessionValues(session, outputs, SetUserStatusToSession);
             }
             catch { }
+        }
+
+        private static void SetUserStatusToSession(IUserSession session, Hashtable userData)
+        {
+            ProductManager.SetProductsStatusToSession(userData);
         }
 
         private ActionResult RedirectToSpecificUrl()

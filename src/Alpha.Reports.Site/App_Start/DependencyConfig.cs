@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
+    using Alpha.PartialUM.Helpers;
     using Alpha.Reports.Features.AutoFollowBets;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
@@ -16,7 +17,6 @@
     using AlphaPlus.Configurations;
     using AlphaPlus.PartialUM.DataAccess;
     using AlphaPlus.PartialUM.Helpers;
-    using AlphaPlus.PartialUM.NetFramework.Helpers;
     using AlphaPlus.PartialUM.Services;
     using AlphaPlus.User.Models;
     using Configurations;
