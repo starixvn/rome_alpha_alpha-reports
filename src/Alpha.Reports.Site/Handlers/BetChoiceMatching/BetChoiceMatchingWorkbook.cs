@@ -5,13 +5,13 @@
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.Utils;
-    using NPOI.SS.UserModel;
-    using NPOI.SS.Util;
-    using ONEbook.SpreadSheets;
-    using ONEbook.SpreadSheets.NPOI;
+    using BetListNPOI.SS.UserModel;
+    using BetListNPOI.SS.Util;
+    using ONEbook.SpreadSheets.BetListNPOI;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using ONEbook.SpreadSheets;
 
     public interface BetChoiceMatchingWorkbook
     {
