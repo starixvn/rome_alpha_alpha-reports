@@ -383,7 +383,7 @@ namespace Alpha.Reports.Site.Controllers
 
         private void SetUMFilter()
         {
-            if (!GlobalFilters.Filters.Any(filter => filter.Instance is CheckUMFilterAttribute))
+            if (!Session.IsCookieless && !GlobalFilters.Filters.Any(filter => filter.Instance is CheckUMFilterAttribute))
             {
                 GlobalFilters.Filters.Add(new CheckUMFilterAttribute(
                     new MaintenanceService(UMClientManager.RestClient, UMClientManager.CacheService, UMClientManager.UMClientConfigs, UMClientManager.HttpContext), null));
