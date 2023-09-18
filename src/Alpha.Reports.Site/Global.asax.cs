@@ -7,10 +7,8 @@
     using System.Reflection;
     using System.Web;
     using System.Web.Helpers;
-    using System.Web.Hosting;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using System.Web.Security;
     using Alpha.Auth.Filters;
     using Alpha.Logging;
     using Alpha.NetThrottling.Mvc;
@@ -83,11 +81,8 @@
             GlobalFilters.Filters.Add(new AfterLoginFlowFilter(isAuthorizedChecking));
             GlobalFilters.Filters.Add(new ProtectedModeFilter(isAuthorizedChecking));
 
-            if (isAuthorizedChecking)
-            {
-                GlobalFilters.Filters.Add(new CheckUMFilterAttribute(
+            GlobalFilters.Filters.Add(new CheckUMFilterAttribute(
                 new MaintenanceService(UMClientManager.RestClient, UMClientManager.CacheService, UMClientManager.UMClientConfigs, UMClientManager.HttpContext), null));
-            }
 
             SiteSettings.Verify();
 
