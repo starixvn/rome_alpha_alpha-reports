@@ -250,7 +250,11 @@ class WinLossDetailViewNew extends BaseReportView {
             } else if (jqXHR.status === 500 && jqXHR.responseText) {
                 const responseObject = JSON.parse(jqXHR.responseText);
                 if (responseObject.UMFrom && responseObject.UMTo) {
-                    window.location.href = window.top.alpha.urls.mainRootPath + "partialum/index?" + $.param(responseObject);
+                    const cookielessSiteMainUrl = $("#CookielessSiteMainUrl");
+                    const siteMainUrl = cookielessSiteMainUrl.length
+                        ? cookielessSiteMainUrl.val()
+                        : window.top.alpha.urls.mainRootPath;
+                    window.location.href = `${siteMainUrl}partialum/index?${$.param(responseObject)}`;
                 }
             }
         }).always(() => this.removeIsWeekSelectionForStatistic());

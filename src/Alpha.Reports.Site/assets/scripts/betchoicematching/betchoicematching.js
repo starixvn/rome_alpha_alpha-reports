@@ -251,9 +251,11 @@ var BetChoiceMatching = /** @class */ (function () {
                 .fail(function (jqXHR) {
                 var jsonData = JSON.parse(jqXHR.responseText);
                 if (jsonData.UMFrom && jsonData.UMTo) {
-                    location.href = top["alpha"].urls.mainRootPath
-                        + "PartialUM/Index?umfrom=" + jsonData.UMFrom
-                        + "&umto=" + jsonData.UMTo;
+                    var cookielessSiteMainUrl = _this.$("#CookielessSiteMainUrl");
+                    var siteMainUrl = cookielessSiteMainUrl.length
+                        ? cookielessSiteMainUrl.val()
+                        : top["alpha"].urls.mainRootPath;
+                    location.href = siteMainUrl + "partialum/index?" + _this.$.param(jsonData);
                 }
             })
                 .always(function () {
