@@ -420,9 +420,11 @@ class BetChoiceMatching {
             .fail((jqXHR) => {
                 const jsonData = JSON.parse(jqXHR.responseText);
                 if (jsonData.UMFrom && jsonData.UMTo) {
-                    location.href = top["alpha"].urls.mainRootPath
-                        + "PartialUM/Index?umfrom=" + jsonData.UMFrom
-                        + "&umto=" + jsonData.UMTo;
+                    const cookielessSiteMainUrl = this.$("#CookielessSiteMainUrl");
+                    const siteMainUrl = cookielessSiteMainUrl.length
+                        ? cookielessSiteMainUrl.val()
+                        : top["alpha"].urls.mainRootPath;
+                    location.href = `${siteMainUrl}partialum/index?${this.$.param(jsonData)}`;
                 }
             })
             .always(() => {

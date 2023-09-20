@@ -24,5 +24,12 @@
     @StaticResources.AssetScripts.Render("/bundles/site-reports/default")
 
     @RenderSection("Scripts", required: false)
+    @if (Session.IsCookieless && Alpha.Reports.Configurations.SiteSettings.IsStandaloneReport)
+    {
+        var currentSession = Sunplus.Agent.Model.Entities.UserSession.Current;
+        var mainDomain = currentSession.GetProperty<string>(Alpha.Reports.Site.Constants.SessionKey.MainDomainSessionKey);
+        var mainSessionId = currentSession.GetProperty<string>(Alpha.Reports.Site.Constants.SessionKey.MainSessionID);
+        @Html.Hidden("CookielessSiteMainUrl", $"{mainDomain}/(S({mainSessionId})){Alpha.Web.Configurations.AppSettings.MainAppPath}/");
+    }
 </body>
 </html>
