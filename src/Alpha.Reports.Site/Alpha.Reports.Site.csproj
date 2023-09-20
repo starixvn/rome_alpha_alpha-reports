@@ -607,6 +607,15 @@
     <Content Include="App_Data\securitycode.staginginternal2.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
+    <Content Include="App_Data\activitytracking.napinternal3.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\ProductSection.napinternal3.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.napinternal3.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
@@ -2035,12 +2044,21 @@
     <Content Include="Web.ConnectionStrings.staginginternal2.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
     </Content>
+    <Content Include="Web.AppSettings.napinternal3.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.napinternal3.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="Web.uat_2.config">
       <DependentUpon>Web.local.config</DependentUpon>
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.napinternal3.config">
+      <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
