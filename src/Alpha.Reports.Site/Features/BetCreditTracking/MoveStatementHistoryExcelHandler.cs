@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Features.BetCreditTracking
 {
+    using System.Threading.Tasks;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
@@ -9,10 +10,11 @@
     using Alpha.Reports.Site.ViewModels;
     using MediatR;
     using ONEbook.SpreadSheets;
-    using System;
     using static ONEbook.SpreadSheets.Column;
 
-    public class MoveStatementHistoryExcelHandler : MoveStatementHistoryBaseHandler, IRequestHandler<MoveStatementHistoryExcelQuery, ExcelFileViewModel>
+    public class MoveStatementHistoryExcelHandler :
+        MoveStatementHistoryBaseHandler,
+        IAsyncRequestHandler<MoveStatementHistoryExcelQuery, ExcelFileViewModel>
     {
         private const int TitleStartIndex = 1;
         private const int HeaderStartIndex = 2;
@@ -29,16 +31,10 @@
             this.workbook = workbook;
         }
 
-        public ExcelFileViewModel Handle(MoveStatementHistoryExcelQuery message)
+        public async Task<ExcelFileViewModel> Handle(MoveStatementHistoryExcelQuery message)
         {
-            if (message == null)
-            {
-                throw new ArgumentNullException(nameof(message));
-            }
-
             var moveStatementHistoryParam = CreateExcelParameter(message);
-
-            var result = reportService.GetMoveStatementHistory(moveStatementHistoryParam);
+            var result = await reportService.GetMoveStatementHistory(moveStatementHistoryParam);
 
             var data = message.Data ?? result.Data;
 
@@ -82,21 +78,24 @@
                 param.FromDate.ToShortDateWithSlash(),
                 param.ToDate.ToShortDateWithSlash());
 
-        private Mapper<MoveStatementHistoryByRefNoModel> GetMemberMapper()
+        private Mapper<MoveStatementHistoryByRefNo> GetMemberMapper()
             => GetRowMapper(true);
 
-        private Mapper<MoveStatementHistoryByRefNoModel> GetRefNoMapper()
+        private Mapper<MoveStatementHistoryByRefNo> GetRefNoMapper()
             => GetRowMapper(false);
 
-        internal Mapper<MoveStatementHistoryByRefNoModel> GetRowMapper(bool isMember)
+        internal Mapper<MoveStatementHistoryByRefNo> GetRowMapper(bool isMember)
         {
             if (isMember)
             {
-                return new Mapper<MoveStatementHistoryByRefNoModel>()
-                    .Map(A, moveStatementHistory => moveStatementHistory.Username);
+                return new Mapper<MoveStatementHistoryByRefNo>()
+                    .Map(A, moveStatementHistory => moveStatementHistory.Username)
+                    .Map(D, moveStatementHistory => moveStatementHistory.MemberWinLoss)
+                    .Map(E, moveStatementHistory => moveStatementHistory.MemberComm)
+                    .Map(F, moveStatementHistory => moveStatementHistory.MemberTotal);
             }
 
-            return new Mapper<MoveStatementHistoryByRefNoModel>()
+            return new Mapper<MoveStatementHistoryByRefNo>()
                 .Map(A, moveStatementHistory => moveStatementHistory.TransId.ToString())
                 .Map(B, moveStatementHistory => moveStatementHistory.OldEventDate.ToShortDateWithSlash())
                 .Map(C, moveStatementHistory => moveStatementHistory.NewEventDate.ToShortDateWithSlash())

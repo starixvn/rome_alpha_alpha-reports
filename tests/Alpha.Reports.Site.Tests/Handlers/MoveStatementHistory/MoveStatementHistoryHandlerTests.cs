@@ -11,6 +11,7 @@
     using NSubstitute;
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Xunit;
 
     [Trait("Category", "MoveStatementHistory")]
@@ -29,19 +30,19 @@
         }
 
         [Fact]
-        public void Handle_Always_CallsServiceToGetMoveStatementHistory()
+        public async Task Handle_Always_CallsServiceToGetMoveStatementHistory()
         {
             // Arrange
             var message = new MoveStatementHistoryQuery(user);
 
-            var resultModel = new MoveStatementHistoryResultModel(0, "Success", null, 0);
+            var resultModel = new MoveStatementHistoryResult(0, "Success", null, 0);
             reportService.GetMoveStatementHistory(Arg.Any<MoveStatementHistoryParam>()).Returns(resultModel);
 
             // Act
-            handler.Handle(message);
+            await handler.Handle(message);
 
             // Assert
-            reportService.Received().GetMoveStatementHistory(Arg.Is<MoveStatementHistoryParam>(param
+            await reportService.Received().GetMoveStatementHistory(Arg.Is<MoveStatementHistoryParam>(param
                 => param != null
                 && param.Username == message.Username
                 && param.FromDate == message.FromDate
@@ -52,36 +53,26 @@
         }
 
         [Fact]
-        public void Handle_NullMessage_ThrowsArgumentNullException()
-        {
-            // Arrange
-            MoveStatementHistoryQuery nullMessage = null;
-
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => handler.Handle(nullMessage));
-        }
-
-        [Fact]
-        public void Handle_Valid_ReturnsCorrectViewModel()
+        public async Task Handle_Valid_ReturnsCorrectViewModel()
         {
             // Arrange
             var message = new MoveStatementHistoryQuery(user);
 
-            var refNoRow = new List<MoveStatementHistoryByRefNoModel>
+            var refNoRow = new List<MoveStatementHistoryByRefNo>
             {
-                new MoveStatementHistoryByRefNoModel(1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 10, 10, 10, 1),
-                new MoveStatementHistoryByRefNoModel(1, "member1", 2, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, 1)
+                new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 10, 10, 10, 1),
+                new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, 1)
             };
 
-            var rawData = new List<MoveStatementHistoryByMemberModel>
+            var rawData = new List<MoveStatementHistoryByMember>
             {
-                new MoveStatementHistoryByMemberModel(1, "member1", refNoRow)
+                new MoveStatementHistoryByMember(1, "member1", refNoRow)
             };
-            var resultModel = new MoveStatementHistoryResultModel(0, "Success", rawData, 2);
+            var resultModel = new MoveStatementHistoryResult(0, "Success", rawData, 2);
             reportService.GetMoveStatementHistory(Arg.Any<MoveStatementHistoryParam>()).Returns(resultModel);
 
             // Act
-            var actualViewModel = handler.Handle(message);
+            var actualViewModel = await handler.Handle(message);
 
             // Assert
             AssertExtension.Equal(actualViewModel.Data, rawData);
@@ -89,16 +80,16 @@
         }
 
         [Fact]
-        public void Handle_Invalid_ReturnsCorrectViewModel()
+        public async Task Handle_Invalid_ReturnsCorrectViewModel()
         {
             // Arrange
             var message = new MoveStatementHistoryQuery(user);
 
-            var resultModel = new MoveStatementHistoryResultModel(101, "Invalid member", null, 0);
+            var resultModel = new MoveStatementHistoryResult(101, "Invalid member", null, 0);
             reportService.GetMoveStatementHistory(Arg.Any<MoveStatementHistoryParam>()).Returns(resultModel);
 
             // Act
-            var actualViewModel = handler.Handle(message);
+            var actualViewModel = await handler.Handle(message);
 
             // Assert
             Assert.True(actualViewModel.Data == null && actualViewModel.ErrMsg != string.Empty);

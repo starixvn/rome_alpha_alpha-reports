@@ -1,5 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Tests.Handlers.MoveStatementHistory
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Params;
@@ -10,10 +15,6 @@
     using Alpha.Reports.Utils;
     using NSubstitute;
     using ONEbook.SpreadSheets;
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Threading;
     using Xunit;
 
     [Trait("Category", "MoveStatementHistory")]
@@ -24,35 +25,35 @@
         private readonly MoveStatementHistoryService reportService;
         private readonly MoveStatementHistoryExcelQuery excelQuery;
         private readonly MoveStatementHistoryWorkbook workbook;
-        private readonly Workbook<MoveStatementHistoryByRefNoModel> onebookWorkbook;
+        private readonly Workbook<MoveStatementHistoryByRefNo> onebookWorkbook;
 
         public MoveStatementHistoryExcelHandlerTests(UserFixture userFixture)
         {
             reportService = Substitute.For<MoveStatementHistoryService>();
 
             workbook = Substitute.For<MoveStatementHistoryWorkbook>();
-            onebookWorkbook = Substitute.For<Workbook<MoveStatementHistoryByRefNoModel>>();
+            onebookWorkbook = Substitute.For<Workbook<MoveStatementHistoryByRefNo>>();
 
-            workbook.SetData(Arg.Any<IEnumerable<MoveStatementHistoryByMemberModel>>()).Returns(workbook);
-            workbook.SetRowMappers(Arg.Any<Mapper<MoveStatementHistoryByRefNoModel>>(), Arg.Any<Mapper<MoveStatementHistoryByRefNoModel>>()).Returns(workbook);
+            workbook.SetData(Arg.Any<IEnumerable<MoveStatementHistoryByMember>>()).Returns(workbook);
+            workbook.SetRowMappers(Arg.Any<Mapper<MoveStatementHistoryByRefNo>>(), Arg.Any<Mapper<MoveStatementHistoryByRefNo>>()).Returns(workbook);
             workbook.UseTemplate(Arg.Any<TemplateInfo>()).Returns(onebookWorkbook);
 
             onebookWorkbook.Title(Arg.Any<string>()).Returns(onebookWorkbook);
             onebookWorkbook.Header(Arg.Any<Func<string, string>>()).Returns(onebookWorkbook);
-            onebookWorkbook.Body(Arg.Any<IEnumerable<MoveStatementHistoryByRefNoModel>>(), Arg.Any<Mapper<MoveStatementHistoryByRefNoModel>>()).Returns(onebookWorkbook);
+            onebookWorkbook.Body(Arg.Any<IEnumerable<MoveStatementHistoryByRefNo>>(), Arg.Any<Mapper<MoveStatementHistoryByRefNo>>()).Returns(onebookWorkbook);
             onebookWorkbook.Sheet(Arg.Any<string>()).Returns(onebookWorkbook);
 
-            var refNoRow = new List<MoveStatementHistoryByRefNoModel>
+            var refNoRow = new List<MoveStatementHistoryByRefNo>
             {
-                new MoveStatementHistoryByRefNoModel(1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 10, 10, 10, 1),
-                new MoveStatementHistoryByRefNoModel(1, "member1", 2, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, 1)
+                new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 10, 10, 10, 1),
+                new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, 1)
             };
 
-            var rawData = new List<MoveStatementHistoryByMemberModel>
+            var rawData = new List<MoveStatementHistoryByMember>
             {
-                new MoveStatementHistoryByMemberModel(1, "member1", refNoRow)
+                new MoveStatementHistoryByMember(1, "member1", refNoRow)
             };
-            var resultModel = new MoveStatementHistoryResultModel(0, "Success", rawData, 2);
+            var resultModel = new MoveStatementHistoryResult(0, "Success", rawData, 2);
             reportService.GetMoveStatementHistory(Arg.Any<MoveStatementHistoryParam>()).Returns(resultModel);
             handler = Substitute.ForPartsOf<MoveStatementHistoryExcelHandler>(reportService, workbook);
             handler.MapPath = (path) => path;
@@ -66,90 +67,80 @@
         }
 
         [Fact]
-        public void Handle_NullMessage_ThrowsArgumentNullException()
-        {
-            // Arrange
-            MoveStatementHistoryExcelQuery nullMessage = null;
-
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => handler.Handle(nullMessage));
-        }
-
-        [Fact]
-        public void Handle_NotNullMessage_SetsRowMappers()
+        public async Task Handle_NotNullMessage_SetsRowMappers()
         {
             // Act
-            handler.Handle(excelQuery);
+            await handler.Handle(excelQuery);
 
             // Assert
-            workbook.Received().SetRowMappers(Arg.Any<Mapper<MoveStatementHistoryByRefNoModel>>(), Arg.Any<Mapper<MoveStatementHistoryByRefNoModel>>());
+            workbook.Received().SetRowMappers(Arg.Any<Mapper<MoveStatementHistoryByRefNo>>(), Arg.Any<Mapper<MoveStatementHistoryByRefNo>>());
         }
 
         [Fact]
-        public void Handle_NotNullMessage_SetsDataToWorkbook()
+        public async Task Handle_NotNullMessage_SetsDataToWorkbook()
         {
             // Act
-            handler.Handle(excelQuery);
+            await handler.Handle(excelQuery);
 
             // Assert
-            workbook.Received().SetData(Arg.Any<IEnumerable<MoveStatementHistoryByMemberModel>>());
+            workbook.Received().SetData(Arg.Any<IEnumerable<MoveStatementHistoryByMember>>());
         }
 
         [Fact]
-        public void Handle_NotNullMessage_UsesCorrectTemplate()
+        public async Task Handle_NotNullMessage_UsesCorrectTemplate()
         {
             // Act
-            handler.Handle(excelQuery);
+            await handler.Handle(excelQuery);
 
             // Assert
             workbook.Received().UseTemplate(Arg.Is<TemplateInfo>(tp => tp.NoInfomationText == "No information is available"));
         }
 
         [Fact]
-        public void Handle_NotNullMessage_ExportsCorrectSheetName()
+        public async Task Handle_NotNullMessage_ExportsCorrectSheetName()
         {
             // Act
-            handler.Handle(excelQuery);
+            await handler.Handle(excelQuery);
 
             // Assert
             onebookWorkbook.Received().Sheet(Arg.Is("Sheet 1"));
         }
 
         [Fact]
-        public void Handle_NotNullMessage_ExportsExcelToBytes()
+        public async Task Handle_NotNullMessage_ExportsExcelToBytes()
         {
             // Act
-            handler.Handle(excelQuery);
+            await handler.Handle(excelQuery);
 
             // Assert
             onebookWorkbook.Received().ExportToBytes();
         }
 
         [Fact]
-        public void Handle_NotNullMessage_ExportsCorrectTitle()
+        public async Task Handle_NotNullMessage_ExportsCorrectTitle()
         {
             // Act
-            handler.Handle(excelQuery);
+            await handler.Handle(excelQuery);
 
             // Assert
             onebookWorkbook.Received().Title(Arg.Is("Move Statement History 12/02/2016 -->  12/02/2016"));
         }
 
         [Fact]
-        public void Handle_NotNullMessage_ExportsCorrectHeader()
+        public async Task Handle_NotNullMessage_ExportsCorrectHeader()
         {
             // Act
-            handler.Handle(excelQuery);
+            await handler.Handle(excelQuery);
 
             // Assert
             onebookWorkbook.Received().Header(Arg.Any<Func<string, string>>());
         }
 
         [Fact]
-        public void Handle_NotNullMessage_CallMapExcelTemplatePath()
+        public async Task Handle_NotNullMessage_CallMapExcelTemplatePath()
         {
             // Act
-            handler.Handle(excelQuery);
+            await handler.Handle(excelQuery);
 
             // Assert
             handler.Received().GetExcelTemplatePath("MoveStatementHistory");
@@ -159,7 +150,7 @@
         public void GetMemberMapper_Always_MapCorrectly()
         {
             // Arrange
-            var model = new MoveStatementHistoryByRefNoModel(1, "member1", 2, new DateTime(2022, 01, 01), new DateTime(2022, 01, 02), 10, 10, 10, 1);
+            var model = new MoveStatementHistoryByRefNo(1, "member1", 2, new DateTime(2022, 01, 01), new DateTime(2022, 01, 02), 10, 10, 10, 1);
 
             // Act
             var actualMapper = handler.GetRowMapper(true);
@@ -172,7 +163,7 @@
         public void GetRefNoMapper_Always_MapCorrectly()
         {
             // Arrange
-            var model = new MoveStatementHistoryByRefNoModel(1, "member1", 2, new DateTime(2022, 01, 01), new DateTime(2022, 01, 02), 10, 10, 10, 1);
+            var model = new MoveStatementHistoryByRefNo(1, "member1", 2, new DateTime(2022, 01, 01), new DateTime(2022, 01, 02), 10, 10, 10, 1);
 
             // Act
             var actualMapper = handler.GetRowMapper(false);

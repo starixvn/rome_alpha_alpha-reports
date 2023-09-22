@@ -241,9 +241,9 @@
       <DependentUpon>BetCreditHistoryResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Criteria\MoveStatementHistoryCriteria.cs" />
-    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryByMemberModel.cs" />
-    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryByRefNoModel.cs" />
-    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryResultModel.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryByMember.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryByRefNo.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryResult.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Params\MoveStatementHistoryParam.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\MoveStatementHistoryService.cs" />
     <Compile Include="Features\AutoFollowBets\Criteria\GetFollowBetAccountsCriteria.cs" />

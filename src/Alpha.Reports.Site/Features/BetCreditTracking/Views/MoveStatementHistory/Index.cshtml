@@ -37,9 +37,7 @@
         <li role="presentation" class="active">
             <a href="#moveStatementHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.MoveStatementHistory</a>
         </li>
-        <li>
-            <a href="@userguideLink" target="_blank"><span class="icon icon-information-outline"></span></a>
-        </li>
+        <li><a href="@userguideLink" target="_blank"><span class="icon icon-information-outline"></span></a></li>
     </ul>
 
     <div class="list-icon">
@@ -51,9 +49,7 @@
 </div>
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="moveStatementHistory">
-        @{
-            Html.RenderPartial("~/Features/BetCreditTracking/Views/MoveStatementHistory/_Filter.cshtml", Model);
-        }
+        @{ Html.RenderPartial("~/Features/BetCreditTracking/Views/MoveStatementHistory/_Filter.cshtml", Model); }
         @if (Model.Data != null && Model.ErrMsg == string.Empty)
         {
             <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
@@ -69,9 +65,7 @@
                 </thead>
                 @if (Model.Data.Any())
                 {
-                    <tbody>
-                        @BuildReport(Model.Data)
-                    </tbody>
+                    <tbody>@BuildReport(Model.Data)</tbody>
                 }
                 else
                 {
@@ -81,7 +75,6 @@
         }
     </div>
 </div>
-
 @Pager.Render(Model.PagerViewModel)
 
 <form class="form-inline hide" role="form" id="export-excel-form"
@@ -91,19 +84,17 @@
     @Html.Hidden("ToDate", Model.ToDate)
 </form>
 
-@helper BuildReport(IEnumerable<MoveStatementHistoryByMemberModel> dataSource)
+@helper BuildReport(IEnumerable<MoveStatementHistoryByMember> dataSource)
 {
     foreach (var member in dataSource)
     {
         <tr class="member-row">
-            <td class="text-left">
-                @member.Username
-            </td>
+            <td class="text-left"> @member.MemberRow.Username</td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>@HtmlHelpers.FormatNumber(member.MemberRow.MemberWinLoss)</td>
+            <td>@HtmlHelpers.FormatNumber(member.MemberRow.MemberComm)</td>
+            <td>@HtmlHelpers.FormatNumber(member.MemberRow.MemberTotal)</td>
         </tr>
         foreach (var row in member.RefNoRow)
         {

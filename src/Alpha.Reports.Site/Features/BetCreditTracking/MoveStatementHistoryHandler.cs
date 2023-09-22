@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Features.BetCreditTracking
 {
-    using System;
+    using System.Threading.Tasks;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
     using Alpha.Reports.Site.Features.BetCreditTracking.ViewModels;
@@ -8,21 +8,16 @@
 
     public class MoveStatementHistoryHandler : 
         MoveStatementHistoryBaseHandler, 
-        IRequestHandler<MoveStatementHistoryQuery, MoveStatementHistoryViewModel>
+        IAsyncRequestHandler<MoveStatementHistoryQuery, MoveStatementHistoryViewModel>
     {
         public MoveStatementHistoryHandler(MoveStatementHistoryService reportService) : base(reportService)
         {
         }
 
-        public MoveStatementHistoryViewModel Handle(MoveStatementHistoryQuery message)
+        public async Task<MoveStatementHistoryViewModel> Handle(MoveStatementHistoryQuery message)
         {
-            if (message == null)
-            {
-                throw new ArgumentNullException(nameof(message));
-            }
-
             var moveStatementHistoryParam = CreateParameter(message);
-            var result = reportService.GetMoveStatementHistory(moveStatementHistoryParam);
+            var result = await reportService.GetMoveStatementHistory(moveStatementHistoryParam);
 
             if (result.ErrorCode != 0)
             {

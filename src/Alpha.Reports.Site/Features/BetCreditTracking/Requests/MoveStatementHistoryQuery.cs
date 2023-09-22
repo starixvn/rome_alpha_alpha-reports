@@ -8,7 +8,7 @@
     using MediatR;
     using System;
 
-    public class MoveStatementHistoryQuery : ReportBaseQuery, IRequest<MoveStatementHistoryViewModel>
+    public class MoveStatementHistoryQuery : ReportBaseQuery, IAsyncRequest<MoveStatementHistoryViewModel>
     {
         private readonly DateTime ReleasedDateTime = new DateTime(2022, 5, 31);
 
@@ -33,8 +33,6 @@
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
-
-        public DateTime MinDate { get; set; }
 
         public override bool IsValid()
             => base.IsValid() 

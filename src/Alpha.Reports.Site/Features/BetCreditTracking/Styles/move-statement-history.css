@@ -5,6 +5,13 @@
     top: 0px;
     right: 0px; }
 
+.note-box {
+  margin-bottom: 10px; }
+
+.note {
+  margin-bottom: 0;
+  line-height: 1.8; }
+
 .member-row {
   background-color: #f3f5e0;
   font-weight: bold; }

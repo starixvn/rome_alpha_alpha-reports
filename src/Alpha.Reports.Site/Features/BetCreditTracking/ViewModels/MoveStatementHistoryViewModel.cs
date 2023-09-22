@@ -14,7 +14,7 @@
     {
         private const string DefaultBetListPath = "~/MoveStatementHistory/Index";
 
-        public MoveStatementHistoryViewModel(IEnumerable<MoveStatementHistoryByMemberModel> data, MoveStatementHistoryQuery message, bool isError = false, int totalRows = 0)
+        public MoveStatementHistoryViewModel(IEnumerable<MoveStatementHistoryByMember> data, MoveStatementHistoryQuery message, bool isError = false, int totalRows = 0)
         {
             Data = data;
             CustLevel = message.ViewerLevel.DisplayName;
@@ -32,7 +32,7 @@
             ErrMsg = isError ? Resources.InvalidUsername : string.Empty;
         }
 
-        public IEnumerable<MoveStatementHistoryByMemberModel> Data { get; }
+        public IEnumerable<MoveStatementHistoryByMember> Data { get; }
 
         public string CustLevel { get; }
 

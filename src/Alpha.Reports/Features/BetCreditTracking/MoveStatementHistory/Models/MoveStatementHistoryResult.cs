@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
 
-    public class MoveStatementHistoryResultModel
+    public class MoveStatementHistoryResult
     {
-        public MoveStatementHistoryResultModel(int errorCode, string errorMess, IEnumerable<MoveStatementHistoryByMemberModel> data, int totalRows)
+        public MoveStatementHistoryResult(int errorCode, string errorMess, IEnumerable<MoveStatementHistoryByMember> data, int totalRows)
         {
             ErrorCode = errorCode;
             ErrorMess = errorMess;
@@ -16,7 +16,7 @@
 
         public string ErrorMess { get; }
 
-        public IEnumerable<MoveStatementHistoryByMemberModel> Data { get; }
+        public IEnumerable<MoveStatementHistoryByMember> Data { get; }
 
         public int TotalRows { get; }
     }

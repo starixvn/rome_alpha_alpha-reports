@@ -1,47 +1,27 @@
 ﻿@{
     Layout = null;
 }
-
 @model MoveStatementHistoryViewModel
-
 @using (Html.BeginForm("Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MoveStatementHistory", FormMethod.Get, new { @class = "form-inline filter" + (Model.IsFilterVisible ? string.Empty : " hide"), role = "form", id = "report-form" }))
 {
     <input type="hidden" value="@Model.IsFilterVisible.ToString().ToLowerInvariant()" name="IsFilterVisible" id="IsFilterVisible" />
-
     <div class="form-group">
         <label>@Resources.Member</label>
         <input type="text" style="width: 200px;" autocomplete="off" name="Username" value="@Model.Username" placeholder="@Resources.Username" />
     </div>
-
     @MonthPicker.Render(Model.MonthPickerViewModel, true);
-
-    <div class="form-group">
-        <input type="submit" value="@Resources.Submit" class="btn-submit" id="btn-submit" />
+    <div class="form-group"><input type="submit" value="@Resources.Submit" class="btn-submit" id="btn-submit" /></div>
+    <div class="form-group"><span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span></div>
+    <div class="note-box">
+        <p class="note"><span class="star">*</span>@Model.ViewDataInstructionMessage</p>
+        <p class="note" style="margin-left: 14px;">@Resources.MoveStatementHistoryNote</p>
+        @if (Model.IsShowDuplicatedTicketMessage)
+        {
+            <p class="note red" style="margin-left: 14px;">@Resources.DuplicatedTicketMessage</p>
+        }
     </div>
-
-    <div class="form-group">
-        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
-    </div>
-
-    <div class="note">
-        <span class="star">*</span>@Model.ViewDataInstructionMessage
-    </div>
-
-    <div class="note" style="margin-left: 14px;">
-        @Resources.MoveStatementHistoryNote
-    </div>
-
-    if (Model.IsShowDuplicatedTicketMessage)
-    {
-        <div class="note red" style="margin-left: 14px;">
-            @Resources.DuplicatedTicketMessage
-        </div>
-    }
-
     if (Model.ErrMsg != string.Empty)
     {
-        <div id="msg-error" class="msg msg-error">
-            @Model.ErrMsg
-        </div>
+        <div id="msg-error" class="msg msg-error">@Model.ErrMsg</div>
     }
 }

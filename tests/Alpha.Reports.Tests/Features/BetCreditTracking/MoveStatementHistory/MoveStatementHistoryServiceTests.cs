@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Features.BetCreditTracking.MoveStatementHistory
 {
     using System;
+    using System.Threading.Tasks;
     using Alpha.PartialUM.Services;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Criteria;
@@ -25,29 +26,29 @@
         }
 
         [Fact]
-        public void GetMoveStatementHistory_Always_CallThrowIfUM()
+        public async Task GetMoveStatementHistory_Always_CallThrowIfUM()
         {
             // Arrange
             var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
 
             // Act
-            service.GetMoveStatementHistory(param);
+            await service.GetMoveStatementHistory(param);
 
             // Assert
             partialUMService.Received().ThrowIfUM("Age_Rpt_StatementMovement");
         }
 
         [Fact]
-        public void GetMoveStatementHistory_Always_CallFetch()
+        public async Task GetMoveStatementHistory_Always_CallFetch()
         {
             // Arrange
             var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
 
             // Act
-            service.GetMoveStatementHistory(param);
+            await service.GetMoveStatementHistory(param);
 
             // Assert
-            repository.Received().Fetch<MoveStatementHistoryByRefNoModel>(Arg.Is<MoveStatementHistoryCriteria>(
+            await repository.Received().FetchAsync<MoveStatementHistoryByRefNo>(Arg.Is<MoveStatementHistoryCriteria>(
                 criteria => criteria.Username == param.Username
                 && criteria.FromDate == param.FromDate
                 && criteria.ToDate == param.ToDate
