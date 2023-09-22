@@ -50,29 +50,84 @@
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="moveStatementHistory">
         @{ Html.RenderPartial("~/Features/BetCreditTracking/Views/MoveStatementHistory/_Filter.cshtml", Model); }
-        @if (Model.Data != null && Model.ErrMsg == string.Empty)
-        {
-            <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
-                <thead>
-                    <tr>
-                        <th>@Resources.MemberRefNo</th>
-                        <th>@Resources.OldEventDate</th>
-                        <th>@Resources.NewEventDate</th>
-                        <th>@Resources.MemberWinLossNew</th>
-                        <th>@Resources.MemberCommNew</th>
-                        <th>@Resources.MemberTotalNew</th>
-                    </tr>
-                </thead>
-                @if (Model.Data.Any())
-                {
-                    <tbody>@BuildReport(Model.Data)</tbody>
-                }
-                else
-                {
-                    @NoInformation.Render(6)
-                }
-            </table>
-        }
+        
+        <div class="list-total-statement">
+            <div class="item">
+                <div class="title-total">
+                    Total Members
+                </div>
+                <div class="text-total">
+                    3
+                </div>
+            </div>
+            <div class="item">
+                <div class="title-total">
+                    Total Win/Loss
+                </div>
+                <div class="text-total">
+                    -107.63
+                </div>
+            </div>
+            <div class="item">
+                <div class="title-total">
+                    Total Commission
+                </div>
+                <div class="text-total">
+                    0.03
+                </div>
+            </div>
+            <div class="item">
+                <div class="title-total">
+                    Total Members
+                </div>
+                <div class="text-total">
+                    -107.60
+                </div>
+            </div>
+            <div class="item last-item">
+                <span class="title-total" data-title="Data moved outside the selected date range and led to report's variance">
+                    Variance from Selected Date
+                </span> 
+                <div class="text-total">
+                    -57.76
+                </div>
+            </div>
+        </div>
+        <div style="display: inline-block;">
+            <div class="breadcrumb-table">
+                <div class="breadcrumb-container">
+                    <ul class="breadcrumb" id="breadcrumb">
+                    <li>
+                        <a class="upline-link" >SUPERTESTTE01</a>
+                    </li>
+                    <li>SUPERTESTTE010D</li>
+                    </ul>
+                </div>               
+            </div>
+            @if (Model.Data != null && Model.ErrMsg == string.Empty)
+            {
+                <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
+                    <thead>
+                        <tr>
+                            <th>@Resources.MemberRefNo</th>
+                            <th>@Resources.OldEventDate</th>
+                            <th>@Resources.NewEventDate</th>
+                            <th>@Resources.MemberWinLossNew</th>
+                            <th>@Resources.MemberCommNew</th>
+                            <th>@Resources.MemberTotalNew</th>
+                        </tr>
+                    </thead>
+                    @if (Model.Data.Any())
+                    {
+                        <tbody>@BuildReport(Model.Data)</tbody>
+                    }
+                    else
+                    {
+                        @NoInformation.Render(6)
+                    }
+                </table>
+            }
+        </div>
     </div>
 </div>
 @Pager.Render(Model.PagerViewModel)
