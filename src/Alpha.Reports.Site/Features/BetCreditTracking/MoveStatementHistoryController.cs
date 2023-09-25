@@ -15,7 +15,9 @@
         }
 
         public Task<ActionResult> Index(MoveStatementHistoryQuery message)
-            => ViewAsync(string.Format(basePath, nameof(Index)), message);
+        {
+            return ViewAsync(string.Format(basePath, nameof(Index)), message);
+        }
 
         public Task<FileContentResult> Excel(MoveStatementHistoryExcelQuery message)
             => ExcelViewAsync(message);

@@ -49,61 +49,77 @@
 </div>
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="moveStatementHistory">
-        @{ Html.RenderPartial("~/Features/BetCreditTracking/Views/MoveStatementHistory/_Filter.cshtml", Model); }
-        
-        <div class="list-total-statement">
-            <div class="item">
-                <div class="title-total">
-                    Total Members
+        @{
+            Html.RenderPartial("~/Features/BetCreditTracking/Views/MoveStatementHistory/_Filter.cshtml", Model);
+        }
+
+        @if (Model.IsMainReport)
+        {
+            var summary = Model.Summary;
+            <div class="list-total-statement">
+                <div class="item">
+                    <div class="title-total">
+                        @Resources.TotalMembers
+                    </div>
+                    <div class="text-total">
+                        @summary.TotalMembers
+                    </div>
                 </div>
-                <div class="text-total">
-                    3
+                <div class="item">
+                    <div class="title-total">
+                        @Resources.TotalWinLoss
+                    </div>
+                    <div class="text-total">
+                        @HtmlHelpers.FormatNumber(summary.MemberWinLoss)
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title-total">
+                        @Resources.TotalCommission
+                    </div>
+                    <div class="text-total">
+                        @HtmlHelpers.FormatNumber(summary.MemberComm)
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title-total">
+                        @Resources.SumOfMemberTotal
+                    </div>
+                    <div class="text-total">
+                        @HtmlHelpers.FormatNumber(summary.MemberTotal)
+                    </div>
+                </div>
+                <div class="item last-item">
+                    <span class="title-total" data-title="@Resources.DataOutsideDateRange">
+                        @Resources.VarianceFromSelectedDate
+                    </span>
+                    <div class="text-total">
+                        @{
+                            var link = System.Web.HttpContext.Current.Request.Url.ToString().Replace("IsMainReport=true", "IsMainReport=false");
+                        }
+                        <a id="detail-link" href="#">@HtmlHelpers.FormatNumber(summary.Variance)</a>
+
+                    </div>
                 </div>
             </div>
-            <div class="item">
-                <div class="title-total">
-                    Total Win/Loss
-                </div>
-                <div class="text-total">
-                    -107.63
-                </div>
-            </div>
-            <div class="item">
-                <div class="title-total">
-                    Total Commission
-                </div>
-                <div class="text-total">
-                    0.03
-                </div>
-            </div>
-            <div class="item">
-                <div class="title-total">
-                    Total Members
-                </div>
-                <div class="text-total">
-                    -107.60
-                </div>
-            </div>
-            <div class="item last-item">
-                <span class="title-total" data-title="Data moved outside the selected date range and led to report's variance">
-                    Variance from Selected Date
-                </span> 
-                <div class="text-total">
-                    -57.76
-                </div>
-            </div>
-        </div>
+        }
         <div style="display: inline-block;">
-            <div class="breadcrumb-table">
-                <div class="breadcrumb-container">
-                    <ul class="breadcrumb" id="breadcrumb">
-                    <li>
-                        <a class="upline-link" >SUPERTESTTE01</a>
-                    </li>
-                    <li>SUPERTESTTE010D</li>
-                    </ul>
-                </div>               
-            </div>
+            @if (!Model.IsMainReport)
+            {
+                <div class="breadcrumb-table">
+                    <div class="breadcrumb-container">
+                        <ul class="breadcrumb" id="breadcrumb">
+                            <li>
+                                @{
+                                    var link = System.Web.HttpContext.Current.Request.Url.ToString().Replace("IsMainReport=false", "IsMainReport=true");
+                                }
+                                <a id="back-link" class="upline-link" href="#">@Resources.MainReport</a>
+                            </li>
+                            <li>@Resources.VarianceFromSelectedDate</li>
+                        </ul>
+                    </div>
+                </div>
+            }
             @if (Model.Data != null && Model.ErrMsg == string.Empty)
             {
                 <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
@@ -137,6 +153,8 @@
     @Html.Hidden("Username", Model.Username)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
+    @Html.Hidden("IsMainReport", Model.IsMainReport)
+
 </form>
 
 @helper BuildReport(IEnumerable<MoveStatementHistoryByMember> dataSource)

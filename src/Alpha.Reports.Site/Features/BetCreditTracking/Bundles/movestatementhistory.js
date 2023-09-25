@@ -307,6 +307,8 @@ var MoveStatementHistory = /** @class */ (function () {
     };
     MoveStatementHistory.prototype.cacheElements = function () {
         this.$reportForm = this.$("#report-form");
+        this.$detailLink = this.$("#detail-link");
+        this.$backLink = this.$("#back-link");
         this.$pageTitle = this.$(".page-title");
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$exportExcelForm = this.$("#export-excel-form");
@@ -322,10 +324,21 @@ var MoveStatementHistory = /** @class */ (function () {
         this.$(".icon-filter").click(this.onClickIconFilter);
         this.$reportForm.submit(this.onSubmitReport);
         this.$("#btn-submit").click(function () {
+            _this.$("#IsMainReport").val("true");
             _this.$("#PageIndex").val("1");
             _this.$("#PageSize").val("100");
         });
         this.$("#icon-excel").click(this.onExportExcel);
+        this.$backLink.click(this.onClickBackLink);
+        this.$detailLink.click(this.onClickDetailLink);
+    };
+    MoveStatementHistory.prototype.onClickBackLink = function () {
+        $("#IsMainReport").val("true");
+        this.$reportForm.submit();
+    };
+    MoveStatementHistory.prototype.onClickDetailLink = function () {
+        $("#IsMainReport").val("false");
+        this.$reportForm.submit();
     };
     return MoveStatementHistory;
 }());

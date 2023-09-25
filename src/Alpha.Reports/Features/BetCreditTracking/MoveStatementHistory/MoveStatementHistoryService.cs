@@ -29,8 +29,9 @@
             var criteria = new MoveStatementHistoryCriteria(param);
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
-            var rawdata = await dynamicRepository.FetchMultipleAsync<MoveStatementHistoryByRefNo, MoveStatementHistoryByRefNo>(criteria);
+            var rawdata = await dynamicRepository.FetchMultipleAsync<MoveStatementHistoryByRefNo, MoveStatementHistoryByRefNo, MoveStatementHistorySummary>(criteria);
             var reportData = Enumerable.Empty<MoveStatementHistoryByMember>();
+            var summaryData = new MoveStatementHistorySummary();
 
             if (criteria.TotalRows > 0)
             {
@@ -42,9 +43,10 @@
                             key.Username,
                             memberRowHash.TryGetValue(key.CustId, out var memberRow) ? memberRow : new MoveStatementHistoryByRefNo(),
                             g));
+                summaryData = rawdata.Item3.FirstOrDefault();
             }
 
-            return new MoveStatementHistoryResult(criteria.ErrorCode, criteria.ErrorMess, reportData, criteria.TotalRows);
+            return new MoveStatementHistoryResult(criteria.ErrorCode, criteria.ErrorMess, reportData, summaryData, criteria.TotalRows);
         }
     }
 }

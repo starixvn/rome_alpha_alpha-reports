@@ -1000,4 +1000,25 @@
   <data name="GrossCommRoundingNote" xml:space="preserve">
     <value>佣金值可能与理论值略有不同（总佣金 * 占成数），因为是通过子注单的佣金值 (四个小数点净值) 相加以计算。</value>
   </data>
+  <data name="TotalMembers" xml:space="preserve">
+    <value>会员总数</value>
+  </data>
+  <data name="TotalWinLoss" xml:space="preserve">
+    <value>总输赢</value>
+  </data>
+  <data name="TotalCommission" xml:space="preserve">
+    <value>总佣金</value>
+  </data>
+  <data name="SumOfMemberTotal" xml:space="preserve">
+    <value>总和</value>
+  </data>
+  <data name="VarianceFromSelectedDate" xml:space="preserve">
+    <value>所选日期的方差</value>
+  </data>
+  <data name="MainReport" xml:space="preserve">
+    <value>主报表</value>
+  </data>
+  <data name="DataOutsideDateRange" xml:space="preserve">
+    <value>数据超出选定的日期范围并导致报告出现差异。</value>
+  </data>
 </root>

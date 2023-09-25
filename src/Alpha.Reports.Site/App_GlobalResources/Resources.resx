@@ -1083,4 +1083,25 @@
   <data name="GrossCommRoundingNote" xml:space="preserve">
     <value>The commission value may differ slightly from the theoretical value (Gross Comm * Position Taking), as it is calculated by summing the commission values (rounded to 4 decimal places) of the sub-tickets.</value>
   </data>
+  <data name="TotalMembers" xml:space="preserve">
+    <value>Total Members</value>
+  </data>
+  <data name="TotalWinLoss" xml:space="preserve">
+    <value>Total Win/Loss</value>
+  </data>
+  <data name="TotalCommission" xml:space="preserve">
+    <value>Total Commission</value>
+  </data>
+  <data name="SumOfMemberTotal" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="VarianceFromSelectedDate" xml:space="preserve">
+    <value>Variance from Selected Date</value>
+  </data>
+  <data name="DataOutsideDateRange" xml:space="preserve">
+    <value>Data moved outside the selected date range and led to report's variance.</value>
+  </data>
+  <data name="MainReport" xml:space="preserve">
+    <value>Main Report</value>
+  </data>
 </root>

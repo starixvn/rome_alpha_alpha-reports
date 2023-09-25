@@ -34,6 +34,8 @@
 
         public DateTime ToDate { get; set; }
 
+        public bool IsMainReport { get; set; } = true;
+
         public override bool IsValid()
             => base.IsValid() 
             && FromDate <= ToDate 

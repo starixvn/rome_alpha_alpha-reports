@@ -15,6 +15,7 @@
             LoggedId = param.ViewerId;
             PageIndex = param.PageIndex;
             PageSize = param.PageSize;
+            IsVariance = param.IsVariance;
         }
 
         public string Username { get; }
@@ -34,6 +35,8 @@
         public int PageSize { get; }
 
         public int TotalRows { get; set; }
+
+        public bool IsVariance { get; }
 
         public override string GetSettingKey() => "Age_Rpt_StatementMovement";
 

@@ -4,6 +4,8 @@ class MoveStatementHistory {
     monthPickerComponent: MonthPickerComponent;
     pagerComponent: PagerComponent;
     $reportForm: JQuery;
+    $detailLink: JQuery;
+    $backLink: JQuery;
     $pageTitle: JQuery;
     $isFilterVisible: JQuery;
     $exportExcelForm: JQuery;
@@ -29,6 +31,8 @@ class MoveStatementHistory {
 
     public cacheElements() {
         this.$reportForm = this.$("#report-form");
+        this.$detailLink = this.$("#detail-link");
+        this.$backLink = this.$("#back-link");
         this.$pageTitle = this.$(".page-title");
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$exportExcelForm = this.$("#export-excel-form");
@@ -47,10 +51,13 @@ class MoveStatementHistory {
         this.$(".icon-filter").click(this.onClickIconFilter);
         this.$reportForm.submit(this.onSubmitReport);
         this.$("#btn-submit").click(() => {
+            this.$("#IsMainReport").val("true");
             this.$("#PageIndex").val("1");
             this.$("#PageSize").val("100");
         })
         this.$("#icon-excel").click(this.onExportExcel);
+        this.$backLink.click(() => { this.onClickBackLink()});
+        this.$detailLink.click(=> { this.onClickDetailLink() });
     }
 
     onClickIconFilter = () => {
@@ -64,6 +71,16 @@ class MoveStatementHistory {
             this.$pageTitle.addClass("hide-filter");
             this.$reportForm.addClass("hide");
         }
+    }
+
+    onClickBackLink() {
+        $("#IsMainReport").val("true");
+        this.$reportForm.submit();
+    }
+
+    onClickDetailLink() {
+        $("#IsMainReport").val("false");
+        this.$reportForm.submit();
     }
 
     onExportExcel = () => {

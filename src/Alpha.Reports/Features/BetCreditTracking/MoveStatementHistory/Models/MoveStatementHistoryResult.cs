@@ -4,11 +4,12 @@
 
     public class MoveStatementHistoryResult
     {
-        public MoveStatementHistoryResult(int errorCode, string errorMess, IEnumerable<MoveStatementHistoryByMember> data, int totalRows)
+        public MoveStatementHistoryResult(int errorCode, string errorMess, IEnumerable<MoveStatementHistoryByMember> data, MoveStatementHistorySummary summary, int totalRows)
         {
             ErrorCode = errorCode;
             ErrorMess = errorMess;
             Data = data;
+            Summary = summary;
             TotalRows = totalRows;
         }
 
@@ -17,6 +18,8 @@
         public string ErrorMess { get; }
 
         public IEnumerable<MoveStatementHistoryByMember> Data { get; }
+
+        public MoveStatementHistorySummary Summary { get; }
 
         public int TotalRows { get; }
     }

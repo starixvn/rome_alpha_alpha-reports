@@ -242,6 +242,7 @@
     </Compile>
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Criteria\MoveStatementHistoryCriteria.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryByMember.cs" />
+    <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistorySummary.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryByRefNo.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Models\MoveStatementHistoryResult.cs" />
     <Compile Include="Features\BetCreditTracking\MoveStatementHistory\Params\MoveStatementHistoryParam.cs" />

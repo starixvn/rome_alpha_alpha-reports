@@ -14,9 +14,10 @@
     {
         private const string DefaultBetListPath = "~/MoveStatementHistory/Index";
 
-        public MoveStatementHistoryViewModel(IEnumerable<MoveStatementHistoryByMember> data, MoveStatementHistoryQuery message, bool isError = false, int totalRows = 0)
+        public MoveStatementHistoryViewModel(IEnumerable<MoveStatementHistoryByMember> data, MoveStatementHistorySummary summary, MoveStatementHistoryQuery message, bool isError = false, int totalRows = 0)
         {
             Data = data;
+            Summary = summary;
             CustLevel = message.ViewerLevel.DisplayName;
             IsFilterVisible = message.IsFilterVisible;
             Username = message.Username;
@@ -26,17 +27,20 @@
             PagerViewModel = new PagerViewModel(message.PageIndex, message.PageSize, totalRows);
 
             ViewDataInstructionMessage = string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, MinDate.ToShortDateWithSlash());
-            BetListPath = Helpers.UrlHelper.MapBetListPath(DefaultBetListPath);
             CanViewBetLists = !message.IsProtectedMode || !message.CustLevel.IsAgentLevel();
 
             ErrMsg = isError ? Resources.InvalidUsername : string.Empty;
+            IsMainReport = message.IsMainReport;
         }
 
         public IEnumerable<MoveStatementHistoryByMember> Data { get; }
+        public MoveStatementHistorySummary Summary { get; }
 
         public string CustLevel { get; }
 
         public bool IsFilterVisible { get; }
+
+        public bool IsMainReport { get; }
 
         public string Username { get; }
 
@@ -45,10 +49,10 @@
         public DateTime FromDate { get; }
 
         public DateTime ToDate { get; }
-        
+
         public string ViewDataInstructionMessage { get; }
 
-        public string BetListPath { get; }
+        public string BetListPath => Helpers.UrlHelper.MapBetListPath(DefaultBetListPath);
 
         public bool CanViewBetLists { get; }
 

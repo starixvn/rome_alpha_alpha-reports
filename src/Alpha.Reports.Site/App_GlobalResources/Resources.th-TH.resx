@@ -993,4 +993,25 @@
   <data name="GrossCommRoundingNote" xml:space="preserve">
     <value>ค่าคอมมิชชั่นอาจแตกต่างจากค่าทางทฤษฎีเล็กน้อย (ค่าคอมมิชชันโดยรวม * ค่าความเสี่ยง) เนื่องจากการรวมยอดค่าคอมมิชชันที่ทำการปัดเศษทศนิยม 4 ตำแหน่งของตั๋วย่อยทั้งหมด</value>
   </data>
+  <data name="TotalMembers" xml:space="preserve">
+    <value>สมาชิกทั้งหมด</value>
+  </data>
+  <data name="TotalWinLoss" xml:space="preserve">
+    <value>ยอดชนะ/แพ้รวม</value>
+  </data>
+  <data name="TotalCommission" xml:space="preserve">
+    <value>ยอดรวมค่าคอมมิชชั่น</value>
+  </data>
+  <data name="SumOfMemberTotal" xml:space="preserve">
+    <value>ยอดรวมทั้งหมด</value>
+  </data>
+  <data name="VarianceFromSelectedDate" xml:space="preserve">
+    <value>ความแปรปรวนจากวันที่เลือก</value>
+  </data>
+  <data name="DataOutsideDateRange" xml:space="preserve">
+    <value>ข้อมูลถูกย้ายออกนอกช่วงวันที่ที่เลือก และทำให้เกิดความแปรปรวนของรายงาน</value>
+  </data>
+  <data name="MainReport" xml:space="preserve">
+    <value>รายงานหลัก</value>
+  </data>
 </root>
