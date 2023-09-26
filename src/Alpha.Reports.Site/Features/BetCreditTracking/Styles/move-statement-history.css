@@ -31,11 +31,13 @@
   width: 0%;
   background: none; }
 
-.pagination {
-  width: 60%; }
-
 .list-total-statement {
-  display: flex; }
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 16px; }
+  @media only screen and (max-device-width: 768px) {
+    .list-total-statement {
+      justify-content: center; } }
   .list-total-statement .item {
     width: 160px;
     border: 1px solid #B1CBE0;
@@ -94,3 +96,25 @@
         background: #F6C699; }
       .list-total-statement .item.last-item .text-total {
         color: #215ACE; }
+
+.flex-row {
+  display: flex;
+  flex-direction: row; }
+
+.monpickr-super-wrapper {
+  display: flex; }
+  .monpickr-super-wrapper .monpickr-wrap-parent {
+    width: 154px !important;
+    height: 28px !important; }
+  .monpickr-super-wrapper .daypickr-wrap-parent {
+    width: 56px !important;
+    height: 28px !important; }
+
+@media only screen and (min-device-width: 768px) {
+  .breadcrumb-table, .pagination, .tbl-small-width {
+    width: 60%;
+    min-width: 710px; } }
+
+@media only screen and (max-device-width: 767px) {
+  .filter select, .filter input[type='text'], .filter [class^='btn-submit'], .filter .input-group.date .form-control {
+    height: 28px; } }

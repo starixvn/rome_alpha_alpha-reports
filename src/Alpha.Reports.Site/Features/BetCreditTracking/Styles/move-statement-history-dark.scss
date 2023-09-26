@@ -49,11 +49,17 @@
 // total
 .list-total-statement {
     display: flex;
+    flex-wrap: wrap;
+    margin-top: 16px;
+
+    @media only screen and (max-device-width: 768px) {
+        justify-content: center;
+    }
 
     .item {
         width: 160px;
-        border: 1px solid #B1CBE0;
-        background-color: #E8F4FD;
+        border: 1px solid #6B8599;
+        background-color: #425A6D;
         border-radius: 3px;
         padding: 3px;
         margin-right: 12px;
@@ -116,14 +122,14 @@
         }
 
         .text-total {
-            color: #444;
+            color: #EDEDED;
             font-weight: bold;
             padding: 7px 0;
         }
 
         &.last-item {
-            border-color: #E8BB90;
-            background-color: #FDF9EE;
+            border-color: #736A53;
+            background-color: #423D30;
 
             .title-total {
                 color: #7E3D00;
@@ -131,8 +137,38 @@
             }
 
             .text-total {
-                color: #215ACE;
+                color: #41A4FF;
             }
         }
+    }
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.monpickr-super-wrapper {
+    display: flex;
+
+    .monpickr-wrap-parent {
+        width: 154px !important;
+        height: 28px !important;
+    }
+
+    .daypickr-wrap-parent {
+        width: 56px !important;
+        height: 28px !important;
+    }
+}
+
+@media only screen and (min-device-width: 768px) {
+    .breadcrumb-table, .pagination, .tbl-small-width {
+        width: 60%;
+        min-width: 710px;
+    }
+}
+@media only screen and (max-device-width: 767px) {
+    .filter select, .filter input[type='text'], .filter [class^='btn-submit'], .filter .input-group.date .form-control {
+        height: 28px;
     }
 }

@@ -43,13 +43,15 @@
     background: none;
 }
 
-.pagination {
-    width: 60%;
-}
-
 // total
 .list-total-statement {
     display: flex;
+    flex-wrap: wrap;
+    margin-top: 16px;
+
+    @media only screen and (max-device-width: 768px) {
+        justify-content: center;
+    }
 
     .item {
         width: 160px;
@@ -92,7 +94,7 @@
                     pointer-events: none;
                 }
 
-                &:after {                   
+                &:after {
                     content: attr(data-title);
                     bottom: calc(100% + 6px);
                     left: 0;
@@ -100,10 +102,10 @@
                     padding: 12px;
                     border-radius: 5px;
                     background-color: #333333;
-                    color: #fff;                  
+                    color: #fff;
                 }
 
-                &:before {                   
+                &:before {
                     content: "";
                     width: 0;
                     height: 0;
@@ -111,7 +113,7 @@
                     border-width: 7px 6px 0 6px;
                     border-color: #333333 transparent transparent transparent;
                     bottom: 100%;
-                    left: 30px; 
+                    left: 30px;
                 }
             }
         }
@@ -135,5 +137,33 @@
                 color: #215ACE;
             }
         }
+    }
+}
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+.monpickr-super-wrapper {
+    display: flex;
+
+    .monpickr-wrap-parent {
+        width: 154px !important;
+        height: 28px !important;
+    }
+
+    .daypickr-wrap-parent {
+        width: 56px !important;
+        height: 28px !important;
+    }
+}
+@media only screen and (min-device-width: 768px) {
+    .breadcrumb-table, .pagination, .tbl-small-width {
+        width: 60%;
+        min-width: 710px;
+    }
+}
+@media only screen and (max-device-width: 767px) {
+    .filter select, .filter input[type='text'], .filter [class^='btn-submit'], .filter .input-group.date .form-control {
+        height: 28px;
     }
 }

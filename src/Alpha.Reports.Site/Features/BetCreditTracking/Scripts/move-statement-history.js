@@ -58,7 +58,7 @@ var MoveStatementHistory = /** @class */ (function () {
         });
         this.$("#icon-excel").click(this.onExportExcel);
         this.$backLink.click(function () { _this.onClickBackLink(); });
-        this.$detailLink.click(this.onClickDetailLink);
+        this.$detailLink.click(function () { _this.onClickDetailLink(); });
     };
     MoveStatementHistory.prototype.onClickBackLink = function () {
         $("#IsMainReport").val("true");
