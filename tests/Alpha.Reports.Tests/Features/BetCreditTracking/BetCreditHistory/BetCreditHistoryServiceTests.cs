@@ -99,12 +99,12 @@
                 "Bet updated",
                 "Bet updated, running to WON",
                 // ActionId = 10
-                "Bet placed as running",
+                "Bet placed",
                 // ActionId = 11
-                "Bet placed as WON",
+                "Bet placed",
                 // ActionId = 12
-                "Bet placed as running",
-                "Bet placed as running",
+                "Bet placed",
+                "Bet placed",
                 // ActionId = 20
                 "Bet rejected",
                 // ActionId = 29

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Constants;
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using Reports.Models.WinlossByBetType;
@@ -137,8 +138,7 @@
         }
 
         [Theory]
-        [InlineData(5)]
-        [InlineData(23)]
+        [InlineData(ProductIdConstants.VirtualSports)]
         public void FillSport_NotShowBetTypeDirectly_FillSportTitle(int productId)
         {
             // Arrange

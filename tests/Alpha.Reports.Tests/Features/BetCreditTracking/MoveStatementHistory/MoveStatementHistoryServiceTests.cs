@@ -29,7 +29,7 @@
         public async Task GetMoveStatementHistory_Always_CallThrowIfUM()
         {
             // Arrange
-            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
+            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100, true);
 
             // Act
             await service.GetMoveStatementHistory(param);
@@ -42,13 +42,13 @@
         public async Task GetMoveStatementHistory_Always_CallFetch()
         {
             // Arrange
-            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
+            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100, true);
 
             // Act
             await service.GetMoveStatementHistory(param);
 
             // Assert
-            await repository.Received().FetchAsync<MoveStatementHistoryByRefNo>(Arg.Is<MoveStatementHistoryCriteria>(
+            await repository.Received().FetchMultipleAsync<MoveStatementHistoryByRefNo, MoveStatementHistoryByRefNo, MoveStatementHistorySummary>(Arg.Is<MoveStatementHistoryCriteria>(
                 criteria => criteria.Username == param.Username
                 && criteria.FromDate == param.FromDate
                 && criteria.ToDate == param.ToDate

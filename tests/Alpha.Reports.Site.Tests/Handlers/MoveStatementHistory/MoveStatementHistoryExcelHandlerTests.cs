@@ -49,11 +49,16 @@
                 new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, 1)
             };
 
+            var memberMoveStatementHistoryByRefNo = new MoveStatementHistoryByRefNo
+                (1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 20, 20, 20, 1);
+
             var rawData = new List<MoveStatementHistoryByMember>
             {
-                new MoveStatementHistoryByMember(1, "member1", refNoRow)
+                new MoveStatementHistoryByMember( "member1", memberMoveStatementHistoryByRefNo, refNoRow)
             };
-            var resultModel = new MoveStatementHistoryResult(0, "Success", rawData, 2);
+
+            var summary = new MoveStatementHistorySummary(1, 20, 20, 20, 0);
+            var resultModel = new MoveStatementHistoryResult(0, "Success", rawData, summary, 2);
             reportService.GetMoveStatementHistory(Arg.Any<MoveStatementHistoryParam>()).Returns(resultModel);
             handler = Substitute.ForPartsOf<MoveStatementHistoryExcelHandler>(reportService, workbook);
             handler.MapPath = (path) => path;
@@ -175,7 +180,7 @@
                 (string)actualMapper.Mappings[Column.C](model) == "01/02/2022" &&
                 (decimal)actualMapper.Mappings[Column.D](model) == 10 &&
                 (decimal)actualMapper.Mappings[Column.E](model) == 10 &&
-                (decimal)actualMapper.Mappings[Column.F](model) == 10 
+                (decimal)actualMapper.Mappings[Column.F](model) == 10
                 );
         }
     }
