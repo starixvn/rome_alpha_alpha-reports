@@ -9,6 +9,7 @@
     using Fanex.Data.Repository;
     using NSubstitute;
     using Xunit;
+    using System.Threading.Tasks;
 
     [Trait("Category", "MoveStatementHistory")]
     public class MoveStatementHistoryServiceTests

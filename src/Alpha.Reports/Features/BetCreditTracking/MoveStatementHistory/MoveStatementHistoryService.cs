@@ -6,6 +6,7 @@
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Params;
     using Fanex.Data.Repository;
+    using System.Threading.Tasks;
 
     public interface MoveStatementHistoryService
     {
