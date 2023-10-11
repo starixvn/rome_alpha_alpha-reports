@@ -11,7 +11,8 @@
             int viewerId, 
             DateTime limitedDateToShowInfo,
             int pageIndex,
-            int pageSize)
+            int pageSize,
+            bool isVariance)
         {
             Username = username;
             FromDate = fromDate;
@@ -20,6 +21,7 @@
             LimitedDateToShowInfo = limitedDateToShowInfo;
             PageIndex = pageIndex;
             PageSize = pageSize;
+            IsVariance = isVariance;
         }
 
         public string Username { get; }
@@ -35,5 +37,7 @@
         public int PageIndex { get; }
 
         public int PageSize { get; }
+
+        public bool IsVariance { get; }
     }
 }

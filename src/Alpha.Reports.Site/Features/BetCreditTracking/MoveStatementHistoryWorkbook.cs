@@ -9,41 +9,41 @@
 
     public interface MoveStatementHistoryWorkbook
     {
-        Workbook<MoveStatementHistoryByRefNoModel> UseTemplate(TemplateInfo templateInfo);
+        Workbook<MoveStatementHistoryByRefNo> UseTemplate(TemplateInfo templateInfo);
 
-        Workbook<MoveStatementHistoryByRefNoModel> Sheet(string sheetName);
+        Workbook<MoveStatementHistoryByRefNo> Sheet(string sheetName);
 
-        Workbook<MoveStatementHistoryByRefNoModel> Title(string titleText);
+        Workbook<MoveStatementHistoryByRefNo> Title(string titleText);
 
-        Workbook<MoveStatementHistoryByRefNoModel> Header(Func<string, string> headerMapping);
+        Workbook<MoveStatementHistoryByRefNo> Header(Func<string, string> headerMapping);
 
-        Workbook<MoveStatementHistoryByRefNoModel> Body(
-            IEnumerable<MoveStatementHistoryByRefNoModel> rows,
-            Mapper<MoveStatementHistoryByRefNoModel> mapper);
+        Workbook<MoveStatementHistoryByRefNo> Body(
+            IEnumerable<MoveStatementHistoryByRefNo> rows,
+            Mapper<MoveStatementHistoryByRefNo> mapper);
 
         byte[] ExportToBytes();
 
         MoveStatementHistoryWorkbook SetData(
-            IEnumerable<MoveStatementHistoryByMemberModel> data);
+            IEnumerable<MoveStatementHistoryByMember> data);
 
         MoveStatementHistoryWorkbook SetRowMappers(
-            Mapper<MoveStatementHistoryByRefNoModel> memberMapper,
-            Mapper<MoveStatementHistoryByRefNoModel> refNoMapper);
+            Mapper<MoveStatementHistoryByRefNo> memberMapper,
+            Mapper<MoveStatementHistoryByRefNo> refNoMapper);
     }
 
     public class MoveStatementHistoryWorkbookImpl :
-        NpoiWorkbook<MoveStatementHistoryByRefNoModel>,
+        NpoiWorkbook<MoveStatementHistoryByRefNo>,
         MoveStatementHistoryWorkbook
     {
         private const int ReportSheetIndex = 1;
 
         private int currentRowIndex;
 
-        internal IEnumerable<MoveStatementHistoryByMemberModel> Data { get; set; }
+        internal IEnumerable<MoveStatementHistoryByMember> Data { get; set; }
 
-        internal Mapper<MoveStatementHistoryByRefNoModel> MemberMapper { get; set; }
+        internal Mapper<MoveStatementHistoryByRefNo> MemberMapper { get; set; }
 
-        internal Mapper<MoveStatementHistoryByRefNoModel> RefNoMapper { get; set; }
+        internal Mapper<MoveStatementHistoryByRefNo> RefNoMapper { get; set; }
 
         internal Row MemberRowTemplate { get; set; }
 
@@ -51,7 +51,7 @@
 
         internal Row RedRefNoRowTemplate { get; set; }
 
-        public MoveStatementHistoryWorkbook SetData(IEnumerable<MoveStatementHistoryByMemberModel> data)
+        public MoveStatementHistoryWorkbook SetData(IEnumerable<MoveStatementHistoryByMember> data)
         {
             Data = data;
 
@@ -59,8 +59,8 @@
         }
 
         public MoveStatementHistoryWorkbook SetRowMappers(
-            Mapper<MoveStatementHistoryByRefNoModel> memberMapper, 
-            Mapper<MoveStatementHistoryByRefNoModel> refNoMapper)
+            Mapper<MoveStatementHistoryByRefNo> memberMapper, 
+            Mapper<MoveStatementHistoryByRefNo> refNoMapper)
         {
             MemberMapper = memberMapper;
             RefNoMapper = refNoMapper;
@@ -134,14 +134,14 @@
             }
         }
 
-        internal void FillMemberTitle(Sheet sheet, int rowIndex, MoveStatementHistoryByMemberModel member)
+        internal void FillMemberTitle(Sheet sheet, int rowIndex, MoveStatementHistoryByMember member)
         {
             var row = sheet.GetRow(rowIndex);
             row.CopyCellsFrom(MemberRowTemplate);
             FillCells(row, member.MemberRow, MemberMapper.Mappings);
         }
 
-        internal void FillRefNo(Sheet sheet, int rowIndex, MoveStatementHistoryByRefNoModel refno)
+        internal void FillRefNo(Sheet sheet, int rowIndex, MoveStatementHistoryByRefNo refno)
         {
             var row = sheet.GetRow(rowIndex);
             row.CopyCellsFrom(refno.IsMultipleMoved == 1 ? RedRefNoRowTemplate : RefNoRowTemplate);

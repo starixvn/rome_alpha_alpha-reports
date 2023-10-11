@@ -6,7 +6,7 @@
     </Setting>
   </Function>
   <Fucntion Name="Move Statement History">
-    <Setting Key="Age_Rpt_StatementMovement" SpName="Age_Rpt_StatementMovement" DbName="DBBAH.bodb02.BODBDownlineNet" >
+    <Setting Key="Age_Rpt_StatementMovement" SpName="Age_Rpt_StatementMovement_xtest" DbName="DBBAH.bodb02.BODBDownlineNet" >
       <Mapping DataField="username" ObjectProperty="Username" />
       <Mapping DataField="OldWinlostDate" ObjectProperty="OldEventDate" />
       <Mapping DataField="WinlostDate" ObjectProperty="NewEventDate" />

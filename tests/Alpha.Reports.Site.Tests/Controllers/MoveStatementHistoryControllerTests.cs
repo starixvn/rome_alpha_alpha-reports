@@ -9,6 +9,7 @@
     using MediatR;
     using NSubstitute;
     using System;
+    using System.Threading.Tasks;
     using Xunit;
 
     [Trait("Category", "MoveStatementHistory")]
@@ -28,30 +29,30 @@
         }
 
         [Fact]
-        public void Index_ValidQuery_CallsMediatorSendMoveStatementHistoryQuery()
+        public async Task Index_ValidQuery_CallsMediatorSendMoveStatementHistoryQuery()
         {
             // Arrange
             var message = new MoveStatementHistoryQuery(user);
 
             // Act
-            controller.Index(message);
+            await controller.Index(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is(message));
+            await mediator.Received().SendAsync(Arg.Is(message));
         }
 
         [Fact]
-        public void Excel_ValidQuery_CallsMediatorSendMoveStatementHistoryExcelQuery()
+        public async Task Excel_ValidQuery_CallsMediatorSendMoveStatementHistoryExcelQuery()
         {
             // Arrange
             var message = new MoveStatementHistoryExcelQuery(user);
-            mediator.Send<ExcelFileViewModel>(Arg.Any<MoveStatementHistoryExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
+            mediator.SendAsync<ExcelFileViewModel>(Arg.Any<MoveStatementHistoryExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act
-            controller.Excel(message);
+            await controller.Excel(message);
 
             // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is(message));
+            await mediator.Received().SendAsync<ExcelFileViewModel>(Arg.Is(message));
         }
     }
 }

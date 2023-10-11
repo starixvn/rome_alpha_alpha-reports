@@ -37,9 +37,7 @@
         <li role="presentation" class="active">
             <a href="#moveStatementHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.MoveStatementHistory</a>
         </li>
-        <li>
-            <a href="@userguideLink" target="_blank"><span class="icon icon-information-outline"></span></a>
-        </li>
+        <li><a href="@userguideLink" target="_blank"><span class="icon icon-information-outline"></span></a></li>
     </ul>
 
     <div class="list-icon">
@@ -54,34 +52,100 @@
         @{
             Html.RenderPartial("~/Features/BetCreditTracking/Views/MoveStatementHistory/_Filter.cshtml", Model);
         }
-        @if (Model.Data != null && Model.ErrMsg == string.Empty)
+
+        @if (Model.IsMainReport)
         {
-            <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
-                <thead>
-                    <tr>
-                        <th>@Resources.MemberRefNo</th>
-                        <th>@Resources.OldEventDate</th>
-                        <th>@Resources.NewEventDate</th>
-                        <th>@Resources.MemberWinLossNew</th>
-                        <th>@Resources.MemberCommNew</th>
-                        <th>@Resources.MemberTotalNew</th>
-                    </tr>
-                </thead>
-                @if (Model.Data.Any())
-                {
-                    <tbody>
-                        @BuildReport(Model.Data)
-                    </tbody>
-                }
-                else
-                {
-                    @NoInformation.Render(6)
-                }
-            </table>
+            var summary = Model.Summary;
+            <div class="list-total-statement">
+                <div class="item">
+                    <div class="title-total">
+                        @Resources.TotalMembers
+                    </div>
+                    <div class="text-total">
+                        @summary.TotalMembers
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title-total">
+                        @Resources.TotalWinLoss
+                    </div>
+                    <div class="text-total">
+                        @HtmlHelpers.FormatNumber(summary.MemberWinLoss)
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title-total">
+                        @Resources.TotalCommission
+                    </div>
+                    <div class="text-total">
+                        @HtmlHelpers.FormatNumber(summary.MemberComm)
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title-total">
+                        @Resources.SumOfMemberTotal
+                    </div>
+                    <div class="text-total">
+                        @HtmlHelpers.FormatNumber(summary.MemberTotal)
+                    </div>
+                </div>
+                <div class="item last-item">
+                    <span class="title-total" data-title="@Resources.DataOutsideDateRange">
+                        @Resources.VarianceFromSelectedDate
+                    </span>
+                    <div class="text-total">
+                        @{
+                            var link = System.Web.HttpContext.Current.Request.Url.ToString().Replace("IsMainReport=true", "IsMainReport=false");
+                        }
+                        <a id="detail-link" href="#">@HtmlHelpers.FormatNumber(summary.Variance)</a>
+
+                    </div>
+                </div>
+            </div>
         }
+        <div>
+            @if (!Model.IsMainReport)
+            {
+                <div class="breadcrumb-table">
+                    <div class="breadcrumb-container">
+                        <ul class="breadcrumb" id="breadcrumb">
+                            <li>
+                                @{
+                                    var link = System.Web.HttpContext.Current.Request.Url.ToString().Replace("IsMainReport=false", "IsMainReport=true");
+                                }
+                                <a id="back-link" class="upline-link" href="#">@Resources.MainReport</a>
+                            </li>
+                            <li>@Resources.VarianceFromSelectedDate</li>
+                        </ul>
+                    </div>
+                </div>
+            }
+            @if (Model.Data != null && Model.ErrMsg == string.Empty)
+            {
+                <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
+                    <thead>
+                        <tr>
+                            <th>@Resources.MemberRefNo</th>
+                            <th>@Resources.OldEventDate</th>
+                            <th>@Resources.NewEventDate</th>
+                            <th>@Resources.MemberWinLossNew</th>
+                            <th>@Resources.MemberCommNew</th>
+                            <th>@Resources.MemberTotalNew</th>
+                        </tr>
+                    </thead>
+                    @if (Model.Data.Any())
+                    {
+                        <tbody>@BuildReport(Model.Data)</tbody>
+                    }
+                    else
+                    {
+                        @NoInformation.Render(6)
+                    }
+                </table>
+            }
+        </div>
     </div>
 </div>
-
 @Pager.Render(Model.PagerViewModel)
 
 <form class="form-inline hide" role="form" id="export-excel-form"
@@ -89,21 +153,21 @@
     @Html.Hidden("Username", Model.Username)
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
+    @Html.Hidden("IsMainReport", Model.IsMainReport)
+
 </form>
 
-@helper BuildReport(IEnumerable<MoveStatementHistoryByMemberModel> dataSource)
+@helper BuildReport(IEnumerable<MoveStatementHistoryByMember> dataSource)
 {
     foreach (var member in dataSource)
     {
         <tr class="member-row">
-            <td class="text-left">
-                @member.Username
-            </td>
+            <td class="text-left"> @member.MemberRow.Username</td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>@HtmlHelpers.FormatNumber(member.MemberRow.MemberWinLoss)</td>
+            <td>@HtmlHelpers.FormatNumber(member.MemberRow.MemberComm)</td>
+            <td>@HtmlHelpers.FormatNumber(member.MemberRow.MemberTotal)</td>
         </tr>
         foreach (var row in member.RefNoRow)
         {

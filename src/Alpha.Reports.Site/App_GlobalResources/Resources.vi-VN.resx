@@ -1007,43 +1007,43 @@
   <data name="nSelected" xml:space="preserve">
     <value>Đã chọn #</value>
   </data>
-  <data name="Columns" xml:space="preserve">
+  <data name="Columns_Duplicate[1]" xml:space="preserve">
     <value>Cột</value>
   </data>
-  <data name="DateRange" xml:space="preserve">
+  <data name="DateRange_Duplicate[1]" xml:space="preserve">
     <value>Phạm vi ngày</value>
   </data>
-  <data name="NoColumnsFound" xml:space="preserve">
+  <data name="NoColumnsFound_Duplicate[1]" xml:space="preserve">
     <value>Không tìm thấy Cột nào</value>
   </data>
-  <data name="NoProductDetailsFound" xml:space="preserve">
+  <data name="NoProductDetailsFound_Duplicate[1]" xml:space="preserve">
     <value>Không tìm thấy Chi Tiết Sản Phẩm</value>
   </data>
-  <data name="NoProductFound" xml:space="preserve">
+  <data name="NoProductFound_Duplicate[1]" xml:space="preserve">
     <value>Không tìm thấy Sản Phẩm</value>
   </data>
-  <data name="ProductDetails" xml:space="preserve">
+  <data name="ProductDetails_Duplicate[1]" xml:space="preserve">
     <value>Chi Tiết Sản Phẩm</value>
   </data>
-  <data name="SearchColumns" xml:space="preserve">
+  <data name="SearchColumns_Duplicate[1]" xml:space="preserve">
     <value>Tìm Cột</value>
   </data>
-  <data name="SearchProduct" xml:space="preserve">
+  <data name="SearchProduct_Duplicate[1]" xml:space="preserve">
     <value>Tìm Sản Phẩm</value>
   </data>
-  <data name="SearchProductDetails" xml:space="preserve">
+  <data name="SearchProductDetails_Duplicate[1]" xml:space="preserve">
     <value>Tìm Chi Tiết Sản Phẩm</value>
   </data>
-  <data name="MaxDataRetrieveHistoryError" xml:space="preserve">
+  <data name="MaxDataRetrieveHistoryError_Duplicate[1]" xml:space="preserve">
     <value>Dữ liệu từ trước {0} chỉ có thể truy xuất trong vòng 31 ngày, vui lòng xem lại phạm vi ngày.</value>
   </data>
-  <data name="NoneSelected" xml:space="preserve">
+  <data name="NoneSelected_Duplicate[1]" xml:space="preserve">
     <value>Chưa chọn mục nào</value>
   </data>
-  <data name="HistoryDataCanViewNote" xml:space="preserve">
+  <data name="HistoryDataCanViewNote_Duplicate[1]" xml:space="preserve">
     <value>Dữ liệu báo cáo trước ngày {0} chỉ có thể được tra cứu đến 31 ngày.</value>
   </data>
-  <data name="ReportDataCanViewNote" xml:space="preserve">
+  <data name="ReportDataCanViewNote_Duplicate[1]" xml:space="preserve">
     <value>Dữ liệu báo cáo từ ngày {0} trở đi có thể được tra cứu đến 90 ngày hoặc hơn.</value>
   </data>
   <data name="UsernameOrFirstLastName" xml:space="preserve">
@@ -1057,5 +1057,26 @@
   </data>
   <data name="GrossCommRoundingNote" xml:space="preserve">
     <value>Giá trị hoa hồng có thể chênh lệch nhỏ so với giá trị trên lý thuyết (Hoa Hồng * Position Taking), do được tính bằng tổng giá trị hoa hồng (làm tròn đến 4 chữ số thập phân) của các vé cược phụ.</value>
+  </data>
+  <data name="TotalMembers" xml:space="preserve">
+    <value>Tổng Số Member</value>
+  </data>
+  <data name="TotalWinLoss" xml:space="preserve">
+    <value>Tổng Thắng/Thua</value>
+  </data>
+  <data name="TotalCommission" xml:space="preserve">
+    <value>Tổng Hoa Hồng</value>
+  </data>
+  <data name="SumOfMemberTotal" xml:space="preserve">
+    <value>Tổng Số Dư</value>
+  </data>
+  <data name="VarianceFromSelectedDate" xml:space="preserve">
+    <value>Biến Động Trên Ngày Đã Chọn</value>
+  </data>
+  <data name="DataOutsideDateRange" xml:space="preserve">
+    <value>Dữ liệu đã di chuyển ra khỏi phạm vi ngày đã chọn và dẫn đến sự biến động trong báo cáo.</value>
+  </data>
+  <data name="MainReport" xml:space="preserve">
+    <value>Báo Cáo Chính</value>
   </data>
 </root>

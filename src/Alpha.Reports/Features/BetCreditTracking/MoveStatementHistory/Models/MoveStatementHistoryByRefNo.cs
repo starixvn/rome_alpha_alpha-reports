@@ -2,19 +2,22 @@
 {
     using System;
 
-    public class MoveStatementHistoryByRefNoModel
+    public class MoveStatementHistoryByRefNo
     {
-        public MoveStatementHistoryByRefNoModel()
+        public MoveStatementHistoryByRefNo()
         {
         }
 
-        public MoveStatementHistoryByRefNoModel(int custId, string username)
+        public MoveStatementHistoryByRefNo(
+            string username,
+            decimal memberWinLoss,
+            decimal memberComm,
+            decimal memberTotal)
+            : this(0, username, 0, DateTime.MinValue, DateTime.MinValue, memberWinLoss, memberComm, memberTotal, 0)
         {
-            CustId = custId;
-            Username = username;
         }
 
-        public MoveStatementHistoryByRefNoModel(
+        public MoveStatementHistoryByRefNo(
             int custId, 
             string username, 
             long transId, 

@@ -19,7 +19,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -723,6 +723,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string DailyWinLossAnalysis {
             get {
                 return ResourceManager.GetString("DailyWinLossAnalysis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data moved outside the selected date range and led to report&apos;s variance..
+        /// </summary>
+        public static string DataOutsideDateRange {
+            get {
+                return ResourceManager.GetString("DataOutsideDateRange", resourceCulture);
             }
         }
         
@@ -1434,6 +1443,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string LiveGame {
             get {
                 return ResourceManager.GetString("LiveGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Report.
+        /// </summary>
+        public static string MainReport {
+            get {
+                return ResourceManager.GetString("MainReport", resourceCulture);
             }
         }
         
@@ -2437,6 +2455,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string SumOfMemberTotal {
+            get {
+                return ResourceManager.GetString("SumOfMemberTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Super.
         /// </summary>
         public static string Super {
@@ -2662,6 +2689,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Commission.
+        /// </summary>
+        public static string TotalCommission {
+            get {
+                return ResourceManager.GetString("TotalCommission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Members.
+        /// </summary>
+        public static string TotalMembers {
+            get {
+                return ResourceManager.GetString("TotalMembers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total Member WL.
         /// </summary>
         public static string TotalMemberWL {
@@ -2676,6 +2721,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string TotalStake {
             get {
                 return ResourceManager.GetString("TotalStake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Win/Loss.
+        /// </summary>
+        public static string TotalWinLoss {
+            get {
+                return ResourceManager.GetString("TotalWinLoss", resourceCulture);
             }
         }
         
@@ -2793,6 +2847,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string UsernamePTProduct {
             get {
                 return ResourceManager.GetString("UsernamePTProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variance from Selected Date.
+        /// </summary>
+        public static string VarianceFromSelectedDate {
+            get {
+                return ResourceManager.GetString("VarianceFromSelectedDate", resourceCulture);
             }
         }
         

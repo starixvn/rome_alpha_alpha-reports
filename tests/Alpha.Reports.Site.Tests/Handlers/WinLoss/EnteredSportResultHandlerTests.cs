@@ -73,6 +73,7 @@
             };
             reportService.GetEnteredSportResults().Returns(reportData);
             var totalEnteredSport = new EnteredSportResult(0, "Total", new DailyEnteredSport(4, 6), new DailyEnteredSport(6, 8));
+            reportService.GetTotalEnteredSportYesterdayAndToday(Arg.Any<IEnumerable<EnteredSportResult>>()).Returns(totalEnteredSport);
 
             var expectedResult = new EnteredResultViewModel(message, reportData, totalEnteredSport);
 

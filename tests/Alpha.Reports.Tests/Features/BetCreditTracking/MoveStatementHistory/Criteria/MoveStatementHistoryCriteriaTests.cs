@@ -12,7 +12,7 @@
         public void Constructor_Always_AssignCorrectProperties()
         {
             // Arrange
-            var param = new MoveStatementHistoryParam("member1", new DateTime(2022, 1, 1), new DateTime(2022, 1, 2), 1, DateTime.MinValue, 1, 100);
+            var param = new MoveStatementHistoryParam("member1", new DateTime(2022, 1, 1), new DateTime(2022, 1, 2), 1, DateTime.MinValue, 1, 100, true);
 
             // Act
             var criteria = new MoveStatementHistoryCriteria(param);
@@ -32,7 +32,7 @@
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
-            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
+            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100, true);
             var criteria = new MoveStatementHistoryCriteria(param);
             var expectedSettingKey = "Age_Rpt_StatementMovement";
 
@@ -47,7 +47,7 @@
         public void IsValid_FromDateLessThanToDate_ReturnsTrue()
         {
             // Arrange
-            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100);
+            var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100, true);
             var criteria = new MoveStatementHistoryCriteria(param);
 
             // Act
@@ -61,7 +61,7 @@
         public void IsValid_FromDateGreaterThanToDate_ReturnsFalse()
         {
             // Arrange
-            var param = new MoveStatementHistoryParam("member1", DateTime.Today, DateTime.Today.AddDays(-1), 1, DateTime.MinValue, 1, 100);
+            var param = new MoveStatementHistoryParam("member1", DateTime.Today, DateTime.Today.AddDays(-1), 1, DateTime.MinValue, 1, 100, true);
             var criteria = new MoveStatementHistoryCriteria(param);
 
             // Act

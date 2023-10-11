@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory
 {
-    using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using Alpha.PartialUM.Services;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
@@ -10,7 +10,7 @@
 
     public interface MoveStatementHistoryService
     {
-        MoveStatementHistoryResultModel GetMoveStatementHistory(MoveStatementHistoryParam param);
+        Task<MoveStatementHistoryResult> GetMoveStatementHistory(MoveStatementHistoryParam param);
     }
 
     public class MoveStatementHistoryServiceImpl : MoveStatementHistoryService
@@ -24,19 +24,29 @@
             this.partialUMService = partialUMService;
         }
 
-        public MoveStatementHistoryResultModel GetMoveStatementHistory(MoveStatementHistoryParam param)
+        public async Task<MoveStatementHistoryResult> GetMoveStatementHistory(MoveStatementHistoryParam param)
         {
             var criteria = new MoveStatementHistoryCriteria(param);
-
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
-            var result = dynamicRepository.Fetch<MoveStatementHistoryByRefNoModel>(criteria);
+            var rawdata = await dynamicRepository.FetchMultipleAsync<MoveStatementHistoryByRefNo, MoveStatementHistoryByRefNo, MoveStatementHistorySummary>(criteria);
+            var reportData = Enumerable.Empty<MoveStatementHistoryByMember>();
+            var summaryData = new MoveStatementHistorySummary();
 
-            IEnumerable<MoveStatementHistoryByMemberModel> reportData = result.GroupBy(
-                r => new { r.CustId, r.Username },
-                (key, g) => new MoveStatementHistoryByMemberModel(key.CustId, key.Username, g));
+            if (criteria.TotalRows > 0)
+            {
+                var memberRowHash = rawdata.Item2.ToDictionary(kvp => kvp.CustId, kvp => kvp);
 
-            return new MoveStatementHistoryResultModel(criteria.ErrorCode, criteria.ErrorMess, reportData, criteria.TotalRows);
+                reportData = rawdata.Item1.GroupBy(
+                    r => new { r.CustId, r.Username },
+                    (key, g) => new MoveStatementHistoryByMember(
+                            key.Username,
+                            memberRowHash.TryGetValue(key.CustId, out var memberRow) ? memberRow : new MoveStatementHistoryByRefNo(),
+                            g));
+                summaryData = rawdata.Item3.FirstOrDefault();
+            }
+
+            return new MoveStatementHistoryResult(criteria.ErrorCode, criteria.ErrorMess, reportData, summaryData, criteria.TotalRows);
         }
     }
 }
