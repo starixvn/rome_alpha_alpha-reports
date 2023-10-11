@@ -132,10 +132,9 @@
                     return GetActionName2(action);
 
                 case 10:
-                    return GetActionName10(action);
                 case 11:
                 case 12:
-                    return BetCreditHistoryResources.BetPlaced;
+                    return GetActionName10(action);
 
                 case 13:
                     return GetActionName13(action);
