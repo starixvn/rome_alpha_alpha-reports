@@ -703,6 +703,7 @@
     </Content>
     <Content Include="Web.ConnectionStrings.prod.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.ConnectionStrings.prod_2.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
