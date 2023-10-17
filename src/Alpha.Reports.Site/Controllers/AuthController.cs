@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -14,7 +13,6 @@ using Alpha.Reports.Site.Constants;
 using Alpha.SecurityCode.Web;
 using Alpha.Web.Filters;
 using Fanex.Cryptography.Aes;
-using Fanex.Logging.Extensions.Web;
 using Newtonsoft.Json;
 using ONEbook.UM.AspNetMVC.Filters;
 using Sunplus.Agent.Model.BL;
@@ -99,7 +97,7 @@ namespace Alpha.Reports.Site.Controllers
 
                 SetUserSessionsAndAuth(parameters, session);
             }
-            catch (Exception e) { ExceptionHandler.Handle(new Exception(e.Message, e), TraceEventType.Warning); }
+            catch { }
 
             return RedirectToSpecificUrl();
         }
@@ -360,7 +358,7 @@ namespace Alpha.Reports.Site.Controllers
             {
                 UserSessionService.SetUserSessionValues(session, outputs, (userSession, values) => { });
             }
-            catch (Exception ex) { ExceptionHandler.Handle(new Exception(ex.Message, ex), TraceEventType.Warning); }
+            catch { }
         }
 
         private ActionResult RedirectToSpecificUrl()
