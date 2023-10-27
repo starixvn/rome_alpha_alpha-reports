@@ -6,8 +6,6 @@
     using System.Text.RegularExpressions;
     using System.Web;
     using Alpha.Reports.Configurations;
-    using Alpha.Reports.Site.Constants;
-    using AlphaPlus.User.Models;
     using Web.Helpers;
 
     public static class UrlHelper
@@ -82,18 +80,12 @@
         {
             get
             {
-                if (SiteSettings.IsStandaloneReport && HttpContext.Current.Session.IsCookieless)
+                var context = HttpContext.Current;
+                if (SiteSettings.IsStandaloneReport && context.Session.IsCookieless)
                 {
-                    var userSession = UserSession.Current;
-                    var mainDomain = userSession.GetProperty<string>(SessionKey.MainDomainSessionKey);
-                    var mainSessionId = userSession.GetProperty<string>(SessionKey.MainSessionID);
-                    var betlistDomain = userSession.GetProperty<string>(SessionKey.BetlistDomainSessionKey);
-                    var betlistSessionId = userSession.GetProperty<string>(SessionKey.BetlistSessionID);
+                    var betlistDomain = $"//{context.Request.Headers["Host"]}";
+                    var betlistSessionId = context.Session.SessionID;
                     var betlistAppPath = "/site-betlists";
-
-                    betlistAppPath = string.IsNullOrWhiteSpace(betlistDomain) ? betlistAppPath : string.Empty;
-                    betlistSessionId = betlistSessionId ?? mainSessionId;
-                    betlistDomain = betlistDomain ?? mainDomain;
 
                     return new Func<string, string>((virtualPath) => $"{betlistDomain}{betlistAppPath}/(S({betlistSessionId})){virtualPath?.Replace("~", string.Empty)}");
                 }
@@ -176,11 +168,11 @@
 
         internal static string GetMessagePath(string virtualPath)
         {
-            if (SiteSettings.IsStandaloneReport && HttpContext.Current.Session.IsCookieless)
+            var context = HttpContext.Current;
+            if (SiteSettings.IsStandaloneReport && context.Session.IsCookieless)
             {
-                var userSession = UserSession.Current;
-                var mainDomain = userSession.GetProperty<string>(SessionKey.MainDomainSessionKey);
-                var mainSessionId = userSession.GetProperty<string>(SessionKey.MainSessionID);
+                var mainDomain = $"//{context.Request.Headers["Host"]}";
+                var mainSessionId = context.Session.SessionID;
 
                 return $"{mainDomain}/site-messages/(S({mainSessionId})){virtualPath?.Replace("~", string.Empty)}";
             }
