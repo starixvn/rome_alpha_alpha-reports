@@ -83,11 +83,10 @@
                 var context = HttpContext.Current;
                 if (SiteSettings.IsStandaloneReport && context.Session.IsCookieless)
                 {
-                    var betlistDomain = $"//{context.Request.Headers["Host"]}";
                     var betlistSessionId = context.Session.SessionID;
                     var betlistAppPath = "/site-betlists";
 
-                    return new Func<string, string>((virtualPath) => $"{betlistDomain}{betlistAppPath}/(S({betlistSessionId})){virtualPath?.Replace("~", string.Empty)}");
+                    return new Func<string, string>((virtualPath) => $"{betlistAppPath}/(S({betlistSessionId})){virtualPath?.Replace("~", string.Empty)}");
                 }
 
                 return MicroSites.BetListsUrl;
