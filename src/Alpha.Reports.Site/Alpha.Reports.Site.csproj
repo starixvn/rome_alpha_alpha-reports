@@ -705,9 +705,6 @@
     <Compile Include="Constants\RowTypeConstant.cs" />
     <Compile Include="Constants\SessionKey.cs" />
     <Compile Include="Constants\UserSelectedDateRangeOptionConstant.cs" />
-    <Compile Include="Controllers\AuthController.cs">
-      <SonarQubeExclude>true</SonarQubeExclude>
-    </Compile>
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
     <Compile Include="Controllers\ConsolidationController.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
