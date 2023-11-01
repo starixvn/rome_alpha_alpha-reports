@@ -53,7 +53,7 @@
             {
                 var context = HttpContext.Current;
                 var cookieless = context.Session.IsCookieless ? $"/(S({context.Session.SessionID}))" : string.Empty;
-                return $"site-reports{cookieless}/";
+                return IsStandaloneReport ? $"site-reports{cookieless}/" : string.Empty;
             }
         }
 

@@ -26,9 +26,8 @@
     @RenderSection("Scripts", required: false)
     @if (Session.IsCookieless && Alpha.Reports.Configurations.SiteSettings.IsStandaloneReport)
     {
-        var currentSession = AlphaPlus.User.Models.UserSession.Current;
-        var mainDomain = currentSession.GetProperty<string>(Alpha.Reports.Site.Constants.SessionKey.MainDomainSessionKey);
-        var mainSessionId = currentSession.GetProperty<string>(Alpha.Reports.Site.Constants.SessionKey.MainSessionID);
+        var mainDomain = $"//{Request.Headers["Host"]}";
+        var mainSessionId = Session.SessionID;
         @Html.Hidden("CookielessSiteMainUrl", $"{mainDomain}/(S({mainSessionId})){AlphaPlus.Configurations.AppSettings.MainAppPath}/");
     }
 </body>
