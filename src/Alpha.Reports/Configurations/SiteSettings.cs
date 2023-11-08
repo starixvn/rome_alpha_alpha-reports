@@ -57,9 +57,6 @@
             }
         }
 
-        public static string ReportDomain => HttpContext.Current.Session.IsCookieless ?
-             $"/{HttpContext.Current.Request.Headers["Host"]}/(S({HttpContext.Current.Session.SessionID}))/" : string.Empty;
-
         public static bool IsStandaloneReport => GetConfigValue("IsStandaloneReport") == "1";
 
         public static IEnumerable<int> ProductOfferProductDetail

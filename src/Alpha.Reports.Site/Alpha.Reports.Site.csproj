@@ -482,7 +482,6 @@
     <Content Include="App_Data\SPNames\Docker\DBTXN.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Themes\error2-dark.png" />
     <Content Include="App_Themes\error2.png" />
-    <Content Include="ex-main\Error.aspx" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.min.css">
       <DependentUpon>enteredresult-dark.css</DependentUpon>
@@ -709,10 +708,6 @@
     <Compile Include="Controllers\ConsolidationController.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
-    <Content Include="ex-main\Error.aspx.cs">
-      <DependentUpon>Error.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
     <Compile Include="Features\BetCreditTracking\BetCreditHistoryBaseHandler.cs" />
     <Compile Include="Controllers\ErrorController.cs">
       <SonarQubeExclude>true</SonarQubeExclude>

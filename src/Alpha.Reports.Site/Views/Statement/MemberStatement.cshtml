@@ -128,7 +128,7 @@
 </form>
 
 @Html.Hidden("LoadLegendURL", Url.Action("MemberReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
-@Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", $"{Alpha.Reports.Configurations.SiteSettings.ReportDomain}{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
+@Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
 @Html.Hidden("BetListUrl", Model.BetListLink)
 @Html.Hidden("BetListTitle", Resources.BetList)
 @Html.Hidden("MainDomain", Model.MainDomain)
