@@ -28,7 +28,7 @@
     {
         var mainDomain = $"//{Request.Headers["Host"]}";
         var mainSessionId = Session.SessionID;
-        @Html.Hidden("CookielessSiteMainUrl", $"{mainDomain}/(S({mainSessionId})){AlphaPlus.Configurations.AppSettings.MainAppPath}/");
+        @Html.Hidden("CookielessSiteMainUrl", $"{mainDomain}/site-main/(S({mainSessionId}))/");
     }
 </body>
 </html>
