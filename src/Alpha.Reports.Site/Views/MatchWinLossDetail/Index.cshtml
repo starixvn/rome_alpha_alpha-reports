@@ -191,7 +191,7 @@
 </table>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
 @Html.Hidden("LoadLeagueURL", Url.Action("LeaguesByCustomer", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}League"))
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MatchWinLossDetail"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MatchWinLossDetail", new { MinDate = Model.MinDate }))
 
 <form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MatchWinLossDetail")">
     @Html.Hidden("CustId", Model.CustId)

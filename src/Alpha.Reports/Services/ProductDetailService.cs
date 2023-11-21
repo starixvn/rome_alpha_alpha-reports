@@ -53,18 +53,15 @@
 
         private readonly IDynamicRepository dynamicRepository;
         private readonly CacheRefService cacheRefService;
-        private readonly Func<int, string, int, int, bool> canViewBySite;
-        private readonly Func<int, bool> canViewProduct;
+        private readonly Func<string, int, int, DateTime?, bool> canViewProduct;        
 
         public ProductDetailServiceImpl(
             IDynamicRepository dynamicRepository,
             CacheRefService cacheRefService,
-            Func<int, string, int, int, bool> canViewBySite,
-            Func<int, bool> canViewProduct)
+            Func<string, int, int, DateTime?, bool> canViewProduct)
         {
             this.dynamicRepository = dynamicRepository;
-            this.cacheRefService = cacheRefService;
-            this.canViewBySite = canViewBySite;
+            this.cacheRefService = cacheRefService;         
             this.canViewProduct = canViewProduct;
         }
 
@@ -81,7 +78,7 @@
                 return Enumerable.Empty<ProductDetail>();
             }
 
-            var canViewProductDetails = CanViewProductDetails(viewerId, site, currencyId);
+            var canViewProductDetails = CanViewProductDetails(site, currencyId);
 
             return ConfiguredCacheService.GetOrSet(
                 $"{ProductDetailsCacheKey}-{viewerId}",
@@ -247,13 +244,13 @@
         private static bool IsSelectAllProductDetails(string resourceIds)
             => resourceIds != null && resourceIds == DefaultVariables.AllProductDetails;
 
-        private IDictionary<int, bool> CanViewProductDetails(int viewerId, string site, int currencyId)
+        private IDictionary<int, bool> CanViewProductDetails(string site, int currencyId)
         {
             var canViewProductDetails = new Dictionary<int, bool>();
 
             foreach (var product in SiteSettings.ProductOfferProductDetail)
             {
-                if (canViewBySite(viewerId, site, currencyId, product) || canViewProduct(product))
+                if (canViewProduct(site, currencyId, product, null))
                 {
                     canViewProductDetails[product] = true;
                 }
@@ -290,7 +287,7 @@
                 return Task.FromResult(Enumerable.Empty<ProductDetail>());
             }
 
-            var canViewProductDetails = CanViewProductDetails(viewerId, site, currencyId);
+            var canViewProductDetails = CanViewProductDetails(site, currencyId);
 
             var result = ConfiguredCacheService.GetOrSet(
                 $"{ProductDetailsCacheKey}-{viewerId}",

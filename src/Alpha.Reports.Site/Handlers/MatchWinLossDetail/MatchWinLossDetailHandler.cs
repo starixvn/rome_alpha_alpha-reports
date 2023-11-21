@@ -32,7 +32,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = reportService.GetProductsForCustomer(message.ViewerId, message.Site, message.CurrencyId);
+            var products = reportService.GetProductsForCustomer(message.Site, message.CurrencyId);
             var matchWinLossDetailParam = CreateParameter(message, products);
             var reportData = reportService.GetMatchWinLossDetail(matchWinLossDetailParam);
 

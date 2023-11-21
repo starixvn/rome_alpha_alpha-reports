@@ -127,7 +127,7 @@
     @Html.Hidden("ToDate", Model.ToDate)
 </form>
 
-@Html.Hidden("LoadLegendURL", Url.Action("MemberReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
+@Html.Hidden("LoadLegendURL", Url.Action("MemberReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement", new { MinDate = Model.MinDate }))
 @Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
 @Html.Hidden("BetListUrl", Model.BetListLink)
 @Html.Hidden("BetListTitle", Resources.BetList)

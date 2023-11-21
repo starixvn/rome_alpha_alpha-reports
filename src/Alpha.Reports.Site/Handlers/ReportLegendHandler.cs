@@ -25,19 +25,19 @@
         }
 
         public IEnumerable<string> Handle(ReportLegendQuery message)
-            => GetReportLegends(message.ViewerId, message.Site, message.CurrencyId, message.MinDate, message.IsSupportHistoricReport, message.IsHistoricReport);
+            => GetReportLegends(message.Site, message.CurrencyId, message.MinDate, message.IsSupportHistoricReport, message.IsHistoricReport);
 
         public ReportLegendViewModel Handle(ReportLegendGrossCommQuery message)
         {
-            var legends = GetReportLegends(message.ViewerId, message.Site, message.CurrencyId, message.MinDate, message.IsSupportHistoricReport, message.IsHistoricReport);
+            var legends = GetReportLegends(message.Site, message.CurrencyId, message.MinDate, message.IsSupportHistoricReport, message.IsHistoricReport);
 
             return new ReportLegendViewModel(legends, GetGrossCommNotes(message.ViewerLevel));
         }
 
-        private IEnumerable<string> GetReportLegends(int viewerId, string site, int currencyId, DateTime minDate, bool isSupportHistoricReport = false, bool isHistoricReport = false)
+        private IEnumerable<string> GetReportLegends(string site, int currencyId, DateTime minDate, bool isSupportHistoricReport = false, bool isHistoricReport = false)
         {
             var result = new List<string>();
-            var products = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(viewerId, site, currencyId).Select(product => (int)product);
+            var products = productService.GetOfferedProductsNeedDelayTimeToSumarizeData(site, currencyId, minDate).Select(product => product);
 
             if (isSupportHistoricReport && !isHistoricReport)
             {

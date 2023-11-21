@@ -42,7 +42,7 @@
             }
 
             var validUserSelectedProductIds =
-                productService.FilterProductIdsByCustomer(param.ViewerId, param.Site, param.CurrencyId, param.UserSelectedProductIds);
+                productService.FilterProductIds(param.Site, param.CurrencyId, param.UserSelectedProductIds);
 
             var criteria = new WinLossAnalysisCriteria(
                                     param.CustId,

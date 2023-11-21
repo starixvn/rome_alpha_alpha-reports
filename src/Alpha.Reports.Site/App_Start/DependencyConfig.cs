@@ -119,8 +119,7 @@
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
-                    container.GetInstance<ICacheService>(),
-                    UserPermission.HasPermissionOnProduct,
+                    container.GetInstance<ICacheService>(),                    
                     new CacheRefServiceImpl(new RemotingRefService()).GetProductName),
                 Lifestyle.Singleton);
 
@@ -139,8 +138,7 @@
                 () => new ProductDetailServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
                     container.GetInstance<CacheRefService>(),
-                    container.GetInstance<ProductService>().CanViewBySite,
-                    UserPermission.HasPermissionOnProduct),
+                    container.GetInstance<ProductService>().CanViewProduct),
                 Lifestyle.Singleton);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);

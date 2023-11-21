@@ -26,7 +26,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProductsForCustomer(message.ViewerId, message.Site, message.CurrencyId, message.MinDate);
+            var products = productService.GetAllOfferedProducts(message.Site, message.CurrencyId, message.MinDate);
             var productDetails = productDetailService.GetProductDetails(message.ViewerId, message.Site, message.CurrencyId);
 
             var winLossByBettypeParam = CreateWinLossByBettypeParamater(message);

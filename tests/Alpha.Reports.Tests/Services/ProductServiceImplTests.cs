@@ -339,17 +339,7 @@
 
             // Assert
             Assert.True(act.SettingStatus >= 0);
-        }
-
-        [Fact]
-        public void OfferedProduct_SpKey_AlwaysEqualsToAcc_CustSetting_CheckMacauEnable()
-        {
-            // Arrange
-            var act = new GetOfferedProductsBySiteCriteria(0, "abc", 20);
-
-            // Assert
-            Assert.True(act.GetSettingKey() == "Acc_CustSetting_CheckMacauEnable");
-        }
+        }        
 
         [Fact]
         public void OfferedProduct_IsValid_AlwaysTrue()

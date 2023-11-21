@@ -135,7 +135,7 @@
 </form>
 
 @Html.HiddenFor(model => model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ReportLegend", new { MinDate = Model.MinDate }))
 
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/winlossanalysis/winlossanalysis")

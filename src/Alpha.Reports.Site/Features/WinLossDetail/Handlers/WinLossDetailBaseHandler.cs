@@ -34,8 +34,7 @@
             WinLossDetailQuery message,
             UserLevel userLevel)
         {
-            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
-                message.ViewerId,
+            var validUserSelectedProductIds = productService.FilterProductIds(
                 message.Site,
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),

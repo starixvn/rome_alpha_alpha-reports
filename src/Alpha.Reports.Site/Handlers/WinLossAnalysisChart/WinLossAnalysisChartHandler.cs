@@ -30,10 +30,9 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProductsForCustomer(message.ViewerId, message.Site, message.CurrencyId, message.MinDate);
+            var products = productService.GetAllOfferedProducts(message.Site, message.CurrencyId, message.MinDate);
 
-            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
-                message.ViewerId,
+            var validUserSelectedProductIds = productService.FilterProductIds(
                 message.Site,
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),

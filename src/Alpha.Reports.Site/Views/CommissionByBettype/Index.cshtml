@@ -74,7 +74,7 @@
     <input type="hidden" name="FromDate" value="@Model.Query.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.Query.ToDate" />
 </form>
-@Html.Hidden("LoadLegendURL", Url.Action("Guidelines", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}CommissionByBettype"))
+@Html.Hidden("LoadLegendURL", Url.Action("Guidelines", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}CommissionByBettype", new { MinDate = Model.Query.MinDate }))
 
 @helper RenderCellValue(CommissionByBettypeModel commission)
 {

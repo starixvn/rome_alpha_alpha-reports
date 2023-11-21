@@ -33,7 +33,7 @@
         protected async Task<Tuple<IEnumerable<Product>, IEnumerable<ProductDetail>>> GetProductsAndProductDetails(
             WinLossDetailGetDataQuery message)
         {
-            var productsTask = productService.GetProductsForCustomerAsync(message.ViewerId, message.Site, message.CurrencyId, message.MinDate, message.IsEnableSabaPromotion);
+            var productsTask = productService.GetAllOfferedProductsAsync(message.Site, message.CurrencyId, message.MinDate, message.IsEnableSabaPromotion);
             var productDetailsTask = productDetailService.GetProductDetailsAsync(message.ViewerId, message.Site, message.CurrencyId);
             await Task.WhenAll(productsTask, productDetailsTask);
 
