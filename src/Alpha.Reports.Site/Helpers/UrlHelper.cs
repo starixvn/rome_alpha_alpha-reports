@@ -146,11 +146,6 @@
 
         internal static string GetLink(string action, string currentQuery)
         {
-            if (SiteSettings.IsStandaloneReport && HttpContext.Current.Session.IsCookieless)
-            {
-                return MicroSites.ReportsUrl(action + currentQuery).Replace("/site-reports", string.Empty);
-            }
-
             return MicroSites.ReportsUrl(action + currentQuery);
         }
 
