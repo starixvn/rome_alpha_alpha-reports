@@ -3,7 +3,7 @@
     using Alpha.Reports.Services;
     using Alpha.Reports.Site.Requests.RiskAnalysisIPMatching;
     using Alpha.Reports.Site.ViewModels;
-    using Alpha.Utilities.IP;
+    using AlphaPlus.Utilities.IP;
     using MediatR;
 
     public class RiskAnalysisIPMatchingHandler :
@@ -12,7 +12,7 @@
     {
         public RiskAnalysisIPMatchingHandler(
             RiskAnalysisIPMatchingService riskAnalysisIPMatchingService,
-            IPService ipService) 
+            IPService ipService)
             : base(riskAnalysisIPMatchingService, ipService)
         {
         }

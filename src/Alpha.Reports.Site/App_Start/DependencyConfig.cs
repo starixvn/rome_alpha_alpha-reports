@@ -9,13 +9,13 @@
     using Alpha.Reports.Site.Features.EnteredResult;
     using Alpha.Reports.Site.Features.SuperWinLossDetailByPT;
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
-    using Alpha.Utilities.IP;
     using Alpha.Web.Helpers;
     using AlphaPlus.Configurations;
     using AlphaPlus.PartialUM.DataAccess;
     using AlphaPlus.PartialUM.Helpers;
     using AlphaPlus.PartialUM.Services;
     using AlphaPlus.User.Models;
+    using AlphaPlus.Utilities.IP;
     using Controllers;
     using DataAccesses;
     using Fanex.BetList.Core.Builder;

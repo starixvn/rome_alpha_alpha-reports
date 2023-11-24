@@ -7,10 +7,10 @@
     using Alpha.Reports.Criteria.BetChoiceMatching;
     using Alpha.Reports.Models.BetChoiceMatching;
     using Alpha.Reports.Params.BetChoiceMatching;
-    using Alpha.Utilities.IP;
     using AlphaPlus.User.Models;
     using Fanex.BetList.Core.Constants;
     using Fanex.Data.Repository;
+    using AlphaPlus.Utilities.IP;
 
     public interface BetChoiceMatchingService
     {

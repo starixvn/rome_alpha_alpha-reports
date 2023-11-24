@@ -38,25 +38,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Alpha.SecurityCode, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.SecurityCode.4.0.0-standard6\lib\net461\Alpha.SecurityCode.dll</HintPath>
-    </Reference>
-    <Reference Include="Alpha.Utilities.IP, Version=1.0.3.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Utilities.IP.1.0.3.2\lib\net461\Alpha.Utilities.IP.dll</HintPath>
+      <HintPath>..\..\packages\Alpha.SecurityCode.4.0.0\lib\net461\Alpha.SecurityCode.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.Web, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Web.2.0.0-standard4\lib\net461\Alpha.Web.dll</HintPath>
+      <HintPath>..\..\packages\Alpha.Web.2.0.0\lib\net461\Alpha.Web.dll</HintPath>
     </Reference>
     <Reference Include="AlphaPlus.Configurations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AlphaPlus.Configurations.1.0.0-beta5\lib\netstandard2.0\AlphaPlus.Configurations.dll</HintPath>
+      <HintPath>..\..\packages\AlphaPlus.Configurations.1.0.0\lib\netstandard2.0\AlphaPlus.Configurations.dll</HintPath>
     </Reference>
     <Reference Include="AlphaPlus.PartialUM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AlphaPlus.PartialUM.1.0.0-beta2\lib\netstandard2.0\AlphaPlus.PartialUM.dll</HintPath>
+      <HintPath>..\..\packages\AlphaPlus.PartialUM.1.0.0\lib\netstandard2.0\AlphaPlus.PartialUM.dll</HintPath>
     </Reference>
     <Reference Include="AlphaPlus.PartialUM.DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AlphaPlus.PartialUM.DataAccess.1.0.0-beta1\lib\netstandard2.0\AlphaPlus.PartialUM.DataAccess.dll</HintPath>
+      <HintPath>..\..\packages\AlphaPlus.PartialUM.DataAccess.1.0.0\lib\netstandard2.0\AlphaPlus.PartialUM.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="AlphaPlus.User.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AlphaPlus.User.Models.1.0.0-beta91\lib\netstandard2.0\AlphaPlus.User.Models.dll</HintPath>
+      <HintPath>..\..\packages\AlphaPlus.User.Models.1.0.0\lib\netstandard2.0\AlphaPlus.User.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="AlphaPlus.Utilities.IP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AlphaPlus.Utilities.IP.1.0.0\lib\netstandard2.0\AlphaPlus.Utilities.IP.dll</HintPath>
     </Reference>
     <Reference Include="BetListNPOI, Version=2.6.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\..\packages\BetListNPOI.2.6.0\lib\netstandard2.0\BetListNPOI.dll</HintPath>
@@ -104,7 +104,7 @@
       <HintPath>..\..\packages\Fanex.Logging.Extensions.Web.1.0.8\lib\net461\Fanex.Logging.Extensions.Web.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Products, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Products.2.0.0-standard2\lib\net461\Fanex.Products.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.Products.2.0.0\lib\net461\Fanex.Products.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.RemotingRef, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.RemotingRef.1.5.1-beta-03\lib\net461\Fanex.RemotingRef.dll</HintPath>

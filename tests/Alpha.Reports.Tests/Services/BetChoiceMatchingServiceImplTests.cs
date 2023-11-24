@@ -9,9 +9,9 @@
     using Alpha.Reports.Services;
     using Alpha.Reports.Tests.Extensions;
     using Alpha.Reports.Tests.TestCases.BetChoiceMatching;
-    using Alpha.Utilities.IP;
     using AlphaPlus.PartialUM.Services;
     using AlphaPlus.User.Models;
+    using AlphaPlus.Utilities.IP;
     using Fanex.Data.Repository;
     using NSubstitute;
     using Xunit;

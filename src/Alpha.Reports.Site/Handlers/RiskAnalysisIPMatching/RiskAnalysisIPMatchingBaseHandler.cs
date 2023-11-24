@@ -6,7 +6,7 @@
     using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Requests.RiskAnalysisIPMatching;
     using Alpha.Reports.Site.ViewModels;
-    using Alpha.Utilities.IP;
+    using AlphaPlus.Utilities.IP;
     using System.Collections.Generic;
 
     public class RiskAnalysisIPMatchingBaseHandler : BaseHandler
@@ -24,7 +24,7 @@
 
         internal RiskAnalysisIPMatchingViewModel BuildRiskAnalysisIPMatchingViewModel(RiskAnalysisIPMatchingQuery message)
         {
-            var riskAnalysisIPMatchingItems = 
+            var riskAnalysisIPMatchingItems =
                 riskAnalysisIPMatchingService.GetRiskAnalysisIPMatchingModel(
                    new RiskAnalysisIPMatchingParam(
                        message.CustId,
