@@ -153,8 +153,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=3.2.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL" />
-    <Reference Include="ONEbook.SpreadSheets, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ONEbook.SpreadSheets.2.0.0-netstandard01\lib\netstandard2.0\ONEbook.SpreadSheets.dll</HintPath>
+    <Reference Include="ONEbook.SpreadSheets, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ONEbook.SpreadSheets.1.0.0.1\lib\net461\ONEbook.SpreadSheets.dll</HintPath>
     </Reference>
     <Reference Include="ONEbook.SpreadSheets.BetListNPOI, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ONEbook.SpreadSheets.BetListNPOI.1.0.0.3\lib\net461\ONEbook.SpreadSheets.BetListNPOI.dll</HintPath>
