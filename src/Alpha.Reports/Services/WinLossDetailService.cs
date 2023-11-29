@@ -2,7 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Criteria.WinLossDetail;
     using DataAccesses;
     using Extensions;

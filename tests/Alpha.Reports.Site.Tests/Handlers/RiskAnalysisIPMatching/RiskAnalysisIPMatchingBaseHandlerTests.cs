@@ -5,7 +5,7 @@
     using Alpha.Reports.Site.Handlers;
     using Alpha.Reports.Site.Requests.RiskAnalysisIPMatching;
     using Alpha.Reports.Site.ViewModels;
-    using Alpha.Utilities.IP;
+    using AlphaPlus.Utilities.IP;
     using Constants;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;

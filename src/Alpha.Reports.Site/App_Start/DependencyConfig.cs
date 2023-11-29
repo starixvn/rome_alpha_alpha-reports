@@ -1,11 +1,7 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Web.Mvc;
+    using Alpha.PartialUM.Helpers;
     using Alpha.Reports.Features.AutoFollowBets;
-    using Alpha.PartialUM.DataAccess;
-    using Alpha.PartialUM.Services;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
     using Alpha.Reports.Features.BonusDetail;
@@ -13,9 +9,13 @@
     using Alpha.Reports.Site.Features.EnteredResult;
     using Alpha.Reports.Site.Features.SuperWinLossDetailByPT;
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
-    using Alpha.Utilities.IP;
     using Alpha.Web.Helpers;
-    using Configurations;
+    using AlphaPlus.Configurations;
+    using AlphaPlus.PartialUM.DataAccess;
+    using AlphaPlus.PartialUM.Helpers;
+    using AlphaPlus.PartialUM.Services;
+    using AlphaPlus.User.Models;
+    using AlphaPlus.Utilities.IP;
     using Controllers;
     using DataAccesses;
     using Fanex.BetList.Core.Builder;
@@ -42,15 +42,17 @@
     using SimpleInjector;
     using SimpleInjector.Integration.Web;
     using SimpleInjector.Integration.Web.Mvc;
-    using StaticData.Repositories;
-    using Sunplus.Agent.Model.Base;
-    using Sunplus.Agent.Model.Entities;
-    using Sunplus.Agent.Model.Entities.Permission;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Web.Mvc;
 
     public static class DependencyConfig
     {
         public static void Init()
         {
+            ConfigurationManager.Init(new ConfigurationHelper());
+            UserSession.Init(new HttpContextHelper());
+
             var container = new Container();
 
             container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
@@ -173,10 +175,11 @@
 
             container.Register<MoveStatementHistoryService, MoveStatementHistoryServiceImpl>();
             container.Register<MoveStatementHistoryWorkbook, MoveStatementHistoryWorkbookImpl>();
-            
+
             container.Register<BetCreditHistoryService, BetCreditHistoryServiceImpl>();
             container.Register<BetCreditHistoryWorkbook, BetCreditHistoryWorkbookImpl>();
 
+            container.RegisterSingleton<IPartialUMSectionHelper, PartialUMSectionHelper>();
             container.RegisterSingleton<IPartialUMService, PartialUMService>();
 
             container.RegisterSingleton<AutoFollowBetService, AutoFollowBetServiceImpl>();
@@ -193,16 +196,7 @@
             container.RegisterSingleton<StatementDataAccess, StatementDataAccessImpl>();
             container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
             container.RegisterSingleton<ProgressiveContributionDataAccess, ProgressiveContributionDataAccessImpl>();
-
-            if (SiteSettings.EnabledStaticData)
-            {
-                container.Register<IDynamicRepository, ReportExcelRepository>(Lifestyle.Singleton);
-            }
-            else
-            {
-                container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Singleton);
-            }
-
+            container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Singleton);
             container.RegisterSingleton<IPartialUMDataAccess, PartialUMDataAccess>();
         }
 

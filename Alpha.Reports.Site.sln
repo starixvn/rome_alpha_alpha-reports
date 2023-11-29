@@ -27,8 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{
 		src\SonarQube\alpha-report\CSharp\SonarLint.xml = src\SonarQube\alpha-report\CSharp\SonarLint.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.StaticData", "src\Alpha.Reports.StaticData\Alpha.Reports.StaticData.csproj", "{B2293610-3C5B-42DF-9B6A-3AE914512223}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,10 +49,6 @@ Global
 		{635DD698-CB5A-47C4-B767-223AA7B65943}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{635DD698-CB5A-47C4-B767-223AA7B65943}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{635DD698-CB5A-47C4-B767-223AA7B65943}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{B2293610-3C5B-42DF-9B6A-3AE914512223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2293610-3C5B-42DF-9B6A-3AE914512223}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2293610-3C5B-42DF-9B6A-3AE914512223}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2293610-3C5B-42DF-9B6A-3AE914512223}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,10 +58,9 @@ Global
 		{55FF4C22-5630-4FB9-92FF-A1FEAF6DCF08} = {CDD7C777-3340-42E2-9A1D-559FEBB65EB7}
 		{0F9FDF8D-E083-47E3-99AB-9AC53C74C366} = {99EE09CE-F495-4E91-A958-325C65844274}
 		{635DD698-CB5A-47C4-B767-223AA7B65943} = {99EE09CE-F495-4E91-A958-325C65844274}
-		{B2293610-3C5B-42DF-9B6A-3AE914512223} = {CDD7C777-3340-42E2-9A1D-559FEBB65EB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Logging.5.0.505.1\lib\NET35
 		SolutionGuid = {EB59E204-663D-4616-B486-A39D7A92282A}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Logging.5.0.505.1\lib\NET35
 	EndGlobalSection
 EndGlobal

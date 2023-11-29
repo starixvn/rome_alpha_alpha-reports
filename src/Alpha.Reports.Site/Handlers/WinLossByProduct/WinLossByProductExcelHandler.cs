@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossByProduct
 {
     using System;
+    using Alpha.Reports.Models;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -9,7 +10,6 @@
     using Reports.Models.WinlossByBetType;
     using Requests.WinLossByProduct;
     using Services;
-    using Sunplus.Agent.Model.BL.Definitions;
     using ViewModels;
     using static ONEbook.SpreadSheets.Column;
 

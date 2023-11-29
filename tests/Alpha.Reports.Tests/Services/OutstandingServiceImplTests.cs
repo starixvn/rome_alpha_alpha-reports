@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Alpha.Reports.Features.AutoFollowBets;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Fanex.Data.Repository;
     using NSubstitute;
     using Reports.Criteria.Outstanding;

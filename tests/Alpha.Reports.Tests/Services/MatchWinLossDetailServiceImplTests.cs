@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Constants;
     using Extensions;
     using Fanex.Data.Repository;
@@ -140,7 +140,7 @@
                 limitedDate,
                 anyValueCreatorFixture.Create<IEnumerable<string>>(),
                 anyValueCreatorFixture.Create<IEnumerable<int>>(),
-                anyValueCreatorFixture.Create<UserLevel>());            
+                anyValueCreatorFixture.Create<UserLevel>());
 
             // Act
             matchWinLossDetailServiceImpl.GetMatchWinLossDetail(param);

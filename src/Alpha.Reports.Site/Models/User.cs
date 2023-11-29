@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using Alpha.Reports.Configurations;
+    using AlphaPlus.User.Models;
     using Constants;
     using Reports.Models;
-    using Sunplus.Agent.Model.Entities;
 
     public class User : IUser
     {

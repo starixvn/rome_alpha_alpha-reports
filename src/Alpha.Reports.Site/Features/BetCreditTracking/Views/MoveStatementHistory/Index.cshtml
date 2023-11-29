@@ -1,6 +1,4 @@
 ﻿@using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models
-@using Sunplus.Agent.Model.Entities
-@using Alpha.Reports.Site.Constants
 @using Alpha.Reports.Configurations
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,9 +10,8 @@
 
     if (Session.IsCookieless && SiteSettings.IsStandaloneReport)
     {
-        var currentSession = UserSession.Current;
-        var mainDomain = currentSession.GetProperty<string>(SessionKey.MainDomainSessionKey);
-        var mainSessionId = currentSession.GetProperty<string>(SessionKey.MainSessionID);
+        var mainDomain = $"//{Request.Headers["Host"]}";
+        var mainSessionId = Session.SessionID;
 
         userguideLink = SiteSettings.IsSiteLabel789y ?
             $"{mainDomain}/site-messages/(S({mainSessionId}))/StaticMessage/Guide?id=167296" :

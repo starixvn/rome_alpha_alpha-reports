@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Configurations
 {
-    using Sunplus.Agent.Model.Entities;
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
@@ -46,22 +45,17 @@
 
         public static string MessageAppPath => GetConfigValue("MessageAppPath") ?? "site-messages";
 
-        public static bool EnabledStaticData => GetConfigValue("EnabledStaticData") == "1";
-
         public static string RemoteRefURL => GetConfigValue("RemoteRefURL");
 
         public static string ReportRouting
         {
             get
             {
-                var currentAppPath = HttpRuntime.AppDomainAppVirtualPath;
-                return currentAppPath.Equals("/", StringComparison.OrdinalIgnoreCase) && !HttpContext.Current.Session.IsCookieless ?
-                    "site-reports/" : string.Empty;
+                var context = HttpContext.Current;
+                var cookieless = context.Session.IsCookieless ? $"/(S({context.Session.SessionID}))" : string.Empty;
+                return IsStandaloneReport ? $"site-reports{cookieless}/" : string.Empty;
             }
         }
-
-        public static string ReportDomain => HttpContext.Current.Session.IsCookieless ?
-             $"/{HttpContext.Current.Request.Headers["Host"]}/(S({HttpContext.Current.Session.SessionID}))/" : string.Empty;
 
         public static bool IsStandaloneReport => GetConfigValue("IsStandaloneReport") == "1";
 

@@ -4,6 +4,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Alpha.Reports.Constants;
+    using Alpha.Reports.Models;
     using App_Start;
     using Extensions;
     using Params;
@@ -11,7 +12,6 @@
     using Reports.Models.WinLossByProduct;
     using Requests.WinLossByProduct;
     using Services;
-    using Sunplus.Agent.Model.BL.Definitions;
 
     [SuppressMessage(
         "StyleCop.CSharp.NamingRules",

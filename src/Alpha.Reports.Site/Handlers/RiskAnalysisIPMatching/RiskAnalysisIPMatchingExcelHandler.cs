@@ -2,7 +2,7 @@
 {
     using Alpha.Reports.Models;
     using Alpha.Reports.Site.Requests.RiskAnalysisIPMatching;
-    using Alpha.Utilities.IP;
+    using AlphaPlus.Utilities.IP;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -13,7 +13,7 @@
     using static ONEbook.SpreadSheets.Column;
 
     public class RiskAnalysisIPMatchingExcelHandler :
-        RiskAnalysisIPMatchingBaseHandler, 
+        RiskAnalysisIPMatchingBaseHandler,
         IRequestHandler<RiskAnalysisIPMatchingExcelQuery, ExcelFileViewModel>
     {
         private readonly Workbook<RiskAnalysisIPMatchingModel> workbook;
@@ -21,7 +21,7 @@
         public RiskAnalysisIPMatchingExcelHandler(
             RiskAnalysisIPMatchingService riskAnalysisIPMatchingService,
             IPService ipService,
-            Workbook<RiskAnalysisIPMatchingModel> workbook) 
+            Workbook<RiskAnalysisIPMatchingModel> workbook)
             : base(riskAnalysisIPMatchingService, ipService)
         {
             this.workbook = workbook;
@@ -69,6 +69,7 @@
         }
 
 #pragma warning disable S109 // Magic numbers should not be used
+
         private TemplateInfo GetTemplateInfo()
             => new TemplateInfo(
                 GetExcelTemplatePath("Super"),
@@ -82,6 +83,7 @@
                 columnStartName: A,
                 sheetIndex: 1,
                 footerEndIndex: 5);
+
 #pragma warning restore S109 // Magic numbers should not be used
 
         private string GetReportTitle(RiskAnalysisIPMatchingExcelQuery message)

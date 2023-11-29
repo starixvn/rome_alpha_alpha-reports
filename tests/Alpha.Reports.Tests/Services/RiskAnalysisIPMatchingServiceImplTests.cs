@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
     using System.Collections.Generic;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Criteria.RiskAnalysisIPMatching;
     using Extensions;
     using Fanex.Data.Repository;

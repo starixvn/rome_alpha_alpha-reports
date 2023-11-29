@@ -2,7 +2,7 @@
 {
     using System;
     using System.Linq;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
@@ -100,7 +100,7 @@
                 false,
                 false,
                 string.Empty,
-                false);            
+                false);
 
             // Act
             winLossDetailServiceImpl.GetWinLossDetail(param);

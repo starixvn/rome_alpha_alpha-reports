@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using Alpha.Reports.Models;
     using App_GlobalResources;
     using Reports.Constants;
-    using Sunplus.Agent.Model.BL.Definitions;
 
 
     public static class BetTypeConfig

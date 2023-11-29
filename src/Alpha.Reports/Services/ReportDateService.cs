@@ -104,7 +104,7 @@
         public Task<BalanceUpDayAndMoveBetsDay> GetBalanceUpDayAndMoveBetsDayAsync()
             => cacheService.GetOrSetAsync(
                 BalanceUpDayAndMoveBetsDayCacheKey,
-                () => dynamicRepository.Get<BalanceUpDayAndMoveBetsDay>(new GetBalanceUpDayAndMoveBetsDayCriteria()),
+                () => dynamicRepository.GetAsync<BalanceUpDayAndMoveBetsDay>(new GetBalanceUpDayAndMoveBetsDayCriteria()),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CacheBalanceUpDayAndMoveBetsDayInMinutes)));
     }
 }

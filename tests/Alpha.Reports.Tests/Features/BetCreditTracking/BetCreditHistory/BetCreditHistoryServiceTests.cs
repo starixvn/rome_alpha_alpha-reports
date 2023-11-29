@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Constants;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Criteria;
@@ -35,7 +35,7 @@
         public void GetBetCreditHistory_Always_CallThrowIfUM()
         {
             // Arrange
-            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, LanguageCode.English ,1, 100);
+            var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, LanguageCode.English, 1, 100);
 
             // Act
             service.GetBetCreditHistory(param);
@@ -91,7 +91,7 @@
             var expected = new List<string>
             {
                 // ActionId = -1
-                "Opening Credit", 
+                "Opening Credit",
                 // ActionId = 0
                 "Bet updated, LOSE to WON",
                 "Bet updated, VOID to running",

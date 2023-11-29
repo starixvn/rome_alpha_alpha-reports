@@ -12,7 +12,6 @@
     using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;
     using Requests.WinLossByProduct;
-    using Sunplus.Agent.Model.BL.Definitions;
 
     public class WinLossByProductViewModel
     {

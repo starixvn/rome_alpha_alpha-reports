@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLossAnalysis;
@@ -69,7 +69,7 @@
             var limitedDate = DateTime.Today.AddDays(1);
             var param = new WinLossAnalysisParam(0, 1, "", 1, 2, DateTime.Today, DateTime.Today.AddDays(2), limitedDate, Enumerable.Empty<int>(), UserLevel.Super);
 
-            // Act            
+            // Act
             winLossAnalysisServiceImpl.GetWinLossAnalysis(param);
 
             // Assert

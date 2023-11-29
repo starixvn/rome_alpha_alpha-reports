@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Alpha.PartialUM.Services;
+    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Utils;
     using Criteria.WinLoss;
     using DataAccesses;
@@ -158,9 +158,9 @@
         }
 
         public Task<IEnumerable<EnteredSportResult>> GetEnteredSportResultsAsync()
-            => cacheService.GetOrSetAsync(
+            => Task.FromResult(cacheService.GetOrSet(
                  EnteredResultsCacheKey,
                  () => GetDataEnteredSportResults(),
-                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(EnteredResultsCacheInMinutes)));
+                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(EnteredResultsCacheInMinutes))));
     }
 }

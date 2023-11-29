@@ -1,5 +1,28 @@
 ﻿namespace Alpha.Reports.Site
 {
+    using Alpha.Auth.Filters;
+    using Alpha.NetThrottling.Mvc;
+    using Alpha.NetThrottling.Utils;
+    using Alpha.PartialUM.Filters;
+    using AlphaPlus.Logging;
+    using AlphaPlus.Logging.Web;
+    using AlphaPlus.User.Models;
+    using App_Start;
+    using Auth.Configurations;
+    using Configurations;
+    using Fanex.Caching;
+    using Fanex.Data;
+    using Fanex.Data.SqlServer;
+    using Fanex.Logging.Extensions.Database;
+    using Fanex.Logging.Extensions.Web;
+    using Fanex.RemotingRef;
+    using Helpers;
+    using ONEbook.UM;
+    using ONEbook.UM.AspNetMVC.Filters;
+    using ONEbook.UM.Configurations;
+    using ONEbook.UM.NETFramework;
+    using ONEbook.UM.Services;
+    using ONEbook.UM.Transport;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -9,33 +32,10 @@
     using System.Web.Helpers;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using Alpha.Auth.Filters;
-    using Alpha.Logging;
-    using Alpha.NetThrottling.Mvc;
-    using Alpha.NetThrottling.Utils;
-    using Alpha.PartialUM.Filters;
-    using App_Start;
-    using Auth.Configurations;
-    using Configurations;
-    using Fanex.Caching;
-    using Fanex.Data;
-    using Fanex.Data.CrossCutting.WrappingException;
-    using Fanex.Data.OldConnectionStringProvider;
-    using Fanex.Logging.Extensions.Database;
-    using Fanex.Logging.Extensions.Web;
-    using Fanex.RemotingRef;
-    using Helpers;
-    using ONEbook.UM;
-    using ONEbook.UM.AspNetMVC.Filters;
-    using ONEbook.UM.Configurations;
-    using ONEbook.UM.Helpers;
-    using ONEbook.UM.NETFramework;
-    using ONEbook.UM.Services;
-    using ONEbook.UM.Transport;
-    using Sunplus.Agent.Model.Entities;
     using Web;
     using Web.Filters;
     using Web.Helpers;
+    using HttpContextHelper = ONEbook.UM.Helpers.HttpContextHelper;
 
     public class MvcApplication : HttpApplication
     {
@@ -54,14 +54,12 @@
 
             DbSettingProviderManager
                 .StartNewSession()
-                .Use(new OldConnectionStringProvider())
-                .UseDefaultDbSettingProvider(resourcePath: SiteSettings.StoredProcedurePath, enableWatching: true)
-                .Use((settingKey, commandTimeout) => new WrappingExceptionObjectDb(settingKey, commandTimeout))
+                .WithSqlServer(resourcePath: SiteSettings.StoredProcedurePath)
                 .Run();
-
 
             ShareSession.Init();
 
+            LoggingConfig.ExceptionHandler = new ExceptionHandlerAdapter();
             LoggingConfig.Init(getDbExceptionInfo: DatabaseInfoGetters.GetDbExceptionInfo);
 
             GlobalFilters.Filters.Add(new NetThrottlingFilterAttribute(isUsedRedis: false));

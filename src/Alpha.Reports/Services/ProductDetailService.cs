@@ -73,7 +73,7 @@
 
         public IEnumerable<int> FilterResourceIdsByCustomerForConsolidationReport(int custId, string resourceIds, IEnumerable<Product> products)
             => FilterResourceIdsByCustomer(GetProductDetailsForConsolidationReport(custId, products), resourceIds);
-                
+
         public IEnumerable<ProductDetail> GetProductDetails(int viewerId, string site, int currencyId)
         {
             if (viewerId <= 0)
@@ -283,16 +283,16 @@
             => SiteSettings.ProductOfferProductDetail.Any(i => i == productId);
 
         // Async methods
-        public async Task<IEnumerable<ProductDetail>> GetProductDetailsAsync(int viewerId, string site, int currencyId)
+        public Task<IEnumerable<ProductDetail>> GetProductDetailsAsync(int viewerId, string site, int currencyId)
         {
             if (viewerId <= 0)
             {
-                return Enumerable.Empty<ProductDetail>();
+                return Task.FromResult(Enumerable.Empty<ProductDetail>());
             }
 
             var canViewProductDetails = CanViewProductDetails(viewerId, site, currencyId);
 
-            return await ConfiguredCacheService.GetOrSetAsync(
+            var result = ConfiguredCacheService.GetOrSet(
                 $"{ProductDetailsCacheKey}-{viewerId}",
                 () => GetProductDetails()
                     .Where(p => canViewProductDetails.ContainsKey(p.ProductId))
@@ -303,6 +303,8 @@
                         return product;
                     }),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductDetailsCacheInMinutes)));
+
+            return Task.FromResult(result);
         }
     }
 }

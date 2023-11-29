@@ -6,8 +6,6 @@
     using System.Text.RegularExpressions;
     using System.Web;
     using Alpha.Reports.Configurations;
-    using Alpha.Reports.Site.Constants;
-    using Sunplus.Agent.Model.Entities;
     using Web.Helpers;
 
     public static class UrlHelper
@@ -82,20 +80,13 @@
         {
             get
             {
-                if (SiteSettings.IsStandaloneReport && HttpContext.Current.Session.IsCookieless)
+                var context = HttpContext.Current;
+                if (SiteSettings.IsStandaloneReport && context.Session.IsCookieless)
                 {
-                    var userSession = UserSession.Current;
-                    var mainDomain = userSession.GetProperty<string>(SessionKey.MainDomainSessionKey);
-                    var mainSessionId = userSession.GetProperty<string>(SessionKey.MainSessionID);
-                    var betlistDomain = userSession.GetProperty<string>(SessionKey.BetlistDomainSessionKey);
-                    var betlistSessionId = userSession.GetProperty<string>(SessionKey.BetlistSessionID);
+                    var betlistSessionId = context.Session.SessionID;
                     var betlistAppPath = "/site-betlists";
 
-                    betlistAppPath = string.IsNullOrWhiteSpace(betlistDomain) ? betlistAppPath : string.Empty;
-                    betlistSessionId = betlistSessionId ?? mainSessionId;
-                    betlistDomain = betlistDomain ?? mainDomain;
-
-                    return new Func<string, string>((virtualPath) => $"{betlistDomain}{betlistAppPath}/(S({betlistSessionId})){virtualPath?.Replace("~", string.Empty)}");
+                    return new Func<string, string>((virtualPath) => $"{betlistAppPath}/(S({betlistSessionId})){virtualPath?.Replace("~", string.Empty)}");
                 }
 
                 return MicroSites.BetListsUrl;
@@ -155,11 +146,6 @@
 
         internal static string GetLink(string action, string currentQuery)
         {
-            if (SiteSettings.IsStandaloneReport && HttpContext.Current.Session.IsCookieless)
-            {
-                return MicroSites.ReportsUrl(action + currentQuery).Replace("/site-reports", string.Empty);
-            }
-
             return MicroSites.ReportsUrl(action + currentQuery);
         }
 
@@ -176,16 +162,16 @@
 
         internal static string GetMessagePath(string virtualPath)
         {
-            if (SiteSettings.IsStandaloneReport && HttpContext.Current.Session.IsCookieless)
+            var context = HttpContext.Current;
+            if (SiteSettings.IsStandaloneReport && context.Session.IsCookieless)
             {
-                var userSession = UserSession.Current;
-                var mainDomain = userSession.GetProperty<string>(SessionKey.MainDomainSessionKey);
-                var mainSessionId = userSession.GetProperty<string>(SessionKey.MainSessionID);
+                var mainDomain = $"//{context.Request.Headers["Host"]}";
+                var mainSessionId = context.Session.SessionID;
 
                 return $"{mainDomain}/site-messages/(S({mainSessionId})){virtualPath?.Replace("~", string.Empty)}";
             }
 
-            return GetAppPath(virtualPath, MicroSites.MessageUrl, Web.Configurations.AppSettings.MessageAppPath);
+            return GetAppPath(virtualPath, MicroSites.MessageUrl, AlphaPlus.Configurations.AppSettings.MessageAppPath);
         }
 
         internal static string GetAppPath(string virtualPath, Func<string, string> getAppPath, string appPath)

@@ -2,7 +2,7 @@
 {
     using Alpha.Reports.Site.Handlers.RiskAnalysisIPMatching;
     using Alpha.Reports.Site.Requests.RiskAnalysisIPMatching;
-    using Alpha.Utilities.IP;
+    using AlphaPlus.Utilities.IP;
     using Constants;
     using Fixtures;
     using NSubstitute;
@@ -16,7 +16,6 @@
 
     [Trait("Category", "RiskAnalysisIPMatching")]
     [Collection("UserCollection")]
-
     public class RiskAnalysisIPMatchingExcelHandlerTests
     {
         private readonly IPService ipService;

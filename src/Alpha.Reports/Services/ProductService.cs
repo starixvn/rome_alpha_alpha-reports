@@ -196,7 +196,7 @@
         }
 
         // Async methods
-        public async Task<IEnumerable<Product>> GetProductsForCustomerAsync(
+        public Task<IEnumerable<Product>> GetProductsForCustomerAsync(
             int viewerId,
             string site,
             int currencyId,
@@ -205,17 +205,17 @@
         {
             if (viewerId <= 0)
             {
-                return Enumerable.Empty<Product>();
+                return Task.FromResult(Enumerable.Empty<Product>());
             }
 
-            var custProducts = await cacheService.GetOrSetAsync(
+            var custProducts = cacheService.GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{viewerId}",
                 () => GetProductsForReport()
                     .Where(product => canViewProduct(product.Id) || CanViewBySite(viewerId, site, currencyId, product.Id))
                     .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
 
-            return GetProductsForCustomer(custProducts, minReportDate, isEnableSabaPromotion, false);
+            return Task.FromResult(GetProductsForCustomer(custProducts, minReportDate, isEnableSabaPromotion, false));
         }
     }
 }

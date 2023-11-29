@@ -1163,11 +1163,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             else if (jqXHR.status === 500 && jqXHR.responseText) {
                 var responseObject = JSON.parse(jqXHR.responseText);
                 if (responseObject.UMFrom && responseObject.UMTo) {
-                    var cookielessSiteMainUrl = $("#CookielessSiteMainUrl");
-                    var siteMainUrl = cookielessSiteMainUrl.length
-                        ? cookielessSiteMainUrl.val()
-                        : window.top.alpha.urls.mainRootPath;
-                    window.location.href = siteMainUrl + "partialum/index?" + $.param(responseObject);
+                    window.location.href = window.top.alpha.urls.mainRootPath + "partialum/index?" + $.param(responseObject);
                 }
             }
         }).always(function () { return _this.removeIsWeekSelectionForStatistic(); });
