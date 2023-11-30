@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Tests.Criteria.ProgressiveContribution
 {
     using System;
-    using System.Linq;
     using Reports.Criteria.ProgressiveContribution;
     using Reports.Enumerations;
     using Reports.Models;
@@ -18,7 +17,7 @@
         {
             // Arrange
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var criteria = new ProgressiveContributionCriteria(1, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), custLevel);
+            var criteria = new ProgressiveContributionCriteria(1, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, string.Empty, custLevel);
 
             // Act
             var actualSettingKey = criteria.GetSettingKey();

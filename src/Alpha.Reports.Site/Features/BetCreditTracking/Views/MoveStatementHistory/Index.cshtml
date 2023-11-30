@@ -168,7 +168,7 @@
         </tr>
         foreach (var row in member.RefNoRow)
         {
-            <tr class="@(row.IsMultipleMoved == 1 ? "red" : "")">
+            <tr class="@(row.IsMultipleMoved ? "red" : "")">
                 <td>
                     <div class="refno">
                         @if (Model.CanViewBetLists)

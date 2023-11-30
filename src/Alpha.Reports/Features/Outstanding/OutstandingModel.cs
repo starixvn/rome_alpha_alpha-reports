@@ -24,13 +24,13 @@
 
         public string CustName { get; set; }
 
-        public decimal MemberOutstanding { get; private set; }
+        public decimal MemberOutstanding { get; set; }
 
-        public decimal AgentOutstanding { get; private set; }
+        public decimal AgentOutstanding { get; set; }
 
-        public decimal MasterOutstanding { get; private set; }
+        public decimal MasterOutstanding { get; set; }
 
-        public decimal SuperOutstanding { get; private set; }
+        public decimal SuperOutstanding { get; set; }
 
         public static OutstandingModel GetAccumulatedData(IEnumerable<OutstandingModel> outstandings)
         {

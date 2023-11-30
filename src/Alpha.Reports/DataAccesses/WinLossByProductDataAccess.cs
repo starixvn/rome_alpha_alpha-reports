@@ -1,11 +1,10 @@
 ﻿namespace Alpha.Reports.DataAccesses
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Criteria.WinLossByProductCriteria;
-    using Fanex.Common.Extensions;
+    using Fanex.Data.Repository;
     using Models;
     using Models.WinlossByBetType;
     using Services;
@@ -17,70 +16,78 @@
 
     public class WinLossByProductDataAccessImpl : WinLossByProductDataAccess
     {
-        private readonly CacheRefService cacheRefService;
         private const string mMROddTypeId = "6";
 
-        public WinLossByProductDataAccessImpl(CacheRefService cacheRefService)
+        private readonly IDynamicRepository repository;
+        private readonly CacheRefService cacheRefService;
+
+        public WinLossByProductDataAccessImpl(
+            IDynamicRepository repository,
+            CacheRefService cacheRefService)
         {
+            this.repository = repository;
             this.cacheRefService = cacheRefService;
         }
 
         public IEnumerable<WinLossByBetTypeModel> GetWinLossByBetType(WinLossByProductCriteria criteria)
         {
-            if (criteria == null)
+            var rawdata = repository.Fetch<WinLossByBetTypeEntity>(criteria);
+
+            if (rawdata.Any())
             {
-                throw new ArgumentNullException(nameof(criteria), "Criteria cannot be null");
+                var mMROddTypeName = cacheRefService.GetOddsTypeName(mMROddTypeId);
+
+                return rawdata
+                    .Select(wl => BuildWinLossByBetType(wl, criteria.CustLevel, mMROddTypeName))
+                    .ToList();
             }
 
-            var winlossByBettypeData = new List<WinLossByBetTypeModel>();
-            if (criteria.IsValid())
-            {
-                using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
-                {
-                    using (var reader = db.ExecuteReader(criteria))
-                    {
-                        if (reader != null)
-                        {
-                            var mMROddTypeName = cacheRefService.GetOddsTypeName(mMROddTypeId);
-                            while (reader.Read())
-                            {
-                                winlossByBettypeData.Add(BuildWinLossByBetType(reader, criteria.CustLevel, mMROddTypeName));
-                            }
-                        }
-                    }
-                }
-            }
-
-            return winlossByBettypeData;
+            return Enumerable.Empty<WinLossByBetTypeModel>();
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
-        private WinLossByBetTypeModel BuildWinLossByBetType(IDataReader reader, UserLevel reportLevel, string mMROddTypeName)
+        private WinLossByBetTypeModel BuildWinLossByBetType(WinLossByBetTypeEntity entity, UserLevel reportLevel, string mMROddTypeName)
         {
-            var productId = Convert.IsDBNull(reader["ProductID"]) ? 0 : reader.ToInt("ProductID");
-            var sportTypeId = Convert.IsDBNull(reader["SportType"]) ? 0 : reader.ToInt("SportType");
-            var bettypeId = reader.ToInt("bettype");
-            var isMMR = reader.ToBool("IsMMR", false);
+            var sportTypeId = entity.SportType ?? 0;
 
             var winLossByBettype = new WinLossByBetTypeModel(
-                 betTypeId: bettypeId,
-                 betTypeName: BuildBetTypeName(cacheRefService.GetBetTypeName(bettypeId), mMROddTypeName, isMMR),
-                 productId: productId,
+                 betTypeId: entity.BetType,
+                 betTypeName: BuildBetTypeName(cacheRefService.GetBetTypeName(entity.BetType), mMROddTypeName, entity.IsMMR),
+                 productId: entity.ProductId ?? 0,
                  sportTypeId: sportTypeId,
                  sportTypeName: sportTypeId == 0 ? string.Empty : cacheRefService.GetSportName(sportTypeId),
-                 liveIndicator: reader.ToString("liveindicator") == "1",
-                 betCount: reader.ToInt("NumberOfTickets"),
-                 turnover: reader.ToDecimal("TurnOver"),
-                 grossComm: reader.ToDecimal("GrossComm"),
-                 memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")) : null,
-                 agentNetWinLoss: NetWinLoss.ReadAgentNetWinLoss(reader, reportLevel),
-                 masterNetWinLoss: NetWinLoss.ReadMasterNetWinLoss(reader, reportLevel),
-                 superNetWinLoss: NetWinLoss.ReadSuperNetWinLoss(reader, reportLevel));
+                 liveIndicator: entity.LiveIndicator,
+                 betCount: entity.BetCount,
+                 turnover: entity.Turnover,
+                 grossComm: entity.GrossComm,
+                 memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(entity.MemberWinLoss.Value, entity.MemberComm.Value) : null,
+                 agentNetWinLoss: ReadAgentNetWinLoss(entity, reportLevel),
+                 masterNetWinLoss: ReadMasterNetWinLoss(entity, reportLevel),
+                 superNetWinLoss: ReadSuperNetWinLoss(entity, reportLevel));
 
             return winLossByBettype;
         }
 
         private static string BuildBetTypeName(string betTypeName, string mMROddTypeName, bool isMMR)
             => isMMR ? string.Format("{0} ({1})", betTypeName, mMROddTypeName) : betTypeName;
+
+        private static NetWinLoss ReadAgentNetWinLoss(WinLossByBetTypeEntity entity, UserLevel reportLevel)
+            => reportLevel.IsNotSuperLevel()
+            ? (reportLevel.IsMasterLevel()
+                ? new NetWinLoss(entity.DownlineTotal.Value)
+                : new NetWinLoss(entity.WinLoss, entity.Comm))
+            : null;
+
+        private static NetWinLoss ReadMasterNetWinLoss(WinLossByBetTypeEntity entity, UserLevel reportLevel)
+            => reportLevel.IsMasterOrSuperLevel()
+            ? (reportLevel.IsMasterLevel()
+                ? new NetWinLoss(entity.WinLoss, entity.Comm)
+                : new NetWinLoss(entity.DownlineTotal.Value))
+            : null;
+
+        private static NetWinLoss ReadSuperNetWinLoss(WinLossByBetTypeEntity entity, UserLevel reportLevel)
+            => reportLevel.IsSuperLevel()
+            ? new NetWinLoss(entity.WinLoss, entity.Comm)
+            : null;
     }
 }

@@ -1,8 +1,6 @@
 ﻿namespace Alpha.Reports.Tests.Criteria
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Reports.Criteria;
     using Xunit;
 
@@ -12,7 +10,7 @@
         public void GetProductIds_EmptyProductList_ReturnsEmpty()
         {
             // Arrange
-            var reportProductCriteria = new ReportProductCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>());
+            var reportProductCriteria = new ReportProductCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, string.Empty);
             var expectedProductIds = string.Empty;
 
             // Act
@@ -32,7 +30,7 @@
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                new List<int>() { 1, 2 });
+                "1,2");
 
             var expectedProductIds = "1,2";
 
@@ -47,7 +45,7 @@
         public void GetSettingKey_Always_ThrowsNotImplementedException()
         {
             // Arrange
-            var reportProductCriteria = new ReportProductCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>());
+            var reportProductCriteria = new ReportProductCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, string.Empty);
 
             // Act & Assert
             Assert.Throws<NotImplementedException>(() => reportProductCriteria.GetSettingKey());
@@ -57,7 +55,7 @@
         public void IsValid_EmptyProductIds_ReturnsInvalid()
         {
             // Arrange
-            var reportProductCriteria = new ReportProductCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>());
+            var reportProductCriteria = new ReportProductCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, string.Empty);
             var expectedIsValid = false;
 
             // Act

@@ -2,9 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-    using Database.WinLossByProduct;
-    using Fixtures;
+    using System.Linq;
+    using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLossByProductCriteria;
@@ -18,22 +17,21 @@
     [Collection("ObjectDbCollection")]
     public class WinLossByProductDataAccessImplTests
     {
-        private readonly ObjectDbFixture objectDbFixture;
         private readonly WinLossByProductDataAccessImpl winLossByProductDataAccessImpl;
 
         private readonly DateTime currentDate = new DateTime(2016, 12, 28);
         private readonly CompareLogic compareLogic;
         private readonly CacheRefService cacheRefService;
+        private readonly IDynamicRepository repository;
 
-        public WinLossByProductDataAccessImplTests(ObjectDbFixture objectDbFixture)
+        public WinLossByProductDataAccessImplTests()
         {
-            this.objectDbFixture = objectDbFixture;
-
             cacheRefService = Substitute.For<CacheRefService>();
             cacheRefService.GetBetTypeName(71).Returns("Casino Games");
             cacheRefService.GetBetTypeName(1101).Returns("Premium Baccarat");
+            repository = Substitute.For<IDynamicRepository>();
 
-            winLossByProductDataAccessImpl = new WinLossByProductDataAccessImpl(cacheRefService);
+            winLossByProductDataAccessImpl = new WinLossByProductDataAccessImpl(repository, cacheRefService);
             compareLogic = new CompareLogic();
         }
 
@@ -51,10 +49,10 @@
         public void GetWinLossByBettype_MasterWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossByProductCriteria = new WinLossByProductCriteria(1, currentDate, currentDate, currentDate, currentDate, new List<int> { 1, 2 }, UserLevel.Super, string.Empty);
+            var winLossByProductCriteria = new WinLossByProductCriteria(1, currentDate, currentDate, currentDate, currentDate, "1,2", UserLevel.Super, string.Empty);
 
-            var dataSet = WinLossByProductDatabase.MasterWinLoss.CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossByProductCriteria>()).Returns(dataSet);
+            var dataSet = new List<WinLossByBetTypeEntity> { };
+            repository.Fetch<WinLossByBetTypeEntity>(Arg.Any<WinLossByProductCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossByBetTypeModel>()
             {
@@ -74,10 +72,10 @@
         public void GetWinLossByBettype_AgentWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossByProductCriteria = new WinLossByProductCriteria(1, currentDate, currentDate, currentDate, currentDate, new List<int> { 1, 2 }, UserLevel.Master, string.Empty);
+            var winLossByProductCriteria = new WinLossByProductCriteria(1, currentDate, currentDate, currentDate, currentDate, "1,2", UserLevel.Master, string.Empty);
 
-            var dataSet = WinLossByProductDatabase.AgentWinLoss.CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossByProductCriteria>()).Returns(dataSet);
+            var dataSet = new List<WinLossByBetTypeEntity> { };
+            repository.Fetch<WinLossByBetTypeEntity>(Arg.Any<WinLossByProductCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossByBetTypeModel>()
             {
@@ -97,10 +95,10 @@
         public void GetWinLossByBettype_MemberWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossByProductCriteria = new WinLossByProductCriteria(1, currentDate, currentDate, currentDate, currentDate, new List<int> { 1, 2 }, UserLevel.Agent, string.Empty);
+            var winLossByProductCriteria = new WinLossByProductCriteria(1, currentDate, currentDate, currentDate, currentDate, "1,2", UserLevel.Agent, string.Empty);
 
-            var dataSet = WinLossByProductDatabase.MemberWinLoss.CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossByProductCriteria>()).Returns(dataSet);
+            var dataSet = new List<WinLossByBetTypeEntity> { };
+            repository.Fetch<WinLossByBetTypeEntity>(Arg.Any<WinLossByProductCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossByBetTypeModel>()
             {
@@ -122,8 +120,8 @@
             // Arrange
             var winLossByProductCriteria = new WinLossByProductCriteria(0, currentDate, currentDate, currentDate, currentDate, null, UserLevel.Agent, string.Empty);
 
-            IDataReader dataReader = null;
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossByProductCriteria>()).Returns(dataReader);
+            var dataSet = Enumerable.Empty<WinLossByBetTypeEntity>();
+            repository.Fetch<WinLossByBetTypeEntity>(Arg.Any<WinLossByProductCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossByBetTypeModel>();
 

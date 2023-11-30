@@ -6,7 +6,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Extensions;
-    using Fixtures;
+    using Fanex.Data.Repository;
     using NSubstitute;
     using Reports.Constants;
     using Reports.Criteria.MatchWinLossDetail;
@@ -19,13 +19,13 @@
     [Collection("ObjectDbCollection")]
     public class MatchWinLossDetailDataAccessImplTests
     {
-        private readonly ObjectDbFixture objectDbFixture;
+        private readonly IDynamicRepository repository;
         private readonly MatchWinLossDetailDataAccessImpl matchWinLossDetailDataAccessImpl;
 
-        public MatchWinLossDetailDataAccessImplTests(ObjectDbFixture objectDbFixture)
+        public MatchWinLossDetailDataAccessImplTests()
         {
-            this.objectDbFixture = objectDbFixture;
-            matchWinLossDetailDataAccessImpl = new MatchWinLossDetailDataAccessImpl();
+            repository = Substitute.For<IDynamicRepository>();
+            matchWinLossDetailDataAccessImpl = new MatchWinLossDetailDataAccessImpl(repository);
         }
 
         [Fact]
@@ -51,12 +51,14 @@
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                new List<int> { 1, 2 },
+                "1,2",
                 level,
                 Enumerable.Empty<string>());
 
-            var reportData = dataSet.CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<MatchWinLossDetailCriteria>()).Returns(reportData);
+            var reportData = new List<MatchWinLossDetailEntity>
+            {
+            };
+            repository.Fetch<MatchWinLossDetailEntity>(Arg.Any<MatchWinLossDetailCriteria>()).Returns(reportData);
 
             var expectedData = new List<MatchWinLossDetailModel>
             {
@@ -118,12 +120,12 @@
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                new List<int> { 1, 2 },
+                "1,2",
                 UserLevel.Super,
                 Enumerable.Empty<string>());
 
-            IDataReader dataReader = null;
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<MatchWinLossDetailCriteria>()).Returns(dataReader);
+            var reportData = Enumerable.Empty<MatchWinLossDetailEntity>();
+            repository.Fetch<MatchWinLossDetailEntity>(Arg.Any<MatchWinLossDetailCriteria>()).Returns(reportData);
 
             // Act
             var actualData = matchWinLossDetailDataAccessImpl.GetData(criteria);

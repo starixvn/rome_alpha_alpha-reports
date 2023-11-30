@@ -1,35 +1,11 @@
 ﻿namespace Alpha.Reports.Criteria.Consolidation
 {
     using System;
-    using System.Collections.Generic;
-    using Extensions;
     using Fanex.Data;
     using Fanex.Data.Repository;
-    using Params.Consolidation;
 
     public class GetConsolidationCriteria : CriteriaBase
     {
-        public GetConsolidationCriteria(
-            GetConsolidationParam param,
-            DateTime balanceUpDate,
-            DateTime moveBetsDate,
-            byte reportType,
-            string productDetails,
-            string subfix)
-            : this(
-                  param.CustId,
-                  param.Currency,
-                  param.FromDate,
-                  param.ToDate,
-                  reportType,
-                  balanceUpDate,
-                  moveBetsDate,
-                  param.ProductIds,
-                  productDetails,
-                  subfix)
-        {
-        }
-
         public GetConsolidationCriteria(
             int custId,
             int currency,
@@ -38,7 +14,7 @@
             byte reportType,
             DateTime balanceUpDate,
             DateTime moveBetsDate,
-            IEnumerable<int> productIds,
+            string productIds,
             string productDetails,
             string subfix)
         {
@@ -50,7 +26,7 @@
 
             BalanceUpDate = balanceUpDate;
             MoveBetsDate = moveBetsDate;
-            ProductIds = productIds.JoinWithComma();
+            ProductIds = productIds;
             ProductDetails = productDetails;
             Subfix = subfix;
         }

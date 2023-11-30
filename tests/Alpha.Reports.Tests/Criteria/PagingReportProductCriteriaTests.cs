@@ -15,7 +15,7 @@
         {
             // Arrange
             var expectedIsValid = false;
-            var reportCriteriaBase = new PagingReportProductCriteria(0, pageIndex, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, new List<int>() { 1, 2 });
+            var reportCriteriaBase = new PagingReportProductCriteria(0, pageIndex, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, "1,2");
 
             // Act
             var actualIsValid = reportCriteriaBase.IsValid();
@@ -32,7 +32,7 @@
         {
             // Arrange
             var expectedIsValid = true;
-            var reportCriteriaBase = new PagingReportProductCriteria(1, pageIndex, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, new List<int>() { 1, 2 });
+            var reportCriteriaBase = new PagingReportProductCriteria(1, pageIndex, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, "1,2");
 
             // Act
             var actualIsValid = reportCriteriaBase.IsValid();
@@ -47,7 +47,7 @@
             // Arrange
             var initValue = 0;
             var expectedValue = initValue;
-            var reportCriteriaBase = new PagingReportProductCriteria(0, 0, initValue, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, new List<int>() { 1, 2 });
+            var reportCriteriaBase = new PagingReportProductCriteria(0, 0, initValue, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, "1,2");
 
             // Act
             var actualValue = reportCriteriaBase.PageSize;

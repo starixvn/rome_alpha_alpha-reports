@@ -17,14 +17,14 @@
             DateTime fromDate,
             DateTime toDate,
             DateTime moveBetsDay,
-            IEnumerable<int> productIds,
+            string productIds,
             UserLevel reportLevel,
             IEnumerable<string> leagues)
         {
             ReportLevel = reportLevel;
             Leagues = leagues;
 
-            ProductIds = productIds == null ? string.Empty : productIds.JoinWithComma();
+            ProductIds = productIds;
             CustId = custId;
             FromDate = fromDate.Date;
             ToDate = toDate.Date;

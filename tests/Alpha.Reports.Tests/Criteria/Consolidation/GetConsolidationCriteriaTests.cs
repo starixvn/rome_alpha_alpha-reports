@@ -1,8 +1,6 @@
 ﻿namespace Alpha.Reports.Tests.Criteria.Consolidation
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Fixtures;
     using Reports.Criteria.Consolidation;
     using Xunit;
@@ -47,7 +45,7 @@
                 reportType: anyValueCreatorFixture.Create<byte>(),
                 balanceUpDate: anyValueCreatorFixture.Create<DateTime>(),
                 moveBetsDate: anyValueCreatorFixture.Create<DateTime>(),
-                productIds: anyValueCreatorFixture.Create<IEnumerable<int>>(),
+                productIds: anyValueCreatorFixture.Create<string>(),
                 productDetails: anyValueCreatorFixture.Create<string>(),
                 subfix: string.Empty);
 
@@ -73,7 +71,7 @@
                 balanceUpDate: anyValueCreatorFixture.Create<DateTime>(),
                 moveBetsDate: anyValueCreatorFixture.Create<DateTime>(),
                 reportType: anyValueCreatorFixture.Create<byte>(),
-                productIds: anyValueCreatorFixture.Create<IEnumerable<int>>(),
+                productIds: anyValueCreatorFixture.Create<string>(),
                 productDetails: anyValueCreatorFixture.Create<string>(),
                 subfix: string.Empty);
 
@@ -96,7 +94,7 @@
                 balanceUpDate: anyValueCreatorFixture.Create<DateTime>(),
                 moveBetsDate: anyValueCreatorFixture.Create<DateTime>(),
                 reportType: anyValueCreatorFixture.Create<byte>(),
-                productIds: Enumerable.Empty<int>(),
+                productIds: string.Empty,
                 productDetails: string.Empty,
                 subfix: string.Empty);
 
@@ -121,7 +119,7 @@
                 balanceUpDate: balanceUpDate,
                 moveBetsDate: anyValueCreatorFixture.Create<DateTime>(),
                 reportType: anyValueCreatorFixture.Create<byte>(),
-                productIds: new List<int> { 1 },
+                productIds: "1",
                 productDetails: string.Empty,
                 subfix: string.Empty);
 
@@ -137,7 +135,7 @@
         {
             // Act
             var criteria =
-                new GetConsolidationCriteria(1, 3, DateTime.MinValue, DateTime.MinValue, 2, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), string.Empty, string.Empty);
+                new GetConsolidationCriteria(1, 3, DateTime.MinValue, DateTime.MinValue, 2, DateTime.MinValue, DateTime.MinValue, string.Empty, string.Empty, string.Empty);
 
             // Assert
             Assert.True(

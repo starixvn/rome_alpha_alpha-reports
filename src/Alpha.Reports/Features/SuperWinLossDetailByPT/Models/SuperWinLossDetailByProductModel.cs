@@ -49,38 +49,38 @@
             Company = company;
         }
 
-        public int ProductId { get; }
+        public int ProductId { get; set; }
 
-        public decimal Turnover { get; }
+        public decimal Turnover { get; set; }
 
-        public decimal NetTurnover { get; }
+        public decimal NetTurnover { get; set; }
 
-        public decimal GrossComm { get; }
+        public decimal GrossComm { get; set; }
 
-        public decimal MemberWinLost { get; }
+        public decimal MemberWinLost { get; set; }
 
-        public decimal MemberComm { get; }
+        public decimal MemberComm { get; set; }
 
-        public decimal MemberTotal { get; }
+        public decimal MemberTotal { get; set; }
 
-        public decimal AgWinLost { get; }
+        public decimal AgWinLost { get; set; }
 
-        public decimal AgComm { get; }
+        public decimal AgComm { get; set; }
 
-        public decimal AgTotal { get; }
+        public decimal AgTotal { get; set; }
 
-        public decimal MAgWinLost { get; }
+        public decimal MAgWinLost { get; set; }
 
-        public decimal MAgComm { get; }
+        public decimal MAgComm { get; set; }
 
-        public decimal MAgTotal { get; }
+        public decimal MAgTotal { get; set; }
 
-        public decimal SAgWinLost { get; }
+        public decimal SAgWinLost { get; set; }
 
-        public decimal SAgComm { get; }
+        public decimal SAgComm { get; set; }
 
-        public decimal SAgTotal { get; }
+        public decimal SAgTotal { get; set; }
 
-        public decimal Company { get; }
+        public decimal Company { get; set; }
     }
 }

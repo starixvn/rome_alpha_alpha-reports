@@ -20,18 +20,15 @@
     {
         private readonly IDynamicRepository repository;
         private readonly ReportDateService reportDateService;
-        private readonly CacheRefService refService;
         private readonly IPartialUMService partialUMService;
 
         public SuperWinLossDetailByPTServiceImpl(
             IDynamicRepository repository,
             ReportDateService reportDateService,
-            CacheRefService refService,
             IPartialUMService partialUMService)
         {
             this.repository = repository;
             this.reportDateService = reportDateService;
-            this.refService = refService;
             this.partialUMService = partialUMService;
         }
 
@@ -46,7 +43,7 @@
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                param.UserSelectedProductIds,
+                param.UserSelectedProductIds == null ? string.Empty : param.UserSelectedProductIds.JoinWithComma(),
                 param.ProductDetailsXML);
 
             partialUMService.ThrowIfUM(criteria.GetSettingKey());

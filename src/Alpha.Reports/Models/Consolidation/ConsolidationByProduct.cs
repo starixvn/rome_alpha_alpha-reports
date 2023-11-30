@@ -46,6 +46,6 @@
 
         public int Product => Converter.ToInt(BreakDown);
 
-        public byte BreakDown { get; }
+        public byte BreakDown { get; set; }
     }
 }

@@ -1,11 +1,10 @@
 ﻿namespace Alpha.Reports.DataAccesses
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Criteria.WinLossAnalysis;
-    using Fanex.Common.Extensions;
+    using Fanex.Data.Repository;
     using Models;
     using Models.WinLossAnalysis;
     using Services;
@@ -17,60 +16,58 @@
 
     public class WinLossAnalysisDataAccessImpl : WinLossAnalysisDataAccess
     {
+        private readonly IDynamicRepository repository;
         private readonly CacheRefService cacheRefService;
 
-        public WinLossAnalysisDataAccessImpl(CacheRefService cacheRefService)
+        public WinLossAnalysisDataAccessImpl(
+            IDynamicRepository repository,
+            CacheRefService cacheRefService)
         {
+            this.repository = repository;
             this.cacheRefService = cacheRefService;
         }
 
         public IEnumerable<WinLossAnalysisModel> GetWinLossAnalysis(WinLossAnalysisCriteria criteria)
         {
-            if (criteria == null)
+            var isMasterOrSuperLevel = criteria.ReportLevel.IsMasterOrSuperLevel();
+            var isSuperLevel = criteria.ReportLevel.IsSuperLevel();
+            var isBySport = criteria.ReportType.Equals(WinLossAnalysisConstants.Sport);
+
+            var data = repository.Fetch<WinLossAnalysisEntity>(criteria)
+                .Select(wl => BuildWinLossAnalysisModel(isMasterOrSuperLevel, isSuperLevel, isBySport, wl));
+
+            if (isBySport)
             {
-                throw new ArgumentNullException(nameof(criteria), "Criteria cannot be null");
+                data = data.OrderBy(product => product.RollupKeyId);
             }
 
-            var data = new List<WinLossAnalysisModel>();
-            if (criteria.IsValid())
-            {
-                using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
-                {
-                    using (var reader = db.ExecuteReader(criteria))
-                    {
-                        if (reader != null)
-                        {
-                            while (reader.Read())
-                            {
-                                data.Add(BuildWinLossAnalysisModel(reader, criteria));
-                            }
-                        }
-                    }
-                }
-            }
-
-            return data;
+            return data.ToList();
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
-        private WinLossAnalysisModel BuildWinLossAnalysisModel(IDataReader reader, WinLossAnalysisCriteria criteria)
+        private WinLossAnalysisModel BuildWinLossAnalysisModel(
+            bool isMasterOrSuperLevel,
+            bool isSuperLevel,
+            bool isBySport,
+            WinLossAnalysisEntity entity)
         {
-            var reportLevel = criteria.ReportLevel;
-            var reportType = criteria.ReportType;
             int? rollupKeyId = null;
 
-            var winLossAnalysis = new WinLossAnalysisModel(
-                rollupKey: reportType.Equals(WinLossAnalysisConstants.Sport)
-                           ? cacheRefService.GetProductName(reader.ToInt("RollupKey")) : reader.ToString("RollupKey"),
-                rollupKeyId: reportType.Equals(WinLossAnalysisConstants.Sport) ? reader.ToInt("RollupKey") : rollupKeyId,
-                turnover: reader.ToDecimal("TurnOver"),
-                betCount: reader.ToInt("BetCount"),
-                memberNetWinLoss: new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")),
-                agentNetWinLoss: new NetWinLoss(reader.ToDecimal("AgWinLoss"), reader.ToDecimal("AgComm")),
-                masterNetWinLoss: reportLevel.IsMasterOrSuperLevel() ? new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm")) : null,
-                superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) : null);
+            if (isBySport)
+            {
+                rollupKeyId = int.Parse(entity.RollupKey);
+                entity.RollupKey = cacheRefService.GetProductName(rollupKeyId.Value);
+            }
 
-            return winLossAnalysis;
+            return new WinLossAnalysisModel(
+                rollupKey: entity.RollupKey,
+                rollupKeyId: rollupKeyId,
+                turnover: entity.Turnover,
+                betCount: entity.BetCount,
+                memberNetWinLoss: new NetWinLoss(entity.MemberWinLoss, entity.MemberComm),
+                agentNetWinLoss: new NetWinLoss(entity.AgWinLoss, entity.AgComm),
+                masterNetWinLoss: isMasterOrSuperLevel ? new NetWinLoss(entity.MAgWinLoss.Value, entity.MAgComm.Value) : null,
+                superNetWinLoss: isSuperLevel ? new NetWinLoss(entity.SAgWinLoss.Value, entity.SAgComm.Value) : null);
         }
     }
 }

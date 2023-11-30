@@ -17,7 +17,7 @@
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                new[] { 1 },
+                "1",
                 "1,2,3,4,5");
 
             // Act
@@ -37,7 +37,7 @@
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                new[] { 1 },
+                "1",
                 "1,2,3,4,5");
 
             // Act

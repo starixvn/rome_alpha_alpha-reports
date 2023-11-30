@@ -17,7 +17,6 @@
     public class CommissionByBettypeServiceTests
     {
         private readonly ReportDateService reportDateService;
-        private readonly ProductService productService;
         private readonly IDynamicRepository repository;
         private readonly IPartialUMService partialUMService;
         private readonly CommissionByBettypeService service;
@@ -25,10 +24,9 @@
         public CommissionByBettypeServiceTests()
         {
             reportDateService = Substitute.For<ReportDateService>();
-            productService = Substitute.For<ProductService>();
             repository = Substitute.For<IDynamicRepository>();
             partialUMService = Substitute.For<IPartialUMService>();
-            service = new CommissionByBettypeServiceImpl(repository, productService, partialUMService);
+            service = new CommissionByBettypeServiceImpl(repository, partialUMService);
         }
 
         [Theory]

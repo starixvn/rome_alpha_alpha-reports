@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Criteria.WinLossDetail
 {
     using System;
-    using System.Collections.Generic;
     using Fanex.Data;
     using Models;
 
@@ -15,7 +14,7 @@
             DateTime toDate,
             DateTime balanceUpDay,
             DateTime moveBetsDay,
-            IEnumerable<int> productIds,
+            string productIds,
             UserLevel reportLevel,
             string productDetails,
             string username,

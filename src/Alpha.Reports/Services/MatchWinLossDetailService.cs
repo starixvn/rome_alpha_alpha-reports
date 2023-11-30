@@ -56,7 +56,7 @@
                 param.FromDate.GetGreaterDate(param.LimitedDate),
                 param.ToDate,
                 reportDateService.GetMoveBetsDay(),
-                validUserSelectedProductIds,
+                validUserSelectedProductIds == null ? string.Empty : validUserSelectedProductIds.JoinWithComma(),
                 param.ReportLevel,
                 param.UserSelectedLeagueIds);
 

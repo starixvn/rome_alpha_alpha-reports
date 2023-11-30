@@ -45,9 +45,20 @@
 
   <Function Name="Win Loss">
     <Setting Key="Age_Rpt_MatchSelResultEntered" SpName="Age_Rpt_MatchSelResultEntered" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
-    <Setting Key="Age_Rpt_WinLoss_Master" SpName="Age_Rpt_WinLoss_Master" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
-    <Setting Key="Age_Rpt_WinLoss_Agent" SpName="Age_Rpt_WinLoss_Agent" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
-    <Setting Key="Age_Rpt_WinLoss_Member" SpName="Age_Rpt_WinLoss_Member" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
+    <Setting Key="Age_Rpt_WinLoss_Master" SpName="Age_Rpt_WinLoss_Master" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+      <Mapping DataField="MAgTotal" ObjectProperty="DownlineTotal" />
+      <Mapping DataField="SAgWinLoss" ObjectProperty="WinLoss" />
+      <Mapping DataField="SAgComm" ObjectProperty="Comm" />
+    </Setting>
+    <Setting Key="Age_Rpt_WinLoss_Agent" SpName="Age_Rpt_WinLoss_Agent" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+      <Mapping DataField="AgTotal" ObjectProperty="DownlineTotal" />
+      <Mapping DataField="MAgWinLoss" ObjectProperty="WinLoss" />
+      <Mapping DataField="MAgComm" ObjectProperty="Comm" />
+    </Setting>
+    <Setting Key="Age_Rpt_WinLoss_Member" SpName="Age_Rpt_WinLoss_Member" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+      <Mapping DataField="AgWinLoss" ObjectProperty="WinLoss" />
+      <Mapping DataField="AgComm" ObjectProperty="Comm" />
+    </Setting>
   </Function>
 
   <Function Name="Match Win Loss Detail">
@@ -60,9 +71,23 @@
   </Function>
 
   <Function Name="Win Loss by Product">
-    <Setting Key="Age_Rpt_WinLossByProduct_Member" SpName="Age_Rpt_WinLossByProduct_Member" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
-    <Setting Key="Age_Rpt_WinLossByProduct_Agent" SpName="Age_Rpt_WinLossByProduct_Agent" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
-    <Setting Key="Age_Rpt_WinLossByProduct_Master" SpName="Age_Rpt_WinLossByProduct_Master" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossByProduct_Member" SpName="Age_Rpt_WinLossByProduct_Member" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+      <Mapping DataField="AgWinLoss" ObjectProperty="WinLoss" />
+      <Mapping DataField="AgComm" ObjectProperty="Comm" />
+      <Mapping DataField="NumberOfTickets" ObjectProperty="BetCount" />
+    </Setting>
+    <Setting Key="Age_Rpt_WinLossByProduct_Agent" SpName="Age_Rpt_WinLossByProduct_Agent" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+      <Mapping DataField="AgTotal" ObjectProperty="DownlineTotal" />
+      <Mapping DataField="MAgWinLoss" ObjectProperty="WinLoss" />
+      <Mapping DataField="MAgComm" ObjectProperty="Comm" />
+      <Mapping DataField="NumberOfTickets" ObjectProperty="BetCount" />
+    </Setting>
+    <Setting Key="Age_Rpt_WinLossByProduct_Master" SpName="Age_Rpt_WinLossByProduct_Master" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+      <Mapping DataField="MAgTotal" ObjectProperty="DownlineTotal" />
+      <Mapping DataField="SAgWinLoss" ObjectProperty="WinLoss" />
+      <Mapping DataField="SAgComm" ObjectProperty="Comm" />
+      <Mapping DataField="NumberOfTickets" ObjectProperty="BetCount" />
+    </Setting>
   </Function>
   <Function Name="Win Loss Analysis">
     <Setting Key="Age_Rpt_WinlossAnalysis_Master" SpName="Age_Rpt_WinlossAnalysis_Master" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
@@ -166,9 +191,21 @@
     <Setting Key="Age_CustomerSelCheckBelonging_MultiCust" SpName="Age_CustomerSelCheckBelonging_MultiCust" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
   </Function>
   <Function Name="Progressvice Games Contribution">
-    <Setting Key="Age_Rpt_ProgressiveGamesContribution_Master" SpName="Age_Rpt_ProgressiveGamesContribution_Master" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
-    <Setting Key="Age_Rpt_ProgressiveGamesContribution_Agent" SpName="Age_Rpt_ProgressiveGamesContribution_Agent" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
-    <Setting Key="Age_Rpt_ProgressiveGamesContribution_Member" SpName="Age_Rpt_ProgressiveGamesContribution_Member" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
+    <Setting Key="Age_Rpt_ProgressiveGamesContribution_Master" SpName="Age_Rpt_ProgressiveGamesContribution_Master" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+      <Mapping DataField="Contribution" ObjectProperty="ContributionAmount" />
+      <Mapping DataField="ContributionSuper" ObjectProperty="SuperContribution" />
+      <Mapping DataField="ContributionMaster" ObjectProperty="MasterContribution" />
+      <Mapping DataField="ContributionAgent" ObjectProperty="AgentContribution" />
+    </Setting>
+    <Setting Key="Age_Rpt_ProgressiveGamesContribution_Agent" SpName="Age_Rpt_ProgressiveGamesContribution_Agent" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+      <Mapping DataField="Contribution" ObjectProperty="ContributionAmount" />
+      <Mapping DataField="ContributionMaster" ObjectProperty="MasterContribution" />
+      <Mapping DataField="ContributionAgent" ObjectProperty="AgentContribution" />
+    </Setting>
+    <Setting Key="Age_Rpt_ProgressiveGamesContribution_Member" SpName="Age_Rpt_ProgressiveGamesContribution_Member" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+      <Mapping DataField="Contribution" ObjectProperty="ContributionAmount" />
+      <Mapping DataField="ContributionAgent" ObjectProperty="AgentContribution" />
+    </Setting>
   </Function>
   <Function Name="Risk Analysis">
     <Setting Key="Age_BetStatistics_IPMatching_Master" SpName="Age_BetStatistics_IPMatching_Master" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />

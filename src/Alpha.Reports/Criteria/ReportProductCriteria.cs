@@ -1,8 +1,6 @@
 ﻿namespace Alpha.Reports.Criteria
 {
     using System;
-    using System.Collections.Generic;
-    using Extensions;
 
     public class ReportProductCriteria : ReportCriteriaBase
     {
@@ -12,10 +10,9 @@
             DateTime toDate,
             DateTime balanceUpDay,
             DateTime moveBetsDay,
-            IEnumerable<int> productIds)
-            : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay)
+            string productIds) : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay)
         {
-            ProductIds = productIds == null ? string.Empty : productIds.JoinWithComma();
+            ProductIds = productIds;
         }
 
         public string ProductIds { get; }

@@ -4,7 +4,6 @@
     {
         public ProductsByRefTable()
         {
-
         }
 
         public ProductsByRefTable(int productId, byte refTable)
@@ -13,8 +12,8 @@
             RefTable = refTable;
         }
 
-        public int ProductId { get; }
+        public int ProductId { get; set; }
 
-        public byte RefTable { get; }
+        public byte RefTable { get; set; }
     }
 }

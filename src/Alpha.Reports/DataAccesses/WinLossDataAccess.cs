@@ -1,11 +1,9 @@
 ﻿namespace Alpha.Reports.DataAccesses
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Criteria.WinLoss;
-    using Fanex.Common.Extensions;
+    using Fanex.Data.Repository;
     using Models;
     using Models.Winloss;
 
@@ -16,47 +14,44 @@
 
     public class WinLossDataAccessImpl : WinLossDataAccess
     {
+        private readonly IDynamicRepository repository;
+
+        public WinLossDataAccessImpl(IDynamicRepository repository)
+            => this.repository = repository;
+
         public IEnumerable<WinLossModel> GetWinLoss(WinLossCriteria criteria)
-        {
-            if (criteria == null)
-            {
-                throw new ArgumentNullException(nameof(criteria), "Criteria cannot be null");
-            }
-
-            var winlossData = new List<WinLossModel>();
-            if (criteria.IsValid())
-            {
-                using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
-                {
-                    using (var reader = db.ExecuteReader(criteria))
-                    {
-                        if (reader != null)
-                        {
-                            while (reader.Read())
-                            {
-                                winlossData.Add(BuildWinLoss(reader, criteria.ReportLevel));
-                            }
-                        }
-                    }
-                }
-            }
-
-            return winlossData;
-        }
+            => repository.Fetch<WinLossEntity>(criteria)
+            .Select(wl => BuildWinLoss(wl, criteria.ReportLevel))
+            .ToList();
         
-        private static WinLossModel BuildWinLoss(IDataReader reader, UserLevel reportLevel)
-        {
-            var winLoss = new WinLossModel(
-                 custId: reader.ToInt("CustId"),
-                 custName: reader.ToString("CustName"),
-                 turnover: reader.ToDecimal("TurnOver"),
-                 grossComm: reader.ToDecimal("GrossComm"),
-                 memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")) : null,
-                 agentNetWinLoss: NetWinLoss.ReadAgentNetWinLoss(reader, reportLevel),
-                 masterNetWinLoss: NetWinLoss.ReadMasterNetWinLoss(reader, reportLevel),
-                 superNetWinLoss: NetWinLoss.ReadSuperNetWinLoss(reader, reportLevel));
+        private static WinLossModel BuildWinLoss(WinLossEntity entity, UserLevel reportLevel)
+            => new WinLossModel(
+            custId: entity.CustId,
+            custName: entity.CustName,
+            turnover: entity.Turnover,
+            grossComm: entity.GrossComm,
+            memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(entity.MemberWinLoss.Value, entity.MemberComm.Value) : null,
+            agentNetWinLoss: ReadAgentNetWinLoss(entity, reportLevel),
+            masterNetWinLoss: ReadMasterNetWinLoss(entity, reportLevel),
+            superNetWinLoss: ReadSuperNetWinLoss(entity, reportLevel));
 
-            return winLoss;
-        }
+        private static NetWinLoss ReadAgentNetWinLoss(WinLossEntity entity, UserLevel reportLevel)
+            => reportLevel.IsNotSuperLevel()
+            ? (reportLevel.IsMasterLevel()
+                ? new NetWinLoss(entity.DownlineTotal.Value)
+                : new NetWinLoss(entity.WinLoss, entity.Comm))
+            : null;
+
+        private static NetWinLoss ReadMasterNetWinLoss(WinLossEntity entity, UserLevel reportLevel)
+            => reportLevel.IsMasterOrSuperLevel()
+            ? (reportLevel.IsMasterLevel()
+                ? new NetWinLoss(entity.WinLoss, entity.Comm)
+                : new NetWinLoss(entity.DownlineTotal.Value))
+            : null;
+
+        private static NetWinLoss ReadSuperNetWinLoss(WinLossEntity entity, UserLevel reportLevel)
+            => reportLevel.IsSuperLevel()
+            ? new NetWinLoss(entity.WinLoss, entity.Comm)
+            : null;
     }
 }

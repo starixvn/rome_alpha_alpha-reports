@@ -4,7 +4,6 @@
     using AlphaPlus.PartialUM.Services;
     using Criteria.CommissionByBettype;
     using Fanex.Data.Repository;
-    using Models;
     using Models.CommissionByBettype;
     using Params;
 
@@ -16,16 +15,13 @@
     public class CommissionByBettypeServiceImpl : CommissionByBettypeService
     {
         private readonly IDynamicRepository repository;
-        private readonly ProductService productService;
         private readonly IPartialUMService partialUMService;
 
         public CommissionByBettypeServiceImpl(
             IDynamicRepository dynamicRepository,
-            ProductService productService,
             IPartialUMService partialUMService)
         {
             repository = dynamicRepository;
-            this.productService = productService;
             this.partialUMService = partialUMService;
         }
 

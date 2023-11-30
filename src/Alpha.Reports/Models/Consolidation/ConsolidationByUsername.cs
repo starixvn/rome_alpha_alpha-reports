@@ -46,10 +46,10 @@
             PositionTaking = positionTaking;
         }
 
-        public int BreakDown { get; }
+        public int BreakDown { get; set; }
 
-        public string ProductName { get; }
+        public string ProductName { get; set; }
 
-        public decimal PositionTaking { get; }
+        public decimal PositionTaking { get; set; }
     }
 }

@@ -7,7 +7,6 @@
     {
         public StatementModel()
         {
-
         }
 
         public StatementModel(
@@ -36,27 +35,27 @@
             GrandPrize = grandPrize;
         }
 
-        public DateTime WinLossDate { get; }
+        public DateTime WinLossDate { get; set; }
 
-        public int CustId { get; }
+        public int CustId { get; set; }
 
-        public decimal? OpeningBalance { get; }
+        public decimal? OpeningBalance { get; set; }
 
-        public decimal? Turnover { get; }
+        public decimal? Turnover { get; set; }
 
-        public decimal? WinLoss { get; }
+        public decimal? WinLoss { get; set; }
 
-        public decimal? Commission { get; }
+        public decimal? Commission { get; set; }
 
-        public decimal? TransferAmount { get; }
+        public decimal? TransferAmount { get; set; }
 
-        public decimal? ClosingBalance { get; }
+        public decimal? ClosingBalance { get; set; }
 
-        public decimal? Outstanding { get; }
+        public decimal? Outstanding { get; set; }
 
-        public decimal? VoidAmount { get; }
+        public decimal? VoidAmount { get; set; }
 
-        public decimal? GrandPrize { get; }
+        public decimal? GrandPrize { get; set; }
 
         public string WinLossDateString => WinLossDate.ToShortDateWithSlash();
 

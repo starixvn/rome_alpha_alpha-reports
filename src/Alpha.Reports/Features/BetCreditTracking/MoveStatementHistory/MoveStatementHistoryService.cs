@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using AlphaPlus.PartialUM.Services;
+    using Alpha.Reports.Extensions;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Params;
@@ -26,24 +27,32 @@
 
         public async Task<MoveStatementHistoryResult> GetMoveStatementHistory(MoveStatementHistoryParam param)
         {
-            var criteria = new MoveStatementHistoryCriteria(param);
+            var criteria = new MoveStatementHistoryCriteria(
+                param.Username,
+                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                param.ToDate,
+                param.ViewerId,
+                param.PageIndex,
+                param.PageSize,
+                param.IsVariance);
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
-            var rawdata = await dynamicRepository.FetchMultipleAsync<MoveStatementHistoryByRefNo, MoveStatementHistoryByRefNo, MoveStatementHistorySummary>(criteria);
+            var (moveStatementHistories, totalMoveStatementHistories, summaryMoveStatementHistories)
+                = await dynamicRepository.FetchMultipleAsync<MoveStatementHistoryByRefNo, MoveStatementHistoryByRefNo, MoveStatementHistorySummary>(criteria);
             var reportData = Enumerable.Empty<MoveStatementHistoryByMember>();
             var summaryData = new MoveStatementHistorySummary();
 
             if (criteria.TotalRows > 0)
             {
-                var memberRowHash = rawdata.Item2.ToDictionary(kvp => kvp.CustId, kvp => kvp);
+                var memberRowHash = totalMoveStatementHistories.ToDictionary(kvp => kvp.CustId, kvp => kvp);
 
-                reportData = rawdata.Item1.GroupBy(
+                reportData = moveStatementHistories.GroupBy(
                     r => new { r.CustId, r.Username },
                     (key, g) => new MoveStatementHistoryByMember(
                             key.Username,
                             memberRowHash.TryGetValue(key.CustId, out var memberRow) ? memberRow : new MoveStatementHistoryByRefNo(),
                             g));
-                summaryData = rawdata.Item3.FirstOrDefault();
+                summaryData = summaryMoveStatementHistories.FirstOrDefault();
             }
 
             return new MoveStatementHistoryResult(criteria.ErrorCode, criteria.ErrorMess, reportData, summaryData, criteria.TotalRows);

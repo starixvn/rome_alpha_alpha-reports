@@ -1,11 +1,10 @@
 ﻿namespace Alpha.Reports.DataAccesses
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data;
+    using System.Linq;
     using System.Threading.Tasks;
     using Criteria.WinLossDetail;
-    using Fanex.Common.Extensions;
+    using Fanex.Data.Repository;
     using Models;
     using Models.WinLossDetail;
 
@@ -18,102 +17,55 @@
 
     public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
     {
+        private readonly IDynamicRepository repository;
+
+        public WinLossDetailDataAccessImpl(IDynamicRepository repository)
+            => this.repository = repository;
+
         public PagedReportData<WinLossDetailModel> GetData(WinLossDetailCriteria criteria)
         {
-            if (criteria == null)
-            {
-                throw new ArgumentNullException(nameof(criteria), "Criteria cannot be null");
-            }
+            var (winLossEntities, totalWinLossEntities) = repository.FetchMultiple<WinLossDetailEntity, WinLossDetailEntity>(criteria);
 
-            var winLossDetails = new List<WinLossDetailModel>();
-            var totalWinLoss = new WinLossDetailModel();
-            if (criteria.IsValid())
-            {
-                using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
-                {
-                    using (var reader = db.ExecuteReader(criteria))
-                    {
-                        if (reader != null)
-                        {
-                            while (reader.Read())
-                            {
-                                winLossDetails.Add(BuildWinLossDetail(reader, criteria.ReportLevel, false));
-                            }
-
-                            if (reader.NextResult() && reader.Read())
-                            {
-                                totalWinLoss = BuildWinLossDetail(reader, criteria.ReportLevel, true);
-                            }
-                        }
-                    }
-                }
-            }
-
-            return new PagedReportData<WinLossDetailModel>(
-                winLossDetails,
-                criteria.PageIndex,
-                criteria.PageSize,
-                criteria.TotalRecords,
-                totalWinLoss);
-        }
-
-        private WinLossDetailModel BuildWinLossDetail(IDataReader reader, UserLevel reportLevel, bool isTotal)
-        {
-            string firstName = null, lastName = null;
-            bool isExistedWatchlist = false;
-            if (!isTotal)
-            {
-                firstName = reader.ToString("FirstName");
-                lastName = reader.ToString("LastName");
-                isExistedWatchlist = reportLevel.IsAgentLevel() && Convert.ToBoolean(reader["IsExistedWatchList"]);
-            }
-
-            return new WinLossDetailModel(
-                custId: reader.ToInt("CustId"),
-                custName: reader.ToString("CustName"),
-                firstName: firstName,
-                lastName: lastName,
-                isExistedWatchlist: isExistedWatchlist,
-                turnover: reader.ToDecimal("Turnover"),
-                netTurnover: reader.ToDecimal("NetTurnover"),
-                grossComm: reader.ToDecimal("GrossComm"),
-                betCount: reader.ToInt("NumberOfTickets"),
-                memberNetWinLoss: new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")),
-                agentNetWinLoss: new NetWinLoss(reader.ToDecimal("AgWinLoss"), reader.ToDecimal("AgComm")),
-                masterNetWinLoss: reportLevel.IsMasterOrSuperLevel() ? new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm")) : null,
-                superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) : null);
+            return BuildWinLossDetailReportData(winLossEntities, totalWinLossEntities, criteria);
         }
 
         public async Task<PagedReportData<WinLossDetailModel>> GetDataAsync(WinLossDetailCriteria criteria)
         {
-            var winLossDetails = new List<WinLossDetailModel>();
-            var totalWinLoss = new WinLossDetailModel();
+            var (winLossEntities, totalWinLossEntities) = await repository.FetchMultipleAsync<WinLossDetailEntity, WinLossDetailEntity>(criteria);
 
-            if (criteria.IsValid())
-            {
-                using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
-                {
-                    using (var reader = await db.ExecuteReaderAsync(criteria))
-                    {
-                        while (reader.Read())
-                        {
-                            winLossDetails.Add(BuildWinLossDetail(reader, criteria.ReportLevel, false));
-                        }
+            return BuildWinLossDetailReportData(winLossEntities, totalWinLossEntities, criteria);
+        }
 
-                        if (reader.NextResult() && reader.Read())
-                        {
-                            totalWinLoss = BuildWinLossDetail(reader, criteria.ReportLevel, true);
-                        }
-                    }
-                }
-            }
-            
+        private static PagedReportData<WinLossDetailModel> BuildWinLossDetailReportData(
+            IEnumerable<WinLossDetailEntity> winLossEntities,
+            IEnumerable<WinLossDetailEntity> totalWinLossEntities,
+            WinLossDetailCriteria criteria)
+        {
+            var winLossDetails = winLossEntities.Select(wl => BuildWinLossDetail(wl, criteria.ReportLevel));
+            var totalWinLoss = totalWinLossEntities.Select(wl => BuildWinLossDetail(wl, criteria.ReportLevel));
+
             return new PagedReportData<WinLossDetailModel>(
-                winLossDetails,
+                winLossDetails.ToList(),
                 criteria.PageIndex,
                 criteria.PageSize,
                 criteria.TotalRecords,
-                totalWinLoss);
+                totalWinLoss.FirstOrDefault());
         }
+
+        private static WinLossDetailModel BuildWinLossDetail(WinLossDetailEntity entity, UserLevel reportLevel)
+            => new WinLossDetailModel(
+            custId: entity.CustId ?? 0,
+            custName: entity.CustName,
+            firstName: entity.FirstName,
+            lastName: entity.LastName,
+            isExistedWatchlist: reportLevel.IsAgentLevel() && entity.IsExistedWatchList == true,
+            turnover: entity.Turnover,
+            netTurnover: entity.NetTurnover,
+            grossComm: entity.GrossComm,
+            betCount: entity.NumberOfTickets,
+            memberNetWinLoss: new NetWinLoss(entity.MemberWinLoss, entity.MemberComm),
+            agentNetWinLoss: new NetWinLoss(entity.AgWinLoss, entity.AgComm),
+            masterNetWinLoss: reportLevel.IsMasterOrSuperLevel() ? new NetWinLoss(entity.MAgWinLoss ?? 0, entity.MAgComm ?? 0) : null,
+            superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(entity.SAgWinLoss ?? 0, entity.SAgComm ?? 0) : null);
     }
 }

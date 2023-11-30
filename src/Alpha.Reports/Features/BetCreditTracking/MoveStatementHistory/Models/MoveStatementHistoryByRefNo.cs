@@ -13,7 +13,7 @@
             decimal memberWinLoss,
             decimal memberComm,
             decimal memberTotal)
-            : this(0, username, 0, DateTime.MinValue, DateTime.MinValue, memberWinLoss, memberComm, memberTotal, 0)
+            : this(0, username, 0, DateTime.MinValue, DateTime.MinValue, memberWinLoss, memberComm, memberTotal, false)
         {
         }
 
@@ -26,7 +26,7 @@
             decimal memberWinLoss, 
             decimal memberComm, 
             decimal memberTotal, 
-            int isMultipleMoved)
+            bool isMultipleMoved)
         {
             Username = username;
             CustId = custId;
@@ -39,22 +39,22 @@
             IsMultipleMoved = isMultipleMoved;
         }
 
-        public int CustId { get;  }
+        public int CustId { get; set; }
 
-        public string Username { get; }
+        public string Username { get; set; }
 
-        public long TransId { get; }
+        public long TransId { get; set; }
 
-        public DateTime OldEventDate { get; }
+        public DateTime OldEventDate { get; set; }
 
-        public DateTime NewEventDate { get; }
+        public DateTime NewEventDate { get; set; }
 
-        public decimal MemberWinLoss { get; }
+        public decimal MemberWinLoss { get; set; }
 
-        public decimal MemberComm { get; }
+        public decimal MemberComm { get; set; }
 
-        public decimal MemberTotal { get; }
+        public decimal MemberTotal { get; set; }
 
-        public int IsMultipleMoved { get; }
+        public bool IsMultipleMoved { get; set; }
     }
 }

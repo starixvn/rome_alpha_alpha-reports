@@ -2,7 +2,9 @@
 {
     public class RiskAnalysisIPMatchingModel
     {
-        public RiskAnalysisIPMatchingModel() { }
+        public RiskAnalysisIPMatchingModel()
+        {
+        }
 
         public RiskAnalysisIPMatchingModel(
             string ip,
@@ -22,18 +24,18 @@
             Company = company;
         }
 
-        public string IP { get; }
+        public string IP { get; set; }
 
-        public int MemberCount { get; }
+        public int MemberCount { get; set; }
 
-        public int BetCount { get; }
+        public int BetCount { get; set; }
 
-        public decimal Stake { get; }
+        public decimal Stake { get; set; }
 
-        public decimal MemberWinLoss { get; }
+        public decimal MemberWinLoss { get; set; }
 
-        public decimal SuperWinLoss { get; }
+        public decimal SuperWinLoss { get; set; }
 
-        public decimal Company { get; }
+        public decimal Company { get; set; }
     } 
 }

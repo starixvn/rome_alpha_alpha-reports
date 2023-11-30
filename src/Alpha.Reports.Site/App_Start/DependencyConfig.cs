@@ -193,7 +193,6 @@
             container.RegisterSingleton<WinLossDataAccess, WinLossDataAccessImpl>();
             container.RegisterSingleton<WinLossAnalysisDataAccess, WinLossAnalysisDataAccessImpl>();
             container.RegisterSingleton<MatchWinLossDetailDataAccess, MatchWinLossDetailDataAccessImpl>();
-            container.RegisterSingleton<StatementDataAccess, StatementDataAccessImpl>();
             container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
             container.RegisterSingleton<ProgressiveContributionDataAccess, ProgressiveContributionDataAccessImpl>();
             container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Singleton);

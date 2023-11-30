@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site
 {
+    using System.Configuration;
     using Alpha.Auth.Filters;
     using Alpha.NetThrottling.Mvc;
     using Alpha.NetThrottling.Utils;
@@ -12,8 +13,6 @@
     using Configurations;
     using Fanex.Caching;
     using Fanex.Data;
-    using Fanex.Data.SqlServer;
-    using Fanex.Logging.Extensions.Database;
     using Fanex.Logging.Extensions.Web;
     using Fanex.RemotingRef;
     using Helpers;
@@ -50,17 +49,23 @@
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            DependencyConfig.Init();
-
+            var connectionStrings = ConfigurationManager.ConnectionStrings
+                .Cast<ConnectionStringSettings>()
+                .ToDictionary(
+                    connection => connection.Name,
+                    connection => new ConnectionConfiguration(connection.Name, connection.ConnectionString, connection.ProviderName),
+                    StringComparer.OrdinalIgnoreCase);
             DbSettingProviderManager
                 .StartNewSession()
-                .WithSqlServer(resourcePath: SiteSettings.StoredProcedurePath)
+                .Use(connectionStrings)
+                .Use(SiteSettings.FanexDataServiceApi)
+                .Register(resourcePath: SiteSettings.StoredProcedurePath)
                 .Run();
 
+            DependencyConfig.Init();
             ShareSession.Init();
-
             LoggingConfig.ExceptionHandler = new ExceptionHandlerAdapter();
-            LoggingConfig.Init(getDbExceptionInfo: DatabaseInfoGetters.GetDbExceptionInfo);
+            LoggingConfig.Init();
 
             GlobalFilters.Filters.Add(new NetThrottlingFilterAttribute(isUsedRedis: false));
 

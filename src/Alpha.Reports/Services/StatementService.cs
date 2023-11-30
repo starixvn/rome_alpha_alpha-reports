@@ -1,15 +1,14 @@
 ﻿namespace Alpha.Reports.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Criteria.Statement;
-    using Alpha.Reports.DataAccesses;
     using Alpha.Reports.Models.Statement;
     using Alpha.Reports.Params.Statement;
+    using AlphaPlus.PartialUM.Services;
     using Extensions;
     using Fanex.Data.Repository;
-    using System;
 
     public interface StatementService
     {
@@ -22,18 +21,15 @@
     {
         private readonly ReportDateService reportDateService;
         private readonly IDynamicRepository repository;
-        private readonly StatementDataAccess statementRepository;
         private readonly IPartialUMService partialUMService;
 
         public StatementServiceImpl(
             ReportDateService reportDateService,
             IDynamicRepository repository,
-            StatementDataAccess statementRepository,
             IPartialUMService partialUMService)
         {
             this.reportDateService = reportDateService;
             this.repository = repository;
-            this.statementRepository = statementRepository;
             this.partialUMService = partialUMService;
         }
 
@@ -53,7 +49,7 @@
 
                 partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
-                var rawData = statementRepository.GetStatements(criteria);
+                var rawData = repository.Fetch<StatementModel>(criteria);
 
                 result = Enumerable.Concat(result, rawData);
             }

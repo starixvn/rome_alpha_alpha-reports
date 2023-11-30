@@ -47,16 +47,16 @@
       <HintPath>..\..\packages\AlphaPlus.Configurations.1.0.1\lib\netstandard2.0\AlphaPlus.Configurations.dll</HintPath>
     </Reference>
     <Reference Include="AlphaPlus.PartialUM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AlphaPlus.PartialUM.1.0.0\lib\netstandard2.0\AlphaPlus.PartialUM.dll</HintPath>
+      <HintPath>..\..\packages\AlphaPlus.PartialUM.1.0.0.1\lib\netstandard2.0\AlphaPlus.PartialUM.dll</HintPath>
     </Reference>
     <Reference Include="AlphaPlus.PartialUM.DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AlphaPlus.PartialUM.DataAccess.1.0.0\lib\netstandard2.0\AlphaPlus.PartialUM.DataAccess.dll</HintPath>
+      <HintPath>..\..\packages\AlphaPlus.PartialUM.DataAccess.1.0.0.1\lib\netstandard2.0\AlphaPlus.PartialUM.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="AlphaPlus.User.Models, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AlphaPlus.User.Models.1.2.0\lib\netstandard2.0\AlphaPlus.User.Models.dll</HintPath>
     </Reference>
     <Reference Include="AlphaPlus.Utilities.IP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AlphaPlus.Utilities.IP.1.0.0\lib\netstandard2.0\AlphaPlus.Utilities.IP.dll</HintPath>
+      <HintPath>..\..\packages\AlphaPlus.Utilities.IP.1.0.0.1\lib\netstandard2.0\AlphaPlus.Utilities.IP.dll</HintPath>
     </Reference>
     <Reference Include="BetListNPOI, Version=2.6.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\..\packages\BetListNPOI.2.6.0\lib\netstandard2.0\BetListNPOI.dll</HintPath>
@@ -88,11 +88,8 @@
     <Reference Include="Fanex.Common, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Common.1.1.0.1\lib\net40\Fanex.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Data, Version=4.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Data.4.2.2\lib\net461\Fanex.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.Data.Repository, Version=4.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Data.Repository.4.2.2\lib\net461\Fanex.Data.Repository.dll</HintPath>
+    <Reference Include="Fanex.Data.ProxyClient, Version=0.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Data.ProxyClient.0.0.3-alpha02\lib\netstandard2.0\Fanex.Data.ProxyClient.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Logging, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Logging.2.0.1\lib\net461\Fanex.Logging.dll</HintPath>
@@ -272,6 +269,7 @@
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
     <Compile Include="Criteria\Statement\GetStatementBetTrans14Criteria.cs" />
     <Compile Include="Criteria\UpdateUserSearchCriteria.cs" />
+    <Compile Include="DataAccesses\WinLossAnalysisDataAccess.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailWeekDataCriteria.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\BetCreditHistoryService.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Criteria\BetCreditHistoryCriteria.cs" />
@@ -339,12 +337,9 @@
     <Compile Include="Criteria\WinLoss\DailyEnteredSportCriteria.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteria.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetailDataAccess.cs" />
-    <Compile Include="DataAccesses\StatementDataAccess.cs" />
-    <Compile Include="DataAccesses\WinLossAnalysisDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossByProductDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccess.cs" />
-    <Compile Include="DataAccesses\ObjectDbFactory.cs" />
     <Compile Include="Extensions\DecimalExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
@@ -369,6 +364,7 @@
     <Compile Include="Models\IPRange.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
+    <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailEntity.cs" />
     <Compile Include="Models\ProductDetail.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\SportBetType.cs">
@@ -384,6 +380,10 @@
     <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailByPTModel.cs" />
     <Compile Include="Models\UsernameSuggestion.cs" />
     <Compile Include="Models\WinLossDetail\WinLossDetailWeekData.cs" />
+    <Compile Include="Models\WinLossAnalysis\WinLossAnalysisEntity.cs" />
+    <Compile Include="Models\WinlossByBetType\WinLossByBetTypeEntity.cs" />
+    <Compile Include="Models\WinLossDetail\WinLossDetailEntity.cs" />
+    <Compile Include="Models\Winloss\WinLossEntity.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingExcelParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceUplinesParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingParam.cs" />

@@ -1,12 +1,20 @@
 ﻿namespace Alpha.Reports.Features.BonusDetail.Criteria
 {
-    using Alpha.Reports.Features.BonusDetail.Params;
+    using System;
 
     internal class GetAgentBonusCriteria : GetBonusDetailCriteria
     {
-        public GetAgentBonusCriteria(BonusDetailParam param) : base(param)
+        public GetAgentBonusCriteria(
+            string username,
+            DateTime fromDate,
+            DateTime toDate,
+            byte? statusId,
+            bool? isComplained,
+            int pageIndex,
+            int pageSize,
+            int agentId) : base(username, fromDate, toDate, statusId, isComplained, pageIndex, pageSize)
         {
-            AgentId = param.ViewerId;
+            AgentId = agentId;
         }
 
         public int AgentId { get; }

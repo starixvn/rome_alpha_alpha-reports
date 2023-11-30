@@ -144,7 +144,7 @@
         internal void FillRefNo(Sheet sheet, int rowIndex, MoveStatementHistoryByRefNo refno)
         {
             var row = sheet.GetRow(rowIndex);
-            row.CopyCellsFrom(refno.IsMultipleMoved == 1 ? RedRefNoRowTemplate : RefNoRowTemplate);
+            row.CopyCellsFrom(refno.IsMultipleMoved ? RedRefNoRowTemplate : RefNoRowTemplate);
             FillCells(row, refno, RefNoMapper.Mappings);
         }
     }

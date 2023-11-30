@@ -61,12 +61,12 @@
 
             var refNoRow = new List<MoveStatementHistoryByRefNo>
             {
-                new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 10, 10, 10, 1),
-                new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, 1)
+                new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 10, 10, 10, true),
+                new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, true)
             };
 
             var memberMoveStatementHistoryByRefNo = new MoveStatementHistoryByRefNo
-                (1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 20, 20, 20, 1);
+                (1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 20, 20, 20, true);
 
             var rawData = new List<MoveStatementHistoryByMember>
             {

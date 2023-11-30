@@ -6,6 +6,7 @@
     using System.Text.RegularExpressions;
     using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Constants;
+    using Alpha.Reports.Extensions;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Models;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Params;
@@ -50,7 +51,14 @@
 
         public BetCreditHistoryResultModel GetBetCreditHistory(BetCreditHistoryParam param)
         {
-            var criteria = new BetCreditHistoryCriteria(param);
+            var criteria = new BetCreditHistoryCriteria(
+                param.Member,
+                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                param.ToDate,
+                param.RefNo,
+                param.ViewerId,
+                param.PageIndex,
+                param.PageSize);
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             var reportData = dynamicRepository.Fetch<BetCreditHistoryModel>(criteria);

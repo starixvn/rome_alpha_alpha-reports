@@ -2,9 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-    using Database.WinLoss;
-    using Fixtures;
+    using System.Linq;
+    using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLoss;
@@ -17,16 +16,16 @@
     [Collection("ObjectDbCollection")]
     public class WinLossDataAccessImplTests
     {
-        private readonly ObjectDbFixture objectDbFixture;
+        private readonly IDynamicRepository repository;
         private readonly WinLossDataAccessImpl winLossDataAccessImpl;
 
         private readonly DateTime currentDate = new DateTime(2016, 12, 28);
         private readonly CompareLogic compareLogic;
 
-        public WinLossDataAccessImplTests(ObjectDbFixture objectDbFixture)
+        public WinLossDataAccessImplTests()
         {
-            this.objectDbFixture = objectDbFixture;
-            winLossDataAccessImpl = new WinLossDataAccessImpl();
+            repository = Substitute.For<IDynamicRepository>();
+            winLossDataAccessImpl = new WinLossDataAccessImpl(repository);
             compareLogic = new CompareLogic();
         }
 
@@ -44,10 +43,32 @@
         public void GetWinLoss_MasterWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(1, currentDate, currentDate, currentDate, currentDate, new List<int> { 1, 2 }, UserLevel.Super, string.Empty);
+            var winLossCriteria = new WinLossCriteria(1, currentDate, currentDate, currentDate, currentDate, "1,2", UserLevel.Super, string.Empty);
 
-            var dataSet = WinLossDatabase.MasterWinLoss.CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
+            var dataSet = new List<WinLossEntity>
+            {
+                new WinLossEntity
+                {
+                    CustId = 1,
+                    CustName = "Master01",
+                    Turnover = 0,
+                    GrossComm = 1,
+                    DownlineTotal = 2,
+                    WinLoss = 3,
+                    Comm = 4
+                },
+                new WinLossEntity
+                {
+                    CustId = 2,
+                    CustName = "Master02",
+                    Turnover = 5,
+                    GrossComm = 6,
+                    DownlineTotal = 7,
+                    WinLoss = 8,
+                    Comm = 9
+                }
+            };
+            repository.Fetch<WinLossEntity>(Arg.Any<WinLossCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossModel>()
             {
@@ -67,10 +88,32 @@
         public void GetWinLoss_AgentWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(1, currentDate, currentDate, currentDate, currentDate, new List<int> { 1, 2 }, UserLevel.Master, string.Empty);
+            var winLossCriteria = new WinLossCriteria(1, currentDate, currentDate, currentDate, currentDate, "1,2", UserLevel.Master, string.Empty);
 
-            var dataSet = WinLossDatabase.AgentWinLoss.CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
+            var dataSet = new List<WinLossEntity>
+            {
+                new WinLossEntity
+                {
+                    CustId = 1,
+                    CustName = "Agent01",
+                    Turnover = 0,
+                    GrossComm = 1,
+                    DownlineTotal = 2,
+                    WinLoss = 3,
+                    Comm = 4
+                },
+                new WinLossEntity
+                {
+                    CustId = 2,
+                    CustName = "Agent02",
+                    Turnover = 5,
+                    GrossComm = 6,
+                    DownlineTotal = 7,
+                    WinLoss = 8,
+                    Comm = 9
+                }
+            };
+            repository.Fetch<WinLossEntity>(Arg.Any<WinLossCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossModel>()
             {
@@ -90,10 +133,34 @@
         public void GetWinLoss_MemberWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(1, currentDate, currentDate, currentDate, currentDate, new List<int> { 1, 2 }, UserLevel.Agent, string.Empty);
+            var winLossCriteria = new WinLossCriteria(1, currentDate, currentDate, currentDate, currentDate, "1,2", UserLevel.Agent, string.Empty);
 
-            var dataSet = WinLossDatabase.MemberWinLoss.CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
+            var dataSet = new List<WinLossEntity>
+            {
+                new WinLossEntity
+                {
+                    CustId = 1,
+                    CustName = "Member01",
+                    Turnover = 0,
+                    GrossComm = 1,
+                    MemberWinLoss = 2,
+                    MemberComm = 3,
+                    WinLoss = 4,
+                    Comm = 5
+                },
+                new WinLossEntity
+                {
+                    CustId = 2,
+                    CustName = "Member02",
+                    Turnover = 6,
+                    GrossComm = 7,
+                    MemberWinLoss = 8,
+                    MemberComm = 9,
+                    WinLoss = 10,
+                    Comm = 11
+                }
+            };
+            repository.Fetch<WinLossEntity>(Arg.Any<WinLossCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossModel>()
             {
@@ -115,8 +182,8 @@
             // Arrange
             var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, UserLevel.Agent, string.Empty);
 
-            IDataReader dataReader = null;
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataReader);
+            var dataReader = Enumerable.Empty<WinLossEntity>();
+            repository.Fetch<WinLossEntity>(Arg.Any<WinLossCriteria>()).Returns(dataReader);
 
             var expectedData = new List<WinLossModel>();
 

@@ -34,25 +34,25 @@
             IsComplained = isComplained;
         }
 
-        public DateTime CreatedDate { get; }
+        public DateTime CreatedDate { get; set; }
 
-        public long TransId { get; }
+        public long TransId { get; set; }
 
-        public string MasterName { get; }
+        public string MasterName { get; set; }
 
-        public string AgentName { get; }
+        public string AgentName { get; set; }
 
-        public int CustId { get; }
+        public int CustId { get; set; }
 
-        public string Username { get; }
+        public string Username { get; set; }
 
-        public decimal Amount { get; }
+        public decimal Amount { get; set; }
 
-        public DateTime? PaymentDate { get; }
+        public DateTime? PaymentDate { get; set; }
 
-        public byte StatusId { get; }
+        public byte StatusId { get; set; }
 
-        public bool IsComplained { get; }
+        public bool IsComplained { get; set; }
 
         public string CreatedDateString => CreatedDate.ToLongDateWithoutSecondWithSlash();
 

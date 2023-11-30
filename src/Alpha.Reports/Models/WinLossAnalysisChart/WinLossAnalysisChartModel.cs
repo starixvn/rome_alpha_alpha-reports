@@ -16,10 +16,10 @@
             WinLoss = winloss;
         }
 
-        public string WinLossDate { get; }
+        public string WinLossDate { get; set; }
 
-        public decimal Turnover { get; }
+        public decimal Turnover { get; set; }
 
-        public decimal WinLoss { get; }
+        public decimal WinLoss { get; set; }
     }
 }

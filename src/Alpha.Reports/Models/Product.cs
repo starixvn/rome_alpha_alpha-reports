@@ -7,7 +7,6 @@
         public Product()
         {
         }
-        
 
         public Product(int id, string name, DateTime? endOfSupportDate, int type, int orderNo)
         {
@@ -25,20 +24,20 @@
             TypeName = type == 0 ? string.Empty : (getProductDisplayName == null ? DisplayName : getProductDisplayName(type));
         }
 
-        public int Id { get; protected set; }
+        public int Id { get; set; }
 
-        public string Name { get; protected set; }
+        public string Name { get; set; }
 
-        public DateTime? EndOfSupportDate { get; protected set; }
+        public DateTime? EndOfSupportDate { get; set; }
 
         public string DisplayName { get; }
 
-        public int Type { get; protected set; }
+        public int Type { get; set; }
 
         public string TypeName { get; }
 
-        public int OrderNo { get; protected set; }
+        public int OrderNo { get; set; }
 
-        public bool IsHide { get; }
+        public bool IsHide { get; set; }
     }
 }

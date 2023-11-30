@@ -42,34 +42,34 @@
             BetCount = betCount;
         }
 
-        public int CustId { get; protected set; }
+        public int CustId { get; set; }
 
-        public int CustLevel { get; protected set; }
+        public int CustLevel { get; set; }
 
-        public string Username { get; protected set; }
+        public string Username { get; set; }
 
-        public byte CurrencyId { get; protected set; }
+        public byte CurrencyId { get; set; }
 
-        public decimal Turnover { get; protected set; }
+        public decimal Turnover { get; set; }
 
-        public decimal GrossComm { get; protected set; }
+        public decimal GrossComm { get; set; }
 
-        public decimal MemberWinLoss { get; protected set; }
+        public decimal MemberWinLoss { get; set; }
 
-        public decimal MemberComm { get; protected set; }
+        public decimal MemberComm { get; set; }
 
-        public decimal MemberTotal { get; protected set; }
+        public decimal MemberTotal { get; set; }
 
-        public decimal OwnerTurnover { get; protected set; }
+        public decimal OwnerTurnover { get; set; }
 
-        public decimal OwnerWinLoss { get; protected set; }
+        public decimal OwnerWinLoss { get; set; }
 
-        public decimal OwnerComm { get; protected set; }
+        public decimal OwnerComm { get; set; }
 
-        public decimal OwnerTotal { get; protected set; }
+        public decimal OwnerTotal { get; set; }
 
-        public decimal Company { get; protected set; }
+        public decimal Company { get; set; }
 
-        public int BetCount { get; protected set; }
+        public int BetCount { get; set; }
     }
 }

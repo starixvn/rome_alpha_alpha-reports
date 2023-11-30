@@ -45,12 +45,12 @@
 
             var refNoRow = new List<MoveStatementHistoryByRefNo>
             {
-                new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 10, 10, 10, 1),
-                new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, 1)
+                new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 10, 10, 10, true),
+                new MoveStatementHistoryByRefNo(1, "member1", 2, DateTime.Now.AddDays(-2), DateTime.Now, 10, 10, 10, true)
             };
 
             var memberMoveStatementHistoryByRefNo = new MoveStatementHistoryByRefNo
-                (1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 20, 20, 20, 1);
+                (1, "member1", 2, DateTime.Now.AddDays(-1), DateTime.Now, 20, 20, 20, true);
 
             var rawData = new List<MoveStatementHistoryByMember>
             {
@@ -155,7 +155,7 @@
         public void GetMemberMapper_Always_MapCorrectly()
         {
             // Arrange
-            var model = new MoveStatementHistoryByRefNo(1, "member1", 2, new DateTime(2022, 01, 01), new DateTime(2022, 01, 02), 10, 10, 10, 1);
+            var model = new MoveStatementHistoryByRefNo(1, "member1", 2, new DateTime(2022, 01, 01), new DateTime(2022, 01, 02), 10, 10, 10, true);
 
             // Act
             var actualMapper = handler.GetRowMapper(true);
@@ -168,7 +168,7 @@
         public void GetRefNoMapper_Always_MapCorrectly()
         {
             // Arrange
-            var model = new MoveStatementHistoryByRefNo(1, "member1", 2, new DateTime(2022, 01, 01), new DateTime(2022, 01, 02), 10, 10, 10, 1);
+            var model = new MoveStatementHistoryByRefNo(1, "member1", 2, new DateTime(2022, 01, 01), new DateTime(2022, 01, 02), 10, 10, 10, true);
 
             // Act
             var actualMapper = handler.GetRowMapper(false);

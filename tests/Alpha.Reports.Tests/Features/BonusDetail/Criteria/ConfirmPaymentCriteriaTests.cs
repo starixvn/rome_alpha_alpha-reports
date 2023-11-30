@@ -13,7 +13,8 @@
         {
             // Arrange
             var param = new ConfirmPaymentParam(8, 0, 123, 1001, DateTime.Today, "::1", "E");
-            var criteria = new ConfirmPaymentCriteria(param);
+            var criteria = new ConfirmPaymentCriteria(
+                param.CustId, param.SubAccId, param.TransId, param.PaymentDate, param.ViewerId, param.LoginIP, param.Language);
             var expectedSettingKey = "Age_Bonus_ConfirmPayment";
 
             // Act
@@ -31,7 +32,8 @@
         {
             // Arrange
             var param = new ConfirmPaymentParam(8, 0, custId, 1001, DateTime.Today, "::1", "E");
-            var criteria = new ConfirmPaymentCriteria(param);
+            var criteria = new ConfirmPaymentCriteria(
+                param.CustId, param.SubAccId, param.TransId, param.PaymentDate, param.ViewerId, param.LoginIP, param.Language);
 
             // Act
             var actual = criteria.IsValid();
@@ -48,7 +50,8 @@
         {
             // Arrange
             var param = new ConfirmPaymentParam(8, 0, 123, transId, DateTime.Today, "::1", "E");
-            var criteria = new ConfirmPaymentCriteria(param);
+            var criteria = new ConfirmPaymentCriteria(
+                param.CustId, param.SubAccId, param.TransId, param.PaymentDate, param.ViewerId, param.LoginIP, param.Language);
 
             // Act
             var actual = criteria.IsValid();
@@ -65,7 +68,8 @@
         {
             // Arrange
             var param = new ConfirmPaymentParam(userId, 0, 123, 1001, DateTime.Today, "::1", "E");
-            var criteria = new ConfirmPaymentCriteria(param);
+            var criteria = new ConfirmPaymentCriteria(
+                param.CustId, param.SubAccId, param.TransId, param.PaymentDate, param.ViewerId, param.LoginIP, param.Language);
 
             // Act
             var actual = criteria.IsValid();

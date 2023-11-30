@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using AlphaPlus.PartialUM.Services;
+    using Alpha.Reports.Extensions;
     using Criteria.WinLossByProductCriteria;
     using DataAccesses;
     using Models.WinlossByBetType;
@@ -47,7 +48,7 @@
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                param.UserSelectedProductIds,
+                param.UserSelectedProductIds == null ? string.Empty : param.UserSelectedProductIds.JoinWithComma(),
                 param.CustLevel,
                 param.ProductDetailsXML);
 

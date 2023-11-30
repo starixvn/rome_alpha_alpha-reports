@@ -26,21 +26,21 @@
             SuperContribution = superContribution;
         }
 
-        public int ProductId { get; }
+        public int ProductId { get; set; }
 
-        public int BetTypeId { get; }
+        public int BetTypeId { get; set; }
 
-        public string BetTypeName { get; }
+        public string BetTypeName { get; set; }
 
-        public decimal Turnover { get; private set; }
+        public decimal Turnover { get; set; }
 
-        public decimal ContributionAmount { get; private set; }
+        public decimal ContributionAmount { get; set; }
 
-        public decimal AgentContribution { get; private set; }
+        public decimal AgentContribution { get; set; }
 
-        public decimal MasterContribution { get; private set; }
+        public decimal MasterContribution { get; set; }
 
-        public decimal SuperContribution { get; private set; }
+        public decimal SuperContribution { get; set; }
 
         public decimal CompanyContribution
         {

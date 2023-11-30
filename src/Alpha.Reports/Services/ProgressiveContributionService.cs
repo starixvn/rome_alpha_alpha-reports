@@ -47,7 +47,7 @@
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                param.UserSelectedProductIds,
+                param.UserSelectedProductIds == null ? string.Empty : param.UserSelectedProductIds.JoinWithComma(),
                 param.ReportLevel);
 
             partialUMService.ThrowIfUM(criteria.GetSettingKey());

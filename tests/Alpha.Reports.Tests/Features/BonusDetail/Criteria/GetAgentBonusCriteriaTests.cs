@@ -16,7 +16,8 @@
             var param = new BonusDetailParam(8, UserLevel.Agent, "member01", new DateTime(2021, 1, 1), new DateTime(2021, 1, 2), DateTime.MinValue, 1, true, 1, 500);
 
             // Act
-            var criteria = new GetAgentBonusCriteria(param);
+            var criteria = new GetAgentBonusCriteria(
+                param.Username, param.FromDate, param.ToDate, param.StatusId, param.IsComplained, param.PageIndex, param.PageSize, param.ViewerId);
 
             // Assert
             Assert.True(
@@ -34,8 +35,8 @@
         {
             // Arrange
             var param = new BonusDetailParam(8, UserLevel.Agent, null, DateTime.Today.AddDays(-1), DateTime.Today, DateTime.MinValue, null, null, 1, 500);
-            var criteria = new GetAgentBonusCriteria(param);
-            var expectedSettingKey = "Age_Rpt_BonusDetail_Agent";
+            var criteria = new GetAgentBonusCriteria(
+                param.Username, param.FromDate, param.ToDate, param.StatusId, param.IsComplained, param.PageIndex, param.PageSize, param.ViewerId); var expectedSettingKey = "Age_Rpt_BonusDetail_Agent";
 
             // Act
             var actualSettingKey = criteria.GetSettingKey();
@@ -49,7 +50,8 @@
         {
             // Arrange
             var param = new BonusDetailParam(8, UserLevel.Agent, null, DateTime.Today.AddDays(-1), DateTime.Today, DateTime.MinValue, null, null, 1, 500);
-            var criteria = new GetAgentBonusCriteria(param);
+            var criteria = new GetAgentBonusCriteria(
+                param.Username, param.FromDate, param.ToDate, param.StatusId, param.IsComplained, param.PageIndex, param.PageSize, param.ViewerId);
 
             // Act
             var actual = criteria.IsValid();
@@ -63,7 +65,8 @@
         {
             // Arrange
             var param = new BonusDetailParam(8, UserLevel.Agent, null, DateTime.Today, DateTime.Today.AddDays(-1), DateTime.MinValue, null, null, 1, 500);
-            var criteria = new GetAgentBonusCriteria(param);
+            var criteria = new GetAgentBonusCriteria(
+                param.Username, param.FromDate, param.ToDate, param.StatusId, param.IsComplained, param.PageIndex, param.PageSize, param.ViewerId);
 
             // Act
             var actual = criteria.IsValid();
@@ -80,7 +83,8 @@
         {
             // Arrange
             var param = new BonusDetailParam(agentId, UserLevel.Agent, null, DateTime.Today.AddDays(-1), DateTime.Today, DateTime.MinValue, null, null, 1, 500);
-            var criteria = new GetAgentBonusCriteria(param);
+            var criteria = new GetAgentBonusCriteria(
+                param.Username, param.FromDate, param.ToDate, param.StatusId, param.IsComplained, param.PageIndex, param.PageSize, param.ViewerId);
 
             // Act
             var actual = criteria.IsValid();

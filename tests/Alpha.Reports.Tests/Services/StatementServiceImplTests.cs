@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Criteria.Statement;
-    using Alpha.Reports.DataAccesses;
     using Alpha.Reports.Models;
     using Alpha.Reports.Models.Statement;
     using Alpha.Reports.Params.Statement;
@@ -24,7 +23,6 @@
         private readonly ReportDateService reportDateService;
         private readonly IDynamicRepository repository;
         private readonly StatementServiceImpl serviceImpl;
-        private readonly StatementDataAccess statementRepository;
         private readonly IPartialUMService partialUMService;
 
         public StatementServiceImplTests(AnyValueCreatorFixture anyValueCreator)
@@ -36,15 +34,14 @@
 
             repository = Substitute.For<IDynamicRepository>();
 
-            statementRepository = Substitute.For<StatementDataAccess>();
-            statementRepository.GetStatements(
+            repository.Fetch<StatementModel>(
                 Arg.Is<GetStatementCriteria>(criteria => criteria.GetSettingKey() == "Statement_Report_GetList"))
                 .Returns(new List<StatementModel>
                 {
                     new StatementModel(new DateTime(2017, 4, 12), 0, 20, null, null, null, null, null, null, null, null)
                 });
 
-            statementRepository.GetStatements(
+            repository.Fetch<StatementModel>(
                 Arg.Is<GetStatementCriteria>(criteria => criteria.GetSettingKey() == "Statement_Report_GetList_14"))
                 .Returns(new List<StatementModel>
                 {
@@ -52,7 +49,7 @@
                     new StatementModel(new DateTime(2017, 4, 6), 0, 20, null, null, null, null, null, null, null, null)
                 });
 
-            statementRepository.GetStatements(
+            repository.Fetch<StatementModel>(
                 Arg.Is<GetStatementCriteria>(criteria => criteria.GetSettingKey() == "Statement_Report_GetList_WH"))
                 .Returns(new List<StatementModel>
                 {
@@ -61,7 +58,7 @@
                 });
             partialUMService = Substitute.For<IPartialUMService>();
 
-            serviceImpl = new StatementServiceImpl(reportDateService, repository, statementRepository, partialUMService);
+            serviceImpl = new StatementServiceImpl(reportDateService, repository, partialUMService);
         }
 
         [Fact]
@@ -130,7 +127,7 @@
             serviceImpl.GetStatements(param);
 
             // Assert
-            statementRepository.Received().GetStatements(Arg.Is<GetStatementCriteria>(i => i.FromDate == limitedDate));
+            repository.Received().Fetch<StatementModel>(Arg.Is<GetStatementCriteria>(i => i.FromDate == limitedDate));
         }
 
         [Fact]

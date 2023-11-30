@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Features.SuperWinLossDetailByPT.Criteria
 {
     using System;
-    using System.Collections.Generic;
     using Alpha.Reports.Criteria;
 
     public class SuperWinLossDetailByPTCriteria : ReportProductCriteria
@@ -12,7 +11,7 @@
             DateTime toDate,
             DateTime balanceUpDay,
             DateTime moveBetsDay,
-            IEnumerable<int> productIds,
+            string productIds,
             string productDetails)
             : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
         {

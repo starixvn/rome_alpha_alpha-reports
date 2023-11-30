@@ -47,6 +47,6 @@
 
         public DateTime Date => Converter.ToDateTime(BreakDown);
 
-        public string BreakDown { get; }
+        public string BreakDown { get; set; }
     }
 }

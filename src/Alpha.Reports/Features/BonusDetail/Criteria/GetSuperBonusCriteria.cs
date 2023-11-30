@@ -1,12 +1,20 @@
 ﻿namespace Alpha.Reports.Features.BonusDetail.Criteria
 {
-    using Alpha.Reports.Features.BonusDetail.Params;
+    using System;
 
     internal class GetSuperBonusCriteria : GetBonusDetailCriteria
     {
-        public GetSuperBonusCriteria(BonusDetailParam param) : base(param)
+        public GetSuperBonusCriteria(
+            string username,
+            DateTime fromDate,
+            DateTime toDate,
+            byte? statusId,
+            bool? isComplained,
+            int pageIndex,
+            int pageSize,
+            int superId) : base(username, fromDate, toDate, statusId, isComplained, pageIndex, pageSize)
         {
-            SuperId = param.ViewerId;
+            SuperId = superId;
         }
 
         public int SuperId { get; }

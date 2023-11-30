@@ -87,7 +87,7 @@
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                validUserSelectedProductIds,
+                validUserSelectedProductIds == null ? string.Empty : validUserSelectedProductIds.JoinWithComma(),
                 param.ReportLevel,
                 param.ProductDetailsXML);
 

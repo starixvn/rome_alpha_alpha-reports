@@ -1,21 +1,26 @@
 ﻿namespace Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Criteria
 {
-    using Alpha.Reports.Extensions;
-    using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory.Params;
-    using Fanex.Data.Repository;
     using System;
+    using Fanex.Data.Repository;
 
     public class BetCreditHistoryCriteria : CriteriaBase
     {
-        public BetCreditHistoryCriteria(BetCreditHistoryParam param)
+        public BetCreditHistoryCriteria(
+            string username,
+            DateTime fromDate,
+            DateTime toDate,
+            long? refNo,
+            int loggedId,
+            int pageIndex,
+            int pageSize)
         {
-            Username = param.Member;
-            FromDate = param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo);
-            ToDate = param.ToDate;
-            RefNo = param.RefNo;
-            LoggedId = param.ViewerId;
-            PageIndex = param.PageIndex;
-            PageSize = param.PageSize;
+            Username = username;
+            FromDate = fromDate;
+            ToDate = toDate;
+            RefNo = refNo;
+            LoggedId = loggedId;
+            PageIndex = pageIndex;
+            PageSize = pageSize;
         }
 
         public string Username { get; }
