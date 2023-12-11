@@ -14,7 +14,6 @@
     {
         public WinLossDetailGetDataQuery(IUser viewer) : base(viewer)
         {
-            IsEnableSabaPromotion = viewer.IsEnableSabaPromotion;
             IsProtectedMode = viewer.IsProtectedMode;
             IsOfferNewWinLossDetailReport = SiteSettings.IsOfferNewWinLossDetailReport(viewer.Site);
         }
@@ -28,8 +27,6 @@
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
-
-        public bool IsEnableSabaPromotion { get; }
 
         public bool IsProtectedMode { get; }
 

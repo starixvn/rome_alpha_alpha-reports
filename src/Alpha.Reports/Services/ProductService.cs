@@ -14,11 +14,11 @@
     {
         IEnumerable<Product> GetProgressiveJackpotProduct(string site, int currencyId, IEnumerable<int> progressiveJackpotproductIds);
 
-        IEnumerable<Product> GetAllOfferedProducts(string site, int currencyId, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
+        IEnumerable<Product> GetAllOfferedProducts(string site, int currencyId, DateTime? minReportDate = null);
 
-        IEnumerable<int> FilterProductIds(string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
+        IEnumerable<int> FilterProductIds(string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null);
 
-        IEnumerable<Product> FilterProducts(string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false);
+        IEnumerable<Product> FilterProducts(string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null);
 
         bool CanViewProduct(string site, int currencyId, int productId, DateTime? minReportDate = null);
 
@@ -35,8 +35,7 @@
         Task<IEnumerable<Product>> GetAllOfferedProductsAsync(
             string site,
             int currencyId,
-            DateTime? minReportDate = null,
-            bool isEnableSabaPromotion = false);
+            DateTime? minReportDate = null);
     }
 
     public class ProductServiceImpl : ProductService
@@ -67,9 +66,9 @@
         public IEnumerable<Product> GetProgressiveJackpotProduct(string site, int currencyId, IEnumerable<int> progressiveJackpotproductIds)
             => FilterProducts(site, currencyId, progressiveJackpotproductIds);
 
-        public IEnumerable<int> FilterProductIds(string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false)
+        public IEnumerable<int> FilterProductIds(string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null)
         {
-            var customerProductIds = GetAllOfferedProducts(site, currencyId, minReportDate, isEnableSabaPromotion).Select(product => product.Id);
+            var customerProductIds = GetAllOfferedProducts(site, currencyId, minReportDate).Select(product => product.Id);
 
             var productIdList = productIds == null || !productIds.Any()
                 ? customerProductIds
@@ -78,14 +77,13 @@
             return productIdList;
         }
 
-        public IEnumerable<Product> FilterProducts(string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null, bool isEnableSabaPromotion = false)
-            => GetAllOfferedProducts(site, currencyId, minReportDate, isEnableSabaPromotion).Where(product => productIds.Contains(product.Id));
+        public IEnumerable<Product> FilterProducts(string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null)
+            => GetAllOfferedProducts(site, currencyId, minReportDate).Where(product => productIds.Contains(product.Id));
 
         public Task<IEnumerable<Product>> GetAllOfferedProductsAsync(
             string site,
             int currencyId,
-            DateTime? minReportDate = null,
-            bool isEnableSabaPromotion = false)
+            DateTime? minReportDate = null)
         {
             var products = cacheService.GetOrSet(
                 $"{ProductsCacheKey}--{site}--{currencyId}",
@@ -95,14 +93,13 @@
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
             products = products.Where(i => IsRemainSupportProduct(i, minReportDate) && canViewProduct(i.Id));
 
-            return Task.FromResult(GetOfferedProductsAndSabaPromotion(products, isEnableSabaPromotion));
+            return Task.FromResult(GetOfferedProductsAndSabaPromotion(products));
         }
 
-        public IEnumerable<Product> GetAllOfferedProducts(string site, int currencyId, DateTime? minReportDate = null, bool isEnableSabaPromotion = false)
+        public IEnumerable<Product> GetAllOfferedProducts(string site, int currencyId, DateTime? minReportDate = null)
         {
             var products = GetOfferedProducts(site, currencyId, minReportDate);
-
-            return GetOfferedProductsAndSabaPromotion(products, isEnableSabaPromotion);
+            return GetOfferedProductsAndSabaPromotion(products);
         }
 
         public bool CanViewProduct(string site, int currencyId, int productId, DateTime? minReportDate = null)
@@ -173,17 +170,8 @@
         }
 
         private IEnumerable<Product> GetOfferedProductsAndSabaPromotion(
-            IEnumerable<Product> custProducts,
-            bool isEnableSabaPromotion)
+            IEnumerable<Product> custProducts)
         {
-            if (custProducts != null && isEnableSabaPromotion)
-            {
-                custProducts = new[]
-                {
-                        new Product(SabaPromotionProductId, null, null, 0, 0, getProductName)
-                    }.Concat(custProducts);
-            }
-
             return custProducts;
         }
     }

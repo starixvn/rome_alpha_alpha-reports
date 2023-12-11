@@ -41,7 +41,7 @@
 
             CheckInvalidSessionCustIdsAndWriteLog(message);
 
-            var products = productService.GetAllOfferedProducts(message.Site, message.CurrencyId, message.MinDate, message.IsEnableSabaPromotion);
+            var products = productService.GetAllOfferedProducts(message.Site, message.CurrencyId, message.MinDate);
             var productDetails = productDetailService.GetProductDetails(message.ViewerId, message.Site, message.CurrencyId);
 
             var winLossDetailParam = CreateParameter(message, message.CustLevel);

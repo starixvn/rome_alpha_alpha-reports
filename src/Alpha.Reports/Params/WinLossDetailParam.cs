@@ -24,7 +24,6 @@
             bool isDescendingSort,
             bool isHistoricReport,
             string productDetailsXML,
-            bool isEnableSabaPromotion,
             string username = null)
             : base(custId, viewerId, site, currencyId, fromDate, toDate, limitedDate, userSelectedProductIds, userSelectedResourceIds, reportLevel, isHistoricReport, productDetailsXML)
         {
@@ -33,7 +32,6 @@
             SortByPropertyName = sortByPropertyName;
 
             IsDescendingSort = isDescendingSort;
-            IsEnableSabaPromotion = isEnableSabaPromotion;
 
             Username = username;
         }
@@ -45,8 +43,6 @@
         public string SortByPropertyName { get; }
 
         public bool IsDescendingSort { get; }
-
-        public bool IsEnableSabaPromotion { get; }
 
         public string Username { get; }
     }

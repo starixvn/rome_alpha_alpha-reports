@@ -53,7 +53,7 @@
                 new Product(2, "Product 2", null, 0, 0, getProductDisplayName)
             };
 
-            reportService.GetProducts(Arg.Any<GetConslidationReportProductsParam>(), isEnableSabaPromotion: false).Returns(products);
+            reportService.GetProducts(Arg.Any<GetConslidationReportProductsParam>()).Returns(products);
 
             reportService.GetCurrencies(Arg.Any<GetCurrencyParam>()).Returns(new List<CurrencyModel>
             {
@@ -61,9 +61,9 @@
                 new CurrencyModel(2, "Currency 2")
             });
 
-            reportService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>(), Arg.Any<DateTime>(), isEnableSabaPromotion: false).Returns(new List<int> { 1 });
+            reportService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>(), Arg.Any<DateTime>()).Returns(new List<int> { 1 });
 
-            reportService.GetConsolidationExcludeProduct(Arg.Any<int>(), Arg.Any<DateTime>(), isEnableSabaPromotion: false).Returns(new ConsolidationExcludeProduct(products));
+            reportService.GetConsolidationExcludeProduct(Arg.Any<int>(), Arg.Any<DateTime>()).Returns(new ConsolidationExcludeProduct(products));
 
             anyValueCreatorFixture = new AnyValueCreatorFixture();
 

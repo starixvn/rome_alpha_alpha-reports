@@ -47,13 +47,6 @@
 
         public bool IsAdminCanViewVNIP => userSession.IsAdminCanViewVNIP;
 
-        public bool IsEnableSabaPromotion
-            => SiteSettings.OfferSabaPromotionSites.Any(site => site == "*" || site.Equals(userSession.Site, StringComparison.OrdinalIgnoreCase));
-
-        public bool IsEnableSabaPromotionForHeadline
-            => SiteSettings.OfferSabaPromotionHeadlineSites.Any(site => site == "*" || site.Equals(userSession.Site, StringComparison.OrdinalIgnoreCase))
-            || IsEnableSabaPromotion;
-
         public int SubAccId => userSession.SubAccId;
 
         public string IP => userSession.UserLoginIp;

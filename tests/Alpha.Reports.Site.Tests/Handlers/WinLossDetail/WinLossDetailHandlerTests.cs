@@ -96,8 +96,7 @@
                 "CustName",
                 false,
                 false,
-                string.Empty,
-                false);
+                string.Empty);
 
             var expectedWinLossDetailViewModel = new WinLossDetailViewModel(
                 message,

@@ -24,7 +24,5 @@
         public int UserSelectedDateRangeOption { get; set; }
 
         public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
-
-        public bool IsEnableSabaPromotionForHeadline => viewer.IsEnableSabaPromotionForHeadline;
     }
 }

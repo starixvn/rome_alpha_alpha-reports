@@ -43,7 +43,7 @@
 
         public ConsolidationReportByUsernameViewModel Handle(ConsolidationByUsernameQuery message)
         {
-            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
@@ -66,7 +66,7 @@
 
         public ConsolidationReportByDateViewModel Handle(ConsolidationByDateQuery message)
         {
-            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
@@ -87,7 +87,7 @@
 
         public ConsolidationReportByProductViewModel Handle(ConsolidationByProductQuery message)
         {
-            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
@@ -130,8 +130,7 @@
             var winLossDetailQuery = CreateWinLossDetailQuery(message);
 
             var products = consolidationService.GetProducts(
-                new GetConslidationReportProductsParam(consolidationQuery.ViewerId, consolidationQuery.MinDate),
-                message.IsEnableSabaPromotionForHeadline);
+                new GetConslidationReportProductsParam(consolidationQuery.ViewerId, consolidationQuery.MinDate));
             var filterViewModel = GetConsolidationFilterViewModel(consolidationQuery, products);
 
             var reportEntered = reportService.GetEnteredSportResults();
@@ -160,7 +159,7 @@
                     $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
             }
 
-            var products = consolidationService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
+            var products = consolidationService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate);
 
             if (products.Any())
             {
@@ -188,7 +187,7 @@
 
             result.Add(Resources.Tooltip_NetTurnover);
 
-            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.MinDate, message.IsEnableSabaPromotionForHeadline);
+            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.MinDate);
             if (!string.IsNullOrEmpty(liveCasinoTooltips))
             {
                 result.Add(liveCasinoTooltips);
@@ -203,9 +202,9 @@
             return new ReportLegendViewModel(result, GetGrossCommNotes(message.CustLevel));
         }
 
-        private string BuildTooltipsForLiveCasino(int custId, DateTime minDate, bool isEnableSabaPromotion)
+        private string BuildTooltipsForLiveCasino(int custId, DateTime minDate)
         {
-            var offeredLiveCasino = consolidationService.FilterProductIdsByCustomer(custId, ProductIdConstants.ProductListForTooltipsLiveCasino, minDate, isEnableSabaPromotion);
+            var offeredLiveCasino = consolidationService.FilterProductIdsByCustomer(custId, ProductIdConstants.ProductListForTooltipsLiveCasino, minDate);
             var liveCasinoNames = string.Join(", ", productService.GetProductNames(offeredLiveCasino));
 
             return offeredLiveCasino != null && offeredLiveCasino.Any() ?
