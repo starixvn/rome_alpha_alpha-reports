@@ -119,7 +119,8 @@
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
-                    container.GetInstance<ICacheService>(),                    
+                    container.GetInstance<ICacheService>(),
+                    UserPermission.IsShowOrNotExistProduct,
                     new CacheRefServiceImpl(new RemotingRefService()).GetProductName),
                 Lifestyle.Singleton);
 

@@ -43,18 +43,21 @@
     {
         private const int CustProductsCacheTimeInMinutes = 5;
         private const string ProductsCacheKey = "Alpha.Reports.Services.Impl.ProductServiceImpl.Products";
+        private readonly Func<int, bool> canViewProduct;
         private readonly Func<int, string> getProductName;
         private readonly IDynamicRepository dynamicRepository;
         private readonly ICacheService cacheService;
         private const int SabaPromotionProductId = 37;
-        
+
         public ProductServiceImpl(
             IDynamicRepository dynamicRepository,
             ICacheService cacheService,
+            Func<int, bool> canViewProduct,
             Func<int, string> getProductName)
         {
             this.dynamicRepository = dynamicRepository;
             this.cacheService = cacheService;
+            this.canViewProduct = canViewProduct;
             this.getProductName = getProductName;
         }
 
@@ -87,7 +90,7 @@
                     .Where(i => !i.IsHide)
                     .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
-            products = products.Where(i => IsRemainSupportProduct(i, minReportDate));
+            products = products.Where(i => IsRemainSupportProduct(i, minReportDate) && canViewProduct(i.Id));
 
             return Task.FromResult(GetOfferedProductsAndSabaPromotion(products, isEnableSabaPromotion));
         }
@@ -158,11 +161,11 @@
                 () => GetProducts(),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
 
-            return products;
+            return products.Where(i => canViewProduct(i.Id) && IsRemainSupportProduct(i, minReportDate));
 
             List<Product> GetProducts()
                 => dynamicRepository.Fetch<Product>(new GetProductsCriteria(site, currencyId))
-                    .Where(i => !i.IsHide && IsRemainSupportProduct(i, minReportDate))
+                    .Where(i => !i.IsHide)
                     .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)).ToList();
         }
 
