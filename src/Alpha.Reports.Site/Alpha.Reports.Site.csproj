@@ -438,6 +438,12 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
+    <Content Include="App_Data\ProductSection.dr.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.dr.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
     <Content Include="App_Data\securitycode.local.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
@@ -1968,6 +1974,12 @@
     <Content Include="Web.ConnectionStrings.napinternal3.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
     </Content>
+    <Content Include="Web.AppSettings.dr.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.dr.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1976,6 +1988,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.napinternal3.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.dr.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <None Include="Web.Release.config">
