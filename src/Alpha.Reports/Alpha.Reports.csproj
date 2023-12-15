@@ -265,7 +265,6 @@
     <Compile Include="Criteria\BetChoiceMatching\BetChoiceUplinesCriteria.cs" />
     <Compile Include="Criteria\Consolidation\GetSMAPositionTakingCriteria.cs" />
     <Compile Include="Criteria\GetCustomerLevelCriteria.cs" />
-    <Compile Include="Criteria\GetOfferedProductBySiteCurrencyCriteria.cs" />
     <Compile Include="Criteria\GetProductsDetailCriteria.cs" />
     <Compile Include="Criteria\GetUsernameSuggestionCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />

@@ -46,7 +46,6 @@
         private readonly Func<int, string> getProductName;
         private readonly IDynamicRepository dynamicRepository;
         private readonly ICacheService cacheService;
-        private const int SabaPromotionProductId = 37;
         private readonly IUser user;
 
         public ProductServiceImpl(
@@ -91,15 +90,12 @@
                     .Where(i => !i.IsHide)
                     .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
-            products = products.Where(i => IsRemainSupportProduct(i, minReportDate) && canViewProduct(i.Id));
-
-            return Task.FromResult(GetOfferedProductsAndSabaPromotion(products));
+            return Task.FromResult(products.Where(i => IsRemainSupportProduct(i, minReportDate) && canViewProduct(i.Id)));
         }
 
         public IEnumerable<Product> GetAllOfferedProducts(string site, int currencyId, DateTime? minReportDate = null)
         {
-            var products = GetOfferedProducts(site, currencyId, minReportDate);
-            return GetOfferedProductsAndSabaPromotion(products);
+            return GetOfferedProducts(site, currencyId, minReportDate);
         }
 
         public bool CanViewProduct(string site, int currencyId, int productId, DateTime? minReportDate = null)
@@ -167,12 +163,6 @@
                 => dynamicRepository.Fetch<Product>(new GetProductsCriteria(site, currencyId))
                     .Where(i => !i.IsHide)
                     .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)).ToList();
-        }
-
-        private IEnumerable<Product> GetOfferedProductsAndSabaPromotion(
-            IEnumerable<Product> custProducts)
-        {
-            return custProducts;
         }
     }
 }

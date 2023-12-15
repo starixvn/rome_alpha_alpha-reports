@@ -16,10 +16,6 @@
       <Mapping DataField="IsHidden" ObjectProperty="IsHide" />
     </Setting>
     <Setting Key="Age_Rpt_GetProductDetail" SpName="Age_Rpt_GetProductDetail" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
-    <Setting Key="Age_GetOfferedProductBySiteCurrency" SpName="Age_GetOfferedProductBySiteCurrency" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
-      <Mapping DataField="ProductID" ObjectProperty="id" />
-      <Mapping DataField="ProductName" ObjectProperty="name" />
-    </Setting>
   </Function>
   <Function Name="Check Belonging">
     <Setting Key="Age_CustomerSelCheckBelonging" SpName="Age_CustomerSelCheckBelonging" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
