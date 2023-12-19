@@ -7,6 +7,7 @@
         public Product()
         {
         }
+        
 
         public Product(int id, string name, DateTime? endOfSupportDate, int type, int orderNo)
         {
@@ -15,13 +16,13 @@
             EndOfSupportDate = endOfSupportDate;
             Type = type;
             OrderNo = orderNo;
-        }
+        }        
 
         internal Product(int id, string name, DateTime? endOfSupportDate, int type, int orderNo, Func<int, string> getProductDisplayName)
             : this(id, name, endOfSupportDate, type, orderNo)
         {
             DisplayName = getProductDisplayName == null ? name : getProductDisplayName(id);
-            TypeName = type == 0 ? string.Empty : (getProductDisplayName == null ? name : getProductDisplayName(type));
+            TypeName = type == 0 ? string.Empty : (getProductDisplayName == null ? DisplayName : getProductDisplayName(type));
         }
 
         public int Id { get; protected set; }
@@ -37,5 +38,7 @@
         public string TypeName { get; }
 
         public int OrderNo { get; protected set; }
+
+        public bool IsHide { get; }
     }
 }

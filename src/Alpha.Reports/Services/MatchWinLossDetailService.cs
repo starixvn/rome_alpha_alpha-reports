@@ -16,7 +16,7 @@
     {
         IEnumerable<MatchWinLossDetailModel> GetMatchWinLossDetail(MatchWinLossDetailParam param);
 
-        IEnumerable<Product> GetProductsForCustomer(int viewerId, string site, int currencyId);
+        IEnumerable<Product> GetProductsForCustomer(string site, int currencyId);
     }
 
     public class MatchWinLossDetailServiceImpl : MatchWinLossDetailService
@@ -48,12 +48,9 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            var productsForMatchWinLossDetail = dynamicRepository.Fetch<int>(new ProductsForMatchWinLossDetailCriteria());
-
             var validUserSelectedProductIds = productService
-                .FilterProductIdsByCustomer(param.ViewerId, param.Site, param.CurrencyId, param.UserSelectedProductIds)
-                .Where(product => productsForMatchWinLossDetail.Contains(product));
-
+                .FilterProductIds(param.Site, param.CurrencyId, param.UserSelectedProductIds);
+            
             var criteria = new MatchWinLossDetailCriteria(
                 param.CustId,
                 param.FromDate.GetGreaterDate(param.LimitedDate),
@@ -70,11 +67,11 @@
             return winLossData;
         }
 
-        public IEnumerable<Product> GetProductsForCustomer(int viewerId, string site, int currencyId)
+        public IEnumerable<Product> GetProductsForCustomer(string site, int currencyId)
         {
             var productsForMatchWinLossDetail = dynamicRepository.Fetch<int>(new ProductsForMatchWinLossDetailCriteria());
 
-            return productService.FilterProductsByCustomer(viewerId, site, currencyId, productsForMatchWinLossDetail);
+            return productService.FilterProducts(site, currencyId, productsForMatchWinLossDetail);
         }
     }
 }

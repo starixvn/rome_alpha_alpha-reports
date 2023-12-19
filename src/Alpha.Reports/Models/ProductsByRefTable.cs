@@ -7,13 +7,13 @@
 
         }
 
-        public ProductsByRefTable(byte productId, byte refTable)
+        public ProductsByRefTable(int productId, byte refTable)
         {
             ProductId = productId;
             RefTable = refTable;
         }
 
-        public byte ProductId { get; }
+        public int ProductId { get; }
 
         public byte RefTable { get; }
     }

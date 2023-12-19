@@ -11,9 +11,9 @@
   <Setting Key="Age_CustomerSelUserSearch" SpName="Age_CustomerSelUserSearch" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
   </Function>
   <Function Name="Products">
-    <Setting Key="Age_Rpt_GetProductList" SpName="Age_Rpt_GetProductList" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0">
-      <Mapping DataField="ProductID" ObjectProperty="id" />
-      <Mapping DataField="ProductName" ObjectProperty="name" />
+    <Setting Key="Age_GetOfferedProductBySiteCurrency" SpName="Age_GetOfferedProductBySiteCurrency" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0">
+      <Mapping DataField="ProductID" ObjectProperty="Id" />
+      <Mapping DataField="IsHidden" ObjectProperty="IsHide" />
     </Setting>
     <Setting Key="Age_Rpt_GetProductDetail" SpName="Age_Rpt_GetProductDetail" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
   </Function>

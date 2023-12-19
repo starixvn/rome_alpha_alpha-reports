@@ -52,8 +52,8 @@
     <Reference Include="AlphaPlus.PartialUM.DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AlphaPlus.PartialUM.DataAccess.1.0.0\lib\netstandard2.0\AlphaPlus.PartialUM.DataAccess.dll</HintPath>
     </Reference>
-    <Reference Include="AlphaPlus.User.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AlphaPlus.User.Models.1.0.0\lib\netstandard2.0\AlphaPlus.User.Models.dll</HintPath>
+    <Reference Include="AlphaPlus.User.Models, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AlphaPlus.User.Models.1.2.0\lib\netstandard2.0\AlphaPlus.User.Models.dll</HintPath>
     </Reference>
     <Reference Include="AlphaPlus.Utilities.IP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AlphaPlus.Utilities.IP.1.0.0\lib\netstandard2.0\AlphaPlus.Utilities.IP.dll</HintPath>
@@ -265,7 +265,6 @@
     <Compile Include="Criteria\BetChoiceMatching\BetChoiceUplinesCriteria.cs" />
     <Compile Include="Criteria\Consolidation\GetSMAPositionTakingCriteria.cs" />
     <Compile Include="Criteria\GetCustomerLevelCriteria.cs" />
-    <Compile Include="Criteria\GetOfferedProductsBySiteCriteria.cs" />
     <Compile Include="Criteria\GetProductsDetailCriteria.cs" />
     <Compile Include="Criteria\GetUsernameSuggestionCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
@@ -367,7 +366,6 @@
     <Compile Include="Models\IPRange.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
-    <Compile Include="Models\ProductBySiteModel.cs" />
     <Compile Include="Models\ProductDetail.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\SportBetType.cs">

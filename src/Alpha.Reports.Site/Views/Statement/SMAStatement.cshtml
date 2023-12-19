@@ -82,7 +82,7 @@
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
 </form>
-@Html.Hidden("LoadLegendURL", Url.Action("SMAReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
+@Html.Hidden("LoadLegendURL", Url.Action("SMAReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement", new { MinDate = Model.MinDate }))
 @Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
 @Html.Hidden("MainDomain", Model.MainDomain)
 @Pager.Render(Model.PagerViewModel)

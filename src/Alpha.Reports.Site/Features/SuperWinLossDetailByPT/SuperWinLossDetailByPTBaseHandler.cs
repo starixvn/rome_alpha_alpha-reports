@@ -36,8 +36,7 @@
 
         protected SuperWinLossDetailByPTParam CreateSuperWinLossDetailByPTParam(SuperWinLossDetailByPTQuery message)
         {
-            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
-                message.ViewerId,
+            var validUserSelectedProductIds = productService.FilterProductIds(
                 message.Site,
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),

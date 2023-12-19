@@ -40,8 +40,7 @@
         protected MatchWinLossDetailParam CreateParameter(MatchWinLossDetailQuery query, IEnumerable<Product> supportedProducts)
         {
             var productIds = supportedProducts.Select(product => product.Id);
-            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
-                query.ViewerId,
+            var validUserSelectedProductIds = productService.FilterProductIds(
                 query.Site,
                 query.CurrencyId,
                 query.UserSelectedProductIds.ToListInt())

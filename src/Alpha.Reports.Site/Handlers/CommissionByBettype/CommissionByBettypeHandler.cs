@@ -56,7 +56,7 @@
         {
             var result = new List<string>();
 
-            var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.ViewerId, message.Site, message.CurrencyId).Select(product => (int)product);
+            var productsNeedDelayTimeToSumarizeData = productService.GetOfferedProductsNeedDelayTimeToSumarizeData(message.Site, message.CurrencyId, message.MinDate).Select(product => product);
 
             if (productsNeedDelayTimeToSumarizeData.Any())
             {

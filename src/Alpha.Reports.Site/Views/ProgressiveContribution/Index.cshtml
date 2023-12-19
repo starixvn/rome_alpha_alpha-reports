@@ -112,7 +112,7 @@
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
     @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
 </form>
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ProgressiveContribution"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ProgressiveContribution", new { MinDate = Model.MinDate }))
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
 @Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
 @section Scripts {
