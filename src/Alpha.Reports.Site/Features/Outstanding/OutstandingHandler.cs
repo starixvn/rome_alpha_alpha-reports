@@ -21,6 +21,9 @@
         private readonly ProductService productService;
         private readonly BrowserHelper browserHelper;
 
+        // Always hide Saba Promotion in Product List
+        private readonly int SabaPromotionProductId = 37;
+
         public OutstandingHandler(
             OutstandingService outstandingServiceImpl,
             ProductService productServiceImpl,
@@ -34,7 +37,7 @@
 
         public OutstandingViewModel Handle(OutstandingQuery message)
         {
-            var validUserSelectedProductIds = productService.FilterProductIds(message.Site, message.CurrencyId, message.UserSelectedProductIds.ToListInt(), DateTime.Now);
+            var validUserSelectedProductIds = productService.FilterProductIds(message.Site, message.CurrencyId, message.UserSelectedProductIds.ToListInt(), DateTime.Now).Where(id => id != SabaPromotionProductId);
             
             var param = new OutstandingParam(
                 message.ViewerLevel,
@@ -44,7 +47,7 @@
                 message.AutoFollowBetIsDummyAgent);
 
             var outstandings = outstandingService.GetMemberOutstanding(param);
-            var products = productService.GetAllOfferedProducts(message.Site, message.CurrencyId, DateTime.Now);
+            var products = productService.GetAllOfferedProducts(message.Site, message.CurrencyId, DateTime.Now).Where(p => p.Id != SabaPromotionProductId);
             var isOnlyMobile = browserHelper.IsMobile(isOnlyTablet: false) && !browserHelper.IsMobile(isOnlyTablet: true);
 
             var viewModel = new OutstandingViewModel(
