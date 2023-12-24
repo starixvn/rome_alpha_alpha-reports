@@ -23,6 +23,7 @@
         private readonly IDynamicRepository dynamicRepository;
         private readonly ICacheService cacheService;
         private readonly CompareLogic compareLogic;
+        private readonly IUser user;
 
         private readonly IEnumerable<Product> allCustomerProductIds = new List<Product>()
         {
@@ -40,7 +41,8 @@
             Func<int, string> getProductName = (productId) => $"Product {productId}";
             cacheService = Substitute.For<ICacheService>();
             dynamicRepository = Substitute.For<IDynamicRepository>();
-            productServiceImpl = new ProductServiceImpl(dynamicRepository, cacheService, canViewProduct, getProductName);
+            user = Substitute.For<IUser>();
+            productServiceImpl = new ProductServiceImpl(dynamicRepository, cacheService, canViewProduct, getProductName, user);
 
             dynamicRepository.Fetch<ProductsByRefTable>(Arg.Any<GetProductsByRefTableCriteria>()).Returns(new List<ProductsByRefTable>
             {
@@ -71,7 +73,7 @@
             // Arrange
             IEnumerable<int> productIds = null;
             var expectedProductIds = Enumerable.Empty<int>();
-            productServiceImpl = new ProductServiceImpl(dynamicRepository, cacheService, null, null);
+            productServiceImpl = new ProductServiceImpl(dynamicRepository, cacheService, null, null, user);
 
             // Act
             var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
