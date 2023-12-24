@@ -121,7 +121,8 @@
                     container.GetInstance<IDynamicRepository>(),
                     container.GetInstance<ICacheService>(),
                     UserPermission.IsShowOrNotExistProduct,
-                    new CacheRefServiceImpl(new RemotingRefService()).GetProductName),
+                    new CacheRefServiceImpl(new RemotingRefService()).GetProductName,
+                    container.GetInstance<IUser>()),
                 Lifestyle.Singleton);
 
             container.Register<ConsolidationService>(() => new ConsolidationServiceImpl(

@@ -48,17 +48,20 @@
         private readonly IDynamicRepository dynamicRepository;
         private readonly ICacheService cacheService;
         private const int SabaPromotionProductId = 37;
+        private readonly IUser user;
 
         public ProductServiceImpl(
             IDynamicRepository dynamicRepository,
             ICacheService cacheService,
             Func<int, bool> canViewProduct,
-            Func<int, string> getProductName)
+            Func<int, string> getProductName,
+            IUser user)
         {
             this.dynamicRepository = dynamicRepository;
             this.cacheService = cacheService;
             this.canViewProduct = canViewProduct;
             this.getProductName = getProductName;
+            this.user = user;
         }
 
         public IEnumerable<Product> GetProgressiveJackpotProduct(string site, int currencyId, IEnumerable<int> progressiveJackpotproductIds)
@@ -157,7 +160,7 @@
         {
             var products = cacheService
                  .GetOrSet(
-                $"{ProductsCacheKey}--{site}--{currencyId}",
+                $"{ProductsCacheKey}--{site}--{currencyId}--{user.Language}",
                 () => GetProducts(),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
 
