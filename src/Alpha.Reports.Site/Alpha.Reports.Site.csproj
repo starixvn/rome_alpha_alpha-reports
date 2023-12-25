@@ -441,7 +441,13 @@
     <Content Include="App_Data\ProductSection.dr.config">
       <DependentUpon>ProductSection.config</DependentUpon>
     </Content>
+    <Content Include="App_Data\ProductSection.drinternal.config">
+      <DependentUpon>ProductSection.config</DependentUpon>
+    </Content>
     <Content Include="App_Data\securitycode.dr.json">
+      <DependentUpon>securitycode.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\securitycode.drinternal.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
     <Content Include="App_Data\securitycode.local.json">
@@ -1980,6 +1986,12 @@
     <Content Include="Web.ConnectionStrings.dr.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
     </Content>
+    <Content Include="Web.AppSettings.drinternal.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionStrings.drinternal.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1991,6 +2003,9 @@
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.dr.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.drinternal.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <None Include="Web.Release.config">
