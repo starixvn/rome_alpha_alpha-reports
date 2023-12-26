@@ -38,8 +38,7 @@
                 message.Site,
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate,
-                message.IsEnableSabaPromotion);
+                message.MinDate);
             var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
                 message.ViewerId,
                 message.Site,
@@ -63,8 +62,7 @@
                  message.SortPropertyName,
                  message.IsDescendingSort,
                  message.IsHistoricReport,
-                 productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds),
-                 message.IsEnableSabaPromotion);
+                 productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
         }
     }
 }

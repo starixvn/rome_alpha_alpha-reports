@@ -10,8 +10,6 @@
     {
         public WinLossQuery(IUser viewer) : base(viewer)
         {
-            IsEnableSabaPromotion = viewer.IsEnableSabaPromotion;
-            IsEnableSabaPromotionForHeadline = viewer.IsEnableSabaPromotionForHeadline;
             IsSupportHistoricReport = true;
         }
 
@@ -30,9 +28,5 @@
         public int UserSelectedDateRangeOption { get; set; }
 
         public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
-
-        public bool IsEnableSabaPromotion { get; }
-
-        public bool IsEnableSabaPromotionForHeadline { get; }
     }
 }

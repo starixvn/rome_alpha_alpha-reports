@@ -47,7 +47,7 @@
             }
 
             var validUserSelectedProductIds =
-                productService.FilterProductIds(param.Site, param.CurrencyId, param.UserSelectedProductIds, isEnableSabaPromotion: param.IsEnableSabaPromotion);
+                productService.FilterProductIds(param.Site, param.CurrencyId, param.UserSelectedProductIds);
             validUserSelectedProductIds = productDetailService.RemoveProductIds(validUserSelectedProductIds, param.UserSelectedResourceIds);
 
             var criteria = new WinLossDetailCriteria(

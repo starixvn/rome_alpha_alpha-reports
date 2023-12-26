@@ -119,7 +119,7 @@
                 .Returns(expectedProducts);
 
             // Act
-            var actualProducts = consolidationServiceImpl.GetProducts(param, isEnableSabaPromotion: false);
+            var actualProducts = consolidationServiceImpl.GetProducts(param);
 
             // Assert
             Assert.True(compareLogic.Compare(expectedProducts, actualProducts.ToList()).AreEqual);
@@ -188,7 +188,7 @@
                 .Returns(products);
 
             // Act
-            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate, isEnableSabaPromotion: false);
+            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -213,7 +213,7 @@
                 .Returns(products);
 
             // Act
-            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate, isEnableSabaPromotion: false);
+            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -236,7 +236,7 @@
                 .Returns(products);
 
             // Act
-            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate, isEnableSabaPromotion: false);
+            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -260,7 +260,7 @@
             var expectedValue = new ConsolidationExcludeProduct(products);
 
             // Act
-            var actualValue = consolidationServiceImpl.GetConsolidationExcludeProduct(0, DefaultVariablesTest.CurrentDate, isEnableSabaPromotion: false);
+            var actualValue = consolidationServiceImpl.GetConsolidationExcludeProduct(0, DefaultVariablesTest.CurrentDate);
 
             // Assert
             Assert.True(compareLogic.Compare(expectedValue, actualValue).AreEqual);
