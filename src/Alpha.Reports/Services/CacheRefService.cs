@@ -1,6 +1,9 @@
 ﻿namespace Alpha.Reports.Services
 {
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
     using System.Threading;
+    using AlphaPlus.Configurations;
     using Fanex.RemotingRef;
 
     public interface CacheRefService
@@ -62,7 +65,21 @@
             => remotingRefService.GetOddsTypeName(oddsTypeId, LanguageCode);
 
         public string GetProductName(int productId)
-            => GetResourceDataByRefIdAndResourceId("Product", productId);
+        {
+            var productName = GetResourceDataByRefIdAndResourceId("Product", productId);
+
+            if (AppSettings.IsSiteLabel777)
+            {
+                var sabaWord = remotingRefService.GetResourceDataByRefIdAndResourceId("Saba", "Saba", LanguageCode, "Saba");
+                var sabaWords = new List<string> { $" {sabaWord}", $"{sabaWord} ", sabaWord };
+                foreach (var word in sabaWords)
+                {
+                    productName = Regex.Replace(productName, word, string.Empty, RegexOptions.IgnoreCase);
+                }
+            }
+
+            return productName;
+        }
 
         public string GetProductDetailName(int resourceId)
             => GetResourceDataByRefIdAndResourceId("ProductDetail", resourceId);
