@@ -171,24 +171,6 @@
 
             // Assert
             Assert.Equal(expectedResult, actualResult);
-        }
-
-        [Fact]
-        public void GetProductDetailName_Always_ReturnsCorrectProductDetailName()
-        {
-            // Arrange
-            var resourceId = 12;
-            var expectedResult = "qwerty";
-
-            remotingRefService
-                .GetResourceDataByRefIdAndResourceId("ProductDetail", resourceId.ToString(), "en-US", string.Empty)
-                .Returns(expectedResult);
-
-            // Act
-            var actualResult = cacheRefService.GetProductDetailName(resourceId);
-
-            // Assert
-            Assert.Equal(expectedResult, actualResult);
-        }
+        }        
     }
 }

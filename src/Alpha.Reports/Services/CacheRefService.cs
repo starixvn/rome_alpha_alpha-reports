@@ -26,8 +26,6 @@
 
         string GetOddsTypeName(string oddsTypeId);
 
-        string GetProductDetailName(int resourceId);
-
         string GetResourceDataByRefIdAndResourceId(string refId, int resourceId);
     }
 
@@ -79,10 +77,7 @@
             }
 
             return productName;
-        }
-
-        public string GetProductDetailName(int resourceId)
-            => GetResourceDataByRefIdAndResourceId("ProductDetail", resourceId);
+        }       
 
         public string GetResourceDataByRefIdAndResourceId(string refId, int resourceId)
             => remotingRefService.GetResourceDataByRefIdAndResourceId(
