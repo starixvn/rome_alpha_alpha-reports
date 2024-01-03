@@ -22,11 +22,7 @@
         [Fact]
         public void ViewDataInstructionMessage_HistoricReport_ReturnsHistoricNote()
         {
-            // Arrange
-            SiteSettings.AppSettings = new NameValueCollection
-            {
-                ["SeperateSabaSportsDate"] = "05/17/2022"
-            };
+            // Arrange          
             var winLossByBetTypeFilterViewModel = new WinLossByProductFilterViewModel(
                 0,
                 UserLevel.Super,
@@ -37,8 +33,7 @@
                 DefaultVariablesTest.CurrentDate);
 
             var expectedViewDataInstructionMessage = new List<string>{
-                "You can view the report data from 12/02/2016.",
-                "The dedicated performance report of SABA Sports is only available from 05/17/2022 onwards. Before 05/17/2022, data is the combination of Sportsbook and SABA Sports."
+                "You can view the report data from 12/02/2016."
             };
 
             // Act

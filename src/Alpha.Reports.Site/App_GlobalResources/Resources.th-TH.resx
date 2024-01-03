@@ -852,9 +852,6 @@
   <data name="ConsolidationPTNote" xml:space="preserve">
     <value>ค่าความเสี่ยงที่แสดงในรายงานคือ “ค่าความเสี่ยงสูงสุด” ของ{0}</value>
   </data>
-  <data name="SabaSportsNote" xml:space="preserve">
-    <value>รายงานเฉพาะของ กีฬาSABA จะมีตั้งแต่วันที่ {0} เป็นต้นไป ก่อนวันที่ {0} รายงานของกีฬาและกีฬาSABA จะรวมกัน</value>
-  </data>
   <data name="PartialUMAnnouncement" xml:space="preserve">
     <value>เรากำลังอัปเดตฟังก์ชันนี้เพื่อประสบการณ์ที่ดีขึ้น ดังนั้น ฟังก์ชันนี้จึงถูกปิดชั่วคราว ({0} - {1} (GMT+8)) โปรดลองอีกครั้งในภายหลังและขออภัยในความไม่สะดวก</value>
   </data>

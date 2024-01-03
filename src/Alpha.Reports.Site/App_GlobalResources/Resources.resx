@@ -942,9 +942,6 @@
   <data name="ConsolidationPTNote" xml:space="preserve">
     <value>PT values shown in the report are the Max PT of {0}</value>
   </data>
-  <data name="SabaSportsNote" xml:space="preserve">
-    <value>The dedicated performance report of SABA Sports is only available from {0} onwards. Before {0}, data is the combination of Sportsbook and SABA Sports.</value>
-  </data>
   <data name="PartialUMAnnouncement" xml:space="preserve">
     <value>We're updating this function for a better experience. Thus, this function is turned off temporarily ({0} - {1} (GMT+8)). Please try again later and sorry for the inconvenience.</value>
   </data>

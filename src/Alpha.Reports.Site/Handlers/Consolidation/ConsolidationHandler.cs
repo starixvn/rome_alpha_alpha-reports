@@ -153,12 +153,6 @@
                     $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
             }
 
-            if (message.IsSupportHistoricReport)
-            {
-                result.Add(string.Format(
-                    $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
-            }
-
             var products = consolidationService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate);
 
             if (products.Any())
@@ -178,13 +172,7 @@
                 result.Add(string.Format(
                     $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
             }
-
-            if (message.IsSupportHistoricReport)
-            {
-                result.Add(string.Format(
-                    $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
-            }
-
+            
             result.Add(Resources.Tooltip_NetTurnover);
 
             var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.MinDate);

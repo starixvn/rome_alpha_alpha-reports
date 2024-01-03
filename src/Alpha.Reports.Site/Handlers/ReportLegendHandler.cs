@@ -45,12 +45,6 @@
                     $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", minDate.ToShortDateWithSlash()));
             }
 
-            if (isSupportHistoricReport)
-            {
-                result.Add(string.Format(
-                    $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
-            }
-
             if (products.Any())
             {
                 result.Add(string.Format(Resources.DelayIssueLegend, string.Join(", ", productService.GetProductNames(products))));

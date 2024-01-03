@@ -858,10 +858,6 @@
   <data name="ConsolidationPTNote" xml:space="preserve">
     <value>占成数值在报告中显示为最高占成的 {0}</value>
   </data>
-  <data name="SabaSportsNote" xml:space="preserve">
-    <value>沙巴体育的专属报表仅從 {0} 開始提供。
- 在 {0} 之前，体育博彩报表和沙巴体育报表的 數據是结合的。</value>
-  </data>
   <data name="PartialUMAnnouncement" xml:space="preserve">
     <value>我们正在更新此功能以获得更好的体验。 因此，此功能将暂时关闭（{0} - {1} (GMT+8)）。 请稍后再试，给您带来不便,敬请谅解。</value>
   </data>

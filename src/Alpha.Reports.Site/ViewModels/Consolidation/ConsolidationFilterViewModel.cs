@@ -27,8 +27,7 @@
             CustLevel = custLevel;
             ViewDataInstructionMessage = new List<string>
             {
-                string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, minDate.ToShortDateWithSlash()),
-                string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)
+                string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, minDate.ToShortDateWithSlash())
             };
 
             DateRangePickerViewModel = dateRangePickerViewModel;

@@ -37,7 +37,6 @@
             Visible = visible;
             CustLevel = custLevel;
             BreadcrumbLevelJson = breadcrumbLevelJson;
-            SeparateSabaMessage = string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate);
         }
 
         public int CustId { get; }
@@ -59,8 +58,6 @@
         public bool Visible { get; }
 
         public string ViewDataInstructionMessage { get; }
-
-        public string SeparateSabaMessage { get; }
 
         public string ViewActionMessage => IsHistoricReport ? Resources.BackToCurrentReport : Resources.ViewHistoryReport;
 
