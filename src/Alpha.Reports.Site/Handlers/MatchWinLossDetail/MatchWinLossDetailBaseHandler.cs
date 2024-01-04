@@ -88,7 +88,7 @@
         {
             var noParlayData = reportData.Where(data => !data.IsParlay);
             var betTypeNames = GetBetTypeNames(noParlayData.Select(data => data.BetType));
-            var matchGroups = noParlayData.GroupBy(data => GetGroupId(data, leagueService.GetLeagueName(data.LeagueId, data.LeagueType)));
+            var matchGroups = noParlayData.GroupBy(data => GetGroupId(data, leagueService.GetLeagueName(data.LeagueId, data.LeagueType, data.LeagueGroupId)));
 
             var noParlayMatchWinLossDetail = new List<MatchWinLossDetailViewModel>();
 
@@ -152,7 +152,7 @@
         {
             var betTypeList = matchGroup.ToList();
             var firstWinLoss = betTypeList[0];
-            var leagueName = leagueService.GetLeagueName(firstWinLoss.LeagueId, firstWinLoss.LeagueType);
+            var leagueName = leagueService.GetLeagueName(firstWinLoss.LeagueId, firstWinLoss.LeagueType, firstWinLoss.LeagueGroupId);
             var betTypeWinLoss = new List<BetTypeWinLossViewModel>();
 
             var total = new BetTypeWinLossViewModel();

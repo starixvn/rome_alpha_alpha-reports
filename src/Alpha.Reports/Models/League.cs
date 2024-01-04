@@ -6,17 +6,20 @@
         {
         }       
 
-        internal League(int leagueid, int sporttype, string leaguename, byte leagueType)
+        internal League(int leagueid, int sporttype, string leaguename, byte leagueType, int leagueGroupId)
         {
             LeagueId = leagueid;
             Name = leaguename;
             SportTypeId = sporttype;
             LeagueType = leagueType;
+            LeagueGroupId = leagueGroupId;
         }
 
         public string Id => $"{LeagueId}_{LeagueType}";
 
         public int LeagueId { get; }
+
+        public int LeagueGroupId { get; }
 
         public string Name { get; }
 

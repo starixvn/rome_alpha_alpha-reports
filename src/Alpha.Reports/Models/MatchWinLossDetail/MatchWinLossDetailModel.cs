@@ -17,6 +17,7 @@
             int betType,
             bool liveIndicator,
             int leagueId,
+            int leagueGroupId,
             byte leagueType,
             int race,
             string matchCode,
@@ -36,6 +37,7 @@
             BetType = betType;
             LiveIndicator = liveIndicator;
             LeagueId = leagueId;
+            LeagueGroupId = leagueGroupId;
             LeagueType = leagueType;
             Race = race;
             MatchCode = matchCode;
@@ -77,6 +79,8 @@
         public bool LiveIndicator { get; }
 
         public int LeagueId { get; }
+
+        public int LeagueGroupId { get; }
 
         public byte LeagueType { get; }
 
