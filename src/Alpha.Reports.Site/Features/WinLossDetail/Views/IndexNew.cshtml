@@ -13,7 +13,7 @@
         var productList = $.parseJSON('@Html.Raw(JsonConvert.SerializeObject(Model.Products, jsonSettings))');
         var productDetailList = $.parseJSON('@Html.Raw(JsonConvert.SerializeObject(Model.ProductDetails, jsonSettings))');
         var columnList = [
-            { value: "fullname", text: '@Resources.FirstLastName' },
+            { value: "fullname", text: '@Resources.FirstLastName', checked: false },
             { value: "betcount", text: '@Resources.BetCount' },
             { value: "turnover", text: '@Resources.Turnover' },
             { value: "netturnover", text: '@Resources.NetTurnover' },

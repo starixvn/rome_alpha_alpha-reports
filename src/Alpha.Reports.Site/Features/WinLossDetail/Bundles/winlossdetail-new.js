@@ -594,11 +594,18 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
     }
     VisibleColumnDropdownComponent.prototype.render = function (options) {
         var _this = this;
-        var isCheckAll = true;
+        var isCheckAll = false;
         var dropdown = $("#" + options.selectorId);
         var visibleColumnObject = {};
         var visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
-        if (typeof visibleColumns !== "undefined") {
+        if (typeof visibleColumns === "undefined") {
+            options.listColumn.forEach(function (item) {
+                if (item.checked !== false) {
+                    visibleColumnObject[item.value] = true;
+                }
+            });
+        }
+        else {
             var visibleColumnArray = visibleColumns.split(",");
             visibleColumnArray.forEach(function (item) {
                 visibleColumnObject[item] = true;
@@ -1163,7 +1170,11 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             else if (jqXHR.status === 500 && jqXHR.responseText) {
                 var responseObject = JSON.parse(jqXHR.responseText);
                 if (responseObject.UMFrom && responseObject.UMTo) {
-                    window.location.href = window.top.alpha.urls.mainRootPath + "partialum/index?" + $.param(responseObject);
+                    var cookielessSiteMainUrl = $("#CookielessSiteMainUrl");
+                    var siteMainUrl = cookielessSiteMainUrl.length
+                        ? cookielessSiteMainUrl.val()
+                        : window.top.alpha.urls.mainRootPath;
+                    window.location.href = siteMainUrl + "partialum/index?" + $.param(responseObject);
                 }
             }
         }).always(function () { return _this.removeIsWeekSelectionForStatistic(); });

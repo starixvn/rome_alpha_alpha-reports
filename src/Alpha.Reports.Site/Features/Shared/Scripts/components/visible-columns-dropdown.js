@@ -19,11 +19,18 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
     }
     VisibleColumnDropdownComponent.prototype.render = function (options) {
         var _this = this;
-        var isCheckAll = true;
+        var isCheckAll = false;
         var dropdown = $("#" + options.selectorId);
         var visibleColumnObject = {};
         var visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
-        if (typeof visibleColumns !== "undefined") {
+        if (typeof visibleColumns === "undefined") {
+            options.listColumn.forEach(function (item) {
+                if (item.checked !== false) {
+                    visibleColumnObject[item.value] = true;
+                }
+            });
+        }
+        else {
             var visibleColumnArray = visibleColumns.split(",");
             visibleColumnArray.forEach(function (item) {
                 visibleColumnObject[item] = true;

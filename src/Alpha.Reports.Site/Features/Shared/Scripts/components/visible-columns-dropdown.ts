@@ -21,12 +21,18 @@ class VisibleColumnDropdownComponent {
     private dropdownColumn: JQuery;
 
     render(options: VisibleColumnDropdownOption) {
-        let isCheckAll = true;
+        let isCheckAll = false;
         const dropdown = $("#" + options.selectorId);
 
         const visibleColumnObject = {};
         const visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
-        if (typeof visibleColumns !== "undefined") {
+        if (typeof visibleColumns === "undefined") {
+            options.listColumn.forEach(function (item) {
+                if (item.checked !== false) {
+                    visibleColumnObject[item.value] = true;
+                }
+            });
+        } else {
             const visibleColumnArray = visibleColumns.split(",");
             visibleColumnArray.forEach(function (item) {
                 visibleColumnObject[item] = true;
