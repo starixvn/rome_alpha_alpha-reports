@@ -36,7 +36,30 @@
         ["ExportExcelController"] = "WinLossDetail",
         ["ExportExcelAction"] = "Excel"
     })
-
+<div class="bg-overlay">
+    <div class="popup-highlight">
+        <button type="button" class="icon icon-close close" title="Close">
+            <span aria-hidden="true"></span>
+        </button>
+        <div class="text">
+            <div>
+                <p>
+                    <span>New view takes over</span>
+                </p>
+                <p>
+                    From <b>dd/mm/yyyy</b>, the <b>New view</b> will become the <b>primary display</b>. You can still switch back to the Classic view until its discontinuation on dd/mm/yyy.
+                </p>
+            </div>
+        </div>
+        <div class="action">
+            <label class="label">
+                <input type="checkbox">
+                <span>Do not show again</span>
+            </label>
+            <a class="btn-submit">OK</a>
+        </div>
+    </div>
+</div>
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLossDetail")">
     @Html.Hidden("CustId", Model.CustId)
