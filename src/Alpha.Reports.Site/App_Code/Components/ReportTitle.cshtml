@@ -3,7 +3,14 @@
 @using Alpha.Reports.Models.Winloss;
 @using Alpha.Reports.Extensions;
 
-@helper Render(PageHeaderViewModel model, string currentRequestQuery = null, IEnumerable<string> breadcrumbParamByLevel = null, bool hasEnterOrNonEnterNote = false, EnteredSportResult enteredSportResult = null, bool isHistoricReport = false)
+@helper Render(
+    PageHeaderViewModel model,
+    string currentRequestQuery = null,
+    IEnumerable<string> breadcrumbParamByLevel = null,
+    bool hasEnterOrNonEnterNote = false,
+    EnteredSportResult enteredSportResult = null,
+    bool isHistoricReport = false,
+    bool showNewFeatureNote = false)
 {
 <div class="page-title @(model.IsStackMode ? "stack-mode" : string.Empty) @(model.IsFilterVisible ? string.Empty : "hide-filter")">
     @if (!string.IsNullOrWhiteSpace(model.Title))
@@ -64,6 +71,10 @@
             </ul>
         </div>
     }
-    <p class="note_title"><span class="require">* </span> New view will take over from dd/mm/yyyy. You can switch bach to Classic view mm/dd/yyy</p>
+
+    @if (showNewFeatureNote)
+    {
+        <p class="note_title"><span class="require">*</span>&nbsp;&nbsp;@Resources.NewViewTakesOverNote</p>
+    }
 </div>
 }

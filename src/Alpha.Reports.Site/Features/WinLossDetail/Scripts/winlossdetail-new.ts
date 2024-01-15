@@ -137,7 +137,12 @@ class WinLossDetailViewNew extends BaseReportView {
                 this.getWinLossDetailDataAndRenderWeekRange(true);
             }));
 
-        this.winLossDetailColumns.init();
+        this.winLossDetailColumns.init(
+            $("#hiddenShowColumns").val(),
+            (visibleColumns) => {
+                $.extend(this.globalFormData, { showColumns: visibleColumns });
+                this.updateCurrentUrl();
+            });
 
         this.weekSelectionComponent.init(new WeekSelectionOption((dateRange) => {
             if (this.isGettingReportData) {
@@ -180,7 +185,8 @@ class WinLossDetailViewNew extends BaseReportView {
             custId: +$("#hiddenCustId").val(),
             custName: $("#hiddenCustName").val(),
             custLevelId: +$("#hiddenCustLevel").val(),
-            username: searchUsername
+            username: searchUsername,
+            showColumns: $("#hiddenShowColumns").val()
         }, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues());
         // update fromDate/toDate of globalFormData if activeWeekRange is NOT undefined
         if (activeWeekRange) {
@@ -230,7 +236,7 @@ class WinLossDetailViewNew extends BaseReportView {
     }
 
     private getWinLossDetailData(callback = Function()) {
-        this.addMoreParamsForStatistic();
+        //this.addMoreParamsForStatistic();
 
         this.tableReportContainer.block();
         $.get(`${this.winLossDetailUrl}?${$.param(this.globalFormData)}`, (html) => {

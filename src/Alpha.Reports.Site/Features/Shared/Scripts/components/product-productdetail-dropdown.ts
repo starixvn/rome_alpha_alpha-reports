@@ -26,35 +26,39 @@ class ProductAndProductDetailDropdownComponent {
     }
 
     private renderProductDetailDropdown(options: ProductAndProductDetailDropdownOption) {
-        const self = this;
-        const productDetailList = options.productDetails.map(function (item) {
-            return self.buildCheckboxItem(item, {
-                productId: item.ProductId
+        if (options.productDetails.length) {
+            const self = this;
+            const productDetailList = options.productDetails.map(function (item) {
+                return self.buildCheckboxItem(item, {
+                    productId: item.ProductId
+                });
             });
-        });
 
-        const dropdown = $("#" + options.selectorProductDetailId);
-        this.dropdownProductDetail = dropdown.fanexMultiSelect({
-            selectAllText: dropdown.data("label-selectall"),
-            selectedText: dropdown.data("label-selected"),
-            noneSelectedText: dropdown.data("label-noneselected"),
-            customSelectAllText: dropdown.data("label-all") + " (#)",
-            showFilter: true,
-            filterPlaceHolder: dropdown.data("label-filterplaceholder"),
-            noItemFoundText: dropdown.data("label-noitemfound"),
-            minWidth: 250,
-            maxHeight: 250,
-            showTooltip: false,
-            listData: productDetailList,
-            onLeave: function () {
-                const productIds = self.dropdownProductDetail.fanexMultiSelect("getUncheckedProductIds");
-                if (productIds.length) {
-                    self.dropdownProduct.fanexMultiSelect("uncheck", productIds);
+            const dropdown = $("#" + options.selectorProductDetailId);
+            this.dropdownProductDetail = dropdown.fanexMultiSelect({
+                selectAllText: dropdown.data("label-selectall"),
+                selectedText: dropdown.data("label-selected"),
+                noneSelectedText: dropdown.data("label-noneselected"),
+                customSelectAllText: dropdown.data("label-all") + " (#)",
+                showFilter: true,
+                filterPlaceHolder: dropdown.data("label-filterplaceholder"),
+                noItemFoundText: dropdown.data("label-noitemfound"),
+                minWidth: 250,
+                maxHeight: 250,
+                showTooltip: false,
+                listData: productDetailList,
+                onLeave: function () {
+                    const productIds = self.dropdownProductDetail.fanexMultiSelect("getUncheckedProductIds");
+                    if (productIds.length) {
+                        self.dropdownProduct.fanexMultiSelect("uncheck", productIds);
+                    }
+
+                    options.onDropdownHidden(self.getCheckedValues());
                 }
-
-                options.onDropdownHidden(self.getCheckedValues());
-            }
-        });
+            });
+        } else {
+            $("#" + options.selectorProductDetailId).parent().remove();
+        }
     }
 
     private renderProductDropdown(options: ProductAndProductDetailDropdownOption) {
@@ -117,8 +121,10 @@ class ProductAndProductDetailDropdownComponent {
                 const uncheckedValues = self.dropdownProduct.fanexMultiSelect("getUncheckedValues");
 
                 if ((checked && !uncheckedValues.length) || (!checked && !checkedValues.length)) {
-                    self.dropdownProductDetail.fanexMultiSelect("showAllItems", checked);
-                    self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
+                    if (self.dropdownProductDetail) {
+                        self.dropdownProductDetail.fanexMultiSelect("showAllItems", checked);
+                        self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
+                    }
                 } else {
                     const productIdString = checked
                         ? checkedValues
@@ -144,7 +150,7 @@ class ProductAndProductDetailDropdownComponent {
 
     private handleOnCheckProduct(productId, checked) {
         const action = checked ? "showItemsByCustomAttributes" : "hideItemsByCustomAttributes";
-        this.dropdownProductDetail.fanexMultiSelect(action, { productId });
+        this.dropdownProductDetail && this.dropdownProductDetail.fanexMultiSelect(action, { productId });
     }
 
     private buildCheckboxItem(item, attributes = undefined) {
@@ -159,7 +165,9 @@ class ProductAndProductDetailDropdownComponent {
     getCheckedValues() {
         const productsAndResources = {
             productIds: this.dropdownProduct.fanexMultiSelect("getCheckedValues"),
-            resourceIds: this.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
+            resourceIds: this.dropdownProductDetail
+                ? this.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
+                : ''
         };
 
         this.dropdownProduct.fanexMultiSelect("addError", productsAndResources.productIds.length === 0);
@@ -169,7 +177,9 @@ class ProductAndProductDetailDropdownComponent {
     getUncheckedValues() {
         return {
             unselectedProductIds: this.dropdownProduct.fanexMultiSelect("getUncheckedValues"),
-            unselectedResourceIds: this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
+            unselectedResourceIds: this.dropdownProductDetail
+                ? this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
+                : ''
         };
     }
 
