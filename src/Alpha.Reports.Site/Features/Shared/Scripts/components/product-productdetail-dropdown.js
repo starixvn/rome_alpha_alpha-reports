@@ -26,33 +26,38 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
         this.renderProductDropdown(options);
     };
     ProductAndProductDetailDropdownComponent.prototype.renderProductDetailDropdown = function (options) {
-        var self = this;
-        var productDetailList = options.productDetails.map(function (item) {
-            return self.buildCheckboxItem(item, {
-                productId: item.ProductId
+        if (options.productDetails.length) {
+            var self_1 = this;
+            var productDetailList = options.productDetails.map(function (item) {
+                return self_1.buildCheckboxItem(item, {
+                    productId: item.ProductId
+                });
             });
-        });
-        var dropdown = $("#" + options.selectorProductDetailId);
-        this.dropdownProductDetail = dropdown.fanexMultiSelect({
-            selectAllText: dropdown.data("label-selectall"),
-            selectedText: dropdown.data("label-selected"),
-            noneSelectedText: dropdown.data("label-noneselected"),
-            customSelectAllText: dropdown.data("label-all") + " (#)",
-            showFilter: true,
-            filterPlaceHolder: dropdown.data("label-filterplaceholder"),
-            noItemFoundText: dropdown.data("label-noitemfound"),
-            minWidth: 250,
-            maxHeight: 250,
-            showTooltip: false,
-            listData: productDetailList,
-            onLeave: function () {
-                var productIds = self.dropdownProductDetail.fanexMultiSelect("getUncheckedProductIds");
-                if (productIds.length) {
-                    self.dropdownProduct.fanexMultiSelect("uncheck", productIds);
+            var dropdown = $("#" + options.selectorProductDetailId);
+            this.dropdownProductDetail = dropdown.fanexMultiSelect({
+                selectAllText: dropdown.data("label-selectall"),
+                selectedText: dropdown.data("label-selected"),
+                noneSelectedText: dropdown.data("label-noneselected"),
+                customSelectAllText: dropdown.data("label-all") + " (#)",
+                showFilter: true,
+                filterPlaceHolder: dropdown.data("label-filterplaceholder"),
+                noItemFoundText: dropdown.data("label-noitemfound"),
+                minWidth: 250,
+                maxHeight: 250,
+                showTooltip: false,
+                listData: productDetailList,
+                onLeave: function () {
+                    var productIds = self_1.dropdownProductDetail.fanexMultiSelect("getUncheckedProductIds");
+                    if (productIds.length) {
+                        self_1.dropdownProduct.fanexMultiSelect("uncheck", productIds);
+                    }
+                    options.onDropdownHidden(self_1.getCheckedValues());
                 }
-                options.onDropdownHidden(self.getCheckedValues());
-            }
-        });
+            });
+        }
+        else {
+            $("#" + options.selectorProductDetailId).parent().remove();
+        }
     };
     ProductAndProductDetailDropdownComponent.prototype.renderProductDropdown = function (options) {
         var _this = this;
@@ -112,8 +117,10 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
                 var checkedValues = self.dropdownProduct.fanexMultiSelect("getCheckedValues");
                 var uncheckedValues = self.dropdownProduct.fanexMultiSelect("getUncheckedValues");
                 if ((checked && !uncheckedValues.length) || (!checked && !checkedValues.length)) {
-                    self.dropdownProductDetail.fanexMultiSelect("showAllItems", checked);
-                    self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
+                    if (self.dropdownProductDetail) {
+                        self.dropdownProductDetail.fanexMultiSelect("showAllItems", checked);
+                        self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
+                    }
                 }
                 else {
                     var productIdString = checked
@@ -138,7 +145,7 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
     };
     ProductAndProductDetailDropdownComponent.prototype.handleOnCheckProduct = function (productId, checked) {
         var action = checked ? "showItemsByCustomAttributes" : "hideItemsByCustomAttributes";
-        this.dropdownProductDetail.fanexMultiSelect(action, { productId: productId });
+        this.dropdownProductDetail && this.dropdownProductDetail.fanexMultiSelect(action, { productId: productId });
     };
     ProductAndProductDetailDropdownComponent.prototype.buildCheckboxItem = function (item, attributes) {
         if (attributes === void 0) { attributes = undefined; }
@@ -152,7 +159,9 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
     ProductAndProductDetailDropdownComponent.prototype.getCheckedValues = function () {
         var productsAndResources = {
             productIds: this.dropdownProduct.fanexMultiSelect("getCheckedValues"),
-            resourceIds: this.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
+            resourceIds: this.dropdownProductDetail
+                ? this.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
+                : ''
         };
         this.dropdownProduct.fanexMultiSelect("addError", productsAndResources.productIds.length === 0);
         return productsAndResources;
@@ -160,7 +169,9 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
     ProductAndProductDetailDropdownComponent.prototype.getUncheckedValues = function () {
         return {
             unselectedProductIds: this.dropdownProduct.fanexMultiSelect("getUncheckedValues"),
-            unselectedResourceIds: this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
+            unselectedResourceIds: this.dropdownProductDetail
+                ? this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
+                : ''
         };
     };
     ProductAndProductDetailDropdownComponent.prototype.showHistoricProducts = function () {

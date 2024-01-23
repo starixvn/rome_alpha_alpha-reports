@@ -37,6 +37,8 @@
             IsGroupHeadline = isGroupHeadline;
             CanViewBetLists = !message.IsProtectedMode || !message.CustLevel.IsAgentLevel();
             SSGUID = message.SSGUID;
+            HideWinLossDetailPopup = message.HideWinLossDetailPopup;
+            SubAccId = message.SubAccId;
 
             TotalEnteredSport = totalEnteredSport;
             ViewerLevel = message.ViewerLevel;
@@ -63,6 +65,10 @@
         public bool CanViewBetLists { get; }
 
         public string SSGUID { get; }
+
+        public bool HideWinLossDetailPopup { get; }
+
+        public int SubAccId { get; }
 
         public EnteredSportResult TotalEnteredSport { get; }
 

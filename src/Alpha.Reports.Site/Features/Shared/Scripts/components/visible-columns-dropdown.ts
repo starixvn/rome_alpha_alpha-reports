@@ -6,11 +6,11 @@ interface Object {
 
 class VisibleColumnDropdownOption {
     constructor(
-        public visibleColumnKey,
+        public visibleColumns,
         public listColumn,
         public onDropdownHidden = Function(),
         public selectorId = "dropdown-column") {
-        this.visibleColumnKey = visibleColumnKey;
+        this.visibleColumns = visibleColumns;
         this.listColumn = listColumn;
         this.onDropdownHidden = onDropdownHidden;
         this.selectorId = selectorId;
@@ -21,17 +21,22 @@ class VisibleColumnDropdownComponent {
     private dropdownColumn: JQuery;
 
     render(options: VisibleColumnDropdownOption) {
-        let isCheckAll = true;
+        let isCheckAll = false;
         const dropdown = $("#" + options.selectorId);
 
         const visibleColumnObject = {};
-        const visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
-        if (typeof visibleColumns !== "undefined") {
-            const visibleColumnArray = visibleColumns.split(",");
+        if (options.visibleColumns.length) {
+            const visibleColumnArray = options.visibleColumns.split(",");
             visibleColumnArray.forEach(function (item) {
                 visibleColumnObject[item] = true;
             });
             isCheckAll = options.listColumn.length === visibleColumnArray.length;
+        } else {
+            options.listColumn.forEach(function (item) {
+                if (item.checked !== false) {
+                    visibleColumnObject[item.value] = true;
+                }
+            });
         }
 
         this.dropdownColumn = dropdown.fanexMultiSelect({
@@ -53,22 +58,16 @@ class VisibleColumnDropdownComponent {
                     checked: isCheckAll || visibleColumnObject.hasOwnProperty(item.value)
                 };
             }),
-            onLeave: () => this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden)
+            onLeave: () => options.onDropdownHidden(this.getColumns())
         });
-    }
-
-    private onDropdownHidden(visibleColumnKey: string, callback: Function) {
-        const columns = this.getColumns();
-
-        const selectedColumnsValue = [];
-        Object.entries(columns).forEach(([key, value]) => value && selectedColumnsValue.push(key));
-        alphaReports.localStorage.set(visibleColumnKey, selectedColumnsValue.join());
-
-        callback(columns);
     }
 
     getColumns() {
         return this.dropdownColumn.fanexMultiSelect("getAllValues");
+    }
+
+    getShowColumns() {
+        return this.dropdownColumn.fanexMultiSelect("getCheckedValues");
     }
 
     getHideColumns() {

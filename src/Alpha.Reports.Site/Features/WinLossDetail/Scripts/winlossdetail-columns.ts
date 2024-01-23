@@ -12,11 +12,16 @@ class WinLossDetailColumns {
         this.columnList = columnList;
     }
 
-    init() {
+    init(visibleColumns, onDropdownHidden) {
         this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption(
-            `WinLossDetail_${$("#hiddenViewerId").val()}_${$("#hiddenSubAccId").val()}:Columns`,
+            visibleColumns,
             this.columnList,
-            (visibleColumn) => this.showHideColumns(visibleColumn)));
+            (columns) => {
+                this.showHideColumns(columns);
+                const selectedColumnsValue = [];
+                Object.entries(columns).forEach(([key, value]) => value && selectedColumnsValue.push(key));
+                onDropdownHidden(selectedColumnsValue.join());
+            }));
 
         this.showHideColumns();
     }
@@ -60,6 +65,10 @@ class WinLossDetailColumns {
         visible ? matchedColumns.removeClass("hide") : matchedColumns.addClass("hide");
 
         return visible;
+    }
+
+    getShowColumns() {
+        return this.visibleColumnDropdownComponent.getShowColumns();
     }
 
     getHideColumns() {

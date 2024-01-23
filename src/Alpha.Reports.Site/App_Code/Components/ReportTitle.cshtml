@@ -3,66 +3,78 @@
 @using Alpha.Reports.Models.Winloss;
 @using Alpha.Reports.Extensions;
 
-@helper Render(PageHeaderViewModel model, string currentRequestQuery = null, IEnumerable<string> breadcrumbParamByLevel = null, bool hasEnterOrNonEnterNote = false, EnteredSportResult enteredSportResult = null, bool isHistoricReport = false)
+@helper Render(
+    PageHeaderViewModel model,
+    string currentRequestQuery = null,
+    IEnumerable<string> breadcrumbParamByLevel = null,
+    bool hasEnterOrNonEnterNote = false,
+    EnteredSportResult enteredSportResult = null,
+    bool isHistoricReport = false,
+    bool showNewFeatureNote = false)
 {
-    <div class="page-title @(model.IsStackMode ? "stack-mode" : string.Empty) @(model.IsFilterVisible ? string.Empty : "hide-filter")">
-        @if (!string.IsNullOrWhiteSpace(model.Title))
+<div class="page-title @(model.IsStackMode ? "stack-mode" : string.Empty) @(model.IsFilterVisible ? string.Empty : "hide-filter")">
+    @if (!string.IsNullOrWhiteSpace(model.Title))
+    {
+        if (hasEnterOrNonEnterNote && !isHistoricReport)
         {
-            if (hasEnterOrNonEnterNote && !isHistoricReport)
-            {
-                <div class="entered-non-entered">
-                    @if (enteredSportResult.EnteredSportYesterday.NonEntered > 0)
-                    {
-                        <div class="icon-non-entered">
-                            <div class="text">@DateTime.Now.AddDays(-1).ToMMDDWithSlash(): @Resources.NonEntered</div>
-                            <div class="number">@enteredSportResult.EnteredSportYesterday.NonEntered</div>
-                            <div class="icon-clock"></div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="icon-entered">
-                            <div class="text">@DateTime.Now.AddDays(-1).ToMMDDWithSlash(): @Resources.Entered</div>
-                            <div class="icon-check-circle"></div>
-                        </div>
-                    }
+            <div class="entered-non-entered">
+                @if (enteredSportResult.EnteredSportYesterday.NonEntered > 0)
+                {
                     <div class="icon-non-entered">
-                        <div class="text">@DateTime.Now.ToMMDDWithSlash(): @Resources.NonEntered</div>
-                        <div class="number">@enteredSportResult.EnteredSportToday.NonEntered</div>
+                        <div class="text">@DateTime.Now.AddDays(-1).ToMMDDWithSlash(): @Resources.NonEntered</div>
+                        <div class="number">@enteredSportResult.EnteredSportYesterday.NonEntered</div>
                         <div class="icon-clock"></div>
                     </div>
+                }
+                else
+                {
+                    <div class="icon-entered">
+                        <div class="text">@DateTime.Now.AddDays(-1).ToMMDDWithSlash(): @Resources.Entered</div>
+                        <div class="icon-check-circle"></div>
+                    </div>
+                }
+                <div class="icon-non-entered">
+                    <div class="text">@DateTime.Now.ToMMDDWithSlash(): @Resources.NonEntered</div>
+                    <div class="number">@enteredSportResult.EnteredSportToday.NonEntered</div>
+                    <div class="icon-clock"></div>
                 </div>
-            }
-            <div class="text-title pull-left" style="clear: both">@model.Title</div>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(currentRequestQuery))
-        {
-            @Breadcrumb.Render(model.BreadcrumbLevelViewModel, currentRequestQuery, breadcrumbParamByLevel)
-        }
-
-        @if (model.InfoIcon != null)
-        {
-            <a href="@model.InfoIcon.Href" @(string.IsNullOrWhiteSpace(model.InfoIcon.Target) ? string.Empty : $"target={model.InfoIcon.Target}")><span class="icon icon-information-outline"></span></a>
-        }
-
-        @if (model.IsShowActionIcons)
-        {
-            <div class="list-icon">
-                <ul>
-                    @if (model.HasHideFilterIcon)
-                    {
-                        <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
-                        <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
-                    }
-
-                    @if (model.HasStackIcon)
-                    {
-                        <li class="normalview-element"><span id="icon-stack-column" class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
-                        <li class="stackcolumnview-element"><span id="icon-normal-column" class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
-                    }
-                </ul>
             </div>
         }
-    </div>
+        <div class="text-title pull-left" style="clear: both">@model.Title</div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(currentRequestQuery))
+    {
+        @Breadcrumb.Render(model.BreadcrumbLevelViewModel, currentRequestQuery, breadcrumbParamByLevel)
+    }
+
+    @if (model.InfoIcon != null)
+    {
+        <a href="@model.InfoIcon.Href" @(string.IsNullOrWhiteSpace(model.InfoIcon.Target) ? string.Empty : $"target={model.InfoIcon.Target}")><span class="icon icon-information-outline"></span></a>
+    }
+
+    @if (model.IsShowActionIcons)
+    {
+        <div class="list-icon">
+            <ul>
+                @if (model.HasHideFilterIcon)
+                {
+                    <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+                    <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+                }
+
+                @if (model.HasStackIcon)
+                {
+                    <li class="normalview-element"><span id="icon-stack-column" class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
+                    <li class="stackcolumnview-element"><span id="icon-normal-column" class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
+                }
+            </ul>
+        </div>
+    }
+
+    @if (showNewFeatureNote)
+    {
+        <p class="note_title"><span class="require">*</span>&nbsp;&nbsp;@Resources.NewViewTakesOverNote</p>
+    }
+</div>
 }

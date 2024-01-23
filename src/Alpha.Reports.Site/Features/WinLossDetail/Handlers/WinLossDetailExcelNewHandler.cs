@@ -75,7 +75,7 @@
 
         private TemplateInfo GetTemplateInfo(UserLevel custLevel)
             => new TemplateInfo(
-                GetExcelTemplatePath($"{custLevel.GetDirectDownLineLevel().DisplayName}New"),
+                GetExcelTemplatePath(custLevel.GetDirectDownLineLevel().DisplayName),
                 noInfomationText: Resources.NoInformationIsAvailable)
             .FreezePanel(4, B);
 
@@ -83,43 +83,43 @@
         {
             var mapper = new Mapper<WinLossDetailModel>()
                 .Map(A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)
-                .Map(B, winLossDetail => isTotal ? string.Empty : winLossDetail.FullName)
-                .Map(C, winLossDetail => winLossDetail.BetCount)
-                .Map(D, winLossDetail => winLossDetail.Turnover)
-                .Map(E, winLossDetail => winLossDetail.NetTurnover)
-                .Map(F, winLossDetail => winLossDetail.GrossComm)
-                .Map(G, winLossDetail => winLossDetail.MemberNetWinLoss.WinLoss)
-                .Map(H, winLossDetail => winLossDetail.MemberNetWinLoss.Comm)
-                .Map(I, winLossDetail => winLossDetail.MemberNetWinLoss.Total)
-                .Map(J, winLossDetail => winLossDetail.AgentNetWinLoss.WinLoss)
-                .Map(K, winLossDetail => winLossDetail.AgentNetWinLoss.Comm)
-                .Map(L, winLossDetail => winLossDetail.AgentNetWinLoss.Total);
+                //.Map(B, winLossDetail => isTotal ? string.Empty : winLossDetail.FullName)
+                .Map(B, winLossDetail => winLossDetail.BetCount)
+                .Map(C, winLossDetail => winLossDetail.Turnover)
+                .Map(D, winLossDetail => winLossDetail.NetTurnover)
+                .Map(E, winLossDetail => winLossDetail.GrossComm)
+                .Map(F, winLossDetail => winLossDetail.MemberNetWinLoss.WinLoss)
+                .Map(G, winLossDetail => winLossDetail.MemberNetWinLoss.Comm)
+                .Map(H, winLossDetail => winLossDetail.MemberNetWinLoss.Total)
+                .Map(I, winLossDetail => winLossDetail.AgentNetWinLoss.WinLoss)
+                .Map(J, winLossDetail => winLossDetail.AgentNetWinLoss.Comm)
+                .Map(K, winLossDetail => winLossDetail.AgentNetWinLoss.Total);
 
             if (custLevel.IsAgentLevel())
             {
-                mapper.Map(M, winLossDetail => winLossDetail.Company);
+                mapper.Map(L, winLossDetail => winLossDetail.Company);
             }
 
             if (custLevel.IsMasterOrSuperLevel())
             {
                 mapper
-                    .Map(M, winLossDetail => winLossDetail.MasterNetWinLoss.WinLoss)
-                    .Map(N, winLossDetail => winLossDetail.MasterNetWinLoss.Comm)
-                    .Map(O, winLossDetail => winLossDetail.MasterNetWinLoss.Total);
+                    .Map(L, winLossDetail => winLossDetail.MasterNetWinLoss.WinLoss)
+                    .Map(M, winLossDetail => winLossDetail.MasterNetWinLoss.Comm)
+                    .Map(N, winLossDetail => winLossDetail.MasterNetWinLoss.Total);
             }
 
             if (custLevel.IsMasterLevel())
             {
-                mapper.Map(P, winLossDetail => winLossDetail.Company);
+                mapper.Map(O, winLossDetail => winLossDetail.Company);
             }
 
             if (custLevel.IsSuperLevel())
             {
                 mapper
-                    .Map(P, winLossDetail => winLossDetail.SuperNetWinLoss.WinLoss)
-                    .Map(Q, winLossDetail => winLossDetail.SuperNetWinLoss.Comm)
-                    .Map(R, winLossDetail => winLossDetail.SuperNetWinLoss.Total)
-                    .Map(S, winLossDetail => winLossDetail.Company);
+                    .Map(O, winLossDetail => winLossDetail.SuperNetWinLoss.WinLoss)
+                    .Map(P, winLossDetail => winLossDetail.SuperNetWinLoss.Comm)
+                    .Map(Q, winLossDetail => winLossDetail.SuperNetWinLoss.Total)
+                    .Map(R, winLossDetail => winLossDetail.Company);
             }
 
             return mapper;

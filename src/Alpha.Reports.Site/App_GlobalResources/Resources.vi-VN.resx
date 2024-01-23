@@ -1079,4 +1079,13 @@
   <data name="MainReport" xml:space="preserve">
     <value>Báo Cáo Chính</value>
   </data>
+  <data name="NewViewTakesOver" xml:space="preserve">
+    <value>Phiên Bản Mới Được Hiển Thị Chính</value>
+  </data>
+  <data name="NewViewTakesOverNote" xml:space="preserve">
+    <value>Phiên Bản Mới sẽ dc hiển thị chính từ ngày 21/02/2024 (dd/mm/yyyy). Bạn vẫn có thể chuyển về Phiên Bản Cũ.</value>
+  </data>
+  <data name="NewViewTakesOverPopup" xml:space="preserve">
+    <value>Từ ngày &lt;b&gt;21/02/2024 (dd/mm/yyyy)&lt;/b&gt;, &lt;b&gt;Phiên Bản Mới&lt;/b&gt; sẽ được &lt;b&gt;hiển thị chính&lt;/b&gt;. Bạn vẫn có thể chuyển về Phiên Bản Cũ.</value>
+  </data>
 </root>

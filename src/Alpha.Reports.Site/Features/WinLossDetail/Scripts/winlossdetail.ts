@@ -119,6 +119,7 @@ class WinLossDetailView extends BaseReport {
         this.registerEvents();
 
         this.initHelp();
+        this.initWinLossDetailPopup();
         this.$.unblockUI();
     };
     checkReady = () => {
@@ -328,6 +329,24 @@ class WinLossDetailView extends BaseReport {
         }
 
         return sortedColumn;
+    };
+    initWinLossDetailPopup = () => {
+        const popup = this.$("#popup-winLossDetail");
+        const cookiesName = "HideWinLossDetailPopup_" + this.$("#CustId").val() + "_" + this.$("#SubAccId").val()
+        const hidePopup = alphaReports.localStorage.get(cookiesName);
+        if (hidePopup !== "1") {
+            this.$("#chk-dontShowAgain").click(() => {
+                alphaReports.localStorage.set(cookiesName, "1");
+                popup.remove();
+            });
+            this.$("#btn-closePopup").click(() => {
+                this.$("#HideWinLossDetailPopup").val("true");
+                popup.addClass("hide");
+            });
+            popup.removeClass("hide");
+        } else {
+            popup.remove();
+        }
     };
 }
 

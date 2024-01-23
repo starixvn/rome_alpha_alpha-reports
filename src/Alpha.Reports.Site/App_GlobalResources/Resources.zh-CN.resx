@@ -1021,4 +1021,13 @@
   <data name="DataOutsideDateRange" xml:space="preserve">
     <value>数据超出选定的日期范围并导致报告出现差异。</value>
   </data>
+  <data name="NewViewTakesOver" xml:space="preserve">
+    <value>全面采用新版介面</value>
+  </data>
+  <data name="NewViewTakesOverNote" xml:space="preserve">
+    <value>新版将从 21/02/2024 (dd/mm/yyyy) 开始接替经典版。所以您还是可以切换至经典版。</value>
+  </data>
+  <data name="NewViewTakesOverPopup" xml:space="preserve">
+    <value>从 &lt;b&gt;21/02/2024 (dd/mm/yyyy)&lt;/b&gt; 开始，&lt;b&gt;新版&lt;/b&gt;将成为&lt;b&gt;主要显示页面&lt;/b&gt;。 您仍然可以切换至经典版。</value>
+  </data>
 </root>

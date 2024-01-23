@@ -345,33 +345,38 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
         this.renderProductDropdown(options);
     };
     ProductAndProductDetailDropdownComponent.prototype.renderProductDetailDropdown = function (options) {
-        var self = this;
-        var productDetailList = options.productDetails.map(function (item) {
-            return self.buildCheckboxItem(item, {
-                productId: item.ProductId
+        if (options.productDetails.length) {
+            var self_1 = this;
+            var productDetailList = options.productDetails.map(function (item) {
+                return self_1.buildCheckboxItem(item, {
+                    productId: item.ProductId
+                });
             });
-        });
-        var dropdown = $("#" + options.selectorProductDetailId);
-        this.dropdownProductDetail = dropdown.fanexMultiSelect({
-            selectAllText: dropdown.data("label-selectall"),
-            selectedText: dropdown.data("label-selected"),
-            noneSelectedText: dropdown.data("label-noneselected"),
-            customSelectAllText: dropdown.data("label-all") + " (#)",
-            showFilter: true,
-            filterPlaceHolder: dropdown.data("label-filterplaceholder"),
-            noItemFoundText: dropdown.data("label-noitemfound"),
-            minWidth: 250,
-            maxHeight: 250,
-            showTooltip: false,
-            listData: productDetailList,
-            onLeave: function () {
-                var productIds = self.dropdownProductDetail.fanexMultiSelect("getUncheckedProductIds");
-                if (productIds.length) {
-                    self.dropdownProduct.fanexMultiSelect("uncheck", productIds);
+            var dropdown = $("#" + options.selectorProductDetailId);
+            this.dropdownProductDetail = dropdown.fanexMultiSelect({
+                selectAllText: dropdown.data("label-selectall"),
+                selectedText: dropdown.data("label-selected"),
+                noneSelectedText: dropdown.data("label-noneselected"),
+                customSelectAllText: dropdown.data("label-all") + " (#)",
+                showFilter: true,
+                filterPlaceHolder: dropdown.data("label-filterplaceholder"),
+                noItemFoundText: dropdown.data("label-noitemfound"),
+                minWidth: 250,
+                maxHeight: 250,
+                showTooltip: false,
+                listData: productDetailList,
+                onLeave: function () {
+                    var productIds = self_1.dropdownProductDetail.fanexMultiSelect("getUncheckedProductIds");
+                    if (productIds.length) {
+                        self_1.dropdownProduct.fanexMultiSelect("uncheck", productIds);
+                    }
+                    options.onDropdownHidden(self_1.getCheckedValues());
                 }
-                options.onDropdownHidden(self.getCheckedValues());
-            }
-        });
+            });
+        }
+        else {
+            $("#" + options.selectorProductDetailId).parent().remove();
+        }
     };
     ProductAndProductDetailDropdownComponent.prototype.renderProductDropdown = function (options) {
         var _this = this;
@@ -431,8 +436,10 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
                 var checkedValues = self.dropdownProduct.fanexMultiSelect("getCheckedValues");
                 var uncheckedValues = self.dropdownProduct.fanexMultiSelect("getUncheckedValues");
                 if ((checked && !uncheckedValues.length) || (!checked && !checkedValues.length)) {
-                    self.dropdownProductDetail.fanexMultiSelect("showAllItems", checked);
-                    self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
+                    if (self.dropdownProductDetail) {
+                        self.dropdownProductDetail.fanexMultiSelect("showAllItems", checked);
+                        self.dropdownProductDetail.fanexMultiSelect("disable", !checked);
+                    }
                 }
                 else {
                     var productIdString = checked
@@ -457,7 +464,7 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
     };
     ProductAndProductDetailDropdownComponent.prototype.handleOnCheckProduct = function (productId, checked) {
         var action = checked ? "showItemsByCustomAttributes" : "hideItemsByCustomAttributes";
-        this.dropdownProductDetail.fanexMultiSelect(action, { productId: productId });
+        this.dropdownProductDetail && this.dropdownProductDetail.fanexMultiSelect(action, { productId: productId });
     };
     ProductAndProductDetailDropdownComponent.prototype.buildCheckboxItem = function (item, attributes) {
         if (attributes === void 0) { attributes = undefined; }
@@ -471,7 +478,9 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
     ProductAndProductDetailDropdownComponent.prototype.getCheckedValues = function () {
         var productsAndResources = {
             productIds: this.dropdownProduct.fanexMultiSelect("getCheckedValues"),
-            resourceIds: this.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
+            resourceIds: this.dropdownProductDetail
+                ? this.dropdownProductDetail.fanexMultiSelect("getCheckedValues")
+                : ''
         };
         this.dropdownProduct.fanexMultiSelect("addError", productsAndResources.productIds.length === 0);
         return productsAndResources;
@@ -479,7 +488,9 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
     ProductAndProductDetailDropdownComponent.prototype.getUncheckedValues = function () {
         return {
             unselectedProductIds: this.dropdownProduct.fanexMultiSelect("getUncheckedValues"),
-            unselectedResourceIds: this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
+            unselectedResourceIds: this.dropdownProductDetail
+                ? this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
+                : ''
         };
     };
     ProductAndProductDetailDropdownComponent.prototype.showHistoricProducts = function () {
@@ -575,14 +586,14 @@ var UsernameAutoSuggestionComponent = /** @class */ (function () {
 //# sourceMappingURL=username-autosuggestion.js.map
 "use strict";
 var VisibleColumnDropdownOption = /** @class */ (function () {
-    function VisibleColumnDropdownOption(visibleColumnKey, listColumn, onDropdownHidden, selectorId) {
+    function VisibleColumnDropdownOption(visibleColumns, listColumn, onDropdownHidden, selectorId) {
         if (onDropdownHidden === void 0) { onDropdownHidden = Function(); }
         if (selectorId === void 0) { selectorId = "dropdown-column"; }
-        this.visibleColumnKey = visibleColumnKey;
+        this.visibleColumns = visibleColumns;
         this.listColumn = listColumn;
         this.onDropdownHidden = onDropdownHidden;
         this.selectorId = selectorId;
-        this.visibleColumnKey = visibleColumnKey;
+        this.visibleColumns = visibleColumns;
         this.listColumn = listColumn;
         this.onDropdownHidden = onDropdownHidden;
         this.selectorId = selectorId;
@@ -594,16 +605,22 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
     }
     VisibleColumnDropdownComponent.prototype.render = function (options) {
         var _this = this;
-        var isCheckAll = true;
+        var isCheckAll = false;
         var dropdown = $("#" + options.selectorId);
         var visibleColumnObject = {};
-        var visibleColumns = alphaReports.localStorage.get(options.visibleColumnKey);
-        if (typeof visibleColumns !== "undefined") {
-            var visibleColumnArray = visibleColumns.split(",");
+        if (options.visibleColumns.length) {
+            var visibleColumnArray = options.visibleColumns.split(",");
             visibleColumnArray.forEach(function (item) {
                 visibleColumnObject[item] = true;
             });
             isCheckAll = options.listColumn.length === visibleColumnArray.length;
+        }
+        else {
+            options.listColumn.forEach(function (item) {
+                if (item.checked !== false) {
+                    visibleColumnObject[item.value] = true;
+                }
+            });
         }
         this.dropdownColumn = dropdown.fanexMultiSelect({
             selectAllText: dropdown.data("label-selectall"),
@@ -624,21 +641,14 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
                     checked: isCheckAll || visibleColumnObject.hasOwnProperty(item.value)
                 };
             }),
-            onLeave: function () { return _this.onDropdownHidden(options.visibleColumnKey, options.onDropdownHidden); }
+            onLeave: function () { return options.onDropdownHidden(_this.getColumns()); }
         });
-    };
-    VisibleColumnDropdownComponent.prototype.onDropdownHidden = function (visibleColumnKey, callback) {
-        var columns = this.getColumns();
-        var selectedColumnsValue = [];
-        Object.entries(columns).forEach(function (_a) {
-            var key = _a[0], value = _a[1];
-            return value && selectedColumnsValue.push(key);
-        });
-        alphaReports.localStorage.set(visibleColumnKey, selectedColumnsValue.join());
-        callback(columns);
     };
     VisibleColumnDropdownComponent.prototype.getColumns = function () {
         return this.dropdownColumn.fanexMultiSelect("getAllValues");
+    };
+    VisibleColumnDropdownComponent.prototype.getShowColumns = function () {
+        return this.dropdownColumn.fanexMultiSelect("getCheckedValues");
     };
     VisibleColumnDropdownComponent.prototype.getHideColumns = function () {
         return this.dropdownColumn.fanexMultiSelect("getUncheckedValues");
@@ -831,9 +841,17 @@ var WinLossDetailColumns = /** @class */ (function () {
         this.visibleColumnDropdownComponent = visibleColumnDropdownComponent;
         this.columnList = columnList;
     }
-    WinLossDetailColumns.prototype.init = function () {
+    WinLossDetailColumns.prototype.init = function (visibleColumns, onDropdownHidden) {
         var _this = this;
-        this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption("WinLossDetail_" + $("#hiddenViewerId").val() + "_" + $("#hiddenSubAccId").val() + ":Columns", this.columnList, function (visibleColumn) { return _this.showHideColumns(visibleColumn); }));
+        this.visibleColumnDropdownComponent.render(new VisibleColumnDropdownOption(visibleColumns, this.columnList, function (columns) {
+            _this.showHideColumns(columns);
+            var selectedColumnsValue = [];
+            Object.entries(columns).forEach(function (_a) {
+                var key = _a[0], value = _a[1];
+                return value && selectedColumnsValue.push(key);
+            });
+            onDropdownHidden(selectedColumnsValue.join());
+        }));
         this.showHideColumns();
     };
     WinLossDetailColumns.prototype.showHideColumns = function (visibleColumn) {
@@ -872,6 +890,9 @@ var WinLossDetailColumns = /** @class */ (function () {
         var visible = visibleColumn[key];
         visible ? matchedColumns.removeClass("hide") : matchedColumns.addClass("hide");
         return visible;
+    };
+    WinLossDetailColumns.prototype.getShowColumns = function () {
+        return this.visibleColumnDropdownComponent.getShowColumns();
     };
     WinLossDetailColumns.prototype.getHideColumns = function () {
         return this.visibleColumnDropdownComponent.getHideColumns();
@@ -1065,7 +1086,10 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             }
             _this.getWinLossDetailDataAndRenderWeekRange(true);
         }));
-        this.winLossDetailColumns.init();
+        this.winLossDetailColumns.init($("#hiddenShowColumns").val(), function (visibleColumns) {
+            $.extend(_this.globalFormData, { showColumns: visibleColumns });
+            _this.updateCurrentUrl();
+        });
         this.weekSelectionComponent.init(new WeekSelectionOption(function (dateRange) {
             if (_this.isGettingReportData) {
                 return;
@@ -1097,7 +1121,8 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             custId: +$("#hiddenCustId").val(),
             custName: $("#hiddenCustName").val(),
             custLevelId: +$("#hiddenCustLevel").val(),
-            username: searchUsername
+            username: searchUsername,
+            showColumns: $("#hiddenShowColumns").val()
         }, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues());
         // update fromDate/toDate of globalFormData if activeWeekRange is NOT undefined
         if (activeWeekRange) {
@@ -1143,9 +1168,9 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         });
     };
     WinLossDetailViewNew.prototype.getWinLossDetailData = function (callback) {
+        //this.addMoreParamsForStatistic();
         var _this = this;
         if (callback === void 0) { callback = Function(); }
-        this.addMoreParamsForStatistic();
         this.tableReportContainer.block();
         $.get(this.winLossDetailUrl + "?" + $.param(this.globalFormData), function (html) {
             _this.tableReportContainer.html(html);
@@ -1163,7 +1188,11 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             else if (jqXHR.status === 500 && jqXHR.responseText) {
                 var responseObject = JSON.parse(jqXHR.responseText);
                 if (responseObject.UMFrom && responseObject.UMTo) {
-                    window.location.href = window.top.alpha.urls.mainRootPath + "partialum/index?" + $.param(responseObject);
+                    var cookielessSiteMainUrl = $("#CookielessSiteMainUrl");
+                    var siteMainUrl = cookielessSiteMainUrl.length
+                        ? cookielessSiteMainUrl.val()
+                        : window.top.alpha.urls.mainRootPath;
+                    window.location.href = siteMainUrl + "partialum/index?" + $.param(responseObject);
                 }
             }
         }).always(function () { return _this.removeIsWeekSelectionForStatistic(); });

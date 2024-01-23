@@ -9,8 +9,8 @@
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
     @ProductDetailMultiSelection.Render(Model.ProductDetailMultiSelectionViewModel)
     @(Model.IsHistoricReport
-                ? MonthPicker.Render(Model.MonthPickerViewModel)
-                : DateRangePicker.Render(Model.DateRangePickerViewModel))
+                        ? MonthPicker.Render(Model.MonthPickerViewModel)
+                        : DateRangePicker.Render(Model.DateRangePickerViewModel))
     @if (Model.IsHistoricReport)
     {
         <div class="form-group">
@@ -51,4 +51,5 @@
 
     @Html.Hidden("IsPostBack", "true")
     @Html.Hidden("SSGUID", ViewData["SSGUID"] as string)
+    @Html.Hidden("HideWinLossDetailPopup", ViewData["HideWinLossDetailPopup"] as bool?)
 }

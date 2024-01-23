@@ -28,6 +28,8 @@
 
         public int PageSize { get; set; }
 
+        public string ShowColumns { get; set; }
+
         public bool IsProtectedMode { get; }
 
         private IDictionary<int, bool> userSelectedProductIds;
