@@ -285,7 +285,9 @@
         {
             if (AppSettings.IsSiteLabel777 && ProductDetaiIdConstants.SportsbookDetailFor777Site.Contains(resourceId))
             {
-                return cacheRefService.GetResourceDataByRefIdAndResourceId($"{refId}_Saba", resourceId);
+                var name = cacheRefService.GetResourceDataByRefIdAndResourceId($"{refId}_Saba", resourceId);
+
+                return string.IsNullOrEmpty(name) ? cacheRefService.GetResourceDataByRefIdAndResourceId(refId, resourceId) : name;
             }
 
             return cacheRefService.GetResourceDataByRefIdAndResourceId(refId, resourceId);
