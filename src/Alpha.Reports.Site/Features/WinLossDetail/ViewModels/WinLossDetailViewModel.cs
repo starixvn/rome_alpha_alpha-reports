@@ -91,7 +91,8 @@
                 ["CustId"] = model.CustId,
                 ["CustName"] = model.CustName,
                 ["PageIndex"] = PageIndex,
-                ["PageSize"] = PageSize
+                ["PageSize"] = PageSize,
+                ["HideWinLossDetailPopup"] = true
             };
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(WinLossDetailModel model)
