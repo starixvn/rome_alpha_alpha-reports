@@ -107,7 +107,7 @@
                 .Where(p => canViewProductDetails.ContainsKey(p.ProductId))
                 .Select(product =>
                 {
-                    product.DisplayName = cacheRefService.GetResourceDataByRefIdAndResourceId(product.RefId, product.ResourceId);
+                    product.DisplayName = GetProductDetailName(product.RefId, product.ResourceId);
 
                     return product;
                 });
