@@ -11,6 +11,7 @@
 
         public BetChoiceMatchingTicketModel(
             int leagueId,
+            int leagueGroupId,
             DateTime globalShowTime,
             int sportType,
             long matchId,
@@ -37,6 +38,7 @@
             bool isRunning)
         {
             LeagueId = leagueId;
+            LeagueGroupId = leagueGroupId;
             GlobalShowTime = globalShowTime;
             SportType = sportType;
             MatchId = matchId;
@@ -78,6 +80,8 @@
         }
 
         public int LeagueId { get; private set; }
+
+        public int LeagueGroupId { get; private set; }
 
         public DateTime GlobalShowTime { get; private set; }
 

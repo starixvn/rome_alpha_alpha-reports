@@ -15,6 +15,7 @@
 
             var ticket = users.First().Tickets.First();
             LeagueId = ticket.LeagueId;
+            LeagueGroupId = ticket.LeagueGroupId;
             SportType = ticket.SportType;
             BetType = ticket.BetType;
             GlobalShowTime = ticket.GlobalShowTime;
@@ -31,6 +32,8 @@
         }
 
         public int LeagueId { get; }
+
+        public int LeagueGroupId { get; }
 
         public int SportType { get; }
 
