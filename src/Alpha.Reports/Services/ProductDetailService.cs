@@ -104,7 +104,7 @@
             var canViewProductDetails = CanViewProductDetailsForConsolidationReport(products);
 
             return GetProductDetails()
-                .Where(p => canViewProductDetails.ContainsKey(p.ProductId))
+                .Where(p => canViewProductDetails.ContainsKey(p.ProductId) && SportsbookSupportDetail(p))
                 .Select(product =>
                 {
                     product.DisplayName = GetProductDetailName(product.RefId, product.ResourceId);
