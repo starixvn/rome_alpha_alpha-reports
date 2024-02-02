@@ -319,7 +319,7 @@
                     .Where(p => canViewProductDetails.ContainsKey(p.ProductId) && SportsbookSupportDetail(p))
                     .Select(product =>
                     {
-                        product.DisplayName = cacheRefService.GetResourceDataByRefIdAndResourceId(product.RefId, product.ResourceId);
+                        product.DisplayName = GetProductDetailName(product.RefId, product.ResourceId);
 
                         return product;
                     }),
