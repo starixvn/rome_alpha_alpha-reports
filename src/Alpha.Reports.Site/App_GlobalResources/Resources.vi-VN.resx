@@ -1085,4 +1085,13 @@
   <data name="NewViewTakesOverPopup" xml:space="preserve">
     <value>Từ ngày &lt;b&gt;21/02/2024 (dd/mm/yyyy)&lt;/b&gt;, &lt;b&gt;Phiên Bản Mới&lt;/b&gt; sẽ được &lt;b&gt;hiển thị chính&lt;/b&gt;. Bạn vẫn có thể chuyển về Phiên Bản Cũ.</value>
   </data>
+  <data name="DormantAccounts" xml:space="preserve">
+    <value>Tài Khoản Không Hoạt Động</value>
+  </data>
+  <data name="DormantAccountsNote" xml:space="preserve">
+    <value>Thông tin của các tài khoản không hoạt động đã được thu thập và tổng hợp; việc xem thông tin chi tiết từng tài khoản không còn khả dụng.</value>
+  </data>
+  <data name="SummaryOfDormantAccounts" xml:space="preserve">
+    <value>Tổng hợp tài khoản không hoạt động</value>
+  </data>
 </root>

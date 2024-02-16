@@ -1110,4 +1110,13 @@
   <data name="NewViewTakesOverPopup" xml:space="preserve">
     <value>From &lt;b&gt;21/02/2024 (dd/mm/yyyy)&lt;/b&gt;, the &lt;b&gt;New view&lt;/b&gt; will become the &lt;b&gt;primary display&lt;/b&gt;. You can still switch back to the Classic view.</value>
   </data>
+  <data name="DormantAccounts" xml:space="preserve">
+    <value>Dormant Accounts</value>
+  </data>
+  <data name="DormantAccountsNote" xml:space="preserve">
+    <value>Dormant accounts' information has been collected and summarized; specific details of individual dormant accounts can no longer be viewed.</value>
+  </data>
+  <data name="SummaryOfDormantAccounts" xml:space="preserve">
+    <value>Summary of dormant accounts.</value>
+  </data>
 </root>

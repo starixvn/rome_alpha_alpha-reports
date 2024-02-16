@@ -72,6 +72,6 @@
         }
 
         public ReportLegendViewModel Handle(ReportLegendQuery message)
-            => new ReportLegendViewModel(Enumerable.Empty<string>(), GetGrossCommNotesByUserLevel(message.ViewerLevel), string.Empty);
+            => new ReportLegendViewModel(Enumerable.Empty<string>(), GetGrossCommNotesByUserLevel(message.ViewerLevel), Enumerable.Empty<string>());
     }
 }

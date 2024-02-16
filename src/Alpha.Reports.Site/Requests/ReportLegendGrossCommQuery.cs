@@ -9,5 +9,7 @@
         public ReportLegendGrossCommQuery(IUser viewer) : base(viewer)
         {
         }
+
+        public bool ShowDormantAccountsNote { get; set; }
     }
 }

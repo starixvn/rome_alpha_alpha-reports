@@ -82,7 +82,7 @@
         internal Mapper<WinLossDetailModel> GetRowMapper(WinLossDetailExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<WinLossDetailModel>()
-                .Map(A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)
+                .Map(A, winLossDetail => isTotal ? Resources.Total : (winLossDetail.CustId == 0 ? Resources.DormantAccounts : winLossDetail.CustName))
                 .Map(B, winLossDetail => winLossDetail.BetCount)
                 .Map(C, winLossDetail => winLossDetail.Turnover)
                 .Map(D, winLossDetail => winLossDetail.NetTurnover)

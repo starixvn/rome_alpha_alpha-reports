@@ -1020,4 +1020,13 @@
   <data name="NewViewTakesOverPopup" xml:space="preserve">
     <value>ตั้งแต่ &lt;b&gt;21/02/2024 (dd/mm/yyyy) มุมมองใหม่&lt;/b&gt;จะใช้เป็น&lt;b&gt;หน้าจอแสดงผลหลัก&lt;/b&gt; แต่คุณยังคงสามารถเปลี่ยนกลับไปเป็นมุมมองคลาสสิกได้</value>
   </data>
+  <data name="DormantAccounts" xml:space="preserve">
+    <value>บัญชีที่ไม่เคลื่อนไหว</value>
+  </data>
+  <data name="DormantAccountsNote" xml:space="preserve">
+    <value>ข้อมูลจากบัญชีที่ไม่เคลื่อนไหว จะได้รับการรวบรวมและสรุป; ซึ่งรายละเอียดเฉพาะของบัญชีที่ไม่เคลื่อนไหวนี้จะไม่สามารถดูได้อีกต่อไป</value>
+  </data>
+  <data name="SummaryOfDormantAccounts" xml:space="preserve">
+    <value>สรุปบัญชีที่ไม่เคลื่อนไหว</value>
+  </data>
 </root>

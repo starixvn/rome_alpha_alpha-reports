@@ -62,48 +62,62 @@
         public ReportLegendViewModel Handle(ReportLegendQuery message)
         {
             message.CustId = viewer.Id;
-            var result = new List<string>();
+            var legends = new List<string>();
 
             if (message.IsNew)
             {
-                result.Add(string.Format(
+                legends.Add(string.Format(
                     $"- {Resources.ReportDataCanViewNote}", message.MinDate.ToShortDateWithSlash()));
-                result.Add(string.Format(
+                legends.Add(string.Format(
                     $"- {Resources.HistoryDataCanViewNote}", message.MinDate.ToShortDateWithSlash()));
             }
             else
             {
                 if (message.IsSupportHistoricReport && !message.IsHistoricReport)
                 {
-                    result.Add(string.Format(
+                    legends.Add(string.Format(
                         $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
                 }
             }
 
-            result.Add(Resources.Tooltip_NetTurnover);
+            legends.Add(Resources.Tooltip_NetTurnover);
 
             var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.Site, message.CurrencyId, message.MinDate);
             if (!string.IsNullOrEmpty(liveCasinoTooltips))
             {
-                result.Add(liveCasinoTooltips);
+                legends.Add(liveCasinoTooltips);
             }
 
             var rngCasinoTooltips = BuildTooltipsForRNGCasino(message.Site, message.CurrencyId, message.MinDate);
             if (!string.IsNullOrEmpty(rngCasinoTooltips))
             {
-                result.Add(rngCasinoTooltips);
+                legends.Add(rngCasinoTooltips);
             }
 
             var productsNeedDelayTimeToSumarizeData = productService.GetOfferedProductsNeedDelayTimeToSumarizeData(message.Site, message.CurrencyId, message.MinDate).Select(product => (int)product);
 
             if (productsNeedDelayTimeToSumarizeData.Any())
             {
-                result.Add(string.Format(
+                legends.Add(string.Format(
                     Resources.DelayIssueLegend,
                     string.Join(", ", productService.GetProductNames(productsNeedDelayTimeToSumarizeData))));
             }
 
-            return new ReportLegendViewModel(result, GetGrossCommNotes(message.ViewerLevel), mobileFriendly: message.IsNew);
+            var legendsAfterGrossCommNotes = new List<string>
+            {
+                Resources.GrossCommRoundingNote
+            };
+
+            if (message.ShowDormantAccountsNote)
+            {
+                legendsAfterGrossCommNotes.Add(Resources.DormantAccountsNote);
+            }
+
+            return new ReportLegendViewModel(
+                legends,
+                GetGrossCommNotes(message.ViewerLevel),
+                legendsAfterGrossCommNotes,
+                mobileFriendly: message.IsNew);
         }
 
         private string BuildTooltipsForLiveCasino(string site, int currencyId, DateTime? minDate)

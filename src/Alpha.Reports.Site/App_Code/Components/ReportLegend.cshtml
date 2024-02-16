@@ -34,8 +34,9 @@
 {
     var isShowLegends = viewModel.Legends.Any();
     var isShowGrossComm = viewModel.GrossCommNotes.Any();
+    var isShowLegendsAfterGrossComm = viewModel.LegendsAfterGrossCommNotes.Any();
 
-    if (isShowLegends || isShowGrossComm)
+    if (isShowLegends || isShowGrossComm || isShowLegendsAfterGrossComm)
     {
         <div class="modal fade message-modal@(viewModel.MobileFriendly ? " mobile-friendly" : string.Empty)" id="report-legend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-sm" role="document">
@@ -66,9 +67,12 @@
                                         </ul>
                                     </li>
                                 }
-                                @if (!string.IsNullOrWhiteSpace(viewModel.CommissionNote))
+                                @if (isShowLegendsAfterGrossComm)
                                 {
-                                    <li>- @Resources.GrossCommRoundingNote</li>
+                                    foreach (var legend in viewModel.LegendsAfterGrossCommNotes)
+                                    {
+                                        <li>- @legend</li>
+                                    }
                                 }
                             </ul>
                         </div>

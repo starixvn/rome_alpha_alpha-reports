@@ -1,6 +1,6 @@
 ﻿@model WinLossDetailViewModel
 
-<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover
+<table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-totalrecords="@Model.ReportData.TotalRecords"
        data-custid="@Model.CustId"
@@ -131,15 +131,21 @@
 
 @helper RenderRow(WinLossDetailModel data, bool isTotalRow, string betListPath, bool isEvenRow)
 {
-    <tr class="@(isTotalRow ? "tbl-footer" : string.Empty)@(isEvenRow? "even-row":string.Empty)">
-        <td data-islink="true" class="text-left col-username">
+    var isDormantAccounts = data.CustId == 0;
+    <tr class="@(isTotalRow ? "tbl-footer" : (isDormantAccounts ? "dormant-accounts-mark" : string.Empty))">
+        <td @(isDormantAccounts ? string.Empty : "data-islink=true") class="text-left col-username">
             @if (isTotalRow)
             {
                 @Resources.Total
             }
             else
             {
-                if (Model.CanViewBetLists)
+                if (isDormantAccounts)
+                {
+                    <span class="pull-left">@Resources.DormantAccounts</span>
+                    <span class="icon icon-information-outline icon-dormant-accounts" title="@Resources.SummaryOfDormantAccounts"></span>
+                }
+                else if (Model.CanViewBetLists)
                 {
                     <a href="@Model.BuildDrillDownLink(data, Request.Url.Query)"
                        class="@(Model.CustLevel.IsAgentLevel() ? string.Empty : "downline-link")"
