@@ -482,6 +482,51 @@ a {
     }
 }
 // Customize tooltip
+.dormant-accounts-mark {
+    position: relative;
+    z-index: 40;
+
+    .tooltip {
+        z-index: 10;
+        white-space: nowrap;
+        pointer-events: none;
+
+        .tooltip-arrow {
+            display: none;
+        }
+
+        .tooltip-inner {
+            max-width: 100%;
+
+            &:before, &:after {
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                top: 4px;
+
+                @media only screen and (max-device-width : 767px) {
+                    top: 8px;
+                }
+            }
+
+            &:after {
+                border-color: transparent;
+                border-right-color: #2E2E2E;
+                border-width: 8px;
+                left: -9px;
+            }
+
+            &:before {
+                border-color: transparent;
+                border-right-color: #999;
+                border-width: 8px;
+                left: -10px;
+            }
+        }
+    }
+}
 .tooltip {
 
     &.in {
@@ -812,6 +857,8 @@ a {
 
         #msg-content {
             padding: 12px 0;
+            overflow: auto;
+            max-height: 520px;
         }
 
         .list-msg {
