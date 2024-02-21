@@ -25,7 +25,6 @@
         { "IsDescendingSort", Model.IsDescendingSort },
         { "SortPropertyName", Model.SortPropertyName },
         { "SSGUID", Model.SSGUID },
-        { "HideWinLossDetailPopup", Model.HideWinLossDetailPopup },
         { "DirectDownLineLevelName", Model.ViewerLevel.GetDirectDownLineLevel().DisplayName },
         { "IsOfferNewWinLossDetailReport", Model.IsOfferNewWinLossDetailReport }
     })
@@ -38,25 +37,6 @@
         ["ExportExcelController"] = "WinLossDetail",
         ["ExportExcelAction"] = "Excel"
     })
-@if (!Model.HideWinLossDetailPopup)
-{
-    <div class="bg-overlay hide" id="popup-winLossDetail">
-        <div class="popup-highlight">
-            <div class="text">
-                <div>
-                    <p><span>@Resources.NewViewTakesOver</span></p>
-                    <p>@Html.Raw(Resources.NewViewTakesOverPopup)</p>
-                </div>
-            </div>
-            <div class="action">
-                <label class="label">
-                    <input type="checkbox" id="chk-dontShowAgain" />&nbsp;<span>@Resources.DoNotShowAgain</span>
-                </label>
-                <button type="button" class="btn-submit" id="btn-closePopup">OK</button>
-            </div>
-        </div>
-    </div>
-}
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLossDetail")">
     @Html.Hidden("CustId", Model.CustId)

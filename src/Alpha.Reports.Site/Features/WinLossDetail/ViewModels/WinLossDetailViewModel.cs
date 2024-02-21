@@ -37,7 +37,6 @@
             IsGroupHeadline = isGroupHeadline;
             CanViewBetLists = !message.IsProtectedMode || !message.CustLevel.IsAgentLevel();
             SSGUID = message.SSGUID;
-            HideWinLossDetailPopup = message.HideWinLossDetailPopup;
             SubAccId = message.SubAccId;
 
             TotalEnteredSport = totalEnteredSport;
@@ -66,8 +65,6 @@
 
         public string SSGUID { get; }
 
-        public bool HideWinLossDetailPopup { get; }
-
         public int SubAccId { get; }
 
         public EnteredSportResult TotalEnteredSport { get; }
@@ -91,8 +88,7 @@
                 ["CustId"] = model.CustId,
                 ["CustName"] = model.CustName,
                 ["PageIndex"] = PageIndex,
-                ["PageSize"] = PageSize,
-                ["HideWinLossDetailPopup"] = true
+                ["PageSize"] = PageSize
             };
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(WinLossDetailModel model)

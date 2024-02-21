@@ -26,8 +26,6 @@
 
         public string SSGUID { get; set; }
 
-        public bool HideWinLossDetailPopup { get; set; }
-
         public bool IsProtectedMode { get; }
 
         public int SRecommendId { get; }
