@@ -974,7 +974,6 @@ var WinLossDetailView = /** @class */ (function (_super) {
             _this.linkBuilderComponent.render();
             _this.registerEvents();
             _this.initHelp();
-            _this.initWinLossDetailPopup();
             _this.$.unblockUI();
         };
         _this.checkReady = function () {
@@ -1133,25 +1132,6 @@ var WinLossDetailView = /** @class */ (function (_super) {
                 return "SuperNetWinLoss.WinLoss";
             }
             return sortedColumn;
-        };
-        _this.initWinLossDetailPopup = function () {
-            var popup = _this.$("#popup-winLossDetail");
-            var cookiesName = "HideWinLossDetailPopup_" + _this.$("#CustId").val() + "_" + _this.$("#SubAccId").val();
-            var hidePopup = alphaReports.localStorage.get(cookiesName);
-            if (hidePopup !== "1") {
-                _this.$("#chk-dontShowAgain").click(function () {
-                    alphaReports.localStorage.set(cookiesName, "1");
-                    popup.remove();
-                });
-                _this.$("#btn-closePopup").click(function () {
-                    _this.$("#HideWinLossDetailPopup").val("true");
-                    popup.addClass("hide");
-                });
-                popup.removeClass("hide");
-            }
-            else {
-                popup.remove();
-            }
         };
         _this.$ = $;
         _this.dateRangePickerComponent = dateRangePickerComponent;
