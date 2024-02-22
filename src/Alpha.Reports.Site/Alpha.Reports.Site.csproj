@@ -513,6 +513,17 @@
     <Content Include="App_Data\securitycode.uat_4.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
+    <Content Include="App_Data\SPNames\Docker2\DBACC.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker2\DBAGE.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker2\DBARC.bodb_Archive.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker2\DBBAH.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker2\DBBOF.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker2\DBCust.CustDB.DownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker2\DBCust.IPDB.xml" />
+    <Content Include="App_Data\SPNames\Docker2\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker2\DBONUSER.ON_USER.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker2\DBRPT.bodb_report.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Docker2\DBTXN.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Docker\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Docker\DBAGE.bodb02.BODBDownlineNet.xml">
       <SubType>Designer</SubType>

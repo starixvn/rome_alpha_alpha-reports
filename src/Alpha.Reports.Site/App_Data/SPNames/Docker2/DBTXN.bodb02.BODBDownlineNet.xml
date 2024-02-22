@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Functions>
+  <Function Name="Bonus Detail">
+    <Setting Key="Age_Bonus_ConfirmPayment" SpName="Age_Bonus_ConfirmPayment" DbName="DBTXN.bodb02.BODBDownlineNet" Plain="0" />
+  </Function>
+</Functions>
