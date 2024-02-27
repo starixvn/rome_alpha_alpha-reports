@@ -41,7 +41,8 @@ class DateRangePickerJQueryComponent {
                 duration: 0,
                 singleMonth: true,
                 monthSelect: true,
-                yearSelect: true
+                yearSelect: true,
+                autoClose: true
             }).bind("datepicker-change", (_, obj) => {
                 const startDate = moment(obj.date1)
                 const endDate = moment(obj.date2);
