@@ -1,6 +1,9 @@
 ﻿namespace Alpha.Reports.Services
 {
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
     using System.Threading;
+    using AlphaPlus.Configurations;
     using Fanex.RemotingRef;
 
     public interface CacheRefService
@@ -13,6 +16,8 @@
 
         string GetLeagueName(int leagueId);
 
+        string GetLeagueName(int leagueId, int leagueGroupId);
+
         string GetLeagueName3rd(int league3rdId);
 
         string GetTeamName(int teamId);
@@ -22,8 +27,6 @@
         string GetProductName(int productId);
 
         string GetOddsTypeName(string oddsTypeId);
-
-        string GetProductDetailName(int resourceId);
 
         string GetResourceDataByRefIdAndResourceId(string refId, int resourceId);
     }
@@ -49,6 +52,9 @@
         public string GetLeagueName(int leagueId)
             => remotingRefService.GetLeagueName(leagueId.ToString(), LanguageCode);
 
+        public string GetLeagueName(int leagueId, int leagueGroupId)
+            => remotingRefService.GetLeagueName(leagueId.ToString(), leagueGroupId.ToString(), LanguageCode, string.Empty);
+
         public string GetLeagueName3rd(int league3rdId)
             => remotingRefService.GetLeagueName3rd(league3rdId.ToString(), LanguageCode);
 
@@ -62,10 +68,21 @@
             => remotingRefService.GetOddsTypeName(oddsTypeId, LanguageCode);
 
         public string GetProductName(int productId)
-            => GetResourceDataByRefIdAndResourceId("Product", productId);
+        {
+            var productName = GetResourceDataByRefIdAndResourceId("Product", productId);
 
-        public string GetProductDetailName(int resourceId)
-            => GetResourceDataByRefIdAndResourceId("ProductDetail", resourceId);
+            if (AppSettings.IsSiteLabel777)
+            {
+                var sabaWord = remotingRefService.GetResourceDataByRefIdAndResourceId("Saba", "Saba", LanguageCode, "Saba");
+                var sabaWords = new List<string> { $" {sabaWord}", $"{sabaWord} ", sabaWord };
+                foreach (var word in sabaWords)
+                {
+                    productName = Regex.Replace(productName, word, string.Empty, RegexOptions.IgnoreCase);
+                }
+            }
+
+            return productName;
+        }
 
         public string GetResourceDataByRefIdAndResourceId(string refId, int resourceId)
             => remotingRefService.GetResourceDataByRefIdAndResourceId(

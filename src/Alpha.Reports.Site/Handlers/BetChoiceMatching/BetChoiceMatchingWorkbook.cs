@@ -12,6 +12,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using ONEbook.SpreadSheets;
+    using AlphaPlus.Configurations;
 
     public interface BetChoiceMatchingWorkbook
     {
@@ -43,6 +44,7 @@
         {
             this.excelBuilder = excelBuilder;
             this.ticketHelper = ticketHelper;
+            this.ticketHelper.HideSabaText = AppSettings.IsSiteLabel777;
         }
 
         public BetChoiceMatchingWorkbook SetData(IEnumerable<BetChoiceMatchingEventModel> events)
@@ -221,6 +223,7 @@
             var ticket = new Ticket
             {
                 LeagueId = eventModel.LeagueId,
+                LeagueGroupId = eventModel.LeagueGroupId,
                 SportTypeId = eventModel.SportType,
                 BetTypeId = eventModel.BetType,
                 Handicap1 = eventModel.Hdp1,

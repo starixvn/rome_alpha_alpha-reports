@@ -83,9 +83,6 @@
             }
         }
 
-        public static string SeperateSabaSportsDate
-            => GetConfigValue("SeperateSabaSportsDate");
-
         private static string[] allowedSitesToViewBonusDetail;
         public static string[] AllowedSitesToViewBonusDetail
         {

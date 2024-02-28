@@ -15,13 +15,8 @@
         public void Create_Always_SetsCorrectInitialValues()
         {
             // Act
-            SiteSettings.AppSettings = new NameValueCollection
-            {
-                ["SeperateSabaSportsDate"] = "05/17/2022"
-            };
             var expectedViewDataInstructionMessage = new List<string>{
-                "You can view the report data from 11/28/2016.",
-                "The dedicated performance report of SABA Sports is only available from 05/17/2022 onwards. Before 05/17/2022, data is the combination of Sportsbook and SABA Sports."
+                "You can view the report data from 11/28/2016."
             };
 
             var winLossByProductViewModel = new WinLossByProductFilterViewModel(

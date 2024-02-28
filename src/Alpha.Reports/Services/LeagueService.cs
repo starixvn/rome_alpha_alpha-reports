@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using AlphaPlus.Configurations;
     using Constants;
     using Criteria;
     using Fanex.Data.Repository;
@@ -11,8 +12,10 @@
     public interface LeagueService
     {
         IEnumerable<League> GetLeaguesByCustomer(GetLeaguesByCustomerParam getLeaguesByCustomerParam);
-        
+
         string GetLeagueName(int leagueId, byte leagueType);
+
+        string GetLeagueName(int leagueId, byte leagueType, int leagueGroupId);
     }
 
     public class LeagueServiceImpl : LeagueService
@@ -36,10 +39,27 @@
             var data = dynamicRepository.Fetch<League>(
                 new GetLeaguesByCustomerCriteria(getLeaguesByCustomerParam, reportDateService.GetMoveBetsDay()));
 
-            return data.Select(league => new League(league.LeagueId, league.SportTypeId, league.Name, league.LeagueType));
-        }        
+            return data.Select(l => new League(
+                l.LeagueId,
+                l.SportTypeId,
+                GetLeagueName(l.LeagueId, l.LeagueType, l.LeagueGroupId),
+                l.LeagueType,
+                l.LeagueGroupId));
+        }
 
         public string GetLeagueName(int leagueId, byte leagueType)
-            => leagueType == (byte)LeagueType.ThirdParty ? cacheRefService.GetLeagueName3rd(leagueId) : cacheRefService.GetLeagueName(leagueId);
+            => GetLeagueName(leagueId, leagueType, 0);
+
+        public string GetLeagueName(int leagueId, byte leagueType, int leagueGroupId)
+        {
+            if (leagueType == (byte)LeagueType.ThirdParty)
+            {
+                return cacheRefService.GetLeagueName3rd(leagueId);
+            }
+
+            return AppSettings.IsSiteLabel777 ?
+                cacheRefService.GetLeagueName(leagueId, leagueGroupId) :
+                cacheRefService.GetLeagueName(leagueId);
+        }
     }
 }

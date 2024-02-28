@@ -80,12 +80,6 @@
                 }
             }
 
-            if (message.IsSupportHistoricReport)
-            {
-                result.Add(string.Format(
-                    $"- {string.Format(Resources.SabaSportsNote, SiteSettings.SeperateSabaSportsDate)}"));
-            }
-
             result.Add(Resources.Tooltip_NetTurnover);
 
             var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.Site, message.CurrencyId, message.MinDate);

@@ -38,8 +38,8 @@
     <Reference Include="Alpha.Web, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.Web.2.0.0\lib\net461\Alpha.Web.dll</HintPath>
     </Reference>
-    <Reference Include="AlphaPlus.Configurations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AlphaPlus.Configurations.1.0.0\lib\netstandard2.0\AlphaPlus.Configurations.dll</HintPath>
+    <Reference Include="AlphaPlus.Configurations, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AlphaPlus.Configurations.1.0.1-beta-01\lib\netstandard2.0\AlphaPlus.Configurations.dll</HintPath>
     </Reference>
     <Reference Include="AlphaPlus.PartialUM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AlphaPlus.PartialUM.1.0.0\lib\netstandard2.0\AlphaPlus.PartialUM.dll</HintPath>
@@ -84,8 +84,8 @@
     <Reference Include="Fanex.Products, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Products.2.0.0\lib\net461\Fanex.Products.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.RemotingRef, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.RemotingRef.1.5.1\lib\net461\Fanex.RemotingRef.dll</HintPath>
+    <Reference Include="Fanex.RemotingRef, Version=1.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.RemotingRef.1.5.2-beta-02\lib\net461\Fanex.RemotingRef.dll</HintPath>
     </Reference>
     <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=3.6.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CompareNETObjects.3.06.0.0\lib\net46\KellermanSoftware.Compare-NET-Objects.dll</HintPath>

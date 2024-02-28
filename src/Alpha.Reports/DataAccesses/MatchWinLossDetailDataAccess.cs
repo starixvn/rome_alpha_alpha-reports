@@ -58,6 +58,7 @@
                 betType: reader.ToInt("betType"),
                 liveIndicator: reader.ToInt("liveIndicator") == 1,
                 leagueId: reader.ToInt("leagueId"),
+                leagueGroupId: reader.ToInt("leagueGroupId"),
                 leagueType: reader.ToByte("leagueType"),
                 race: reader.ToInt("race"),
                 matchCode: reader.ToString("matchCode"),

@@ -10,6 +10,7 @@
     using Alpha.Reports.Criteria;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Models;
+    using AlphaPlus.Configurations;
     using Fanex.Caching;
     using Fanex.Data.Repository;
 
@@ -53,7 +54,7 @@
 
         private readonly IDynamicRepository dynamicRepository;
         private readonly CacheRefService cacheRefService;
-        private readonly Func<string, int, int, DateTime?, bool> canViewProduct;        
+        private readonly Func<string, int, int, DateTime?, bool> canViewProduct;
 
         public ProductDetailServiceImpl(
             IDynamicRepository dynamicRepository,
@@ -61,7 +62,7 @@
             Func<string, int, int, DateTime?, bool> canViewProduct)
         {
             this.dynamicRepository = dynamicRepository;
-            this.cacheRefService = cacheRefService;         
+            this.cacheRefService = cacheRefService;
             this.canViewProduct = canViewProduct;
         }
 
@@ -78,15 +79,15 @@
                 return Enumerable.Empty<ProductDetail>();
             }
 
-            var canViewProductDetails = CanViewProductDetails(site, currencyId);
+            var productSupportDetail = CanViewProductDetails(site, currencyId);
 
             return ConfiguredCacheService.GetOrSet(
                 $"{ProductDetailsCacheKey}-{viewerId}",
                 () => GetProductDetails()
-                    .Where(p => canViewProductDetails.ContainsKey(p.ProductId))
+                    .Where(p => productSupportDetail.ContainsKey(p.ProductId) && SportsbookSupportDetail(p))
                     .Select(product =>
                     {
-                        product.DisplayName = cacheRefService.GetResourceDataByRefIdAndResourceId(product.RefId, product.ResourceId);
+                        product.DisplayName = GetProductDetailName(product.RefId, product.ResourceId);
 
                         return product;
                     }),
@@ -103,10 +104,10 @@
             var canViewProductDetails = CanViewProductDetailsForConsolidationReport(products);
 
             return GetProductDetails()
-                .Where(p => canViewProductDetails.ContainsKey(p.ProductId))
+                .Where(p => canViewProductDetails.ContainsKey(p.ProductId) && SportsbookSupportDetail(p))
                 .Select(product =>
                 {
-                    product.DisplayName = cacheRefService.GetResourceDataByRefIdAndResourceId(product.RefId, product.ResourceId);
+                    product.DisplayName = GetProductDetailName(product.RefId, product.ResourceId);
 
                     return product;
                 });
@@ -171,6 +172,7 @@
             var productNames = new Dictionary<int, string>();
 
             (productDetails ?? GetProductDetails())
+                .Where(i => SportsbookSupportDetail(i))
                 .GroupBy(p => p.ProductId)
                 .ToList()
                 .ForEach(group =>
@@ -183,7 +185,7 @@
                         if (intersectResourceIds.Count > 0
                             && intersectResourceIds.Count != allResourceIds.Count)
                         {
-                            productNames[group.Key] = string.Join(", ", intersectResourceIds.Select(id => cacheRefService.GetProductDetailName(id)));
+                            productNames[group.Key] = string.Join(", ", intersectResourceIds.Select(id => GetProductDetailName("ProductDetail", id)));
                         }
                     }
                 });
@@ -279,6 +281,28 @@
         private static bool IsSupportProductDetail(int productId)
             => SiteSettings.ProductOfferProductDetail.Any(i => i == productId);
 
+        private string GetProductDetailName(string refId, int resourceId)
+        {
+            if (AppSettings.IsSiteLabel777 && ProductDetaiIdConstants.SportsbookDetailFor777Site.Contains(resourceId))
+            {
+                var name = cacheRefService.GetResourceDataByRefIdAndResourceId($"{refId}_Saba", resourceId);
+
+                return string.IsNullOrEmpty(name) ? cacheRefService.GetResourceDataByRefIdAndResourceId(refId, resourceId) : name;
+            }
+
+            return cacheRefService.GetResourceDataByRefIdAndResourceId(refId, resourceId);
+        }
+
+        private bool SportsbookSupportDetail(ProductDetail detail)
+        {
+            if (AppSettings.IsSiteLabel777 && detail.ProductId == ProductIdConstants.Sportsbook)
+            {
+                return ProductDetaiIdConstants.SportsbookDetailFor777Site.Contains(detail.ResourceId);
+            }
+
+            return true;
+        }
+
         // Async methods
         public Task<IEnumerable<ProductDetail>> GetProductDetailsAsync(int viewerId, string site, int currencyId)
         {
@@ -292,10 +316,10 @@
             var result = ConfiguredCacheService.GetOrSet(
                 $"{ProductDetailsCacheKey}-{viewerId}",
                 () => GetProductDetails()
-                    .Where(p => canViewProductDetails.ContainsKey(p.ProductId))
+                    .Where(p => canViewProductDetails.ContainsKey(p.ProductId) && SportsbookSupportDetail(p))
                     .Select(product =>
                     {
-                        product.DisplayName = cacheRefService.GetResourceDataByRefIdAndResourceId(product.RefId, product.ResourceId);
+                        product.DisplayName = GetProductDetailName(product.RefId, product.ResourceId);
 
                         return product;
                     }),
