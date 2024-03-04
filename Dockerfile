@@ -68,7 +68,18 @@ RUN `
 		App_Data\SPNames\Internal\DBLOG.bodb_CustomerLog.BODBDownlineNetView.xml, `
 		App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml, `
 		App_Data\SPNames\Internal\DBRPT.bodb_report.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal\DBTXN.bodb02.BODBDownlineNetView.xml `
+		App_Data\SPNames\Internal\DBTXN.bodb02.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal2\DBACC.bodb02.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal2\DBAGE.bodb02.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal2\DBARC.bodb_Archive.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal2\DBBAH.bodb02.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal2\DBBOF.bodb02.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal2\DBCust.CustDB.DownlineNetView.xml, `
+		App_Data\SPNames\Internal2\DBCust.IPDB.xml, `
+		App_Data\SPNames\Internal2\DBLOG.bodb_CustomerLog.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal2\DBONUSER.ON_USER.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal2\DBRPT.bodb_report.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal2\DBTXN.bodb02.BODBDownlineNetView.xml `
     ) `
     DO curl --fail -o C:\sp-result.xml --form file=@"%P" --form "redmineIds=%REDMINE_IDS%" -X POST %ROCKETOR_API% `
         && xcopy C:\sp-result.xml "%P" /Y
