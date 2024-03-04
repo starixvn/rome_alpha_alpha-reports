@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Alpha.Reports.Models;
@@ -33,9 +34,11 @@
         public async Task<ExcelFileViewModel> Handle(WinLossDetailExcelNewQuery message)
         {
             var isValidUsername = BuildWinLossDetailGetDataQuery(message);
+            var isShowFullname = !string.IsNullOrWhiteSpace(message.ShowColumns) &&
+                message.ShowColumns.IndexOf("fullname", StringComparison.OrdinalIgnoreCase) > -1;
 
             workbook
-               .UseTemplate(GetTemplateInfo(message.CustLevel))
+               .UseTemplate(GetTemplateInfo(message.CustLevel, isShowFullname))
                .Header(Resources.ResourceManager.GetString)
                .Sheet(Resources.DefaultSheetName);
 
@@ -48,10 +51,16 @@
                 ? await winlossDetailService.GetWinLossDetailAsync(winLossDetailParam)
                 : new PagedReportData<WinLossDetailModel>(null, message.PageIndex, message.PageSize, 0, null);
 
+            var rowMapper = isShowFullname
+                ? GetRowMapperWithFullname(message.CustLevel, false)
+                : GetRowMapper(message.CustLevel, false);
+            var totalMapper = isShowFullname
+                ? GetRowMapperWithFullname(message.CustLevel, true)
+                : GetRowMapper(message.CustLevel, true);
             var fileContent = workbook
                 .Title(GetReportTitle(winLossDetailParam, productDetails))
-                .Body(reportData.DataSource, GetRowMapper(message.CustLevel, false))
-                .Footer(reportData.TotalData, GetRowMapper(message.CustLevel, true))
+                .Body(reportData.DataSource, rowMapper)
+                .Footer(reportData.TotalData, totalMapper)
                 .ExportToBytes();
 
             return new ExcelFileViewModel(GetExcelFileName(message), fileContent);
@@ -73,11 +82,16 @@
                 message.FromDate.ToShortDateWithSlash(),
                 message.ToDate.ToShortDateWithSlash());
 
-        private TemplateInfo GetTemplateInfo(UserLevel custLevel)
-            => new TemplateInfo(
-                GetExcelTemplatePath(custLevel.GetDirectDownLineLevel().DisplayName),
+        private TemplateInfo GetTemplateInfo(UserLevel custLevel, bool isShowFullname)
+        {
+            var templatePath = GetExcelTemplatePath(
+                custLevel.GetDirectDownLineLevel().DisplayName + (isShowFullname ? "New" : string.Empty));
+
+            return new TemplateInfo(
+                templatePath,
                 noInfomationText: Resources.NoInformationIsAvailable)
             .FreezePanel(4, B);
+        }
 
         internal Mapper<WinLossDetailModel> GetRowMapper(UserLevel custLevel, bool isTotal)
         {
@@ -120,6 +134,52 @@
                     .Map(P, winLossDetail => winLossDetail.SuperNetWinLoss.Comm)
                     .Map(Q, winLossDetail => winLossDetail.SuperNetWinLoss.Total)
                     .Map(R, winLossDetail => winLossDetail.Company);
+            }
+
+            return mapper;
+        }
+
+        internal Mapper<WinLossDetailModel> GetRowMapperWithFullname(UserLevel custLevel, bool isTotal)
+        {
+            var mapper = new Mapper<WinLossDetailModel>()
+                .Map(A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)
+                .Map(B, winLossDetail => isTotal ? string.Empty : winLossDetail.FullName)
+                .Map(C, winLossDetail => winLossDetail.BetCount)
+                .Map(D, winLossDetail => winLossDetail.Turnover)
+                .Map(E, winLossDetail => winLossDetail.NetTurnover)
+                .Map(F, winLossDetail => winLossDetail.GrossComm)
+                .Map(G, winLossDetail => winLossDetail.MemberNetWinLoss.WinLoss)
+                .Map(H, winLossDetail => winLossDetail.MemberNetWinLoss.Comm)
+                .Map(I, winLossDetail => winLossDetail.MemberNetWinLoss.Total)
+                .Map(J, winLossDetail => winLossDetail.AgentNetWinLoss.WinLoss)
+                .Map(K, winLossDetail => winLossDetail.AgentNetWinLoss.Comm)
+                .Map(L, winLossDetail => winLossDetail.AgentNetWinLoss.Total);
+
+            if (custLevel.IsAgentLevel())
+            {
+                mapper.Map(M, winLossDetail => winLossDetail.Company);
+            }
+
+            if (custLevel.IsMasterOrSuperLevel())
+            {
+                mapper
+                    .Map(M, winLossDetail => winLossDetail.MasterNetWinLoss.WinLoss)
+                    .Map(N, winLossDetail => winLossDetail.MasterNetWinLoss.Comm)
+                    .Map(O, winLossDetail => winLossDetail.MasterNetWinLoss.Total);
+            }
+
+            if (custLevel.IsMasterLevel())
+            {
+                mapper.Map(P, winLossDetail => winLossDetail.Company);
+            }
+
+            if (custLevel.IsSuperLevel())
+            {
+                mapper
+                    .Map(P, winLossDetail => winLossDetail.SuperNetWinLoss.WinLoss)
+                    .Map(Q, winLossDetail => winLossDetail.SuperNetWinLoss.Comm)
+                    .Map(R, winLossDetail => winLossDetail.SuperNetWinLoss.Total)
+                    .Map(S, winLossDetail => winLossDetail.Company);
             }
 
             return mapper;
