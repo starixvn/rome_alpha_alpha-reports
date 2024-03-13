@@ -96,7 +96,7 @@
         internal Mapper<WinLossDetailModel> GetRowMapper(UserLevel custLevel, bool isTotal)
         {
             var mapper = new Mapper<WinLossDetailModel>()
-                .Map(A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)
+                .Map(A, winLossDetail => isTotal ? Resources.Total : (winLossDetail.CustId == 0 ? Resources.DormantAccounts : winLossDetail.CustName))
                 //.Map(B, winLossDetail => isTotal ? string.Empty : winLossDetail.FullName)
                 .Map(B, winLossDetail => winLossDetail.BetCount)
                 .Map(C, winLossDetail => winLossDetail.Turnover)

@@ -1284,6 +1284,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
                 _this.breadcrumbLevelComponent.addBreadcrumbLevel(breadcrumbData);
                 _this.updateCurrentUrl();
             });
+            _this.tableReport.find(".icon-dormant-accounts").tooltip();
         });
         this.initTableSorter();
         this.winLossDetailColumns.showHideColumns();
@@ -1306,6 +1307,8 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
                     _this.sortColumnName = firstSortedColumn.data("colname");
                     _this.sortIndicator = firstSortedColumn.hasClass("sorting-desc") ? 1 : 0; // asc: 0, desc: 1
                 }
+                var dormantAccountsRow = _this.tableReport.find('.dormant-accounts-mark');
+                dormantAccountsRow.length && _this.tableReport.append(dormantAccountsRow);
             });
         }
         else {

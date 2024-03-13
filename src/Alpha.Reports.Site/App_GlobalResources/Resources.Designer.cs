@@ -799,6 +799,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dormant Accounts.
+        /// </summary>
+        public static string DormantAccounts {
+            get {
+                return ResourceManager.GetString("DormantAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dormant accounts&apos; information has been collected and summarized; specific details of individual dormant accounts can no longer be viewed..
+        /// </summary>
+        public static string DormantAccountsNote {
+            get {
+                return ResourceManager.GetString("DormantAccountsNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tickets which have event date changed multiple times will be displayed duplicated and highlighted in red..
         /// </summary>
         public static string DuplicatedTicketMessage {
@@ -2469,6 +2487,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string SubTotal {
             get {
                 return ResourceManager.GetString("SubTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary of dormant accounts..
+        /// </summary>
+        public static string SummaryOfDormantAccounts {
+            get {
+                return ResourceManager.GetString("SummaryOfDormantAccounts", resourceCulture);
             }
         }
         

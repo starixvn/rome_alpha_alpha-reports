@@ -364,6 +364,8 @@ class WinLossDetailViewNew extends BaseReportView {
                 this.breadcrumbLevelComponent.addBreadcrumbLevel(breadcrumbData);
                 this.updateCurrentUrl();
             });
+
+            this.tableReport.find(".icon-dormant-accounts").tooltip();
         });
 
         this.initTableSorter();
@@ -389,6 +391,9 @@ class WinLossDetailViewNew extends BaseReportView {
                     this.sortColumnName = firstSortedColumn.data("colname");
                     this.sortIndicator = firstSortedColumn.hasClass("sorting-desc") ? 1 : 0; // asc: 0, desc: 1
                 }
+
+                const dormantAccountsRow = this.tableReport.find('.dormant-accounts-mark');
+                dormantAccountsRow.length && this.tableReport.append(dormantAccountsRow);
             });
         } else {
             sortColumns.removeClass("sorting");

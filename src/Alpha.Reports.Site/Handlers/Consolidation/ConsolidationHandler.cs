@@ -160,7 +160,7 @@
                 result.Add(string.Format(Resources.DelayIssueLegend, string.Join(", ", productService.GetProductNames(products))));
             }
 
-            return new ReportLegendViewModel(result, GetConsolidationReportGrossCommNotes(message.ViewerLevel));
+            return new ReportLegendViewModel(result, GetConsolidationReportGrossCommNotes(message.ViewerLevel), new[] { Resources.GrossCommRoundingNote });
         }
 
         public ReportLegendViewModel Handle(ConsolidationDetailLegendQuery message)
@@ -187,7 +187,7 @@
             var consolidationReportLegend = Handle((ConsolidationLegendQuery)message);
             result.AddRange(consolidationReportLegend.Legends);
 
-            return new ReportLegendViewModel(result, GetGrossCommNotes(message.CustLevel));
+            return new ReportLegendViewModel(result, GetGrossCommNotes(message.CustLevel), new[] { Resources.GrossCommRoundingNote, Resources.DormantAccountsNote });
         }
 
         private string BuildTooltipsForLiveCasino(int custId, DateTime minDate)

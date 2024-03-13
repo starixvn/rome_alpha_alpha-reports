@@ -1026,4 +1026,13 @@
   <data name="NewViewTakesOverPopup" xml:space="preserve">
     <value>从 &lt;b&gt;21/02/2024 (dd/mm/yyyy)&lt;/b&gt; 开始，&lt;b&gt;新版&lt;/b&gt;将成为&lt;b&gt;主要显示页面&lt;/b&gt;。 您仍然可以切换至经典版。</value>
   </data>
+  <data name="DormantAccounts" xml:space="preserve">
+    <value>不活跃账号</value>
+  </data>
+  <data name="DormantAccountsNote" xml:space="preserve">
+    <value>不活跃账号的资讯已经收集并总结；已经无法再查看个别不活跃账号的详细资讯。</value>
+  </data>
+  <data name="SummaryOfDormantAccounts" xml:space="preserve">
+    <value>不活跃账号摘要</value>
+  </data>
 </root>

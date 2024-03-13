@@ -30,8 +30,17 @@
         public ReportLegendViewModel Handle(ReportLegendGrossCommQuery message)
         {
             var legends = GetReportLegends(message.Site, message.CurrencyId, message.MinDate, message.IsSupportHistoricReport, message.IsHistoricReport);
+            var legendsAfterGrossCommNotes = new List<string>
+            {
+                Resources.GrossCommRoundingNote
+            };
 
-            return new ReportLegendViewModel(legends, GetGrossCommNotes(message.ViewerLevel));
+            if (message.ShowDormantAccountsNote)
+            {
+                legendsAfterGrossCommNotes.Add(Resources.DormantAccountsNote);
+            }
+
+            return new ReportLegendViewModel(legends, GetGrossCommNotes(message.ViewerLevel), legendsAfterGrossCommNotes);
         }
 
         private IEnumerable<string> GetReportLegends(string site, int currencyId, DateTime minDate, bool isSupportHistoricReport = false, bool isHistoricReport = false)

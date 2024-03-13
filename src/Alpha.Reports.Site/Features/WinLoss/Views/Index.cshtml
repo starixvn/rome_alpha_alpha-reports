@@ -130,7 +130,7 @@
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ReportLegend", new { IsSupportHistoricReport = true, IsHistoricReport = Model.IsHistoricReport, MinDate = Model.MinDate }))
+@Html.Hidden("LoadLegendURL", Url.Action("IndexGrossComm", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ReportLegend", new { IsSupportHistoricReport = true, IsHistoricReport = Model.IsHistoricReport, MinDate = Model.MinDate, ShowDormantAccountsNote = true }))
 
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/WinLoss/Bundles/winloss")
@@ -138,11 +138,17 @@
 
 @helper RenderRow(WinLossModel data, bool isTotalRow, string betListPath)
 {
-    <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
-        <td data-islink="true" class="text-left col-username">
+    var isDormantAccounts = data.CustId == 0;
+    <tr class="@(isTotalRow ? "tbl-footer" : (isDormantAccounts ? "dormant-accounts-mark" : string.Empty))">
+        <td @(isDormantAccounts ? string.Empty : "data-islink=true") class="text-left col-username">
             @if (isTotalRow)
             {
                 @Resources.Total
+            }
+            else if (isDormantAccounts)
+            {
+                <span class="pull-left">@Resources.DormantAccounts</span>
+                <span class="icon icon-information-outline icon-dormant-accounts" title="@Resources.SummaryOfDormantAccounts"></span>
             }
             else
             {

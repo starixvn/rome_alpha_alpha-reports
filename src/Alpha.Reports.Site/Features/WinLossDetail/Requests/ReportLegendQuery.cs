@@ -11,5 +11,7 @@
         }
 
         public bool IsNew { get; set; }
+
+        public bool ShowDormantAccountsNote { get; set; }
     }
 }

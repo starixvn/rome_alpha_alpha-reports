@@ -378,6 +378,38 @@ a {
     max-width: 120px;
     white-space: normal; }
 
+.dormant-accounts-mark {
+  position: relative;
+  z-index: 40; }
+  .dormant-accounts-mark .tooltip {
+    z-index: 10;
+    white-space: nowrap;
+    pointer-events: none; }
+    .dormant-accounts-mark .tooltip .tooltip-arrow {
+      display: none; }
+    .dormant-accounts-mark .tooltip .tooltip-inner {
+      max-width: 100%; }
+      .dormant-accounts-mark .tooltip .tooltip-inner:before, .dormant-accounts-mark .tooltip .tooltip-inner:after {
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        top: 4px; }
+        @media only screen and (max-device-width: 767px) {
+          .dormant-accounts-mark .tooltip .tooltip-inner:before, .dormant-accounts-mark .tooltip .tooltip-inner:after {
+            top: 8px; } }
+      .dormant-accounts-mark .tooltip .tooltip-inner:after {
+        border-color: transparent;
+        border-right-color: #2E2E2E;
+        border-width: 8px;
+        left: -9px; }
+      .dormant-accounts-mark .tooltip .tooltip-inner:before {
+        border-color: transparent;
+        border-right-color: #999;
+        border-width: 8px;
+        left: -10px; }
+
 .tooltip.in {
   opacity: 1; }
 
@@ -695,7 +727,9 @@ a {
     #report-legend .modal-dialog .modal-body, #product-pt-list-popup .modal-dialog .modal-body {
       padding-bottom: 0; }
     #report-legend .modal-dialog #msg-content, #product-pt-list-popup .modal-dialog #msg-content {
-      padding: 12px 0; }
+      padding: 12px 0;
+      overflow: auto;
+      max-height: 520px; }
     #report-legend .modal-dialog .list-msg, #product-pt-list-popup .modal-dialog .list-msg {
       line-height: 28px;
       margin-bottom: 0; }
@@ -903,3 +937,6 @@ table.dataTable thead th, table.dataTable tfoot th {
   width: 100%; }
   .note_title .require {
     color: #dd6161; }
+
+.icon-dormant-accounts {
+  margin: 0 0 0 5px; }

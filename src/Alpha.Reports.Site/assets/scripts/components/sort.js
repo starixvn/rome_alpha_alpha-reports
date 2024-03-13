@@ -106,6 +106,8 @@ var SortComponent = /** @class */ (function () {
                 if ($sortedcolumn.length === 1) {
                     _this.onSort($sortedcolumn.attr("data-sortedname"), $sortedcolumn.hasClass("sorting-desc"));
                 }
+                var dormantAccountsRow = _this.$sortContainer.find('.dormant-accounts-mark');
+                dormantAccountsRow.length && _this.$sortContainer.append(dormantAccountsRow);
             });
         };
         this.textExtraction = function (node) {

@@ -78,7 +78,8 @@
 
 @helper RenderRow(WinLossDetailModel data, bool isTotalRow, bool custLevelIsAgentLevel, byte custLevelDirectDownlineLevelValue)
 {
-    <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
+    var isDormantAccounts = data.CustId == 0;
+    <tr class="@(isTotalRow ? "tbl-footer" : (isDormantAccounts ? "dormant-accounts-mark" : string.Empty))">
         @if (isTotalRow)
         {
             <td class="text-left">@Resources.Total</td>
@@ -87,13 +88,18 @@
         else
         {
             <td class="text-left col-username">
-                @if (Model.CanViewBetLists)
+                @if (isDormantAccounts)
+                {
+                    <span class="pull-left">@Resources.DormantAccounts</span>
+                    <span class="icon icon-information-outline icon-dormant-accounts" data-toggle="tooltip" data-placement="right" title="@Resources.SummaryOfDormantAccounts"></span>
+                }
+                else if (Model.CanViewBetLists)
                 {
                     <a href="javascript:;"
-                        class="@(custLevelIsAgentLevel ? "betlists-link" : "downline-link")"
-                        data-custid="@data.CustId"
-                        data-custname="@data.CustName"
-                        data-custlevelid="@custLevelDirectDownlineLevelValue">@data.CustName</a>
+                       class="@(custLevelIsAgentLevel ? "betlists-link" : "downline-link")"
+                       data-custid="@data.CustId"
+                       data-custname="@data.CustName"
+                       data-custlevelid="@custLevelDirectDownlineLevelValue">@data.CustName</a>
                 }
                 else
                 {

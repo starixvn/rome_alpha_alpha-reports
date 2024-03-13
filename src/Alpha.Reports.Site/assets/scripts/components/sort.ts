@@ -137,6 +137,9 @@ class SortComponent {
             if ($sortedcolumn.length === 1) {
                 this.onSort($sortedcolumn.attr("data-sortedname"), $sortedcolumn.hasClass("sorting-desc"));
             }
+            
+            const dormantAccountsRow = this.$sortContainer.find('.dormant-accounts-mark');
+            dormantAccountsRow.length && this.$sortContainer.append(dormantAccountsRow);
         });
     };
 
