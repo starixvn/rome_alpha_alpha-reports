@@ -61,12 +61,20 @@
 
         protected BetTypeWinLossViewModel GetMixParlay(IEnumerable<MatchWinLossDetailModel> reportData)
         {
-            var mixParlayData = reportData.FirstOrDefault(data => data.IsParlay &&
-                (data.BetType == BetTypeIdConstants.MixParlay || data.BetType == BetTypeIdConstants.MixParlayBetRadarVirtualSports));
+            var mixParlayDatas = reportData.Where(data => data.IsParlay &&
+                (data.BetType == BetTypeIdConstants.MixParlay || data.BetType == BetTypeIdConstants.MixParlayBetRadarVirtualSports || data.BetType == BetTypeIdConstants.MixParlayEdgeGamingVirtualSports)).ToList();
+            if(mixParlayDatas.Count == 0)
+            {
+                return null;
+            }
 
-            return mixParlayData == null
-                ? null
-                : new BetTypeWinLossViewModel(mixParlayData, cacheRefService.GetBetType(mixParlayData.BetType));
+            var mixParlayViewModel = new BetTypeWinLossViewModel(mixParlayDatas[0], cacheRefService.GetBetType(mixParlayDatas[0].BetType));
+            for (int i = 1; i < mixParlayDatas.Count; i++)
+            {
+                mixParlayViewModel.Add(new BetTypeWinLossViewModel(mixParlayDatas[i], string.Empty));
+            }
+
+            return mixParlayViewModel;
         }
 
         protected BetTypeWinLossViewModel GetSystemParlay(IEnumerable<MatchWinLossDetailModel> reportData)
