@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
   <Function Name="Statement Report">
-    <Setting Key="Statement_Report_TransferDetails_WH" SpName="Acc_StatementSelTransfer_Old" DbName="DBARC.bodb_Archive.BODBDownlineNet" Plain="0">
+    <Setting Key="Statement_Report_TransferDetails_WH" SpName="Acc_StatementSelTransfer_Old" DbName="DBARC.bodb_Archive.wsv_alp" Plain="0">
       <Mapping DataField="ExRate" ObjectProperty="ExchangeRate" />
     </Setting>
   </Function>

@@ -2,9 +2,9 @@
 <Functions>
   <Function Name="Outstanding">
     <!--Group 3-->
-    <Setting Key="Age_Rpt_Outstanding_Master" SpName="Age_Rpt_Outstanding_Master" DbName="DBBOF.bodb02.BODBDownlineNetView" Plain="0" />
-    <Setting Key="Age_Rpt_Outstanding_Agent" SpName="Age_Rpt_Outstanding_Agent" DbName="DBBOF.bodb02.BODBDownlineNetView" Plain="0" />
-    <Setting Key="Age_Rpt_Outstanding_Member" SpName="Age_Rpt_Outstanding_Member" DbName="DBBOF.bodb02.BODBDownlineNetView" Plain="0" />
+    <Setting Key="Age_Rpt_Outstanding_Master" SpName="Age_Rpt_Outstanding_Master" DbName="DBBOF.bodb02.wsv_alpv" Plain="0" />
+    <Setting Key="Age_Rpt_Outstanding_Agent" SpName="Age_Rpt_Outstanding_Agent" DbName="DBBOF.bodb02.wsv_alpv" Plain="0" />
+    <Setting Key="Age_Rpt_Outstanding_Member" SpName="Age_Rpt_Outstanding_Member" DbName="DBBOF.bodb02.wsv_alpv" Plain="0" />
     <!--Group 3-->
   </Function> 
 </Functions>

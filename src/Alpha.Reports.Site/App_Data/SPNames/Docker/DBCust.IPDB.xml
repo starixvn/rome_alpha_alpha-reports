@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
   <Function Name="IP">
-    <Setting Key="GetIPVN" SpName="GetIPVN" DbName="DBCust.IPDB.BODBDownlineNet" Plain="0">
+    <Setting Key="GetIPVN" SpName="GetIPVN" DbName="DBCust.IPDB.wsv_alp" Plain="0">
       <Mapping DataField="ipfrom" ObjectProperty="From" />
       <Mapping DataField="ipto" ObjectProperty="To" />
     </Setting>
