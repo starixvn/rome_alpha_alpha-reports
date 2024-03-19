@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
   <Function Name="Write/View Logs">
-    <Setting Key="IS_UpdFunctionUsage" SpName="IS_UpdFunctionUsage" DbName="DBLOG.bodb_CustomerLog.BODBDownlineNetView" Plain="0" />
+    <Setting Key="IS_UpdFunctionUsage" SpName="IS_UpdFunctionUsage" DbName="DBLOG.bodb_CustomerLog.wsv_alpv" Plain="0" />
   </Function>
   <Function Name="View Logs">
-    <Setting Key="Acc_UserLog_LogActionSel" SpName="Acc_UserLog_LogActionSel" DbName="DBLOG.bodb_CustomerLog.BODBDownlineNetView" Plain="0" >
+    <Setting Key="Acc_UserLog_LogActionSel" SpName="Acc_UserLog_LogActionSel" DbName="DBLOG.bodb_CustomerLog.wsv_alpv" Plain="0" >
       <Mapping DataField="ActionID" ObjectProperty="Id" />
       <Mapping DataField="ActionTypeID" ObjectProperty="ActionTypeId" />
 

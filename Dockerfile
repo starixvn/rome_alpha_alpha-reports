@@ -36,50 +36,50 @@ WORKDIR C:\Compiled
 RUN `
     if defined REDMINE_IDS `
     FOR %P IN ( `
-        App_Data\SPNames\Docker\DBACC.bodb02.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker\DBAGE.bodb02.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker\DBARC.bodb_Archive.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker\DBBAH.bodb02.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker\DBBOF.bodb02.BODBDownlineNet.xml, `
+        App_Data\SPNames\Docker\DBACC.bodb02.wsv_alp.xml, `
+		App_Data\SPNames\Docker\DBAGE.bodb02.wsv_alp.xml, `
+		App_Data\SPNames\Docker\DBARC.bodb_Archive.wsv_alp.xml, `
+		App_Data\SPNames\Docker\DBBAH.bodb02.wsv_alp.xml, `
+		App_Data\SPNames\Docker\DBBOF.bodb02.wsv_alp.xml, `
 		App_Data\SPNames\Docker\DBCust.CustDB.DownlineNet.xml, `
 		App_Data\SPNames\Docker\DBCust.IPDB.xml, `
-		App_Data\SPNames\Docker\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker\DBONUSER.ON_USER.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker\DBRPT.bodb_report.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker\DBTXN.bodb02.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker2\DBACC.bodb02.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker2\DBAGE.bodb02.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker2\DBARC.bodb_Archive.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker2\DBBAH.bodb02.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker2\DBBOF.bodb02.BODBDownlineNet.xml, `
+		App_Data\SPNames\Docker\DBLOG.bodb_CustomerLog.wsv_alp.xml, `
+		App_Data\SPNames\Docker\DBONUSER.ON_USER.wsv_alp.xml, `
+		App_Data\SPNames\Docker\DBRPT.bodb_report.wsv_alp.xml, `
+		App_Data\SPNames\Docker\DBTXN.bodb02.wsv_alp.xml, `
+		App_Data\SPNames\Docker2\DBACC.bodb02.wsv_alp.xml, `
+		App_Data\SPNames\Docker2\DBAGE.bodb02.wsv_alp.xml, `
+		App_Data\SPNames\Docker2\DBARC.bodb_Archive.wsv_alp.xml, `
+		App_Data\SPNames\Docker2\DBBAH.bodb02.wsv_alp.xml, `
+		App_Data\SPNames\Docker2\DBBOF.bodb02.wsv_alp.xml, `
 		App_Data\SPNames\Docker2\DBCust.CustDB.DownlineNet.xml, `
 		App_Data\SPNames\Docker2\DBCust.IPDB.xml, `
-		App_Data\SPNames\Docker2\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker2\DBONUSER.ON_USER.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker2\DBRPT.bodb_report.BODBDownlineNet.xml, `
-		App_Data\SPNames\Docker2\DBTXN.bodb02.BODBDownlineNet.xml, `
-		App_Data\SPNames\Internal\DBACC.bodb02.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal\DBARC.bodb_Archive.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal\DBBAH.bodb02.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal\DBBOF.bodb02.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Docker2\DBLOG.bodb_CustomerLog.wsv_alp.xml, `
+		App_Data\SPNames\Docker2\DBONUSER.ON_USER.wsv_alp.xml, `
+		App_Data\SPNames\Docker2\DBRPT.bodb_report.wsv_alp.xml, `
+		App_Data\SPNames\Docker2\DBTXN.bodb02.wsv_alp.xml, `
+		App_Data\SPNames\Internal\DBACC.bodb02.wsv_alpv.xml, `
+		App_Data\SPNames\Internal\DBAGE.bodb02.wsv_alpv.xml, `
+		App_Data\SPNames\Internal\DBARC.bodb_Archive.wsv_alpv.xml, `
+		App_Data\SPNames\Internal\DBBAH.bodb02.wsv_alpv.xml, `
+		App_Data\SPNames\Internal\DBBOF.bodb02.wsv_alpv.xml, `
 		App_Data\SPNames\Internal\DBCust.CustDB.DownlineNetView.xml, `
 		App_Data\SPNames\Internal\DBCust.IPDB.xml, `
-		App_Data\SPNames\Internal\DBLOG.bodb_CustomerLog.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal\DBRPT.bodb_report.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal\DBTXN.bodb02.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal2\DBACC.bodb02.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal2\DBAGE.bodb02.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal2\DBARC.bodb_Archive.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal2\DBBAH.bodb02.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal2\DBBOF.bodb02.BODBDownlineNetView.xml, `
+		App_Data\SPNames\Internal\DBLOG.bodb_CustomerLog.wsv_alpv.xml, `
+		App_Data\SPNames\Internal\DBONUSER.ON_USER.wsv_alpv.xml, `
+		App_Data\SPNames\Internal\DBRPT.bodb_report.wsv_alpv.xml, `
+		App_Data\SPNames\Internal\DBTXN.bodb02.wsv_alpv.xml, `
+		App_Data\SPNames\Internal2\DBACC.bodb02.wsv_alpv.xml, `
+		App_Data\SPNames\Internal2\DBAGE.bodb02.wsv_alpv.xml, `
+		App_Data\SPNames\Internal2\DBARC.bodb_Archive.wsv_alpv.xml, `
+		App_Data\SPNames\Internal2\DBBAH.bodb02.wsv_alpv.xml, `
+		App_Data\SPNames\Internal2\DBBOF.bodb02.wsv_alpv.xml, `
 		App_Data\SPNames\Internal2\DBCust.CustDB.DownlineNetView.xml, `
 		App_Data\SPNames\Internal2\DBCust.IPDB.xml, `
-		App_Data\SPNames\Internal2\DBLOG.bodb_CustomerLog.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal2\DBONUSER.ON_USER.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal2\DBRPT.bodb_report.BODBDownlineNetView.xml, `
-		App_Data\SPNames\Internal2\DBTXN.bodb02.BODBDownlineNetView.xml `
+		App_Data\SPNames\Internal2\DBLOG.bodb_CustomerLog.wsv_alpv.xml, `
+		App_Data\SPNames\Internal2\DBONUSER.ON_USER.wsv_alpv.xml, `
+		App_Data\SPNames\Internal2\DBRPT.bodb_report.wsv_alpv.xml, `
+		App_Data\SPNames\Internal2\DBTXN.bodb02.wsv_alpv.xml `
     ) `
     DO curl --fail -o C:\sp-result.xml --form file=@"%P" --form "redmineIds=%REDMINE_IDS%" -X POST %ROCKETOR_API% `
         && xcopy C:\sp-result.xml "%P" /Y
