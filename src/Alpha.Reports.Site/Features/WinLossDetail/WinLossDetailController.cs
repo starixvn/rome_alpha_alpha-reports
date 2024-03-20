@@ -36,7 +36,10 @@
             => ViewAsync<WinLossDetailNewViewModel>($"{BasePath}/{nameof(IndexNew)}.cshtml", message);
 
         public Task<ActionResult> GetData(WinLossDetailGetDataQuery message)
-            => ViewAsync($"{BasePath}/ReportDataNew.cshtml", message);
+            => ViewAsync<WinLossDetailGetDataViewModel>($"{BasePath}/ReportDataNew.cshtml", message);
+
+        public Task<ActionResult> GetDataWeek(WinLossDetailGetDataWeekQuery message)
+            => ViewAsync($"{BasePath}/ReportDataWeek.cshtml", message);
 
         public Task<FileContentResult> ExcelNew(WinLossDetailExcelNewQuery message)
             => ExcelViewAsync(message);

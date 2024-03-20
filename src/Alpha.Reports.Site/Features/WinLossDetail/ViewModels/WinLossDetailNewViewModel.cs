@@ -16,8 +16,9 @@
             IEnumerable<ProductViewModel> products,
             IEnumerable<ProductDetailNewViewModel> productDetails,
             EnteredSportResult totalEnteredSport,
-            PagedReportData<WinLossDetailModel> winLossDetail)
-            : base(message, totalEnteredSport, winLossDetail)
+            PagedReportData<WinLossDetailModel> winLossDetail,
+            IEnumerable<WeekSelectionViewModel> weeks)
+            : base(message, totalEnteredSport, winLossDetail, weeks)
         {
             ViewerId = message.ViewerId;
             ViewerName = message.CustName;

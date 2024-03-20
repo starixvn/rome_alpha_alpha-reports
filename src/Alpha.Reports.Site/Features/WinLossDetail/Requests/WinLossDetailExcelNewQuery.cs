@@ -5,7 +5,7 @@
     using Alpha.Reports.Site.ViewModels;
     using MediatR;
 
-    public class WinLossDetailExcelNewQuery : WinLossDetailGetDataQuery, IAsyncRequest<ExcelFileViewModel>
+    public class WinLossDetailExcelNewQuery : WinLossDetailGetDataWeekQuery, IAsyncRequest<ExcelFileViewModel>
     {
         public WinLossDetailExcelNewQuery(IUser viewer) : base(viewer)
         {
