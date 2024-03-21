@@ -26,7 +26,7 @@ class WeekSelectionComponent {
                 const $this = $(e.target);
                 labelWeeks.removeClass("active");
                 $this.addClass("active");
-                this.weekSelectionOption.onClick({ fromDate: $this.data("fromdate"), toDate: $this.data("todate") });
+                this.weekSelectionOption.onClick({ weekFromDate: $this.data("fromdate"), weekToDate: $this.data("todate") });
             });
     }
 

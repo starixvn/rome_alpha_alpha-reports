@@ -94,7 +94,6 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             minWidth: 250,
             maxHeight: 250,
             showTooltip: false,
-            expandGroupsByDefault: false,
             listData: productList,
             onCheck: function () {
                 var productId = this.value;

@@ -98,7 +98,6 @@ class ProductAndProductDetailDropdownComponent {
             minWidth: 250,
             maxHeight: 250,
             showTooltip: false,
-            expandGroupsByDefault: false,
             listData: productList,
             onCheck: function () {
                 const productId = this.value;

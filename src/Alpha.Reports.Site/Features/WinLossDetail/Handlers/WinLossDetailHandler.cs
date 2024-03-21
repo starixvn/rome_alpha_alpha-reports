@@ -6,6 +6,7 @@
     using Alpha.Reports.Configurations;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Site.ViewModels.Components;
+    using Alpha.Reports.Utils;
     using App_GlobalResources;
     using Fanex.Logging.Extensions.Web;
     using MediatR;
@@ -66,10 +67,9 @@
 
             if (message.IsNew)
             {
+                var minDate = SystemTime.Today.AddYears(-3).FirstDayOfYear().ToShortDateWithSlash();
                 legends.Add(string.Format(
-                    $"- {Resources.ReportDataCanViewNote}", message.MinDate.ToShortDateWithSlash()));
-                legends.Add(string.Format(
-                    $"- {Resources.HistoryDataCanViewNote}", message.MinDate.ToShortDateWithSlash()));
+                    $"- {Resources.ReportDataCanViewNote}", minDate));
             }
             else
             {

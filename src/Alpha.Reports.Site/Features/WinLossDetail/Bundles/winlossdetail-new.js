@@ -400,7 +400,6 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
             minWidth: 250,
             maxHeight: 250,
             showTooltip: false,
-            expandGroupsByDefault: false,
             listData: productList,
             onCheck: function () {
                 var productId = this.value;
@@ -672,7 +671,7 @@ var WeekSelectionComponent = /** @class */ (function () {
             var $this = $(e.target);
             labelWeeks.removeClass("active");
             $this.addClass("active");
-            _this.weekSelectionOption.onClick({ fromDate: $this.data("fromdate"), toDate: $this.data("todate") });
+            _this.weekSelectionOption.onClick({ weekFromDate: $this.data("fromdate"), weekToDate: $this.data("todate") });
         });
     };
     WeekSelectionComponent.prototype.getActiveWeek = function () {
@@ -1019,6 +1018,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             _this.constraintDateRangeAndProductDropdownList(dateRange);
             var productsAndResources = _this.productAndProductDetailDropdownComponent.getCheckedValues();
             var username = _this.usernameAutoSuggestionComponent.getUsername();
+            _this.resetActiveWeek();
             $.extend(_this.globalFormData, dateRange, productsAndResources, { username: username });
             if (_this.isInvalidGlobalFormData()) {
                 return;
@@ -1028,6 +1028,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         this.productAndProductDetailDropdownComponent.render(new ProductAndProductDetailDropdownOption(window.productList, window.productDetailList, function (productsAndResources) {
             var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
             var username = _this.usernameAutoSuggestionComponent.getUsername();
+            _this.resetActiveWeek();
             $.extend(_this.globalFormData, dateRange, productsAndResources, { username: username });
             if (_this.isInvalidGlobalFormData()) {
                 return;
@@ -1040,6 +1041,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             _this.isGettingReportData = true;
             var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
             var productsAndResources = _this.productAndProductDetailDropdownComponent.getCheckedValues();
+            _this.resetActiveWeek();
             $.extend(_this.globalFormData, dateRange, productsAndResources, { username: username });
             // reset params: custId, custName, custLevelId
             delete _this.globalFormData.custId;
@@ -1068,14 +1070,16 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         }));
         var activeWeekRange = weekFromDate.length > 0 && weekToDate.length > 0
             ? { weekFromDate: weekFromDate.val(), weekToDate: weekToDate.val() }
-            : undefined;
+            : {};
         this.breadcrumbLevelComponent.init(new BreadcrumbLevelOption(this.buildBreadcrumbs(), function (breadcrumbData) {
             if (_this.isInvalidGlobalFormData()) {
                 return;
             }
             _this.usernameAutoSuggestionComponent.resetUsername();
             delete _this.globalFormData.username;
-            $.extend(_this.globalFormData, breadcrumbData);
+            var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
+            var activeWeek = _this.weekSelectionComponent.getActiveWeek();
+            $.extend(_this.globalFormData, dateRange, activeWeek, breadcrumbData);
             _this.getWinLossDetailData(function () {
                 _this.breadcrumbLevelComponent.removeBreadcrumbLevel(breadcrumbData.custLevelId);
                 _this.updateCurrentUrl();
@@ -1087,12 +1091,12 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             custLevelId: +$("#hiddenCustLevel").val(),
             username: searchUsername,
             showColumns: $("#hiddenShowColumns").val()
-        }, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues());
+        }, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues(), activeWeekRange);
         // update fromDate/toDate of globalFormData if activeWeekRange is NOT undefined
-        if (activeWeekRange) {
-            this.globalFormData.fromDate = activeWeekRange.weekFromDate;
-            this.globalFormData.toDate = activeWeekRange.weekToDate;
-        }
+        //if (activeWeekRange) {
+        //    this.globalFormData.fromDate = activeWeekRange.weekFromDate;
+        //    this.globalFormData.toDate = activeWeekRange.weekToDate;
+        //}
     };
     WinLossDetailViewNew.prototype.constraintDateRangeAndProductDropdownList = function (dateRange) {
         var historicPivotDate = moment(this.dateRangePickerComponent.getHistoricPivotDate());
@@ -1168,6 +1172,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             _this.bindTableReportEvents();
             _this.totalEnteredNonEnteredComponent.update({ eventDate: _this.tableReport.data("yesterday"), nonEntered: _this.tableReport.data("non-entered-yesterday") }, { eventDate: _this.tableReport.data("today"), nonEntered: _this.tableReport.data("non-entered-today") });
             callback();
+            _this.updateCurrentUrl();
             _this.tableReportContainer.unblock();
             _this.isGettingReportData = false;
         }).fail(function (jqXHR) {
@@ -1253,13 +1258,15 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             _this.usernameAutoSuggestionComponent.resetUsername();
             delete _this.globalFormData.username;
             var $this = $(e.target);
+            var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
+            var activeWeek = _this.weekSelectionComponent.getActiveWeek();
             var breadcrumbData = {
                 custId: $this.data("custid"),
                 custName: $this.data("custname"),
                 custLevelId: $this.data("custlevelid"),
                 breadcrumbLevelJson: JSON.stringify(_this.breadcrumbLevelComponent.getBreadcrumbs())
             };
-            $.extend(_this.globalFormData, breadcrumbData);
+            $.extend(_this.globalFormData, dateRange, activeWeek, breadcrumbData);
             _this.getWinLossDetailData(function () {
                 _this.breadcrumbLevelComponent.addBreadcrumbLevel(breadcrumbData);
                 _this.updateCurrentUrl();
@@ -1359,6 +1366,10 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     };
     WinLossDetailViewNew.prototype.removeIsWeekSelectionForStatistic = function () {
         delete this.globalFormData.isWeekSelection;
+    };
+    WinLossDetailViewNew.prototype.resetActiveWeek = function () {
+        delete this.globalFormData.weekFromDate;
+        delete this.globalFormData.weekToDate;
     };
     return WinLossDetailViewNew;
 }(BaseReportView));
