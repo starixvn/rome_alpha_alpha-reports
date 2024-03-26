@@ -48,6 +48,8 @@
         private readonly ICacheService cacheService;
         private readonly IUser user;
 
+        private readonly int[] IgnoreCheckProductStatusTypes = new[] { 41, 53 };
+
         public ProductServiceImpl(
             IDynamicRepository dynamicRepository,
             ICacheService cacheService,
@@ -90,7 +92,7 @@
                     .Where(i => !i.IsHide)
                     .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
-            return Task.FromResult(products.Where(i => IsRemainSupportProduct(i, minReportDate) && canViewProduct(i.Id)));
+            return Task.FromResult(products.Where(i => IsRemainSupportProduct(i, minReportDate) && (IgnoreCheckProductStatusTypes.Contains(i.Type) || canViewProduct(i.Id))));
         }
 
         public IEnumerable<Product> GetAllOfferedProducts(string site, int currencyId, DateTime? minReportDate = null)
@@ -157,7 +159,7 @@
                 () => GetProducts(),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
 
-            return products.Where(i => canViewProduct(i.Id) && IsRemainSupportProduct(i, minReportDate));
+            return products.Where(i => (IgnoreCheckProductStatusTypes.Contains(i.Type) || canViewProduct(i.Id)) && IsRemainSupportProduct(i, minReportDate));
 
             List<Product> GetProducts()
                 => dynamicRepository.Fetch<Product>(new GetProductsCriteria(site, currencyId))
