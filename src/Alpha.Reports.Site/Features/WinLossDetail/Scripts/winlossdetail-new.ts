@@ -90,7 +90,7 @@ class WinLossDetailViewNew extends BaseReportView {
         this.totalEnteredNonEnteredComponent.init();
 
         this.dateRangePickerComponent.render(new DateRangePickerJQueryOption((dateRange) => {
-            this.constraintDateRangeAndProductDropdownList(dateRange);
+            //this.constraintDateRangeAndProductDropdownList(dateRange);
             const productsAndResources = this.productAndProductDetailDropdownComponent.getCheckedValues();
             const username = this.usernameAutoSuggestionComponent.getUsername();
             this.resetActiveWeek();
@@ -118,7 +118,7 @@ class WinLossDetailViewNew extends BaseReportView {
             }));
 
         const dateRange = this.dateRangePickerComponent.getDateRangeValues();
-        this.constraintDateRangeAndProductDropdownList(dateRange);
+        //this.constraintDateRangeAndProductDropdownList(dateRange);
 
         this.usernameAutoSuggestionComponent.init(new UsernameAutoSuggestionOption(
             $("#hiddenUsernameAutoSuggestionUrl").val(),
@@ -136,6 +136,7 @@ class WinLossDetailViewNew extends BaseReportView {
                 delete this.globalFormData.custId;
                 delete this.globalFormData.custName;
                 delete this.globalFormData.custLevelId;
+                delete this.globalFormData.breadcrumbLevelJson;
                 if (this.isInvalidGlobalFormData()) {
                     this.isGettingReportData = false;
                     return;
@@ -203,14 +204,14 @@ class WinLossDetailViewNew extends BaseReportView {
         //}
     }
 
-    private constraintDateRangeAndProductDropdownList(dateRange) {
-        const historicPivotDate = moment(this.dateRangePickerComponent.getHistoricPivotDate());
-        if (moment(dateRange.fromDate).isSameOrAfter(historicPivotDate)) {
-            this.productAndProductDetailDropdownComponent.hideHistoricProducts();
-        } else {
-            this.productAndProductDetailDropdownComponent.showHistoricProducts();
-        }
-    }
+    //private constraintDateRangeAndProductDropdownList(dateRange) {
+    //    const historicPivotDate = moment(this.dateRangePickerComponent.getHistoricPivotDate());
+    //    if (moment(dateRange.fromDate).isSameOrAfter(historicPivotDate)) {
+    //        this.productAndProductDetailDropdownComponent.hideHistoricProducts();
+    //    } else {
+    //        this.productAndProductDetailDropdownComponent.showHistoricProducts();
+    //    }
+    //}
 
     private getDateRangePickerLocale(language: string) {
         const locale = {

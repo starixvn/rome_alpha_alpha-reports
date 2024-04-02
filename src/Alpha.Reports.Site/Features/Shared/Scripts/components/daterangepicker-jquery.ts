@@ -14,11 +14,9 @@ class DateRangePickerJQueryOption {
 class DateRangePickerJQueryComponent {
     private fromDate: string;
     private toDate: string;
-    private historicPivotDate: string;
 
     render(options: DateRangePickerJQueryOption) {
         const dateRangePicker = $("#" + options.selectorId);
-        this.historicPivotDate = dateRangePicker.data("historicpivotdate");
         this.fromDate = dateRangePicker.data("fromdate");
         this.toDate = dateRangePicker.data("todate");
 
@@ -132,9 +130,5 @@ class DateRangePickerJQueryComponent {
 
     getDateRangeValues() {
         return { fromDate: this.fromDate, toDate: this.toDate };
-    }
-
-    getHistoricPivotDate() {
-        return this.historicPivotDate;
     }
 }

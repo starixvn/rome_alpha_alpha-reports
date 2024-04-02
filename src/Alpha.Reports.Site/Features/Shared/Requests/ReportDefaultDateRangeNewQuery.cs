@@ -19,14 +19,11 @@
                 .AddYears(NegativeThree)
                 .FirstDayOfYear()
                 .GetGreaterDate(LimitedDateToShowInfo);
-            HistoricPivotDate = today.AddMonths(NegativeThree).FirstDayOfMonth();
         }
 
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
-
-        public DateTime HistoricPivotDate { get; }
 
         public override bool IsValid()
             => base.IsValid() && MinDate <= FromDate && FromDate <= ToDate;

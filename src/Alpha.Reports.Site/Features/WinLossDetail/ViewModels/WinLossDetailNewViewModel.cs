@@ -29,7 +29,6 @@
             DateRangePickerViewModel = new DateRangePickerNewViewModel(
                 message.FromDate,
                 message.ToDate,
-                message.HistoricPivotDate,
                 message.MinDate);
             Products = products;
             ProductIds = message.ProductIds;

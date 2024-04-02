@@ -3,7 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Win Loss Detail Report";
     var jsonSettings = new JsonSerializerSettings { Formatting = Formatting.None, NullValueHandling = NullValueHandling.Ignore };
-    var canViewHistory = Model.DateRangePickerViewModel.MinDate < Model.DateRangePickerViewModel.HistoricPivotDate;
 }
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-reports/winlossdetail-new")
@@ -75,7 +74,7 @@
 <input type="hidden" id="hiddenCustId" value="@Model.CustId" />
 <input type="hidden" id="hiddenCustName" value="@Model.CustName" />
 <input type="hidden" id="hiddenCustLevel" value="@Model.CustLevel.Value" />
-<input type="hidden" id="hiddenLegendUrl" value="@Url.Action("ReportLegend", $"{SiteSettings.ReportRouting}WinLossDetail", new { IsNew = canViewHistory, IsSupportHistoricReport = true, MinDate = canViewHistory ? Model.DateRangePickerViewModel.HistoricPivotDate : Model.DateRangePickerViewModel.MinDate, ShowDormantAccountsNote = true })" />
+<input type="hidden" id="hiddenLegendUrl" value="@Url.Action("ReportLegend", $"{SiteSettings.ReportRouting}WinLossDetail", new { IsNew = true, IsSupportHistoricReport = true, MinDate = Model.DateRangePickerViewModel.MinDate, ShowDormantAccountsNote = true })" />
 <input type="hidden" id="hiddenGetDataUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WinLossDetail")" />
 <input type="hidden" id="hiddenGetDataWeekUrl" value="@Url.Action("GetDataWeek", $"{SiteSettings.ReportRouting}WinLossDetail")" />
 <input type="hidden" id="hiddenBetListsUrl" value="@Model.BetListsUrl" />

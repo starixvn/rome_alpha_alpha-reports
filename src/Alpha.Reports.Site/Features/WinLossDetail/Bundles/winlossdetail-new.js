@@ -190,7 +190,6 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
     DateRangePickerJQueryComponent.prototype.render = function (options) {
         var _this = this;
         var dateRangePicker = $("#" + options.selectorId);
-        this.historicPivotDate = dateRangePicker.data("historicpivotdate");
         this.fromDate = dateRangePicker.data("fromdate");
         this.toDate = dateRangePicker.data("todate");
         dateRangePicker
@@ -298,9 +297,6 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
     DateRangePickerJQueryComponent.prototype.getDateRangeValues = function () {
         return { fromDate: this.fromDate, toDate: this.toDate };
     };
-    DateRangePickerJQueryComponent.prototype.getHistoricPivotDate = function () {
-        return this.historicPivotDate;
-    };
     return DateRangePickerJQueryComponent;
 }());
 //# sourceMappingURL=daterangepicker-jquery.js.map
@@ -325,7 +321,6 @@ var ProductAndProductDetailDropdownOption = /** @class */ (function () {
 }());
 var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
     function ProductAndProductDetailDropdownComponent() {
-        this.onlyShowHistoricProductIds = [];
     }
     ProductAndProductDetailDropdownComponent.prototype.render = function (options) {
         this.renderProductDetailDropdown(options);
@@ -370,13 +365,11 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
         var productIdWithSubProductIds = {};
         var uncheckedProductIds = [];
         var productList = options.products.map(function (item) {
-            item.OnlyShowHistoric && _this.onlyShowHistoricProductIds.push(item.Id);
             var checkboxItem = _this.buildCheckboxItem(item);
             if (item.Products) {
                 var subProductIds_1 = [];
                 productIdWithSubProductIds[item.Id] = subProductIds_1;
                 checkboxItem.items = item.Products.map(function (item) {
-                    item.OnlyShowHistoric && _this.onlyShowHistoricProductIds.push(item.Id);
                     subProductIds_1.push(item.Id);
                     item.Checked || uncheckedProductIds.push(item.Id);
                     return _this.buildCheckboxItem(item);
@@ -478,14 +471,6 @@ var ProductAndProductDetailDropdownComponent = /** @class */ (function () {
                 ? this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
                 : ''
         };
-    };
-    ProductAndProductDetailDropdownComponent.prototype.showHistoricProducts = function () {
-        this.onlyShowHistoricProductIds.length
-            && this.dropdownProduct.fanexMultiSelect("showItemsByValues", this.onlyShowHistoricProductIds);
-    };
-    ProductAndProductDetailDropdownComponent.prototype.hideHistoricProducts = function () {
-        this.onlyShowHistoricProductIds.length
-            && this.dropdownProduct.fanexMultiSelect("hideItemsByValues", this.onlyShowHistoricProductIds);
     };
     return ProductAndProductDetailDropdownComponent;
 }());
@@ -1015,7 +1000,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         var searchUsername = $("#hiddenUsername").val();
         this.totalEnteredNonEnteredComponent.init();
         this.dateRangePickerComponent.render(new DateRangePickerJQueryOption(function (dateRange) {
-            _this.constraintDateRangeAndProductDropdownList(dateRange);
+            //this.constraintDateRangeAndProductDropdownList(dateRange);
             var productsAndResources = _this.productAndProductDetailDropdownComponent.getCheckedValues();
             var username = _this.usernameAutoSuggestionComponent.getUsername();
             _this.resetActiveWeek();
@@ -1036,7 +1021,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             _this.getWinLossDetailDataAndRenderWeekRange();
         }));
         var dateRange = this.dateRangePickerComponent.getDateRangeValues();
-        this.constraintDateRangeAndProductDropdownList(dateRange);
+        //this.constraintDateRangeAndProductDropdownList(dateRange);
         this.usernameAutoSuggestionComponent.init(new UsernameAutoSuggestionOption($("#hiddenUsernameAutoSuggestionUrl").val(), undefined, undefined, undefined, searchUsername, function (username) {
             _this.isGettingReportData = true;
             var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
@@ -1047,6 +1032,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             delete _this.globalFormData.custId;
             delete _this.globalFormData.custName;
             delete _this.globalFormData.custLevelId;
+            delete _this.globalFormData.breadcrumbLevelJson;
             if (_this.isInvalidGlobalFormData()) {
                 _this.isGettingReportData = false;
                 return;
@@ -1098,15 +1084,14 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         //    this.globalFormData.toDate = activeWeekRange.weekToDate;
         //}
     };
-    WinLossDetailViewNew.prototype.constraintDateRangeAndProductDropdownList = function (dateRange) {
-        var historicPivotDate = moment(this.dateRangePickerComponent.getHistoricPivotDate());
-        if (moment(dateRange.fromDate).isSameOrAfter(historicPivotDate)) {
-            this.productAndProductDetailDropdownComponent.hideHistoricProducts();
-        }
-        else {
-            this.productAndProductDetailDropdownComponent.showHistoricProducts();
-        }
-    };
+    //private constraintDateRangeAndProductDropdownList(dateRange) {
+    //    const historicPivotDate = moment(this.dateRangePickerComponent.getHistoricPivotDate());
+    //    if (moment(dateRange.fromDate).isSameOrAfter(historicPivotDate)) {
+    //        this.productAndProductDetailDropdownComponent.hideHistoricProducts();
+    //    } else {
+    //        this.productAndProductDetailDropdownComponent.showHistoricProducts();
+    //    }
+    //}
     WinLossDetailViewNew.prototype.getDateRangePickerLocale = function (language) {
         var locale = {
             "th-TH": "th",

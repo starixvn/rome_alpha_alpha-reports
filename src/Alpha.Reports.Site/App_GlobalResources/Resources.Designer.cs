@@ -1528,7 +1528,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Last 3 months.
+        ///   Looks up a localized string similar to Last 3 Months.
         /// </summary>
         public static string Last3Months {
             get {

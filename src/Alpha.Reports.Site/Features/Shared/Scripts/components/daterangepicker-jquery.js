@@ -19,7 +19,6 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
     DateRangePickerJQueryComponent.prototype.render = function (options) {
         var _this = this;
         var dateRangePicker = $("#" + options.selectorId);
-        this.historicPivotDate = dateRangePicker.data("historicpivotdate");
         this.fromDate = dateRangePicker.data("fromdate");
         this.toDate = dateRangePicker.data("todate");
         dateRangePicker
@@ -126,9 +125,6 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
     };
     DateRangePickerJQueryComponent.prototype.getDateRangeValues = function () {
         return { fromDate: this.fromDate, toDate: this.toDate };
-    };
-    DateRangePickerJQueryComponent.prototype.getHistoricPivotDate = function () {
-        return this.historicPivotDate;
     };
     return DateRangePickerJQueryComponent;
 }());

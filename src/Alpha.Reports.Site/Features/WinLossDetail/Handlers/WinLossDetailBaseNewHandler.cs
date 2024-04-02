@@ -131,7 +131,6 @@
                                 p.Id,
                                 p.DisplayName,
                                 isSelectAll || userSelectedProductIds.ContainsKey(p.Id),
-                                p.EndOfSupportDate.HasValue && p.EndOfSupportDate < message.HistoricPivotDate,
                                 null)));
                         }
                         else
@@ -140,16 +139,12 @@
                                 p.Id,
                                 p.DisplayName,
                                 isSelectAll || userSelectedProductIds.ContainsKey(p.Id),
-                                p.EndOfSupportDate.HasValue && p.EndOfSupportDate < message.HistoricPivotDate,
                                 null)).ToList();
-                            var isGroupProductChecked = message.FromDate >= message.HistoricPivotDate
-                                ? children.Where(p => !p.OnlyShowHistoric).All(p => p.Checked)
-                                : children.All(p => p.Checked);
+                            var isGroupProductChecked = children.All(p => p.Checked);
                             productList.Add(new ProductViewModel(
                                 item.Key.Type,
                                 item.Key.TypeName,
                                 isGroupProductChecked,
-                                false,
                                 children));
                         }
                     });

@@ -18,7 +18,6 @@ class ProductAndProductDetailDropdownOption {
 class ProductAndProductDetailDropdownComponent {
     private dropdownProduct: JQuery;
     private dropdownProductDetail: JQuery;
-    private onlyShowHistoricProductIds = [];
 
     render(options: ProductAndProductDetailDropdownOption) {
         this.renderProductDetailDropdown(options);
@@ -65,7 +64,6 @@ class ProductAndProductDetailDropdownComponent {
         const productIdWithSubProductIds = {};
         const uncheckedProductIds = [];
         const productList = options.products.map((item) => {
-            item.OnlyShowHistoric && this.onlyShowHistoricProductIds.push(item.Id);
             const checkboxItem: any = this.buildCheckboxItem(item);
 
             if (item.Products) {
@@ -73,7 +71,6 @@ class ProductAndProductDetailDropdownComponent {
                 productIdWithSubProductIds[item.Id] = subProductIds;
 
                 checkboxItem.items = item.Products.map((item) => {
-                    item.OnlyShowHistoric && this.onlyShowHistoricProductIds.push(item.Id);
                     subProductIds.push(item.Id);
                     item.Checked || uncheckedProductIds.push(item.Id);
                     return this.buildCheckboxItem(item);
@@ -180,15 +177,5 @@ class ProductAndProductDetailDropdownComponent {
                 ? this.dropdownProductDetail.fanexMultiSelect("getUncheckedValues")
                 : ''
         };
-    }
-
-    showHistoricProducts() {
-        this.onlyShowHistoricProductIds.length
-            && this.dropdownProduct.fanexMultiSelect("showItemsByValues", this.onlyShowHistoricProductIds);
-    }
-
-    hideHistoricProducts() {
-        this.onlyShowHistoricProductIds.length
-            && this.dropdownProduct.fanexMultiSelect("hideItemsByValues", this.onlyShowHistoricProductIds);
     }
 }
