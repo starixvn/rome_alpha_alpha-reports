@@ -2104,6 +2104,7 @@
     <Content Include="Web.AppSettings.uat_4.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
+    <Content Include="Web.ConnectionStrings.uat_4.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
