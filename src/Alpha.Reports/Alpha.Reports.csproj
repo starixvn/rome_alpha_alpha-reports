@@ -272,6 +272,7 @@
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
     <Compile Include="Criteria\Statement\GetStatementBetTrans14Criteria.cs" />
     <Compile Include="Criteria\UpdateUserSearchCriteria.cs" />
+    <Compile Include="Criteria\WinLossDetail\WinLossDetailWeekDataCriteria.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\BetCreditHistoryService.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Criteria\BetCreditHistoryCriteria.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\Criteria\GetLogActionsCriteria.cs" />
@@ -381,6 +382,7 @@
     <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailModel.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Models\SuperWinLossDetailByPTModel.cs" />
     <Compile Include="Models\UsernameSuggestion.cs" />
+    <Compile Include="Models\WinLossDetail\WinLossDetailWeekData.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingExcelParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceUplinesParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingParam.cs" />
@@ -441,6 +443,7 @@
     <Compile Include="Params\WinLossAnalysisParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />
     <Compile Include="Params\WinLossByProductParam.cs" />
+    <Compile Include="Params\WinLossDetailWeekDataParam.cs" />
     <Compile Include="Params\WinLossParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BetChoiceMatchingService.cs" />

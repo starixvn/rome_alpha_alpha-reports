@@ -79,8 +79,8 @@
                 "-",
                 Resources.WinLossDetail,
                 message.CustName,
-                message.FromDate.ToShortDateWithSlash(),
-                message.ToDate.ToShortDateWithSlash());
+                (message.WeekFromDate ?? message.FromDate).ToShortDateWithSlash(),
+                (message.WeekToDate ?? message.ToDate).ToShortDateWithSlash());
 
         private TemplateInfo GetTemplateInfo(UserLevel custLevel, bool isShowFullname)
         {

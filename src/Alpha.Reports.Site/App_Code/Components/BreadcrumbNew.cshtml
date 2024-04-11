@@ -1,0 +1,24 @@
+﻿@using Alpha.Reports.Models
+
+@helper Render(IEnumerable<CustInfo> breadcrumbLevel)
+{
+    var index = 1;
+    var breadcrumbLevelCount = breadcrumbLevel.Count();
+    <div class="breadcrumb-container">
+        <ul class="breadcrumb" id="breadcrumb-level">
+            @foreach (var item in breadcrumbLevel)
+            {
+                <li>
+                    @if (index++ < breadcrumbLevelCount)
+                    {
+                        <a href="javascript:;" class="upline-link" data-custid="@item.CustId" data-custname="@item.CustName" data-custlevelid="@item.CustLevelId">@item.CustName</a>
+                    }
+                    else
+                    {
+                        @:@item.CustName
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+}

@@ -31,7 +31,7 @@
         }
 
         protected async Task<Tuple<IEnumerable<Product>, IEnumerable<ProductDetail>>> GetProductsAndProductDetails(
-            WinLossDetailGetDataQuery message)
+            WinLossDetailGetDataWeekQuery message)
         {
             var productsTask = productService.GetAllOfferedProductsAsync(message.Site, message.CurrencyId, message.MinDate);
             var productDetailsTask = productDetailService.GetProductDetailsAsync(message.ViewerId, message.Site, message.CurrencyId);
@@ -42,7 +42,7 @@
             return Tuple.Create(products, productDetails);
         }
 
-        protected async Task<WinLossDetailParam> CreateParameter(WinLossDetailGetDataQuery message)
+        protected async Task<WinLossDetailParam> CreateParameter(WinLossDetailGetDataWeekQuery message)
         {
             var productsAndProductDetails = await GetProductsAndProductDetails(message);
 
@@ -50,7 +50,7 @@
         }
 
         protected WinLossDetailParam CreateParameter(
-            WinLossDetailGetDataQuery message,
+            WinLossDetailGetDataWeekQuery message,
             IEnumerable<Product> products,
             IEnumerable<ProductDetail> productDetails)
         {
@@ -79,7 +79,7 @@
         }
 
         private static IEnumerable<int> GetValidUserSelectedProductIds(
-            WinLossDetailGetDataQuery message,
+            WinLossDetailGetDataWeekQuery message,
             IEnumerable<Product> products)
         {
             var productIds = products.Select(product => product.Id);
@@ -95,7 +95,7 @@
         }
 
         private static IEnumerable<int> GetValidUserSelectedResourceIds(
-            WinLossDetailGetDataQuery message,
+            WinLossDetailGetDataWeekQuery message,
             IEnumerable<ProductDetail> productDetails)
         {
             var resourceIds = productDetails.Select(p => p.ResourceId);
@@ -111,7 +111,7 @@
         }
 
         protected static IEnumerable<ProductViewModel> BuildProductViewModels(
-            WinLossDetailGetDataQuery message,
+            WinLossDetailGetDataWeekQuery message,
             IEnumerable<Product> products)
         {
             var productList = new List<ProductViewModel>();
@@ -131,7 +131,6 @@
                                 p.Id,
                                 p.DisplayName,
                                 isSelectAll || userSelectedProductIds.ContainsKey(p.Id),
-                                p.EndOfSupportDate.HasValue && p.EndOfSupportDate < message.HistoricPivotDate,
                                 null)));
                         }
                         else
@@ -140,16 +139,12 @@
                                 p.Id,
                                 p.DisplayName,
                                 isSelectAll || userSelectedProductIds.ContainsKey(p.Id),
-                                p.EndOfSupportDate.HasValue && p.EndOfSupportDate < message.HistoricPivotDate,
                                 null)).ToList();
-                            var isGroupProductChecked = message.FromDate >= message.HistoricPivotDate
-                                ? children.Where(p => !p.OnlyShowHistoric).All(p => p.Checked)
-                                : children.All(p => p.Checked);
+                            var isGroupProductChecked = children.All(p => p.Checked);
                             productList.Add(new ProductViewModel(
                                 item.Key.Type,
                                 item.Key.TypeName,
                                 isGroupProductChecked,
-                                false,
                                 children));
                         }
                     });
@@ -159,7 +154,7 @@
         }
 
         protected static IEnumerable<ProductDetailNewViewModel> BuildProductDetailNewViewModels(
-            WinLossDetailGetDataQuery message,
+            WinLossDetailGetDataWeekQuery message,
             IEnumerable<ProductDetail> productDetails)
         {
             if (!productDetails.Any())
@@ -177,7 +172,7 @@
                 isSelectAll || userSelectedResourceIds.ContainsKey(p.ResourceId)));
         }
 
-        protected bool BuildWinLossDetailGetDataQuery(WinLossDetailGetDataQuery message)
+        protected bool BuildWinLossDetailGetDataQuery(WinLossDetailGetDataWeekQuery message)
         {
             var isValidUsername = true;
 

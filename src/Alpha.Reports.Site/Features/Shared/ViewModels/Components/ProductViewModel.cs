@@ -8,13 +8,11 @@
             int id,
             string name,
             bool selected,
-            bool onlyShowHistoric,
             IEnumerable<ProductViewModel> products)
         {
             Id = id;
             Name = name;
             Checked = selected;
-            OnlyShowHistoric = onlyShowHistoric;
             Products = products;
         }
 
@@ -23,8 +21,6 @@
         public string Name { get; }
 
         public bool Checked { get; }
-
-        public bool OnlyShowHistoric { get; }
 
         public IEnumerable<ProductViewModel> Products { get; }
     }

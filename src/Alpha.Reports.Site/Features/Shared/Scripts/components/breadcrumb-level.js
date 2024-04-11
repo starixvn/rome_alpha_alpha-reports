@@ -3,7 +3,7 @@ var BreadcrumbLevelOption = /** @class */ (function () {
     function BreadcrumbLevelOption(breadcrumbs, onClick, reportTitle, selectorId, reportTitleSelectorId) {
         if (breadcrumbs === void 0) { breadcrumbs = []; }
         if (onClick === void 0) { onClick = Function(); }
-        if (selectorId === void 0) { selectorId = "breadcrumb"; }
+        if (selectorId === void 0) { selectorId = "breadcrumb-level"; }
         if (reportTitleSelectorId === void 0) { reportTitleSelectorId = "report-title"; }
         this.breadcrumbs = breadcrumbs;
         this.onClick = onClick;
@@ -22,7 +22,7 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
     }
     BreadcrumbLevelComponent.prototype.init = function (options) {
         this.breadcrumbLevelOption = options;
-        this.breadcrumbSelector = $("#" + options.selectorId);
+        //this.breadcrumbSelector = $("#" + options.selectorId);
         this.reportTitleSelector = $("#" + options.reportTitleSelectorId);
         this.render();
     };
@@ -50,7 +50,7 @@ var BreadcrumbLevelComponent = /** @class */ (function () {
                 : "<li><a class=\"upline-link\" href=\"javascript:;\" data-custid=\"" + item.custId + "\" data-custname=\"" + item.custName + "\" data-custlevelid=\"" + item.custLevelId + "\">" + item.custName + "</a></li>";
         });
         this.reportTitleSelector.text(this.breadcrumbLevelOption.reportTitle[this.breadcrumbLevelOption.breadcrumbs[breadcrumbLength - 1].custLevelId]);
-        this.breadcrumbSelector
+        $("#" + this.breadcrumbLevelOption.selectorId)
             .html(html.join(""))
             .find(".upline-link").off().click(function (e) {
             e.preventDefault();

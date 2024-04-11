@@ -61,6 +61,114 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apr.
+        /// </summary>
+        public static string _Apr {
+            get {
+                return ResourceManager.GetString("_Apr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aug.
+        /// </summary>
+        public static string _Aug {
+            get {
+                return ResourceManager.GetString("_Aug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dec.
+        /// </summary>
+        public static string _Dec {
+            get {
+                return ResourceManager.GetString("_Dec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feb.
+        /// </summary>
+        public static string _Feb {
+            get {
+                return ResourceManager.GetString("_Feb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jan.
+        /// </summary>
+        public static string _Jan {
+            get {
+                return ResourceManager.GetString("_Jan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jul.
+        /// </summary>
+        public static string _Jul {
+            get {
+                return ResourceManager.GetString("_Jul", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jun.
+        /// </summary>
+        public static string _Jun {
+            get {
+                return ResourceManager.GetString("_Jun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mar.
+        /// </summary>
+        public static string _Mar {
+            get {
+                return ResourceManager.GetString("_Mar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to May.
+        /// </summary>
+        public static string _May {
+            get {
+                return ResourceManager.GetString("_May", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nov.
+        /// </summary>
+        public static string _Nov {
+            get {
+                return ResourceManager.GetString("_Nov", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oct.
+        /// </summary>
+        public static string _Oct {
+            get {
+                return ResourceManager.GetString("_Oct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sep.
+        /// </summary>
+        public static string _Sep {
+            get {
+                return ResourceManager.GetString("_Sep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accum Total.
         /// </summary>
         public static string AccumTotal {
@@ -1416,6 +1524,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string KoreanWon {
             get {
                 return ResourceManager.GetString("KoreanWon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last 3 Months.
+        /// </summary>
+        public static string Last3Months {
+            get {
+                return ResourceManager.GetString("Last3Months", resourceCulture);
             }
         }
         

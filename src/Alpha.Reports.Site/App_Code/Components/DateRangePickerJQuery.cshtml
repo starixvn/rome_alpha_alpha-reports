@@ -17,7 +17,6 @@
                    data-fromdate="@model.FromDate.ToShortDateWithSlash()"
                    data-todate="@model.ToDate.ToShortDateWithSlash()"
                    data-currentdate="@model.CurrentDate.ToShortDateWithSlash()"
-                   data-historicpivotdate="@model.HistoricPivotDate.ToShortDateWithSlash()"
                    data-label-today="@Resources.Today"
                    data-label-yesterday="@Resources.Yesterday"
                    data-label-thisweek="@Resources.ThisWeek"
@@ -25,8 +24,8 @@
                    data-label-thismonth="@Resources.ThisMonth"
                    data-label-lastmonth="@Resources.LastMonth"
                    data-label-sincelastmonth="@Resources.SinceLastMonth"
-                   data-label-specificdate="@Resources.SpecificDate"
-                   data-label-maxdataretrievehistoryerror="@string.Format(Resources.MaxDataRetrieveHistoryError, model.HistoricPivotDate.ToShortDateWithSlash())"/>
+                   data-label-last3months="@Resources.Last3Months"
+                   data-label-specificdate="@Resources.SpecificDate"/>
             <label class="input-group-addon" for="daterange-picker">
                 <span class="icon-calendar"></span>
             </label>

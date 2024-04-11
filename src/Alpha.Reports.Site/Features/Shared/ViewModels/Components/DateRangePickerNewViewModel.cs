@@ -8,7 +8,6 @@
         public DateRangePickerNewViewModel(
             DateTime fromDate,
             DateTime toDate,
-            DateTime historicPivotDate,
             DateTime minDate,
             DateTime? maxDate = null)
         {
@@ -16,7 +15,6 @@
 
             FromDate = fromDate;
             ToDate = toDate;
-            HistoricPivotDate = historicPivotDate;
             MinDate = minDate;
             MaxDate = maxDate ?? today.AddDays(1);
             CurrentDate = today;
@@ -25,8 +23,6 @@
         public DateTime FromDate { get; }
 
         public DateTime ToDate { get; }
-
-        public DateTime HistoricPivotDate { get; }
 
         public DateTime MinDate { get; }
 

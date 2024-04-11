@@ -1,9 +1,5 @@
 ﻿"use strict";
 
-interface Window {
-    bootboxAlert: any;
-}
-
 class DateRangePickerJQueryOption {
     constructor(
         public onClosed = Function(),
@@ -16,15 +12,11 @@ class DateRangePickerJQueryOption {
 }
 
 class DateRangePickerJQueryComponent {
-    private historyMaxDateRange = 30;
     private fromDate: string;
     private toDate: string;
-    private historicPivotDateText: string;
 
     render(options: DateRangePickerJQueryOption) {
         const dateRangePicker = $("#" + options.selectorId);
-        this.historicPivotDateText = dateRangePicker.data("historicpivotdate");
-        const historicPivotDate = moment(this.historicPivotDateText);
         this.fromDate = dateRangePicker.data("fromdate");
         this.toDate = dateRangePicker.data("todate");
 
@@ -42,32 +34,10 @@ class DateRangePickerJQueryComponent {
                 singleMonth: true,
                 monthSelect: true,
                 yearSelect: true,
-                autoClose: true
+                maxDays: 92
             }).bind("datepicker-change", (_, obj) => {
-                const startDate = moment(obj.date1)
-                const endDate = moment(obj.date2);
-                if (endDate.isBefore(historicPivotDate) && endDate.diff(startDate, "d") > this.historyMaxDateRange) {
-                    try {
-                        window.top.bootboxAlert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
-                    } catch (e) {
-                        alert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
-                    }
-                    dateRangePicker.data("dateRangePicker").setDateRange(this.fromDate, this.toDate, false);
-                    return;
-                }
-
-                if (startDate.isBefore(historicPivotDate) && endDate.isSameOrAfter(historicPivotDate) && endDate.diff(startDate, "d") > this.historyMaxDateRange) {
-                    try {
-                        window.top.bootboxAlert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
-                    } catch (e) {
-                        alert(dateRangePicker.data("label-maxdataretrievehistoryerror"));
-                    }
-                    dateRangePicker.data("dateRangePicker").setDateRange(this.fromDate, this.toDate, false);
-                    return;
-                }
-
-                this.fromDate = startDate.format(alphaReports.format.shortDateWithSlash_DatePicker);
-                this.toDate = endDate.format(alphaReports.format.shortDateWithSlash_DatePicker);
+                this.fromDate = moment(obj.date1).format(alphaReports.format.shortDateWithSlash_DatePicker);
+                this.toDate = moment(obj.date2).format(alphaReports.format.shortDateWithSlash_DatePicker);
             })
             .bind("datepicker-closed", () => options.onClosed(this.getDateRangeValues()))
             .data("dateRangePicker").setDateRange(this.fromDate, this.toDate, false);
@@ -80,8 +50,13 @@ class DateRangePickerJQueryComponent {
         const yesterday = moment(today).subtract(1, "d");
         const thisWeekStartOfDay = moment(today).startOf("isoWeek");
         const lastMonthStartOfDay = moment(today).subtract(1, "M").startOf("M")
+        const lastMonthEndOfDay = moment(lastMonthStartOfDay).endOf("M").toDate()
+        const last3MonthsStartOfDay = moment(today).subtract(3, "M").startOf("M")
 
-        return [
+        const realLastMonthStartOfDay = lastMonthStartOfDay.diff(minDate) >= 0 ? lastMonthStartOfDay.toDate() : minDate.toDate();
+        const realLast3MonthsStartOfDay = last3MonthsStartOfDay.diff(minDate) >= 0 ? last3MonthsStartOfDay.toDate() : minDate.toDate();
+
+        const shortcuts = [
             {
                 name: dateRangePicker.data("label-today"),
                 dates: function () {
@@ -127,10 +102,7 @@ class DateRangePickerJQueryComponent {
             {
                 name: dateRangePicker.data("label-lastmonth"),
                 dates: function () {
-                    return [
-                        lastMonthStartOfDay.diff(minDate) >= 0 ? lastMonthStartOfDay.toDate() : minDate.toDate(),
-                        moment(lastMonthStartOfDay).endOf("M").toDate()
-                    ];
+                    return [realLastMonthStartOfDay, lastMonthEndOfDay];
                 }
             },
             {
@@ -143,13 +115,20 @@ class DateRangePickerJQueryComponent {
                 }
             }
         ];
+
+        if (realLastMonthStartOfDay !== realLast3MonthsStartOfDay) {
+            shortcuts.push({
+                name: dateRangePicker.data("label-last3months"),
+                dates: function () {
+                    return [realLast3MonthsStartOfDay, lastMonthEndOfDay];
+                }
+            });
+        }
+
+        return shortcuts;
     }
 
     getDateRangeValues() {
         return { fromDate: this.fromDate, toDate: this.toDate };
-    }
-
-    getHistoricPivotDate() {
-        return this.historicPivotDateText;
     }
 }

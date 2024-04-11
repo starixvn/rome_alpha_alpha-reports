@@ -1,0 +1,133 @@
+﻿@model WinLossDetailGetDataWeekViewModel
+@{
+    var custLevelIsMasterOrSuperLevel = Model.CustLevel.IsMasterOrSuperLevel();
+    var custLevelIsSuperLevel = Model.CustLevel.IsSuperLevel();
+    var custLevelIsAgentLevel = Model.CustLevel.IsAgentLevel();
+    var custLevelDirectDownlineLevelValue = Model.CustLevel.GetDirectDownLineLevel().Value;
+    var theadIndex = 0;
+    var totalColumns = custLevelIsSuperLevel
+        ? 19
+        : Model.CustLevel.IsMasterLevel() ? 16 : 13;
+}
+<table class="tblRpt tblRpt-bordered alternative-row-table-new width-100per tablesorter tblRpt-hover tblRpt-freeze-body tblRpt-freeze-header"
+       id="tbl-report"
+       data-cansort="@(Model.WinLossDetail.MoreThanOne() ? 1 : 0)"
+       data-yesterday="@Model.TotalEnteredSport.EnteredSportYesterday.EventDate.ToMMDDWithSlash()"
+       data-non-entered-yesterday="@Model.TotalEnteredSport.EnteredSportYesterday.NonEntered"
+       data-today="@Model.TotalEnteredSport.EnteredSportToday.EventDate.ToMMDDWithSlash()"
+       data-non-entered-today="@Model.TotalEnteredSport.EnteredSportToday.NonEntered"
+       data-breadcrumbleveljson="@Html.Raw(Model.BreadcrumbLevelJson)">
+    <thead>
+        <tr>
+            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="username">@Resources.Username</th>
+            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="fullname">@Resources.FirstLastName</th>
+            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="betcount">@Resources.BetCount</th>
+            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="turnover">@Resources.Turnover</th>
+            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="netturnover">@Resources.NetTurnover</th>
+            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="grosscomm">@Resources.GrossComm</th>
+            <th colspan="3" id="groupColumnMember">@Resources.Member</th>
+            <th colspan="3" id="groupColumnAgent">@Resources.Agent</th>
+            @if (custLevelIsMasterOrSuperLevel)
+            {
+                <th colspan="3" id="groupColumnMaster">@Resources.Master</th>
+            }
+            @if (custLevelIsSuperLevel)
+            {
+                <th colspan="3" id="groupColumnSuper">@Resources.Super</th>
+            }
+            <th rowspan="2" class="sorting" data-colindex="@(totalColumns - 1)"  data-colname="company">@Resources.Company</th>
+        </tr>
+        <tr class="thead-row2">
+            <th class="sorting" data-colindex="@(theadIndex++)" data-colname="pwinloss">@Resources.WinLoss</th>
+            <th class="sorting" data-colindex="@(theadIndex++)" data-colname="pcomm">@Resources.Comm</th>
+            <th class="sorting" data-colindex="@(theadIndex++)" data-colname="ptotal">@Resources.Total</th>
+            <th class="sorting" data-colindex="@(theadIndex++)" data-colname="awinloss">@Resources.WinLoss</th>
+            <th class="sorting" data-colindex="@(theadIndex++)" data-colname="acomm">@Resources.Comm</th>
+            <th class="sorting" data-colindex="@(theadIndex++)" data-colname="atotal">@Resources.Total</th>
+            @if (custLevelIsMasterOrSuperLevel)
+            {
+                <th class="sorting" data-colindex="@(theadIndex++)" data-colname="mwinloss">@Resources.WinLoss</th>
+                <th class="sorting" data-colindex="@(theadIndex++)" data-colname="mcomm">@Resources.Comm</th>
+                <th class="sorting" data-colindex="@(theadIndex++)" data-colname="mtotal">@Resources.Total</th>
+            }
+            @if (custLevelIsSuperLevel)
+            {
+                <th class="sorting" data-colindex="@(theadIndex++)" data-colname="swinloss">@Resources.WinLoss</th>
+                <th class="sorting" data-colindex="@(theadIndex++)" data-colname="scomm">@Resources.Comm</th>
+                <th class="sorting" data-colindex="@(theadIndex++)" data-colname="stotal">@Resources.Total</th>
+            }
+        </tr>
+    </thead>
+    @if (Model.WinLossDetail.Any())
+    {
+        <tbody>
+            @foreach (var data in Model.WinLossDetail.DataSource)
+            {
+                @RenderRow(data, false, custLevelIsAgentLevel, custLevelDirectDownlineLevelValue)
+            }
+        </tbody>
+        <tfoot>
+            @RenderRow(Model.WinLossDetail.TotalData, true, custLevelIsAgentLevel, custLevelDirectDownlineLevelValue)
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(colspan: totalColumns)
+    }
+</table>
+
+@helper RenderRow(WinLossDetailModel data, bool isTotalRow, bool custLevelIsAgentLevel, byte custLevelDirectDownlineLevelValue)
+{
+    var isDormantAccounts = data.CustId == 0;
+    <tr class="@(isTotalRow ? "tbl-footer" : (isDormantAccounts ? "dormant-accounts-mark" : string.Empty))">
+        @if (isTotalRow)
+        {
+            <td class="text-left">@Resources.Total</td>
+            <td data-colname="fullname"></td>
+        }
+        else
+        {
+            <td class="text-left col-username">
+                @if (isDormantAccounts)
+                {
+                    <span class="pull-left">@Resources.DormantAccounts</span>
+                    <span class="icon icon-information-outline icon-dormant-accounts" data-toggle="tooltip" data-placement="right" title="@Resources.SummaryOfDormantAccounts"></span>
+                }
+                else if (Model.CanViewBetLists)
+                {
+                    <a href="javascript:;"
+                       class="@(custLevelIsAgentLevel ? "betlists-link" : "downline-link")"
+                       data-custid="@data.CustId"
+                       data-custname="@data.CustName"
+                       data-custlevelid="@custLevelDirectDownlineLevelValue">@data.CustName</a>
+                }
+                else
+                {
+                    @:@data.CustName
+                }
+            </td>
+            <td class="text-left" data-colname="fullname"><div class="fullname" data-toggle="tooltip" data-placement="bottom" title="@data.FullName">@data.FullName</div></td>
+        }
+        <td data-colname="betcount">@HtmlHelpers.FormatNumber(data.BetCount)</td>
+        @HtmlHelpers.RenderNumberCell(data.Turnover, string.Empty, "turnover")
+        @HtmlHelpers.RenderNumberCell(data.NetTurnover, string.Empty, "netturnover")
+        @HtmlHelpers.RenderNumberCell(data.GrossComm, string.Empty, "grosscomm")
+        @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss, "p")
+        @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, "a")
+        @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss, "m")
+        @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, "s")
+        <td data-colname="company">@HtmlHelpers.FormatNumber(data.Company)</td>
+    </tr>
+}
+
+@helper RenderNetWinLoss(UserLevel level, NetWinLoss netWinLoss, string prefix)
+{
+    if (netWinLoss == null)
+    {
+        return;
+    }
+
+    @HtmlHelpers.RenderNumberCell(netWinLoss.WinLoss.Value, string.Empty, $"{prefix}winloss")
+    @HtmlHelpers.RenderNumberCell(netWinLoss.Comm.Value, string.Empty, $"{prefix}comm")
+    @HtmlHelpers.RenderNumberCell(netWinLoss.Total, "bold", $"{prefix}total")
+}

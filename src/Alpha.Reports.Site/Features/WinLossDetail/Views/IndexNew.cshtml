@@ -3,7 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Win Loss Detail Report";
     var jsonSettings = new JsonSerializerSettings { Formatting = Formatting.None, NullValueHandling = NullValueHandling.Ignore };
-    var canViewHistory = Model.DateRangePickerViewModel.MinDate < Model.DateRangePickerViewModel.HistoricPivotDate;
 }
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-reports/winlossdetail-new")
@@ -63,31 +62,9 @@
             @UsernameAutoSuggestion.Render()
             @VisibleColumnsDropdown.Render()
         </div>
-        <div class="label-week-box" id="week-selection"></div>
-        <div class="breadcrumb-table">
-            <div class="breadcrumb-container">
-                <ul class="breadcrumb" id="breadcrumb"></ul>
-            </div>
-            <div class="list-icon">
-                <ul>
-                    <li><span id="icon-copy" class="icon icon-content-copy" data-toggle="tooltip" data-placement="top" title="@Resources.Copy"></span></li>
-                    <li>
-                        <a href="javacript:;"
-                           id="icon-excel"
-                           class="icon icon-excel icon-excel-new"
-                           data-toggle="tooltip"
-                           data-placement="top"
-                           title="@Resources.ExportToExcel"
-                           data-url="@Url.Action("ExcelNew", $"{SiteSettings.ReportRouting}WinLossDetail")"></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
-    <div class="wrapper-table-scrollable">
-        <div style="visibility:hidden" id="tbl-report-container" class="scrollable">
-            @Html.Partial("~/Features/WinLossDetail/Views/ReportDataNew.cshtml", Model)
-        </div>
+    <div id="report-week-selection" class="cover-week-selection">
+        @Html.Partial("~/Features/WinLossDetail/Views/ReportDataNew.cshtml", Model)
     </div>
 </div>
 <input type="hidden" id="hiddenViewerId" value="@Model.ViewerId" />
@@ -97,8 +74,9 @@
 <input type="hidden" id="hiddenCustId" value="@Model.CustId" />
 <input type="hidden" id="hiddenCustName" value="@Model.CustName" />
 <input type="hidden" id="hiddenCustLevel" value="@Model.CustLevel.Value" />
-<input type="hidden" id="hiddenLegendUrl" value="@Url.Action("ReportLegend", $"{SiteSettings.ReportRouting}WinLossDetail", new { IsNew = canViewHistory, IsSupportHistoricReport = true, MinDate = canViewHistory ? Model.DateRangePickerViewModel.HistoricPivotDate : Model.DateRangePickerViewModel.MinDate, ShowDormantAccountsNote = true })" />
-<input type="hidden" id="hiddenWinLossDetailUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WinLossDetail")" />
+<input type="hidden" id="hiddenLegendUrl" value="@Url.Action("ReportLegend", $"{SiteSettings.ReportRouting}WinLossDetail", new { IsNew = true, IsSupportHistoricReport = true, MinDate = Model.DateRangePickerViewModel.MinDate, ShowDormantAccountsNote = true })" />
+<input type="hidden" id="hiddenGetDataUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WinLossDetail")" />
+<input type="hidden" id="hiddenGetDataWeekUrl" value="@Url.Action("GetDataWeek", $"{SiteSettings.ReportRouting}WinLossDetail")" />
 <input type="hidden" id="hiddenBetListsUrl" value="@Model.BetListsUrl" />
 <input type="hidden" id="hiddenUsernameAutoSuggestionUrl" value="@Url.Action("Get", $"{SiteSettings.ReportRouting}UsernameSuggestion")" />
 <input type="hidden" id="hiddenUsername" value="@Model.Username" />
@@ -114,3 +92,4 @@
 <input type="hidden" id="hiddenShowFilterText" value="@Resources.ShowFilter" />
 <input type="hidden" id="hiddenMainDomain" value="@Model.MainDomain" />
 <input type="hidden" id="hiddenShowColumns" value="@Model.ShowColumns" />
+

@@ -14,6 +14,7 @@
         private const string FullDateName = "dddd";
         private const int MonthsInYear = 12;
         private const int LastDayOfMonth12 = 31;
+        private const int NumberOfWeek = 7;
 
         public static string ToMMDDWithSlash(this DateTime dateTime)
             => dateTime.ToString(MMDDWithSlash);
@@ -65,5 +66,12 @@
 
         public static DateTime GetGreaterDate(this DateTime fromDate, DateTime limitedDate)
             => fromDate < limitedDate ? limitedDate : fromDate;
+
+        public static DateTime StartOfWeek(this DateTime date, DayOfWeek startOfWeek = DayOfWeek.Monday)
+        {
+            int diff = (NumberOfWeek + (date.DayOfWeek - startOfWeek)) % NumberOfWeek;
+
+            return date.AddDays(-1 * diff).Date;
+        }
     }
 }

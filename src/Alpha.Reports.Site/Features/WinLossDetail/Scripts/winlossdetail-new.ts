@@ -22,9 +22,11 @@ class WinLossDetailViewNew extends BaseReportView {
     private weekSelectionComponent: WeekSelectionComponent
     private breadcrumbLevelComponent: BreadcrumbLevelComponent;
     private winLossDetailCopyHtml: WinLossDetailCopyHtml;
+    private reportWeekSelection: JQuery;
     private tableReportContainer: JQuery;
     private tableReport: JQuery;
-    private winLossDetailUrl: string
+    private winLossDetailGetDataUrl: string
+    private winLossDetailGetDataWeekUrl: string
     private globalFormData: any;
     private sortColumnName = "username";
     private sortIndicator = 0; // asc: 0, desc: 1
@@ -51,8 +53,10 @@ class WinLossDetailViewNew extends BaseReportView {
     }
 
     init() {
+        this.reportWeekSelection = $("#report-week-selection");
         this.tableReportContainer = $("#tbl-report-container");
-        this.winLossDetailUrl = $("#hiddenWinLossDetailUrl").val();
+        this.winLossDetailGetDataUrl = $("#hiddenGetDataUrl").val();
+        this.winLossDetailGetDataWeekUrl = $("#hiddenGetDataWeekUrl").val();
 
         this.renderComponents();
         this.bindEvents();
@@ -86,9 +90,10 @@ class WinLossDetailViewNew extends BaseReportView {
         this.totalEnteredNonEnteredComponent.init();
 
         this.dateRangePickerComponent.render(new DateRangePickerJQueryOption((dateRange) => {
-            this.constraintDateRangeAndProductDropdownList(dateRange);
+            //this.constraintDateRangeAndProductDropdownList(dateRange);
             const productsAndResources = this.productAndProductDetailDropdownComponent.getCheckedValues();
             const username = this.usernameAutoSuggestionComponent.getUsername();
+            this.resetActiveWeek();
             $.extend(this.globalFormData, dateRange, productsAndResources, { username });
             if (this.isInvalidGlobalFormData()) {
                 return;
@@ -103,6 +108,7 @@ class WinLossDetailViewNew extends BaseReportView {
             (productsAndResources) => {
                 const dateRange = this.dateRangePickerComponent.getDateRangeValues();
                 const username = this.usernameAutoSuggestionComponent.getUsername();
+                this.resetActiveWeek();
                 $.extend(this.globalFormData, dateRange, productsAndResources, { username });
                 if (this.isInvalidGlobalFormData()) {
                     return;
@@ -112,7 +118,7 @@ class WinLossDetailViewNew extends BaseReportView {
             }));
 
         const dateRange = this.dateRangePickerComponent.getDateRangeValues();
-        this.constraintDateRangeAndProductDropdownList(dateRange);
+        //this.constraintDateRangeAndProductDropdownList(dateRange);
 
         this.usernameAutoSuggestionComponent.init(new UsernameAutoSuggestionOption(
             $("#hiddenUsernameAutoSuggestionUrl").val(),
@@ -124,11 +130,13 @@ class WinLossDetailViewNew extends BaseReportView {
                 this.isGettingReportData = true;
                 const dateRange = this.dateRangePickerComponent.getDateRangeValues();
                 const productsAndResources = this.productAndProductDetailDropdownComponent.getCheckedValues();
+                this.resetActiveWeek();
                 $.extend(this.globalFormData, dateRange, productsAndResources, { username });
                 // reset params: custId, custName, custLevelId
                 delete this.globalFormData.custId;
                 delete this.globalFormData.custName;
                 delete this.globalFormData.custLevelId;
+                delete this.globalFormData.breadcrumbLevelJson;
                 if (this.isInvalidGlobalFormData()) {
                     this.isGettingReportData = false;
                     return;
@@ -156,12 +164,11 @@ class WinLossDetailViewNew extends BaseReportView {
             this.addIsWeekSelectionForStatistic();
 
             $.extend(this.globalFormData, dateRange);
-            this.getWinLossDetailData();
-        }, this.getMomentLocale(currentLanguage)));
+            this.getWinLossDetailDataWeek();
+        }));
         const activeWeekRange = weekFromDate.length > 0 && weekToDate.length > 0
             ? { weekFromDate: weekFromDate.val(), weekToDate: weekToDate.val() }
-            : undefined;
-        this.weekSelectionComponent.render(dateRange, activeWeekRange);
+            : {};
 
         this.breadcrumbLevelComponent.init(new BreadcrumbLevelOption(
             this.buildBreadcrumbs(),
@@ -173,7 +180,9 @@ class WinLossDetailViewNew extends BaseReportView {
                 this.usernameAutoSuggestionComponent.resetUsername();
                 delete this.globalFormData.username;
 
-                $.extend(this.globalFormData, breadcrumbData);
+                const dateRange = this.dateRangePickerComponent.getDateRangeValues();
+                const activeWeek = this.weekSelectionComponent.getActiveWeek();
+                $.extend(this.globalFormData, dateRange, activeWeek, breadcrumbData);
                 this.getWinLossDetailData(() => {
                     this.breadcrumbLevelComponent.removeBreadcrumbLevel(breadcrumbData.custLevelId);
                     this.updateCurrentUrl();
@@ -187,22 +196,22 @@ class WinLossDetailViewNew extends BaseReportView {
             custLevelId: +$("#hiddenCustLevel").val(),
             username: searchUsername,
             showColumns: $("#hiddenShowColumns").val()
-        }, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues());
+        }, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues(), activeWeekRange);
         // update fromDate/toDate of globalFormData if activeWeekRange is NOT undefined
-        if (activeWeekRange) {
-            this.globalFormData.fromDate = activeWeekRange.weekFromDate;
-            this.globalFormData.toDate = activeWeekRange.weekToDate;
-        }
+        //if (activeWeekRange) {
+        //    this.globalFormData.fromDate = activeWeekRange.weekFromDate;
+        //    this.globalFormData.toDate = activeWeekRange.weekToDate;
+        //}
     }
 
-    private constraintDateRangeAndProductDropdownList(dateRange) {
-        const historicPivotDate = moment(this.dateRangePickerComponent.getHistoricPivotDate());
-        if (moment(dateRange.fromDate).isSameOrAfter(historicPivotDate)) {
-            this.productAndProductDetailDropdownComponent.hideHistoricProducts();
-        } else {
-            this.productAndProductDetailDropdownComponent.showHistoricProducts();
-        }
-    }
+    //private constraintDateRangeAndProductDropdownList(dateRange) {
+    //    const historicPivotDate = moment(this.dateRangePickerComponent.getHistoricPivotDate());
+    //    if (moment(dateRange.fromDate).isSameOrAfter(historicPivotDate)) {
+    //        this.productAndProductDetailDropdownComponent.hideHistoricProducts();
+    //    } else {
+    //        this.productAndProductDetailDropdownComponent.showHistoricProducts();
+    //    }
+    //}
 
     private getDateRangePickerLocale(language: string) {
         const locale = {
@@ -215,22 +224,13 @@ class WinLossDetailViewNew extends BaseReportView {
         return locale[language] || "default";
     }
 
-    private getMomentLocale(language: string) {
-        const locale = {
-            "th-TH": "th",
-            "vi-VN": "vi",
-            "zh-CN": "zh-cn",
-            "zh-TW": "zh-tw",
-            "default": "en"
-        };
-
-        return locale[language] || locale.default;
-    }
-
     private getWinLossDetailDataAndRenderWeekRange(isRebuildBreadcrumb: boolean = false) {
         this.getWinLossDetailData(() => {
-            this.weekSelectionComponent.render(this.globalFormData, undefined);
-            isRebuildBreadcrumb && this.breadcrumbLevelComponent.setBreadcrumbs(this.buildBreadcrumbs())
+            if (isRebuildBreadcrumb) {
+                this.breadcrumbLevelComponent.setBreadcrumbs(this.buildBreadcrumbs());
+            } else {
+                this.breadcrumbLevelComponent.render();
+            }
             this.updateCurrentUrl();
         });
     }
@@ -238,14 +238,49 @@ class WinLossDetailViewNew extends BaseReportView {
     private getWinLossDetailData(callback = Function()) {
         //this.addMoreParamsForStatistic();
 
+        this.reportWeekSelection.block();
+        $.get(`${this.winLossDetailGetDataUrl}?${$.param(this.globalFormData)}`, (html) => {
+            this.reportWeekSelection.html(html);
+            this.weekSelectionComponent.bindEvents();
+            this.tableReportContainer = $("#tbl-report-container");
+            this.bindCopyAndExcelEvents();
+            this.bindTableReportEvents();
+            this.totalEnteredNonEnteredComponent.update(
+                { eventDate: this.tableReport.data("yesterday"), nonEntered: this.tableReport.data("non-entered-yesterday") },
+                { eventDate: this.tableReport.data("today"), nonEntered: this.tableReport.data("non-entered-today") });
+            callback();
+            this.reportWeekSelection.unblock();
+            this.isGettingReportData = false;
+        }).fail((jqXHR) => {
+            this.reportWeekSelection.unblock();
+            this.isGettingReportData = false;
+            if (jqXHR.status === 429) {
+                window.location.href = window.top.alpha.urls.mainRootPath + "error/blocked";
+            } else if (jqXHR.status === 500 && jqXHR.responseText) {
+                const responseObject = JSON.parse(jqXHR.responseText);
+                if (responseObject.UMFrom && responseObject.UMTo) {
+                    const cookielessSiteMainUrl = $("#CookielessSiteMainUrl");
+                    const siteMainUrl = cookielessSiteMainUrl.length
+                        ? cookielessSiteMainUrl.val()
+                        : window.top.alpha.urls.mainRootPath;
+                    window.location.href = `${siteMainUrl}partialum/index?${$.param(responseObject)}`;
+                }
+            }
+        }).always(() => this.removeIsWeekSelectionForStatistic());
+    }
+
+    private getWinLossDetailDataWeek(callback = Function()) {
+        //this.addMoreParamsForStatistic();
+
         this.tableReportContainer.block();
-        $.get(`${this.winLossDetailUrl}?${$.param(this.globalFormData)}`, (html) => {
+        $.get(`${this.winLossDetailGetDataWeekUrl}?${$.param(this.globalFormData)}`, (html) => {
             this.tableReportContainer.html(html);
             this.bindTableReportEvents();
             this.totalEnteredNonEnteredComponent.update(
                 { eventDate: this.tableReport.data("yesterday"), nonEntered: this.tableReport.data("non-entered-yesterday") },
                 { eventDate: this.tableReport.data("today"), nonEntered: this.tableReport.data("non-entered-today") });
             callback();
+            this.updateCurrentUrl();
             this.tableReportContainer.unblock();
             this.isGettingReportData = false;
         }).fail((jqXHR) => {
@@ -299,21 +334,7 @@ class WinLossDetailViewNew extends BaseReportView {
             }
         });
 
-        this.winLossDetailCopyHtml.init();
-
-        $("#icon-excel").click((e) => {
-            if (this.isInvalidGlobalFormData()) {
-                e.preventDefault();
-                return;
-            }
-
-            const $this = $(e.target);
-            $this.attr("href", `${$this.data("url")}?${$.param(this.globalFormData)}`);
-            setTimeout(function () {
-                $this.attr("href", "javascript:;");
-            }, 1000);
-        }).tooltip();
-
+        this.bindCopyAndExcelEvents();
         this.bindTableReportEvents();
     }
 
@@ -353,12 +374,15 @@ class WinLossDetailViewNew extends BaseReportView {
             delete this.globalFormData.username;
 
             const $this = $(e.target);
+            const dateRange = this.dateRangePickerComponent.getDateRangeValues();
+            const activeWeek = this.weekSelectionComponent.getActiveWeek();
             const breadcrumbData = {
                 custId: $this.data("custid"),
                 custName: $this.data("custname"),
-                custLevelId: $this.data("custlevelid")
+                custLevelId: $this.data("custlevelid"),
+                breadcrumbLevelJson: JSON.stringify(this.breadcrumbLevelComponent.getBreadcrumbs())
             };
-            $.extend(this.globalFormData, breadcrumbData);
+            $.extend(this.globalFormData, dateRange, activeWeek, breadcrumbData);
 
             this.getWinLossDetailData(() => {
                 this.breadcrumbLevelComponent.addBreadcrumbLevel(breadcrumbData);
@@ -370,6 +394,23 @@ class WinLossDetailViewNew extends BaseReportView {
 
         this.initTableSorter();
         this.winLossDetailColumns.showHideColumns();
+    }
+
+    private bindCopyAndExcelEvents() {
+        this.winLossDetailCopyHtml.init();
+
+        $("#icon-excel").off().click((e) => {
+            if (this.isInvalidGlobalFormData()) {
+                e.preventDefault();
+                return;
+            }
+
+            const $this = $(e.target);
+            $this.attr("href", `${$this.data("url")}?${$.param(this.globalFormData)}`);
+            setTimeout(function () {
+                $this.attr("href", "javascript:;");
+            }, 1000);
+        }).tooltip();
     }
 
     private initTableSorter() {
@@ -454,6 +495,11 @@ class WinLossDetailViewNew extends BaseReportView {
 
     private removeIsWeekSelectionForStatistic() {
         delete this.globalFormData.isWeekSelection;
+    }
+
+    private resetActiveWeek() {
+        delete this.globalFormData.weekFromDate;
+        delete this.globalFormData.weekToDate;
     }
 }
 

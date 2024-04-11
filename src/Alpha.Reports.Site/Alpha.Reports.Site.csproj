@@ -610,6 +610,8 @@
     <Content Include="App_Data\securitycode.napinternal3.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
+    <Content Include="App_Code\Components\WeekSelection.cshtml" />
+    <Content Include="App_Code\Components\BreadcrumbNew.cshtml" />
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
@@ -846,6 +848,7 @@
     <Compile Include="Features\Shared\ViewModels\Components\DateRangePickerNewViewModel.cs" />
     <Compile Include="Features\Shared\ViewModels\Components\ProductDetailNewViewModel.cs" />
     <Compile Include="Features\Shared\ViewModels\Components\ProductViewModel.cs" />
+    <Compile Include="Features\Shared\ViewModels\Components\WeekSelectionViewModel.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\SuperWinLossDetailByPTController.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
@@ -888,11 +891,13 @@
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailHandler.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcelNewQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailGetDataQuery.cs" />
+    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailGetDataWeekQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailNewQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\ReportLegendQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcelQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailQuery.cs" />
     <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailGetDataViewModel.cs" />
+    <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailGetDataWeekViewModel.cs" />
     <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailNewViewModel.cs" />
     <Compile Include="Features\WinLossDetail\ViewModels\WinLossDetailViewModel.cs" />
     <Compile Include="Features\WinLossDetail\WinLossDetailController.cs" />
@@ -1969,6 +1974,7 @@
     <Content Include="Features\Shared\Styles\report-legend.scss" />
     <Content Include="Features\Shared\Styles\report-legend-dark.scss" />
     <Content Include="Features\WinLossDetail\Views\ReportDataNew.cshtml" />
+    <Content Include="Features\WinLossDetail\Views\ReportDataWeek.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

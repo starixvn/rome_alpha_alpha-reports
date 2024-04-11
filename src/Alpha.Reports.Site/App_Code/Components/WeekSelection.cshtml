@@ -1,0 +1,22 @@
+﻿@using Alpha.Reports.Extensions;
+@using Alpha.Reports.Site.Features.Shared.ViewModels.Components;
+
+@helper Render(IEnumerable<WeekSelectionViewModel> viewModels)
+{
+<div class="label-week-box" id="week-selection">
+    @foreach (var item in viewModels)
+    {
+        if (item.IsEnable)
+        {
+            <a href="javascript:;"
+               class="label-week@(item.IsActive ? " active" : string.Empty)"
+               data-fromdate="@item.FromDate.ToShortDateWithSlash()"
+               data-todate="@item.ToDate.ToShortDateWithSlash()">@item.Display</a>
+        }
+        else
+        {
+            <a href="javascript:;" class="label-week disabled">@item.Display</a>
+        }
+    }
+</div>
+}
