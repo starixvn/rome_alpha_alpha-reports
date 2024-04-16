@@ -13,6 +13,7 @@
             string custName,
             string firstName,
             string lastName,
+            bool isExistedWatchlist,
             decimal grossComm,
             decimal netTurnover,
             decimal turnover,
@@ -26,6 +27,7 @@
             CustName = custName;
             FirstName = firstName;
             LastName = lastName;
+            IsExistedWatchlist = isExistedWatchlist;
             GrossComm = grossComm;
             NetTurnover = netTurnover;
             Turnover = turnover;
@@ -61,6 +63,8 @@
                 return $"{FirstName}{LastName}";
             }
         }
+
+        public bool IsExistedWatchlist { get; }
 
         public decimal Turnover { get; }
 

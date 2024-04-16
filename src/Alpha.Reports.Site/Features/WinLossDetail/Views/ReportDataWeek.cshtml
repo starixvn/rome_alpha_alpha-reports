@@ -103,7 +103,18 @@
                 }
                 else
                 {
-                    @:@data.CustName
+                    <span>@data.CustName</span>
+                }
+                @if (Model.CanShowMonitoredIcon)
+                {
+                    if (data.IsExistedWatchlist)
+                    {
+                        <span class="icon-mywatchlist" data-toggle="tooltip" data-placement="right" title="@Resources.MonitoredMember"></span>
+                    }
+                    else if (Model.CanUpdateAccount)
+                    {
+                        <span class="icon-plus" data-toggle="tooltip" data-placement="right" title="@Resources.AddToMyWatchlist"></span>
+                    }
                 }
             </td>
             <td class="text-left" data-colname="fullname"><div class="fullname" data-toggle="tooltip" data-placement="bottom" title="@data.FullName">@data.FullName</div></td>

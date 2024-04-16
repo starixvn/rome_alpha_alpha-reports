@@ -16,6 +16,7 @@
         {
             IsProtectedMode = viewer.IsProtectedMode;
             IsOfferNewWinLossDetailReport = SiteSettings.IsOfferNewWinLossDetailReport(viewer.Site);
+            CanUpdateAccount = viewer.CanUpdateAccount;
         }
 
         public string ProductIds { get; set; } = DefaultVariables.AllProducts;
@@ -63,6 +64,8 @@
         public DateTime? WeekToDate { get; set; }
 
         public bool IsOfferNewWinLossDetailReport { get; }
+
+        public bool CanUpdateAccount { get; }
 
         public override bool IsValid()
             => base.IsValid() && IsValidWeekRange() && IsOfferNewWinLossDetailReport;

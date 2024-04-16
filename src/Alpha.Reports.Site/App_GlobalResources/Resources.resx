@@ -1161,4 +1161,10 @@
   <data name="SabaOtherSportsLegend" xml:space="preserve">
     <value>- Data of {0} will be under {1}.</value>
   </data>
+  <data name="MonitoredMember" xml:space="preserve">
+    <value>Monitored Member</value>
+  </data>
+  <data name="AddToMyWatchlist" xml:space="preserve">
+    <value>Add to My Watchlist</value>
+  </data>
 </root>

@@ -215,8 +215,8 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
             .data("dateRangePicker").setDateRange(this.fromDate, this.toDate, false);
     };
     DateRangePickerJQueryComponent.prototype.getPredefinedRanges = function (dateRangePicker) {
-        var minDate = moment(dateRangePicker.data("mindate"));
-        var today = moment(dateRangePicker.data("currentdate"));
+        var minDate = moment(dateRangePicker.data("mindate"), alphaReports.format.shortDateWithSlash_DatePicker);
+        var today = moment(dateRangePicker.data("currentdate"), alphaReports.format.shortDateWithSlash_DatePicker);
         var todayValue = today.toDate();
         var yesterday = moment(today).subtract(1, "d");
         var thisWeekStartOfDay = moment(today).startOf("isoWeek");
@@ -1284,6 +1284,28 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
                 _this.updateCurrentUrl();
             });
             _this.tableReport.find(".icon-dormant-accounts").tooltip();
+        });
+        this.tableReport.find(".icon-plus").off().click(function (e) {
+            window.top["reloadMyWatchlistDataTable"] = function () { return window.location.reload(); };
+            var custName = $(e.target).prev(".betlists-link").data("custname");
+            var url = $("#hiddenMemberInfoUrl").val() + "MyWatchlistAccounts/ManageWatchlistAccounts?usernames=" + custName;
+            var width = 820;
+            var height = 550;
+            var mainDomain = $("#hiddenMainDomain").val();
+            if (mainDomain.length) {
+                mainDomain = mainDomain.indexOf("http") === -1
+                    ? location.origin.split(":")[0] + ":" + mainDomain + "/site-main"
+                    : mainDomain;
+                window.top.postMessage({
+                    event_id: "winlossdetailnew-addtomywatchlist",
+                    url: url,
+                    width: width,
+                    height: height
+                }, mainDomain);
+            }
+            else {
+                window.top["popupManager"].open(url, undefined, width, height, "modal-mobile-friendly");
+            }
         });
         this.initTableSorter();
         this.winLossDetailColumns.showHideColumns();

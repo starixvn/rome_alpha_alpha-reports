@@ -1071,4 +1071,7 @@
   <data name="SabaOtherSportsLegend" xml:space="preserve">
     <value>- ข้อมูลของ {0} จะอยู่ภายใต้ {1}</value>
   </data>
+  <data name="AddToMyWatchlist" xml:space="preserve">
+    <value>เพิ่ิ่มเข้าสู่รายการเฝ้าดูของฉัน</value>
+  </data>
 </root>

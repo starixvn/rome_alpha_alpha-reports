@@ -1136,4 +1136,7 @@
   <data name="SabaOtherSportsLegend" xml:space="preserve">
     <value>- Dữ liệu {0} đã bao gồm trong {1}</value>
   </data>
+  <data name="AddToMyWatchlist" xml:space="preserve">
+    <value>Thêm vào Danh Sách Theo Dõi</value>
+  </data>
 </root>
