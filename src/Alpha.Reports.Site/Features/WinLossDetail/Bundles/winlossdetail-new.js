@@ -960,6 +960,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         _this.sortColumnName = "username";
         _this.sortIndicator = 0; // asc: 0, desc: 1
         _this.isGettingReportData = false;
+        _this.isWeekSelectionClicked = false;
         _this.totalEnteredNonEnteredComponent = totalEnteredNonEnteredComponent;
         _this.dateRangePickerComponent = dateRangePickerComponent;
         _this.productAndProductDetailDropdownComponent = productAndProductDetailDropdownComponent;
@@ -1133,6 +1134,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             _this.bindTableReportEvents();
             _this.totalEnteredNonEnteredComponent.update({ eventDate: _this.tableReport.data("yesterday"), nonEntered: _this.tableReport.data("non-entered-yesterday") }, { eventDate: _this.tableReport.data("today"), nonEntered: _this.tableReport.data("non-entered-today") });
             callback();
+            _this.isWeekSelectionClicked = false;
             _this.reportWeekSelection.unblock();
             _this.isGettingReportData = false;
         }).fail(function (jqXHR) {
@@ -1184,6 +1186,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             _this.totalEnteredNonEnteredComponent.update({ eventDate: _this.tableReport.data("yesterday"), nonEntered: _this.tableReport.data("non-entered-yesterday") }, { eventDate: _this.tableReport.data("today"), nonEntered: _this.tableReport.data("non-entered-today") });
             callback();
             _this.updateCurrentUrl();
+            _this.isWeekSelectionClicked = true;
             _this.tableReportContainer.unblock();
             _this.isGettingReportData = false;
         }).fail(function (jqXHR) {
@@ -1285,8 +1288,8 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             });
             _this.tableReport.find(".icon-dormant-accounts").tooltip();
         });
-        this.tableReport.find(".icon-add-watchlist").off("click").click(function (e) {
-            window.top["reloadMyWatchlistDataTable"] = function () { return window.location.reload(); };
+        this.tableReport.find(".icon-plus-box").off("click").click(function (e) {
+            window.top["reloadMyWatchlistDataTable"] = function () { return _this.isWeekSelectionClicked ? _this.getWinLossDetailDataWeek() : _this.getWinLossDetailDataAndRenderWeekRange(true); };
             var custName = $(e.target).prev(".betlists-link").data("custname");
             var url = $("#hiddenMemberInfoUrl").val() + "MyWatchlistAccounts/ManageWatchlistAccounts?usernames=" + custName;
             var width = 820;

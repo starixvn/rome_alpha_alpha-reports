@@ -1074,4 +1074,7 @@
   <data name="AddToMyWatchlist" xml:space="preserve">
     <value>เพิ่ิ่มเข้าสู่รายการเฝ้าดูของฉัน</value>
   </data>
+  <data name="MonitoredMember" xml:space="preserve">
+    <value>สมาชิกที่กำลังเฝ้าดู</value>
+  </data>
 </root>

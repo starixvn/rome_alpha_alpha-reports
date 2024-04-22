@@ -489,13 +489,15 @@ a {
 .align-username {
   display: flex;
   align-items: center; }
-  .align-username .icon-add-watchlist, .align-username .icon-mywatchlist {
+  .align-username .icon-plus-box, .align-username .icon-mywatchlist {
     margin-left: auto;
     margin-right: 0;
     font-size: 16px;
-    cursor: pointer; }
-  .align-username .icon-mywatchlist + .tooltip, .align-username .icon-add-watchlist + .tooltip {
-    white-space: nowrap; }
+    cursor: pointer;
+    color: #919191;
+    padding: 0; }
+    .align-username .icon-plus-box + .tooltip, .align-username .icon-mywatchlist + .tooltip {
+      white-space: nowrap; }
 
 .note .star {
   color: #E54748;

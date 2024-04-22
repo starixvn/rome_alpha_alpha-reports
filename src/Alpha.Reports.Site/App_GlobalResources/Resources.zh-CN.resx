@@ -1080,4 +1080,7 @@
   <data name="AddToMyWatchlist" xml:space="preserve">
     <value>添加至我的监控列表</value>
   </data>
+  <data name="MonitoredMember" xml:space="preserve">
+    <value>监控会员</value>
+  </data>
 </root>

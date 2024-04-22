@@ -1139,4 +1139,7 @@
   <data name="AddToMyWatchlist" xml:space="preserve">
     <value>Thêm vào Danh Sách Theo Dõi</value>
   </data>
+  <data name="MonitoredMember" xml:space="preserve">
+    <value>Đang theo dõi</value>
+  </data>
 </root>

@@ -18,7 +18,7 @@
             TotalEnteredSport = totalEnteredSport;
             WinLossDetail = winLossDetail;
             BreadcrumbLevelJson = JsonHelper.ToJson(message.BreadcrumbLevel);
-            CanShowMonitoredIcon = message.ViewerLevel.IsAgentLevel();
+            CanShowMonitoredIcon = !message.IsProtectedMode && message.ViewerLevel.IsAgentLevel();
             CanUpdateAccount = message.CanUpdateAccount;
         }
 

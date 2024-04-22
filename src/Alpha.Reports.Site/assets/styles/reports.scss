@@ -585,14 +585,14 @@ a {
     display: flex;
     align-items: center;
 
-    .icon-add-watchlist, .icon-mywatchlist {
+    .icon-plus-box, .icon-mywatchlist {
         margin-left: auto;
         margin-right: 0;
         font-size: 16px;
         cursor: pointer;
-    }
+        color: #919191;
+        padding: 0;
 
-    .icon-mywatchlist, .icon-add-watchlist {
         + .tooltip {
             white-space: nowrap;
         }
