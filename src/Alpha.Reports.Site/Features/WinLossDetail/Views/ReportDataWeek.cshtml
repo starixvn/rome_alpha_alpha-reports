@@ -88,6 +88,7 @@
         else
         {
             <td class="text-left col-username">
+                <div class="align-username">
                 @if (isDormantAccounts)
                 {
                     <span class="pull-left">@Resources.DormantAccounts</span>
@@ -113,9 +114,10 @@
                     }
                     else if (Model.CanUpdateAccount)
                     {
-                        <span class="icon-plus" data-toggle="tooltip" data-placement="right" title="@Resources.AddToMyWatchlist"></span>
+                        <span class="icon-add-watchlist" data-toggle="tooltip" data-placement="right" title="@Resources.AddToMyWatchlist"></span>
                     }
                 }
+                </div>
             </td>
             <td class="text-left" data-colname="fullname"><div class="fullname" data-toggle="tooltip" data-placement="bottom" title="@data.FullName">@data.FullName</div></td>
         }

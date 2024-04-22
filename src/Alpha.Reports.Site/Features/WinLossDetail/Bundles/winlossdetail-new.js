@@ -1285,7 +1285,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             });
             _this.tableReport.find(".icon-dormant-accounts").tooltip();
         });
-        this.tableReport.find(".icon-plus").off().click(function (e) {
+        this.tableReport.find(".icon-add-watchlist").off("click").click(function (e) {
             window.top["reloadMyWatchlistDataTable"] = function () { return window.location.reload(); };
             var custName = $(e.target).prev(".betlists-link").data("custname");
             var url = $("#hiddenMemberInfoUrl").val() + "MyWatchlistAccounts/ManageWatchlistAccounts?usernames=" + custName;

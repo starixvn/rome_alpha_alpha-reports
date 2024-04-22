@@ -415,7 +415,7 @@ class WinLossDetailViewNew extends BaseReportView {
             this.tableReport.find(".icon-dormant-accounts").tooltip();
         });
 
-        this.tableReport.find(".icon-plus").off().click((e) => {
+        this.tableReport.find(".icon-add-watchlist").off("click").click((e) => {
             window.top["reloadMyWatchlistDataTable"] = () => window.location.reload();
             const custName = $(e.target).prev(".betlists-link").data("custname");
             const url = `${$("#hiddenMemberInfoUrl").val()}MyWatchlistAccounts/ManageWatchlistAccounts?usernames=${custName}`;

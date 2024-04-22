@@ -546,6 +546,57 @@ a {
             }
         }
     }
+
+    &.right {
+        pointer-events: none;
+
+        .tooltip-arrow {
+            display: none;
+        }
+
+        &:after, &:before {
+            top: 0;
+            left: 0;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+        }
+
+        &:after {
+            border-color: transparent;
+            border-right-color: #f2f2f2;
+            border-width: 6px;
+            margin-left: -6px;
+            margin-top: 6px;
+        }
+
+        &:before {
+            border-color: transparent;
+            border-right-color: #ccc;
+            border-width: 8px;
+            margin-left: -10px;
+            margin-top: 4px;
+        }
+    }
+}
+.align-username {
+    display: flex;
+    align-items: center;
+
+    .icon-add-watchlist, .icon-mywatchlist {
+        margin-left: auto;
+        margin-right: 0;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .icon-mywatchlist, .icon-add-watchlist {
+        + .tooltip {
+            white-space: nowrap;
+        }
+    }
 }
 // Filter
 .note {
@@ -1126,6 +1177,8 @@ table.dataTable {
             }
         }
     }
+
+    
 }
 //
 .note_title {

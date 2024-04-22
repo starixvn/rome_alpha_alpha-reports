@@ -456,10 +456,46 @@ a {
 
 .tooltip.top .tooltip-inner:before {
   border-color: transparent;
-  border-top-color: #999999;
+  border-top-color: #5F626B;
   border-width: 10px;
   margin-left: -10px;
   margin-bottom: -14px; }
+
+.tooltip.right {
+  pointer-events: none; }
+  .tooltip.right .tooltip-arrow {
+    display: none; }
+  .tooltip.right:after, .tooltip.right:before {
+    top: 0;
+    left: 0;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute; }
+  .tooltip.right:after {
+    border-color: transparent;
+    border-right-color: #2E2E2E;
+    border-width: 6px;
+    margin-left: -6px;
+    margin-top: 6px; }
+  .tooltip.right:before {
+    border-color: transparent;
+    border-right-color: #5F626B;
+    border-width: 8px;
+    margin-left: -10px;
+    margin-top: 4px; }
+
+.align-username {
+  display: flex;
+  align-items: center; }
+  .align-username .icon-add-watchlist, .align-username .icon-mywatchlist {
+    margin-left: auto;
+    margin-right: 0;
+    font-size: 16px;
+    cursor: pointer; }
+  .align-username .icon-mywatchlist + .tooltip, .align-username .icon-add-watchlist + .tooltip {
+    white-space: nowrap; }
 
 .note .star {
   color: #E54748;
