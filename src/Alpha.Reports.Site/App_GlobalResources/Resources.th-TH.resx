@@ -631,7 +631,7 @@
     <value>ตรวจสอบไอพี</value>
   </data>
   <data name="IP" xml:space="preserve">
-    <value>รหัสของเครื่องคอมพิวเตอร์ที่ใช้</value>
+    <value>ไอพี</value>
   </data>
   <data name="IPMatchingNote" xml:space="preserve">
     <value>รายงานนี้ ใช้เป็นข้อมูลเชิงสถิติเท่านั้น ตัวเลขอาจมีความคลาดเคลื่อนจากความเป็นจริงได้</value>
