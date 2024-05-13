@@ -73,12 +73,9 @@
 
             if (AppSettings.IsSiteLabel777)
             {
-                var sabaWord = remotingRefService.GetResourceDataByRefIdAndResourceId("Saba", "Saba", LanguageCode, "Saba");
-                var sabaWords = new List<string> { $" {sabaWord}", $"{sabaWord} ", sabaWord };
-                foreach (var word in sabaWords)
-                {
-                    productName = Regex.Replace(productName, word, string.Empty, RegexOptions.IgnoreCase);
-                }
+                var productNameFor777 = GetResourceDataByRefIdAndResourceId("Product_Saba", productId);
+
+                return string.IsNullOrEmpty(productNameFor777) ? productName : productNameFor777;
             }
 
             return productName;
