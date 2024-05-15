@@ -11,6 +11,11 @@ namespace Alpha.Reports.Constants
         public const int Tennis = 20;
         public const int IceHockey = 23;
 
+        public const int SoccerPinGoal = 15;
+        public const int BasketballPinGoal = 16;
+        public const int EsportsPinGoal = 19;
+        public const int SabaOtherSports = 24;
+
         public static readonly IEnumerable<int> SportsbookDetailFor777Site = new List<int>
             {
                 Sportsbook,
@@ -20,5 +25,12 @@ namespace Alpha.Reports.Constants
                 Tennis,
                 IceHockey
             };
+
+        public static readonly IEnumerable<int> ExcludedProductDetailFor777 = new List<int>
+        {
+            SoccerPinGoal,
+            BasketballPinGoal,
+            EsportsPinGoal
+        };
     }
 }

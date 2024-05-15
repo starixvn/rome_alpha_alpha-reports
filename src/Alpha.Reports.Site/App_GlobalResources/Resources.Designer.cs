@@ -2428,6 +2428,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to - Data of {0} will be under {1}..
+        /// </summary>
+        public static string SabaOtherSportsLegend {
+            get {
+                return ResourceManager.GetString("SabaOtherSportsLegend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search Columns.
         /// </summary>
         public static string SearchColumns {

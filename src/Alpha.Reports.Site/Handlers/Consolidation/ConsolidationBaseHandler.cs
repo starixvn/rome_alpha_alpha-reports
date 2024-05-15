@@ -45,11 +45,10 @@
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
-            var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomerForConsolidationReport(
+            var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
                 message.CustId,
                 !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds,
                 products);
-            validUserSelectedProductIds = productDetailService.RemoveProductIds(validUserSelectedProductIds, validUserSelectedResourceIds);
 
             return new GetConsolidationParam(
                  message.CustId,
@@ -58,7 +57,7 @@
                  message.ToDate,
                  validUserSelectedProductIds,
                  validUserSelectedResourceIds,
-                 productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
+                 productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds));
         }
 
         protected IEnumerable<ConsolidationEntityViewModel> BuildWinLossByUsernameViewModel(
@@ -140,7 +139,7 @@
             var validUserSelectedProductIds =
                consolidationService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate);
             var validUserSelectedResourceIds =
-                productDetailService.FilterResourceIdsByCustomerForConsolidationReport(query.ViewerId, query.UserSelectedResourceIds, products);
+                productDetailService.FilterResourceIdsByCustomer(query.ViewerId, query.UserSelectedResourceIds, products);
 
             return new WinLossDetailParam(
                 query.CustId,
@@ -158,7 +157,7 @@
                 query.SortPropertyName,
                 query.IsDescendingSort,
                 query.IsHistoricReport,
-                productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
+                productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds));
         }
 
         protected IEnumerable<ConsolidationByUsernameViewModel> BuildConsolidationByUsernameViewModel(

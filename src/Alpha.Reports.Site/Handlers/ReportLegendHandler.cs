@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Alpha.Reports.Configurations;
+    using Alpha.Reports.Constants;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
@@ -18,10 +19,18 @@
         IRequestHandler<ReportLegendGrossCommQuery, ReportLegendViewModel>
     {
         private readonly ProductService productService;
+        private readonly ProductDetailService productDetailService;
+        private readonly CacheRefService cacheRefService;
 
-        public ReportLegendHandler(ProductService productServiceImpl, IUser viewer)
+        public ReportLegendHandler(
+            ProductService productServiceImpl,
+            ProductDetailService productDetailService,
+            CacheRefService cacheRefService,
+            IUser viewer)
         {
             productService = productServiceImpl;
+            this.cacheRefService = cacheRefService;
+            this.productDetailService = productDetailService;
         }
 
         public IEnumerable<string> Handle(ReportLegendQuery message)
@@ -29,7 +38,16 @@
 
         public ReportLegendViewModel Handle(ReportLegendGrossCommQuery message)
         {
-            var legends = GetReportLegends(message.Site, message.CurrencyId, message.MinDate, message.IsSupportHistoricReport, message.IsHistoricReport);
+            var legends = GetReportLegends(message.Site, message.CurrencyId, message.MinDate, message.IsSupportHistoricReport, message.IsHistoricReport).ToList();
+
+            var productDetailBelongSabaOthers = productDetailService.GetProductDetailBelongSabaOtherSports(message.ViewerId, message.Site, message.CurrencyId);
+            if (productDetailBelongSabaOthers.Any())
+            {
+                legends.Add(string.Format(Resources.SabaOtherSportsLegend,
+                    string.Join(", ", productDetailBelongSabaOthers),
+                    cacheRefService.GetProductDetailName(ProductDetaiIdConstants.SabaOtherSports)));
+            }
+
             var legendsAfterGrossCommNotes = new List<string>
             {
                 Resources.GrossCommRoundingNote
@@ -57,7 +75,7 @@
             if (products.Any())
             {
                 result.Add(string.Format(Resources.DelayIssueLegend, string.Join(", ", productService.GetProductNames(products))));
-            }
+            }            
 
             return result;
         }

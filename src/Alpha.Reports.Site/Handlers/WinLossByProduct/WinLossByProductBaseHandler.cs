@@ -48,7 +48,6 @@
                 message.Site,
                 message.CurrencyId,
                 !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds);
-            validUserSelectedProductIds = productDetailService.RemoveProductIds(validUserSelectedProductIds, validUserSelectedResourceIds);
 
             return new WinLossByProductParam(
                 message.CustId,
@@ -57,7 +56,7 @@
                 validUserSelectedProductIds,
                 validUserSelectedResourceIds,
                 message.CustLevel,
-                productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
+                productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds));
         }
 
         internal WinLossByBetTypeModel AccumulateGrandTotal(IEnumerable<WinLossByProductModel> reportData)
