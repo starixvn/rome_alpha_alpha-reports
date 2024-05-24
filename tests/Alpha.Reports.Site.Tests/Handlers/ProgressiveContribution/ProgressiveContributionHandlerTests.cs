@@ -96,7 +96,7 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.ViewerId, message.Site, message.CurrencyId).Returns(Enumerable.Empty<byte>());
+            productService.GetOfferedProductsNeedDelayTimeToSumarizeData(message.Site, message.CurrencyId).Returns(Enumerable.Empty<int>());
 
             var expectedViewModel = new List<string>
             {
@@ -115,8 +115,8 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId).Returns(new List<byte> { 6 });
-            productService.GetProductsForCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(new List<Product>
+            productService.GetOfferedProductsNeedDelayTimeToSumarizeData(message.Site, message.CurrencyId).Returns(new List<int> { 6 });
+            productService.GetAllOfferedProducts(Arg.Any<string>(), Arg.Any<int>()).Returns(new List<Product>
             {
                 new Product(6, string.Empty, null, 0, 0)
             });

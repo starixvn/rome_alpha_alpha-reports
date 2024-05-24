@@ -33,6 +33,7 @@
             // Arrange
             var ticket = new BetChoiceMatchingTicketModel(
                 anyValueCreatorFixture.Create<int>(),
+                anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<DateTime>(),
                 anyValueCreatorFixture.Create<int>(),
                 matchId,

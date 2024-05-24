@@ -30,6 +30,7 @@
         private readonly UserFixture userFixture;
         private readonly PagedReportData<WinLossDetailModel> reportData;
         private readonly WinLossService winLossService;
+        private readonly CacheRefService cacheRefService;
 
         public WinLossDetailHandlerTests(UserFixture userFixture)
         {
@@ -37,13 +38,14 @@
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string> { "Product Name" });
             productDetailService= Substitute.For<ProductDetailService>();
             winLossService = Substitute.For<WinLossService>();
+            cacheRefService = Substitute.For<CacheRefService>();
 
             reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
             var reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
             this.userFixture = userFixture;
-            winLossDetailHandler = new WinLossDetailHandler(productService, productDetailService, reportService, winLossService, userFixture.User);
+            winLossDetailHandler = new WinLossDetailHandler(productService, productDetailService, reportService, winLossService, cacheRefService, userFixture.User);
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -75,10 +77,10 @@
             message.UserSelectedProductIds = userSelectedProductIds;
 
             var products = Enumerable.Empty<Product>();
-            productService.GetProductsForCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(products);
+            productService.GetAllOfferedProducts(Arg.Any<string>(), Arg.Any<int>()).Returns(products);
 
             var validUserSelectedProductIds = Enumerable.Empty<int>();
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
+            productService.FilterProductIds(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
             var winLossDetailParam = new WinLossDetailParam(
                 10,
@@ -118,7 +120,7 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>());
+            productService.FilterProducts(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>());
 
             var expectedViewModel = new List<string>
             {
@@ -137,12 +139,12 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            productService.FilterProducts(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
                 new Product(21, "AllBet", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId).Returns(Enumerable.Empty<byte>());
+            productService.GetOfferedProductsNeedDelayTimeToSumarizeData(message.Site, message.CurrencyId).Returns(Enumerable.Empty<int>());
 
             var expectedViewModel = new List<string>
             {
@@ -162,12 +164,12 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            productService.FilterProducts(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
                 new Product(45, "AE Casino", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
+            productService.GetOfferedProductsNeedDelayTimeToSumarizeData(Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<int>());
 
             var expectedViewModel = new List<string>
             {
@@ -187,12 +189,12 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            productService.FilterProducts(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
                 new Product(46, "GT Casino", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
+            productService.GetOfferedProductsNeedDelayTimeToSumarizeData(Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<int>());
 
             var expectedViewModel = new List<string>
             {
@@ -212,12 +214,12 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            productService.FilterProducts(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
                 new Product(39, "SA Gaming", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
+            productService.GetOfferedProductsNeedDelayTimeToSumarizeData(Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<int>());
 
             var expectedViewModel = new List<string>
             {
@@ -237,12 +239,12 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            productService.FilterProducts(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
                 new Product(52, "ION", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
+            productService.GetOfferedProductsNeedDelayTimeToSumarizeData(Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<int>());
 
             var expectedViewModel = new List<string>
             {
@@ -262,12 +264,12 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            productService.FilterProducts(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
                 new Product(51, "WM", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
+            productService.GetOfferedProductsNeedDelayTimeToSumarizeData(Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<int>());
 
             var expectedViewModel = new List<string>
             {
@@ -287,12 +289,12 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            productService.FilterProducts(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
                 new Product(47, "BBIN", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId).Returns(Enumerable.Empty<byte>());
+            productService.GetOfferedProductsNeedDelayTimeToSumarizeData(message.Site, message.CurrencyId).Returns(Enumerable.Empty<int>());
 
             var expectedViewModel = new List<string>
             {
@@ -312,7 +314,7 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            productService.FilterProducts(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
                 new Product(21, "AllBet", null, 0, 0),
                 new Product(45, "AE Casino", null, 0, 0),
@@ -323,7 +325,7 @@
                 new Product(51, "WM", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(1, string.Empty, 1).Returns(Enumerable.Empty<byte>());
+            productService.GetOfferedProductsNeedDelayTimeToSumarizeData(string.Empty, 1).Returns(Enumerable.Empty<int>());
 
             var expectedViewModel = new List<string>
             {
@@ -343,7 +345,7 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>());
+            productService.FilterProducts(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>());
 
             var expectedViewModel = new List<string>
             {

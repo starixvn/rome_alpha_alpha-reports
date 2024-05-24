@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using AlphaPlus.PartialUM.Services;
+    using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
@@ -21,7 +22,7 @@
         private readonly CompareLogic compareLogic;
         private readonly ReportDateService reportDateService;
         private readonly IPartialUMService partialUMService;
-
+        private readonly IDynamicRepository dynamicRepository;
         public WinLossDetailServiceImplTests()
         {
             var productService = Substitute.For<ProductService>();
@@ -29,7 +30,8 @@
             dataAccess = Substitute.For<WinLossDetailDataAccess>();
             reportDateService = Substitute.For<ReportDateService>();
             partialUMService = Substitute.For<IPartialUMService>();
-            winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, productDetailService, dataAccess, partialUMService);
+            dynamicRepository = Substitute.For<IDynamicRepository>();
+            winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, productDetailService, dataAccess, partialUMService, dynamicRepository);
             compareLogic = new CompareLogic();
         }
 

@@ -35,7 +35,7 @@
             partialUMService = Substitute.For<IPartialUMService>();
             winLossAnalysisChartServiceImpl = new WinLossAnalysisChartServiceImpl(reportDateService, productService, dynamicRepository, partialUMService);
             compareLogic = new CompareLogic();
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(ProductIds);
+            productService.FilterProductIds(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(ProductIds);
             param = new WinLossAnalysisChartParam(1, 1, "", 1, DateTime.Now.AddMonths(-3), DateTime.Now, DateTime.MinValue, ProductIds, UserLevel.Super);
         }
 

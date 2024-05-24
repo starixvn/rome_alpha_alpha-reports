@@ -24,6 +24,7 @@
         private readonly BetChoiceMatchingJsonHandler handler;
         private readonly IUser user;
         private readonly ReportDateService reportDateService;
+        private readonly LeagueService leagueService;
 
         public BetChoiceMatchingJsonHandlerTests(UserFixture userFixture)
         {
@@ -31,7 +32,8 @@
             reportDateService = Substitute.For<ReportDateService>();
             betChoiceMatchingService = Substitute.For<BetChoiceMatchingService>();
             cacheRefService = Substitute.For<CacheRefService>();
-            handler = new BetChoiceMatchingJsonHandler(betChoiceMatchingService, cacheRefService);
+            leagueService = Substitute.For<LeagueService>();
+            handler = new BetChoiceMatchingJsonHandler(betChoiceMatchingService, cacheRefService, leagueService);
             var reportDate = new BalanceUpDayAndMoveBetsDay(DateTime.Parse("2019-09-09"), DateTime.Parse("2019-08-08"));
             reportDateService.GetBalanceUpDayAndMoveBetsDay().Returns(reportDate);
         }

@@ -229,7 +229,7 @@
                1,
                null,
                null,
-               new MatchWinLossDetailModel(false, 1, 1, 1, betType, liveIndicator, 1, (byte)LeagueType.Self, 1, "1", isNeutral, showTime, 1, 1, null, null, null, null),
+               new MatchWinLossDetailModel(false, 1, 1, 1, betType, liveIndicator, 1, 1, (byte)LeagueType.Self, 1, "1", isNeutral, showTime, 1, 1, null, null, null, null),
                "Team 1",
                "Team 1");
     }

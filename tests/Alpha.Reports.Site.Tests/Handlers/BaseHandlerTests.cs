@@ -305,7 +305,7 @@
         public void BuildLeagueSelectListItems_EmptyUserSelectedLeagueIds_ReturnsSelectListItem()
         {
             // Arrange
-            IEnumerable<League> leagues = new List<League> { new League(1, 1, string.Empty, 0) };
+            IEnumerable<League> leagues = new List<League> { new League(1, 1, string.Empty, 0, 0) };
             var expectedSelectListItems = new List<SelectListItem>
             {
                 new SelectListItem { Text = string.Empty, Value = "1_0", Selected = false }
