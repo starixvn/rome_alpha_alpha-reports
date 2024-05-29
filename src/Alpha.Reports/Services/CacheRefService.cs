@@ -87,7 +87,7 @@
         {
             if (AppSettings.IsSiteLabel777)
             {
-                var name = GetResourceDataByRefIdAndResourceId($"ProducDetail_Saba", productDetailId);
+                var name = GetResourceDataByRefIdAndResourceId($"ProductDetail_Saba", productDetailId);
 
                 return string.IsNullOrEmpty(name) ? GetResourceDataByRefIdAndResourceId("ProductDetail", productDetailId) : name;
             }
