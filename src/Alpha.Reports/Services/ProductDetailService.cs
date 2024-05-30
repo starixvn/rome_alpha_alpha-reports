@@ -206,15 +206,16 @@
 
         private IEnumerable<ProductDetail> GroupByProductDetail(IEnumerable<ProductDetail> productDetails)
             => productDetails
-                .GroupBy(r => r.ResourceId)
-                .Select(products =>
-                {
-                    var product = products.FirstOrDefault();
-                    product.DisplayName = cacheRefService.GetProductDetailName(product.ResourceId);
+            .GroupBy(r => r.ResourceId)
+            .Select(products =>
+            {
+                var product = products.FirstOrDefault();
+                product.DisplayName = cacheRefService.GetProductDetailName(product.ResourceId);
 
-                    return product;
-                })
-                .OrderBy(product => product.ProductId)
-                .ThenBy(product => product.Order);
+                return product;
+            })
+            .ToList()
+            .OrderBy(product => product.ProductId)
+            .ThenBy(product => product.Order);
     }
 }
