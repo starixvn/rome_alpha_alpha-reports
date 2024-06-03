@@ -1068,4 +1068,7 @@
   <data name="Last3Months" xml:space="preserve">
     <value>3 เดือนที่ผ่านมา</value>
   </data>
+  <data name="SabaOtherSportsLegend" xml:space="preserve">
+    <value>- ข้อมูลของ {0} จะอยู่ภายใต้ {1}</value>
+  </data>
 </root>

@@ -1074,4 +1074,7 @@
   <data name="Last3Months" xml:space="preserve">
     <value>過去3個月</value>
   </data>
+  <data name="SabaOtherSportsLegend" xml:space="preserve">
+    <value>- 數據{0} 將低於 {1}</value>
+  </data>
 </root>
