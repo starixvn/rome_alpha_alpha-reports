@@ -1,8 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Alpha.Reports.Configurations;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Site.ViewModels.Components;
@@ -14,6 +11,9 @@
     using Reports.Models;
     using Requests.WinLossDetail;
     using Services;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using ViewModels.WinLossDetail;
 
     public class WinLossDetailHandler :
@@ -23,14 +23,18 @@
     {
         private readonly IUser viewer;
 
+        private readonly CacheRefService cacheRefService;
+
         public WinLossDetailHandler(
             ProductService productService,
             ProductDetailService productDetailService,
             WinLossDetailService reportService,
             WinLossService winLossService,
+            CacheRefService cacheRefService,
             IUser viewer) : base(productService, productDetailService, reportService, winLossService)
         {
             this.viewer = viewer;
+            this.cacheRefService = cacheRefService;
         }
 
         public WinLossDetailViewModel Handle(WinLossDetailQuery message)
@@ -101,6 +105,14 @@
                 legends.Add(string.Format(
                     Resources.DelayIssueLegend,
                     string.Join(", ", productService.GetProductNames(productsNeedDelayTimeToSumarizeData))));
+            }
+
+            var productDetailBelongSabaOthers = productDetailService.GetProductDetailBelongSabaOtherSports(message.ViewerId, message.Site, message.CurrencyId);
+            if(productDetailBelongSabaOthers.Any())
+            {
+                legends.Add(string.Format(Resources.SabaOtherSportsLegend,
+                    string.Join(", ", productDetailBelongSabaOthers),
+                    cacheRefService.GetProductDetailName(ProductDetaiIdConstants.SabaOtherSports)));
             }
 
             var legendsAfterGrossCommNotes = new List<string>

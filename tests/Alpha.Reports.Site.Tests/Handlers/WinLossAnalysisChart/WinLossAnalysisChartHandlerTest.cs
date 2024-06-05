@@ -89,7 +89,7 @@
 
             reportService.GetWinLossAnalysisChart(Arg.Any<WinLossAnalysisChartParam>()).Returns(reportData);
             var validUserSelectedProductIds = Enumerable.Empty<int>();
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
+            productService.FilterProductIds(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
             var expectedWinLossAnalysisChartViewModel = new WinLossAnalysisChartViewModel(reportData, message, param, Enumerable.Empty<GroupProductViewModel>());
 

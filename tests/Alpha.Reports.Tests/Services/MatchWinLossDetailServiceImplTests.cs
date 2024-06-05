@@ -82,7 +82,7 @@
             var moveBetsDate = anyValueCreatorFixture.Create<DateTime>();
             reportDateService.GetMoveBetsDay().Returns(moveBetsDate);
             dynamicRepository.Fetch<int>(Arg.Any<ProductsForMatchWinLossDetailCriteria>()).Returns("1,2,3,5,26".ToListInt());
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(productIds.ToListInt());
+            productService.FilterProductIds(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(productIds.ToListInt());
 
             // Act
             matchWinLossDetailServiceImpl.GetMatchWinLossDetail(param);
@@ -110,7 +110,7 @@
                 anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 anyValueCreatorFixture.Create<UserLevel>());
 
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, (byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null);
+            var matchWinLossDetailModel = new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, (byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null);
             var expectedMatchWinLossModels = new List<MatchWinLossDetailModel>
             {
                 matchWinLossDetailModel
@@ -155,13 +155,13 @@
             // Arrange
             var expectedProducts = anyValueCreatorFixture.Create<IEnumerable<Product>>();
 
-            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
+            productService.FilterProducts(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
                 .Returns(expectedProducts);
 
             var param = anyValueCreatorFixture.Create<MatchWinLossDetailParam>();
 
             // Act
-            var actualProducts = matchWinLossDetailServiceImpl.GetProductsForCustomer(param.CustId, param.Site, param.CurrencyId);
+            var actualProducts = matchWinLossDetailServiceImpl.GetProductsForCustomer(param.Site, param.CurrencyId);
 
             // Assert
             AssertExtension.Equal(expectedProducts, actualProducts);

@@ -24,7 +24,8 @@
                 leagueId, 
                 anyValueCreatorFixture.Create<int>(), 
                 anyValueCreatorFixture.Create<string>(),
-                anyValueCreatorFixture.Create<byte>());
+                anyValueCreatorFixture.Create<byte>(),
+                anyValueCreatorFixture.Create<int>());
             var expectedId = leagueId;
 
             // Act
@@ -43,7 +44,8 @@
                 anyValueCreatorFixture.Create<int>(), 
                 anyValueCreatorFixture.Create<int>(), 
                 leagueName,
-                anyValueCreatorFixture.Create<byte>());
+                anyValueCreatorFixture.Create<byte>(),
+                anyValueCreatorFixture.Create<int>());
             var expectedName = leagueName;
 
             // Act
@@ -62,7 +64,8 @@
                 anyValueCreatorFixture.Create<int>(), 
                 sportTypeId, 
                 anyValueCreatorFixture.Create<string>(),
-                anyValueCreatorFixture.Create<byte>());
+                anyValueCreatorFixture.Create<byte>(),
+                anyValueCreatorFixture.Create<int>());
             var expectedSportTypeId = sportTypeId;
 
             // Act
@@ -81,7 +84,8 @@
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<int>(),
                 displayName,
-                anyValueCreatorFixture.Create<byte>());
+                anyValueCreatorFixture.Create<byte>(),
+                anyValueCreatorFixture.Create<int>());
             var expectedDisplayName = displayName;
 
             // Act

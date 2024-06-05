@@ -108,7 +108,7 @@
 
             reportService.GetWinLossAnalysis(Arg.Any<WinLossAnalysisParam>()).Returns(reportData);
             var validUserSelectedProductIds = Enumerable.Empty<int>();
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
+            productService.FilterProductIds(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
             var expectedWinLossAnalysisViewModel = new WinLossAnalysisViewModel(
                 reportData,

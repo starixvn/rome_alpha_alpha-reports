@@ -65,8 +65,8 @@
 
             var leagues = new List<League>
             {
-                new League(1, 1, "League 1", 0),
-                new League(2, 2, "League 2", 0)
+                new League(1, 1, "League 1", 0, 0),
+                new League(2, 2, "League 2", 0, 0)
             };
 
             var expectedLeaguesByCustomerViewModel = new LeaguesByCustomerViewModel(

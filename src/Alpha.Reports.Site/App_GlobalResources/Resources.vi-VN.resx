@@ -1133,4 +1133,7 @@
   <data name="Last3Months" xml:space="preserve">
     <value>3 tháng trước</value>
   </data>
+  <data name="SabaOtherSportsLegend" xml:space="preserve">
+    <value>- Dữ liệu {0} đã bao gồm trong {1}</value>
+  </data>
 </root>

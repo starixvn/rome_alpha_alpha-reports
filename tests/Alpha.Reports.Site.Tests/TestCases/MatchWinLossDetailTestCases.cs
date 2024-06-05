@@ -35,6 +35,7 @@
                 betType,
                 false,
                 1837,
+                1,
                 (byte)LeagueType.Self,
                 0,
                 "1001",

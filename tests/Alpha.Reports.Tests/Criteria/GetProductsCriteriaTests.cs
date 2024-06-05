@@ -9,7 +9,7 @@
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
-            var getProductsCriteria = new GetProductsCriteria();
+            var getProductsCriteria = new GetProductsCriteria("best-odds", 1);
             var expectedSettingKey = "Age_Rpt_GetProductList";
 
             // Act
@@ -23,7 +23,7 @@
         public void IsValid_Always_ReturnsTrue()
         {
             // Arrange
-            var getProductsCriteria = new GetProductsCriteria();
+            var getProductsCriteria = new GetProductsCriteria("best-odds", 1);
 
             // Act
             var actualIsValid = getProductsCriteria.IsValid();

@@ -46,7 +46,6 @@
                 message.Site,
                 message.CurrencyId,
                 !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds);
-            validUserSelectedProductIds = productDetailService.RemoveProductIds(validUserSelectedProductIds, validUserSelectedResourceIds);
 
             return new SuperWinLossDetailByPTParam(
                 message.CustId,
@@ -54,7 +53,7 @@
                 message.ToDate,
                 validUserSelectedProductIds,
                 validUserSelectedResourceIds,
-                productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds),
+                productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds),
                 message.LimitedDateToShowInfo);
         }
 

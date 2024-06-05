@@ -56,7 +56,6 @@
         {
             var validUserSelectedProductIds = GetValidUserSelectedProductIds(message, products);
             var validUserSelectedResourceIds = GetValidUserSelectedResourceIds(message, productDetails);
-            validUserSelectedProductIds = productDetailService.RemoveProductIds(validUserSelectedProductIds, validUserSelectedResourceIds, productDetails);
 
             return new WinLossDetailParam(
                 message.CustId,
@@ -74,7 +73,7 @@
                 null,
                 false,
                 message.IsHistoricReport,
-                productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds),
+                productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds),
                 message.Username);
         }
 

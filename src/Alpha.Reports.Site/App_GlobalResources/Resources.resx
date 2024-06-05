@@ -1158,4 +1158,7 @@
   <data name="Last3Months" xml:space="preserve">
     <value>Last 3 Months</value>
   </data>
+  <data name="SabaOtherSportsLegend" xml:space="preserve">
+    <value>- Data of {0} will be under {1}.</value>
+  </data>
 </root>

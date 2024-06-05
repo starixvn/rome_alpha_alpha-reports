@@ -22,6 +22,7 @@
                 betType: 1,
                 liveIndicator: false,
                 leagueId: 1,
+                leagueGroupId: 1,
                 leagueType:(byte)LeagueType.Self,
                 race: 1,
                 matchCode: "Match Code 1",

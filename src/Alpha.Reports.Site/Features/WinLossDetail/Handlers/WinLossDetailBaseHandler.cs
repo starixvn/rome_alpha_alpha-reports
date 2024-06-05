@@ -44,7 +44,6 @@
                 message.Site,
                 message.CurrencyId,
                 !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds);
-            validUserSelectedProductIds = productDetailService.RemoveProductIds(validUserSelectedProductIds, validUserSelectedResourceIds);
 
             return new WinLossDetailParam(
                  message.CustId,
@@ -62,7 +61,7 @@
                  message.SortPropertyName,
                  message.IsDescendingSort,
                  message.IsHistoricReport,
-                 productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
+                 productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds));
         }
     }
 }

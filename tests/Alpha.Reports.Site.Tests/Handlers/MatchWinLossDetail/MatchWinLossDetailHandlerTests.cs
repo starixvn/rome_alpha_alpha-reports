@@ -138,13 +138,13 @@
 
             leagueService.GetLeagueName(Arg.Any<int>(),Arg.Any<byte>()).Returns("League 1");
 
-            reportService.GetProductsForCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(new List<Product>
+            reportService.GetProductsForCustomer(Arg.Any<string>(), Arg.Any<int>()).Returns(new List<Product>
             {
                 new Product(1, "Product 1", null, 0, 0),
                 new Product(2, "Product 2", null, 0, 0)
             });
             query.UserSelectedProductIds = "1";
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
+            productService.FilterProductIds(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
                 .Returns(new List<int> { 1 });
 
             var expectedViewModel = new MatchWinLossDetailReportViewModel(
@@ -161,7 +161,7 @@
                             CreateBetTypeWinLossViewModel(2, "Bet Type 2", 1, 1, 1)
                         },
                         CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
-                        new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1,(byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
+                        new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, (byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
                         "Team 1",
                         "Team 1")
                 },
@@ -238,19 +238,19 @@
 
             leagueService.GetLeagueName(Arg.Any<int>(), Arg.Any<byte>()).Returns("League 1");
 
-            reportService.GetProductsForCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(new List<Product>
+            reportService.GetProductsForCustomer(Arg.Any<string>(), Arg.Any<int>()).Returns(new List<Product>
             {
                 new Product(1, "Product 1", null, 0, 0),
                 new Product(2, "Product 2", null, 0, 0)
             });
             query.UserSelectedProductIds = "1";
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
+            productService.FilterProductIds(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
                 .Returns(new List<int> { 1 });
 
             leagueService.GetLeaguesByCustomer(Arg.Any<GetLeaguesByCustomerParam>()).Returns(new List<League>
             {
-                new League(1, 1, "League 1", 0),
-                new League(2, 2, "League 2", 0)
+                new League(1, 1, "League 1", 0, 0),
+                new League(2, 2, "League 2", 0, 0)
             });
 
             query.UserSelectedLeagueIds = userSelectedLeagueIds;
@@ -271,7 +271,7 @@
                             CreateBetTypeWinLossViewModel(2, "Bet Type 2", 1, 1, 1)
                         },
                         CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
-                        new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1,(byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
+                        new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, (byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
                         "Team 1",
                         "Team 1")
                 },
@@ -453,6 +453,7 @@
                 betType: betType,
                 liveIndicator: liveIndicator,
                 leagueId: 1,
+                leagueGroupId: 1,
                 leagueType: (byte)LeagueType.Self,
                 race: 1,
                 matchCode: "1",

@@ -26,6 +26,8 @@
 
         string GetProductName(int productId);
 
+        string GetProductDetailName(int productDetailId);
+
         string GetOddsTypeName(string oddsTypeId);
 
         string GetResourceDataByRefIdAndResourceId(string refId, int resourceId);
@@ -79,6 +81,18 @@
             }
 
             return productName;
+        }
+
+        public string GetProductDetailName(int productDetailId)
+        {
+            if (AppSettings.IsSiteLabel777)
+            {
+                var name = GetResourceDataByRefIdAndResourceId($"ProductDetail_Saba", productDetailId);
+
+                return string.IsNullOrEmpty(name) ? GetResourceDataByRefIdAndResourceId("ProductDetail", productDetailId) : name;
+            }
+
+            return GetResourceDataByRefIdAndResourceId("ProductDetail", productDetailId);
         }
 
         public string GetResourceDataByRefIdAndResourceId(string refId, int resourceId)

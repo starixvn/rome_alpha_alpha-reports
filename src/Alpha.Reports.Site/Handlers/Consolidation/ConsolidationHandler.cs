@@ -45,7 +45,7 @@
         {
             var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
-            var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
+            var productDetails = productDetailService.GetProductDetails(message.CustId, consolidationExcludeProduct.Products);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var data = consolidationService.GetConsolidationByUsername(param).ToList();
@@ -68,7 +68,7 @@
         {
             var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
-            var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
+            var productDetails = productDetailService.GetProductDetails(message.CustId, consolidationExcludeProduct.Products);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var data = consolidationService.GetConsolidationByDate(param);
@@ -89,7 +89,7 @@
         {
             var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
-            var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
+            var productDetails = productDetailService.GetProductDetails(message.CustId, consolidationExcludeProduct.Products);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var data = consolidationService.GetConsolidationByProduct(param);
@@ -160,6 +160,14 @@
                 result.Add(string.Format(Resources.DelayIssueLegend, string.Join(", ", productService.GetProductNames(products))));
             }
 
+            var productDetailBelongSabaOthers = productDetailService.GetProductDetailBelongSabaOtherSports(message.ViewerId, message.Site, message.CurrencyId);
+            if (productDetailBelongSabaOthers.Any())
+            {
+                result.Add(string.Format(Resources.SabaOtherSportsLegend,
+                    string.Join(", ", productDetailBelongSabaOthers),
+                    cacheRefService.GetProductDetailName(ProductDetaiIdConstants.SabaOtherSports)));
+            }
+
             return new ReportLegendViewModel(result, GetConsolidationReportGrossCommNotes(message.ViewerLevel), new[] { Resources.GrossCommRoundingNote });
         }
 
@@ -206,7 +214,7 @@
         {
             var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(query.ViewerId));
 
-            var productDetails = productDetailService.GetProductDetailsForConsolidationReport(query.ViewerId, products);
+            var productDetails = productDetailService.GetProductDetails(query.ViewerId, products);
 
             var param = CreateParameter(query, products);
             var reportEntered = reportService.GetEnteredSportResults();
