@@ -34,6 +34,13 @@
         Task<IEnumerable<ProductDetail>> GetProductDetailsAsync(int viewerId, string site, int currencyId);
 
         IEnumerable<string> GetProductDetailBelongSabaOtherSports(int viewerId, string site, int currencyId);
+
+        IEnumerable<int> RemoveProductIds(IEnumerable<int> productIds, IEnumerable<int> userSelectedResourceIds);
+
+        IEnumerable<int> RemoveProductIds(
+            IEnumerable<int> productIds,
+            IEnumerable<int> userSelectedResourceIds,
+            IEnumerable<ProductDetail> productDetails);
     }
 
     public class ProductDetailServiceImpl : ProductDetailService
@@ -139,6 +146,35 @@
                 .Where(i => i.ResourceId == ProductDetaiIdConstants.SabaOtherSports)
                 .OrderBy(product => product.Order)
                 .Select(i => cacheRefService.GetProductDetailName(i.ChildResourceId));
+        public IEnumerable<int> RemoveProductIds(IEnumerable<int> productIds, IEnumerable<int> userSelectedResourceIds)
+            => RemoveProductIds(productIds, userSelectedResourceIds, GetAllProductDetails());
+
+        public IEnumerable<int> RemoveProductIds(
+            IEnumerable<int> productIds,
+            IEnumerable<int> userSelectedResourceIds,
+            IEnumerable<ProductDetail> productDetails)
+        {
+            var removedProductIds = new List<int>(productIds);
+
+            productDetails
+                .Where(p => productIds.Contains(p.ProductId))
+                .GroupBy(p => p.ProductId)
+                .ToList()
+                .ForEach(group =>
+                {
+                    if (IsSupportProductDetail(group.Key))
+                    {
+                        var intersectResourceIds = group.Select(p => p.ResourceId).Intersect(userSelectedResourceIds);
+
+                        if (!intersectResourceIds.Any())
+                        {
+                            removedProductIds.RemoveAll(id => id == group.Key);
+                        }
+                    }
+                });
+
+            return removedProductIds;
+        }
 
         private IEnumerable<ProductDetail> GetOfferedProductDetail(int viewerId, string site, int currencyId)
         {
