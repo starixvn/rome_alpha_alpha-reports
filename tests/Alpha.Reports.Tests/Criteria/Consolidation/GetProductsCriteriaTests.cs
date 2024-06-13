@@ -10,7 +10,7 @@
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
-            var criteria = new GetConsolidationReportProductsCriteria(custId: 0);
+            var criteria = new GetConsolidationReportProductsCriteria(0, string.Empty);
             var expectedSettingKey = "Age_Rpt_ConsolidatedGroupProductSel";
 
             // Act
@@ -27,7 +27,7 @@
         public void IsValid_InvalidCustId_ReturnsFalse(int custId)
         {
             // Arrange
-            var criteria = new GetConsolidationReportProductsCriteria(custId);
+            var criteria = new GetConsolidationReportProductsCriteria(custId, string.Empty);
 
             // Act
             var actualIsValid = criteria.IsValid();
@@ -42,7 +42,7 @@
         public void IsValid_ValidCustId_ReturnsTrue(int custId)
         {
             // Arrange
-            var criteria = new GetConsolidationReportProductsCriteria(custId);
+            var criteria = new GetConsolidationReportProductsCriteria(custId, string.Empty);
 
             // Act
             var actualIsValid = criteria.IsValid();
@@ -55,7 +55,7 @@
         public void SettingStatus_Always_ReturnsZero()
         {
             // Arrange & Act
-            var criteria = new GetConsolidationReportProductsCriteria(1);
+            var criteria = new GetConsolidationReportProductsCriteria(1, string.Empty);
 
             // Assert
             Assert.Equal(0, criteria.SettingStatus);

@@ -54,7 +54,8 @@
                     winLossDetailParam.LimitedDateToShowInfo,
                     winLossDetailParam.UserSelectedProductIds,
                     winLossDetailParam.ProductDetailsXML,
-                    string.IsNullOrWhiteSpace(winLossDetailParam.Username) ? message.CustName : winLossDetailParam.Username);
+                    string.IsNullOrWhiteSpace(winLossDetailParam.Username) ? message.CustName : winLossDetailParam.Username,
+                    message.Site);
                 weekDataTask = winlossDetailService.GetWinLossDetailWeekDataAsync(winLossDetailWeekDataParam);
             }
             else
@@ -99,7 +100,8 @@
                     winLossDetailParam.LimitedDateToShowInfo,
                     winLossDetailParam.UserSelectedProductIds,
                     winLossDetailParam.ProductDetailsXML,
-                    string.IsNullOrWhiteSpace(winLossDetailParam.Username) ? message.CustName : winLossDetailParam.Username);
+                    string.IsNullOrWhiteSpace(winLossDetailParam.Username) ? message.CustName : winLossDetailParam.Username,
+                    message.Site);
                 weekDataTask = winlossDetailService.GetWinLossDetailWeekDataAsync(winLossDetailWeekDataParam);
             }
             else

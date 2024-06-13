@@ -12,7 +12,8 @@
             DateTime toDate,
             IEnumerable<int> productIds,
             IEnumerable<int> resourceIds,
-            string productDetailsXML)
+            string productDetailsXML,
+            string site)
         {
             CustId = custId;
             Currency = currency;
@@ -21,6 +22,7 @@
             ProductIds = productIds;
             ResourceIds = resourceIds;
             ProductDetailsXML = productDetailsXML;
+            Site = site;
         }
 
         public int CustId { get; }
@@ -36,5 +38,7 @@
         public IEnumerable<int> ResourceIds { get; }
 
         public string ProductDetailsXML { get; }
+
+        public string Site { get; }
     }
 }

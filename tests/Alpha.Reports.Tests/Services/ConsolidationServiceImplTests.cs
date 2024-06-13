@@ -91,7 +91,7 @@
 
             dynamicRepository.Fetch<CurrencyModel>(Arg.Any<GetCurrencyCriteria>())
                 .Returns(data);
-            var param = new GetCurrencyParam(custId: anyValueCreatorFixture.Create<int>());
+            var param = new GetCurrencyParam(anyValueCreatorFixture.Create<int>(), string.Empty);
             var expectedCurrencies = data;
 
             // Act
@@ -106,7 +106,7 @@
         {
             // Arrange
             var minDate = DefaultVariablesTest.CurrentDate;
-            var param = new GetConslidationReportProductsParam(custId: anyValueCreatorFixture.Create<int>(), minDate: minDate);
+            var param = new GetConslidationReportProductsParam(custId: anyValueCreatorFixture.Create<int>(), minDate: minDate, site: string.Empty);
             var expectedProducts = new List<Product>
             {
                 new Product(1, null, minDate, 0, 0, cacheRefService.GetProductName),
@@ -188,7 +188,7 @@
                 .Returns(products);
 
             // Act
-            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate);
+            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate, string.Empty);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -213,7 +213,7 @@
                 .Returns(products);
 
             // Act
-            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate);
+            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate, string.Empty);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -236,7 +236,7 @@
                 .Returns(products);
 
             // Act
-            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate);
+            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate, string.Empty);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -260,7 +260,7 @@
             var expectedValue = new ConsolidationExcludeProduct(products);
 
             // Act
-            var actualValue = consolidationServiceImpl.GetConsolidationExcludeProduct(0, DefaultVariablesTest.CurrentDate);
+            var actualValue = consolidationServiceImpl.GetConsolidationExcludeProduct(0, DefaultVariablesTest.CurrentDate, string.Empty);
 
             // Assert
             Assert.True(compareLogic.Compare(expectedValue, actualValue).AreEqual);

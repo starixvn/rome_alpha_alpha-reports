@@ -43,8 +43,8 @@
 
         public ConsolidationReportByUsernameViewModel Handle(ConsolidationByUsernameQuery message)
         {
-            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
-            var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.Site);
+            var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId, message.Site));
             var productDetails = productDetailService.GetProductDetails(message.CustId, consolidationExcludeProduct.Products);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
@@ -66,8 +66,8 @@
 
         public ConsolidationReportByDateViewModel Handle(ConsolidationByDateQuery message)
         {
-            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
-            var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.Site);
+            var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId, message.Site));
             var productDetails = productDetailService.GetProductDetails(message.CustId, consolidationExcludeProduct.Products);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
@@ -87,8 +87,8 @@
 
         public ConsolidationReportByProductViewModel Handle(ConsolidationByProductQuery message)
         {
-            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
-            var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.Site);
+            var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(message.ViewerId, message.Site));
             var productDetails = productDetailService.GetProductDetails(message.CustId, consolidationExcludeProduct.Products);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
@@ -130,7 +130,7 @@
             var winLossDetailQuery = CreateWinLossDetailQuery(message);
 
             var products = consolidationService.GetProducts(
-                new GetConslidationReportProductsParam(consolidationQuery.ViewerId, consolidationQuery.MinDate));
+                new GetConslidationReportProductsParam(consolidationQuery.ViewerId, consolidationQuery.MinDate, message.Site));
             var filterViewModel = GetConsolidationFilterViewModel(consolidationQuery, products);
 
             var reportEntered = reportService.GetEnteredSportResults();
@@ -153,7 +153,7 @@
                     $"- {Resources.CanOnlyViewDataAfterTimeCurrentReport}", message.MinDate.ToShortDateWithSlash()));
             }
 
-            var products = consolidationService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate);
+            var products = consolidationService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate, message.Site);
 
             if (products.Any())
             {
@@ -183,7 +183,7 @@
             
             result.Add(Resources.Tooltip_NetTurnover);
 
-            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.MinDate);
+            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.MinDate, message.Site);
             if (!string.IsNullOrEmpty(liveCasinoTooltips))
             {
                 result.Add(liveCasinoTooltips);
@@ -198,9 +198,9 @@
             return new ReportLegendViewModel(result, GetGrossCommNotes(message.CustLevel), new[] { Resources.GrossCommRoundingNote, Resources.DormantAccountsNote });
         }
 
-        private string BuildTooltipsForLiveCasino(int custId, DateTime minDate)
+        private string BuildTooltipsForLiveCasino(int custId, DateTime minDate, string site)
         {
-            var offeredLiveCasino = consolidationService.FilterProductIdsByCustomer(custId, ProductIdConstants.ProductListForTooltipsLiveCasino, minDate);
+            var offeredLiveCasino = consolidationService.FilterProductIdsByCustomer(custId, ProductIdConstants.ProductListForTooltipsLiveCasino, minDate, site);
             var liveCasinoNames = string.Join(", ", productService.GetProductNames(offeredLiveCasino));
 
             return offeredLiveCasino != null && offeredLiveCasino.Any() ?
@@ -212,7 +212,7 @@
             ConsolidationByUsernameQuery query,
             IEnumerable<Product> products)
         {
-            var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(query.ViewerId));
+            var currencies = consolidationService.GetCurrencies(new GetCurrencyParam(query.ViewerId, query.Site));
 
             var productDetails = productDetailService.GetProductDetails(query.ViewerId, products);
 

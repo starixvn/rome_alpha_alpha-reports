@@ -16,6 +16,8 @@
     using Models;
     using Models.Consolidation;
     using Params.Consolidation;
+    using Alpha.Reports.Configurations;
+    using Alpha.Reports.Helpers;
 
     public interface ConsolidationService
     {
@@ -23,7 +25,7 @@
 
         IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param);
 
-        IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate);
+        IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate, string site);
 
         IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(GetConsolidationParam param);
 
@@ -31,11 +33,11 @@
 
         IEnumerable<ConsolidationByProduct> GetConsolidationByProduct(GetConsolidationParam param);
 
-        ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, DateTime minReportDate);
+        ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, DateTime minReportDate, string site);
 
         PagedReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param);
 
-        IEnumerable<int> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, DateTime minReportDate);
+        IEnumerable<int> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, DateTime minReportDate, string site);
     }
 
     public class ConsolidationServiceImpl : ConsolidationService
@@ -74,7 +76,8 @@
 
         public IEnumerable<CurrencyModel> GetCurrencies(GetCurrencyParam param)
         {
-            var criteria = new GetCurrencyCriteria(param.CustId);
+            var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
+            var criteria = new GetCurrencyCriteria(param.CustId, subfix);
 
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
@@ -89,8 +92,9 @@
                 $"Alpha.Reports.Services.Impl.ConsolidationProductsForCustomer-{param.CustId}",
                 () =>
                 {
+                    var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
                     var products = dynamicRepository
-                        .Fetch<ConsolidationProduct>(new GetConsolidationReportProductsCriteria(param.CustId))
+                        .Fetch<ConsolidationProduct>(new GetConsolidationReportProductsCriteria(param.CustId, subfix))
                         .Where(product => !IsExcludedProduct(product) && IsRemainSupportProduct(product, param.MinDate))
                         .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, cacheRefService.GetProductName));
 
@@ -100,12 +104,14 @@
 
         public IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(GetConsolidationParam param)
         {
+            var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
             var criteria = new GetConsolidationCriteria(
                 param,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
                 ConsolidationReportTypeConstants.Product,
-                param.ProductDetailsXML);
+                param.ProductDetailsXML,
+                subfix);
 
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
@@ -118,12 +124,14 @@
 
         public IEnumerable<ConsolidationByDate> GetConsolidationByDate(GetConsolidationParam param)
         {
+            var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
             var criteria = new GetConsolidationCriteria(
                 param,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
                 ConsolidationReportTypeConstants.Daily,
-                param.ProductDetailsXML);
+                param.ProductDetailsXML,
+                subfix);
 
             var data = dynamicRepository.Fetch<ConsolidationByDate>(criteria);
 
@@ -132,21 +140,23 @@
 
         public IEnumerable<ConsolidationByProduct> GetConsolidationByProduct(GetConsolidationParam param)
         {
+            var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
             var criteria = new GetConsolidationCriteria(
                 param,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
                 ConsolidationReportTypeConstants.Product,
-                param.ProductDetailsXML);
+                param.ProductDetailsXML,
+                subfix);
 
             var data = dynamicRepository.Fetch<ConsolidationByProduct>(criteria);
 
             return data;
         }
 
-        public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate)
+        public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate, string site)
         {
-            var products = GetProducts(new GetConslidationReportProductsParam(custId, minReportDate))
+            var products = GetProducts(new GetConslidationReportProductsParam(custId, minReportDate, site))
                   .Select(product => product.Id)
                   .Where(id => productIds == null || !productIds.Any() || productIds.Contains(id));
 
@@ -157,9 +167,9 @@
             => product.IsEnable
             && (!product.EndOfSupportDate.HasValue || minReportDate <= product.EndOfSupportDate.Value);
 
-        public ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, DateTime minReportDate)
+        public ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, DateTime minReportDate, string site)
         {
-            var products = GetProducts(new GetConslidationReportProductsParam(custId, minReportDate)).ToList();
+            var products = GetProducts(new GetConslidationReportProductsParam(custId, minReportDate, site)).ToList();
 
             return new ConsolidationExcludeProduct(products);
         }
@@ -171,6 +181,7 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
+            var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
             var criteria = new WinLossDetailCriteria(
                 param.CustId,
                 param.PageIndex,
@@ -182,18 +193,19 @@
                 param.UserSelectedProductIds,
                 param.ReportLevel,
                 param.ProductDetailsXML,
-                param.Username);
+                param.Username,
+                subfix);
 
             var winLossDetailData = winLossDetailDataAccess.GetData(criteria);
 
             return winLossDetailData;
         }
 
-        public IEnumerable<int> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, DateTime minReportDate)
+        public IEnumerable<int> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, DateTime minReportDate, string site)
         {
             var data = productService.GetProductsNeedDelayTimeToSumarizeData();
 
-            return FilterProductIdsByCustomer(custId, data.Select(i => (int)i.ProductId), minReportDate);
+            return FilterProductIdsByCustomer(custId, data.Select(i => (int)i.ProductId), minReportDate, site);
         }
 
         private IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(IEnumerable<ConsolidationByUsername> rawdata)

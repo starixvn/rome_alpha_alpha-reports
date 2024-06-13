@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Alpha.Reports.Helpers;
     using AlphaPlus.PartialUM.Services;
     using Criteria.WinLossDetail;
     using DataAccesses;
@@ -55,7 +56,7 @@
 
             var validUserSelectedProductIds =
                 productService.FilterProductIds(param.Site, param.CurrencyId, param.UserSelectedProductIds);
-
+            var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
             var criteria = new WinLossDetailCriteria(
                 param.CustId,
                 param.PageIndex,
@@ -67,7 +68,8 @@
                 validUserSelectedProductIds,
                 param.ReportLevel,
                 param.ProductDetailsXML,
-                param.Username);
+                param.Username,
+                subfix);
 
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
@@ -79,6 +81,7 @@
         public async Task<PagedReportData<WinLossDetailModel>> GetWinLossDetailAsync(WinLossDetailParam param)
         {
             var dayModel = await reportDateService.GetBalanceUpDayAndMoveBetsDayAsync();
+            var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
             var criteria = new WinLossDetailCriteria(
                 param.CustId,
                 param.PageIndex,
@@ -90,7 +93,8 @@
                 param.UserSelectedProductIds,
                 param.ReportLevel,
                 param.ProductDetailsXML,
-                param.Username);
+                param.Username,
+                subfix);
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             return await dataAccess.GetDataAsync(criteria);
@@ -99,6 +103,7 @@
         public async Task<IEnumerable<WinLossDetailWeekData>> GetWinLossDetailWeekDataAsync(WinLossDetailWeekDataParam param)
         {
             var dayModel = await reportDateService.GetBalanceUpDayAndMoveBetsDayAsync();
+            var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
             var criteria = new WinLossDetailWeekDataCriteria(
                 param.ViewerId,
                 param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
@@ -107,7 +112,8 @@
                 dayModel.MoveBetsDay,
                 param.UserSelectedProductIds,
                 param.ProductDetailsXML,
-                param.Username);
+                param.Username,
+                subfix);
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             return await repository.FetchAsync<WinLossDetailWeekData>(criteria);

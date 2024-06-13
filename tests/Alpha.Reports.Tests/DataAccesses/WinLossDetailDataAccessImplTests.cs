@@ -54,6 +54,7 @@
                 new List<int> { 1, 2 },
                 UserLevel.Super,
                 string.Empty,
+                string.Empty,
                 string.Empty);
 
             var dataSet = WinLossDetailDatabase.MasterWinLoss.CreateDataReader();
@@ -93,6 +94,7 @@
                 DateTime.Now,
                 new List<int> { 1, 2 },
                 UserLevel.Master,
+                string.Empty,
                 string.Empty,
                 string.Empty);
 
@@ -134,6 +136,7 @@
                 new List<int> { 1, 2 },
                 UserLevel.Agent,
                 string.Empty,
+                string.Empty,
                 string.Empty);
 
             var dataSet = WinLossDetailDatabase.MemberWinLoss.CreateDataReader();
@@ -174,6 +177,7 @@
                 null,
                 UserLevel.Super,
                 string.Empty,
+                string.Empty,
                 string.Empty);
 
             IDataReader dataReader = null;
@@ -207,6 +211,7 @@
                 DateTime.Now,
                 new List<int> { 1, 2 },
                 UserLevel.Super,
+                string.Empty,
                 string.Empty,
                 string.Empty);
 
