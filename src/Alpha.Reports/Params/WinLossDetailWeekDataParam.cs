@@ -12,7 +12,8 @@
             DateTime limitedDateToShowInfo,
             IEnumerable<int> userSelectedProductIds,
             string productDetailsXML,
-            string username)
+            string username,
+            string site)
         {
             ViewerId = viewerId;
             FromDate = fromDate.Date;
@@ -21,6 +22,7 @@
             UserSelectedProductIds = userSelectedProductIds;
             ProductDetailsXML = productDetailsXML;
             Username = username;
+            Site = site;
         }
 
         public int ViewerId { get; }
@@ -36,5 +38,7 @@
         public string ProductDetailsXML { get; }
 
         public string Username { get; }
+
+        public string Site { get; }
     }
 }

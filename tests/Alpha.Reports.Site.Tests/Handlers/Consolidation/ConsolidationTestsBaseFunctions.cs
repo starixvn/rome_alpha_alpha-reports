@@ -61,9 +61,9 @@
                 new CurrencyModel(2, "Currency 2")
             });
 
-            reportService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>(), Arg.Any<DateTime>()).Returns(new List<int> { 1 });
+            reportService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>(), Arg.Any<DateTime>(), Arg.Any<string>()).Returns(new List<int> { 1 });
 
-            reportService.GetConsolidationExcludeProduct(Arg.Any<int>(), Arg.Any<DateTime>()).Returns(new ConsolidationExcludeProduct(products));
+            reportService.GetConsolidationExcludeProduct(Arg.Any<int>(), Arg.Any<DateTime>(), Arg.Any<string>()).Returns(new ConsolidationExcludeProduct(products));
 
             anyValueCreatorFixture = new AnyValueCreatorFixture();
 

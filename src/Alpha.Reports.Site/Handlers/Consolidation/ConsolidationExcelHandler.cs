@@ -51,12 +51,12 @@
 
         public ExcelFileViewModel Handle(ConsolidationByUsernameExcelQuery message)
         {
-            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.Site);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = consolidationService.GetConsolidationByUsername(param);
             var currencies = consolidationService
-                .GetCurrencies(new GetCurrencyParam(message.ViewerId))
+                .GetCurrencies(new GetCurrencyParam(message.ViewerId, message.Site))
                 .ToDictionary(c => c.Id, c => c.Name);
             var viewModels = BuildConsolidationByUsernameViewModel(reportData, currencies);
 
@@ -73,12 +73,12 @@
 
         public ExcelFileViewModel Handle(ConsolidationByDateExcelQuery message)
         {
-            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.Site);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = consolidationService.GetConsolidationByDate(param);
             var currencies = consolidationService
-                .GetCurrencies(new GetCurrencyParam(message.ViewerId))
+                .GetCurrencies(new GetCurrencyParam(message.ViewerId, message.Site))
                 .ToDictionary(c => c.Id, c => c.Name);
             var viewModels = BuildWinLossByDateViewModel(reportData, currencies);
 
@@ -95,12 +95,12 @@
 
         public ExcelFileViewModel Handle(ConsolidationByProductExcelQuery message)
         {
-            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
+            var consolidationExcludeProduct = consolidationService.GetConsolidationExcludeProduct(message.CustId, message.MinDate, message.Site);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = consolidationService.GetConsolidationByProduct(param);
             var currencies = consolidationService
-                .GetCurrencies(new GetCurrencyParam(message.ViewerId))
+                .GetCurrencies(new GetCurrencyParam(message.ViewerId, message.Site))
                 .ToDictionary(c => c.Id, c => c.Name);
             var viewModels = BuildWinLossByProductViewModel(reportData, currencies);
 
@@ -120,7 +120,7 @@
             var winLossDetailQuery = CreateWinLossDetailQuery(message);
 
             var products = consolidationService.GetProducts(
-                new GetConslidationReportProductsParam(winLossDetailQuery.ViewerId, winLossDetailQuery.MinDate));
+                new GetConslidationReportProductsParam(winLossDetailQuery.ViewerId, winLossDetailQuery.MinDate, message.Site));
             var param = CreateWinLossDetailParam(winLossDetailQuery, products);
 
             var reportData = consolidationService.GetWinLossDetail(param);

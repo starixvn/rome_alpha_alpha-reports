@@ -18,12 +18,14 @@
             IEnumerable<int> productIds,
             UserLevel reportLevel,
             string productDetails,
-            string username)
+            string username,
+            string subfix)
             : base(custId, pageIndex, pageSize, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
         {
             ReportLevel = reportLevel;
             ProductDetails = productDetails;
             Username = username;
+            Subfix = subfix;
         }
 
         [SpParam(Ignored = true)]
@@ -33,11 +35,14 @@
 
         public string Username { get; }
 
+        [SpParam(Ignored = true)]
+        public string Subfix { get; }
+
         public override string GetSettingKey()
             => ReportLevel.IsAgentLevel()
-            ? "Age_Rpt_WinLossDetail_Member"
+            ? $"Age_Rpt_WinLossDetail_Member{Subfix}"
             : ReportLevel.IsMasterLevel()
-            ? "Age_Rpt_WinLossDetail_Agent"
-            : "Age_Rpt_WinLossDetail_Master";
+            ? $"Age_Rpt_WinLossDetail_Agent{Subfix}"
+            : $"Age_Rpt_WinLossDetail_Master{Subfix}";
     }
 }

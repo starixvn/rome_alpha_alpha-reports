@@ -52,7 +52,7 @@
                 ToDate = DefaultVariablesTest.CurrentDate
             };
 
-            var param = new GetConsolidationParam(0, 0, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1 }, new List<int> { 1 }, string.Empty);
+            var param = new GetConsolidationParam(0, 0, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1 }, new List<int> { 1 }, string.Empty, string.Empty);
             var row = new ConsolidationEntityViewModel(1, 1, "Member", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
@@ -94,7 +94,7 @@
             // Arrange
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
-            var param = new GetConsolidationParam(1, 1, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1, 2 }, new List<int> { 1, 2 }, string.Empty);
+            var param = new GetConsolidationParam(1, 1, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1, 2 }, new List<int> { 1, 2 }, string.Empty, string.Empty);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 new GetConsolidationQuery(user),
@@ -133,7 +133,7 @@
         {
             // Arrange
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
-            var param = new GetConsolidationParam(1, 1, DateTime.MinValue, DateTime.MinValue, new List<int> { 1 }, new List<int> { 1 }, string.Empty);
+            var param = new GetConsolidationParam(1, 1, DateTime.MinValue, DateTime.MinValue, new List<int> { 1 }, new List<int> { 1 }, string.Empty, string.Empty);
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 new GetConsolidationQuery(user),
                 param,

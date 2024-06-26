@@ -14,7 +14,8 @@
             DateTime balanceUpDate,
             DateTime moveBetsDate,
             byte reportType,
-            string productDetails)
+            string productDetails,
+            string subfix)
             : this(
                   param.CustId,
                   param.Currency,
@@ -24,7 +25,8 @@
                   balanceUpDate,
                   moveBetsDate,
                   param.ProductIds,
-                  productDetails)
+                  productDetails,
+                  subfix)
         {
         }
 
@@ -37,7 +39,8 @@
             DateTime balanceUpDate,
             DateTime moveBetsDate,
             IEnumerable<int> productIds,
-            string productDetails)
+            string productDetails,
+            string subfix)
         {
             CustId = custId;
             Currency = currency;
@@ -49,6 +52,7 @@
             MoveBetsDate = moveBetsDate;
             ProductIds = productIds.JoinWithComma();
             ProductDetails = productDetails;
+            Subfix = subfix;
         }
 
         public int CustId { get; }
@@ -71,7 +75,10 @@
 
         public string ProductDetails { get; }
 
-        public override string GetSettingKey() => "Age_Rpt_ConsolidatedGroup";
+        [SpParam(Ignored = true)]
+        public string Subfix { get; }
+
+        public override string GetSettingKey() => $"Age_Rpt_ConsolidatedGroup{Subfix}";
 
         public override bool IsValid()
             => CustId > 0

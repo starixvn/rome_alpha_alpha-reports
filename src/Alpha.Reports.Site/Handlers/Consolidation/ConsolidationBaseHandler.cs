@@ -44,7 +44,8 @@
             var validUserSelectedProductIds = consolidationService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate);
+                message.MinDate,
+                message.Site);
             var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
                 message.CustId,
                 !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds,
@@ -57,7 +58,8 @@
                  message.ToDate,
                  validUserSelectedProductIds,
                  validUserSelectedResourceIds,
-                 productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds));
+                 productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds),
+                 message.Site);
         }
 
         protected IEnumerable<ConsolidationEntityViewModel> BuildWinLossByUsernameViewModel(
@@ -137,7 +139,7 @@
         protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query, IEnumerable<Product> products)
         {
             var validUserSelectedProductIds =
-               consolidationService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate);
+               consolidationService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate, query.Site);
             var validUserSelectedResourceIds =
                 productDetailService.FilterResourceIdsByCustomer(query.ViewerId, query.UserSelectedResourceIds, products);
 

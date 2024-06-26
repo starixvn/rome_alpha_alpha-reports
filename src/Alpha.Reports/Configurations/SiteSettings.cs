@@ -135,5 +135,7 @@
         public static bool IsOfferNewWinLossDetailReport(string customerSite)
             => NewWinLossDetailReportOfferSites.ContainsKey(customerSite)
             || NewWinLossDetailReportOfferSites.ContainsKey("*");
+
+        public static string WLDetailSettingKeySites() => GetConfigValue("WLDetail.SettingKey:Sites");
     }
 }

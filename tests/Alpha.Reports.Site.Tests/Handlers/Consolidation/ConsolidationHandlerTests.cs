@@ -153,6 +153,7 @@
                 message.ToDate,
                 new List<int> { 1 },
                 new List<int> { 1, 2 },
+                string.Empty,
                 string.Empty);
 
             var expectedViewModel = new ConsolidationReportByDateViewModel(
@@ -201,6 +202,7 @@
                 message.ToDate,
                 new List<int> { 1 },
                 new List<int> { 1, 2 },
+                string.Empty,
                 string.Empty);
 
             var expectedViewModel = new ConsolidationReportByProductViewModel(

@@ -352,6 +352,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Helpers\BetTypeHelper.cs" />
+    <Compile Include="Helpers\FanexDataSettingKeyHelper.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Enumerations\Enumeration.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingConstants.cs" />

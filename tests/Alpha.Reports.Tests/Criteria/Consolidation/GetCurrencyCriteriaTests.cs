@@ -10,7 +10,7 @@
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
-            var criteria = new GetCurrencyCriteria(custId: 0);
+            var criteria = new GetCurrencyCriteria(0, string.Empty);
             var expectedSettingKey = "Age_Rpt_ConsolidatedGroupSelCurrency";
 
             // Act
@@ -27,7 +27,7 @@
         public void IsValid_InvalidCustId_ReturnsFalse(int custId)
         {
             // Arrange
-            var criteria = new GetCurrencyCriteria(custId);
+            var criteria = new GetCurrencyCriteria(custId, string.Empty);
 
             // Act
             var actualIsValid = criteria.IsValid();
@@ -42,7 +42,7 @@
         public void IsValid_ValidCustId_ReturnsTrue(int custId)
         {
             // Arrange
-            var criteria = new GetCurrencyCriteria(custId);
+            var criteria = new GetCurrencyCriteria(custId, string.Empty);
 
             // Act
             var actualIsValid = criteria.IsValid();
