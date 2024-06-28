@@ -1,6 +1,4 @@
 ﻿@model WinLossDetailGetDataViewModel
-
-@WeekSelection.Render(Model.Weeks)
 <div class="breadcrumb-table">
     <div class="breadcrumb-container">
         <ul class="breadcrumb" id="breadcrumb-level"></ul>
@@ -22,6 +20,6 @@
 </div>
 <div class="wrapper-table-scrollable">
     <div id="tbl-report-container" class="scrollable">
-        @Html.Partial("~/Features/WinLossDetail/Views/ReportDataWeek.cshtml", Model)
+        @{ Html.RenderPartial("~/Features/WinLossDetail/Views/ReportDataWeek.cshtml", Model); }
     </div>
 </div>

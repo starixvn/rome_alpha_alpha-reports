@@ -610,7 +610,6 @@
     <Content Include="App_Data\securitycode.napinternal3.json">
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
-    <Content Include="App_Code\Components\WeekSelection.cshtml" />
     <Content Include="App_Code\Components\BreadcrumbNew.cshtml" />
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
@@ -889,6 +888,7 @@
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailBaseHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcelHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailHandler.cs" />
+    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailWeeksQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcelNewQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailGetDataQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailGetDataWeekQuery.cs" />
@@ -1975,6 +1975,7 @@
     <Content Include="Features\Shared\Styles\report-legend-dark.scss" />
     <Content Include="Features\WinLossDetail\Views\ReportDataNew.cshtml" />
     <Content Include="Features\WinLossDetail\Views\ReportDataWeek.cshtml" />
+    <Content Include="Features\WinLossDetail\Views\Weeks.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

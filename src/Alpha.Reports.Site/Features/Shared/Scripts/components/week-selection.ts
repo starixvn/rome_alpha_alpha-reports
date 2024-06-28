@@ -17,6 +17,11 @@ class WeekSelectionComponent {
         this.bindEvents();
     }
 
+    reRender(html) {
+        this.weekRangeContainer.html(html);
+        this.bindEvents();
+    }
+
     bindEvents() {
         this.weekRangeContainer = $("#" + this.weekSelectionOption.selectorId);
         const labelWeeks = this.weekRangeContainer.find(".label-week:not(.disabled)");

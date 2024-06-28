@@ -1,7 +1,9 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.Features.Shared.ViewModels.Components;
     using Alpha.Web.Filters;
     using MediatR;
     using Requests.WinLossDetail;
@@ -40,6 +42,9 @@
 
         public Task<ActionResult> GetDataWeek(WinLossDetailGetDataWeekQuery message)
             => ViewAsync($"{BasePath}/ReportDataWeek.cshtml", message);
+
+        public Task<ActionResult> GetWeeks(WinLossDetailWeeksQuery message)
+            => ViewAsync<IEnumerable<WeekSelectionViewModel>>($"{BasePath}/Weeks.cshtml", message);
 
         public Task<FileContentResult> ExcelNew(WinLossDetailExcelNewQuery message)
             => ExcelViewAsync(message);

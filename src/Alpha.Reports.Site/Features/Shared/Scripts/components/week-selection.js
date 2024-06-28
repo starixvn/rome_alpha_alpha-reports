@@ -17,6 +17,10 @@ var WeekSelectionComponent = /** @class */ (function () {
         this.weekSelectionOption = options;
         this.bindEvents();
     };
+    WeekSelectionComponent.prototype.reRender = function (html) {
+        this.weekRangeContainer.html(html);
+        this.bindEvents();
+    };
     WeekSelectionComponent.prototype.bindEvents = function () {
         var _this = this;
         this.weekRangeContainer = $("#" + this.weekSelectionOption.selectorId);

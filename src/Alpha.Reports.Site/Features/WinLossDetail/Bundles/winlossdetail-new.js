@@ -646,6 +646,10 @@ var WeekSelectionComponent = /** @class */ (function () {
         this.weekSelectionOption = options;
         this.bindEvents();
     };
+    WeekSelectionComponent.prototype.reRender = function (html) {
+        this.weekRangeContainer.html(html);
+        this.bindEvents();
+    };
     WeekSelectionComponent.prototype.bindEvents = function () {
         var _this = this;
         this.weekRangeContainer = $("#" + this.weekSelectionOption.selectorId);
@@ -970,6 +974,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         this.reportWeekSelection = $("#report-week-selection");
         this.tableReportContainer = $("#tbl-report-container");
         this.winLossDetailGetDataUrl = $("#hiddenGetDataUrl").val();
+        this.winLossDetailGetWeeksUrl = $("#hiddenGetWeeksUrl").val();
         this.winLossDetailGetDataWeekUrl = $("#hiddenGetDataWeekUrl").val();
         this.renderComponents();
         this.bindEvents();
@@ -1066,6 +1071,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
             var activeWeek = _this.weekSelectionComponent.getActiveWeek();
             $.extend(_this.globalFormData, dateRange, activeWeek, breadcrumbData);
+            _this.getWinLossDetailWeeks();
             _this.getWinLossDetailData(function () {
                 _this.breadcrumbLevelComponent.removeBreadcrumbLevel(breadcrumbData.custLevelId);
                 _this.updateCurrentUrl();
@@ -1104,6 +1110,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     WinLossDetailViewNew.prototype.getWinLossDetailDataAndRenderWeekRange = function (isRebuildBreadcrumb) {
         var _this = this;
         if (isRebuildBreadcrumb === void 0) { isRebuildBreadcrumb = false; }
+        this.getWinLossDetailWeeks();
         this.getWinLossDetailData(function () {
             if (isRebuildBreadcrumb) {
                 _this.breadcrumbLevelComponent.setBreadcrumbs(_this.buildBreadcrumbs());
@@ -1121,7 +1128,6 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         this.reportWeekSelection.block();
         $.get(this.winLossDetailGetDataUrl + "?" + $.param(this.globalFormData), function (html) {
             _this.reportWeekSelection.html(html);
-            _this.weekSelectionComponent.bindEvents();
             _this.tableReportContainer = $("#tbl-report-container");
             _this.bindCopyAndExcelEvents();
             _this.bindTableReportEvents();
@@ -1146,6 +1152,26 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
                 }
             }
         }).always(function () { return _this.removeIsWeekSelectionForStatistic(); });
+    };
+    WinLossDetailViewNew.prototype.getWinLossDetailWeeks = function () {
+        var _this = this;
+        $.get(this.winLossDetailGetWeeksUrl + "?" + $.param(this.globalFormData), function (html) {
+            return _this.weekSelectionComponent.reRender(html);
+        }).fail(function (jqXHR) {
+            if (jqXHR.status === 429) {
+                window.location.href = window.top.alpha.urls.mainRootPath + "error/blocked";
+            }
+            else if (jqXHR.status === 500 && jqXHR.responseText) {
+                var responseObject = JSON.parse(jqXHR.responseText);
+                if (responseObject.UMFrom && responseObject.UMTo) {
+                    var cookielessSiteMainUrl = $("#CookielessSiteMainUrl");
+                    var siteMainUrl = cookielessSiteMainUrl.length
+                        ? cookielessSiteMainUrl.val()
+                        : window.top.alpha.urls.mainRootPath;
+                    window.location.href = siteMainUrl + "partialum/index?" + $.param(responseObject);
+                }
+            }
+        });
     };
     WinLossDetailViewNew.prototype.getWinLossDetailDataWeek = function (callback) {
         //this.addMoreParamsForStatistic();
@@ -1252,6 +1278,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
                 breadcrumbLevelJson: JSON.stringify(_this.breadcrumbLevelComponent.getBreadcrumbs())
             };
             $.extend(_this.globalFormData, dateRange, activeWeek, breadcrumbData);
+            _this.getWinLossDetailWeeks();
             _this.getWinLossDetailData(function () {
                 _this.breadcrumbLevelComponent.addBreadcrumbLevel(breadcrumbData);
                 _this.updateCurrentUrl();
