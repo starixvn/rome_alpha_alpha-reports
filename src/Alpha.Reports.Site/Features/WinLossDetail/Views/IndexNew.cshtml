@@ -63,6 +63,9 @@
             @VisibleColumnsDropdown.Render()
         </div>
     </div>
+    <div class="label-week-box" id="week-selection">
+        @{ Html.RenderPartial("~/Features/WinLossDetail/Views/Weeks.cshtml", Model.Weeks); }
+    </div>
     <div id="report-week-selection" class="cover-week-selection">
         @Html.Partial("~/Features/WinLossDetail/Views/ReportDataNew.cshtml", Model)
     </div>
@@ -76,6 +79,7 @@
 <input type="hidden" id="hiddenCustLevel" value="@Model.CustLevel.Value" />
 <input type="hidden" id="hiddenLegendUrl" value="@Url.Action("ReportLegend", $"{SiteSettings.ReportRouting}WinLossDetail", new { IsNew = true, IsSupportHistoricReport = true, MinDate = Model.DateRangePickerViewModel.MinDate, ShowDormantAccountsNote = true })" />
 <input type="hidden" id="hiddenGetDataUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WinLossDetail")" />
+<input type="hidden" id="hiddenGetWeeksUrl" value="@Url.Action("GetWeeks", $"{SiteSettings.ReportRouting}WinLossDetail")" />
 <input type="hidden" id="hiddenGetDataWeekUrl" value="@Url.Action("GetDataWeek", $"{SiteSettings.ReportRouting}WinLossDetail")" />
 <input type="hidden" id="hiddenBetListsUrl" value="@Model.BetListsUrl" />
 <input type="hidden" id="hiddenUsernameAutoSuggestionUrl" value="@Url.Action("Get", $"{SiteSettings.ReportRouting}UsernameSuggestion")" />

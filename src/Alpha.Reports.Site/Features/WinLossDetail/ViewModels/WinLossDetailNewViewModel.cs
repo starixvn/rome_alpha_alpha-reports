@@ -17,8 +17,7 @@
             IEnumerable<ProductDetailNewViewModel> productDetails,
             EnteredSportResult totalEnteredSport,
             PagedReportData<WinLossDetailModel> winLossDetail,
-            IEnumerable<WeekSelectionViewModel> weeks)
-            : base(message, totalEnteredSport, winLossDetail, weeks)
+            IEnumerable<WeekSelectionViewModel> weeks) : base(message, totalEnteredSport, winLossDetail)
         {
             ViewerId = message.ViewerId;
             ViewerName = message.CustName;
@@ -40,6 +39,7 @@
             Language = message.Language;
             MainDomain = message.IsInternal ? message.MainDomain : string.Empty;
             ShowColumns = message.ShowColumns;
+            Weeks = weeks;
         }
 
         public int ViewerId { get; }
@@ -79,5 +79,7 @@
         public string MainDomain { get; }
 
         public string ShowColumns { get; }
+
+        public IEnumerable<WeekSelectionViewModel> Weeks { get; }
     }
 }

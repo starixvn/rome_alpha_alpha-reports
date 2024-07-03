@@ -26,6 +26,7 @@ class WinLossDetailViewNew extends BaseReportView {
     private tableReportContainer: JQuery;
     private tableReport: JQuery;
     private winLossDetailGetDataUrl: string
+    private winLossDetailGetWeeksUrl: string;
     private winLossDetailGetDataWeekUrl: string
     private globalFormData: any;
     private sortColumnName = "username";
@@ -56,6 +57,7 @@ class WinLossDetailViewNew extends BaseReportView {
         this.reportWeekSelection = $("#report-week-selection");
         this.tableReportContainer = $("#tbl-report-container");
         this.winLossDetailGetDataUrl = $("#hiddenGetDataUrl").val();
+        this.winLossDetailGetWeeksUrl = $("#hiddenGetWeeksUrl").val();
         this.winLossDetailGetDataWeekUrl = $("#hiddenGetDataWeekUrl").val();
 
         this.renderComponents();
@@ -183,6 +185,7 @@ class WinLossDetailViewNew extends BaseReportView {
                 const dateRange = this.dateRangePickerComponent.getDateRangeValues();
                 const activeWeek = this.weekSelectionComponent.getActiveWeek();
                 $.extend(this.globalFormData, dateRange, activeWeek, breadcrumbData);
+                this.getWinLossDetailWeeks();
                 this.getWinLossDetailData(() => {
                     this.breadcrumbLevelComponent.removeBreadcrumbLevel(breadcrumbData.custLevelId);
                     this.updateCurrentUrl();
@@ -225,6 +228,7 @@ class WinLossDetailViewNew extends BaseReportView {
     }
 
     private getWinLossDetailDataAndRenderWeekRange(isRebuildBreadcrumb: boolean = false) {
+        this.getWinLossDetailWeeks();
         this.getWinLossDetailData(() => {
             if (isRebuildBreadcrumb) {
                 this.breadcrumbLevelComponent.setBreadcrumbs(this.buildBreadcrumbs());
@@ -241,7 +245,6 @@ class WinLossDetailViewNew extends BaseReportView {
         this.reportWeekSelection.block();
         $.get(`${this.winLossDetailGetDataUrl}?${$.param(this.globalFormData)}`, (html) => {
             this.reportWeekSelection.html(html);
-            this.weekSelectionComponent.bindEvents();
             this.tableReportContainer = $("#tbl-report-container");
             this.bindCopyAndExcelEvents();
             this.bindTableReportEvents();
@@ -267,6 +270,25 @@ class WinLossDetailViewNew extends BaseReportView {
                 }
             }
         }).always(() => this.removeIsWeekSelectionForStatistic());
+    }
+
+    private getWinLossDetailWeeks() {
+        $.get(`${this.winLossDetailGetWeeksUrl}?${$.param(this.globalFormData)}`, (html) =>
+            this.weekSelectionComponent.reRender(html)
+        ).fail((jqXHR) => {
+            if (jqXHR.status === 429) {
+                window.location.href = window.top.alpha.urls.mainRootPath + "error/blocked";
+            } else if (jqXHR.status === 500 && jqXHR.responseText) {
+                const responseObject = JSON.parse(jqXHR.responseText);
+                if (responseObject.UMFrom && responseObject.UMTo) {
+                    const cookielessSiteMainUrl = $("#CookielessSiteMainUrl");
+                    const siteMainUrl = cookielessSiteMainUrl.length
+                        ? cookielessSiteMainUrl.val()
+                        : window.top.alpha.urls.mainRootPath;
+                    window.location.href = `${siteMainUrl}partialum/index?${$.param(responseObject)}`;
+                }
+            }
+        });
     }
 
     private getWinLossDetailDataWeek(callback = Function()) {
@@ -384,6 +406,7 @@ class WinLossDetailViewNew extends BaseReportView {
             };
             $.extend(this.globalFormData, dateRange, activeWeek, breadcrumbData);
 
+            this.getWinLossDetailWeeks();
             this.getWinLossDetailData(() => {
                 this.breadcrumbLevelComponent.addBreadcrumbLevel(breadcrumbData);
                 this.updateCurrentUrl();

@@ -18,7 +18,8 @@
     public class WinLossDetailNewHandler : WinLossDetailBaseNewHandler,
         IAsyncRequestHandler<WinLossDetailNewQuery, WinLossDetailNewViewModel>,
         IAsyncRequestHandler<WinLossDetailGetDataQuery, WinLossDetailGetDataViewModel>,
-        IAsyncRequestHandler<WinLossDetailGetDataWeekQuery, WinLossDetailGetDataWeekViewModel>
+        IAsyncRequestHandler<WinLossDetailGetDataWeekQuery, WinLossDetailGetDataWeekViewModel>,
+        IAsyncRequestHandler<WinLossDetailWeeksQuery, IEnumerable<WeekSelectionViewModel>>
     {
         private readonly WinLossService winlossService;
 
@@ -40,7 +41,7 @@
 
             var isValidUsername = BuildWinLossDetailGetDataQuery(message);
             Task<PagedReportData<WinLossDetailModel>> reportDataTask;
-            Task<IEnumerable<WinLossDetailWeekData>> weekDataTask;
+            Task<IEnumerable<WeekSelectionViewModel>> weekDataTask;
 
             if (isValidUsername)
             {
@@ -56,15 +57,15 @@
                     winLossDetailParam.ProductDetailsXML,
                     string.IsNullOrWhiteSpace(winLossDetailParam.Username) ? message.CustName : winLossDetailParam.Username,
                     message.Site);
-                weekDataTask = winlossDetailService.GetWinLossDetailWeekDataAsync(winLossDetailWeekDataParam);
+                weekDataTask = BuildWeekSelectionViewModels(winLossDetailWeekDataParam, message.WeekFromDate, message.WeekToDate);
             }
             else
             {
                 reportDataTask = Task.FromResult(
                     new PagedReportData<WinLossDetailModel>(null, message.PageIndex, message.PageSize, 0, null));
-                weekDataTask = Task.FromResult(Enumerable.Empty<WinLossDetailWeekData>());
+                weekDataTask = Task.FromResult(Enumerable.Empty<WeekSelectionViewModel>());
             }
-            
+
             var totalEnteredSportTask = winlossService.GetTotalEnteredSportYesterdayAndTodayAsync();
             await Task.WhenAll(reportDataTask, weekDataTask, totalEnteredSportTask);
 
@@ -74,56 +75,32 @@
                 BuildProductDetailNewViewModels(message, productDetails),
                 await totalEnteredSportTask,
                 await reportDataTask,
-                BuildWeekSelectionViewModels(
-                    await weekDataTask,
-                    message.FromDate,
-                    message.ToDate,
-                    message.WeekFromDate,
-                    message.WeekToDate));
+                await weekDataTask);
         }
 
         public async Task<WinLossDetailGetDataViewModel> Handle(WinLossDetailGetDataQuery message)
         {
             var isValidUsername = BuildWinLossDetailGetDataQuery(message);
             Task<PagedReportData<WinLossDetailModel>> reportDataTask;
-            Task<IEnumerable<WinLossDetailWeekData>> weekDataTask;
 
             if (isValidUsername)
             {
                 var winLossDetailParam = await CreateParameter(message);
                 reportDataTask = winlossDetailService.GetWinLossDetailAsync(winLossDetailParam);
-
-                var winLossDetailWeekDataParam = new WinLossDetailWeekDataParam(
-                    winLossDetailParam.ViewerId,
-                    message.FromDate,
-                    message.ToDate,
-                    winLossDetailParam.LimitedDateToShowInfo,
-                    winLossDetailParam.UserSelectedProductIds,
-                    winLossDetailParam.ProductDetailsXML,
-                    string.IsNullOrWhiteSpace(winLossDetailParam.Username) ? message.CustName : winLossDetailParam.Username,
-                    message.Site);
-                weekDataTask = winlossDetailService.GetWinLossDetailWeekDataAsync(winLossDetailWeekDataParam);
             }
             else
             {
                 reportDataTask = Task.FromResult(
                     new PagedReportData<WinLossDetailModel>(null, message.PageIndex, message.PageSize, 0, null));
-                weekDataTask = Task.FromResult(Enumerable.Empty<WinLossDetailWeekData>());
             }
 
             var totalEnteredSportTask = winlossService.GetTotalEnteredSportYesterdayAndTodayAsync();
-            await Task.WhenAll(reportDataTask, totalEnteredSportTask, weekDataTask);
+            await Task.WhenAll(reportDataTask, totalEnteredSportTask);
 
             return new WinLossDetailGetDataViewModel(
                 message,
                 await totalEnteredSportTask,
-                await reportDataTask,
-                BuildWeekSelectionViewModels(
-                    await weekDataTask,
-                    message.FromDate,
-                    message.ToDate,
-                    message.WeekFromDate,
-                    message.WeekToDate));
+                await reportDataTask);
         }
 
         public async Task<WinLossDetailGetDataWeekViewModel> Handle(WinLossDetailGetDataWeekQuery message)
@@ -141,20 +118,46 @@
                 reportDataTask = Task.FromResult(
                     new PagedReportData<WinLossDetailModel>(null, message.PageIndex, message.PageSize, 0, null));
             }
-            
+
             var totalEnteredSportTask = winlossService.GetTotalEnteredSportYesterdayAndTodayAsync();
             await Task.WhenAll(reportDataTask, totalEnteredSportTask);
 
             return new WinLossDetailGetDataWeekViewModel(message, await totalEnteredSportTask, await reportDataTask);
         }
 
-        private static IEnumerable<WeekSelectionViewModel> BuildWeekSelectionViewModels(
-            IEnumerable<WinLossDetailWeekData> weekData,
-            DateTime fromDate,
-            DateTime toDate,
-            DateTime? selectedFromDate = null,
-            DateTime? selectedToDate = null)
+        public async Task<IEnumerable<WeekSelectionViewModel>> Handle(WinLossDetailWeeksQuery message)
         {
+            var isValidUsername = BuildWinLossDetailGetDataQuery(message);
+
+            if (!isValidUsername)
+            {
+                return Enumerable.Empty<WeekSelectionViewModel>();
+            }
+
+            var productsAndProductDetails = await GetProductsAndProductDetails(message);
+            var products = productsAndProductDetails.Item1;
+            var productDetails = productsAndProductDetails.Item2;
+            var winLossDetailParam = CreateParameter(message, products, productDetails);
+
+            var winLossDetailWeekDataParam = new WinLossDetailWeekDataParam(
+                winLossDetailParam.ViewerId,
+                message.FromDate,
+                message.ToDate,
+                winLossDetailParam.LimitedDateToShowInfo,
+                winLossDetailParam.UserSelectedProductIds,
+                winLossDetailParam.ProductDetailsXML,
+                string.IsNullOrWhiteSpace(winLossDetailParam.Username) ? message.CustName : winLossDetailParam.Username,
+                message.Site);
+
+            return await BuildWeekSelectionViewModels(winLossDetailWeekDataParam, message.WeekFromDate, message.WeekToDate);
+        }
+
+        private async Task<IEnumerable<WeekSelectionViewModel>> BuildWeekSelectionViewModels(
+            WinLossDetailWeekDataParam param,
+            DateTime? selectedFromDate,
+            DateTime? selectedToDate)
+        {
+            var weekData = await winlossDetailService.GetWinLossDetailWeekDataAsync(param);
             var weekDataHash = new HashSet<string>();
             foreach (var item in weekData)
             {
@@ -162,8 +165,8 @@
             }
 
             var weekSelections = new List<WeekSelectionViewModel>();
-            var startDate = fromDate.Date;
-            var endDate = toDate.Date;
+            var startDate = param.FromDate.Date;
+            var endDate = param.ToDate.Date;
 
             while (endDate.Subtract(startDate).TotalDays >= 0)
             {
