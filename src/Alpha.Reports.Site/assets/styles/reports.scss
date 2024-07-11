@@ -150,6 +150,7 @@ a {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     will-change: scroll-position;
+    position: unset !important;
 }
 .wrapper-table-scrollable {
     position: relative;
