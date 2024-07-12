@@ -150,7 +150,18 @@ a {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     will-change: scroll-position;
-    position: unset !important;
+    padding-top: 24px;
+
+    @media only screen and (max-device-width : 767px) {
+        padding-top: 39px;
+    }
+}
+.label-week-box {
+    margin-bottom: -15px;
+
+    @media only screen and (max-device-width : 767px) {
+        margin-bottom: -25px;
+    }
 }
 .wrapper-table-scrollable {
     position: relative;

@@ -180,7 +180,16 @@ a {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   will-change: scroll-position;
-  position: unset !important; }
+  padding-top: 24px; }
+  @media only screen and (max-device-width: 767px) {
+    .cover-week-selection {
+      padding-top: 39px; } }
+
+.label-week-box {
+  margin-bottom: -15px; }
+  @media only screen and (max-device-width: 767px) {
+    .label-week-box {
+      margin-bottom: -25px; } }
 
 .wrapper-table-scrollable {
   position: relative; }
