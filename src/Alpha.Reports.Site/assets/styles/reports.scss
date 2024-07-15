@@ -72,7 +72,6 @@ a {
                 position: relative;
                 top: -2px;
             }
-
             .icon-filter {
                 font-size: 22px;
             }
@@ -162,6 +161,26 @@ a {
     @media only screen and (max-device-width : 767px) {
         margin-bottom: -25px;
     }
+}
+.breadcrumb-table {
+    .list-icon ul li {
+        margin-right: 5px;
+        margin-left: 5px;
+
+        .icon {
+            display: block;
+            min-width: 17px;
+            margin: 0;
+        }
+    }
+}
+.breadcrumb-table .list-icon ul li .icon-excel + .tooltip.top .tooltip-inner:before {
+    left: auto;
+    right: 12px;
+}
+.breadcrumb-table .list-icon ul li .icon-excel + .tooltip.top .tooltip-inner:after {
+    left: auto;
+    right: 14px;
 }
 .wrapper-table-scrollable {
     position: relative;
