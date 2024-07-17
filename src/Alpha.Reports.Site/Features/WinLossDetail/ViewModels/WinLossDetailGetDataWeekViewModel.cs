@@ -18,6 +18,8 @@
             TotalEnteredSport = totalEnteredSport;
             WinLossDetail = winLossDetail;
             BreadcrumbLevelJson = JsonHelper.ToJson(message.BreadcrumbLevel);
+            CanShowMonitoredIcon = !message.IsProtectedMode && message.ViewerLevel.IsAgentLevel();
+            CanUpdateAccount = message.CanUpdateAccount;
         }
 
         public UserLevel CustLevel { get; }
@@ -29,5 +31,9 @@
         public PagedReportData<WinLossDetailModel> WinLossDetail { get; }
 
         public string BreadcrumbLevelJson { get; }
+
+        public bool CanShowMonitoredIcon { get; }
+
+        public bool CanUpdateAccount { get; }
     }
 }

@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.Reports.Configurations;
     using AlphaPlus.User.Models;
     using Constants;
     using Reports.Models;
@@ -71,5 +70,7 @@
         public int SRecommendId => userSession.SRecommendId;
 
         public int OnUserId => userSession.OnUserId;
+
+        public bool CanUpdateAccount => userSession.SubPageAccess.UpdateAccount;
     }
 }

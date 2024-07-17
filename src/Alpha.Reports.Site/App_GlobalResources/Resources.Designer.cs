@@ -214,6 +214,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to My Watchlist.
+        /// </summary>
+        public static string AddToMyWatchlist {
+            get {
+                return ResourceManager.GetString("AddToMyWatchlist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Agent.
         /// </summary>
         public static string Agent {
@@ -1839,6 +1848,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string MemberWinLossNew {
             get {
                 return ResourceManager.GetString("MemberWinLossNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monitored Member.
+        /// </summary>
+        public static string MonitoredMember {
+            get {
+                return ResourceManager.GetString("MonitoredMember", resourceCulture);
             }
         }
         

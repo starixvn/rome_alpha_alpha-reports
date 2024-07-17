@@ -1077,4 +1077,10 @@
   <data name="SabaOtherSportsLegend" xml:space="preserve">
     <value>- 数据{0} 将低于 {1}</value>
   </data>
+  <data name="AddToMyWatchlist" xml:space="preserve">
+    <value>添加至我的监控列表</value>
+  </data>
+  <data name="MonitoredMember" xml:space="preserve">
+    <value>监控会员</value>
+  </data>
 </root>

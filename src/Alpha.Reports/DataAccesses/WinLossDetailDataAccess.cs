@@ -60,10 +60,12 @@
         private WinLossDetailModel BuildWinLossDetail(IDataReader reader, UserLevel reportLevel, bool isTotal)
         {
             string firstName = null, lastName = null;
+            bool isExistedWatchlist = false;
             if (!isTotal)
             {
                 firstName = reader.ToString("FirstName");
                 lastName = reader.ToString("LastName");
+                isExistedWatchlist = reportLevel.IsAgentLevel() && Convert.ToBoolean(reader["IsExistedWatchList"]);
             }
 
             return new WinLossDetailModel(
@@ -71,6 +73,7 @@
                 custName: reader.ToString("CustName"),
                 firstName: firstName,
                 lastName: lastName,
+                isExistedWatchlist: isExistedWatchlist,
                 turnover: reader.ToDecimal("Turnover"),
                 netTurnover: reader.ToDecimal("NetTurnover"),
                 grossComm: reader.ToDecimal("GrossComm"),

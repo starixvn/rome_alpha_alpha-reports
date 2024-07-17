@@ -44,8 +44,8 @@ var DateRangePickerJQueryComponent = /** @class */ (function () {
             .data("dateRangePicker").setDateRange(this.fromDate, this.toDate, false);
     };
     DateRangePickerJQueryComponent.prototype.getPredefinedRanges = function (dateRangePicker) {
-        var minDate = moment(dateRangePicker.data("mindate"));
-        var today = moment(dateRangePicker.data("currentdate"));
+        var minDate = moment(dateRangePicker.data("mindate"), alphaReports.format.shortDateWithSlash_DatePicker);
+        var today = moment(dateRangePicker.data("currentdate"), alphaReports.format.shortDateWithSlash_DatePicker);
         var todayValue = today.toDate();
         var yesterday = moment(today).subtract(1, "d");
         var thisWeekStartOfDay = moment(today).startOf("isoWeek");

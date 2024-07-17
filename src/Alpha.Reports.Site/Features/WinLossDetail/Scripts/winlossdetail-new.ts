@@ -6,7 +6,7 @@ interface Window {
     columnList: any,
     reportTitle: any,
     indexManager: any,
-    alpha: any
+    alpha: any,
 }
 
 interface JQuery {
@@ -32,6 +32,7 @@ class WinLossDetailViewNew extends BaseReportView {
     private sortColumnName = "username";
     private sortIndicator = 0; // asc: 0, desc: 1
     private isGettingReportData = false;
+    private isWeekSelectionClicked = false;
 
     constructor(
         totalEnteredNonEnteredComponent: TotalEnteredNonEnteredComponent,
@@ -252,6 +253,7 @@ class WinLossDetailViewNew extends BaseReportView {
                 { eventDate: this.tableReport.data("yesterday"), nonEntered: this.tableReport.data("non-entered-yesterday") },
                 { eventDate: this.tableReport.data("today"), nonEntered: this.tableReport.data("non-entered-today") });
             callback();
+            this.isWeekSelectionClicked = false;
             this.reportWeekSelection.unblock();
             this.isGettingReportData = false;
         }).fail((jqXHR) => {
@@ -303,6 +305,7 @@ class WinLossDetailViewNew extends BaseReportView {
                 { eventDate: this.tableReport.data("today"), nonEntered: this.tableReport.data("non-entered-today") });
             callback();
             this.updateCurrentUrl();
+            this.isWeekSelectionClicked = true;
             this.tableReportContainer.unblock();
             this.isGettingReportData = false;
         }).fail((jqXHR) => {
@@ -413,6 +416,28 @@ class WinLossDetailViewNew extends BaseReportView {
             });
 
             this.tableReport.find(".icon-dormant-accounts").tooltip();
+        });
+
+        this.tableReport.find(".icon-plus-box").off("click").click((e) => {
+            window.top["reloadMyWatchlistDataTable"] = () => this.isWeekSelectionClicked ? this.getWinLossDetailDataWeek() : this.getWinLossDetailDataAndRenderWeekRange(true);
+            const custName = $(e.target).prev(".betlists-link").data("custname");
+            const url = `${$("#hiddenMemberInfoUrl").val()}MyWatchlistAccounts/ManageWatchlistAccounts?usernames=${custName}`;
+            const width = 820;
+            const height = 550;
+            let mainDomain = $("#hiddenMainDomain").val();
+            if (mainDomain.length) {
+                mainDomain = mainDomain.indexOf("http") === -1
+                    ? location.origin.split(":")[0] + ":" + mainDomain + "/site-main"
+                    : mainDomain;
+                window.top.postMessage({
+                    event_id: "winlossdetailnew-addtomywatchlist",
+                    url: url,
+                    width: width,
+                    height: height
+                }, mainDomain);
+            } else {
+                window.top["popupManager"].open(url, undefined, width, height, "modal-mobile-friendly");
+            }
         });
 
         this.initTableSorter();

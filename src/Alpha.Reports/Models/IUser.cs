@@ -52,5 +52,7 @@
         int SRecommendId { get; }
 
         int OnUserId { get; }
+
+        bool CanUpdateAccount { get; }
     }
 }
