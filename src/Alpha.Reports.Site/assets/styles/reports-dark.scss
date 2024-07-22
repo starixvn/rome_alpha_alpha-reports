@@ -333,6 +333,23 @@ a {
             border-left: 0 !important;
             box-shadow: inset 1px 0px 0 #5F626B;
             background-clip: padding-box;
+            padding-right: 24px;
+
+            .icon-plus-box, .icon-mywatchlist {
+                position: absolute;
+                font-size: 16px;
+                right: 4px;
+                top: 6px;
+                color: #919191;
+                cursor: pointer;
+
+                &:before {
+                    color: #919191;
+                }
+                + .tooltip{
+                    white-space: nowrap;
+                }
+            }
 
             &:before {
                 position: absolute;

@@ -293,7 +293,19 @@ a {
   border-right: 0 !important;
   border-left: 0 !important;
   box-shadow: inset 1px 0px 0 #5F626B;
-  background-clip: padding-box; }
+  background-clip: padding-box;
+  padding-right: 24px; }
+  .tblRpt-freeze-body tbody .col-username .icon-plus-box, .tblRpt-freeze-body tbody .col-username .icon-mywatchlist {
+    position: absolute;
+    font-size: 16px;
+    right: 4px;
+    top: 6px;
+    color: #919191;
+    cursor: pointer; }
+    .tblRpt-freeze-body tbody .col-username .icon-plus-box:before, .tblRpt-freeze-body tbody .col-username .icon-mywatchlist:before {
+      color: #919191; }
+    .tblRpt-freeze-body tbody .col-username .icon-plus-box + .tooltip, .tblRpt-freeze-body tbody .col-username .icon-mywatchlist + .tooltip {
+      white-space: nowrap; }
   .tblRpt-freeze-body tbody .col-username:before {
     position: absolute;
     content: "";
