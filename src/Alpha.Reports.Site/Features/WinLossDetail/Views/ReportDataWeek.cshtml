@@ -88,7 +88,6 @@
         else
         {
             <td class="text-left col-username">
-                <div class="align-username">
                 @if (isDormantAccounts)
                 {
                     <span class="pull-left">@Resources.DormantAccounts</span>
@@ -104,7 +103,7 @@
                 }
                 else
                 {
-                    <span>@data.CustName</span>
+                    @data.CustName
                 }
                 @if (Model.CanShowMonitoredIcon)
                 {
@@ -117,7 +116,6 @@
                         <span class="icon-plus-box" data-toggle="tooltip" data-placement="right" title="@Resources.AddToMyWatchlist"></span>
                     }
                 }
-                </div>
             </td>
             <td class="text-left" data-colname="fullname"><div class="fullname" data-toggle="tooltip" data-placement="bottom" title="@data.FullName">@data.FullName</div></td>
         }
