@@ -46,7 +46,7 @@
                 message.Site,
                 message.CurrencyId,
                 !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds);
-
+            validUserSelectedProductIds = productDetailService.RemoveProductIds(validUserSelectedProductIds, validUserSelectedResourceIds);
             return new SuperWinLossDetailByPTParam(
                 message.CustId,
                 message.FromDate,
