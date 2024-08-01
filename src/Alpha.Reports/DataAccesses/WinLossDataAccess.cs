@@ -30,7 +30,7 @@
             custName: entity.CustName,
             turnover: entity.Turnover,
             grossComm: entity.GrossComm,
-            memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(entity.MemberWinLoss.Value, entity.MemberComm.Value) : null,
+            memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(entity.MemberWinLoss, entity.MemberComm) : null,
             agentNetWinLoss: ReadAgentNetWinLoss(entity, reportLevel),
             masterNetWinLoss: ReadMasterNetWinLoss(entity, reportLevel),
             superNetWinLoss: ReadSuperNetWinLoss(entity, reportLevel));
@@ -38,7 +38,7 @@
         private static NetWinLoss ReadAgentNetWinLoss(WinLossEntity entity, UserLevel reportLevel)
             => reportLevel.IsNotSuperLevel()
             ? (reportLevel.IsMasterLevel()
-                ? new NetWinLoss(entity.DownlineTotal.Value)
+                ? new NetWinLoss(entity.DownlineTotal)
                 : new NetWinLoss(entity.WinLoss, entity.Comm))
             : null;
 
@@ -46,7 +46,7 @@
             => reportLevel.IsMasterOrSuperLevel()
             ? (reportLevel.IsMasterLevel()
                 ? new NetWinLoss(entity.WinLoss, entity.Comm)
-                : new NetWinLoss(entity.DownlineTotal.Value))
+                : new NetWinLoss(entity.DownlineTotal))
             : null;
 
         private static NetWinLoss ReadSuperNetWinLoss(WinLossEntity entity, UserLevel reportLevel)

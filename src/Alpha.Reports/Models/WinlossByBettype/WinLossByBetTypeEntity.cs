@@ -18,11 +18,11 @@
 
         public int BetCount { get; set; }
 
-        public decimal? MemberWinLoss { get; set; }
+        public decimal MemberWinLoss { get; set; }
 
-        public decimal? MemberComm { get; set; }
+        public decimal MemberComm { get; set; }
 
-        public decimal? DownlineTotal { get; set; }
+        public decimal DownlineTotal { get; set; }
 
         public decimal WinLoss { get; set; }
 

@@ -17,16 +17,16 @@
 
         public string Id => $"{LeagueId}_{LeagueType}";
 
-        public int LeagueId { get; }
+        public int LeagueId { get; set; }
 
-        public int LeagueGroupId { get; }
+        public int LeagueGroupId { get; set; }
 
-        public string Name { get; }
+        public string Name { get; set; }
 
-        public int SportTypeId { get; }
+        public int SportTypeId { get; set; }
 
         public string DisplayName => Name;
 
-        public byte LeagueType { get; }
+        public byte LeagueType { get; set; }
     }
 }

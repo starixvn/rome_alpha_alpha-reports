@@ -36,8 +36,13 @@
 
         public IEnumerable<League> GetLeaguesByCustomer(GetLeaguesByCustomerParam getLeaguesByCustomerParam)
         {
-            var data = dynamicRepository.Fetch<League>(
-                new GetLeaguesByCustomerCriteria(getLeaguesByCustomerParam, reportDateService.GetMoveBetsDay()));
+            var data = dynamicRepository.Fetch<League>(new GetLeaguesByCustomerCriteria(
+                getLeaguesByCustomerParam.CustId,
+                getLeaguesByCustomerParam.ProductIds,
+                getLeaguesByCustomerParam.FromDate,
+                getLeaguesByCustomerParam.ToDate,
+                reportDateService.GetMoveBetsDay(),
+                getLeaguesByCustomerParam.Language));
 
             return data.Select(l => new League(
                 l.LeagueId,
