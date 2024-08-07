@@ -1,21 +1,26 @@
 ﻿namespace Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Criteria
 {
-    using Alpha.Reports.Extensions;
-    using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Params;
-    using Fanex.Data.Repository;
     using System;
+    using Fanex.Data.Repository;
 
     public class MoveStatementHistoryCriteria : CriteriaBase
     {
-        public MoveStatementHistoryCriteria(MoveStatementHistoryParam param)
+        public MoveStatementHistoryCriteria(
+            string username,
+            DateTime fromDate,
+            DateTime toDate,
+            int loggedId,
+            int pageIndex,
+            int pageSize,
+            bool isVariance)
         {
-            Username = param.Username;
-            FromDate = param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo);
-            ToDate = param.ToDate;
-            LoggedId = param.ViewerId;
-            PageIndex = param.PageIndex;
-            PageSize = param.PageSize;
-            IsVariance = param.IsVariance;
+            Username = username;
+            FromDate = fromDate;
+            ToDate = toDate;
+            LoggedId = loggedId;
+            PageIndex = pageIndex;
+            PageSize = pageSize;
+            IsVariance = isVariance;
         }
 
         public string Username { get; }

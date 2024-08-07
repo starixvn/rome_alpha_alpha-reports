@@ -1,9 +1,7 @@
-﻿using Xunit;
-namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
+﻿namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Fixtures;
     using Reports.Criteria.MatchWinLossDetail;
     using Reports.Enumerations;
@@ -35,7 +33,7 @@ namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<IEnumerable<int>>(),
+                anyValueCreator.Create<string>(),
                 Enumeration.FromValue<UserLevel>(userLevelId),
                 anyValueCreator.Create<IEnumerable<string>>());
 
@@ -58,7 +56,7 @@ namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<IEnumerable<int>>(),
+                anyValueCreator.Create<string>(),
                 anyValueCreator.Create<UserLevel>(),
                 anyValueCreator.Create<IEnumerable<string>>());
 
@@ -78,7 +76,7 @@ namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<IEnumerable<int>>(),
+                anyValueCreator.Create<string>(),
                 anyValueCreator.Create<UserLevel>(),
                 new List<string> { "12_0", "1_0", "3_0" });
 
@@ -98,7 +96,7 @@ namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
                anyValueCreator.Create<DateTime>(),
                anyValueCreator.Create<DateTime>(),
                anyValueCreator.Create<DateTime>(),
-               Enumerable.Empty<int>(),
+               string.Empty,
                anyValueCreator.Create<UserLevel>(),
                anyValueCreator.Create<IEnumerable<string>>());
 
@@ -120,7 +118,7 @@ namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
                fromDate,
                toDate,
                anyValueCreator.Create<DateTime>(),
-               anyValueCreator.Create<IEnumerable<int>>(),
+               anyValueCreator.Create<string>(),
                anyValueCreator.Create<UserLevel>(),
                anyValueCreator.Create<IEnumerable<string>>());
 
@@ -142,7 +140,7 @@ namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
                 fromDate,
                 toDate,
                 anyValueCreator.Create<DateTime>(),
-                new List<int> { 1, 2, 3 },
+                "1,2,3",
                 anyValueCreator.Create<UserLevel>(),
                 new List<string> { "4_0", "5_0", "6_1" });
 
@@ -163,7 +161,7 @@ namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
                 expectedMoveBetDays,
-                new List<int> { 1, 2, 3 },
+                "1,2,3",
                 anyValueCreator.Create<UserLevel>(),
                 new List<string> { "4_0", "5_0", "6_1" });
 
@@ -186,7 +184,7 @@ namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
-                new List<int> { 1, 2, 3 },
+                "1,2,3",
                 anyValueCreator.Create<UserLevel>(),
                 new List<string> { leagueIds, leagueIds3rd });
 

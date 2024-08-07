@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Criteria.WinLoss
 {
     using System;
-    using System.Collections.Generic;
     using Fanex.Data;
     using Models;
 
@@ -13,7 +12,7 @@
             DateTime toDate,
             DateTime balanceUpDay,
             DateTime moveBetsDay,
-            IEnumerable<int> productIds,
+            string productIds,
             UserLevel reportLevel,
             string productDetails)
             : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)

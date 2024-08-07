@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Tests.Features.BetCreditTracking.MoveStatementHistory.Criteria
 {
+    using System;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Criteria;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Params;
-    using System;
     using Xunit;
 
     [Trait("Category", "MoveStatementHistory")]
@@ -15,7 +15,8 @@
             var param = new MoveStatementHistoryParam("member1", new DateTime(2022, 1, 1), new DateTime(2022, 1, 2), 1, DateTime.MinValue, 1, 100, true);
 
             // Act
-            var criteria = new MoveStatementHistoryCriteria(param);
+            var criteria = new MoveStatementHistoryCriteria(
+                param.Username, param.FromDate, param.ToDate, param.ViewerId, param.PageIndex, param.PageSize, param.IsVariance);
 
             // Assert
             Assert.True(
@@ -33,7 +34,8 @@
         {
             // Arrange
             var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100, true);
-            var criteria = new MoveStatementHistoryCriteria(param);
+            var criteria = new MoveStatementHistoryCriteria(
+                param.Username, param.FromDate, param.ToDate, param.ViewerId, param.PageIndex, param.PageSize, param.IsVariance);
             var expectedSettingKey = "Age_Rpt_StatementMovement";
 
             // Act
@@ -48,7 +50,8 @@
         {
             // Arrange
             var param = new MoveStatementHistoryParam("member1", DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, 1, 100, true);
-            var criteria = new MoveStatementHistoryCriteria(param);
+            var criteria = new MoveStatementHistoryCriteria(
+                param.Username, param.FromDate, param.ToDate, param.ViewerId, param.PageIndex, param.PageSize, param.IsVariance);
 
             // Act
             var actual = criteria.IsValid();
@@ -62,7 +65,8 @@
         {
             // Arrange
             var param = new MoveStatementHistoryParam("member1", DateTime.Today, DateTime.Today.AddDays(-1), 1, DateTime.MinValue, 1, 100, true);
-            var criteria = new MoveStatementHistoryCriteria(param);
+            var criteria = new MoveStatementHistoryCriteria(
+                param.Username, param.FromDate, param.ToDate, param.ViewerId, param.PageIndex, param.PageSize, param.IsVariance);
 
             // Act
             var actual = criteria.IsValid();

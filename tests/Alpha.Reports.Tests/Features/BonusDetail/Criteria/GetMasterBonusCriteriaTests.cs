@@ -14,7 +14,8 @@
         {
             // Arrange
             var param = new BonusDetailParam(8, UserLevel.Master, null, DateTime.Today.AddDays(-1), DateTime.Today, DateTime.MinValue, null, null, 1, 500);
-            var criteria = new GetMasterBonusCriteria(param);
+            var criteria = new GetAgentBonusCriteria(
+                param.Username, param.FromDate, param.ToDate, param.StatusId, param.IsComplained, param.PageIndex, param.PageSize, param.ViewerId);
             var expectedSettingKey = "Age_Rpt_BonusDetail_Master";
 
             // Act
@@ -32,7 +33,8 @@
         {
             // Arrange
             var param = new BonusDetailParam(masterId, UserLevel.Agent, null, DateTime.Today.AddDays(-1), DateTime.Today, DateTime.MinValue, null, null, 1, 500);
-            var criteria = new GetAgentBonusCriteria(param);
+            var criteria = new GetAgentBonusCriteria(
+                param.Username, param.FromDate, param.ToDate, param.StatusId, param.IsComplained, param.PageIndex, param.PageSize, param.ViewerId);
 
             // Act
             var actual = criteria.IsValid();
@@ -46,7 +48,8 @@
         {
             // Arrange
             var param = new BonusDetailParam(8, UserLevel.Master, null, DateTime.Today.AddDays(-1), DateTime.Today, DateTime.MinValue, null, null, 1, 500);
-            var criteria = new GetMasterBonusCriteria(param);
+            var criteria = new GetAgentBonusCriteria(
+                param.Username, param.FromDate, param.ToDate, param.StatusId, param.IsComplained, param.PageIndex, param.PageSize, param.ViewerId);
 
             // Act
             var actual = criteria.IsValid();
@@ -60,7 +63,8 @@
         {
             // Arrange
             var param = new BonusDetailParam(8, UserLevel.Master, null, DateTime.Today, DateTime.Today.AddDays(-1), DateTime.MinValue, null, null, 1, 500);
-            var criteria = new GetMasterBonusCriteria(param);
+            var criteria = new GetAgentBonusCriteria(
+                param.Username, param.FromDate, param.ToDate, param.StatusId, param.IsComplained, param.PageIndex, param.PageSize, param.ViewerId);
 
             // Act
             var actual = criteria.IsValid();

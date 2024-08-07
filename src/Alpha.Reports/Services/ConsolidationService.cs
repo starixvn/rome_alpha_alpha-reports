@@ -106,10 +106,14 @@
         {
             var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
             var criteria = new GetConsolidationCriteria(
-                param,
+                param.CustId,
+                param.Currency,
+                param.FromDate,
+                param.ToDate,
+                ConsolidationReportTypeConstants.Product,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                ConsolidationReportTypeConstants.Product,
+                param.ProductIds.JoinWithComma(),
                 param.ProductDetailsXML,
                 subfix);
 
@@ -126,10 +130,14 @@
         {
             var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
             var criteria = new GetConsolidationCriteria(
-                param,
+                param.CustId,
+                param.Currency,
+                param.FromDate,
+                param.ToDate,
+                ConsolidationReportTypeConstants.Daily,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                ConsolidationReportTypeConstants.Daily,
+                param.ProductIds.JoinWithComma(),
                 param.ProductDetailsXML,
                 subfix);
 
@@ -142,10 +150,14 @@
         {
             var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
             var criteria = new GetConsolidationCriteria(
-                param,
+                param.CustId,
+                param.Currency,
+                param.FromDate,
+                param.ToDate,
+                ConsolidationReportTypeConstants.Product,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                ConsolidationReportTypeConstants.Product,
+                param.ProductIds.JoinWithComma(),
                 param.ProductDetailsXML,
                 subfix);
 
@@ -190,7 +202,7 @@
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                param.UserSelectedProductIds,
+                param.UserSelectedProductIds == null ? string.Empty : param.UserSelectedProductIds.JoinWithComma(),
                 param.ReportLevel,
                 param.ProductDetailsXML,
                 param.Username,

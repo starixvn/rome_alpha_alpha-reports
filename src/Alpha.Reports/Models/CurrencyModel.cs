@@ -4,7 +4,6 @@
     {
         public CurrencyModel()
         {
-
         }
 
         public CurrencyModel(byte id, string name)
@@ -13,8 +12,8 @@
             Name = name;
         }
 
-        public byte Id { get; }
+        public byte Id { get; set; }
 
-        public string Name { get; }
+        public string Name { get; set; }
     }
 }

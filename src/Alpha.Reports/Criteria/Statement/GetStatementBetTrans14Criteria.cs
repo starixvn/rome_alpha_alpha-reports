@@ -1,8 +1,8 @@
-﻿using System;
-using Alpha.Reports.Services;
-
-namespace Alpha.Reports.Criteria.Statement
+﻿namespace Alpha.Reports.Criteria.Statement
 {
+    using System;
+    using Alpha.Reports.Services;
+
     public class GetStatementBetTrans14Criteria : GetStatementCriteria
     {
         public GetStatementBetTrans14Criteria(

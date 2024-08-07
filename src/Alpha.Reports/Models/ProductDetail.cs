@@ -28,25 +28,25 @@
             ChildResourceId = childResourceId;
         }
 
-        public string RefId { get; }
+        public string RefId { get; set; }
 
-        public int ResourceId { get; }
+        public int ResourceId { get; set; }
 
-        public int ProductId { get; }
+        public int ProductId { get; set; }
 
-        public int SportType { get; }
+        public int SportType { get; set; }
 
-        public int BetType { get; }
+        public int BetType { get; set; }
 
-        public int Order { get; }
+        public int Order { get; set; }
 
         public string DisplayName { get; set; }
 
-        public int LeagueGroupId { get; }
+        public int LeagueGroupId { get; set; }
 
-        public int TicketType { get; }
+        public int TicketType { get; set; }
 
-        public int ChildResourceId { get; }
+        public int ChildResourceId { get; set; }
 
         public override string ToString()
             => string.Format(

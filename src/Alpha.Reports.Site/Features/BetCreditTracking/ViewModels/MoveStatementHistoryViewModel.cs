@@ -1,14 +1,14 @@
 ﻿namespace Alpha.Reports.Site.Features.BetCreditTracking.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
     using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
     using Alpha.Reports.Site.Helpers;
     using Alpha.Reports.Site.ViewModels.Components;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class MoveStatementHistoryViewModel
     {
@@ -63,7 +63,7 @@
 
         public string ErrMsg { get; }
 
-        public bool IsShowDuplicatedTicketMessage => Data != null && Data.Any(member => member.RefNoRow.Any(row => row.IsMultipleMoved == 1));
+        public bool IsShowDuplicatedTicketMessage => Data != null && Data.Any(member => member.RefNoRow.Any(row => row.IsMultipleMoved));
 
         public string GetBetListLinkRouteValues(int custId, string custName, long transId)
         {

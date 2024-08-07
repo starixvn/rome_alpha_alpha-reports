@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Criteria
 {
     using System;
-    using System.Collections.Generic;
 
     public class PagingReportProductCriteria : ReportProductCriteria
     {
@@ -13,7 +12,7 @@
             DateTime toDate,
             DateTime balanceUpDay,
             DateTime moveBetsDay,
-            IEnumerable<int> productIds) : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
+            string productIds) : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
         {
             PageIndex = pageIndex;
             PageSize = pageSize;

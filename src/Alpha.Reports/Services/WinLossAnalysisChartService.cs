@@ -43,13 +43,13 @@
             if (param.ToDate.GetMonthDiff(param.FromDate) >= DefaultLoadingMonths)
             {
                 var criteria = new WinLossAnalysisChartCriteria(
-                                        param.CustId,
-                                        param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
-                                        param.ToDate,
-                                        reportDateService.GetBalanceUpDay(),
-                                        reportDateService.GetMoveBetsDay(),
-                                        validUserSelectedProductIds,
-                                        param.CustLevel);
+                    param.CustId,
+                    param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                    param.ToDate,
+                    reportDateService.GetBalanceUpDay(),
+                    reportDateService.GetMoveBetsDay(),
+                    validUserSelectedProductIds == null ? string.Empty : validUserSelectedProductIds.JoinWithComma(),
+                    param.CustLevel);
 
                 partialUMService.ThrowIfUM(criteria.GetSettingKey());
 

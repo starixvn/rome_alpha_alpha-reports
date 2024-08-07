@@ -14,10 +14,10 @@
         }
 
 
-        public int CustId { get; }
+        public int CustId { get; set; }
 
-        public decimal ValuePT { get; }
+        public decimal ValuePT { get; set; }
 
-        public int ProductId { get; }
+        public int ProductId { get; set; }
     }
 }

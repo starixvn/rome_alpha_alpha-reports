@@ -18,12 +18,12 @@
             MasterName = masterName;
         }
 
-        public int AgentId { get; private set; }
+        public int AgentId { get; set; }
 
-        public string AgentName { get; private set; }
+        public string AgentName { get; set; }
 
-        public int MasterId { get; private set; }
+        public int MasterId { get; set; }
 
-        public string MasterName { get; private set; }
+        public string MasterName { get; set; }
     }
 }

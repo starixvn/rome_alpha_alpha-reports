@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Tests.Criteria.WinLossAnalysisChart
 {
     using System;
-    using System.Collections.Generic;
     using Constants;
     using Reports.Criteria.WinLossAnalysisChart;
     using Reports.Enumerations;
@@ -32,7 +31,7 @@
         public void IsValid_MonthRangeIsEqual3Months_ReturnTrue()
         {
             // Arrange
-            var userSelectedProductIdList = new List<int> { 1, 2 };
+            var userSelectedProductIdList = "1,2";
             var fromDate = DefaultVariablesTest.CurrentDate.AddMonths(-2);
             var toDate = DefaultVariablesTest.CurrentDate;
             var criteria = new WinLossAnalysisChartCriteria(1, fromDate, toDate, DateTime.Now, DateTime.Now, userSelectedProductIdList, UserLevel.Super);
@@ -48,7 +47,7 @@
         public void IsValid_MonthRangeIsMoreThan3Months_ReturnTrue()
         {
             // Arrange
-            var userSelectedProductIdList = new List<int> { 1, 2 };
+            var userSelectedProductIdList = "1,2";
             var fromDate = DefaultVariablesTest.CurrentDate.AddMonths(-3);
             var toDate = DefaultVariablesTest.CurrentDate;
             var criteria = new WinLossAnalysisChartCriteria(1, fromDate, toDate, DateTime.Now, DateTime.Now, userSelectedProductIdList, UserLevel.Super);

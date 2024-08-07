@@ -16,6 +16,8 @@
 
         public static string StoredProcedurePath => GetConfigValue("StoredProcedurePath");
 
+        public static string FanexDataServiceApi => GetConfigValue("FanexDataServiceApi");
+
         public static string ReportsAppPath => GetConfigValue("ReportsAppPath");
 
         internal static NameValueCollection AppSettings

@@ -6,7 +6,6 @@
     {
         public BalanceUpDayAndMoveBetsDay()
         {
-
         }
 
         public BalanceUpDayAndMoveBetsDay(DateTime balanceUpDay, DateTime moveBetsDay)
@@ -15,8 +14,8 @@
             MoveBetsDay = moveBetsDay;
         }
 
-        public DateTime BalanceUpDay { get; }
+        public DateTime BalanceUpDay { get; set; }
 
-        public DateTime MoveBetsDay { get; }
+        public DateTime MoveBetsDay { get; set; }
     }
 }

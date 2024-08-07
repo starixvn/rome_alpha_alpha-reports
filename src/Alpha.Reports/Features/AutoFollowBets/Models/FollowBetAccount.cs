@@ -20,14 +20,14 @@
             DummyUsername = dummyUsername;
         }
 
-        public int CustId { get; }
+        public int CustId { get; set; }
 
-        public string Username { get; }
+        public string Username { get; set; }
 
-        public int AgentId { get; }
+        public int AgentId { get; set; }
 
-        public int DummyCustId { get; }
+        public int DummyCustId { get; set; }
 
-        public string DummyUsername { get; }
+        public string DummyUsername { get; set; }
     }
 }

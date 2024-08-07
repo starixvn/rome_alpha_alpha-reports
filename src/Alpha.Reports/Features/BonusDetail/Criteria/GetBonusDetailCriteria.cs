@@ -1,21 +1,26 @@
 ﻿namespace Alpha.Reports.Features.BonusDetail.Criteria
 {
     using System;
-    using Alpha.Reports.Extensions;
-    using Alpha.Reports.Features.BonusDetail.Params;
     using Fanex.Data.Repository;
 
     public class GetBonusDetailCriteria : CriteriaBase
     {
-        protected GetBonusDetailCriteria(BonusDetailParam param)
+        protected GetBonusDetailCriteria(
+            string username,
+            DateTime fromDate,
+            DateTime toDate,
+            byte? statusId,
+            bool? isComplained,
+            int pageIndex,
+            int pageSize)
         {
-            Username = param.Username;
-            FromDate = param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo);
-            ToDate = param.ToDate;
-            StatusId = param.StatusId;
-            IsComplained = param.IsComplained;
-            PageIndex = param.PageIndex;
-            PageSize = param.PageSize;
+            Username = username;
+            FromDate = fromDate;
+            ToDate = toDate;
+            StatusId = statusId;
+            IsComplained = isComplained;
+            PageIndex = pageIndex;
+            PageSize = pageSize;
         }
 
         public string Username { get; }

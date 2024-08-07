@@ -34,17 +34,41 @@
 
             if (param.ViewerLevel.IsSuperLevel())
             {
-                criteria = new GetSuperBonusCriteria(param);
+                criteria = new GetSuperBonusCriteria(
+                    param.Username,
+                    param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                    param.ToDate,
+                    param.StatusId,
+                    param.IsComplained,
+                    param.PageIndex,
+                    param.PageSize,
+                    param.ViewerId);
                 getLevelBonus = GetSuperBonus;
             }
             else if (param.ViewerLevel.IsMasterLevel())
             {
-                criteria = new GetMasterBonusCriteria(param);
+                criteria = new GetMasterBonusCriteria(
+                    param.Username,
+                    param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                    param.ToDate,
+                    param.StatusId,
+                    param.IsComplained,
+                    param.PageIndex,
+                    param.PageSize,
+                    param.ViewerId);
                 getLevelBonus = GetMasterBonus;
             }
             else
             {
-                criteria = new GetAgentBonusCriteria(param);
+                criteria = new GetAgentBonusCriteria(
+                    param.Username,
+                    param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                    param.ToDate,
+                    param.StatusId,
+                    param.IsComplained,
+                    param.PageIndex,
+                    param.PageSize,
+                    param.ViewerId);
                 getLevelBonus = GetAgentBonus;
             }
 
@@ -133,7 +157,14 @@
 
         public async Task<Result> ConfirmPaymentAsync(ConfirmPaymentParam param)
         {
-            var criteria = new ConfirmPaymentCriteria(param);
+            var criteria = new ConfirmPaymentCriteria(
+                param.CustId,
+                param.SubAccId,
+                param.TransId,
+                param.PaymentDate,
+                param.ViewerId,
+                param.LoginIP,
+                param.Language);
             await repository.ExecuteAsync(criteria);
 
             return new Result(criteria.ErrCode, criteria.ErrMsg);

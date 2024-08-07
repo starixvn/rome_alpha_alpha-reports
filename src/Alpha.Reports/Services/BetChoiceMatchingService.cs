@@ -59,8 +59,7 @@
 
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
-            var tuple = dynamicRepository.FetchMultiple<BetChoiceMatchingTicketModel, BetChoiceMatchingSharedIPModel>(criteria);
-            var tickets = tuple.Item1;
+            var (tickets, ips) = dynamicRepository.FetchMultiple<BetChoiceMatchingTicketModel, BetChoiceMatchingSharedIPModel>(criteria);
             var vnIPs = userSession.IsAdminCanViewVNIP ? new List<string>() : BuildListVNIPs(tickets);
             foreach (var ticket in tickets)
             {
@@ -77,7 +76,6 @@
                 return new BetChoiceMatchingEventModel(users);
             });
 
-            var ips = tuple.Item2;
             if (!userSession.IsAdminCanViewVNIP)
             {
                 ips = ips.Where(ip => !vnIPs.Contains(ip.IP));

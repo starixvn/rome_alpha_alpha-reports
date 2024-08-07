@@ -6,7 +6,6 @@
     {
         public CommissionByBettypeModel()
         {
-
         }
 
         public CommissionByBettypeModel(
@@ -27,19 +26,19 @@
             MyanmarOddsComm = myanmarOddsComm;
         }
 
-        public int CustId { get; }
+        public int CustId { get; set; }
 
-        public string CustName { get; }
+        public string CustName { get; set; }
 
-        public decimal Comm1 { get; private set; }
+        public decimal Comm1 { get; set; }
 
-        public decimal Comm2 { get; private set; }
+        public decimal Comm2 { get; set; }
 
-        public decimal Comm3 { get; private set; }
+        public decimal Comm3 { get; set; }
 
-        public decimal CasinoComm { get; private set; }
+        public decimal CasinoComm { get; set; }
 
-        public decimal MyanmarOddsComm { get; private set; }
+        public decimal MyanmarOddsComm { get; set; }
 
         public static CommissionByBettypeModel GetAccumulatedCommission(IEnumerable<CommissionByBettypeModel> commissions)
         {

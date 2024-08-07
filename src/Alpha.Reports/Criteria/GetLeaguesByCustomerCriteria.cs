@@ -3,25 +3,23 @@
     using System;
     using Fanex.Data;
     using Fanex.Data.Repository;
-    using Params;
 
     public class GetLeaguesByCustomerCriteria : CriteriaBase
     {
         public GetLeaguesByCustomerCriteria(
-            GetLeaguesByCustomerParam getLeaguesByCustomerParam,
-            DateTime moveBetsDay)
+            int custId,
+            string productIds,
+            DateTime fromDate,
+            DateTime toDate,
+            DateTime moveBetsDay,
+            string language)
         {
-            if (getLeaguesByCustomerParam == null)
-            {
-                throw new ArgumentNullException(nameof(getLeaguesByCustomerParam));
-            }
-
-            CustId = getLeaguesByCustomerParam.CustId;
-            ProductIds = getLeaguesByCustomerParam.ProductIds;
-            FromDate = getLeaguesByCustomerParam.FromDate;
-            ToDate = getLeaguesByCustomerParam.ToDate;
-            Language = getLeaguesByCustomerParam.Language;
+            CustId = custId;
+            ProductIds = productIds;
+            FromDate = fromDate;
+            ToDate = toDate;
             MoveBetsDay = moveBetsDay;
+            Language = language;
         }
 
         public int CustId { get; }
@@ -41,9 +39,9 @@
 
         public override string GetSettingKey() => "Age_Rpt_MatchWinloss_GetLeagueByProduct";
 
-        public override bool IsValid() =>
-            CustId > 0 &&
-            !string.IsNullOrWhiteSpace(ProductIds) &&
-            FromDate <= ToDate;
+        public override bool IsValid()
+            => CustId > 0
+            && !string.IsNullOrWhiteSpace(ProductIds)
+            && FromDate <= ToDate;
     }
 }

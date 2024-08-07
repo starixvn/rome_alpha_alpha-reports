@@ -1,11 +1,11 @@
 ﻿namespace Alpha.Reports.Tests.Features.SuperWinLossDetailByPT
 {
     using System;
-    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Criteria;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Models;
     using Alpha.Reports.Features.SuperWinLossDetailByPT.Params;
     using Alpha.Reports.Services;
+    using AlphaPlus.PartialUM.Services;
     using Fanex.Data.Repository;
     using NSubstitute;
     using Xunit;
@@ -15,7 +15,6 @@
     {
         private readonly IDynamicRepository repository;
         private readonly ReportDateService reportDateService;
-        private readonly CacheRefService refService;
         private readonly IPartialUMService partialUMService;
         private readonly SuperWinLossDetailByPTService service;
 
@@ -23,9 +22,8 @@
         {
             repository = Substitute.For<IDynamicRepository>();
             reportDateService = Substitute.For<ReportDateService>();
-            refService = Substitute.For<CacheRefService>();
             partialUMService = Substitute.For<IPartialUMService>();
-            service = new SuperWinLossDetailByPTServiceImpl(repository, reportDateService, refService, partialUMService);
+            service = new SuperWinLossDetailByPTServiceImpl(repository, reportDateService, partialUMService);
         }
 
         [Fact]

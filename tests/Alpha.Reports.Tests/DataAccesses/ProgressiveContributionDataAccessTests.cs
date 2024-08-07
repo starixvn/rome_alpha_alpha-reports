@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Fixtures;
+    using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.ProgressiveContribution;
@@ -18,13 +18,13 @@
     public class ProgressiveContributionDataAccessTests
     {
         private readonly CompareLogic compareLogic;
-        private readonly ObjectDbFixture objectDbFixture;
+        private readonly IDynamicRepository repository;
         private readonly CacheRefService cacheRefService;
         private readonly ProgressiveContributionDataAccessImpl progressiveContributionDataAccess;
 
-        public ProgressiveContributionDataAccessTests(ObjectDbFixture objectDbFixture)
+        public ProgressiveContributionDataAccessTests()
         {
-            this.objectDbFixture = objectDbFixture;
+            repository = Substitute.For<IDynamicRepository>();
             compareLogic = new CompareLogic();
 
             cacheRefService = Substitute.For<CacheRefService>();
@@ -32,7 +32,7 @@
             cacheRefService.GetBetTypeName(2320).Returns("(Mobile) Baccarat (Progressive JP) - Jackpot Game");
             cacheRefService.GetBetTypeName(2920).Returns("(Tablet) Baccarat (Progressive JP) - Jackpot Game");
 
-            progressiveContributionDataAccess = new ProgressiveContributionDataAccessImpl(cacheRefService);
+            progressiveContributionDataAccess = new ProgressiveContributionDataAccessImpl(repository, cacheRefService);
         }
 
         [Fact]
@@ -49,10 +49,10 @@
         public void GetProgressiveContributions_AgentLevel_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var criteria = new ProgressiveContributionCriteria(1, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, new List<int> { 6 }, UserLevel.Agent);
+            var criteria = new ProgressiveContributionCriteria(1, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, "6", UserLevel.Agent);
 
-            var dataset = CreateSampleData().CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<ProgressiveContributionCriteria>()).Returns(dataset);
+            var dataset = new List<ProgressiveContributionByBetTypeModel> { };
+            repository.Fetch<ProgressiveContributionByBetTypeModel>(Arg.Any<ProgressiveContributionCriteria>()).Returns(dataset);
 
             var expectedData = new List<ProgressiveContributionByBetTypeModel>
             {
@@ -72,10 +72,10 @@
         public void GetProgressiveContributions_MasterLevel_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var criteria = new ProgressiveContributionCriteria(1, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, new List<int> { 6 }, UserLevel.Master);
+            var criteria = new ProgressiveContributionCriteria(1, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, "6", UserLevel.Master);
 
-            var dataset = CreateSampleData().CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<ProgressiveContributionCriteria>()).Returns(dataset);
+            var dataset = new List<ProgressiveContributionByBetTypeModel> { };
+            repository.Fetch<ProgressiveContributionByBetTypeModel>(Arg.Any<ProgressiveContributionCriteria>()).Returns(dataset);
 
             var expectedData = new List<ProgressiveContributionByBetTypeModel>
             {
@@ -95,10 +95,10 @@
         public void GetProgressiveContributions_SuperLevel_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var criteria = new ProgressiveContributionCriteria(1, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, new List<int> { 6 }, UserLevel.Super);
+            var criteria = new ProgressiveContributionCriteria(1, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, "6", UserLevel.Super);
 
-            var dataset = CreateSampleData().CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<ProgressiveContributionCriteria>()).Returns(dataset);
+            var dataset = new List<ProgressiveContributionByBetTypeModel> { };
+            repository.Fetch<ProgressiveContributionByBetTypeModel>(Arg.Any<ProgressiveContributionCriteria>()).Returns(dataset);
 
             var expectedData = new List<ProgressiveContributionByBetTypeModel>
             {

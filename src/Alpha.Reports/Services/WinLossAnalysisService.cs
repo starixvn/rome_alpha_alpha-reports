@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using AlphaPlus.PartialUM.Services;
     using Criteria.WinLossAnalysis;
     using DataAccesses;
@@ -45,25 +44,18 @@
                 productService.FilterProductIds(param.Site, param.CurrencyId, param.UserSelectedProductIds);
 
             var criteria = new WinLossAnalysisCriteria(
-                                    param.CustId,
-                                    param.ReportTypeId,
-                                    param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
-                                    param.ToDate,
-                                    reportDateService.GetBalanceUpDay(),
-                                    reportDateService.GetMoveBetsDay(),
-                                    validUserSelectedProductIds,
-                                    param.CustLevel);
+                param.CustId,
+                param.ReportTypeId,
+                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                param.ToDate,
+                reportDateService.GetBalanceUpDay(),
+                reportDateService.GetMoveBetsDay(),
+                validUserSelectedProductIds == null ? string.Empty : validUserSelectedProductIds.JoinWithComma(),
+                param.CustLevel);
 
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
-            var winlossAnalysisData = dataAccess.GetWinLossAnalysis(criteria);
-
-            if (param.ReportTypeId.Equals(WinLossAnalysisConstants.Sport))
-            {
-                winlossAnalysisData = winlossAnalysisData.OrderBy(product => product.RollupKeyId);
-            }
-
-            return winlossAnalysisData;
+            return dataAccess.GetWinLossAnalysis(criteria);
         }
     }
 }

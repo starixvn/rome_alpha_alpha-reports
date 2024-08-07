@@ -1,20 +1,26 @@
 ﻿namespace Alpha.Reports.Features.BonusDetail.Criteria
 {
     using System;
-    using Alpha.Reports.Features.BonusDetail.Params;
     using Fanex.Data.Repository;
 
     internal class ConfirmPaymentCriteria : NonQueryCommand
     {
-        public ConfirmPaymentCriteria(ConfirmPaymentParam param)
+        public ConfirmPaymentCriteria(
+            int custId,
+            int subAccId,
+            long transId,
+            DateTime paymentDate,
+            int userId,
+            string loginIP,
+            string language)
         {
-            CustId = param.CustId;
-            SubAccId = param.SubAccId;
-            TransId = param.TransId;
-            PaymentDate = param.PaymentDate;
-            UserId = param.ViewerId;
-            LoginIP = param.LoginIP;
-            Language = param.Language;
+            CustId = custId;
+            SubAccId = subAccId;
+            TransId = transId;
+            PaymentDate = paymentDate;
+            UserId = userId;
+            LoginIP = loginIP;
+            Language = language;
         }
 
         public int CustId { get; }

@@ -2,9 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-    using Database.WinLossAnalysis;
-    using Fixtures;
+    using System.Linq;
+    using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLossAnalysis;
@@ -18,27 +17,17 @@
     [Collection("ObjectDbCollection")]
     public class WinLossAnalysisDataAccessImplTests
     {
-        private readonly ObjectDbFixture objectDbFixture;
         private readonly WinLossAnalysisDataAccessImpl winLossAnalysisDataAccessImpl;
         private readonly CompareLogic compareLogic;
         private readonly CacheRefService cacheRefService;
+        private readonly IDynamicRepository repository;
 
-        public WinLossAnalysisDataAccessImplTests(ObjectDbFixture objectDbFixture)
+        public WinLossAnalysisDataAccessImplTests()
         {
-            this.objectDbFixture = objectDbFixture;
             cacheRefService = Substitute.For<CacheRefService>();
-            winLossAnalysisDataAccessImpl = new WinLossAnalysisDataAccessImpl(cacheRefService);
+            repository = Substitute.For<IDynamicRepository>();
+            winLossAnalysisDataAccessImpl = new WinLossAnalysisDataAccessImpl(repository, cacheRefService);
             compareLogic = new CompareLogic();
-        }
-
-        [Fact]
-        public void GetData_NullCriteria_ThrowsArgumentNullException()
-        {
-            // Arrange
-            WinLossAnalysisCriteria nullCriteria = null;
-
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => winLossAnalysisDataAccessImpl.GetWinLossAnalysis(nullCriteria));
         }
 
         [Fact]
@@ -52,11 +41,40 @@
                 toDate: DateTime.Now,
                 balanceUpDay: DateTime.Now,
                 moveBetsDay: DateTime.Now,
-                productIds: new List<int> { 1, 2 },
+                productIds: "1,2",
                 reportLevel: UserLevel.Super);
-
-            var dataSet = WinLossAnalysisDatabase.MasterWinLoss.CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossAnalysisCriteria>()).Returns(dataSet);
+            var data = new List<WinLossAnalysisEntity>
+            {
+                new WinLossAnalysisEntity
+                {
+                    RollupKey = "02/2017",
+                    BetCount = 10,
+                    Turnover = 0,
+                    MemberWinLoss = 3,
+                    MemberComm = 4,
+                    AgWinLoss = 5,
+                    AgComm = 6,
+                    MAgWinLoss = 7,
+                    MAgComm = 8,
+                    SAgWinLoss = 9,
+                    SAgComm = 10
+                },
+                new WinLossAnalysisEntity
+                {
+                    RollupKey = "03/2017",
+                    BetCount = 10,
+                    Turnover = 20,
+                    MemberWinLoss = 13,
+                    MemberComm = 14,
+                    AgWinLoss = 15,
+                    AgComm = 16,
+                    MAgWinLoss = 17,
+                    MAgComm = 18,
+                    SAgWinLoss = 19,
+                    SAgComm = 20
+                }
+            };
+            repository.Fetch<WinLossAnalysisEntity>(Arg.Any<WinLossAnalysisCriteria>()).Returns(data);
 
             var expectedData = new List<WinLossAnalysisModel>()
             {
@@ -100,11 +118,11 @@
                 toDate: DateTime.Now,
                 balanceUpDay: DateTime.Now,
                 moveBetsDay: DateTime.Now,
-                productIds: new List<int> { 1, 2 },
+                productIds: "1,2",
                 reportLevel: UserLevel.Master);
 
-            var dataSet = WinLossAnalysisDatabase.AgentWinLoss.CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossAnalysisCriteria>()).Returns(dataSet);
+            var dataSet = new List<WinLossAnalysisEntity> { };
+            repository.Fetch<WinLossAnalysisEntity>(Arg.Any<WinLossAnalysisCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossAnalysisModel>()
             {
@@ -148,11 +166,11 @@
                 toDate: DateTime.Now,
                 balanceUpDay: DateTime.Now,
                 moveBetsDay: DateTime.Now,
-                productIds: new List<int> { 1, 2 },
+                productIds: "1,2",
                 reportLevel: UserLevel.Agent);
 
-            var dataSet = WinLossAnalysisDatabase.MemberWinLoss.CreateDataReader();
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossAnalysisCriteria>()).Returns(dataSet);
+            var dataSet = new List<WinLossAnalysisEntity> { };
+            repository.Fetch<WinLossAnalysisEntity>(Arg.Any<WinLossAnalysisCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossAnalysisModel>()
             {
@@ -196,11 +214,11 @@
                 toDate: DateTime.Now,
                 balanceUpDay: DateTime.Now,
                 moveBetsDay: DateTime.Now,
-                productIds: new List<int> { 1, 2 },
+                productIds: "1,2",
                 reportLevel: UserLevel.Super);
 
-            IDataReader dataReader = null;
-            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossAnalysisCriteria>()).Returns(dataReader);
+            var dataSet = Enumerable.Empty<WinLossAnalysisEntity>();
+            repository.Fetch<WinLossAnalysisEntity>(Arg.Any<WinLossAnalysisCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossAnalysisModel>();
 

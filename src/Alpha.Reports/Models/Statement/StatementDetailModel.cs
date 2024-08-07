@@ -7,7 +7,6 @@
     {
         public StatementDetailModel()
         {
-
         }
 
         public StatementDetailModel(
@@ -35,17 +34,17 @@
             Creator = creator;
         }
 
-        public DateTime TransDate { get; }
+        public DateTime TransDate { get; set; }
 
-        public string TransType { get; }
+        public string TransType { get; set; }
 
-        public string TransDesc { get; }
+        public string TransDesc { get; set; }
 
-        public decimal? Amount { get; private set; }
+        public decimal? Amount { get; set; }
 
-        public string ExchangeRate { get; }
+        public string ExchangeRate { get; set; }
 
-        public string Creator { get; }
+        public string Creator { get; set; }
 
         public string FullTransDateName => TransDate.ToFullDateName();
 

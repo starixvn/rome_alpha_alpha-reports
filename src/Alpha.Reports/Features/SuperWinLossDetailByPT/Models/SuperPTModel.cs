@@ -18,12 +18,12 @@
             ProductName = productName;
         }
 
-        public int CustId { get; }
+        public int CustId { get; set; }
 
-        public decimal SuperPT { get; }
+        public decimal SuperPT { get; set; }
 
-        public int ProductId { get; }
+        public int ProductId { get; set; }
 
-        public string ProductName { get; }
+        public string ProductName { get; set; }
     }
 }
