@@ -11,7 +11,7 @@
     <Setting Key="Age_CustomerSelUserSearch" SpName="Age_CustomerSelUserSearch" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
   </Function>
   <Function Name="Products">
-    <Setting Key="Age_GetOfferedProductBySiteCurrency" SpName="Age_GetOfferedProductBySiteCurrency" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+    <Setting Key="Age_GetOfferedProductBySiteCurrency" SpName="Age_GetOfferedProductBySiteCurrency" TimeOut="600" CommandTimeOut="600" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
       <Mapping DataField="ProductID" ObjectProperty="Id" />
       <Mapping DataField="IsHidden" ObjectProperty="IsHide" />
     </Setting>
