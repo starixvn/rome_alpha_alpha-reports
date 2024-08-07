@@ -38,32 +38,32 @@
             SuperName = superName;
         }
 
-        public int CustId { get; }
+        public int CustId { get; set; }
 
-        public byte RoleId { get; }
+        public byte RoleId { get; set; }
 
-        public string Username { get; }
+        public string Username { get; set; }
 
-        public string FirstName { get; }
+        public string FirstName { get; set; }
 
-        public string LastName { get; }
+        public string LastName { get; set; }
 
-        public string Username2 { get; }
+        public string Username2 { get; set; }
 
-        public int? MemberId { get; }
+        public int? MemberId { get; set; }
 
-        public string MemberName { get; }
+        public string MemberName { get; set; }
 
-        public int? AgentId { get; }
+        public int? AgentId { get; set; }
 
-        public string AgentName { get; }
+        public string AgentName { get; set; }
 
-        public int MasterId { get; }
+        public int MasterId { get; set; }
 
-        public string MasterName { get; }
+        public string MasterName { get; set; }
 
-        public int SuperId { get; }
+        public int SuperId { get; set; }
 
-        public string SuperName { get; }
+        public string SuperName { get; set; }
     }
 }
