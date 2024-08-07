@@ -14,12 +14,12 @@
             Username2 = username2;
         }
 
-        public string Username { get; }
+        public string Username { get; set; }
 
-        public string FirstName { get; }
+        public string FirstName { get; set; }
 
-        public string LastName { get; }
+        public string LastName { get; set; }
 
-        public string Username2 { get; }
+        public string Username2 { get; set; }
     }
 }
