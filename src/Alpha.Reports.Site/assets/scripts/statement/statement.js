@@ -46,7 +46,7 @@ var StatementView = /** @class */ (function (_super) {
                 CustName: _this.custName
             };
             var url = _this.$statementDetailsURL.val() + "?" + _this.$.param(param);
-            var title = 'Transfer Details (' + _this.custName + ')';
+            var title = _this.$("#TransferDetails").val() + ' (' + _this.custName + ')';
             if (_this.mainDomain) {
                 _this.mainDomain = _this.mainDomain.indexOf('http') === -1 ?
                     location.origin.split(':')[0] + ':' + _this.mainDomain + '/site-main' : _this.mainDomain;

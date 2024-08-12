@@ -13,7 +13,7 @@
     using Requests.WinLossAnalysis;
 
     public class WinLossAnalysisViewModel
-    {    
+    {
         private readonly WinLossAnalysisQuery message;
         private readonly WinLossAnalysisParam param;
         public readonly string SortPropertyNameDefault = nameof(WinLossAnalysisReportTypeViewModel.ReportTypeName);
@@ -113,12 +113,12 @@
             {
                 new WinLossAnalysisReportTypeViewModel(WinLossAnalysisConstants.Daily, Resources.Daily, false, Resources.DailyWinLossAnalysis),
                 new WinLossAnalysisReportTypeViewModel(WinLossAnalysisConstants.Monthly, Resources.Monthly, false, Resources.MonthlyWinLossAnalysis),
-                new WinLossAnalysisReportTypeViewModel(WinLossAnalysisConstants.Sport, Resources.Sport, false, Resources.SportWinLossAnalysis)
+                new WinLossAnalysisReportTypeViewModel(WinLossAnalysisConstants.Sport, Resources.Product, false, Resources.ProductsWinLossAnalysis)
             };
 
             foreach (var reportType in reportTypeData.Where(data => data.ReportTypeId.Equals(message.ReportTypeId)))
             {
-                reportType.IsChecked = true;             
+                reportType.IsChecked = true;
             }
 
             return reportTypeData;

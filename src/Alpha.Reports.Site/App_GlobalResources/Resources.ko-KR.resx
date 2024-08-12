@@ -408,9 +408,6 @@
   <data name="Sport" xml:space="preserve">
     <value>스포츠</value>
   </data>
-  <data name="SportWinLossAnalysis" xml:space="preserve">
-    <value>스포츠 적중/손실 (승패)분석</value>
-  </data>
   <data name="SubTotal" xml:space="preserve">
     <value>총 하위</value>
   </data>
@@ -626,5 +623,8 @@
   </data>
   <data name="HttpError_Default" xml:space="preserve">
     <value>Sorry, there was an unexpected issue on the server. Please seek help from our customer support. [{0}]</value>
+  </data>
+  <data name="Statement_WinLoss" xml:space="preserve">
+    <value>승/패</value>
   </data>
 </root>

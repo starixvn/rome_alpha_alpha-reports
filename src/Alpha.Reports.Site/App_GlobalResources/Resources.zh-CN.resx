@@ -382,7 +382,7 @@
     <value>佣金</value>
   </data>
   <data name="Gaming" xml:space="preserve">
-    <value>Gaming</value>
+    <value>游戏</value>
   </data>
   <data name="Others" xml:space="preserve">
     <value>其他</value>
@@ -438,8 +438,8 @@
   <data name="Sport" xml:space="preserve">
     <value>运动</value>
   </data>
-  <data name="SportWinLossAnalysis" xml:space="preserve">
-    <value>体育输赢分析</value>
+  <data name="ProductsWinLossAnalysis" xml:space="preserve">
+    <value>产品输赢分析</value>
   </data>
   <data name="SubTotal" xml:space="preserve">
     <value>小计</value>
@@ -643,7 +643,7 @@
     <value>会员总投注交易</value>
   </data>
   <data name="Stake" xml:space="preserve">
-    <value>投注额</value>
+    <value>本金</value>
   </data>
   <data name="BetChoiceMatching" xml:space="preserve">
     <value>以投注选择核对</value>
@@ -1082,6 +1082,15 @@
   </data>
   <data name="MonitoredMember" xml:space="preserve">
     <value>监控会员</value>
+  </data>
+  <data name="Statement_WinLoss" xml:space="preserve">
+    <value>輸贏</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>产品</value>
+  </data>
+  <data name="TransferDetails" xml:space="preserve">
+    <value>转账细节</value>
   </data>
   <data name="ShutdownOldWinLossDetailReportMessage" xml:space="preserve">
     <value>从 {0} (日/月/年) 起，经典版不再使用，并将由新版本取代。通过新版本享受经过改进的新增账号体验。</value>
