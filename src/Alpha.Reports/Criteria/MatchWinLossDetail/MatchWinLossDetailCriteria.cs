@@ -57,6 +57,29 @@
             }
         }
 
+        public string League3rdIds
+        {
+            get
+            {
+                var ids = new List<int>();
+                foreach (var league in Leagues)
+                {
+                    var items = league.Split('_');
+                    if (items.Length == LeagueIdItemsSplitted)
+                    {
+                        var leagueId = Convert.ToInt32(items[0]);
+                        var leagueType = Convert.ToInt32(items[1]);
+                        if (leagueType == (int)LeagueType.ThirdParty)
+                        {
+                            ids.Add(leagueId);
+                        }
+                    }
+                }
+
+                return ids.JoinWithComma();
+            }
+        }
+
         [SpParam(Ignored = true)]
         public UserLevel ReportLevel { get; }
 
