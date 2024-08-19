@@ -667,6 +667,12 @@
     <Content Include="Web.ConnectionStrings.uat4.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
     </Content>
+	<Content Include="Web.ConnectionStrings.sit.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
+	<Content Include="Web.ConnectionStrings.sit2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </Content>
     <Content Include="Web.local_4.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
