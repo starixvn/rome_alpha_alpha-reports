@@ -93,7 +93,7 @@
 
         public DateTime MoveBetsDay { get; }
 
-        public bool IsGetAll => string.IsNullOrEmpty(LeagueIds);
+        public bool IsGetAll => string.IsNullOrEmpty(LeagueIds) && string.IsNullOrEmpty(League3rdIds);
 
         public override string GetSettingKey()
             => ReportLevel.IsAgentLevel()

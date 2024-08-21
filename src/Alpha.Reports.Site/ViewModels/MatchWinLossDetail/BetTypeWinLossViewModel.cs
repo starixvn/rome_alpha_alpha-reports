@@ -113,7 +113,7 @@
 
         private string GetBetTypeSuffix()
         {
-            if (Id == BetTypeIdConstants.MixParlayBetRadarVirtualSports || Id == BetTypeIdConstants.MixParlayEdgeGamingVirtualSports)
+            if (Id == BetTypeIdConstants.MixParlayBetRadarVirtualSports || Id == BetTypeIdConstants.MixParlayEdgeGamingVirtualSports || Id == BetTypeIdConstants.MixParlayVirtuallySports)
             {
                 return $" ({Resources.VirtualSports})";
             }
