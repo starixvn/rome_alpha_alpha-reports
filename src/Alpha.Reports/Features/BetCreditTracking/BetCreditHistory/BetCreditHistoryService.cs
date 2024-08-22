@@ -65,7 +65,7 @@
 
             foreach (BetCreditHistoryModel row in reportData)
             {
-                row.Action = row.IsUserLogActionId == 1 ?
+                row.Action = row.IsUserLogActionId ?
                     GetLogActionName(row.Action, row.ActionId, param.Language) :
                     ConvertActionName(row.Action, row.ActionId);
             }

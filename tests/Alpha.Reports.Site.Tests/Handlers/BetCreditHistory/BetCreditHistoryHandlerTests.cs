@@ -76,8 +76,8 @@
 
             var rawData = new List<BetCreditHistoryModel>
             {
-                new BetCreditHistoryModel(DateTime.Now.AddDays(-1), DateTime.Now, 123456, 10, 10, 10, 10, 10, 10, 10, 0, "Bet Updated", 0),
-                new BetCreditHistoryModel(DateTime.Now.AddDays(-2), DateTime.Now, 234567, 20, 20, 20, 20, 20, 20, 20, 0, "Bet Updated", 0)
+                new BetCreditHistoryModel(DateTime.Now.AddDays(-1), DateTime.Now, 123456, 10, 10, 10, 10, 10, 10, 10, 0, "Bet Updated", false),
+                new BetCreditHistoryModel(DateTime.Now.AddDays(-2), DateTime.Now, 234567, 20, 20, 20, 20, 20, 20, 20, 0, "Bet Updated", false)
             };
             var resultModel = new BetCreditHistoryResultModel(0, "Success", rawData, 2);
             reportService.GetBetCreditHistory(Arg.Any<BetCreditHistoryParam>()).Returns(resultModel);

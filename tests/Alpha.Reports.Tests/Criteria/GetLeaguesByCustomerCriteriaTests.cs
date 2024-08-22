@@ -29,8 +29,12 @@
                 anyValueCreator.Create<string>());
 
             var getLeaguesByCustomerCriteria = new GetLeaguesByCustomerCriteria(
-                param,
-                anyValueCreator.Create<DateTime>());
+                param.CustId,
+                param.ProductIds,
+                param.FromDate,
+                param.ToDate,
+                anyValueCreator.Create<DateTime>(),
+                param.Language);
 
             // Act
             var actualIncludeTestLeagues = getLeaguesByCustomerCriteria.IncludeTestLeagues;
@@ -51,8 +55,12 @@
                 anyValueCreator.Create<string>());
 
             var getLeaguesByCustomerCriteria = new GetLeaguesByCustomerCriteria(
-                param,
-                anyValueCreator.Create<DateTime>());
+                param.CustId,
+                param.ProductIds,
+                param.FromDate,
+                param.ToDate,
+                anyValueCreator.Create<DateTime>(),
+                param.Language);
             var expectedSettingKey = "Age_Rpt_MatchWinloss_GetLeagueByProduct";
 
             // Act
@@ -77,8 +85,12 @@
                 anyValueCreator.Create<string>());
 
             var getLeaguesByCustomerCriteria = new GetLeaguesByCustomerCriteria(
-                param,
-                anyValueCreator.Create<DateTime>());
+                param.CustId,
+                param.ProductIds,
+                param.FromDate,
+                param.ToDate,
+                anyValueCreator.Create<DateTime>(),
+                param.Language);
 
             // Act
             var actualIsValid = getLeaguesByCustomerCriteria.IsValid();
@@ -103,8 +115,12 @@
                 anyValueCreator.Create<string>());
 
             var getLeaguesByCustomerCriteria = new GetLeaguesByCustomerCriteria(
-                param,
-                anyValueCreator.Create<DateTime>());
+                param.CustId,
+                param.ProductIds,
+                param.FromDate,
+                param.ToDate,
+                anyValueCreator.Create<DateTime>(),
+                param.Language);
 
             // Act
             var actualIsValid = getLeaguesByCustomerCriteria.IsValid();
@@ -127,8 +143,12 @@
                 anyValueCreator.Create<string>());
 
             var getLeaguesByCustomerCriteria = new GetLeaguesByCustomerCriteria(
-                param,
-                anyValueCreator.Create<DateTime>());
+                param.CustId,
+                param.ProductIds,
+                param.FromDate,
+                param.ToDate,
+                anyValueCreator.Create<DateTime>(),
+                param.Language);
 
             // Act
             var actualIsValid = getLeaguesByCustomerCriteria.IsValid();
@@ -151,8 +171,12 @@
                 anyValueCreator.Create<string>());
 
             var getLeaguesByCustomerCriteria = new GetLeaguesByCustomerCriteria(
-                param,
-                anyValueCreator.Create<DateTime>());
+                param.CustId,
+                param.ProductIds,
+                param.FromDate,
+                param.ToDate,
+                anyValueCreator.Create<DateTime>(),
+                param.Language);
 
             // Act
             var actualIsValid = getLeaguesByCustomerCriteria.IsValid();

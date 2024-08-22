@@ -22,7 +22,7 @@
             decimal? betCredit,
             int actionId,
             string action,
-            byte isUserLogActionId)
+            bool isUserLogActionId)
         {
             ActionDate = actionDate;
             WinLostDate = winLostDate;
@@ -65,7 +65,7 @@
 
         public int ActionId { get; set; }
 
-        public byte IsUserLogActionId { get; set; }
+        public bool IsUserLogActionId { get; set; }
 
         public string ActionDateString => ActionDate.ToLongDate24HourWithSlash();
 
