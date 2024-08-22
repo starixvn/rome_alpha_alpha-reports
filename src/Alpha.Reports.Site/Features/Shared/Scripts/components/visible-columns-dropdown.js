@@ -1,16 +1,19 @@
 "use strict";
 var VisibleColumnDropdownOption = /** @class */ (function () {
-    function VisibleColumnDropdownOption(visibleColumns, listColumn, onDropdownHidden, selectorId) {
+    function VisibleColumnDropdownOption(visibleColumns, listColumn, onDropdownHidden, selectorId, minWidth) {
         if (onDropdownHidden === void 0) { onDropdownHidden = Function(); }
         if (selectorId === void 0) { selectorId = "dropdown-column"; }
+        if (minWidth === void 0) { minWidth = 220; }
         this.visibleColumns = visibleColumns;
         this.listColumn = listColumn;
         this.onDropdownHidden = onDropdownHidden;
         this.selectorId = selectorId;
+        this.minWidth = minWidth;
         this.visibleColumns = visibleColumns;
         this.listColumn = listColumn;
         this.onDropdownHidden = onDropdownHidden;
         this.selectorId = selectorId;
+        this.minWidth = minWidth;
     }
     return VisibleColumnDropdownOption;
 }());
@@ -45,7 +48,7 @@ var VisibleColumnDropdownComponent = /** @class */ (function () {
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),
             isCheckAll: isCheckAll,
-            minWidth: 220,
+            minWidth: options.minWidth,
             maxHeight: 250,
             showTooltip: false,
             listData: options.listColumn.map(function (item) {

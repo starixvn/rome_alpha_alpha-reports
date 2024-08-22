@@ -8,6 +8,7 @@
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory;
     using Alpha.Reports.Features.BonusDetail;
+    using Alpha.Reports.Features.WhiteLabelReport;
     using Alpha.Reports.Site.Features.BetCreditTracking;
     using Alpha.Reports.Site.Features.EnteredResult;
     using Alpha.Reports.Site.Features.SuperWinLossDetailByPT;
@@ -183,6 +184,8 @@
             container.RegisterSingleton<AutoFollowBetService, AutoFollowBetServiceImpl>();
             container.Register<EnteredSportResultWorkbook, EnteredSportResultWorkbookImpl>();
             container.RegisterSingleton<CustomerService, CustomerServiceImpl>();
+
+            container.RegisterSingleton<WhiteLabelReportService, WhiteLabelReportServiceImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

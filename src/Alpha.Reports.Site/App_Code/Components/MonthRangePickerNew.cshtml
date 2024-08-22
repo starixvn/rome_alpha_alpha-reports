@@ -1,0 +1,32 @@
+﻿@using Alpha.Reports.Extensions;
+@using Alpha.Reports.Site.ViewModels.Components;
+@using Alpha.Reports.Site.App_GlobalResources;
+@using Alpha.Reports.Utils;
+
+@helper Render(MonthPickerViewModel model)
+{
+    <div class="form-group">
+        <label class="label-form-control">@Resources.From</label>
+        <div class="month-range-picker-element">
+            <div id="from-monthpicker"
+                 data-longmonths-inyear="@model.MonthNames.JoinWithComma()"
+                 data-mindate="@model.MinDate.ToShortDateWithSlash()"
+                 data-maxdate="@SystemTime.Today.ToShortDateWithSlash()"
+                 data-dateinmonth="@model.FromDate.ToShortDateWithSlash()"
+                 data-currentdate="@SystemTime.Today.ToShortDateWithSlash()"></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="label-form-control">@Resources.To</label>
+        <div class="month-range-picker-element">
+            <div id="to-monthpicker"
+                 data-longmonths-inyear="@model.MonthNames.JoinWithComma()"
+                 data-mindate="@model.MinDate.ToShortDateWithSlash()"
+                 data-maxdate="@SystemTime.Today.ToShortDateWithSlash()"
+                 data-dateinmonth="@model.ToDate.ToShortDateWithSlash()"
+                 data-currentdate="@SystemTime.Today.ToShortDateWithSlash()"></div>
+        </div>
+    </div>
+    <input type="hidden" id="from-date" value="@model.FromDate.ToShortDateWithSlash()" />
+    <input type="hidden" id="to-date" value="@model.ToDate.ToShortDateWithSlash()" />
+}

@@ -5,7 +5,7 @@
     var jsonSettings = new JsonSerializerSettings { Formatting = Formatting.None, NullValueHandling = NullValueHandling.Ignore };
 }
 @section Styles {
-    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-reports/winlossdetail-new")
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-reports/filter-new")
 }
 @section Scripts {
     <script type="text/javascript">
@@ -49,17 +49,17 @@
             }
         };
     </script>
-    @StaticResources.AssetScripts.RenderCommon("/bundles/site-reports/winlossdetail-new")
+    @StaticResources.AssetScripts.RenderCommon("/bundles/site-reports/filter-new")
     @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WinLossDetail/Bundles/winlossdetail-new")
 }
 <div class="flex">
     <div class="top-filter">
-        @ReportTitleNew.Render(Model.TotalEnteredSport)
-        <div class="form-inline filter" id="form-filter">
+        @ReportTitleNew.Render(string.Empty, showIconInfo: true, enteredSportResult: Model.TotalEnteredSport)
+        <div class="form-inline filter switch-old-view" id="form-filter">
             @*@HtmlHelpers.RenderSwitchVersionButton(Resources.ClassicView, Url.Action(Model.ViewerLevel.GetDirectDownLineLevel().DisplayName, $"{SiteSettings.ReportRouting}WinLossDetail"))*@
             @DateRangePickerJQuery.Render(Model.DateRangePickerViewModel)
             @ProductAndProductDetailDropdown.Render()
-            @UsernameAutoSuggestion.Render()
+            @UsernameAutoSuggestion.Render(Model.Username)
             @VisibleColumnsDropdown.Render()
         </div>
     </div>
@@ -84,17 +84,13 @@
 <input type="hidden" id="hiddenGetDataWeekUrl" value="@Url.Action("GetDataWeek", $"{SiteSettings.ReportRouting}WinLossDetail")" />
 <input type="hidden" id="hiddenBetListsUrl" value="@Model.BetListsUrl" />
 <input type="hidden" id="hiddenUsernameAutoSuggestionUrl" value="@Url.Action("Get", $"{SiteSettings.ReportRouting}UsernameSuggestion")" />
-<input type="hidden" id="hiddenUsername" value="@Model.Username" />
 @if (!string.IsNullOrWhiteSpace(Model.WeekFromDate) && !string.IsNullOrWhiteSpace(Model.WeekToDate))
 {
     <input type="hidden" id="hiddenWeekFromDate" value="@Model.WeekFromDate" />
     <input type="hidden" id="hiddenWeekToDate" value="@Model.WeekToDate" />
 }
-<input type="hidden" id="language" data-currentlanguage="@Model.Language" />
 <input type="hidden" id="hiddenCopyText" value="@Resources.Copy" />
 <input type="hidden" id="hiddenCopiedText" value="@Resources.Copied" />
-<input type="hidden" id="hiddenHideFilterText" value="@Resources.HideFilter" />
-<input type="hidden" id="hiddenShowFilterText" value="@Resources.ShowFilter" />
 <input type="hidden" id="hiddenMainDomain" value="@Model.MainDomain" />
 <input type="hidden" id="hiddenShowColumns" value="@Model.ShowColumns" />
 <input type="hidden" id="hiddenMemberInfoUrl" value="@MicroSites.MemberInfoUrl()" />

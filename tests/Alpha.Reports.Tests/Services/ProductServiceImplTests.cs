@@ -408,10 +408,10 @@
         }
 
         [Fact]
-        public void StatusModel_DefaultCtor_AlwaysZeroOrNullForProperties()
+        public void IdNameModel_DefaultCtor_AlwaysZeroOrNullForProperties()
         {
             // Arrange
-            var act = new StatusModel();
+            var act = new IdNameModel();
 
             // Assert
             Assert.True(act.Id == 0);
@@ -421,10 +421,10 @@
         }
 
         [Fact]
-        public void StatusModel_ParamCtor_AlwaysReturnsCorrectProperties()
+        public void IdNameModel_ParamCtor_AlwaysReturnsCorrectProperties()
         {
             // Arrange
-            var act = new StatusModel(0, null);
+            var act = new IdNameModel(0, null);
 
             // Assert
             Assert.True(act.Id == 0);

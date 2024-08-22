@@ -10,7 +10,7 @@ interface Window {
 }
 
 interface JQuery {
-    tablesorter(option: any): JQuery;
+    tablesorter(option?: any): JQuery;
 }
 
 class WinLossDetailViewNew extends BaseReportView {
@@ -29,8 +29,6 @@ class WinLossDetailViewNew extends BaseReportView {
     private winLossDetailGetWeeksUrl: string;
     private winLossDetailGetDataWeekUrl: string
     private globalFormData: any;
-    private sortColumnName = "username";
-    private sortIndicator = 0; // asc: 0, desc: 1
     private isGettingReportData = false;
     private isWeekSelectionClicked = false;
 
@@ -52,6 +50,8 @@ class WinLossDetailViewNew extends BaseReportView {
         this.weekSelectionComponent = weekSelectionComponent;
         this.breadcrumbLevelComponent = breadcrumbLevelComponent;
         this.winLossDetailCopyHtml = winLossDetailCopyHtml;
+        // set default sort column name
+        this.sortColumnName = "username";
     }
 
     init() {
@@ -87,23 +87,24 @@ class WinLossDetailViewNew extends BaseReportView {
     private renderComponents() {
         const weekFromDate = $("#hiddenWeekFromDate");
         const weekToDate = $("#hiddenWeekToDate");
-        const currentLanguage = $("#language").data("currentlanguage");
-        const searchUsername = $("#hiddenUsername").val();
 
         this.totalEnteredNonEnteredComponent.init();
 
-        this.dateRangePickerComponent.render(new DateRangePickerJQueryOption((dateRange) => {
-            //this.constraintDateRangeAndProductDropdownList(dateRange);
-            const productsAndResources = this.productAndProductDetailDropdownComponent.getCheckedValues();
-            const username = this.usernameAutoSuggestionComponent.getUsername();
-            this.resetActiveWeek();
-            $.extend(this.globalFormData, dateRange, productsAndResources, { username });
-            if (this.isInvalidGlobalFormData()) {
-                return;
-            }
+        this.dateRangePickerComponent.render({
+            maxDays: 92,
+            onClosed: (dateRange) => {
+                //this.constraintDateRangeAndProductDropdownList(dateRange);
+                const productsAndResources = this.productAndProductDetailDropdownComponent.getCheckedValues();
+                const username = this.usernameAutoSuggestionComponent.getUsername();
+                this.resetActiveWeek();
+                $.extend(this.globalFormData, dateRange, productsAndResources, { username });
+                if (this.isInvalidGlobalFormData()) {
+                    return;
+                }
 
-            this.getWinLossDetailDataAndRenderWeekRange();
-        }, this.getDateRangePickerLocale(currentLanguage)));
+                this.getWinLossDetailDataAndRenderWeekRange();
+            }
+        });
 
         this.productAndProductDetailDropdownComponent.render(new ProductAndProductDetailDropdownOption(
             window.productList,
@@ -125,15 +126,14 @@ class WinLossDetailViewNew extends BaseReportView {
 
         this.usernameAutoSuggestionComponent.init(new UsernameAutoSuggestionOption(
             $("#hiddenUsernameAutoSuggestionUrl").val(),
-            undefined,
-            undefined,
-            undefined,
-            searchUsername,
-            (username) => {
+            false,
+            true,
+            () => {
                 this.isGettingReportData = true;
                 const dateRange = this.dateRangePickerComponent.getDateRangeValues();
                 const productsAndResources = this.productAndProductDetailDropdownComponent.getCheckedValues();
                 this.resetActiveWeek();
+                const username = this.usernameAutoSuggestionComponent.getUsername()
                 $.extend(this.globalFormData, dateRange, productsAndResources, { username });
                 // reset params: custId, custName, custLevelId
                 delete this.globalFormData.custId;
@@ -198,7 +198,7 @@ class WinLossDetailViewNew extends BaseReportView {
             custId: +$("#hiddenCustId").val(),
             custName: $("#hiddenCustName").val(),
             custLevelId: +$("#hiddenCustLevel").val(),
-            username: searchUsername,
+            username: this.usernameAutoSuggestionComponent.getUsername(),
             showColumns: $("#hiddenShowColumns").val()
         }, dateRange, this.productAndProductDetailDropdownComponent.getCheckedValues(), activeWeekRange);
         // update fromDate/toDate of globalFormData if activeWeekRange is NOT undefined
@@ -216,18 +216,6 @@ class WinLossDetailViewNew extends BaseReportView {
     //        this.productAndProductDetailDropdownComponent.showHistoricProducts();
     //    }
     //}
-
-    private getDateRangePickerLocale(language: string) {
-        const locale = {
-            "th-TH": "th",
-            "vi-VN": "vi",
-            "zh-CN": "cn",
-            "zh-TW": "tc",
-            "ja-JP": "ja"
-        };
-
-        return locale[language] || "default";
-    }
 
     private getWinLossDetailDataAndRenderWeekRange(isRebuildBreadcrumb: boolean = false) {
         this.getWinLossDetailWeeks();
@@ -465,53 +453,30 @@ class WinLossDetailViewNew extends BaseReportView {
     }
 
     private initTableSorter() {
-        const sortColumns = this.tableReport.find(".sorting");
-
-        if (this.tableReport.data("cansort")) {
-            const headers = {};
-            sortColumns.each(function (index) {
-                headers[index] = { sorter: index === 0 || index === 1 ? "text" : "digit" };
-            });
-
-            this.tableReport.tablesorter({
-                headers: headers,
-                sortList: [[this.mapSortColumnNameToIndex(), this.sortIndicator]]
-            }).bind("sortEnd", () => {
-                const sortedColumns = this.tableReport.find(".sorting-asc, .sorting-desc");
-                if (sortedColumns.length) {
-                    const firstSortedColumn = sortedColumns.eq(0);
-                    this.sortColumnName = firstSortedColumn.data("colname");
-                    this.sortIndicator = firstSortedColumn.hasClass("sorting-desc") ? 1 : 0; // asc: 0, desc: 1
-                }
-
-                const dormantAccountsRow = this.tableReport.find('.dormant-accounts-mark');
-                dormantAccountsRow.length && this.tableReport.append(dormantAccountsRow);
-            });
-        } else {
-            sortColumns.removeClass("sorting");
-        }
+        this.tableSorter(this.tableReport, undefined, () => {
+            const dormantAccountsRow = this.tableReport.find('.dormant-accounts-mark');
+            dormantAccountsRow.length && this.tableReport.append(dormantAccountsRow);
+        });
     }
 
-    private mapSortColumnNameToIndex() {
+    protected mapSortColumnIndex() {
         const tableHeaderCells = this.tableReport.find(`thead th[data-colname=${this.sortColumnName}]`);
         if (tableHeaderCells.length) {
-            return tableHeaderCells.eq(0).data("colindex");
+            this.sortColumnIndex = tableHeaderCells.eq(0).data("colindex");
+        } else {
+            // reset to default
+            this.sortColumnName = "username";
+            this.sortColumnIndex = 0;
+            this.sortIndicator = 0;
         }
 
-        // reset to default
-        this.sortColumnName = "username";
-        this.sortIndicator = 0;
-        return 0;
+        return this.sortColumnIndex;
     }
 
-    private updateCurrentUrl() {
+    protected updateCurrentUrl() {
         if (this.globalFormData.productIds) {
             const formData = $.extend({}, this.globalFormData, { breadcrumbLevelJson: JSON.stringify(this.breadcrumbLevelComponent.getBreadcrumbs()) });
-            try {
-                window.top.indexManager.updateCurrentUrl($.param(formData));
-            } catch (e) {
-
-            }
+            super.updateCurrentUrl($.param(formData));
         }
     }
 

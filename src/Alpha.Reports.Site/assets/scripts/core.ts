@@ -171,10 +171,26 @@ class AlphaReports {
 
         return indexed_array;
     }
+
+    handleAjaxFail(jqXHR) {
+        if (jqXHR) {
+            if (jqXHR.status === 401) {
+                window.top["age"].SignOut();
+            } else if (jqXHR.status === 429) {
+                location.href = `${window.top["alpha"].urls.mainRootPath}Error/Blocked`;
+            } else if (jqXHR.status === 500 && jqXHR.responseText) {
+                const jsonData = JSON.parse(jqXHR.responseText);
+                if (jsonData.UMFrom && jsonData.UMTo) {
+                    location.href = `${window.top["alpha"].urls.mainRootPath}PartialUM/Index?umfrom=${jsonData.UMFrom}&umto=${jsonData.UMTo}`;
+                }
+            }
+        }
+    }
 }
 
 const alphaReports = new AlphaReports($, store);
 
 interface JQuery {
     stickyTableHeaders(): void;
+    stickyTableHeaders(method: string): void;
 }

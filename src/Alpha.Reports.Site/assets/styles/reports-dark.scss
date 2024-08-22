@@ -1018,6 +1018,10 @@ a {
         padding-left: 6px;
         padding-right: 6px;
 
+        &.switch-new-view, &.switch-old-view {
+            padding-right: 6px;
+        }
+
         select, input[type='text'], [class^='btn-submit'], .input-group.date .form-control {
             height: 36px;
             @include box-shadow-multiple('0px 1px 3px rgba(0, 0, 0, 0.3)');

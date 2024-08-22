@@ -696,6 +696,10 @@ a {
         }
     }
 
+    .icon-excel.icon-excel-new {
+        color: #2E9E60;
+    }
+
     .icon-back {
         margin-left: 20px;
         font-size: 20px;
@@ -976,6 +980,10 @@ a {
     .filter {
         padding-left: 6px;
         padding-right: 6px;
+
+        &.switch-new-view, &.switch-old-view {
+            padding-right: 6px;
+        }
 
         select, input[type='text'], [class^='btn-submit'], .input-group.date .form-control {
             height: 36px;

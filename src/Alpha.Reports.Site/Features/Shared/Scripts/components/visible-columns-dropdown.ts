@@ -9,11 +9,13 @@ class VisibleColumnDropdownOption {
         public visibleColumns,
         public listColumn,
         public onDropdownHidden = Function(),
-        public selectorId = "dropdown-column") {
+        public selectorId = "dropdown-column",
+        public minWidth = 220) {
         this.visibleColumns = visibleColumns;
         this.listColumn = listColumn;
         this.onDropdownHidden = onDropdownHidden;
         this.selectorId = selectorId;
+        this.minWidth = minWidth;
     }
 }
 
@@ -48,7 +50,7 @@ class VisibleColumnDropdownComponent {
             filterPlaceHolder: dropdown.data("label-filterplaceholder"),
             noItemFoundText: dropdown.data("label-noitemfound"),
             isCheckAll: isCheckAll,
-            minWidth: 220,
+            minWidth: options.minWidth,
             maxHeight: 250,
             showTooltip: false,
             listData: options.listColumn.map(function (item) {

@@ -1077,6 +1077,54 @@
   <data name="MonitoredMember" xml:space="preserve">
     <value>สมาชิกที่กำลังเฝ้าดู</value>
   </data>
+  <data name="DailyWinLossReport" xml:space="preserve">
+    <value>รายงาน ชนะ แพ้ รายวัน</value>
+  </data>
+  <data name="SettlementReport" xml:space="preserve">
+    <value>รายงานการชำระเงิน</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>ไวท์เลเบล</value>
+  </data>
+  <data name="LossCarryforward" xml:space="preserve">
+    <value>ยอดเสียยกมา</value>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>โปรโมชั่น</value>
+  </data>
+  <data name="NetWinLoss" xml:space="preserve">
+    <value>ชนะแพ้สุทธิ</value>
+  </data>
+  <data name="Fee" xml:space="preserve">
+    <value>ค่าธรรมเนียม</value>
+  </data>
+  <data name="PromotionSettlement" xml:space="preserve">
+    <value>การชำระเงินโปรโมชั่น</value>
+  </data>
+  <data name="MasterEarning" xml:space="preserve">
+    <value>รายได้มาสเตอร์</value>
+  </data>
+  <data name="SuperEarning" xml:space="preserve">
+    <value>รายได้ซุปเปอร์</value>
+  </data>
+  <data name="HeadlineEarning" xml:space="preserve">
+    <value>Headline Earning</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>รายได้</value>
+  </data>
+  <data name="PromotionShare" xml:space="preserve">
+    <value>โปรโมชั่น แชร์</value>
+  </data>
+  <data name="WhiteLabelSettlementNote" xml:space="preserve">
+    <value>เพื่อความถูกต้องของข้อมูล รายงานการชำระเงินจะถูกสร้างขึ้น 5 วันหลังจากสิ้นเดือนของแต่ละเดือน</value>
+  </data>
+  <data name="ShutdownOldWinLossDetailReportMessage" xml:space="preserve">
+    <value>ตั้งแต่วันที่ {0} (dd/mm/yyyy) มุมมองคลาสสิค จะไม่สามารถใช้งานได้อีกต่อไป โดยจะถูกแทนที่ด้วย มุมมองใหม่ เพลิดเพลินกับประสบการณ์ผู้ใช้ที่ได้รับการปรับปรุงให้ดีขึ้นจาก มุมมองใหม่</value>
+  </data>
+  <data name="SwitchToNewView" xml:space="preserve">
+    <value>เปลี่ยนไปยัง มุมมองแบบใหม่</value>
+  </data>
   <data name="Statement_WinLoss" xml:space="preserve">
     <value>ยอดได้เสีย</value>
   </data>
@@ -1088,12 +1136,6 @@
   </data>
   <data name="TransferDetails" xml:space="preserve">
     <value>รายละเอียดการโอนเงิน</value>
-  </data>
-  <data name="ShutdownOldWinLossDetailReportMessage" xml:space="preserve">
-    <value>ตั้งแต่วันที่ {0} (dd/mm/yyyy) มุมมองคลาสสิค จะไม่สามารถใช้งานได้อีกต่อไป โดยจะถูกแทนที่ด้วย มุมมองใหม่ เพลิดเพลินกับประสบการณ์ผู้ใช้ที่ได้รับการปรับปรุงให้ดีขึ้นจาก มุมมองใหม่</value>
-  </data>
-  <data name="SwitchToNewView" xml:space="preserve">
-    <value>เปลี่ยนไปยัง มุมมองแบบใหม่</value>
   </data>
   <data name="WinLossDetail2Note" xml:space="preserve">
     <value>ตั้งแต่วันที่ &lt;b&gt;1/02/2025 (mm/dd/yyyy)&lt;/b&gt; รายงานนี้จะรวมข้อมูลเงินรางวัลไว้ตามค่าเริ่มต้น &lt;a href="{0}"&gt;กลับไปที่รายงานปัจจุบัน&lt;/a&gt;</value>

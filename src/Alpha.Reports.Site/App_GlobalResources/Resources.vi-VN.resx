@@ -1158,4 +1158,46 @@
   <data name="Reward" xml:space="preserve">
     <value>Tiền thưởng</value>
   </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>Nhãn Trắng</value>
+  </data>
+  <data name="LossCarryforward" xml:space="preserve">
+    <value>Chuyển Tiếp Lỗ</value>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>Khuyến Mãi</value>
+  </data>
+  <data name="NetWinLoss" xml:space="preserve">
+    <value>Thắng Thua Thực</value>
+  </data>
+  <data name="Fee" xml:space="preserve">
+    <value>Phí</value>
+  </data>
+  <data name="PromotionSettlement" xml:space="preserve">
+    <value>Quyết Toán Khuyến Mãi</value>
+  </data>
+  <data name="MasterEarning" xml:space="preserve">
+    <value>Thu Nhập Master</value>
+  </data>
+  <data name="SuperEarning" xml:space="preserve">
+    <value>Thu Nhập Super</value>
+  </data>
+  <data name="HeadlineEarning" xml:space="preserve">
+    <value>Headline Earning</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>Thu Nhập</value>
+  </data>
+  <data name="PromotionShare" xml:space="preserve">
+    <value>Đóng Góp Khuyến Mãi</value>
+  </data>
+  <data name="WhiteLabelSettlementNote" xml:space="preserve">
+    <value>Tạo Báo Cáo Quyết Toán sau 5 ngày kể từ cuối tháng để đảm bảo tính chính xác của dữ liệu.</value>
+  </data>
+  <data name="DailyWinLossReport" xml:space="preserve">
+    <value>Báo Cáo Thắng Thua Trong Ngày</value>
+  </data>
+  <data name="SettlementReport" xml:space="preserve">
+    <value>Báo Cáo Quyết Toán</value>
+  </data>
 </root>

@@ -135,6 +135,22 @@ var AlphaReports = /** @class */ (function () {
         });
         return indexed_array;
     };
+    AlphaReports.prototype.handleAjaxFail = function (jqXHR) {
+        if (jqXHR) {
+            if (jqXHR.status === 401) {
+                window.top["age"].SignOut();
+            }
+            else if (jqXHR.status === 429) {
+                location.href = window.top["alpha"].urls.mainRootPath + "Error/Blocked";
+            }
+            else if (jqXHR.status === 500 && jqXHR.responseText) {
+                var jsonData = JSON.parse(jqXHR.responseText);
+                if (jsonData.UMFrom && jsonData.UMTo) {
+                    location.href = window.top["alpha"].urls.mainRootPath + "PartialUM/Index?umfrom=" + jsonData.UMFrom + "&umto=" + jsonData.UMTo;
+                }
+            }
+        }
+    };
     return AlphaReports;
 }());
 var alphaReports = new AlphaReports($, store);

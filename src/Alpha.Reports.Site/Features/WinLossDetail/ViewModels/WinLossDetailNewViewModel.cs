@@ -7,6 +7,7 @@
     using Alpha.Reports.Models.WinLossDetail;
     using Alpha.Reports.Site.Features.Shared.ViewModels.Components;
     using Alpha.Reports.Site.Requests.WinLossDetail;
+    using Alpha.Reports.Utils;
     using Alpha.Web.Helpers;
 
     public class WinLossDetailNewViewModel : WinLossDetailGetDataViewModel
@@ -28,7 +29,9 @@
             DateRangePickerViewModel = new DateRangePickerNewViewModel(
                 message.FromDate,
                 message.ToDate,
-                message.MinDate);
+                message.MinDate,
+                SystemTime.Today.AddDays(1),
+                message.Language);
             Products = products;
             ProductIds = message.ProductIds;
             ProductDetails = productDetails;
@@ -36,7 +39,6 @@
             Username = message.Username;
             WeekFromDate = message.WeekFromDate.HasValue ? message.WeekFromDate.Value.ToShortDateWithSlash() : string.Empty;
             WeekToDate = message.WeekToDate.HasValue ? message.WeekToDate.Value.ToShortDateWithSlash() : string.Empty;
-            Language = message.Language;
             MainDomain = message.IsInternal ? message.MainDomain : string.Empty;
             ShowColumns = message.ShowColumns;
             Weeks = weeks;
@@ -73,8 +75,6 @@
         public string WeekFromDate { get; }
 
         public string WeekToDate { get; }
-
-        public string Language { get; }
 
         public string MainDomain { get; }
 

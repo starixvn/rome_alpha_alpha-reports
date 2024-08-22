@@ -11,7 +11,8 @@ class MonthRangePickerOption {
     constructor(
         public fromSelectorId: string = "from-monthpicker",
         public toSelectorId: string = "to-monthpicker",
-        public reportFormId: string = "report-form") {
+        public reportFormId: string = "report-form",
+        public afterChangeMonth: Function = undefined) {
     }
 }
 
@@ -38,17 +39,14 @@ class MonthRangePickerComponent {
     };
 
     renderDropdown = (dropdownId: string) => {
-        var dropdownMonth = this.$("#" + dropdownId);
-
-        var maxDate = dropdownMonth.data("maxdate");
-
+        const dropdownMonth = this.$("#" + dropdownId);
+        const maxDate = dropdownMonth.data("maxdate");
         dropdownMonth.monPickr({
             longMonthsInYear: dropdownMonth.data("longmonths-inyear").split(","),
             maxDate: maxDate,
             minDate: dropdownMonth.data("mindate"),
             month: new Date(dropdownMonth.data("dateinmonth")),
             today: new Date(dropdownMonth.data("currentdate")),
-
             showDateRange: false,
             monthFormat: alphaReports.format.monthFormat,
             fromDayId: "ddl-fromday",
@@ -70,11 +68,12 @@ class MonthRangePickerComponent {
     onChange = () => {
         this.$fromDate.val(this.$dropdownFromMonth.monPickr("getFromDate", alphaReports.format.shortDateWithSlash_MonthPicker));
         this.$toDate.val(this.$dropdownToMonth.monPickr("getToDate", alphaReports.format.shortDateWithSlash_MonthPicker));
+        this.options.afterChangeMonth && this.options.afterChangeMonth();
     };
 
     isLeast3Month = () => {
-        let fromDate = new Date(this.$fromDate.val());
-        let toDate = new Date(this.$toDate.val());
+        const fromDate = new Date(this.$fromDate.val());
+        const toDate = new Date(this.$toDate.val());
 
         return this.getMonthDiff(fromDate, toDate) >= 2;
     };
@@ -82,4 +81,8 @@ class MonthRangePickerComponent {
     getMonthDiff = (fromDate: Date, toDate: Date) => {
         return toDate.getMonth() - fromDate.getMonth() + 12 * (toDate.getFullYear() - fromDate.getFullYear());
     };
+
+    getDateRangeValues() {
+        return { fromDate: this.$fromDate.val(), toDate: this.$toDate.val() };
+    }
 }

@@ -9,15 +9,16 @@
             DateTime fromDate,
             DateTime toDate,
             DateTime minDate,
-            DateTime? maxDate = null)
+            DateTime maxDate,
+            string language)
         {
             var today = SystemTime.Today;
-
             FromDate = fromDate;
             ToDate = toDate;
             MinDate = minDate;
-            MaxDate = maxDate ?? today.AddDays(1);
+            MaxDate = maxDate;
             CurrentDate = today;
+            Language = language;
         }
 
         public DateTime FromDate { get; }
@@ -29,5 +30,7 @@
         public DateTime MaxDate { get; }
 
         public DateTime CurrentDate { get; }
+
+        public string Language { get; }
     }
 }

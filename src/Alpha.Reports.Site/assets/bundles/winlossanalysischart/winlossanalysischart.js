@@ -135,6 +135,22 @@ var AlphaReports = /** @class */ (function () {
         });
         return indexed_array;
     };
+    AlphaReports.prototype.handleAjaxFail = function (jqXHR) {
+        if (jqXHR) {
+            if (jqXHR.status === 401) {
+                window.top["age"].SignOut();
+            }
+            else if (jqXHR.status === 429) {
+                location.href = window.top["alpha"].urls.mainRootPath + "Error/Blocked";
+            }
+            else if (jqXHR.status === 500 && jqXHR.responseText) {
+                var jsonData = JSON.parse(jqXHR.responseText);
+                if (jsonData.UMFrom && jsonData.UMTo) {
+                    location.href = window.top["alpha"].urls.mainRootPath + "PartialUM/Index?umfrom=" + jsonData.UMFrom + "&umto=" + jsonData.UMTo;
+                }
+            }
+        }
+    };
     return AlphaReports;
 }());
 var alphaReports = new AlphaReports($, store);
@@ -142,13 +158,15 @@ var alphaReports = new AlphaReports($, store);
 /// <reference path="../core.ts" />
 "use strict";
 var MonthRangePickerOption = /** @class */ (function () {
-    function MonthRangePickerOption(fromSelectorId, toSelectorId, reportFormId) {
+    function MonthRangePickerOption(fromSelectorId, toSelectorId, reportFormId, afterChangeMonth) {
         if (fromSelectorId === void 0) { fromSelectorId = "from-monthpicker"; }
         if (toSelectorId === void 0) { toSelectorId = "to-monthpicker"; }
         if (reportFormId === void 0) { reportFormId = "report-form"; }
+        if (afterChangeMonth === void 0) { afterChangeMonth = undefined; }
         this.fromSelectorId = fromSelectorId;
         this.toSelectorId = toSelectorId;
         this.reportFormId = reportFormId;
+        this.afterChangeMonth = afterChangeMonth;
     }
     return MonthRangePickerOption;
 }());
@@ -191,6 +209,7 @@ var MonthRangePickerComponent = /** @class */ (function () {
         this.onChange = function () {
             _this.$fromDate.val(_this.$dropdownFromMonth.monPickr("getFromDate", alphaReports.format.shortDateWithSlash_MonthPicker));
             _this.$toDate.val(_this.$dropdownToMonth.monPickr("getToDate", alphaReports.format.shortDateWithSlash_MonthPicker));
+            _this.options.afterChangeMonth && _this.options.afterChangeMonth();
         };
         this.isLeast3Month = function () {
             var fromDate = new Date(_this.$fromDate.val());
@@ -202,6 +221,9 @@ var MonthRangePickerComponent = /** @class */ (function () {
         };
         this.$ = $;
     }
+    MonthRangePickerComponent.prototype.getDateRangeValues = function () {
+        return { fromDate: this.$fromDate.val(), toDate: this.$toDate.val() };
+    };
     return MonthRangePickerComponent;
 }());
 //# sourceMappingURL=month-range-picker.js.map
