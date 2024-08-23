@@ -72,7 +72,7 @@
             var param = new BetCreditHistoryParam("supertest1", 123456, DateTime.Today.AddDays(-1), DateTime.Today, 1, DateTime.MinValue, LanguageCode.English, 1, 100);
             var reportData = new List<BetCreditHistoryModel>
             {
-                new BetCreditHistoryModel(DateTime.Now, new DateTime(2022, 3, 3, 23, 59, 00), 123456, 10, 10, 10, 10, 10, 10, 10, 1, "Bet Updated", 1)
+                new BetCreditHistoryModel(DateTime.Now, new DateTime(2022, 3, 3, 23, 59, 00), 123456, 10, 10, 10, 10, 10, 10, 10, 1, "Bet Updated", true)
             };
             repository.Fetch<BetCreditHistoryModel>(Arg.Any<BetCreditHistoryCriteria>()).Returns(reportData);
 
@@ -196,6 +196,6 @@
         }
 
         private BetCreditHistoryModel CreateBetCreditHistoryModel(int actionId, string action)
-            => new BetCreditHistoryModel(DateTime.Now, DateTime.Now, 123456, 10, 10, 10, 10, 10, 10, 10, actionId, action, 0);
+            => new BetCreditHistoryModel(DateTime.Now, DateTime.Now, 123456, 10, 10, 10, 10, 10, 10, 10, actionId, action, false);
     }
 }
