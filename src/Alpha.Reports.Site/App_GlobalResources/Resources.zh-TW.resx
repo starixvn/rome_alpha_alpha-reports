@@ -1083,4 +1083,10 @@
   <data name="MonitoredMember" xml:space="preserve">
     <value>監控會員</value>
   </data>
+  <data name="ShutdownOldWinLossDetailReportMessage" xml:space="preserve">
+    <value>從 {0} (日/月/年) 起，經典版不再使用，並將由新版本取代。通過新版本享受經過改進的新增賬號體驗。</value>
+  </data>
+  <data name="SwitchToNewView" xml:space="preserve">
+    <value>切換到新版本</value>
+  </data>
 </root>

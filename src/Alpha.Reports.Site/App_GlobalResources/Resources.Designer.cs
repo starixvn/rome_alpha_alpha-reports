@@ -2545,6 +2545,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From {0} (dd/mm/yyyy), Classic View will no longer be available and will be replaced by the New View. Enjoy an improved user experience with the New View..
+        /// </summary>
+        public static string ShutdownOldWinLossDetailReportMessage {
+            get {
+                return ResourceManager.GetString("ShutdownOldWinLossDetailReportMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Since Last Month.
         /// </summary>
         public static string SinceLastMonth {
@@ -2712,6 +2721,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string SuperWinLossNew {
             get {
                 return ResourceManager.GetString("SuperWinLossNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switch to New View.
+        /// </summary>
+        public static string SwitchToNewView {
+            get {
+                return ResourceManager.GetString("SwitchToNewView", resourceCulture);
             }
         }
         

@@ -1167,4 +1167,10 @@
   <data name="AddToMyWatchlist" xml:space="preserve">
     <value>Add to My Watchlist</value>
   </data>
+  <data name="ShutdownOldWinLossDetailReportMessage" xml:space="preserve">
+    <value>From {0} (dd/mm/yyyy), Classic View will no longer be available and will be replaced by the New View. Enjoy an improved user experience with the New View.</value>
+  </data>
+  <data name="SwitchToNewView" xml:space="preserve">
+    <value>Switch to New View</value>
+  </data>
 </root>
