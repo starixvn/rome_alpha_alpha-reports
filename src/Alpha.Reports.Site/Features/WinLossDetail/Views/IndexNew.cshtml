@@ -56,7 +56,7 @@
     <div class="top-filter">
         @ReportTitleNew.Render(Model.TotalEnteredSport)
         <div class="form-inline filter" id="form-filter">
-            @HtmlHelpers.RenderSwitchVersionButton(Resources.ClassicView, Url.Action(Model.ViewerLevel.GetDirectDownLineLevel().DisplayName, $"{SiteSettings.ReportRouting}WinLossDetail"))
+            @*@HtmlHelpers.RenderSwitchVersionButton(Resources.ClassicView, Url.Action(Model.ViewerLevel.GetDirectDownLineLevel().DisplayName, $"{SiteSettings.ReportRouting}WinLossDetail"))*@
             @DateRangePickerJQuery.Render(Model.DateRangePickerViewModel)
             @ProductAndProductDetailDropdown.Render()
             @UsernameAutoSuggestion.Render()

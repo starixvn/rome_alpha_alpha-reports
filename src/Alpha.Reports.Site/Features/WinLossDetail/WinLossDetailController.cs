@@ -18,9 +18,9 @@
         {
         }
 
-        [Route("winlossdetail/master")]
-        [Route("winlossdetail/agent")]
-        [Route("winlossdetail/member")]
+        [Route("winlossdetail/masterold")]
+        [Route("winlossdetail/agentold")]
+        [Route("winlossdetail/memberold")]
         public ActionResult Index(WinLossDetailQuery message)
             => View<WinLossDetailViewModel>($"{BasePath}/{nameof(Index)}.cshtml", message);
 
