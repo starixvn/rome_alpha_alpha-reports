@@ -1077,4 +1077,10 @@
   <data name="MonitoredMember" xml:space="preserve">
     <value>สมาชิกที่กำลังเฝ้าดู</value>
   </data>
+  <data name="ShutdownOldWinLossDetailReportMessage" xml:space="preserve">
+    <value>ตั้งแต่วันที่ {0} (dd/mm/yyyy) มุมมองคลาสสิค จะไม่สามารถใช้งานได้อีกต่อไป โดยจะถูกแทนที่ด้วย มุมมองใหม่ เพลิดเพลินกับประสบการณ์ผู้ใช้ที่ได้รับการปรับปรุงให้ดีขึ้นจาก มุมมองใหม่</value>
+  </data>
+  <data name="SwitchToNewView" xml:space="preserve">
+    <value>เปลี่ยนไปยัง มุมมองแบบใหม่</value>
+  </data>
 </root>
