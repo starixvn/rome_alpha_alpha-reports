@@ -2,7 +2,6 @@
 declare var whiteLabels: any;
 
 class SettlementView extends BaseReportView {
-    private $formReport: JQuery;
     private monthRangePicker: MonthRangePickerComponent;
     private whiteLabelDropdown: MultipleDropdownComponent;
     private usernameAutoSuggestion: UsernameAutoSuggestionComponent;
@@ -19,12 +18,11 @@ class SettlementView extends BaseReportView {
         this.whiteLabelDropdown = whiteLabelDropdown;
         this.usernameAutoSuggestion = usernameAutoSuggestion;
         this.visibleColumns = visibleColumns;
-        // ser default sortIndicator
+        // default no sort
         this.sortColumnIndex = undefined;
     }
 
     init() {
-        this.$formReport = $('#report-form');
         this.$tblReportContainer = $('#tbl-report-container');
 
         this.initComponents();
@@ -33,7 +31,7 @@ class SettlementView extends BaseReportView {
     }
 
     private initComponents() {
-        this.initShowHideFilter((isHideFilter) => this.$formReport.toggle(!isHideFilter));
+        this.initShowHideFilter((isHideFilter) => $('#settlement-note').toggle(!isHideFilter));
         this.monthRangePicker.render(new MonthRangePickerOption(undefined, undefined, undefined, () => this.getReportData()));
 
         if (Array.isArray(whiteLabels)) {
@@ -52,6 +50,7 @@ class SettlementView extends BaseReportView {
             maxWhiteLabelLength *= 11;
 
             this.whiteLabelDropdown.render('dropdown-whitelabel', {
+                showFilter: true,
                 listData: listData,
                 onLeave: () => this.getReportData(),
                 minWidth: maxWhiteLabelLength > 220 ? maxWhiteLabelLength : 220
@@ -79,7 +78,7 @@ class SettlementView extends BaseReportView {
     private getReportData() {
         $.blockUI();
         const queryString = $.param(this.getFormData());
-        $.get(`${this.$formReport.attr('action')}?${queryString}`, (html) => {
+        $.get(`${$('#hiddenGetDataUrl').val()}?${queryString}`, (html) => {
             this.$tblReportContainer.html(html);
             this.bindEventsAfterRenderReportData();
             this.updateCurrentUrl(queryString);
@@ -103,10 +102,9 @@ class SettlementView extends BaseReportView {
     }
 
     private bindEventsAfterRenderReportData() {
-        this.visibleColumns.showHideColumns();
-
         const $tblReport = $('#tbl-report');
         this.tableSorter($tblReport);
+        this.visibleColumns.showHideColumns();
         this.stickyTableHeaders($tblReport);
     }
 }

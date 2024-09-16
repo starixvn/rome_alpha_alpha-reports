@@ -14,7 +14,7 @@
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/BetCreditTracking/Bundles/movestatementhistory")
 }
-<div class="page-title @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
+<div class="page-title tabs @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation">
             @Html.ActionLink(@Resources.BetCreditHistory, "Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}BetCreditHistory")

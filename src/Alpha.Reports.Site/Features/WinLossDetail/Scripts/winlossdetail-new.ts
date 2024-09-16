@@ -337,18 +337,9 @@ class WinLossDetailViewNew extends BaseReportView {
     private bindEvents() {
         this.initReportLegend($("#hiddenLegendUrl").val());
 
-        const formFilter = $("#form-filter");
-        this.initShowHideFilter((isHideFilter) => {
-            if (isHideFilter) {
-                formFilter.addClass("hide");
-                this.weekSelectionComponent.hide();
+        this.initShowHideFilter((isHideFilter) => isHideFilter ? this.weekSelectionComponent.hide() : this.weekSelectionComponent.show());
                 $('#msg-warning-note').hide();
-            } else {
-                formFilter.removeClass("hide");
-                this.weekSelectionComponent.show();
                 $('#msg-warning-note').show();
-            }
-        });
 
         this.bindCopyAndExcelEvents();
         this.bindTableReportEvents();

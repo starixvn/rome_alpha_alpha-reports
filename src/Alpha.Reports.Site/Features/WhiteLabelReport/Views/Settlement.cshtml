@@ -50,7 +50,7 @@
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-reports/filter-new")
     @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WhiteLabelReport/Bundles/settlement")
 }
-<div class="page-title">
+<div class="page-title tabs">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
             <a href="#settlement" aria-controls="home" role="tab" data-toggle="tab">@Resources.SettlementReport</a>
@@ -65,12 +65,11 @@
 </div>
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="settlement">
-        @using (Html.BeginForm("GetData", $"{SiteSettings.ReportRouting}WhiteLabelSettlement", FormMethod.Get, new { @class = "form-inline filter", role = "form", id = "report-form" }))
-        {
+        <div class="form-inline filter" id="report-form">
             @MonthRangePickerNew.Render(Model.MonthPickerViewModel)
-            if (isMasterOrSuper)
+            @if (isMasterOrSuper)
             {
-                <div class="form-group multiselect-nosearch">
+                <div class="form-group">
                     <label class="label-form-control">@Resources.WhiteLabel</label>
                     <div class="select-multiple"
                          id="dropdown-whitelabel"
@@ -92,13 +91,16 @@
                    data-placement="top"
                    title="@Resources.ExportToExcel"></a>
             </div>
-            <div class="msg msg-warning">@Resources.WhiteLabelSettlementNote</div>
-        }
-        <div id="tbl-report-container" style="visibility: hidden;">
-            @{ Html.RenderPartial("~/Features/WhiteLabelReport/Views/SettlementData.cshtml", Model); }
+        </div>
+        <div style="width: fit-content">
+            <div class="msg msg-warning" id="settlement-note">@Resources.WhiteLabelSettlementNote</div>
+            <div id="tbl-report-container" style="visibility: hidden;">
+                @{ Html.RenderPartial("~/Features/WhiteLabelReport/Views/SettlementData.cshtml", Model); }
+            </div>
         </div>
     </div>
 </div>
 <input type="hidden" id="hiddenHideFilterText" value="@Resources.HideFilter" />
 <input type="hidden" id="hiddenShowFilterText" value="@Resources.ShowFilter" />
+<input type="hidden" id="hiddenGetDataUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WhiteLabelSettlement")" />
 <input type="hidden" id="hiddenUsernameAutoSuggestionUrl" value="@Url.Action("Get", $"{SiteSettings.ReportRouting}UsernameSuggestion")" />

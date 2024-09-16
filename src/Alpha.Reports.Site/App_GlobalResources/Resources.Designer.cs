@@ -169,7 +169,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Accum Total.
         /// </summary>
         public static string AccumTotal {
             get {

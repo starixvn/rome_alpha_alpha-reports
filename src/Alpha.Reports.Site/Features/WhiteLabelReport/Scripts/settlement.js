@@ -20,12 +20,11 @@ var SettlementView = /** @class */ (function (_super) {
         _this.whiteLabelDropdown = whiteLabelDropdown;
         _this.usernameAutoSuggestion = usernameAutoSuggestion;
         _this.visibleColumns = visibleColumns;
-        // ser default sortIndicator
+        // default no sort
         _this.sortColumnIndex = undefined;
         return _this;
     }
     SettlementView.prototype.init = function () {
-        this.$formReport = $('#report-form');
         this.$tblReportContainer = $('#tbl-report-container');
         this.initComponents();
         this.bindEventsAfterRenderReportData();
@@ -33,7 +32,7 @@ var SettlementView = /** @class */ (function (_super) {
     };
     SettlementView.prototype.initComponents = function () {
         var _this = this;
-        this.initShowHideFilter(function (isHideFilter) { return _this.$formReport.toggle(!isHideFilter); });
+        this.initShowHideFilter(function (isHideFilter) { return $('#settlement-note').toggle(!isHideFilter); });
         this.monthRangePicker.render(new MonthRangePickerOption(undefined, undefined, undefined, function () { return _this.getReportData(); }));
         if (Array.isArray(whiteLabels)) {
             var maxWhiteLabelLength_1 = 0;
@@ -49,6 +48,7 @@ var SettlementView = /** @class */ (function (_super) {
             });
             maxWhiteLabelLength_1 *= 11;
             this.whiteLabelDropdown.render('dropdown-whitelabel', {
+                showFilter: true,
                 listData: listData,
                 onLeave: function () { return _this.getReportData(); },
                 minWidth: maxWhiteLabelLength_1 > 220 ? maxWhiteLabelLength_1 : 220
@@ -69,7 +69,7 @@ var SettlementView = /** @class */ (function (_super) {
         var _this = this;
         $.blockUI();
         var queryString = $.param(this.getFormData());
-        $.get(this.$formReport.attr('action') + "?" + queryString, function (html) {
+        $.get($('#hiddenGetDataUrl').val() + "?" + queryString, function (html) {
             _this.$tblReportContainer.html(html);
             _this.bindEventsAfterRenderReportData();
             _this.updateCurrentUrl(queryString);
@@ -88,9 +88,9 @@ var SettlementView = /** @class */ (function (_super) {
         return formData;
     };
     SettlementView.prototype.bindEventsAfterRenderReportData = function () {
-        this.visibleColumns.showHideColumns();
         var $tblReport = $('#tbl-report');
         this.tableSorter($tblReport);
+        this.visibleColumns.showHideColumns();
         this.stickyTableHeaders($tblReport);
     };
     return SettlementView;

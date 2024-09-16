@@ -14,11 +14,12 @@ class BaseReportView {
         });
     }
 
-    protected initShowHideFilter(callback) {
+    protected initShowHideFilter(callback = undefined) {
         const hideFilterText = $("#hiddenHideFilterText").val();
         const showFilterText = $("#hiddenShowFilterText").val();
         const iconFilter = $("#icon-filter").click(function () {
             const isHideFilter = iconFilter.hasClass("icon-arrow-up-drop-circle");
+            $('#report-form').toggle(!isHideFilter);
             if (isHideFilter) {
                 iconFilter
                     .removeClass("icon-arrow-up-drop-circle")
@@ -31,7 +32,7 @@ class BaseReportView {
                     .attr("data-original-title", hideFilterText);
             }
 
-            callback(isHideFilter);
+            callback && callback(isHideFilter);
         });
     }
 

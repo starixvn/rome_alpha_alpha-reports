@@ -44,7 +44,6 @@
                 message.Username = null;
             }
 
-
             return reportService.GetSettlement(new ReportParam(
                 message.ViewerId,
                 message.FromDate.FirstDayOfMonth(),

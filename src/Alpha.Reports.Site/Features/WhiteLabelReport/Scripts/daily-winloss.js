@@ -30,35 +30,33 @@ var DailyWinLossView = /** @class */ (function (_super) {
         this.$tblReportContainer.removeAttr('style');
     };
     DailyWinLossView.prototype.cacheElements = function () {
-        this.$formReport = $('#report-form');
         this.$tblReportContainer = $('#tbl-report-container');
     };
     DailyWinLossView.prototype.initComponents = function () {
         var _this = this;
         var $iconExcel = $('#icon-excel');
-        this.initShowHideFilter(function (isHideFilter) {
-            if (isHideFilter) {
-                _this.$formReport.hide();
-                $iconExcel.hide();
-            }
-            else {
-                _this.$formReport.show();
-                $iconExcel.show();
-            }
-        });
+        this.initShowHideFilter();
         this.dateRangePicker.render({
             onClosed: function () { return _this.getReportData(); }
         });
         if (Array.isArray(whiteLabels)) {
+            var maxWhiteLabelLength_1 = 0;
+            var listData = whiteLabels.map(function (wl) {
+                if (wl.Name.length > maxWhiteLabelLength_1) {
+                    maxWhiteLabelLength_1 = wl.Name.length;
+                }
+                return {
+                    text: wl.Name,
+                    value: wl.Id,
+                    checked: true
+                };
+            });
+            maxWhiteLabelLength_1 *= 11;
             this.whiteLabelDropdown.render('dropdown-whitelabel', {
-                listData: whiteLabels.map(function (wl) {
-                    return {
-                        text: wl.Name,
-                        value: wl.Id,
-                        checked: true
-                    };
-                }),
-                onLeave: function () { return _this.getReportData(); }
+                showFilter: true,
+                listData: listData,
+                onLeave: function () { return _this.getReportData(); },
+                minWidth: maxWhiteLabelLength_1 > 220 ? maxWhiteLabelLength_1 : 220
             });
         }
         this.usernameAutoSuggestion.init(new UsernameAutoSuggestionOption($("#hiddenUsernameAutoSuggestionUrl").val(), false, false, function () { return _this.getReportData(); }));
@@ -75,7 +73,7 @@ var DailyWinLossView = /** @class */ (function (_super) {
         var _this = this;
         $.blockUI();
         var queryString = $.param(this.getFormData());
-        $.get(this.$formReport.attr('action') + "?" + queryString, function (html) {
+        $.get($('#hiddenGetDataUrl').val() + "?" + queryString, function (html) {
             _this.$tblReportContainer.html(html);
             _this.bindEventsAfterRenderWinLoss();
             _this.updateCurrentUrl(queryString);

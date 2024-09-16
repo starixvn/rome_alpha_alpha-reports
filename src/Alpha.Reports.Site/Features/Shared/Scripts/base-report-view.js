@@ -13,10 +13,12 @@ var BaseReportView = /** @class */ (function () {
         });
     };
     BaseReportView.prototype.initShowHideFilter = function (callback) {
+        if (callback === void 0) { callback = undefined; }
         var hideFilterText = $("#hiddenHideFilterText").val();
         var showFilterText = $("#hiddenShowFilterText").val();
         var iconFilter = $("#icon-filter").click(function () {
             var isHideFilter = iconFilter.hasClass("icon-arrow-up-drop-circle");
+            $('#report-form').toggle(!isHideFilter);
             if (isHideFilter) {
                 iconFilter
                     .removeClass("icon-arrow-up-drop-circle")
@@ -29,7 +31,7 @@ var BaseReportView = /** @class */ (function () {
                     .addClass("icon-arrow-up-drop-circle")
                     .attr("data-original-title", hideFilterText);
             }
-            callback(isHideFilter);
+            callback && callback(isHideFilter);
         });
     };
     BaseReportView.prototype.tableSorter = function ($tblReport, canSort, sortEndCallback) {

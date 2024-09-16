@@ -5,7 +5,6 @@ class DailyWinLossView extends BaseReportView {
     private dateRangePicker: DateRangePickerJQueryComponent;
     private whiteLabelDropdown: MultipleDropdownComponent;
     private usernameAutoSuggestion: UsernameAutoSuggestionComponent;
-    private $formReport: JQuery;
     private $tblReportContainer: JQuery;
 
     constructor(
@@ -28,36 +27,37 @@ class DailyWinLossView extends BaseReportView {
     }
 
     private cacheElements() {
-        this.$formReport = $('#report-form');
         this.$tblReportContainer = $('#tbl-report-container');
     }
 
     private initComponents() {
         const $iconExcel = $('#icon-excel');
 
-        this.initShowHideFilter((isHideFilter) => {
-            if (isHideFilter) {
-                this.$formReport.hide();
-                $iconExcel.hide();
-            } else {
-                this.$formReport.show();
-                $iconExcel.show();
-            }
-        });
+        this.initShowHideFilter();
         this.dateRangePicker.render({
             onClosed: () => this.getReportData()
         });
 
         if (Array.isArray(whiteLabels)) {
+            let maxWhiteLabelLength = 0;
+            const listData = whiteLabels.map(function (wl) {
+                if (wl.Name.length > maxWhiteLabelLength) {
+                    maxWhiteLabelLength = wl.Name.length;
+                }
+
+                return {
+                    text: wl.Name,
+                    value: wl.Id,
+                    checked: true
+                }
+            });
+            maxWhiteLabelLength *= 11;
+
             this.whiteLabelDropdown.render('dropdown-whitelabel', {
-                listData: whiteLabels.map(function (wl) {
-                    return {
-                        text: wl.Name,
-                        value: wl.Id,
-                        checked: true
-                    }
-                }),
-                onLeave: () => this.getReportData()
+                showFilter: true,
+                listData: listData,
+                onLeave: () => this.getReportData(),
+                minWidth: maxWhiteLabelLength > 220 ? maxWhiteLabelLength : 220
             });
         }
 
@@ -80,7 +80,7 @@ class DailyWinLossView extends BaseReportView {
     private getReportData() {
         $.blockUI();
         const queryString = $.param(this.getFormData());
-        $.get(`${this.$formReport.attr('action')}?${queryString}`, (html) => {
+        $.get(`${$('#hiddenGetDataUrl').val()}?${queryString}`, (html) => {
             this.$tblReportContainer.html(html);
             this.bindEventsAfterRenderWinLoss();
             this.updateCurrentUrl(queryString);

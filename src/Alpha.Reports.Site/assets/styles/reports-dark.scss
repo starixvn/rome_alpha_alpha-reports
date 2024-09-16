@@ -105,6 +105,20 @@ a {
     .icon-report-legend {
         margin: 10px 10px 0 10px;
     }
+
+    &.tabs {
+        border-bottom: none;
+
+        .nav.nav-tabs a {
+            text-transform: none;
+        }
+
+        .list-icon {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+        }
+    }
 }
 
 // Tables

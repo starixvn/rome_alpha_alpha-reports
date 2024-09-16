@@ -742,10 +742,12 @@ var BaseReportView = /** @class */ (function () {
         });
     };
     BaseReportView.prototype.initShowHideFilter = function (callback) {
+        if (callback === void 0) { callback = undefined; }
         var hideFilterText = $("#hiddenHideFilterText").val();
         var showFilterText = $("#hiddenShowFilterText").val();
         var iconFilter = $("#icon-filter").click(function () {
             var isHideFilter = iconFilter.hasClass("icon-arrow-up-drop-circle");
+            $('#report-form').toggle(!isHideFilter);
             if (isHideFilter) {
                 iconFilter
                     .removeClass("icon-arrow-up-drop-circle")
@@ -758,7 +760,7 @@ var BaseReportView = /** @class */ (function () {
                     .addClass("icon-arrow-up-drop-circle")
                     .attr("data-original-title", hideFilterText);
             }
-            callback(isHideFilter);
+            callback && callback(isHideFilter);
         });
     };
     BaseReportView.prototype.tableSorter = function ($tblReport, canSort, sortEndCallback) {
@@ -828,7 +830,6 @@ var WinLossDetailColumns = /** @class */ (function () {
             });
             onDropdownHidden(selectedColumnsValue.join());
         }));
-        this.showHideColumns();
     };
     WinLossDetailColumns.prototype.showHideColumns = function (visibleColumn) {
         if (visibleColumn === void 0) { visibleColumn = undefined; }
@@ -844,7 +845,6 @@ var WinLossDetailColumns = /** @class */ (function () {
         this._showHideGroupColumn(tableReport, visibleColumn, "m", "groupColumnMaster");
         this._showHideGroupColumn(tableReport, visibleColumn, "s", "groupColumnSuper");
         this._showHideSpecificColumn(tableReport, visibleColumn, "company");
-        this._showHideSpecificColumn(tableReport, visibleColumn, "reward");
     };
     WinLossDetailColumns.prototype._showHideGroupColumn = function (tableReport, visibleColumn, prefix, groupColumnId) {
         var groupColumn = tableReport.find("#" + groupColumnId);
@@ -1007,7 +1007,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         this.bindEvents();
         // remove style="visibility:hidden"
         // TableSorter cannot run with style="display:none"
-        this.reportWeekSelection.removeAttr("style");
+        this.tableReportContainer.removeAttr("style");
         setTimeout(function () {
             var mainDomain = $("#hiddenMainDomain").val();
             if (mainDomain.length) {
@@ -1246,19 +1246,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     WinLossDetailViewNew.prototype.bindEvents = function () {
         var _this = this;
         this.initReportLegend($("#hiddenLegendUrl").val());
-        var formFilter = $("#form-filter");
-        this.initShowHideFilter(function (isHideFilter) {
-            if (isHideFilter) {
-                formFilter.addClass("hide");
-                _this.weekSelectionComponent.hide();
-                $('#msg-warning-note').hide();
-            }
-            else {
-                formFilter.removeClass("hide");
-                _this.weekSelectionComponent.show();
-                $('#msg-warning-note').show();
-            }
-        });
+        this.initShowHideFilter(function (isHideFilter) { return isHideFilter ? _this.weekSelectionComponent.hide() : _this.weekSelectionComponent.show(); });
         this.bindCopyAndExcelEvents();
         this.bindTableReportEvents();
     };
@@ -1311,7 +1299,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         });
         this.tableReport.find(".icon-plus-box").off("click").click(function (e) {
             window.top["reloadMyWatchlistDataTable"] = function () { return _this.isWeekSelectionClicked ? _this.getWinLossDetailDataWeek() : _this.getWinLossDetailDataAndRenderWeekRange(true); };
-            var custName = $(e.target).data("custname");
+            var custName = $(e.target).prev(".betlists-link").data("custname");
             var url = $("#hiddenMemberInfoUrl").val() + "MyWatchlistAccounts/ManageWatchlistAccounts?usernames=" + custName;
             var width = 820;
             var height = 550;

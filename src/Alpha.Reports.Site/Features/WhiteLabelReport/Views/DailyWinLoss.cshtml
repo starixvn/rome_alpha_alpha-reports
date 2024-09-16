@@ -17,7 +17,7 @@
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-reports/filter-new")
     @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WhiteLabelReport/Bundles/daily-winloss")
 }
-<div class="page-title">
+<div class="page-title tabs">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation">
             @Html.ActionLink(Resources.SettlementReport, "Index", $"{SiteSettings.ReportRouting}WhiteLabelSettlement")
@@ -32,12 +32,11 @@
 </div>
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="dailyWinLoss">
-        @using (Html.BeginForm("GetData", $"{SiteSettings.ReportRouting}WhiteLabelDailyWinLoss", FormMethod.Get, new { @class = "form-inline filter", role = "form", id = "report-form" }))
-        {
+        <div class="form-inline filter" id="report-form">
             @DateRangePickerJQuery.Render(Model.DateRangePicker)
-            if (Model.ViewerLevel.IsMasterOrSuperLevel())
+            @if (Model.ViewerLevel.IsMasterOrSuperLevel())
             {
-                <div class="form-group multiselect-nosearch">
+                <div class="form-group">
                     <label class="label-form-control">@Resources.WhiteLabel</label>
                     <div class="select-multiple"
                          id="dropdown-whitelabel"
@@ -58,7 +57,7 @@
                    data-placement="top"
                    title="@Resources.ExportToExcel"></a>
             </div>
-        }
+        </div>
         <div class="tblRpt-dailywinloss-container @level" id="tbl-report-container" style="visibility: hidden;">
             @{ Html.RenderPartial("~/Features/WhiteLabelReport/Views/DailyWinLossData.cshtml", Model); }
         </div>
@@ -66,4 +65,5 @@
 </div>
 <input type="hidden" id="hiddenHideFilterText" value="@Resources.HideFilter" />
 <input type="hidden" id="hiddenShowFilterText" value="@Resources.ShowFilter" />
+<input type="hidden" id="hiddenGetDataUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WhiteLabelDailyWinLoss")" />
 <input type="hidden" id="hiddenUsernameAutoSuggestionUrl" value="@Url.Action("Get", $"{SiteSettings.ReportRouting}UsernameSuggestion")" />

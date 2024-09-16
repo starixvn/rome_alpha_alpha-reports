@@ -14,7 +14,7 @@
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/BetCreditTracking/Bundles/betcredithistory")
 }
-<div class="page-title @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
+<div class="page-title tabs @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
             <a href="#betCreditHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.BetCreditHistory</a>

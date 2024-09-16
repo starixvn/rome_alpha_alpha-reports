@@ -151,6 +151,14 @@ a {
       content: ')'; }
   .page-title .icon-report-legend {
     margin: 10px 10px 0 10px; }
+  .page-title.tabs {
+    border-bottom: none; }
+    .page-title.tabs .nav.nav-tabs a {
+      text-transform: none; }
+    .page-title.tabs .list-icon {
+      position: absolute;
+      top: 0px;
+      right: 0px; }
 
 .tblRpt.alternative-row-table-new {
   background-color: #7f3d1d; }

@@ -55,7 +55,7 @@
 <div class="flex">
     <div class="top-filter">
         @ReportTitleNew.Render(string.Empty, showIconInfo: true, enteredSportResult: Model.TotalEnteredSport)
-        <div class="form-inline filter switch-old-view" id="form-filter">
+        <div class="form-inline filter switch-old-view" id="report-form">
             @*@HtmlHelpers.RenderSwitchVersionButton(Resources.ClassicView, Url.Action(Model.ViewerLevel.GetDirectDownLineLevel().DisplayName, $"{SiteSettings.ReportRouting}WinLossDetail"))*@
             @DateRangePickerJQuery.Render(Model.DateRangePickerViewModel)
             @ProductAndProductDetailDropdown.Render()

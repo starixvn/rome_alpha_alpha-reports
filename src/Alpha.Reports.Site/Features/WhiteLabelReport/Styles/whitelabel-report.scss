@@ -1,18 +1,4 @@
-﻿.page-title {
-    border-bottom: none;
-
-    .list-icon {
-        position: absolute;
-        top: 0px;
-        right: 0px;
-    }
-}
-
-.filter .msg-warning {
-    margin: 0 0 12px 0;
-}
-
-.monpickr-wrap-parent .monpickr-wrap .monpickr-dropdown {
+﻿.monpickr-wrap-parent .monpickr-wrap .monpickr-dropdown {
     margin-top: 4px;
     margin-left: 0 !important;
 }
@@ -29,4 +15,8 @@
     &.super {
         max-width: 960px;
     }
+}
+
+.msg-warning {
+    margin: 0 0 12px 0;
 }

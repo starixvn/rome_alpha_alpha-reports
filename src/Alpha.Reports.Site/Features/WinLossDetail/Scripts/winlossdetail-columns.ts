@@ -22,8 +22,6 @@ class WinLossDetailColumns {
                 Object.entries(columns).forEach(([key, value]) => value && selectedColumnsValue.push(key));
                 onDropdownHidden(selectedColumnsValue.join());
             }));
-
-        this.showHideColumns();
     }
 
     showHideColumns(visibleColumn = undefined) {
