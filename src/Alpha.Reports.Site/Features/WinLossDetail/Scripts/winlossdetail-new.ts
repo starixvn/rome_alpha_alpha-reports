@@ -353,9 +353,11 @@ class WinLossDetailViewNew extends BaseReportView {
             if (isHideFilter) {
                 formFilter.addClass("hide");
                 this.weekSelectionComponent.hide();
+                $('#msg-warning-note').hide();
             } else {
                 formFilter.removeClass("hide");
                 this.weekSelectionComponent.show();
+                $('#msg-warning-note').show();
             }
         });
 

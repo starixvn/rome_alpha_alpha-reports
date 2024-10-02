@@ -1182,4 +1182,13 @@
   <data name="ProductsWinLossAnalysis" xml:space="preserve">
     <value>Product Win Loss Analysis</value>
   </data>
+  <data name="WinLossDetailNewNote" xml:space="preserve">
+    <value>Click &lt;a href="{0}"&gt;here&lt;/a&gt; to view the report with Reward information. From {1} (mm/dd/yyyy), this report will include Reward information by default.</value>
+  </data>
+  <data name="WinLossDetail2Note" xml:space="preserve">
+    <value>From {1} (mm/dd/yyyy), the report will include Reward information by default. Go back to &lt;a href="{0}"&gt;the current report&lt;/a&gt;</value>
+  </data>
+  <data name="Reward" xml:space="preserve">
+    <value>Reward</value>
+  </data>
 </root>

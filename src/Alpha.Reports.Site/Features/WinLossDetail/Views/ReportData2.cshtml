@@ -1,0 +1,25 @@
+﻿@model WinLossDetailGetDataViewModel
+<div class="breadcrumb-table">
+    <div class="breadcrumb-container">
+        <ul class="breadcrumb" id="breadcrumb-level"></ul>
+    </div>
+    <div class="list-icon">
+        <ul>
+            <li><span id="icon-copy" class="icon icon-content-copy" data-toggle="tooltip" data-placement="top" title="@Resources.Copy"></span></li>
+            <li>
+                <a href="javacript:;"
+                   id="icon-excel"
+                   class="icon icon-excel icon-excel-new"
+                   data-toggle="tooltip"
+                   data-placement="top"
+                   title="@Resources.ExportToExcel"
+                   data-url="@Url.Action("Excel2", $"{SiteSettings.ReportRouting}WinLossDetail")"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper-table-scrollable">
+    <div id="tbl-report-container" class="scrollable">
+        @{ Html.RenderPartial("~/Features/WinLossDetail/Views/ReportDataWeek2.cshtml", Model); }
+    </div>
+</div>

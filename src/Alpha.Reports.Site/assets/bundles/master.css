@@ -172,6 +172,8 @@ a {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     will-change: scroll-position; }
+  .flex #msg-warning-note {
+    margin: 24px 0 12px 0; }
 
 .cover-week-selection {
   flex: 1;
@@ -179,8 +181,7 @@ a {
   flex-direction: column;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  will-change: scroll-position;
-  padding-top: 24px; }
+  will-change: scroll-position; }
   @media only screen and (max-device-width: 767px) {
     .cover-week-selection {
       padding-top: 39px; } }

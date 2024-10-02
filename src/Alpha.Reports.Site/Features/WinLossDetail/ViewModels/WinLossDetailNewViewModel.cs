@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
 {
+    using System;
     using System.Collections.Generic;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Models;
@@ -81,5 +82,7 @@
         public string ShowColumns { get; }
 
         public IEnumerable<WeekSelectionViewModel> Weeks { get; }
+
+        public string NewReportEffectiveDate => new DateTime(2025, 1, 2).ToShortDateWithSlash();
     }
 }

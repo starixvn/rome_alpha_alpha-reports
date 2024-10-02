@@ -35,5 +35,9 @@
         public decimal? SAgComm { get; set; }
 
         public bool? IsExistedWatchList { get; set; }
+
+        public decimal? Reward { get; set; }
+
+        public string RewardCurrency { get; set; }
     }
 }

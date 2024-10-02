@@ -131,6 +131,7 @@ a {
         }
     }
 }
+
 .flex {
     display: flex;
     flex-direction: column;
@@ -142,7 +143,12 @@ a {
         -webkit-overflow-scrolling: touch;
         will-change: scroll-position;
     }
+
+    #msg-warning-note {
+        margin: 24px 0 12px 0;
+    }
 }
+
 .cover-week-selection {
     flex: 1;
     display: flex;
@@ -150,12 +156,12 @@ a {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     will-change: scroll-position;
-    padding-top: 24px;
 
     @media only screen and (max-device-width : 767px) {
         padding-top: 39px;
     }
 }
+
 .label-week-box {
     margin-bottom: -15px;
 
@@ -163,6 +169,7 @@ a {
         margin-bottom: -25px;
     }
 }
+
 .breadcrumb-table {
     .list-icon ul li {
         margin-right: 5px;
@@ -175,9 +182,11 @@ a {
         }
     }
 }
+
 .tooltip.top .tooltip-inner:before {
     border-top-color: #5F626B;
 }
+
 .breadcrumb-table .list-icon ul li .icon-excel + .tooltip.top .tooltip-inner:before {
     left: auto;
     right: 12px;
@@ -187,6 +196,7 @@ a {
     left: auto;
     right: 14px;
 }
+
 .wrapper-table-scrollable {
     position: relative;
 
@@ -194,6 +204,7 @@ a {
         position: unset !important;
     }
 }
+
 .scrollable {
 
     .blockOverlay {
@@ -204,6 +215,7 @@ a {
         border: 0;
     }
 }
+
 .tblRpt-freeze-header {
     &.tblRpt-freeze-body {
         thead {
@@ -252,6 +264,7 @@ a {
         }
     }
 }
+
 .tblRpt-freeze-header.tblRpt-freeze-body {
     thead {
         tr {
@@ -287,12 +300,14 @@ a {
         }
     }
 }
+
 .fullname {
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 300px;
     white-space: nowrap;
 }
+
 .tblRpt-freeze-body {
     thead {
         tr {
@@ -346,7 +361,8 @@ a {
                 &:before {
                     color: #919191;
                 }
-                + .tooltip{
+
+                + .tooltip {
                     white-space: nowrap;
                 }
             }
@@ -444,6 +460,7 @@ a {
         }
     }
 }
+
 #tbl-report {
     text-align: right;
 
@@ -588,6 +605,7 @@ a {
         }
     }
 }
+
 .tooltip {
 
     &.in {
@@ -640,6 +658,7 @@ a {
 
     &.right {
         pointer-events: none;
+
         .tooltip-arrow {
             display: none;
         }
@@ -671,6 +690,7 @@ a {
         }
     }
 }
+
 .align-username {
     display: flex;
     align-items: center;
@@ -1111,6 +1131,7 @@ a {
     .table-container {
         padding-top: 20px;
     }
+
     .page-title {
         display: table;
         width: 100%;
@@ -1217,7 +1238,6 @@ table.dataTable {
     thead {
         tr th {
             &:last-child {
-                
             }
         }
 

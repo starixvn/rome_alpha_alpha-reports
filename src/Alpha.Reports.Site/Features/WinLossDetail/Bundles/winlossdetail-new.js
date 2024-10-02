@@ -819,6 +819,7 @@ var WinLossDetailColumns = /** @class */ (function () {
         this._showHideGroupColumn(tableReport, visibleColumn, "m", "groupColumnMaster");
         this._showHideGroupColumn(tableReport, visibleColumn, "s", "groupColumnSuper");
         this._showHideSpecificColumn(tableReport, visibleColumn, "company");
+        this._showHideSpecificColumn(tableReport, visibleColumn, "reward");
     };
     WinLossDetailColumns.prototype._showHideGroupColumn = function (tableReport, visibleColumn, prefix, groupColumnId) {
         var groupColumn = tableReport.find("#" + groupColumnId);
@@ -1232,10 +1233,12 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             if (isHideFilter) {
                 formFilter.addClass("hide");
                 _this.weekSelectionComponent.hide();
+                $('#msg-warning-note').hide();
             }
             else {
                 formFilter.removeClass("hide");
                 _this.weekSelectionComponent.show();
+                $('#msg-warning-note').show();
             }
         });
         this.bindCopyAndExcelEvents();

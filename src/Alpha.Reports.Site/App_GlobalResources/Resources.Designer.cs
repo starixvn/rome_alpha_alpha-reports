@@ -2455,6 +2455,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reward.
+        /// </summary>
+        public static string Reward {
+            get {
+                return ResourceManager.GetString("Reward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Round Count.
         /// </summary>
         public static string RoundCount {
@@ -3225,6 +3234,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string WinLossDetail {
             get {
                 return ResourceManager.GetString("WinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From {1} (mm/dd/yyyy), the report will include Reward information by default. Go back to &lt;a href=&quot;{0}&quot;&gt;the current report&lt;/a&gt;.
+        /// </summary>
+        public static string WinLossDetail2Note {
+            get {
+                return ResourceManager.GetString("WinLossDetail2Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click &lt;a href=&quot;{0}&quot;&gt;here&lt;/a&gt; to view the report with Reward information. From {1} (mm/dd/yyyy), this report will include Reward information by default..
+        /// </summary>
+        public static string WinLossDetailNewNote {
+            get {
+                return ResourceManager.GetString("WinLossDetailNewNote", resourceCulture);
             }
         }
         

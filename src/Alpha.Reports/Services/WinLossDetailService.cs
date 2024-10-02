@@ -26,7 +26,6 @@
     {
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
-        private readonly ProductDetailService productDetailService;
         private readonly WinLossDetailDataAccess dataAccess;
         private readonly IPartialUMService partialUMService;
         private readonly IDynamicRepository repository;
@@ -34,14 +33,12 @@
         public WinLossDetailServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
-            ProductDetailService productDetailService,
             WinLossDetailDataAccess dataAccess,
             IPartialUMService partialUMService,
             IDynamicRepository repository)
         {
             this.reportDateService = reportDateService;
             this.productService = productService;
-            this.productDetailService = productDetailService;
             this.dataAccess = dataAccess;
             this.partialUMService = partialUMService;
             this.repository = repository;
