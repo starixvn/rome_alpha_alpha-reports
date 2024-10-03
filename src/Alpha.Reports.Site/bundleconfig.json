@@ -201,6 +201,12 @@
     ]
   },
   {
+    "outputFileName": "assets/bundles/matchwinlossdetail/matchwinlossdetailnew.css",
+    "inputFiles": [
+      "assets/styles/matchwinlossdetail/matchwinlossdetailnew.css"
+    ]
+  },
+  {
     "outputFileName": "assets/bundles/commissionbybettype/commissionbybettype.js",
     "inputFiles": [
       "assets/scripts/core.js",
@@ -532,6 +538,13 @@
     "outputFileName": "Features/EnteredResult/Bundles/enteredresult-dark.css",
     "inputFiles": [
       "Features/EnteredResult/Styles/enteredresult-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/matchwinlossdetail/matchwinlossdetailnew-dark.css",
+    "inputFiles": [
+      "assets/styles/matchwinlossdetail/matchwinlossdetailnew-dark.css"
+
     ]
   }
 ]

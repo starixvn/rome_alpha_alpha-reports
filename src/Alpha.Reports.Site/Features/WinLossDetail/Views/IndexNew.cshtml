@@ -6,6 +6,7 @@
 }
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-reports/winlossdetail-new")
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/matchwinlossdetail/matchwinlossdetailnew")
 }
 @section Scripts {
     <script type="text/javascript">
@@ -108,7 +109,7 @@
             </div>
             <div class="modal-body">
                 <div id="msg-content">
-					<ul class="list-msg">
+                    <ul class="list-msg">
                         <li>
                             @string.Format(Resources.ShutdownOldWinLossDetailReportMessage, SiteSettings.GetConfigValue("ShutdownOldWinLossDetailReportDate"))
                         </li>
@@ -116,7 +117,7 @@
                             <label style="margin-top: 15px; cursor: pointer" for="close-ShutdownOldWinLossDetailReportMessage"><input id="close-ShutdownOldWinLossDetailReportMessage" type="checkbox" /> @Resources.DoNotShowAgain</label>
                         </li>
                     </ul>
-                    
+
                 </div>
             </div>
         </div>
