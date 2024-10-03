@@ -37,6 +37,7 @@ namespace Alpha.Reports.Constants
         public const int FGG = 70;
         public const int YeeBet = 76;
         public const int WE = 80;
+        public const int ONCasino = 96;
 
         public const int Cashout = 25;
 
@@ -54,7 +55,8 @@ namespace Alpha.Reports.Constants
                 PPLiveCasino,
                 YeeBet,
                 FGG,
-                WE
+                WE,
+                ONCasino
             };
 
         public static readonly IEnumerable<int> ProductListForTooltipsRNGCasino = new List<int>
