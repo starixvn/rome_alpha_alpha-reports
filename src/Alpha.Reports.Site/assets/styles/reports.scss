@@ -137,6 +137,11 @@ a {
     flex-direction: column;
     height: 100%;
 
+    .top-filter {
+        z-index: 2;
+        position: relative;
+    }
+
     .wrapper-table-scrollable {
         flex: 1;
         overflow: auto;
