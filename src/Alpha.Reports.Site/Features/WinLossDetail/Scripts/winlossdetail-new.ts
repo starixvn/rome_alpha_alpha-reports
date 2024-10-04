@@ -66,7 +66,7 @@ class WinLossDetailViewNew extends BaseReportView {
 
         // remove style="visibility:hidden"
         // TableSorter cannot run with style="display:none"
-        this.tableReportContainer.removeAttr("style");
+        this.reportWeekSelection.removeAttr("style");
 
         setTimeout(function () {
             let mainDomain = $("#hiddenMainDomain").val();

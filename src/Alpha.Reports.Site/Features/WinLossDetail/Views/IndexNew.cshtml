@@ -68,7 +68,7 @@
         @{ Html.RenderPartial("~/Features/WinLossDetail/Views/Weeks.cshtml", Model.Weeks); }
     </div>
     <div class="msg msg-warning" id="msg-warning-note">@Html.Raw(string.Format(Resources.WinLossDetailNewNote, Url.Action("Index2", $"{SiteSettings.ReportRouting}WinLossDetail"), Model.NewReportEffectiveDate))</div>
-    <div id="report-week-selection" class="cover-week-selection">
+    <div id="report-week-selection" class="cover-week-selection" style="visibility:hidden">
         @Html.Partial("~/Features/WinLossDetail/Views/ReportDataNew.cshtml", Model)
     </div>
 </div>

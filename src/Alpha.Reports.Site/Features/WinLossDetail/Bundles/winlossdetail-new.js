@@ -982,7 +982,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         this.bindEvents();
         // remove style="visibility:hidden"
         // TableSorter cannot run with style="display:none"
-        this.tableReportContainer.removeAttr("style");
+        this.reportWeekSelection.removeAttr("style");
         setTimeout(function () {
             var mainDomain = $("#hiddenMainDomain").val();
             if (mainDomain.length) {
