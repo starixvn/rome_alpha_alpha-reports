@@ -39,7 +39,9 @@
 
             workbook
                .UseTemplate(GetTemplateInfo(message.CustLevel, isShowFullname))
-               .Header(Resources.ResourceManager.GetString)
+               .Header(key => key.Equals("Reward", StringComparison.OrdinalIgnoreCase)
+                    ? $"{Resources.ResourceManager.GetString(key)} ({message.CurrencyName})"
+                    : Resources.ResourceManager.GetString(key))
                .Sheet(Resources.DefaultSheetName);
 
             var productsAndProductDetails = await GetProductsAndProductDetails(message);
@@ -112,7 +114,7 @@
             {
                 mapper
                     .Map(L, winLossDetail => winLossDetail.Company)
-                    .Map(M, winLossDetail => winLossDetail.Reward);
+                    .Map(M, winLossDetail => winLossDetail.RewardAmount);
             }
 
             if (custLevel.IsMasterOrSuperLevel())
@@ -127,7 +129,7 @@
             {
                 mapper
                     .Map(O, winLossDetail => winLossDetail.Company)
-                    .Map(P, winLossDetail => winLossDetail.Reward);
+                    .Map(P, winLossDetail => winLossDetail.RewardAmount);
             }
 
             if (custLevel.IsSuperLevel())
@@ -137,7 +139,7 @@
                     .Map(P, winLossDetail => winLossDetail.SuperNetWinLoss.Comm)
                     .Map(Q, winLossDetail => winLossDetail.SuperNetWinLoss.Total)
                     .Map(R, winLossDetail => winLossDetail.Company)
-                    .Map(S, winLossDetail => winLossDetail.Reward);
+                    .Map(S, winLossDetail => winLossDetail.RewardAmount);
             }
 
             return mapper;
@@ -163,7 +165,7 @@
             {
                 mapper
                     .Map(M, winLossDetail => winLossDetail.Company)
-                    .Map(N, winLossDetail => winLossDetail.Reward);
+                    .Map(N, winLossDetail => winLossDetail.RewardAmount);
             }
 
             if (custLevel.IsMasterOrSuperLevel())
@@ -178,7 +180,7 @@
             {
                 mapper
                     .Map(P, winLossDetail => winLossDetail.Company)
-                    .Map(Q, winLossDetail => winLossDetail.Reward);
+                    .Map(Q, winLossDetail => winLossDetail.RewardAmount);
             }
 
             if (custLevel.IsSuperLevel())
@@ -188,7 +190,7 @@
                     .Map(Q, winLossDetail => winLossDetail.SuperNetWinLoss.Comm)
                     .Map(R, winLossDetail => winLossDetail.SuperNetWinLoss.Total)
                     .Map(S, winLossDetail => winLossDetail.Company)
-                    .Map(T, winLossDetail => winLossDetail.Reward);
+                    .Map(T, winLossDetail => winLossDetail.RewardAmount);
             }
 
             return mapper;

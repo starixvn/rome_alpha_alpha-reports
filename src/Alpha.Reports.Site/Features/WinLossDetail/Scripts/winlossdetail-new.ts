@@ -422,7 +422,7 @@ class WinLossDetailViewNew extends BaseReportView {
 
         this.tableReport.find(".icon-plus-box").off("click").click((e) => {
             window.top["reloadMyWatchlistDataTable"] = () => this.isWeekSelectionClicked ? this.getWinLossDetailDataWeek() : this.getWinLossDetailDataAndRenderWeekRange(true);
-            const custName = $(e.target).prev(".betlists-link").data("custname");
+            const custName = $(e.target).data("custname");
             const url = `${$("#hiddenMemberInfoUrl").val()}MyWatchlistAccounts/ManageWatchlistAccounts?usernames=${custName}`;
             const width = 820;
             const height = 550;

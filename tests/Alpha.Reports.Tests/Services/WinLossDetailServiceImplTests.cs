@@ -31,7 +31,7 @@
             reportDateService = Substitute.For<ReportDateService>();
             partialUMService = Substitute.For<IPartialUMService>();
             dynamicRepository = Substitute.For<IDynamicRepository>();
-            winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, productDetailService, dataAccess, partialUMService, dynamicRepository);
+            winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, dataAccess, partialUMService, dynamicRepository);
             compareLogic = new CompareLogic();
         }
 
@@ -65,7 +65,9 @@
                 string.Empty,
                 false,
                 false,
-                string.Empty);
+                string.Empty,
+                username: null,
+                isReward: false);
 
             var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
             dataAccess.GetData(Arg.Any<WinLossDetailCriteria>()).Returns(reportData);
@@ -100,7 +102,9 @@
                 string.Empty,
                 false,
                 false,
-                string.Empty);
+                string.Empty,
+                username: null,
+                isReward: false);
 
             // Act
             winLossDetailServiceImpl.GetWinLossDetail(param);

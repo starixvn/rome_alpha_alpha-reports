@@ -17,6 +17,7 @@
             IsProtectedMode = viewer.IsProtectedMode;
             IsOfferNewWinLossDetailReport = SiteSettings.IsOfferNewWinLossDetailReport(viewer.Site);
             CanUpdateAccount = viewer.CanUpdateAccount;
+            CurrencyName = viewer.CurrencyName;
         }
 
         public string ProductIds { get; set; } = DefaultVariables.AllProducts;
@@ -24,6 +25,8 @@
         public string ResourceIds { get; set; } = DefaultVariables.AllProductDetails;
 
         public string Username { get; set; }
+
+        public bool IsReward { get; set; }
 
         public int PageIndex { get; set; }
 
@@ -66,6 +69,8 @@
         public bool IsOfferNewWinLossDetailReport { get; }
 
         public bool CanUpdateAccount { get; }
+
+        public string CurrencyName { get; }
 
         public override bool IsValid()
             => base.IsValid() && IsValidWeekRange() && IsOfferNewWinLossDetailReport;

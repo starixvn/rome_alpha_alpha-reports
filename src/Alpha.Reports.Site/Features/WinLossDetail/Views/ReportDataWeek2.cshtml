@@ -36,7 +36,7 @@
                 <th colspan="3" id="groupColumnSuper">@Resources.Super</th>
             }
             <th rowspan="2" class="sorting" data-colindex="@(totalColumns - 2)" data-colname="company">@Resources.Company</th>
-            <th rowspan="2" class="sorting" data-colindex="@(totalColumns - 1)" data-colname="reward">@Resources.Reward</th>
+            <th rowspan="2" class="sorting" data-colindex="@(totalColumns - 1)" data-colname="reward">@Resources.Reward (@Model.CurrencyName)</th>
         </tr>
         <tr class="thead-row2">
             <th class="sorting" data-colindex="@(theadIndex++)" data-colname="pwinloss">@Resources.WinLoss</th>
@@ -96,11 +96,18 @@
                 }
                 else if (Model.CanViewBetLists)
                 {
-                    <a href="javascript:;"
-                       class="@(custLevelIsAgentLevel ? "betlists-link" : "downline-link")"
-                       data-custid="@data.CustId"
-                       data-custname="@data.CustName"
-                       data-custlevelid="@custLevelDirectDownlineLevelValue">@data.CustName</a>
+                    if (custLevelIsAgentLevel && data.BetCount == 0)
+                    {
+                        @data.CustName
+                    }
+                    else
+                    {
+                        <a href="javascript:;"
+                           class="@(custLevelIsAgentLevel ? "betlists-link" : "downline-link")"
+                           data-custid="@data.CustId"
+                           data-custname="@data.CustName"
+                           data-custlevelid="@custLevelDirectDownlineLevelValue">@data.CustName</a>
+                    }
                 }
                 else
                 {
@@ -114,7 +121,7 @@
                     }
                     else if (Model.CanUpdateAccount)
                     {
-                        <span class="icon-plus-box" data-toggle="tooltip" data-placement="right" title="@Resources.AddToMyWatchlist"></span>
+                        <span class="icon-plus-box" data-toggle="tooltip" data-placement="right" title="@Resources.AddToMyWatchlist" data-custname="@data.CustName"></span>
                     }
                 }
             </td>
@@ -129,7 +136,7 @@
         @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss, "m")
         @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, "s")
         <td data-colname="company">@HtmlHelpers.FormatNumber(data.Company)</td>
-        <td data-colname="reward">@HtmlHelpers.FormatNumber(data.Reward)</td>
+        <td data-colname="reward">@HtmlHelpers.FormatNumber(data.RewardAmount)</td>
     </tr>
 }
 

@@ -1098,4 +1098,13 @@
   <data name="SwitchToNewView" xml:space="preserve">
     <value>切换到新版本</value>
   </data>
+  <data name="WinLossDetail2Note" xml:space="preserve">
+    <value>从 2025 年 1 月 2 日起 ，报告将默认包含奖励信息。返回&lt;a href="{0}"&gt;当前报告&lt;/a&gt;</value>
+  </data>
+  <data name="WinLossDetailNewNote" xml:space="preserve">
+    <value>点击&lt;a href="{0}"&gt;此处&lt;/a&gt;查看包含奖励信息的报告。从 2025 年 1 月 2 日开始，此报告将默认包含奖励信息。</value>
+  </data>
+  <data name="Reward" xml:space="preserve">
+    <value>奖励</value>
+  </data>
 </root>

@@ -66,6 +66,7 @@
                 param.ReportLevel,
                 param.ProductDetailsXML,
                 param.Username,
+                param.IsReward,
                 subfix);
 
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
@@ -91,6 +92,7 @@
                 param.ReportLevel,
                 param.ProductDetailsXML,
                 param.Username,
+                param.IsReward,
                 subfix);
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
@@ -110,6 +112,7 @@
                 param.UserSelectedProductIds == null ? string.Empty : param.UserSelectedProductIds.JoinWithComma(),
                 param.ProductDetailsXML,
                 param.Username,
+                param.IsReward,
                 subfix);
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 

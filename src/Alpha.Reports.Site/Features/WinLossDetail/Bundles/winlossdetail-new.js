@@ -1293,7 +1293,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         });
         this.tableReport.find(".icon-plus-box").off("click").click(function (e) {
             window.top["reloadMyWatchlistDataTable"] = function () { return _this.isWeekSelectionClicked ? _this.getWinLossDetailDataWeek() : _this.getWinLossDetailDataAndRenderWeekRange(true); };
-            var custName = $(e.target).prev(".betlists-link").data("custname");
+            var custName = $(e.target).data("custname");
             var url = $("#hiddenMemberInfoUrl").val() + "MyWatchlistAccounts/ManageWatchlistAccounts?usernames=" + custName;
             var width = 820;
             var height = 550;

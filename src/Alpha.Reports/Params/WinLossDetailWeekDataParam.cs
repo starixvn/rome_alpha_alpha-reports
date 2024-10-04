@@ -13,6 +13,7 @@
             IEnumerable<int> userSelectedProductIds,
             string productDetailsXML,
             string username,
+            bool isReward,
             string site)
         {
             ViewerId = viewerId;
@@ -22,6 +23,7 @@
             UserSelectedProductIds = userSelectedProductIds;
             ProductDetailsXML = productDetailsXML;
             Username = username;
+            IsReward = isReward;
             Site = site;
         }
 
@@ -38,6 +40,8 @@
         public string ProductDetailsXML { get; }
 
         public string Username { get; }
+
+        public bool IsReward { get; }
 
         public string Site { get; }
     }

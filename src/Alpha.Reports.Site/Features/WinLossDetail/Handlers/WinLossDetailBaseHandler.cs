@@ -61,7 +61,9 @@
                  message.SortPropertyName,
                  message.IsDescendingSort,
                  message.IsHistoricReport,
-                 productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds));
+                 productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds),
+                 username: null,
+                 isReward: false);
         }
     }
 }

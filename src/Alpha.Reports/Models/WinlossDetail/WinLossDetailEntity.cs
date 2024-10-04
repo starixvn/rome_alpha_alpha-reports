@@ -36,8 +36,6 @@
 
         public bool? IsExistedWatchList { get; set; }
 
-        public decimal? Reward { get; set; }
-
-        public string RewardCurrency { get; set; }
+        public decimal? RewardAmount { get; set; }
     }
 }

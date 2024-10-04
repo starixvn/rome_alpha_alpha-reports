@@ -22,8 +22,7 @@
             NetWinLoss agentNetWinLoss,
             NetWinLoss masterNetWinLoss,
             NetWinLoss superNetWinLoss,
-            decimal? reward,
-            string rewardCurrency)
+            decimal? rewardAmount)
         {
             CustId = custId;
             CustName = custName;
@@ -38,8 +37,7 @@
             AgentNetWinLoss = agentNetWinLoss;
             MasterNetWinLoss = masterNetWinLoss;
             SuperNetWinLoss = superNetWinLoss;
-            Reward = reward ?? 0;
-            RewardCurrency = rewardCurrency;
+            RewardAmount = rewardAmount ?? 0;
         }
 
         public int CustId { get; }
@@ -94,8 +92,6 @@
             + (MasterNetWinLoss?.Total ?? 0)
             + (SuperNetWinLoss?.Total ?? 0));
 
-        public decimal Reward { get; }
-
-        public string RewardCurrency { get; }
+        public decimal RewardAmount { get; }
     }
 }

@@ -160,7 +160,9 @@
                 query.SortPropertyName,
                 query.IsDescendingSort,
                 query.IsHistoricReport,
-                productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds));
+                productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds),
+                username: null,
+                isReward: false);
         }
 
         protected IEnumerable<ConsolidationByUsernameViewModel> BuildConsolidationByUsernameViewModel(

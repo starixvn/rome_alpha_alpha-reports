@@ -39,7 +39,8 @@
                     new NetWinLoss(i, i),
                     new NetWinLoss(i, i),
                     new NetWinLoss(i, i),
-                    new NetWinLoss(i, i)));
+                    new NetWinLoss(i, i),
+                    0));
 
                 ascendingSortedListByWinLoss.Add(new WinLossDetailModel(
                     i,
@@ -54,7 +55,8 @@
                     new NetWinLoss(i, i),
                     new NetWinLoss(i, i),
                     new NetWinLoss(i, i),
-                    new NetWinLoss(i, i)));
+                    new NetWinLoss(i, i),
+                    0));
 
                 var descendingValue = numberOfRecords - i + 1;
                 descendingSortedListByWinLoss.Add(new WinLossDetailModel(
@@ -70,7 +72,8 @@
                     new NetWinLoss(descendingValue, descendingValue),
                     new NetWinLoss(descendingValue, descendingValue),
                     new NetWinLoss(descendingValue, descendingValue),
-                    new NetWinLoss(descendingValue, descendingValue)));
+                    new NetWinLoss(descendingValue, descendingValue),
+                    0));
             }
         }
 

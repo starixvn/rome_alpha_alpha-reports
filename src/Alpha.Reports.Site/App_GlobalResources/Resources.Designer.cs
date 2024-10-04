@@ -3238,7 +3238,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to From {1} (mm/dd/yyyy), the report will include Reward information by default. Go back to &lt;a href=&quot;{0}&quot;&gt;the current report&lt;/a&gt;.
+        ///   Looks up a localized string similar to From 01/02/2025 (mm/dd/yyyy), the report will include Reward information by default. Go back to &lt;a href=&quot;{0}&quot;&gt;the current report&lt;/a&gt;.
         /// </summary>
         public static string WinLossDetail2Note {
             get {
@@ -3247,7 +3247,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click &lt;a href=&quot;{0}&quot;&gt;here&lt;/a&gt; to view the report with Reward information. From {1} (mm/dd/yyyy), this report will include Reward information by default..
+        ///   Looks up a localized string similar to Click &lt;a href=&quot;{0}&quot;&gt;here&lt;/a&gt; to view the report with Reward information. From 01/02/2025 (mm/dd/yyyy), this report will include Reward information by default..
         /// </summary>
         public static string WinLossDetailNewNote {
             get {

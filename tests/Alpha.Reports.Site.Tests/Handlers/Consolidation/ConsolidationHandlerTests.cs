@@ -389,7 +389,9 @@
                 winLossDetailQuery.SortPropertyName,
                 winLossDetailQuery.IsDescendingSort,
                 winLossDetailQuery.IsHistoricReport,
-                string.Empty);
+                string.Empty,
+                username: null,
+                isReward: false);
 
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 winLossDetailQuery,
