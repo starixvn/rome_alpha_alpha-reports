@@ -1155,4 +1155,7 @@
   <data name="Search" xml:space="preserve">
     <value>搜尋</value>
   </data>
+  <data name="Event" xml:space="preserve">
+    <value>賽次</value>
+  </data>
 </root>

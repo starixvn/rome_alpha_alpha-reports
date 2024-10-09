@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Alpha.Reports.Site.App_GlobalResources;
     using Extensions;
     using Params;
     using Reports.Constants;
@@ -145,10 +146,7 @@
 
             if (BetTypeHelper.IsVirtualHorseRacing(data.BetType))
             {
-                DateTime eventTime;
-                bool isValidShowTime = DateTime.TryParse(data.ShowTime, out eventTime);
-
-                return isValidShowTime ? $"{leagueName}_ShowTime{data.ShowTime}" : leagueName;
+                return $"{Resources.Event} {data.MatchId}";
             }
 
             return $"{leagueName}_MatchId{data.MatchId}";

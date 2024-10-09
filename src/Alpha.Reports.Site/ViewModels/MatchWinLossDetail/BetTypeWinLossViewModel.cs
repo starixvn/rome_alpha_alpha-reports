@@ -18,7 +18,7 @@
             decimal turnover,
             decimal grossComm,
             bool isLive,
-            int race,
+            string race,
             NetWinLoss memberNetWinLoss,
             NetWinLoss agentNetWinLoss,
             NetWinLoss masterNetWinLoss,
@@ -65,7 +65,7 @@
 
         public bool IsLive { get; }
 
-        public int Race { get; }
+        public string Race { get; }
 
         public NetWinLoss MemberNetWinLoss { get; private set; }
 

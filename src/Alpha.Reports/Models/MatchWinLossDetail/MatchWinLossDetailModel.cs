@@ -18,7 +18,7 @@
             int leagueId,
             int leagueGroupId,
             byte leagueType,
-            int race,
+            string race,
             string matchCode,
             bool isNeutral,
             string showTime,
@@ -83,7 +83,7 @@
 
         public byte LeagueType { get; }
 
-        public int Race { get; }
+        public string Race { get; }
 
         public string MatchCode { get; }
 

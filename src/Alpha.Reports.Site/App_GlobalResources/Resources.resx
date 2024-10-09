@@ -1239,4 +1239,10 @@
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="Event" xml:space="preserve">
+    <value>Event</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
 </root>

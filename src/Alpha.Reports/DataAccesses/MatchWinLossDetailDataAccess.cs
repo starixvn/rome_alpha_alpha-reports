@@ -31,8 +31,6 @@
 
         public MatchWinLossDetailModel BuildMatchWinLossDetailModel(MatchWinLossDetailEntity entity, bool isAgent, bool isSuper)
         {
-            int.TryParse(entity.Race, out var race);
-
             return new MatchWinLossDetailModel(
                 isParlay: ParlayBetGroupId.Contains(entity.BetGroup),
                 matchId: entity.MatchId,
@@ -43,7 +41,7 @@
                 leagueId: entity.LeagueId,
                 leagueGroupId: entity.LeagueGroupId,
                 leagueType: entity.LeagueType,
-                race: race,
+                race: entity.Race,
                 matchCode: entity.MatchCode,
                 isNeutral: entity.IsNeutral,
                 showTime: entity.ShowTime,

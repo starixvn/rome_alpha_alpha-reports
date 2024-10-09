@@ -969,6 +969,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.
+        /// </summary>
+        public static string Event {
+            get {
+                return ResourceManager.GetString("Event", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event Date.
         /// </summary>
         public static string eventdate {
@@ -1451,6 +1460,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string HttpError_Default {
             get {
                 return ResourceManager.GetString("HttpError_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string ID {
+            get {
+                return ResourceManager.GetString("ID", resourceCulture);
             }
         }
         

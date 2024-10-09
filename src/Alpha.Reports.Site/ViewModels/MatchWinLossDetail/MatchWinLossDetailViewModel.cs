@@ -15,7 +15,7 @@
             int leagueId,
             string leagueName,
             int matchId,
-            int race,
+            string race,
             IEnumerable<BetTypeWinLossViewModel> betTypeWinLoss,
             BetTypeWinLossViewModel total,
             MatchWinLossDetailModel firstWinLoss,
@@ -49,13 +49,13 @@
 
         public string MatchName { get; }
 
-        public int Race { get; }
+        public string Race { get; }
 
         public IEnumerable<BetTypeWinLossViewModel> BetTypeWinLoss { get; }
 
         public BetTypeWinLossViewModel Total { get; }
 
-        public bool RenderSubTotal => MatchId != 0 || Race != 0;
+        public bool RenderSubTotal => MatchId != 0 || !string.IsNullOrEmpty(Race);
 
         private string GetMatchTitle(MatchWinLossDetailModel data)
         {
@@ -81,10 +81,7 @@
 
             if (BetTypeHelper.IsVirtualHorseRacing(data.BetType))
             {
-                DateTime eventTime;
-                bool isValidShowTime = DateTime.TryParse(data.ShowTime, out eventTime);
-
-                return isValidShowTime ? eventTime.ToLongDateWithSlash() : string.Empty;
+                return $"{Resources.Event} {data.Race} - {Resources.ID} {data.MatchCode}";
             }
 
             return string.Join(

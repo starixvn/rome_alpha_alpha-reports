@@ -150,17 +150,10 @@
                 ["LeagueId"] = match.LeagueId,
                 ["LeagueType"] = match.LeagueType,
                 ["FromDate"] = fromDate,
-                ["ToDate"] = toDate
+                ["ToDate"] = toDate,
+                ["Race"] = match.MatchId,
+                ["MatchId"] = match.MatchId
             };
-
-            if (match.Race > 0)
-            {
-                result["Race"] = betType.Race;
-            }
-            else
-            {
-                result["MatchId"] = match.MatchId;
-            }
 
             return result;
         }
