@@ -543,6 +543,9 @@
     <Content Include="App_Data\SPNames\Internal2\DBTXN.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Themes\error2-dark.png" />
     <Content Include="App_Themes\error2.png" />
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetailnew-dark.css" />
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetailnew.css" />
+    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetailnew-dark.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.min.css">
       <DependentUpon>enteredresult-dark.css</DependentUpon>

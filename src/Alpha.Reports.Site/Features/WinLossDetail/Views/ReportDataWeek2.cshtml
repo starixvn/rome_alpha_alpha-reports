@@ -8,6 +8,11 @@
     var totalColumns = custLevelIsSuperLevel
         ? 20
         : Model.CustLevel.IsMasterLevel() ? 17 : 14;
+    var rewardCurrency = Model.WinLossDetail.TotalData?.RewardCurrency;
+    var rewardColumnName = string.Format(
+        "{0}{1}",
+        Resources.Reward,
+        string.IsNullOrWhiteSpace(rewardCurrency) ? string.Empty : $"<br/>({rewardCurrency})");
 }
 <table class="tblRpt tblRpt-bordered alternative-row-table-new width-100per tablesorter tblRpt-hover tblRpt-freeze-body tblRpt-freeze-header"
        id="tbl-report"
@@ -36,7 +41,7 @@
                 <th colspan="3" id="groupColumnSuper">@Resources.Super</th>
             }
             <th rowspan="2" class="sorting" data-colindex="@(totalColumns - 2)" data-colname="company">@Resources.Company</th>
-            <th rowspan="2" class="sorting" data-colindex="@(totalColumns - 1)" data-colname="reward">@Resources.Reward (@Model.CurrencyName)</th>
+            <th rowspan="2" class="sorting" data-colindex="@(totalColumns - 1)" data-colname="reward">@Html.Raw(rewardColumnName)</th>
         </tr>
         <tr class="thead-row2">
             <th class="sorting" data-colindex="@(theadIndex++)" data-colname="pwinloss">@Resources.WinLoss</th>

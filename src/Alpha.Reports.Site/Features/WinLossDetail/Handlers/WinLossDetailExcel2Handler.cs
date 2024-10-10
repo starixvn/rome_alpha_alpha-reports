@@ -37,13 +37,6 @@
             var isShowFullname = !string.IsNullOrWhiteSpace(message.ShowColumns) &&
                 message.ShowColumns.IndexOf("fullname", StringComparison.OrdinalIgnoreCase) > -1;
 
-            workbook
-               .UseTemplate(GetTemplateInfo(message.CustLevel, isShowFullname))
-               .Header(key => key.Equals("Reward", StringComparison.OrdinalIgnoreCase)
-                    ? $"{Resources.ResourceManager.GetString(key)} ({message.CurrencyName})"
-                    : Resources.ResourceManager.GetString(key))
-               .Sheet(Resources.DefaultSheetName);
-
             var productsAndProductDetails = await GetProductsAndProductDetails(message);
             var products = productsAndProductDetails.Item1;
             var productDetails = productsAndProductDetails.Item2;
@@ -52,6 +45,17 @@
             var reportData = isValidUsername
                 ? await winlossDetailService.GetWinLossDetailAsync(winLossDetailParam)
                 : new PagedReportData<WinLossDetailModel>(null, message.PageIndex, message.PageSize, 0, null);
+
+            var rewardCurrency = reportData.TotalData?.RewardCurrency;
+            var rewardColumnName = string.Format(
+                "{0}{1}",
+                Resources.Reward,
+                string.IsNullOrWhiteSpace(rewardCurrency) ? string.Empty : $" ({rewardCurrency})");
+
+            workbook
+               .UseTemplate(GetTemplateInfo(message.CustLevel, isShowFullname))
+               .Header(key => key.Equals("Reward", StringComparison.OrdinalIgnoreCase) ? rewardColumnName : Resources.ResourceManager.GetString(key))
+               .Sheet(Resources.DefaultSheetName);
 
             var rowMapper = isShowFullname
                 ? GetRowMapperWithFullname(message.CustLevel, false)

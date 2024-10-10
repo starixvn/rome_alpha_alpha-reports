@@ -1149,10 +1149,10 @@
     <value>Chuyển Sang Phiên Bản Mới</value>
   </data>
   <data name="WinLossDetail2Note" xml:space="preserve">
-    <value>Từ ngày 01/02/2025 (mm/dd/yyyy), báo cáo này sẽ mặc định bao gồm thông tin Tiền thưởng. Quay lại &lt;a href="{0}"&gt;báo cáo hiện tại.&lt;/a&gt;</value>
+    <value>Từ ngày &lt;b&gt;01/02/2025 (mm/dd/yyyy)&lt;/b&gt;, báo cáo này sẽ mặc định bao gồm thông tin Tiền thưởng. Quay lại &lt;a href="{0}"&gt;báo cáo hiện tại.&lt;/a&gt;</value>
   </data>
   <data name="WinLossDetailNewNote" xml:space="preserve">
-    <value>Nhấn vào &lt;a href="{0}"&gt;đây&lt;/a&gt; để xem báo cáo với thông tin Tiền thưởng. Từ ngày 01/02/2025 (mm/dd/yyyy), báo cáo này sẽ mặc định bao gồm thông tin Tiền thưởng.
+    <value>Nhấn vào &lt;a href="{0}"&gt;đây&lt;/a&gt; để xem báo cáo với thông tin Tiền thưởng. Từ ngày &lt;b&gt;01/02/2025 (mm/dd/yyyy)&lt;/b&gt;, báo cáo này sẽ mặc định bao gồm thông tin Tiền thưởng.
 </value>
   </data>
   <data name="Reward" xml:space="preserve">

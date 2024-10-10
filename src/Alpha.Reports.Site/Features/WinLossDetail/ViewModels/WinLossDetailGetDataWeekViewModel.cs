@@ -20,7 +20,6 @@
             BreadcrumbLevelJson = JsonHelper.ToJson(message.BreadcrumbLevel);
             CanShowMonitoredIcon = !message.IsProtectedMode && message.ViewerLevel.IsAgentLevel();
             CanUpdateAccount = message.CanUpdateAccount;
-            CurrencyName = message.CurrencyName;
         }
 
         public UserLevel CustLevel { get; }
@@ -36,7 +35,5 @@
         public bool CanShowMonitoredIcon { get; }
 
         public bool CanUpdateAccount { get; }
-
-        public string CurrencyName { get; }
     }
 }

@@ -67,6 +67,7 @@
             agentNetWinLoss: new NetWinLoss(entity.AgWinLoss, entity.AgComm),
             masterNetWinLoss: reportLevel.IsMasterOrSuperLevel() ? new NetWinLoss(entity.MAgWinLoss ?? 0, entity.MAgComm ?? 0) : null,
             superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(entity.SAgWinLoss ?? 0, entity.SAgComm ?? 0) : null,
-            rewardAmount: entity.RewardAmount);
+            rewardAmount: entity.RewardAmount,
+            rewardCurrency: entity.RewardCurrency);
     }
 }

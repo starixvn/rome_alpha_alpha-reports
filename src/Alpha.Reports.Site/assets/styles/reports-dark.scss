@@ -592,14 +592,14 @@ a {
 
     &.top {
         .tooltip-arrow {
-            &:after {            
+            &:after {
                 border-top-color: #2E2E2E;
                 border-width: 8px;
                 margin-left: -8px;
                 bottom: -7px;
             }
 
-            &:before {               
+            &:before {
                 border-top-color: #5F626B;
                 border-width: 7px;
                 margin-left: -7px;
@@ -610,14 +610,14 @@ a {
 
     &.right {
         .tooltip-arrow {
-            &:after {     
+            &:after {
                 border-right-color: #2E2E2E;
                 border-width: 9px;
                 margin-left: -11px;
                 bottom: -10px;
             }
 
-            &:before {           
+            &:before {
                 border-right-color: #5F626B;
                 border-width: 9px;
                 margin-left: -12px;
@@ -633,6 +633,7 @@ a {
                 border-width: 8px;
                 margin-left: -8px;
                 margin-top: -8px;
+                bottom: unset;
             }
 
             &:before {
@@ -640,6 +641,7 @@ a {
                 border-width: 7px;
                 margin-left: -7px;
                 margin-top: -8px;
+                bottom: unset;
             }
         }
     }
