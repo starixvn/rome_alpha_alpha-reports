@@ -29,15 +29,6 @@
 
     public class CommissionByBettypeWorkbookImpl : NpoiWorkbook<CommissionByBettypeModel>, CommissionByBettypeWorkbook
     {
-#pragma warning disable S1450 // Private fields only used as local variables in methods should become local variables
-        private readonly UserPermissionService userPermissionService;
-#pragma warning restore S1450 // Private fields only used as local variables in methods should become local variables
-
-        public CommissionByBettypeWorkbookImpl(UserPermissionService userPermissionServiceImpl)
-        {
-            userPermissionService = userPermissionServiceImpl;
-        }
-
         protected override void FillBody(Sheet sheet)
         {
             base.FillBody(sheet);
@@ -50,8 +41,7 @@
             var rowIndex = TemplateInfo.BodyStartIndex;
             var colIndex = Column.GetColIndex(TemplateInfo.ColumnStartName);
 
-            var lastColumnIndex = sheet.OddRowTemplate.LastCellIndex - 1                
-                - (!userPermissionService.IsShowMyanmarOdds() ? 1 : 0);
+            var lastColumnIndex = sheet.OddRowTemplate.LastCellIndex - 2;
 
             sheet.SetCellRangeValue(
                 rowIndex,
@@ -70,11 +60,8 @@
 
             npoiSheet.RemoveMergedRegion(0);
 
-            if (!userPermissionService.IsShowMyanmarOdds())
-            {
-                RemoveColumnIndex(npoiSheet, 4);
-                headerAddress.LastColumn--;
-            }
+            RemoveColumnIndex(npoiSheet, 4);
+            headerAddress.LastColumn--;
 
             npoiSheet.AddMergedRegion(headerAddress);
         }

@@ -804,9 +804,6 @@
   <data name="SelectNone" xml:space="preserve">
     <value>Select none</value>
   </data>
-  <data name="SymbolMyanmarOdds" xml:space="preserve">
-    <value> Myanmar Odds</value>
-  </data>
   <data name="Apply" xml:space="preserve">
     <value>Apply</value>
   </data>
