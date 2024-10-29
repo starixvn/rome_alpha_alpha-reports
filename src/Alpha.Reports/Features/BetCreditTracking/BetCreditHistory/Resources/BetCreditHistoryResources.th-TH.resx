@@ -151,7 +151,7 @@
     <value>ปฏิเสธ</value>
   </data>
   <data name="running" xml:space="preserve">
-    <value>ยอมรับการวางเดิมพันแล้ว</value>
+    <value>ที่รับแล้ว</value>
   </data>
   <data name="to" xml:space="preserve">
     <value>เป็น</value>
@@ -160,7 +160,7 @@
     <value>โอนแล้ว</value>
   </data>
   <data name="UpdateGivenCredit" xml:space="preserve">
-    <value>อัพเดท เครดิตใหม่</value>
+    <value>อัปเดตเครดิตที่ได้รับ</value>
   </data>
   <data name="void" xml:space="preserve">
     <value>โมฆะ</value>

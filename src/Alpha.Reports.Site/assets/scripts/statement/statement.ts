@@ -102,7 +102,7 @@ class StatementView extends BaseReport {
         };
 
         const url = this.$statementDetailsURL.val() + "?" + this.$.param(param);
-        const title = 'Transfer Details (' + this.custName + ')';
+        const title = this.$("#TransferDetails").val() + ' (' + this.custName + ')';
 
         if (this.mainDomain) {
             this.mainDomain = this.mainDomain.indexOf('http') === -1 ?

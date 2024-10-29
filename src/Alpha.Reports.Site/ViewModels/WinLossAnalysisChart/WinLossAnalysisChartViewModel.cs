@@ -77,7 +77,7 @@
             new DualAxisChartViewModel(
                 $"{Resources.MonthlyWinLossChart} {Resources.From} {FromDate.ToShortDateWithSlash()} {Resources.To} {ToDate.ToShortDateWithSlash()}",
                 ReportData.Select(x => x.WinLossDate.ToShortMonthNameAndShortYear()).JoinWithComma(),
-                $"{CustLevel.DisplayName} {Resources.WinLossTitle}",
+                Resources.ResourceManager.GetString(CustLevel.DisplayName + "WinLoss"),
                 Resources.Turnover,
                 ReportData.Select(x => x.WinLoss).JoinWithComma(),
                 ReportData.Select(x => x.Turnover).JoinWithComma(),

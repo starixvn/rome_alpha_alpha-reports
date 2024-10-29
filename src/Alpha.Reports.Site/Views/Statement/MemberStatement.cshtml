@@ -131,6 +131,7 @@
 @Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
 @Html.Hidden("BetListUrl", Model.BetListLink)
 @Html.Hidden("BetListTitle", Resources.BetList)
+@Html.Hidden("TransferDetails", Resources.TransferDetails)
 @Html.Hidden("MainDomain", Model.MainDomain)
 
 @Pager.Render(Model.PagerViewModel)

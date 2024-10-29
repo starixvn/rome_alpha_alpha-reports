@@ -382,7 +382,7 @@
     <value>佣金</value>
   </data>
   <data name="Gaming" xml:space="preserve">
-    <value>Gaming</value>
+    <value>遊戲</value>
   </data>
   <data name="Others" xml:space="preserve">
     <value>其他</value>
@@ -441,8 +441,8 @@
   <data name="Sport" xml:space="preserve">
     <value>運動</value>
   </data>
-  <data name="SportWinLossAnalysis" xml:space="preserve">
-    <value>體育輸贏分析</value>
+  <data name="ProductsWinLossAnalysis" xml:space="preserve">
+    <value>產品輸贏分析</value>
   </data>
   <data name="MatchWinLossDetail" xml:space="preserve">
     <value>輸贏報告資料</value>
@@ -643,7 +643,7 @@
     <value>會員總投注額</value>
   </data>
   <data name="Stake" xml:space="preserve">
-    <value>投注額</value>
+    <value>本金</value>
   </data>
   <data name="BetChoiceMatching" xml:space="preserve">
     <value>以投注選擇核對</value>
@@ -1082,6 +1082,15 @@
   </data>
   <data name="MonitoredMember" xml:space="preserve">
     <value>監控會員</value>
+  </data>
+  <data name="Statement_WinLoss" xml:space="preserve">
+    <value>輸贏</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>產品</value>
+  </data>
+  <data name="TransferDetails" xml:space="preserve">
+    <value>轉賬細節</value>
   </data>
   <data name="ShutdownOldWinLossDetailReportMessage" xml:space="preserve">
     <value>從 {0} (日/月/年) 起，經典版不再使用，並將由新版本取代。通過新版本享受經過改進的新增賬號體驗。</value>

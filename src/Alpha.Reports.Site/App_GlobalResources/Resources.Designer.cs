@@ -19,7 +19,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -2347,6 +2347,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Products.
+        /// </summary>
+        public static string Products {
+            get {
+                return ResourceManager.GetString("Products", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product Win Loss Analysis.
+        /// </summary>
+        public static string ProductsWinLossAnalysis {
+            get {
+                return ResourceManager.GetString("ProductsWinLossAnalysis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Progressive Games Contribution.
         /// </summary>
         public static string ProgressiveGamesContribution {
@@ -2604,6 +2622,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Statement {
             get {
                 return ResourceManager.GetString("Statement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Win/Loss.
+        /// </summary>
+        public static string Statement_WinLoss {
+            get {
+                return ResourceManager.GetString("Statement_WinLoss", resourceCulture);
             }
         }
         

@@ -34,7 +34,7 @@
             <th>@Resources.Date</th>
             <th>@Resources.OpeningBalance</th>
             <th>@Resources.Turnover</th>
-            <th>@Resources.WinLoss</th>
+            <th>@Resources.Statement_WinLoss</th>
             <th>@Resources.Commission</th>
             <th>@Resources.TransferAmt</th>
             <th>@Resources.AccumulatedTotal</th>
@@ -85,6 +85,7 @@
 @Html.Hidden("LoadLegendURL", Url.Action("SMAReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement", new { MinDate = Model.MinDate }))
 @Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
 @Html.Hidden("MainDomain", Model.MainDomain)
+@Html.Hidden("TransferDetails", Resources.TransferDetails)
 @Pager.Render(Model.PagerViewModel)
 @{ Html.RenderPartial("~/Views/Statement/_StatementPopup.cshtml", Model.CustName); }
 @section Scripts {

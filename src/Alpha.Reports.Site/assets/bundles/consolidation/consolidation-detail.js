@@ -326,6 +326,7 @@ var ProductMultiSelectionComponent = /** @class */ (function () {
                     : _this.$dropdownProduct.data("label-there-is-no-product"),
                 nSelectedText: " " + _this.$dropdownProduct.data("label-selected"),
                 allSelectedText: _this.$dropdownProduct.data("label-all-products"),
+                selectAllText: _this.$dropdownProduct.data("label-select-all"),
                 includeSelectAllOption: hasAnyProduct,
                 onChange: _this.onChange,
                 onSelectAll: _this.onChange,

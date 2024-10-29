@@ -1142,6 +1142,9 @@
   <data name="MonitoredMember" xml:space="preserve">
     <value>Đang theo dõi</value>
   </data>
+  <data name="Statement_WinLoss" xml:space="preserve">
+    <value>Thắng thua</value>
+  </data>
   <data name="ShutdownOldWinLossDetailReportMessage" xml:space="preserve">
     <value>Từ ngày {0} (dd/mm/yyyy), Phiên Bản Cũ sẽ không còn được hỗ trợ và sẽ được thay thế bằng Phiên Bản Mới. Hãy tận hưởng trải nghiệm người dùng được cải thiện với Phiên Bản Mới.</value>
   </data>
