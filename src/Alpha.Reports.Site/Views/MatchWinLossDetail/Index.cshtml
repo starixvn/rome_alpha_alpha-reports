@@ -1,14 +1,17 @@
 ﻿@model MatchWinLossDetailReportViewModel
 @{
     ViewBag.Title = "Match Win Loss Detail";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+
 }
 
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/matchwinlossdetail/matchwinlossdetail")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/winlossdetailnew")
+    @StaticResources.RenderStyles("~/assets/bundles-v2/winlossdetailnew")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
-<form class="form-inline filter  @(Model.FilterViewModel.Visible ? string.Empty : "hide")" role="form" id="report-form">
+<form class="form-inline filter  match-win-lost-detail @(Model.FilterViewModel.Visible ? string.Empty : "hide")" role="form" id="report-form">
     @Html.Hidden("IsFilterVisible", Model.FilterViewModel.Visible ? "true" : "false")
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
@@ -19,19 +22,19 @@
         Model.FilterViewModel.DateRangePickerViewModel,
         new List<HelperResult> { LeagueMultiSelection.Render(Model.FilterViewModel.LeagueMultiSelectionViewModel) })
 
-    <div class="form-group">
-        <span id="icon-information" class="icon-information-outline"></span>
+    <div class="form-group form-group-short">
+        <span id="icon-information" class="ic-information ripple icon-information-outline"></span>
     </div>
 
-    <div class="form-group">
-        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    <div class="form-group ">
+        <span id="icon-excel" class="ic-excel icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
 
     <div class="note">
         <span class="star">*</span>@Model.FilterViewModel.ViewDataInstructionMessage
     </div>
 </form>
-<table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover
+<table id="tbl-report" class="tb tb-bordered tb-hover tb-freeze-header tb-freeze-body w-full tablesorter
        @(Model.IsStackMode ? "stack-mode" : string.Empty)">
     <thead>
         <tr>
@@ -85,7 +88,7 @@
                 (@Resources.Comm/@Resources.Total)
             </th>
         </tr>
-        <tr>
+        <tr class="thead-row2">
             <th class="hidden-stack-mode">@Resources.WinLoss</th>
             <th class="hidden-stack-mode">@Resources.Comm</th>
             <th class="hidden-stack-mode">@Resources.Total</th>

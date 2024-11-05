@@ -90,7 +90,6 @@ class BaseReport {
 
         var iconHelpPosition = this.$iconInformation.position();
         this.$reportLegend.css({
-            bottom: "auto",
             top: this.$(".entered-non-entered").length > 0 ? iconHelpPosition.top + 90 : iconHelpPosition.top + 60
         });
     };

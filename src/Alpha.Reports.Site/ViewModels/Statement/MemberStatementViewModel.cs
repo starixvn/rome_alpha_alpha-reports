@@ -22,6 +22,7 @@
         {
             ProductIds = message.ProductIds ?? "1,6,2";
             MainDomain = message.MainDomain;
+            IsDirectMember = message.IsDirectMember;
         }
 
         public string ProductIds { get; set; }
@@ -64,5 +65,7 @@
         public bool IsNegative(decimal? cellValue) => cellValue.HasValue && cellValue.Value < 0;
 
         public string MainDomain { get; }
+
+        public bool IsDirectMember { get; }
     }
 }

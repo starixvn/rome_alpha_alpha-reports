@@ -1,4 +1,6 @@
-﻿namespace Alpha.Reports.Models
+﻿using Alpha.Reports.Enumerations;
+
+namespace Alpha.Reports.Models
 {
     public class CustomerLevel
     {
@@ -58,7 +60,7 @@
 
         public string AgentName { get; set; }
 
-        public int MasterId { get; set; }
+        public int? MasterId { get; set; }
 
         public string MasterName { get; set; }
 

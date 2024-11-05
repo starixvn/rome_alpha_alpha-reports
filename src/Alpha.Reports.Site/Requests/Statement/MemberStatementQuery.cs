@@ -26,6 +26,8 @@
 
         public int UserSelectedDateRangeOption { get; set; } = UserSelectedDateRangeOptionConstant.SpecificDates;
 
+        public bool IsDirectMember { get; set; }
+
         public string MainDomain { get; }
     }
 }

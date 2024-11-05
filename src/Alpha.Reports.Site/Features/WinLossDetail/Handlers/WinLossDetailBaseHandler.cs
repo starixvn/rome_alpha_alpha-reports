@@ -63,6 +63,7 @@
                  message.IsHistoricReport,
                  productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds),
                  username: null,
+                 levelType: message.LevelType,
                  isReward: false);
         }
     }

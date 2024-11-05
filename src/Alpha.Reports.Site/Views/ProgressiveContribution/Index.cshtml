@@ -1,8 +1,10 @@
 ﻿@model ProgressiveContributionViewModel
 @{
     ViewBag.Title = "Progressive Games Contribution";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 @section Styles {
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/progressivecontribution")
     @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/progressivecontribution/progressivecontribution")
 }
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, Model.CustLevel.IsMasterOrSuperLevel(), true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
@@ -12,7 +14,9 @@
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
     @Html.Hidden("IsStackMode", Model.IsStackMode)
     @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
-    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+    <div class="multiselect-short">
+        @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+    </div>
     @(Model.IsHistoricReport
         ? MonthPicker.Render(Model.MonthPickerViewModel)
         : DateRangePicker.Render(Model.DateRangePickerViewModel))
@@ -32,7 +36,7 @@
         <span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" data-is-historic-report="@Model.IsHistoricReport.ToString().ToLower()" href="#">@Model.ViewActionMessage</a>
     </div>
 </form>
-<table id="tbl-report" class="tblRpt tblRpt-bordered tblRpt-striped alternative-row-table width-100per tablesorter tblRpt-hover tbl-progressive-contribution
+<table id="tbl-report" class="tb tb-bordered tablesorter tb-hover w-full
        @(Model.IsStackMode ? "stack-mode" : string.Empty)">
     <thead>
         <tr>
@@ -122,34 +126,34 @@
 {
     <td class="col-turnover">@HtmlHelpers.FormatNumber(data.Turnover)</td>
     <td class="col-contribution">@FormatNumber40(data.ContributionAmount)</td>
-if (Model.IsStackMode)
-{
-    if (Model.CustLevel.IsSuperLevel())
+    if (Model.IsStackMode)
     {
+        if (Model.CustLevel.IsSuperLevel())
+        {
             @RenderStackContributionNumberCell(UserLevel.Super, data.SuperContribution, data.MasterContribution, data.AgentContribution)
-    }
-    else if (Model.CustLevel.IsMasterLevel())
-    {
+        }
+        else if (Model.CustLevel.IsMasterLevel())
+        {
             @RenderStackContributionNumberCell(UserLevel.Master, data.MasterContribution, data.AgentContribution)
+        }
+        else
+        {
+            @RenderContributionNumberCell(UserLevel.Agent, data.AgentContribution)
+        }
     }
     else
     {
-            @RenderContributionNumberCell(UserLevel.Agent, data.AgentContribution)
-    }
-}
-else
-{
-    if (Model.CustLevel.IsSuperLevel())
-    {
+        if (Model.CustLevel.IsSuperLevel())
+        {
             @RenderContributionNumberCell(UserLevel.Super, data.SuperContribution)
-    }
+        }
 
-    if (Model.CustLevel.IsMasterOrSuperLevel())
-    {
+        if (Model.CustLevel.IsMasterOrSuperLevel())
+        {
             @RenderContributionNumberCell(UserLevel.Master, data.MasterContribution)
-    }
+        }
         @RenderContributionNumberCell(UserLevel.Agent, data.AgentContribution)
-}
+    }
 
     <td class="col-company">@FormatNumber40(data.CompanyContribution)</td>
 }

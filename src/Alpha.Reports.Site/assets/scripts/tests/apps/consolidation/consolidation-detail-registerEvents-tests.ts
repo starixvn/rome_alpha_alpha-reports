@@ -1,6 +1,7 @@
 ﻿describe("Consolidation Detail", () => {
     const jQueryFake = $;
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
+    const levelTypeComponent = new SingleSelectionDropdownComponent($);
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const reportTooltip = new ReportTooltip($);
     const linkBuilderComponent = new LinkBuilderComponent($);
@@ -18,6 +19,7 @@
         consolidationDetailView = new ConsolidationDetailView(
             jQueryFake,
             productMultiSelectionComponent,
+            levelTypeComponent,
             dateRangePickerComponent,
             reportTooltip,
             linkBuilderComponent,

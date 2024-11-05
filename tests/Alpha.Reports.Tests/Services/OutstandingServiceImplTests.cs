@@ -26,7 +26,7 @@
             var repository = GetFakeRepository(new List<OutstandingModel>());
             var partialUMService = GetFakePartialUMService();
             var autoFollowBetService = GetFakeAutoFollowBetService();
-            var param = new OutstandingParam(userLevel, custLevel, 1, null, false);
+            var param = new OutstandingParam(userLevel, custLevel, 1, null, false, 0);
             var outstandingService = new OutstandingServiceImpl(repository, partialUMService, autoFollowBetService);
 
             // Act
@@ -47,7 +47,7 @@
             var repository = GetFakeRepository(new List<OutstandingModel> { null });
             var partialUMService = GetFakePartialUMService();
             var autoFollowBetService = GetFakeAutoFollowBetService();
-            var param = new OutstandingParam(userLevel, custLevel, 1, null, false);
+            var param = new OutstandingParam(userLevel, custLevel, 1, null, false, 0);
             var outstandingService = new OutstandingServiceImpl(repository, partialUMService, autoFollowBetService);
 
             // Act
@@ -63,7 +63,7 @@
         public void GetMemberOutstanding_WhenCustIdLessOrEqualZero_ReturnsEmptyData(int custId)
         {
             // Arrange
-            var param = new OutstandingParam(null, null, custId, null, false);
+            var param = new OutstandingParam(null, null, custId, null, false, 0);
             var outstandingService = new OutstandingServiceImpl(null, GetFakePartialUMService(), GetFakeAutoFollowBetService());
 
             // Act
@@ -76,7 +76,7 @@
         private IDynamicRepository GetFakeRepository(IEnumerable<OutstandingModel> outstandings)
         {
             var repository = Substitute.For<IDynamicRepository>();
-            repository.Fetch<OutstandingModel>(Arg.Any<OutstandingCriteria>()).Returns(outstandings);
+            repository.Fetch<OutstandingModel>(Arg.Any<OutstandingMemberCriteria>()).Returns(outstandings);
 
             return repository;
         }

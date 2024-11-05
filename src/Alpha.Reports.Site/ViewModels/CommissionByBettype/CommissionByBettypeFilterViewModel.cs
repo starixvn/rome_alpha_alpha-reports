@@ -15,7 +15,8 @@
             bool visible,
             DateTime balanceUpDate,
             string breadcrumbLevelJson,
-            DateRangePickerViewModel dateRangePicker)
+            DateRangePickerViewModel dateRangePicker,
+            byte levelType)
         {
             CustId = custId;
             CustName = custName;
@@ -23,7 +24,7 @@
             Visible = visible;
             DateRangePicker = dateRangePicker;
             BreadcrumbLevelJson = breadcrumbLevelJson;
-
+            LevelType = levelType;
             ViewDataInstructionMessage = string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, balanceUpDate.ToShortDateWithSlash());
         }
 
@@ -40,5 +41,7 @@
         public DateRangePickerViewModel DateRangePicker { get; }
 
         public string BreadcrumbLevelJson { get; }
+
+        public byte LevelType { get; }
     }
 }

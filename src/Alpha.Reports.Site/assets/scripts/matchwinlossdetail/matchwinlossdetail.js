@@ -79,7 +79,7 @@ var MatchWinLossDetailView = /** @class */ (function (_super) {
             _this.$("#icon-excel").on("click", _this.onExportExcel);
             _this.$reportForm.submit(_this.onSubmitReport);
             _this.$(".icon-filter").on("click", _this.onClickIconFilter);
-            _this.$(".icon-switchmode").on("click", _this.onSwitchMode);
+            _this.$(".ic-switchmode").on("click", _this.onSwitchMode);
             _this.$buttonLoadLeague.on("click", _this.loadLeagues);
         };
         _this.onExportExcel = function () {

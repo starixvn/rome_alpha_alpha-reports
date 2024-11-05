@@ -25,8 +25,9 @@
             bool isHistoricReport,
             string productDetailsXML,
             string username,
+            byte levelType,
             bool isReward)
-            : base(custId, viewerId, site, currencyId, fromDate, toDate, limitedDate, userSelectedProductIds, userSelectedResourceIds, reportLevel, isHistoricReport, productDetailsXML)
+            : base(custId, viewerId, site, currencyId, fromDate, toDate, limitedDate, userSelectedProductIds, userSelectedResourceIds, reportLevel, isHistoricReport, productDetailsXML, levelType)
         {
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;

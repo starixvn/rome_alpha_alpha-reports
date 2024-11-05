@@ -13,7 +13,8 @@
                 username,
                 memberRow.MemberWinLoss,
                 memberRow.MemberComm,
-                memberRow.MemberTotal);
+                memberRow.MemberTotal,
+                memberRow.IsDirectMember);
             RefNoRow = refNoRow;
         }
 

@@ -42,6 +42,7 @@
             MainDomain = message.IsInternal ? message.MainDomain : string.Empty;
             ShowColumns = message.ShowColumns;
             Weeks = weeks;
+            LevelType = message.LevelType;
         }
 
         public int ViewerId { get; }
@@ -81,5 +82,7 @@
         public string ShowColumns { get; }
 
         public IEnumerable<WeekSelectionViewModel> Weeks { get; }
+
+        public byte LevelType { get; }
     }
 }

@@ -14,7 +14,8 @@
             NetWinLoss memberNetWinLoss,
             NetWinLoss agentNetWinLoss,
             NetWinLoss masterNetWinLoss,
-            NetWinLoss superNetWinLoss)
+            NetWinLoss superNetWinLoss,
+            bool isDirectMember)
         {
             CustId = custId;
             CustName = custName;
@@ -24,6 +25,7 @@
             AgentNetWinLoss = agentNetWinLoss;
             MasterNetWinLoss = masterNetWinLoss;
             SuperNetWinLoss = superNetWinLoss;
+            IsDirectMember = isDirectMember;
         }
 
         public int CustId { get; }
@@ -56,6 +58,8 @@
             {
             }
         }
+
+        public bool IsDirectMember { get; private set; }
 
         public WinLossModel Add(WinLossModel winloss)
         {

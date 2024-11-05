@@ -100,6 +100,7 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
 
             var expectedWinLossDetailViewModel = new WinLossDetailViewModel(

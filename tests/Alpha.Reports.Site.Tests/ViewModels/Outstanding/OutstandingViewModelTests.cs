@@ -51,7 +51,7 @@
             var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null, false);
 
             // Act
-            viewmodel.BuildDrillDownLink(new OutstandingModel(custId, custName, 0, 0, 0, 0), "currentUrl");
+            viewmodel.BuildDrillDownLink(new OutstandingModel(custId, custName, 0, 0, 0, 0, false), "currentUrl");
 
             // Assert
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
@@ -84,7 +84,7 @@
             var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null, false);
 
             // Act
-            viewmodel.BuildDrillDownLink(new OutstandingModel(custId, custName, 0, 0, 0, 0), currentUrl);
+            viewmodel.BuildDrillDownLink(new OutstandingModel(custId, custName, 0, 0, 0, 0, false), currentUrl);
 
             // Assert
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(

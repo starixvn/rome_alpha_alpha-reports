@@ -8,7 +8,14 @@
         {
         }
 
-        public OutstandingModel(int custId, string custName, decimal memberOutstanding, decimal agentOutstanding, decimal masterOutstanding, decimal superOutstanding)
+        public OutstandingModel(
+            int custId,
+            string custName,
+            decimal memberOutstanding,
+            decimal agentOutstanding,
+            decimal masterOutstanding,
+            decimal superOutstanding,
+            bool isDirectMember)
         {
             CustId = custId;
             CustName = custName;
@@ -16,6 +23,7 @@
             AgentOutstanding = agentOutstanding;
             MasterOutstanding = masterOutstanding;
             SuperOutstanding = superOutstanding;
+            IsDirectMember = isDirectMember;
         }
 
         public string DownlineLink { get; set; }
@@ -31,6 +39,8 @@
         public decimal MasterOutstanding { get; set; }
 
         public decimal SuperOutstanding { get; set; }
+
+        public bool IsDirectMember { get; set; }
 
         public static OutstandingModel GetAccumulatedData(IEnumerable<OutstandingModel> outstandings)
         {

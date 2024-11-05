@@ -16,15 +16,17 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var OutstandingViewNew = /** @class */ (function (_super) {
     __extends(OutstandingViewNew, _super);
-    function OutstandingViewNew($, productMultiSelectionComponent, linkBuilderComponent, displayOutstandingLevels) {
+    function OutstandingViewNew($, productMultiSelectionComponent, linkBuilderComponent, displayOutstandingLevels, levelTypeDropdown) {
         var _this = _super.call(this, $, linkBuilderComponent) || this;
         _this.init = function () {
             _super.prototype.init.call(_this);
             _this.productMultiSelectionComponent.render();
             _this.$buttonProduct = _this.$("#dropdown-product").parent().find(".multiselect.btn");
+            _this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
             _this.linkBuilderComponent.render();
             _this.registerEvents();
             _this.initHelp();
+            _this.$reportForm.show();
             _this.initDataTable();
         };
         _this.registerEvents = function () {
@@ -85,13 +87,14 @@ var OutstandingViewNew = /** @class */ (function (_super) {
         };
         _this.productMultiSelectionComponent = productMultiSelectionComponent;
         _this.displayOutstandingLevels = displayOutstandingLevels;
+        _this.levelTypeDropdown = levelTypeDropdown;
         return _this;
     }
     return OutstandingViewNew;
 }(BaseReportNew));
 $(function () {
     var linkBuilderComponent = new LinkBuilderComponent($);
-    var outstandingViewNew = new OutstandingViewNew($, new ProductMultiSelectionComponent($), linkBuilderComponent, displayOutstandingLevels);
+    var outstandingViewNew = new OutstandingViewNew($, new ProductMultiSelectionComponent($), linkBuilderComponent, displayOutstandingLevels, new SingleSelectionDropdownComponent($));
     outstandingViewNew.init();
 });
 //# sourceMappingURL=outstanding-new.js.map

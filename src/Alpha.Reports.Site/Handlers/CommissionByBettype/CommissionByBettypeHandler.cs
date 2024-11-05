@@ -38,7 +38,8 @@
                 message.CustId,
                 message.FromDate,
                 message.ToDate,
-                reportDateService.GetMoveBetsDay());
+                reportDateService.GetMoveBetsDay(),
+                message.LevelType);
 
             var commissions = commissionService.GetAllCommissionByBettypes(param);
 

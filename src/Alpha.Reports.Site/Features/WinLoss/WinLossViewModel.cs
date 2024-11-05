@@ -46,7 +46,7 @@
 
         public string CustLevelName { get; private set; }
 
-        public string DownLineLevelName { get; private set; }
+        public string LevelTypeValue { get; private set; }
 
         public string SortPropertyName { get; }
 
@@ -60,21 +60,25 @@
             {
                 Title = Resources.MasterWinLoss;
                 CustLevelName = Resources.Super;
-                DownLineLevelName = Resources.Master;
+                LevelTypeValue = Resources.MasterAgent;
             }
             else if (CustLevel.IsMasterLevel())
             {
                 Title = Resources.AgentWinLoss;
                 CustLevelName = Resources.Master;
-                DownLineLevelName = Resources.Agent;
+                LevelTypeValue = Resources.Agent;
             }
             else
             {
                 Title = Resources.MemberWinLoss;
                 CustLevelName = Resources.Agent;
-                DownLineLevelName = Resources.Member;
             }
         }
+
+        public override string BuildDrillDownLink(WinLossModel model, string currentLink)
+            => model.IsDirectMember || CustLevel.IsAgentLevel()
+            ? BuildBetListLink(model)
+            : BuildDownlineLink(model, currentLink);
 
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(WinLossModel model)
             => new Dictionary<string, object>(base.GetDownlineLinkRouteValues(model))

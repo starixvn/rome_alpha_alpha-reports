@@ -1,0 +1,50 @@
+﻿:root, :root [data-theme='light'] {
+    --chart-background: #e8e8e8;
+    --chart-background-gradient: linear-gradient(#e8e8e8, #fff);
+    --chart-border: #e8e8e8;
+    --chart-shadow: 5px 5px #cdcdcd;
+}
+
+:root [data-theme='dark'] {
+    //dropdown
+    --chart-background: #212223;
+    --chart-background-gradient: #212223;
+    --chart-border: #3E3F41;
+    --chart-shadow: none;
+}
+.report-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: 12px;
+     
+
+    .col-table {
+        width: 300px;
+        padding-right: 15px;
+
+        @media (min-device-width: 767px) {
+            order: 1;
+        }
+    }
+
+    .col-chart {
+        flex: 1;
+        padding-left: 15px;
+
+        @media (min-device-width: 767px) {
+            order: 2;
+        }
+    }
+}
+.chart-container {
+    max-height: 780px;
+    max-width: 1024px;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 5px;
+    border: 1px solid var(--chart-border);
+    background: var(--chart-background);
+    background: var(--chart-background-gradient);
+    box-shadow: var(--chart-shadow);
+}

@@ -18,7 +18,8 @@
                 false,
                 DefaultVariablesTest.BalanceUpDate,
                 "BreadcrumbLevelJson",
-                null);
+                null,
+                0);
 
             // Assert
             Assert.True(

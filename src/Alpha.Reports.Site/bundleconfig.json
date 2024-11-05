@@ -43,6 +43,7 @@
     "outputFileName": "Features/WinLossDetail/Bundles/winlossdetail-new.js",
     "inputFiles": [
       "assets/scripts/core.js",
+      "assets/scripts/components/single-selection-dropdown.js",
       "Features/Shared/Scripts/components/total-entered-nonentered.js",
       "Features/Shared/Scripts/components/daterangepicker-jquery.js",
       "Features/Shared/Scripts/components/product-productdetail-dropdown.js",
@@ -82,6 +83,7 @@
       "assets/scripts/components/tooltip.js",
       "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/productdetail-multiselection.js",
+      "assets/scripts/components/single-selection-dropdown.js",
       "assets/scripts/components/sort.js",
       "assets/scripts/components/link-builder.js",
       "Features/WinLoss/Scripts/winloss.js"
@@ -168,6 +170,7 @@
       "Features/Shared/Scripts/base-report-new.js",
       "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/link-builder.js",
+      "assets/scripts/components/single-selection-dropdown.js",
       "Features/Outstanding/Scripts/outstanding-new.js"
     ]
   },
@@ -204,6 +207,7 @@
     "outputFileName": "assets/bundles/commissionbybettype/commissionbybettype.js",
     "inputFiles": [
       "assets/scripts/core.js",
+      "assets/scripts/components/single-selection-dropdown.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/sort.js",
       "assets/scripts/components/link-builder.js",
@@ -313,6 +317,7 @@
       "assets/scripts/core.js",
       "assets/scripts/base-report.js",
       "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/single-selection-dropdown.js",
       "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/productdetail-multiselection.js",
       "assets/scripts/components/currency-selection.js",
@@ -562,6 +567,48 @@
     "outputFileName": "Features/EnteredResult/Bundles/enteredresult-dark.css",
     "inputFiles": [
       "Features/EnteredResult/Styles/enteredresult-dark.css"
+    ]
+  },
+  {
+    "outputFileName": "Features/Outstanding/bundles-v2/outstanding.css",
+    "inputFiles": [
+      "Features/Outstanding/Styles/outstanding.css"
+    ]
+  },
+  {
+    "outputFileName": "Features/EnteredResult/bundles-v2/enteredresult.css",
+    "inputFiles": [
+      "Features/EnteredResult/Styles/enteredresult.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles-v2/winlossdetailnew.css",
+    "inputFiles": [
+      "assets/styles-v2/winlossdetailnew.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles-v2/winlossanalysischart.css",
+    "inputFiles": [
+      "assets/styles-v2/winlossanalysischart.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles-v2/consolidation.css",
+    "inputFiles": [
+      "assets/styles-v2/consolidation.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles-v2/superwinlossdetailbypt.css",
+    "inputFiles": [
+      "assets/styles-v2/superwinlossdetailbypt.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles-v2/winlossbyproduct.css",
+    "inputFiles": [
+      "assets/styles-v2/winlossbyproduct.css"
     ]
   }
 ]

@@ -621,10 +621,12 @@ var BaseReportNew = /** @class */ (function () {
         this.isClickedCollapseExpandAll = false;
         this.initHelp = function () {
             _this.$loadLegendURL = _this.$("#LoadLegendURL");
-            _this.$iconInformation = _this.$(".icon-information");
-            _this.$iconInformationContainer = _this.$(".icon-information-container");
-            _this.loadLegend();
-            _this.$iconInformation.on("click", _this.showLegend);
+            if (_this.$loadLegendURL.length) {
+                _this.$iconInformation = _this.$(".icon-information");
+                _this.$iconInformationContainer = _this.$(".icon-information-container");
+                _this.loadLegend();
+                _this.$iconInformation.on("click", _this.showLegend);
+            }
         };
         this.loadLegend = function () {
             _this.$.ajax({

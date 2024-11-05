@@ -9,7 +9,7 @@
 
     public interface WinLossDataAccess
     {
-        IEnumerable<WinLossModel> GetWinLoss(WinLossCriteria criteria);
+        IEnumerable<WinLossModel> GetWinLoss(WinLossMemberCriteria criteria);
     }
 
     public class WinLossDataAccessImpl : WinLossDataAccess
@@ -19,10 +19,17 @@
         public WinLossDataAccessImpl(IDynamicRepository repository)
             => this.repository = repository;
 
-        public IEnumerable<WinLossModel> GetWinLoss(WinLossCriteria criteria)
-            => repository.Fetch<WinLossEntity>(criteria)
-            .Select(wl => BuildWinLoss(wl, criteria.ReportLevel))
-            .ToList();
+        public IEnumerable<WinLossModel> GetWinLoss(WinLossMemberCriteria criteria)
+        {
+            var userLevel = criteria is WinLossMasterCriteria
+                ? UserLevel.Super
+                : (criteria is WinLossAgentCriteria ? UserLevel.Master : UserLevel.Agent);
+
+            return repository.Fetch<WinLossEntity>(criteria)
+                .Select(wl => BuildWinLoss(wl, userLevel))
+                .ToList();
+        }
+            
         
         private static WinLossModel BuildWinLoss(WinLossEntity entity, UserLevel reportLevel)
             => new WinLossModel(
@@ -33,7 +40,8 @@
             memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(entity.MemberWinLoss, entity.MemberComm) : null,
             agentNetWinLoss: ReadAgentNetWinLoss(entity, reportLevel),
             masterNetWinLoss: ReadMasterNetWinLoss(entity, reportLevel),
-            superNetWinLoss: ReadSuperNetWinLoss(entity, reportLevel));
+            superNetWinLoss: ReadSuperNetWinLoss(entity, reportLevel),
+            isDirectMember: entity.IsDirectMember);
 
         private static NetWinLoss ReadAgentNetWinLoss(WinLossEntity entity, UserLevel reportLevel)
             => reportLevel.IsNotSuperLevel()

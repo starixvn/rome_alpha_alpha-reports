@@ -9,13 +9,15 @@
             UserLevel custLevel,
             int custId,
             string productIds,
-            bool autoFollowBetIsDummyAgent)
+            bool autoFollowBetIsDummyAgent,
+            byte levelType)
         {
             UserLevel = userLevel;
             CustLevel = custLevel;
             CustId = custId;
             ProductIds = productIds;
             AutoFollowBetIsDummyAgent = autoFollowBetIsDummyAgent;
+            LevelType = levelType;
         }
 
         public UserLevel UserLevel { get; }
@@ -27,5 +29,7 @@
         public string ProductIds { get; }
 
         public bool AutoFollowBetIsDummyAgent { get; }
+
+        public byte LevelType { get; }
     }
 }

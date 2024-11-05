@@ -320,7 +320,6 @@ var BaseReport = /** @class */ (function () {
             _this.$reportLegend.modal({ show: true, backdrop: false });
             var iconHelpPosition = _this.$iconInformation.position();
             _this.$reportLegend.css({
-                bottom: "auto",
                 top: _this.$(".entered-non-entered").length > 0 ? iconHelpPosition.top + 90 : iconHelpPosition.top + 60
             });
         };
@@ -733,7 +732,7 @@ var WinLossAnalysisView = /** @class */ (function (_super) {
             _this.$userSelectedDateRangeOption = _this.$("#UserSelectedDateRangeOption");
             _this.$filterIcon = _this.$(".icon-filter");
             _this.$excelIcon = _this.$("#icon-excel");
-            _this.$switchModeIcon = _this.$(".icon-switchmode");
+            _this.$switchModeIcon = _this.$(".ic-switchmode");
             _this.$fromDate = _this.$("#from-date");
             _this.$toDate = _this.$("#to-date");
             _this.$toDate = _this.$("#to-date");

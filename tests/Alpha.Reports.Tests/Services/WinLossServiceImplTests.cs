@@ -38,12 +38,11 @@
             dynamicRepository = Substitute.For<IDynamicRepository>();
             cacheService = Substitute.For<ICacheService>();
             productService = Substitute.For<ProductService>();
-            var productDetailService = Substitute.For<ProductDetailService>();
             dataAccess = Substitute.For<WinLossDataAccess>();
             cacheRefService = Substitute.For<CacheRefService>();
             reportDateService = Substitute.For<ReportDateService>();
             partialUMService = Substitute.For<IPartialUMService>();
-            winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, productDetailService, dataAccess, dynamicRepository, cacheRefService, cacheService, partialUMService);
+            winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, dataAccess, dynamicRepository, cacheRefService, cacheService, partialUMService);
             compareLogic = new CompareLogic();
         }
 
@@ -73,12 +72,13 @@
                 Enumerable.Empty<int>(),
                 UserLevel.Super,
                 false,
-                string.Empty);
+                string.Empty,
+                0);
 
             var expectedData = Enumerable.Empty<WinLossModel>();
 
             // Act
-            dataAccess.GetWinLoss(Arg.Any<WinLossCriteria>()).Returns(expectedData);
+            dataAccess.GetWinLoss(Arg.Any<WinLossMemberCriteria>()).Returns(expectedData);
             var actualData = winLossServiceImpl.GetWinLoss(param);
 
             // Assert
@@ -102,13 +102,14 @@
                 Enumerable.Empty<int>(),
                 UserLevel.Super,
                 false,
-                string.Empty);
+                string.Empty,
+                0);
 
             // Act
             winLossServiceImpl.GetWinLoss(param);
 
             // Assert
-            dataAccess.Received().GetWinLoss(Arg.Any<WinLossCriteria>());
+            dataAccess.Received().GetWinLoss(Arg.Any<WinLossMemberCriteria>());
         }
 
         [Fact]
@@ -128,13 +129,14 @@
                 Enumerable.Empty<int>(),
                 UserLevel.Super,
                 false,
-                string.Empty);
+                string.Empty,
+                0);
 
             // Act
             winLossServiceImpl.GetWinLoss(param);
 
             // Assert
-            dataAccess.Received().GetWinLoss(Arg.Is<WinLossCriteria>(i => i.FromDate == limitedDate));
+            dataAccess.Received().GetWinLoss(Arg.Is<WinLossMemberCriteria>(i => i.FromDate == limitedDate));
         }
 
         [Fact]

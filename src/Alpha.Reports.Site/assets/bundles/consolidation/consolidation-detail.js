@@ -209,7 +209,6 @@ var BaseReport = /** @class */ (function () {
             _this.$reportLegend.modal({ show: true, backdrop: false });
             var iconHelpPosition = _this.$iconInformation.position();
             _this.$reportLegend.css({
-                bottom: "auto",
                 top: _this.$(".entered-non-entered").length > 0 ? iconHelpPosition.top + 90 : iconHelpPosition.top + 60
             });
         };
@@ -299,6 +298,63 @@ var DateRangePickerComponent = /** @class */ (function () {
     return DateRangePickerComponent;
 }());
 //# sourceMappingURL=daterangepicker.js.map
+/// <reference path="../core.ts" />
+"use strict";
+var SingleSelectionDropdownOption = /** @class */ (function () {
+    function SingleSelectionDropdownOption(dropdownId, inputId, onChange) {
+        if (dropdownId === void 0) { dropdownId = "dropdown-single"; }
+        if (inputId === void 0) { inputId = "UserSelectedId"; }
+        if (onChange === void 0) { onChange = null; }
+        this.dropdownId = dropdownId;
+        this.inputId = inputId;
+        this.onChange = onChange;
+    }
+    return SingleSelectionDropdownOption;
+}());
+var SingleSelectionDropdownComponent = /** @class */ (function () {
+    function SingleSelectionDropdownComponent($) {
+        var _this = this;
+        this.options = new SingleSelectionDropdownOption();
+        this.render = function (options) {
+            if (options === void 0) { options = new SingleSelectionDropdownOption(); }
+            _this.options = _this.$.extend({}, _this.options, options);
+            var $dropdown = _this.$("#" + _this.options.dropdownId);
+            _this.$dropdown = $dropdown;
+            var $hiddenInput = _this.$("#" + _this.options.inputId);
+            _this.$hiddenInput = $hiddenInput;
+            var self = _this;
+            _this.selectedValue = self.getSelectedItem();
+            _this.$dropdown.multiselect({
+                multiple: false,
+                maxHeight: 300,
+                numberDisplayed: 1,
+                includeSelectAllOption: false,
+                onChange: _this.onchange
+            });
+        };
+        this.getSelectedItem = function () {
+            var selected = [];
+            var selectedOptions = _this.$dropdown.find("option:selected");
+            var this$ = _this.$;
+            selectedOptions.each(function () {
+                selected.push([this$(this).val()]);
+            });
+            return selected.length ? selected[0].toString() : "";
+        };
+        this.updateSelectedValue = function () {
+            _this.$hiddenInput.val(_this.selectedValue);
+        };
+        this.onchange = function () {
+            _this.selectedValue = _this.getSelectedItem();
+            if (_this.options.onChange) {
+                _this.options.onChange();
+            }
+        };
+        this.$ = $;
+    }
+    return SingleSelectionDropdownComponent;
+}());
+//# sourceMappingURL=single-selection-dropdown.js.map
 /// <reference path="../core.ts" />
 "use strict";
 var ProductMultiSelectionOption = /** @class */ (function () {
@@ -1035,7 +1091,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var ConsolidationDetailView = /** @class */ (function (_super) {
     __extends(ConsolidationDetailView, _super);
-    function ConsolidationDetailView($, productMultiSelectionComponent, dateRangePickerComponent, reportTooltip, linkBuilderComponent, pageComponent, sortComponent) {
+    function ConsolidationDetailView($, productMultiSelectionComponent, levelTypeDropdown, dateRangePickerComponent, reportTooltip, linkBuilderComponent, pageComponent, sortComponent) {
         var _this = _super.call(this, $, linkBuilderComponent) || this;
         _this.isFirstSwitchMode = true;
         _this.hasAllDataOnClient = false;
@@ -1049,6 +1105,7 @@ var ConsolidationDetailView = /** @class */ (function (_super) {
             _this.productMultiSelectionComponent.render();
             _this.$productButton = _this.$("#dropdown-product").parent().find(".multiselect.btn");
             _this.dateRangePickerComponent.render();
+            _this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
             _this.pagerComponent.render();
             _this.hasAllDataOnClient = _this.pagerComponent.hasAllDataOnClient();
             var canSort = parseInt(_this.$tableReport.data("totalrecords"), 0) > 1;
@@ -1199,6 +1256,7 @@ var ConsolidationDetailView = /** @class */ (function (_super) {
             firstBreadcrumb.attr("href", currentUrl);
         };
         _this.productMultiSelectionComponent = productMultiSelectionComponent;
+        _this.levelTypeDropdown = levelTypeDropdown;
         _this.dateRangePickerComponent = dateRangePickerComponent;
         _this.reportTooltip = reportTooltip;
         _this.pagerComponent = pageComponent;
@@ -1222,7 +1280,7 @@ var ConsolidationDetailView = /** @class */ (function (_super) {
     };
     ConsolidationDetailView.prototype.registerEvents = function () {
         this.$(".icon-filter").on("click", this.onClickIconFilter);
-        this.$(".icon-switchmode").on("click", this.onSwitchMode);
+        this.$(".ic-switchmode").on("click", this.onSwitchMode);
         this.$reportForm.submit(this.onSubmitReport);
         this.$("#icon-excel").on("click", this.onExportExcel);
     };
@@ -1230,7 +1288,7 @@ var ConsolidationDetailView = /** @class */ (function (_super) {
 }(BaseReport));
 $(function () {
     var linkBuilderComponent = new LinkBuilderComponent($);
-    var consolidationDetailView = new ConsolidationDetailView($, new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)), new DateRangePickerComponent($), new ReportTooltip($), linkBuilderComponent, new PagerComponent($), new SortComponent($, linkBuilderComponent));
+    var consolidationDetailView = new ConsolidationDetailView($, new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)), new SingleSelectionDropdownComponent($), new DateRangePickerComponent($), new ReportTooltip($), linkBuilderComponent, new PagerComponent($), new SortComponent($, linkBuilderComponent));
     consolidationDetailView.init();
 });
 //# sourceMappingURL=consolidation-detail.js.map

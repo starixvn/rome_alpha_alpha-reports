@@ -1,5 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Outstanding
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using App_GlobalResources;
     using Components;
     using Enumerations;
@@ -8,8 +10,6 @@
     using Reports.Models;
     using Reports.Models.Outstanding;
     using Requests.Outstanding;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class OutstandingViewModel : DrillDownableReportViewModel<OutstandingModel>
     {
@@ -28,6 +28,7 @@
                : base(query.CustLevel, breadcrumbLevel)
         {
             Query = query;
+            ReportLevel = Query.CustLevel.GetDirectDownLineLevel();
             OutstandingDatasource = outstandingDataSource;
             ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(groupProducts, selectedProductIds.JoinWithComma(), string.Empty);
 
@@ -42,6 +43,7 @@
             BetListPath = Helpers.UrlHelper.MapBetListPath("~/RunningBetList/Index");
 
             IsMobileView = isMobile;
+            ShowLevelType = query.CustLevel.IsNotAgentLevel();
         }
 
         public string Title
@@ -59,7 +61,7 @@
 
         public OutstandingQuery Query { get; }
 
-        public UserLevel ReportLevel => Query.CustLevel.GetDirectDownLineLevel();
+        public UserLevel ReportLevel { get; }
 
         public IEnumerable<OutstandingModel> OutstandingDatasource { get; }
 
@@ -74,6 +76,13 @@
         public bool IsMobileView { get; }
 
         public bool CanSort { get; }
+
+        public bool ShowLevelType { get; }
+
+        public override string BuildDrillDownLink(OutstandingModel model, string currentLink)
+            => model.IsDirectMember || CustLevel.IsAgentLevel()
+            ? BuildBetListLink(model)
+            : BuildDownlineLink(model, currentLink);
 
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(OutstandingModel model) => new Dictionary<string, object>
         {

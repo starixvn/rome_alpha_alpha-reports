@@ -31,7 +31,8 @@
                 null,
                 false,
                 DefaultVariablesTest.CurrentDate,
-                string.Empty);
+                string.Empty,
+                0);
             var expectedViewDataInstructionMessage = "You can view the report data from 12/02/2016.";
 
             // Act

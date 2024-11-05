@@ -1,5 +1,12 @@
 ﻿@model  WinLossByProductViewModel
 
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@section Styles {
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/winlossbyproduct")
+    @StaticResources.RenderStyles("~/assets/bundles-v2/winlossbyproduct")
+}
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty), Request.Url.Query)
 
 @Html.Partial("Filter", Model.FilterViewModel,
@@ -8,7 +15,7 @@
         { "IsStackMode", Model.IsStackMode }
     })
 
-<table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover tbl-win-loss-by-product
+<table class="tb tb-bordered w-full tablesorter tb-hover tbl-win-loss-by-product text-right
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report">
     <thead>
         <tr>
@@ -96,11 +103,11 @@
         <tfoot>
             @RenderWinLossByBetType(0, 0, Model.GrandTotal, true)
         </tfoot>
-                }
-                else
-                {
-                    @NoInformation.Render(colspan: Model.CustLevel.IsAgentLevel() ? 11 : 9)
-                }
+    }
+    else
+    {
+        @NoInformation.Render(colspan: Model.CustLevel.IsAgentLevel() ? 11 : 9)
+    }
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
@@ -125,21 +132,23 @@
 {
     @RenderWinLossByProduct(data, isExpand)
 
-if (data.WinLossBySportModels.Any())
-{
-    foreach (var winLossBySportModel in data.WinLossBySportModels)
+    if (data.WinLossBySportModels.Any())
     {
+        foreach (var winLossBySportModel in data.WinLossBySportModels)
+        {
             @RenderSport(data.ProductId, winLossBySportModel, isExpand)
+        }
     }
-}
 }
 
 @helper RenderWinLossByProduct(WinLossByProductModel data, bool isExpand)
 {
     <tr class="product-row" data-product-id="@data.ProductId" data-is-hide="@(isExpand? "false": "true")">
         <td class="text-left col-username bold @(isExpand ? "active" : string.Empty)">
-            <span class="@(isExpand ?"icon-arrow-down":"icon-arrow-right")"></span>
-            @data.ProductName
+            <div class="text-icon-left">
+                <span class="@(isExpand ?"ic-arrow-down":"ic-arrow-right")"></span>
+                @data.ProductName
+            </div>
         </td>
         @RenderWinLossInfo(data.Total)
     </tr>
@@ -147,18 +156,18 @@ if (data.WinLossBySportModels.Any())
 
 @helper RenderSport(int productId, WinLossBySportModel data, bool isExpand)
 {
-if (!WinLossBySportModel.IsShowBetTypeDirectly(productId))
-{
-        @RenderWinLossBySport(productId, data, isExpand)
-}
-
-if (data.WinLossByBetTypeData.Any())
-{
-    foreach (var winLossByBetType in data.WinLossByBetTypeData)
+    if (!WinLossBySportModel.IsShowBetTypeDirectly(productId))
     {
-            @RenderWinLossByBetType(productId, data.SportId, winLossByBetType, false, isExpand)
+        @RenderWinLossBySport(productId, data, isExpand)
     }
-}
+
+    if (data.WinLossByBetTypeData.Any())
+    {
+        foreach (var winLossByBetType in data.WinLossByBetTypeData)
+        {
+            @RenderWinLossByBetType(productId, data.SportId, winLossByBetType, false, isExpand)
+        }
+    }
 }
 
 @helper RenderWinLossBySport(int productId, WinLossBySportModel data, bool isExpand)
@@ -177,9 +186,9 @@ if (data.WinLossByBetTypeData.Any())
 
 @helper RenderWinLossByBetType(int productId, int sportId, WinLossByBetTypeModel data, bool isTotalRow, bool isExpand = false)
 {
-var betTypeRowClass = "bet-type-row bet-type-of-product-" + productId + " bet-type-of-sport-" + sportId;
-var rowClass = isTotalRow ? "tbl-footer" :
-     isExpand ? betTypeRowClass : betTypeRowClass + " hide";
+    var betTypeRowClass = "bet-type-row bet-type-of-product-" + productId + " bet-type-of-sport-" + sportId;
+    var rowClass = isTotalRow ? "tbl-footer" :
+         isExpand ? betTypeRowClass : betTypeRowClass + " hide";
 
     <tr class="@rowClass">
         <td class="text-left col-username">
@@ -194,10 +203,10 @@ var rowClass = isTotalRow ? "tbl-footer" :
 {
     <td>@(data.BetCount.HasValue ? data.BetCount.Value.ToString($"#,##0") : Resources.Symbol_NoDataNumber)</td>
 
-if (Model.IsStackMode)
-{
-    if (Model.CustLevel.IsAgentLevel())
+    if (Model.IsStackMode)
     {
+        if (Model.CustLevel.IsAgentLevel())
+        {
             @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.GrossComm);
 
         }
@@ -221,21 +230,21 @@ if (Model.IsStackMode)
         @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, Model.CustLevel.IsAgentLevel())
         @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss, Model.CustLevel.IsMasterLevel())
         @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
-}
+    }
     <td class="text-right col-company">@HtmlHelpers.FormatNumber(data.Company)</td>
 }
 
 @helper RenderStackNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
-if (netWinLoss == null)
-{
-    return;
-}
+    if (netWinLoss == null)
+    {
+        return;
+    }
 
-var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+    var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
-if (netWinLoss.WinLoss != null)
-{
+    if (netWinLoss.WinLoss != null)
+    {
         @HtmlHelpers.RenderStackCell(
             $"col-{level.DisplayName.ToLower()}-winloss-combined {highlightCellClass}",
             1,
@@ -247,17 +256,17 @@ if (netWinLoss.WinLoss != null)
 
 @helper RenderNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
-if (netWinLoss == null)
-{
-    return;
-}
+    if (netWinLoss == null)
+    {
+        return;
+    }
 
-var highlightCellClass = isHighlight ? "altercol" : string.Empty;
-if (netWinLoss.WinLoss != null)
-{
+    var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+    if (netWinLoss.WinLoss != null)
+    {
         @HtmlHelpers.RenderNumberCell(netWinLoss.WinLoss.Value, $"col-{level.DisplayName.ToLower()}-winloss {highlightCellClass}")
         @HtmlHelpers.RenderNumberCell(netWinLoss.Comm.Value, highlightCellClass)
-}
+    }
 
     @HtmlHelpers.RenderNumberCell(netWinLoss.Total, $"bold {highlightCellClass} col-cust-total")
 }

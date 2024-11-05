@@ -42,6 +42,7 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
 
             // Act
@@ -73,6 +74,7 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
             var expectedDate = DefaultVariablesTest.CurrentDate;
 
@@ -105,6 +107,7 @@
                 true,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
             var expectedDate = DefaultVariablesTest.CurrentDate.FirstDayOfMonth();
 
@@ -141,6 +144,7 @@
                 isHistoricReport,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
             var expectedDate = fromDate;
 
@@ -175,6 +179,7 @@
                     isHistoricReport,
                     string.Empty,
                     username: null,
+                    levelType: 0,
                     isReward: false);
 
             var expectedDate = DefaultVariablesTest.CurrentDate;
@@ -212,6 +217,7 @@
                 isHistoricReport,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
             var expectedDate = toDate;
 
@@ -245,6 +251,7 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
             var expectedReportLevel = custLevel;
 
@@ -279,6 +286,7 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
             var expectedIsDescendingSort = isDescendingSort;
 
@@ -316,6 +324,7 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
             var expectedUserSelectedProductIds = userSelectedProductIdList;
 
@@ -348,6 +357,7 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
             var expectedPageIndex = DefaultVariablesTest.PageIndex;
 
@@ -386,6 +396,7 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
             var expectedPageIndex = pageIndex;
 
@@ -418,6 +429,7 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
             var expectedPageSize = DefaultVariablesTest.PageSize;
 
@@ -456,6 +468,7 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
             var expectedPageSize = pageSize;
 
@@ -488,6 +501,7 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
 
             // Act

@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.CommissionByBettype
 {
+    using Alpha.Reports.Models;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -34,7 +35,8 @@
                 message.CustId,
                 message.FromDate,
                 message.ToDate,
-                reportDateService.GetMoveBetsDay());
+                reportDateService.GetMoveBetsDay(),
+                message.LevelType);
 
             var commissions = commissionService.GetAllCommissionByBettypes(param);
 
@@ -42,28 +44,43 @@
                 .UseTemplate(GetTemplateInfo(message))
                 .Title(GetReportTitle(message))
                 .Header(Resources.ResourceManager.GetString)
-                .Body(commissions, GetBodyRowMapper())
-                .Footer(CommissionByBettypeModel.GetAccumulatedCommission(commissions), GetTotalRowMapper())
+                .Body(commissions, GetBodyRowMapper(message.CustLevel))
+                .Footer(CommissionByBettypeModel.GetAccumulatedCommission(commissions), GetTotalRowMapper(message.CustLevel))
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
             return new ExcelFileViewModel(GetExcelFileName(message, param), result);
         }
 
-        private Mapper<CommissionByBettypeModel> GetBodyRowMapper() => GetRowMapper(false);
+        private Mapper<CommissionByBettypeModel> GetBodyRowMapper(UserLevel custLevel) => GetRowMapper(custLevel, false);
 
-        private Mapper<CommissionByBettypeModel> GetTotalRowMapper() => GetRowMapper(true);
+        private Mapper<CommissionByBettypeModel> GetTotalRowMapper(UserLevel custLevel) => GetRowMapper(custLevel, true);
 
-        internal Mapper<CommissionByBettypeModel> GetRowMapper(bool isTotal)
+        internal Mapper<CommissionByBettypeModel> GetRowMapper(UserLevel custLevel, bool isTotal)
         {
             var mapper = new Mapper<CommissionByBettypeModel>()
-                .Map(Column.A, commission => isTotal ? Resources.Total : commission.CustName)
-                .Map(Column.B, commission => commission.Comm1)
-                .Map(Column.C, commission => commission.Comm2)
-                .Map(Column.D, commission => commission.Comm3)
-                .Map(Column.E, commission => commission.CasinoComm);
+                .Map(Column.A, commission => isTotal ? Resources.Total : commission.CustName);
+            if (custLevel.IsAgentLevel())
+            {
+                return mapper
+                    .Map(Column.B, commission => commission.Comm1)
+                    .Map(Column.C, commission => commission.Comm2)
+                    .Map(Column.D, commission => commission.Comm3)
+                    .Map(Column.E, commission => commission.CasinoComm);
+            }
 
-            return mapper;
+            if (!isTotal)
+            {
+                mapper.Map(Column.B, commission => commission.IsDirectMember
+                    ? Resources.DirectMember
+                    : (custLevel.IsSuperLevel() ? Resources.MasterAgent : Resources.Agent));
+            }
+
+            return mapper
+                .Map(Column.C, commission => commission.Comm1)
+                .Map(Column.D, commission => commission.Comm2)
+                .Map(Column.E, commission => commission.Comm3)
+                .Map(Column.F, commission => commission.CasinoComm);
         }
 
         private TemplateInfo GetTemplateInfo(CommissionByBettypeExcelQuery message) => new TemplateInfo(

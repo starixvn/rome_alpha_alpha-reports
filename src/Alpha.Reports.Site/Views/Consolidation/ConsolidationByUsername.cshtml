@@ -1,10 +1,12 @@
 ﻿@model ConsolidationReportByUsernameViewModel
 @{
     ViewBag.Title = "Consolidation Report";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/consolidation/consolidation")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/consolidation")
+    @StaticResources.RenderStyles("~/assets/bundles-v2/consolidation")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query,
@@ -18,7 +20,7 @@
         ["ReportType"] = "Username"
     })
 
-<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tblRpt-hover @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report">
+<table class="tb tb-bordered tb-hover w-full text-right @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report">
     <thead>
         <tr>
             <th rowspan="2" class="hidden-stack-mode">@Resources.Level</th>
@@ -46,7 +48,7 @@
             <th rowspan="2">@Resources.Company</th>
             <th rowspan="2">@Resources.BetCount</th>
         </tr>
-        <tr>
+        <tr class="thead-row2">
             <th class="hidden-stack-mode">@Resources.WinLoss</th>
             <th class="hidden-stack-mode">@Resources.Comm</th>
             <th class="hidden-stack-mode">@Resources.Total</th>
@@ -63,22 +65,26 @@
             {
                 var isShowPT = dataByUsername.CustLevel != UserLevel.Member.Value;
                 <tr class="username-row" data-custid="@dataByUsername.CustId">
-                    <td class="text-left bold">
-                        <span class="icon-arrow-right" id="icon-@dataByUsername.CustId"></span>
-                        @dataByUsername.CustLevelName
+                    <td class=" text-left bold ">
+                        <div class="username-col">
+                            <span class="ic-arrow-right" id="icon-@dataByUsername.CustId"></span>
+                            @dataByUsername.CustLevelName
+                        </div>
                     </td>
                     <td class="text-left bold">
-                        <div style="position:relative">
-                            <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Consolidation"), "username", null, null, dataByUsername)" class="downline-link">
-                                @dataByUsername.Username
-                            </a>
-                            @if (isShowPT)
-                            {
-                                <span class="view-product-pt-list"
-                                      data-custid="@dataByUsername.CustId"
-                                      data-username="@dataByUsername.Username"
-                                      data-userlevel="@dataByUsername.CustLevelName"></span>
-                            }
+                        <div>
+                            <div class="text-icon">
+                                <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Consolidation"), "username", null, null, dataByUsername)" class="downline-link">
+                                    @dataByUsername.Username
+                                </a>
+                                @if (isShowPT)
+                                {
+                                    <span class="ic-percent view-product-pt-list"
+                                          data-custid="@dataByUsername.CustId"
+                                          data-username="@dataByUsername.Username"
+                                          data-userlevel="@dataByUsername.CustLevelName"></span>
+                                }
+                            </div>
                         </div>
                     </td>
                     <td class="text-left">@dataByUsername.CurrencyName</td>

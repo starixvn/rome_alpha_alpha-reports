@@ -1,6 +1,6 @@
 ﻿@model SuperWinLossDetailByPTViewModel
 
-<table class="tblRpt tblRpt-bordered width-100per tablesorter tblRpt-hover tbl-win-loss-detail-by-pt
+<table class="tb tb-bordered w-full tablesorter tb-hover tbl-win-loss-detail-by-pt text-right
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-cansort="@(Model.ReportData.Count() > 1 ? "true" : "false")"
        data-custid="@Model.CustId"
@@ -101,8 +101,11 @@
 {
     <tr class="pt-row" data-pt-value="@winLossDetailByPT.PositionTaking" data-is-hide="@(isExpanded? "false": "true")">
         <td class="text-left col-username bold @(isExpanded ? "active" : string.Empty)" data-sortedvalue="@winLossDetailByPT.PositionTaking">
-            <span class="@(isExpanded ?"icon-arrow-down":"icon-arrow-right")"></span>
-            @(string.Format(winLossDetailByPT.PositionTakingText, Resources.PT))
+            <div class="text-icon-left">
+                <span class="@(isExpanded ?"ic-arrow-down":"ic-arrow-right")"></span>
+                @(string.Format(winLossDetailByPT.PositionTakingText, Resources.PT))
+            </div>
+            
         </td>
         @RenderWinLossDetail(winLossDetailByPT.Total)
     </tr>

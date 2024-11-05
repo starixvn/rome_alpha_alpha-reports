@@ -1,0 +1,19 @@
+﻿.multiselect .multiselect-selected-text{
+    width: 168px;
+}
+.tb {
+    tbody tr td {
+        text-align: right;
+
+        a {
+            &:hover {
+                color: #f60;
+            }
+        }
+
+        &.control {
+            text-align: center;
+        }
+    }
+}
+ 

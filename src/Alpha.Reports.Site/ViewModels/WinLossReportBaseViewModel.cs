@@ -95,7 +95,8 @@
                 ProductDetailMultiSelectionViewModel,
                 IsFilterVisible,
                 MinDate,
-                BreadcrumbLevelJson);
+                BreadcrumbLevelJson,
+                message.LevelType);
 
         public BreadcrumbLevelViewModel BreadcrumbLevelViewModel =>
            new BreadcrumbLevelViewModel(BreadcrumbLevel, BreadcrumbLevelJson);

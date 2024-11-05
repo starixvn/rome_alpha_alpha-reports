@@ -14,7 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var WinLossView = /** @class */ (function (_super) {
     __extends(WinLossView, _super);
-    function WinLossView($, dateRangePickerComponent, productMultiSelectionComponent, sortComponent, reportTooltip, monthPickerComponent, linkBuilderComponent) {
+    function WinLossView($, dateRangePickerComponent, productMultiSelectionComponent, levelTypeDropdown, sortComponent, reportTooltip, monthPickerComponent, linkBuilderComponent) {
         var _this = _super.call(this, $, linkBuilderComponent) || this;
         _this.isFirstSwitchMode = true;
         _this.isHistoricReport = false;
@@ -47,7 +47,7 @@ var WinLossView = /** @class */ (function (_super) {
             _this.$historicReport = _this.$("#historic-report");
             _this.$filterIcon = _this.$(".icon-filter");
             _this.$excelIcon = _this.$("#icon-excel");
-            _this.$switchModeIcon = _this.$(".icon-switchmode");
+            _this.$switchModeIcon = _this.$(".ic-switchmode");
             _this.$fromDate = _this.$("#from-date");
             _this.$toDate = _this.$("#to-date");
             _this.$isDescendingSort = _this.$("#IsDescendingSort");
@@ -61,6 +61,7 @@ var WinLossView = /** @class */ (function (_super) {
         _this.bindFilter = function () {
             _this.productMultiSelectionComponent.render();
             _this.$multiSelectButton = _this.$("#dropdown-product").parent().find(".multiselect.btn");
+            _this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
             if (_this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
                 && alphaReports.screenSmallThan768()) {
                 _this.setStackMode();
@@ -253,6 +254,7 @@ var WinLossView = /** @class */ (function (_super) {
         _this.$ = $;
         _this.dateRangePickerComponent = dateRangePickerComponent;
         _this.productMultiSelectionComponent = productMultiSelectionComponent;
+        _this.levelTypeDropdown = levelTypeDropdown;
         _this.sortComponent = sortComponent;
         _this.reportTooltip = reportTooltip;
         _this.monthPickerComponent = monthPickerComponent;
@@ -270,7 +272,7 @@ var WinLossView = /** @class */ (function (_super) {
 }(BaseReport));
 $(function () {
     var linkBuilderComponent = new LinkBuilderComponent($);
-    var winLossView = new WinLossView($, new DateRangePickerComponent($), new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)), new SortComponent($, linkBuilderComponent), new ReportTooltip($), new MonthPickerComponent($), linkBuilderComponent);
+    var winLossView = new WinLossView($, new DateRangePickerComponent($), new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)), new SingleSelectionDropdownComponent($), new SortComponent($, linkBuilderComponent), new ReportTooltip($), new MonthPickerComponent($), linkBuilderComponent);
     winLossView.init();
 });
 //# sourceMappingURL=winloss.js.map

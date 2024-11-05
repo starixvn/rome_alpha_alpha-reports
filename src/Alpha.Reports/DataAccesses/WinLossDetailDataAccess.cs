@@ -10,9 +10,9 @@
 
     public interface WinLossDetailDataAccess
     {
-        PagedReportData<WinLossDetailModel> GetData(WinLossDetailCriteria criteria);
+        PagedReportData<WinLossDetailModel> GetData(WinLossDetailMemberCriteria criteria);
 
-        Task<PagedReportData<WinLossDetailModel>> GetDataAsync(WinLossDetailCriteria criteria);
+        Task<PagedReportData<WinLossDetailModel>> GetDataAsync(WinLossDetailMemberCriteria criteria);
     }
 
     public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
@@ -22,14 +22,14 @@
         public WinLossDetailDataAccessImpl(IDynamicRepository repository)
             => this.repository = repository;
 
-        public PagedReportData<WinLossDetailModel> GetData(WinLossDetailCriteria criteria)
+        public PagedReportData<WinLossDetailModel> GetData(WinLossDetailMemberCriteria criteria)
         {
             var (winLossEntities, totalWinLossEntities) = repository.FetchMultiple<WinLossDetailEntity, WinLossDetailEntity>(criteria);
 
             return BuildWinLossDetailReportData(winLossEntities, totalWinLossEntities, criteria);
         }
 
-        public async Task<PagedReportData<WinLossDetailModel>> GetDataAsync(WinLossDetailCriteria criteria)
+        public async Task<PagedReportData<WinLossDetailModel>> GetDataAsync(WinLossDetailMemberCriteria criteria)
         {
             var (winLossEntities, totalWinLossEntities) = await repository.FetchMultipleAsync<WinLossDetailEntity, WinLossDetailEntity>(criteria);
 
@@ -39,7 +39,7 @@
         private static PagedReportData<WinLossDetailModel> BuildWinLossDetailReportData(
             IEnumerable<WinLossDetailEntity> winLossEntities,
             IEnumerable<WinLossDetailEntity> totalWinLossEntities,
-            WinLossDetailCriteria criteria)
+            WinLossDetailMemberCriteria criteria)
         {
             var winLossDetails = winLossEntities.Select(wl => BuildWinLossDetail(wl, criteria.ReportLevel));
             var totalWinLoss = totalWinLossEntities.Select(wl => BuildWinLossDetail(wl, criteria.ReportLevel));
@@ -68,6 +68,7 @@
             masterNetWinLoss: reportLevel.IsMasterOrSuperLevel() ? new NetWinLoss(entity.MAgWinLoss ?? 0, entity.MAgComm ?? 0) : null,
             superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(entity.SAgWinLoss ?? 0, entity.SAgComm ?? 0) : null,
             rewardAmount: entity.RewardAmount,
-            rewardCurrency: entity.RewardCurrency);
+            rewardCurrency: entity.RewardCurrency,
+            isDirectMember: entity.IsDirectMember);
     }
 }

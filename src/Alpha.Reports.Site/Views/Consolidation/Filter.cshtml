@@ -9,18 +9,18 @@
     @CurrencySelection.Render(Model.CurrencySelectionViewModel)
     @DateRangePicker.Render(Model.DateRangePickerViewModel)
 
-    <div class="form-group">
-        <span id="icon-information" class="icon-information-outline"></span>
+    <div class="form-group form-group-short ">
+        <span id="icon-information" class="ic-information"></span>
     </div>
     <div class="form-group">
-        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+        <span id="icon-excel" class="ic-excel" title="@Resources.ExportToExcel"></span>
     </div>
     <br />
-    <div class="form-group">
-        @Resources.ReportBy
-        @RenderReportTypeOption("username", Resources.Username)
-        @RenderReportTypeOption("date", Resources.Date)
-        @RenderReportTypeOption("product", Resources.Product)
+    <div class="report-by">
+        <span>@Resources.ReportBy</span>
+        <span>@RenderReportTypeOption("username", Resources.Username)</span>
+        <span>@RenderReportTypeOption("date", Resources.Date)</span>
+        <span>@RenderReportTypeOption("product", Resources.Product)</span>
     </div>
 
     @Html.Hidden("IsFilterVisible", Model.Visible ? "true" : "false")

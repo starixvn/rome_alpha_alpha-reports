@@ -49,10 +49,13 @@
 
     public initHelp = () => {
         this.$loadLegendURL = this.$("#LoadLegendURL");
-        this.$iconInformation = this.$(".icon-information");
-        this.$iconInformationContainer = this.$(".icon-information-container");
-        this.loadLegend();
-        this.$iconInformation.on("click", this.showLegend);
+
+        if (this.$loadLegendURL.length) {
+            this.$iconInformation = this.$(".icon-information");
+            this.$iconInformationContainer = this.$(".icon-information-container");
+            this.loadLegend();
+            this.$iconInformation.on("click", this.showLegend);
+        }
     };
 
     public loadLegend = () => {

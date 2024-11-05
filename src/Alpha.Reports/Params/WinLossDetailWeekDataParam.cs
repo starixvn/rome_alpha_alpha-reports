@@ -14,6 +14,7 @@
             string productDetailsXML,
             string username,
             bool isReward,
+            byte levelType,
             string site)
         {
             ViewerId = viewerId;
@@ -24,6 +25,7 @@
             ProductDetailsXML = productDetailsXML;
             Username = username;
             IsReward = isReward;
+            LevelType = levelType;
             Site = site;
         }
 
@@ -42,6 +44,8 @@
         public string Username { get; }
 
         public bool IsReward { get; }
+
+        public byte LevelType { get; }
 
         public string Site { get; }
     }

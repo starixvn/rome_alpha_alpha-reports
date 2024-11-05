@@ -58,40 +58,48 @@
         internal Mapper<WinLossModel> GetRowMapper(WinLossExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<WinLossModel>()
-                .Map(Column.A, winLoss => isTotal ? Resources.Total : (winLoss.CustId == 0 ? Resources.DormantAccounts : winLoss.CustName))
-                .Map(Column.B, winLoss => winLoss.Turnover)
-                .Map(Column.C, winLoss => winLoss.GrossComm);
-
+                .Map(Column.A, winLoss => isTotal ? Resources.Total : (winLoss.CustId == 0 ? Resources.DormantAccounts : winLoss.CustName));
             if (message.CustLevel.IsAgentLevel())
             {
-                mapper.Map(Column.D, winLoss => winLoss.MemberNetWinLoss.WinLoss)
-                 .Map(Column.E, winLoss => winLoss.MemberNetWinLoss.Comm)
-                 .Map(Column.F, winLoss => winLoss.MemberNetWinLoss.Total)
-                 .Map(Column.G, winLoss => winLoss.AgentNetWinLoss.WinLoss)
-                 .Map(Column.H, winLoss => winLoss.AgentNetWinLoss.Comm)
-                 .Map(Column.I, winLoss => winLoss.AgentNetWinLoss.Total)
-                 .Map(Column.J, winLoss => winLoss.Company);
+                return mapper
+                    .Map(Column.B, winLoss => winLoss.Turnover)
+                    .Map(Column.C, winLoss => winLoss.GrossComm)
+                    .Map(Column.D, winLoss => winLoss.MemberNetWinLoss.WinLoss)
+                    .Map(Column.E, winLoss => winLoss.MemberNetWinLoss.Comm)
+                    .Map(Column.F, winLoss => winLoss.MemberNetWinLoss.Total)
+                    .Map(Column.G, winLoss => winLoss.AgentNetWinLoss.WinLoss)
+                    .Map(Column.H, winLoss => winLoss.AgentNetWinLoss.Comm)
+                    .Map(Column.I, winLoss => winLoss.AgentNetWinLoss.Total)
+                    .Map(Column.J, winLoss => winLoss.Company);
             }
+
+            if (!isTotal)
+            {
+                mapper.Map(Column.B, winLoss => winLoss.IsDirectMember
+                    ? Resources.DirectMember
+                    : (message.CustLevel.IsSuperLevel() ? Resources.MasterAgent : Resources.Agent));
+            }
+
+            mapper
+                .Map(Column.C, winLoss => winLoss.Turnover)
+                .Map(Column.D, winLoss => winLoss.GrossComm);
 
             if (message.CustLevel.IsMasterLevel())
             {
-                mapper.Map(Column.D, winLoss => winLoss.AgentNetWinLoss.Total)
-                   .Map(Column.E, winLoss => winLoss.MasterNetWinLoss.WinLoss)
-                   .Map(Column.F, winLoss => winLoss.MasterNetWinLoss.Comm)
-                   .Map(Column.G, winLoss => winLoss.MasterNetWinLoss.Total)
-                   .Map(Column.H, winLoss => winLoss.Company);
+                return mapper
+                    .Map(Column.E, winLoss => winLoss.AgentNetWinLoss.Total)
+                    .Map(Column.F, winLoss => winLoss.MasterNetWinLoss.WinLoss)
+                    .Map(Column.G, winLoss => winLoss.MasterNetWinLoss.Comm)
+                    .Map(Column.H, winLoss => winLoss.MasterNetWinLoss.Total)
+                    .Map(Column.I, winLoss => winLoss.Company);
             }
 
-            if (message.CustLevel.IsSuperLevel())
-            {
-                mapper.Map(Column.D, winLoss => winLoss.MasterNetWinLoss.Total)
-                    .Map(Column.E, winLoss => winLoss.SuperNetWinLoss.WinLoss)
-                    .Map(Column.F, winLoss => winLoss.SuperNetWinLoss.Comm)
-                    .Map(Column.G, winLoss => winLoss.SuperNetWinLoss.Total)
-                    .Map(Column.H, winLoss => winLoss.Company);
-            }
-
-            return mapper;
+            return mapper
+                .Map(Column.E, winLoss => winLoss.MasterNetWinLoss.Total)
+                .Map(Column.F, winLoss => winLoss.SuperNetWinLoss.WinLoss)
+                .Map(Column.G, winLoss => winLoss.SuperNetWinLoss.Comm)
+                .Map(Column.H, winLoss => winLoss.SuperNetWinLoss.Total)
+                .Map(Column.I, winLoss => winLoss.Company);
         }
 
         private TemplateInfo GetTemplateInfo(WinLossExcelQuery message)

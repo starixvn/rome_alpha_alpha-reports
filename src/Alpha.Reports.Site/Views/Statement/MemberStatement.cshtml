@@ -2,14 +2,11 @@
 @{
     ViewBag.Title = "Statement Report";
 }
-
 @section Styles {
     @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/statement/statement")
 }
-
 @ReportTitle.Render(new PageHeaderViewModel(Resources.DailyStatement + " - " + Model.CustName, false, true, false, Model.IsFilterVisible, null, null))
-
-<form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty:"hide")" role="form" id="report-form">
+<form class="form-inline filter @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
     <div class="form-group">
         <select id="dropdown-report-type">
             <option value="1" selected="selected">@Resources.DailyStatement</option>
@@ -18,17 +15,15 @@
         </select>
     </div>
     @DateRangePicker.Render(Model.DateRangePickerViewModel)
-
     <div class="form-group">
-        <span id="icon-information" class="icon-information-outline"></span>
+        <span id="icon-information" class="ic-information"></span>
     </div>
     <div class="form-group">
-        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+        <span id="icon-excel" class="ic-excel" title="@Resources.ExportToExcel"></span>
     </div>
     <div class="note">
         <span class="star">*</span>@Model.ViewDataInstructionMessage
     </div>
-
     @Html.Hidden("IsFilterVisible", Model.IsFilterVisible ? "true" : "false")
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
@@ -36,7 +31,6 @@
     @Html.Hidden("ReportType", "1")
     @Html.Hidden("ProductIds", Model.ProductIds)
 </form>
-
 <table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover" id="tbl-report">
     <thead>
         <tr>
@@ -118,7 +112,6 @@
         @NoInformation.Render(colspan: 10)
     }
 </table>
-
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("MemberStatementExcel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement")">
     @Html.Hidden("CustId", Model.CustId)
@@ -126,14 +119,12 @@
     @Html.Hidden("FromDate", Model.FromDate)
     @Html.Hidden("ToDate", Model.ToDate)
 </form>
-
-@Html.Hidden("LoadLegendURL", Url.Action("MemberReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement", new { MinDate = Model.MinDate }))
+@Html.Hidden("LoadLegendURL", Url.Action("MemberReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement", Model.IsDirectMember ? new { IsDirectMember = Model.IsDirectMember } : null))
 @Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Statement"))
 @Html.Hidden("BetListUrl", Model.BetListLink)
 @Html.Hidden("BetListTitle", Resources.BetList)
 @Html.Hidden("TransferDetails", Resources.TransferDetails)
 @Html.Hidden("MainDomain", Model.MainDomain)
-
 @Pager.Render(Model.PagerViewModel)
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/statement/member-statement")

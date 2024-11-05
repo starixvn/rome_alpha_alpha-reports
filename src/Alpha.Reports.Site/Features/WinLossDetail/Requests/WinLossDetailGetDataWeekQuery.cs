@@ -23,6 +23,8 @@
 
         public string ResourceIds { get; set; } = DefaultVariables.AllProductDetails;
 
+        public byte LevelType { get; set; }
+
         public string Username { get; set; }
 
         public int PageIndex { get; set; }

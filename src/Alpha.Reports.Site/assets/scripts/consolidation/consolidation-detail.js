@@ -23,7 +23,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var ConsolidationDetailView = /** @class */ (function (_super) {
     __extends(ConsolidationDetailView, _super);
-    function ConsolidationDetailView($, productMultiSelectionComponent, dateRangePickerComponent, reportTooltip, linkBuilderComponent, pageComponent, sortComponent) {
+    function ConsolidationDetailView($, productMultiSelectionComponent, levelTypeDropdown, dateRangePickerComponent, reportTooltip, linkBuilderComponent, pageComponent, sortComponent) {
         var _this = _super.call(this, $, linkBuilderComponent) || this;
         _this.isFirstSwitchMode = true;
         _this.hasAllDataOnClient = false;
@@ -37,6 +37,7 @@ var ConsolidationDetailView = /** @class */ (function (_super) {
             _this.productMultiSelectionComponent.render();
             _this.$productButton = _this.$("#dropdown-product").parent().find(".multiselect.btn");
             _this.dateRangePickerComponent.render();
+            _this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
             _this.pagerComponent.render();
             _this.hasAllDataOnClient = _this.pagerComponent.hasAllDataOnClient();
             var canSort = parseInt(_this.$tableReport.data("totalrecords"), 0) > 1;
@@ -187,6 +188,7 @@ var ConsolidationDetailView = /** @class */ (function (_super) {
             firstBreadcrumb.attr("href", currentUrl);
         };
         _this.productMultiSelectionComponent = productMultiSelectionComponent;
+        _this.levelTypeDropdown = levelTypeDropdown;
         _this.dateRangePickerComponent = dateRangePickerComponent;
         _this.reportTooltip = reportTooltip;
         _this.pagerComponent = pageComponent;
@@ -210,7 +212,7 @@ var ConsolidationDetailView = /** @class */ (function (_super) {
     };
     ConsolidationDetailView.prototype.registerEvents = function () {
         this.$(".icon-filter").on("click", this.onClickIconFilter);
-        this.$(".icon-switchmode").on("click", this.onSwitchMode);
+        this.$(".ic-switchmode").on("click", this.onSwitchMode);
         this.$reportForm.submit(this.onSubmitReport);
         this.$("#icon-excel").on("click", this.onExportExcel);
     };
@@ -218,7 +220,7 @@ var ConsolidationDetailView = /** @class */ (function (_super) {
 }(BaseReport));
 $(function () {
     var linkBuilderComponent = new LinkBuilderComponent($);
-    var consolidationDetailView = new ConsolidationDetailView($, new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)), new DateRangePickerComponent($), new ReportTooltip($), linkBuilderComponent, new PagerComponent($), new SortComponent($, linkBuilderComponent));
+    var consolidationDetailView = new ConsolidationDetailView($, new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)), new SingleSelectionDropdownComponent($), new DateRangePickerComponent($), new ReportTooltip($), linkBuilderComponent, new PagerComponent($), new SortComponent($, linkBuilderComponent));
     consolidationDetailView.init();
 });
 //# sourceMappingURL=consolidation-detail.js.map

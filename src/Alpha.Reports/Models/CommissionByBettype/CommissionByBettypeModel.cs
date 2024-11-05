@@ -14,7 +14,8 @@
             decimal comm1,
             decimal comm2,
             decimal comm3,
-            decimal casinoComm)
+            decimal casinoComm,
+            bool isDirectMember)
         {
             CustId = custId;
             CustName = custName;
@@ -22,6 +23,7 @@
             Comm2 = comm2;
             Comm3 = comm3;
             CasinoComm = casinoComm;
+            IsDirectMember = isDirectMember;
         }
 
         public int CustId { get; set; }
@@ -36,9 +38,11 @@
 
         public decimal CasinoComm { get; set; }
 
+        public bool IsDirectMember { get; set; }
+
         public static CommissionByBettypeModel GetAccumulatedCommission(IEnumerable<CommissionByBettypeModel> commissions)
         {
-            var accumulatedCommission = new CommissionByBettypeModel(0, string.Empty, 0, 0, 0, 0);
+            var accumulatedCommission = new CommissionByBettypeModel(0, string.Empty, 0, 0, 0, 0, false);
 
             foreach (var commission in commissions)
             {

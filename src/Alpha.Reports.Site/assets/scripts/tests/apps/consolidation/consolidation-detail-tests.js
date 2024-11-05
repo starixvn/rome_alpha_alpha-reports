@@ -1,6 +1,7 @@
 describe("Consolidation Detail", function () {
     var jQueryFake = $;
     var productMultiSelectionComponent = new ProductMultiSelectionComponent($);
+    var levelTypeComponent = new SingleSelectionDropdownComponent($);
     var dateRangePickerComponent = new DateRangePickerComponent($);
     var reportTooltip = new ReportTooltip($);
     var linkBuilderComponent = new LinkBuilderComponent($);
@@ -9,7 +10,7 @@ describe("Consolidation Detail", function () {
     var consolidationDetailView;
     var renderProductMultiSelectionComponent, renderSortComponent, renderPagerComponent;
     beforeEach(function () {
-        consolidationDetailView = new ConsolidationDetailView(jQueryFake, productMultiSelectionComponent, dateRangePickerComponent, reportTooltip, linkBuilderComponent, pagerComponent, sortComponent);
+        consolidationDetailView = new ConsolidationDetailView(jQueryFake, productMultiSelectionComponent, levelTypeComponent, dateRangePickerComponent, reportTooltip, linkBuilderComponent, pagerComponent, sortComponent);
         var cacheElements = spyOn(consolidationDetailView, "cacheElements");
         cacheElements.and.callThrough();
         var registerEvents = spyOn(consolidationDetailView, "registerEvents");

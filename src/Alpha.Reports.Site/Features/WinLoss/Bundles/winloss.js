@@ -209,7 +209,6 @@ var BaseReport = /** @class */ (function () {
             _this.$reportLegend.modal({ show: true, backdrop: false });
             var iconHelpPosition = _this.$iconInformation.position();
             _this.$reportLegend.css({
-                bottom: "auto",
                 top: _this.$(".entered-non-entered").length > 0 ? iconHelpPosition.top + 90 : iconHelpPosition.top + 60
             });
         };
@@ -659,6 +658,63 @@ var ProductDetailMultiSelectionComponent = /** @class */ (function () {
 //# sourceMappingURL=productdetail-multiselection.js.map
 /// <reference path="../core.ts" />
 "use strict";
+var SingleSelectionDropdownOption = /** @class */ (function () {
+    function SingleSelectionDropdownOption(dropdownId, inputId, onChange) {
+        if (dropdownId === void 0) { dropdownId = "dropdown-single"; }
+        if (inputId === void 0) { inputId = "UserSelectedId"; }
+        if (onChange === void 0) { onChange = null; }
+        this.dropdownId = dropdownId;
+        this.inputId = inputId;
+        this.onChange = onChange;
+    }
+    return SingleSelectionDropdownOption;
+}());
+var SingleSelectionDropdownComponent = /** @class */ (function () {
+    function SingleSelectionDropdownComponent($) {
+        var _this = this;
+        this.options = new SingleSelectionDropdownOption();
+        this.render = function (options) {
+            if (options === void 0) { options = new SingleSelectionDropdownOption(); }
+            _this.options = _this.$.extend({}, _this.options, options);
+            var $dropdown = _this.$("#" + _this.options.dropdownId);
+            _this.$dropdown = $dropdown;
+            var $hiddenInput = _this.$("#" + _this.options.inputId);
+            _this.$hiddenInput = $hiddenInput;
+            var self = _this;
+            _this.selectedValue = self.getSelectedItem();
+            _this.$dropdown.multiselect({
+                multiple: false,
+                maxHeight: 300,
+                numberDisplayed: 1,
+                includeSelectAllOption: false,
+                onChange: _this.onchange
+            });
+        };
+        this.getSelectedItem = function () {
+            var selected = [];
+            var selectedOptions = _this.$dropdown.find("option:selected");
+            var this$ = _this.$;
+            selectedOptions.each(function () {
+                selected.push([this$(this).val()]);
+            });
+            return selected.length ? selected[0].toString() : "";
+        };
+        this.updateSelectedValue = function () {
+            _this.$hiddenInput.val(_this.selectedValue);
+        };
+        this.onchange = function () {
+            _this.selectedValue = _this.getSelectedItem();
+            if (_this.options.onChange) {
+                _this.options.onChange();
+            }
+        };
+        this.$ = $;
+    }
+    return SingleSelectionDropdownComponent;
+}());
+//# sourceMappingURL=single-selection-dropdown.js.map
+/// <reference path="../core.ts" />
+"use strict";
 var SortOption = /** @class */ (function () {
     function SortOption(sortContainer, canSort, hasAllDataOnClient, afterSortFunction, headers, reportForm) {
         if (sortContainer === void 0) { sortContainer = null; }
@@ -865,7 +921,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var WinLossView = /** @class */ (function (_super) {
     __extends(WinLossView, _super);
-    function WinLossView($, dateRangePickerComponent, productMultiSelectionComponent, sortComponent, reportTooltip, monthPickerComponent, linkBuilderComponent) {
+    function WinLossView($, dateRangePickerComponent, productMultiSelectionComponent, levelTypeDropdown, sortComponent, reportTooltip, monthPickerComponent, linkBuilderComponent) {
         var _this = _super.call(this, $, linkBuilderComponent) || this;
         _this.isFirstSwitchMode = true;
         _this.isHistoricReport = false;
@@ -898,7 +954,7 @@ var WinLossView = /** @class */ (function (_super) {
             _this.$historicReport = _this.$("#historic-report");
             _this.$filterIcon = _this.$(".icon-filter");
             _this.$excelIcon = _this.$("#icon-excel");
-            _this.$switchModeIcon = _this.$(".icon-switchmode");
+            _this.$switchModeIcon = _this.$(".ic-switchmode");
             _this.$fromDate = _this.$("#from-date");
             _this.$toDate = _this.$("#to-date");
             _this.$isDescendingSort = _this.$("#IsDescendingSort");
@@ -912,6 +968,7 @@ var WinLossView = /** @class */ (function (_super) {
         _this.bindFilter = function () {
             _this.productMultiSelectionComponent.render();
             _this.$multiSelectButton = _this.$("#dropdown-product").parent().find(".multiselect.btn");
+            _this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
             if (_this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
                 && alphaReports.screenSmallThan768()) {
                 _this.setStackMode();
@@ -1104,6 +1161,7 @@ var WinLossView = /** @class */ (function (_super) {
         _this.$ = $;
         _this.dateRangePickerComponent = dateRangePickerComponent;
         _this.productMultiSelectionComponent = productMultiSelectionComponent;
+        _this.levelTypeDropdown = levelTypeDropdown;
         _this.sortComponent = sortComponent;
         _this.reportTooltip = reportTooltip;
         _this.monthPickerComponent = monthPickerComponent;
@@ -1121,7 +1179,7 @@ var WinLossView = /** @class */ (function (_super) {
 }(BaseReport));
 $(function () {
     var linkBuilderComponent = new LinkBuilderComponent($);
-    var winLossView = new WinLossView($, new DateRangePickerComponent($), new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)), new SortComponent($, linkBuilderComponent), new ReportTooltip($), new MonthPickerComponent($), linkBuilderComponent);
+    var winLossView = new WinLossView($, new DateRangePickerComponent($), new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)), new SingleSelectionDropdownComponent($), new SortComponent($, linkBuilderComponent), new ReportTooltip($), new MonthPickerComponent($), linkBuilderComponent);
     winLossView.init();
 });
 //# sourceMappingURL=winloss.js.map

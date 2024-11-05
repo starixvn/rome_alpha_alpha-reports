@@ -46,6 +46,7 @@ class SingleSelectionDropdownComponent {
             onChange: this.onchange
         });
     };
+
     getSelectedItem = () => {
         let selected = [];
         let selectedOptions = this.$dropdown.find("option:selected");
@@ -57,6 +58,7 @@ class SingleSelectionDropdownComponent {
 
         return selected.length ? selected[0].toString() : "";
     };
+
     updateSelectedValue = () => {
         this.$hiddenInput.val(this.selectedValue);
     };

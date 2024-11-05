@@ -12,8 +12,9 @@
             string username,
             decimal memberWinLoss,
             decimal memberComm,
-            decimal memberTotal)
-            : this(0, username, 0, DateTime.MinValue, DateTime.MinValue, memberWinLoss, memberComm, memberTotal, false)
+            decimal memberTotal,
+            bool isDirectMember)
+            : this(0, username, 0, DateTime.MinValue, DateTime.MinValue, memberWinLoss, memberComm, memberTotal, false, isDirectMember)
         {
         }
 
@@ -26,7 +27,8 @@
             decimal memberWinLoss, 
             decimal memberComm, 
             decimal memberTotal, 
-            bool isMultipleMoved)
+            bool isMultipleMoved,
+            bool isDirectMember)
         {
             Username = username;
             CustId = custId;
@@ -37,6 +39,7 @@
             MemberComm = memberComm;
             MemberTotal = memberTotal;
             IsMultipleMoved = isMultipleMoved;
+            IsDirectMember = isDirectMember;
         }
 
         public int CustId { get; set; }
@@ -56,5 +59,7 @@
         public decimal MemberTotal { get; set; }
 
         public bool IsMultipleMoved { get; set; }
+
+        public bool IsDirectMember { get; set; }
     }
 }

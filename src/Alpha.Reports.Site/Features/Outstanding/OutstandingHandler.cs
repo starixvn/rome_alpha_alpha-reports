@@ -44,7 +44,8 @@
                 message.CustLevel,
                 message.CustId,
                 validUserSelectedProductIds.JoinWithComma(),
-                message.AutoFollowBetIsDummyAgent);
+                message.AutoFollowBetIsDummyAgent,
+                message.LevelType);
 
             var outstandings = outstandingService.GetMemberOutstanding(param);
             var products = productService.GetAllOfferedProducts(message.Site, message.CurrencyId, DateTime.Now).Where(p => p.Id != SabaPromotionProductId);

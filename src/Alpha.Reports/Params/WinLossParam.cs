@@ -18,7 +18,8 @@
             IEnumerable<int> userSelectedResourceIds,
             UserLevel reportLevel,
             bool isHistoricReport,
-            string productDetailsXML) : base(fromDate, toDate, limitedDate, isHistoricReport)
+            string productDetailsXML,
+            byte levelType) : base(fromDate, toDate, limitedDate, isHistoricReport)
         {
             CustId = custId;
             ViewerId = viewerId;
@@ -29,6 +30,7 @@
             UserSelectedProductIds = userSelectedProductIds;
             UserSelectedResourceIds = userSelectedResourceIds;
             ProductDetailsXML = productDetailsXML;
+            LevelType = levelType;
         }
 
         public int CustId { get; }
@@ -46,5 +48,7 @@
         public UserLevel ReportLevel { get; }
 
         public string ProductDetailsXML { get; }
+
+        public byte LevelType { get; }
     }
 }

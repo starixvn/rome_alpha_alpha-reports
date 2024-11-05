@@ -31,7 +31,7 @@
         public void GetData_NullCriteria_ThrowsArgumentNullException()
         {
             // Arrange
-            WinLossDetailCriteria nullCriteria = null;
+            WinLossDetailMemberCriteria nullCriteria = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossDetailDataAccessImpl.GetData(nullCriteria));
@@ -41,7 +41,7 @@
         public void GetData_MasterWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossDetailCriteria = new WinLossDetailCriteria(
+            var winLossDetailCriteria = new WinLossDetailMemberCriteria(
                 1,
                 1,
                 0,
@@ -60,12 +60,12 @@
                 new List<WinLossDetailEntity> { },
                 new List<WinLossDetailEntity> { }
             );
-            repository.FetchMultiple<WinLossDetailEntity, WinLossDetailEntity>(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+            repository.FetchMultiple<WinLossDetailEntity, WinLossDetailEntity>(Arg.Any<WinLossDetailMemberCriteria>()).Returns(dataSet);
 
             var winLossDetails = new List<WinLossDetailModel>
             {
-                new WinLossDetailModel(1, "Master1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), new NetWinLoss(9, 10), 0, string.Empty),
-                new WinLossDetailModel(11, "Master2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), new NetWinLoss(19, 110), 0, string.Empty)
+                new WinLossDetailModel(1, "Master1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), new NetWinLoss(9, 10), 0, string.Empty, false),
+                new WinLossDetailModel(11, "Master2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), new NetWinLoss(19, 110), 0, string.Empty, false)
             };
 
             var expectedData = new PagedReportData<WinLossDetailModel>(
@@ -73,7 +73,7 @@
                 1,
                 0,
                 0,
-                new WinLossDetailModel(0, "Total", null, null, false, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), new NetWinLoss(29, 210), 0, string.Empty));
+                new WinLossDetailModel(0, "Total", null, null, false, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), new NetWinLoss(29, 210), 0, string.Empty, false));
 
             // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
@@ -86,7 +86,7 @@
         public void GetData_AgentWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossDetailCriteria = new WinLossDetailCriteria(
+            var winLossDetailCriteria = new WinLossDetailMemberCriteria(
                 1,
                 1,
                 0,
@@ -105,12 +105,12 @@
                 new List<WinLossDetailEntity> { },
                 new List<WinLossDetailEntity> { }
             );
-            repository.FetchMultiple<WinLossDetailEntity, WinLossDetailEntity>(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+            repository.FetchMultiple<WinLossDetailEntity, WinLossDetailEntity>(Arg.Any<WinLossDetailMemberCriteria>()).Returns(dataSet);
 
             var winLossDetails = new List<WinLossDetailModel>()
             {
-                new WinLossDetailModel(1, "Agent1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), null, 0, string.Empty),
-                new WinLossDetailModel(11, "Agent2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), null, 0, string.Empty)
+                new WinLossDetailModel(1, "Agent1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), null, 0, string.Empty, false),
+                new WinLossDetailModel(11, "Agent2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), null, 0, string.Empty, false)
             };
 
             var expectedData = new PagedReportData<WinLossDetailModel>(
@@ -118,7 +118,7 @@
                 1,
                 0,
                 0,
-                new WinLossDetailModel(0, "Total", null, null, false, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), null, 0, string.Empty));
+                new WinLossDetailModel(0, "Total", null, null, false, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), null, 0, string.Empty, false));
 
             // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
@@ -131,7 +131,7 @@
         public void GetData_MemberWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossDetailCriteria = new WinLossDetailCriteria(
+            var winLossDetailCriteria = new WinLossDetailMemberCriteria(
                 1,
                 1,
                 0,
@@ -150,12 +150,12 @@
                 new List<WinLossDetailEntity> { },
                 new List<WinLossDetailEntity> { }
             );
-            repository.FetchMultiple<WinLossDetailEntity, WinLossDetailEntity>(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+            repository.FetchMultiple<WinLossDetailEntity, WinLossDetailEntity>(Arg.Any<WinLossDetailMemberCriteria>()).Returns(dataSet);
 
             var winLossDetails = new List<WinLossDetailModel>()
             {
-                new WinLossDetailModel(1, "Member1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), null, null, 0, string.Empty),
-                new WinLossDetailModel(11, "Member2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), null, null, 0, string.Empty)
+                new WinLossDetailModel(1, "Member1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), null, null, 0, string.Empty, false),
+                new WinLossDetailModel(11, "Member2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), null, null, 0, string.Empty, false)
             };
 
             var expectedData = new PagedReportData<WinLossDetailModel>(
@@ -163,7 +163,7 @@
                 1,
                 0,
                 0,
-                new WinLossDetailModel(0, "Total", null, null, false, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), null, null, 0, string.Empty));
+                new WinLossDetailModel(0, "Total", null, null, false, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), null, null, 0, string.Empty, false));
 
             // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
@@ -176,7 +176,7 @@
         public void GetData_NullDataReturnFromDb_ReturnsDefaultData()
         {
             // Arrange
-            var winLossDetailCriteria = new WinLossDetailCriteria(
+            var winLossDetailCriteria = new WinLossDetailMemberCriteria(
                 0,
                 0,
                 0,
@@ -195,7 +195,7 @@
                 new List<WinLossDetailEntity> { },
                 new List<WinLossDetailEntity> { }
             );
-            repository.FetchMultiple<WinLossDetailEntity, WinLossDetailEntity>(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+            repository.FetchMultiple<WinLossDetailEntity, WinLossDetailEntity>(Arg.Any<WinLossDetailMemberCriteria>()).Returns(dataSet);
 
             var expectedData = new PagedReportData<WinLossDetailModel>(
                 new List<WinLossDetailModel>(),
@@ -215,7 +215,7 @@
         public void GetData_MasterWinLossReportHasDataWinNoTotalTable_ReturnsDataFromObjectDbAndDefaultTotal()
         {
             // Arrange
-            var winLossDetailCriteria = new WinLossDetailCriteria(
+            var winLossDetailCriteria = new WinLossDetailMemberCriteria(
                 1,
                 1,
                 0,
@@ -234,12 +234,12 @@
                 new List<WinLossDetailEntity> { },
                 new List<WinLossDetailEntity> { }
             );
-            repository.FetchMultiple<WinLossDetailEntity, WinLossDetailEntity>(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+            repository.FetchMultiple<WinLossDetailEntity, WinLossDetailEntity>(Arg.Any<WinLossDetailMemberCriteria>()).Returns(dataSet);
 
             var winLossDetails = new List<WinLossDetailModel>()
             {
-                new WinLossDetailModel(1, "Master1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), new NetWinLoss(9, 10), 0, string.Empty),
-                new WinLossDetailModel(11, "Master2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), new NetWinLoss(19, 110), 0, string.Empty)
+                new WinLossDetailModel(1, "Master1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), new NetWinLoss(9, 10), 0, string.Empty, false),
+                new WinLossDetailModel(11, "Master2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), new NetWinLoss(19, 110), 0, string.Empty, false)
             };
 
             var expectedData = new PagedReportData<WinLossDetailModel>(

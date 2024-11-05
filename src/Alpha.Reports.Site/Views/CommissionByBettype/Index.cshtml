@@ -3,9 +3,12 @@
 @model CommissionByBettypeViewModel
 @{
     ViewBag.Title = "Commission By Bet Type Report";
-    var sortIndex = 4;
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    var colindex = 0;
 }
-
+@section Styles {
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/commissionbybettype")
+}
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.CommissionByBettypeFilter.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
 @Html.Partial("_CommissionByBettypeFilter", Model.CommissionByBettypeFilter,
@@ -15,17 +18,21 @@
         { "SortPropertyName", Model.SortPropertyName }
     })
 
-<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter tbl-small-width" id="tbl-report"
+<table class="tb tb-bordered tablesorter tb-hover w-60p" id="tbl-report"
        data-totalrecords="@Model.CommissionByBettypes.Count()"
        data-sortedcolumn="@Model.SortPropertyName"
        data-descendingsort="@Model.IsDescendingSort">
     <thead class="tableFloatingHeaderOriginal">
         <tr>
-            <th class="sorting" data-colindex="0" data-sortedname="@CommissionByBettypeViewModel.SortByCustName">@Resources.Username</th>
-            <th class="sorting" data-colindex="1" data-sortedname="@CommissionByBettypeViewModel.SortByComm1">@Resources.Commission1</th>
-            <th class="sorting" data-colindex="2" data-sortedname="@CommissionByBettypeViewModel.SortByComm2">@Resources.Commission2</th>
-            <th class="sorting" data-colindex="3" data-sortedname="@CommissionByBettypeViewModel.SortByComm3">@Resources.Commission3</th>
-            <th class="sorting" data-colindex="@sortIndex" data-sortedname="@CommissionByBettypeViewModel.SortByCasinoComm">@Resources.Gaming</th>
+            <th class="sorting" data-colindex="@(colindex++)" data-sortedname="@CommissionByBettypeViewModel.SortByCustName">@Resources.Username</th>
+            @if (Model.ShowLevelType)
+            {
+                <th class="sorting" data-colindex="@(colindex++)" data-sortedname="@CommissionByBettypeViewModel.SortByIsDirectMember">@Resources.Level</th>
+            }
+            <th class="sorting" data-colindex="@(colindex++)" data-sortedname="@CommissionByBettypeViewModel.SortByComm1">@Resources.Commission1</th>
+            <th class="sorting" data-colindex="@(colindex++)" data-sortedname="@CommissionByBettypeViewModel.SortByComm2">@Resources.Commission2</th>
+            <th class="sorting" data-colindex="@(colindex++)" data-sortedname="@CommissionByBettypeViewModel.SortByComm3">@Resources.Commission3</th>
+            <th class="sorting" data-colindex="@(colindex++)" data-sortedname="@CommissionByBettypeViewModel.SortByCasinoComm">@Resources.Gaming</th>
         </tr>
     </thead>
     @if (Model.CommissionByBettypes.Any())
@@ -34,7 +41,7 @@
             @foreach (var commission in Model.CommissionByBettypes.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 <tr>
-                    @if (Model.CustLevel.IsAgentLevel())
+                    @if (commission.IsDirectMember || Model.CustLevel.IsAgentLevel())
                     {
                         <td class="text-left">
                             @commission.CustName
@@ -46,6 +53,10 @@
                             <a class="downline-link" href="@Model.BuildDrillDownLink(commission, Request.Url.Query)">@commission.CustName</a>
                         </td>
                     }
+                    @if (Model.ShowLevelType)
+                    {
+                        <td class="text-center">@(commission.IsDirectMember ? Resources.DirectMember : Model.LevelTypeValue)</td>
+                    }
                     @RenderCellValue(commission)
                 </tr>
             }
@@ -53,6 +64,10 @@
         <tfoot>
             <tr class="tbl-footer">
                 <td class="text-left">@Resources.Total</td>
+                @if (Model.ShowLevelType)
+                {
+                    <td></td>
+                }
                 @RenderCellValue(Model.Total)
             </tr>
         </tfoot>
@@ -74,10 +89,10 @@
 
 @helper RenderCellValue(CommissionByBettypeModel commission)
 {
-    <td>@HtmlHelpers.FormatNumber(commission.Comm1)</td>
-    <td>@HtmlHelpers.FormatNumber(commission.Comm2)</td>
-    <td>@HtmlHelpers.FormatNumber(commission.Comm3)</td>
-    <td>@HtmlHelpers.FormatNumber(commission.CasinoComm)</td>
+    <td class="text-right">@HtmlHelpers.FormatNumber(commission.Comm1)</td>
+    <td class="text-right">@HtmlHelpers.FormatNumber(commission.Comm2)</td>
+    <td class="text-right">@HtmlHelpers.FormatNumber(commission.Comm3)</td>
+    <td class="text-right">@HtmlHelpers.FormatNumber(commission.CasinoComm)</td>
 }
 
 @section Scripts {

@@ -44,7 +44,7 @@ var SuperWinLossDetailByPTView = /** @class */ (function (_super) {
             _this.$userSelectedDateRangeOption = _this.$("#UserSelectedDateRangeOption");
             _this.$filterIcon = _this.$(".icon-filter");
             _this.$excelIcon = _this.$("#icon-excel");
-            _this.$switchModeIcon = _this.$(".icon-switchmode");
+            _this.$switchModeIcon = _this.$(".ic-switchmode");
             _this.$fromDate = _this.$("#from-date");
             _this.$toDate = _this.$("#to-date");
             _this.$isSetDefaultStackMode = _this.$("#IsSetDefaultStackMode");
@@ -129,12 +129,12 @@ var SuperWinLossDetailByPTView = /** @class */ (function (_super) {
             var ptProductRows = _this.$(".pt-product-row[data-pt-value=\"" + ptValue + "\"]");
             if (isHide) {
                 columnUsername.addClass("active");
-                columnUsername.find(".icon-arrow-right").removeClass("icon-arrow-right").addClass("icon-arrow-down");
+                columnUsername.find(".ic-arrow-right").removeClass("ic-arrow-right").addClass("ic-arrow-down");
                 ptProductRows.removeClass("hide");
             }
             else {
                 columnUsername.removeClass("active");
-                columnUsername.find(".icon-arrow-down").removeClass("icon-arrow-down").addClass("icon-arrow-right");
+                columnUsername.find(".ic-arrow-down").removeClass("ic-arrow-down").addClass("ic-arrow-right");
                 ptProductRows.addClass("hide");
             }
             ptRow.data("is-hide", !isHide);

@@ -82,7 +82,7 @@ class WinLossAnalysisView extends BaseReport{
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$filterIcon = this.$(".icon-filter");
         this.$excelIcon = this.$("#icon-excel");
-        this.$switchModeIcon = this.$(".icon-switchmode");
+        this.$switchModeIcon = this.$(".ic-switchmode");
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
         this.$toDate = this.$("#to-date");

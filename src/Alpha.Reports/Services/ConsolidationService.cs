@@ -3,12 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Criteria.WinLossDetail;
     using Alpha.Reports.DataAccesses;
     using Alpha.Reports.Extensions;
+    using Alpha.Reports.Helpers;
     using Alpha.Reports.Models.WinLossDetail;
     using Alpha.Reports.Params;
+    using AlphaPlus.PartialUM.Services;
     using Constants;
     using Criteria.Consolidation;
     using Fanex.Caching;
@@ -16,8 +17,6 @@
     using Models;
     using Models.Consolidation;
     using Params.Consolidation;
-    using Alpha.Reports.Configurations;
-    using Alpha.Reports.Helpers;
 
     public interface ConsolidationService
     {
@@ -193,25 +192,68 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
+            return winLossDetailDataAccess.GetData(GetWinLossDetailCriteria(param));
+        }
+
+        private WinLossDetailMemberCriteria GetWinLossDetailCriteria(WinLossDetailParam param)
+        {
+            var fromDate = param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo);
+            var reportDate = reportDateService.GetBalanceUpDayAndMoveBetsDay();
+            var validUserSelectedProductIds = param.UserSelectedProductIds.JoinWithComma();
             var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
-            var criteria = new WinLossDetailCriteria(
+
+            if (param.ReportLevel.IsAgentLevel())
+            {
+                return new WinLossDetailMemberCriteria(
+                    param.CustId,
+                    param.PageIndex,
+                    param.PageSize,
+                    fromDate,
+                    param.ToDate,
+                    reportDate.BalanceUpDay,
+                    reportDate.MoveBetsDay,
+                    validUserSelectedProductIds,
+                    param.ReportLevel,
+                    param.ProductDetailsXML,
+                    param.Username,
+                    param.IsReward,
+                    subfix);
+            }
+
+            if (param.ReportLevel.IsMasterLevel())
+            {
+                return new WinLossDetailAgentCriteria(
+                    param.CustId,
+                    param.PageIndex,
+                    param.PageSize,
+                    fromDate,
+                    param.ToDate,
+                    reportDate.BalanceUpDay,
+                    reportDate.MoveBetsDay,
+                    validUserSelectedProductIds,
+                    param.ReportLevel,
+                    param.ProductDetailsXML,
+                    param.Username,
+                    param.IsReward,
+                    subfix,
+                    param.LevelType);
+            }
+
+            return new WinLossDetailMasterCriteria(
                 param.CustId,
                 param.PageIndex,
                 param.PageSize,
-                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                fromDate,
                 param.ToDate,
-                reportDateService.GetBalanceUpDay(),
-                reportDateService.GetMoveBetsDay(),
-                param.UserSelectedProductIds == null ? string.Empty : param.UserSelectedProductIds.JoinWithComma(),
+                reportDate.BalanceUpDay,
+                reportDate.MoveBetsDay,
+                validUserSelectedProductIds,
                 param.ReportLevel,
                 param.ProductDetailsXML,
                 param.Username,
                 param.IsReward,
-                subfix);
-
-            var winLossDetailData = winLossDetailDataAccess.GetData(criteria);
-
-            return winLossDetailData;
+                subfix,
+                param.LevelType);
         }
 
         public IEnumerable<int> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, DateTime minReportDate, string site)

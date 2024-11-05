@@ -55,7 +55,8 @@
                  validUserSelectedResourceIds,
                  message.CustLevel,
                  message.IsHistoricReport,
-                 productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds));
+                 productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds),
+                 message.LevelType);
         }
 
         internal WinLossModel AccumulateGrandTotal(IEnumerable<WinLossModel> reportData)

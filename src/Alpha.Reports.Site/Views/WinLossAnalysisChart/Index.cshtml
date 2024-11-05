@@ -4,8 +4,12 @@
 
 @{
     ViewBag.Title = "Win Loss Analysis Chart Report";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
-
+@section Styles {
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/winlossanalysischart")
+    @StaticResources.RenderStyles("~/assets/bundles-v2/winlossanalysischart")
+}
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty), Request.Url.Query)
 
 <form class="form-inline filter @(Model.FilterViewModel.Visible ? string.Empty : "hide")" role="form" id="report-form">
@@ -32,43 +36,43 @@
 
     @RenderHiddenFields()
 </form>
-<div class="container-fluid">
-    <div class="row report-content">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 pull-right">
-            <div class="chart-container">
-                @DualAxisChart.Render(Model.DualAxisChartViewModel)
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 pull-left table-container">
-            <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover" id="tbl-report">
-                <thead>
-                    <tr>
-                        <th>@Resources.Month</th>
-                        <th>@Model.DualAxisChartViewModel.FirstDataLabel</th>
-                        <th>@Model.DualAxisChartViewModel.SecondDataLabel</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model.ReportData.Any())
-                    {
-                        foreach (var data in Model.ReportData)
-                        {
-                            <tr>
-                                <td>@data.WinLossDate.ToShortMonthNameAndYear()</td>
-                                <td>@data.WinLoss.ToString($"#,##0.00")</td>
-                                <td>@data.Turnover.ToString($"#,##0.00")</td>
-                            </tr>
-                        }
-                    }
-                    else
-                    {
-                        @NoInformation.Render(3)
-                    }
-                </tbody>
-            </table>
+
+<div class="report-content">
+    <div class="col-chart">
+        <div class="chart-container">
+            @DualAxisChart.Render(Model.DualAxisChartViewModel)
         </div>
     </div>
+    <div class="col-table">
+        <table class="tb tb-bordered tb-hover" id="tbl-report">
+            <thead>
+                <tr>
+                    <th>@Resources.Month</th>
+                    <th>@Model.DualAxisChartViewModel.FirstDataLabel</th>
+                    <th>@Model.DualAxisChartViewModel.SecondDataLabel</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.ReportData.Any())
+                {
+                    foreach (var data in Model.ReportData)
+                    {
+                        <tr>
+                            <td>@data.WinLossDate.ToShortMonthNameAndYear()</td>
+                            <td>@data.WinLoss.ToString($"#,##0.00")</td>
+                            <td>@data.Turnover.ToString($"#,##0.00")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    @NoInformation.Render(3)
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+
 
 @Html.Hidden("LoadLegendURL", Url.Action("Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}ReportLegend", new { MinDate = Model.MinDate }))
 <input type="hidden" value="@(Model.IsDarkMode ? "1" : "0")" id="hidden-isDarkMode" />

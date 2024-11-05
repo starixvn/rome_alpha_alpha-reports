@@ -543,6 +543,52 @@
     <Content Include="App_Data\SPNames\Internal2\DBTXN.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Themes\error2-dark.png" />
     <Content Include="App_Themes\error2.png" />
+    <Content Include="assets\bundles-v2\consolidation.css" />
+    <Content Include="assets\bundles-v2\consolidation.min.css">
+      <DependentUpon>consolidation.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles-v2\superwinlossdetailbypt.css" />
+    <Content Include="assets\bundles-v2\superwinlossdetailbypt.min.css">
+      <DependentUpon>superwinlossdetailbypt.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles-v2\winlossanalysischart.css" />
+    <Content Include="assets\bundles-v2\winlossanalysischart.min.css">
+      <DependentUpon>winlossanalysischart.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles-v2\winlossbyproduct.css" />
+    <Content Include="assets\bundles-v2\winlossbyproduct.min.css">
+      <DependentUpon>winlossbyproduct.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles-v2\winlossdetailnew.css" />
+    <Content Include="assets\bundles-v2\winlossdetailnew.min.css">
+      <DependentUpon>winlossdetailnew.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles-v2\consolidation.css">
+      <DependentUpon>consolidation.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles-v2\consolidation.min.css">
+      <DependentUpon>consolidation.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles-v2\superwinlossdetailbypt.css">
+      <DependentUpon>superwinlossdetailbypt.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles-v2\superwinlossdetailbypt.min.css">
+      <DependentUpon>superwinlossdetailbypt.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles-v2\winlossanalysischart.css" />
+    <Content Include="assets\styles-v2\winlossanalysischart.min.css" />
+    <Content Include="assets\styles-v2\winlossbyproduct.css">
+      <DependentUpon>winlossbyproduct.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles-v2\winlossbyproduct.min.css">
+      <DependentUpon>winlossbyproduct.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles-v2\winlossdetailnew.css" />
+    <Content Include="assets\styles-v2\winlossdetailnew.min.css" />
+    <Content Include="Features\EnteredResult\bundles-v2\enteredresult.css" />
+    <Content Include="Features\EnteredResult\bundles-v2\enteredresult.min.css">
+      <DependentUpon>enteredresult.css</DependentUpon>
+    </Content>
     <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.min.css">
       <DependentUpon>enteredresult-dark.css</DependentUpon>
@@ -599,12 +645,18 @@
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
     <Content Include="App_Code\Components\BreadcrumbNew.cshtml" />
+    <Content Include="App_Code\Components\LevelTypeDropdown.cshtml" />
+    <Content Include="assets\styles-v2\winlossdetailnew.scss" />
+    <Content Include="assets\styles-v2\winlossanalysischart.scss" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master2.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master2FullName.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent2.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent2FullName.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member2.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member2FullName.xls" />
+    <Content Include="assets\styles-v2\consolidation.scss" />
+    <Content Include="assets\styles-v2\superwinlossdetailbypt.scss" />
+    <Content Include="assets\styles-v2\winlossbyproduct.scss" />
     <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\DailyWinLossAgent.xls" />
     <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\DailyWinLossMaster.xls" />
     <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\DailyWinLossMember.xls" />
@@ -625,6 +677,20 @@
     </Content>
     <Content Include="Features\EnteredResult\Styles\enteredresult.min.css">
       <DependentUpon>enteredresult.css</DependentUpon>
+    </Content>
+    <Content Include="Features\Outstanding\bundles-v2\outstanding.css" />
+    <Content Include="Features\Outstanding\bundles-v2\outstanding.min.css">
+      <DependentUpon>outstanding.css</DependentUpon>
+    </Content>
+    <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.css" />
+    <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.min.css">
+      <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
+    </Content>
+    <Content Include="Features\Outstanding\Styles\outstanding.css">
+      <DependentUpon>outstanding.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\Outstanding\Styles\outstanding.min.css">
+      <DependentUpon>outstanding.css</DependentUpon>
     </Content>
     <Content Include="Features\Shared\Styles\report-legend-dark.css">
       <DependentUpon>report-legend-dark.scss</DependentUpon>
@@ -1709,10 +1775,6 @@
     <Content Include="Features\EnteredResult\Styles\enteredresult-mobile-calculate-07.min.css">
       <DependentUpon>enteredresult-mobile-calculate-07.css</DependentUpon>
     </Content>
-    <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.css" />
-    <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.min.css">
-      <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
-    </Content>
     <Content Include="Features\Outstanding\Bundles\outstanding-new.js" />
     <Content Include="Features\Outstanding\Bundles\outstanding-new.min.js">
       <DependentUpon>outstanding-new.js</DependentUpon>
@@ -1776,12 +1838,6 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.css">
-      <DependentUpon>outstanding-mobile-calculate-07.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.min.css">
-      <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
-    </Content>
     <Content Include="Features\Shared\Styles\datepicker-mobile-07.css">
       <DependentUpon>datepicker-mobile-07.scss</DependentUpon>
     </Content>
@@ -1979,7 +2035,7 @@
     <Content Include="Features\Outstanding\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.scss" />
+    <Content Include="Features\Outstanding\Styles\outstanding.scss" />
     <Content Include="Features\Outstanding\Views\IndexNew.cshtml" />
     <Content Include="App_Code\Components\ProductDetailMultiSelection.cshtml" />
     <Content Include="Features\WinLoss\Styles\winloss.scss" />
@@ -2161,6 +2217,7 @@
     <Content Include="Web.AppSettings.uat_4.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
+    <Content Include="Views\Shared\_Layout2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -39,5 +39,7 @@
         public decimal? RewardAmount { get; set; }
 
         public string RewardCurrency { get; set; }
+
+        public bool IsDirectMember { get; set; }
     }
 }

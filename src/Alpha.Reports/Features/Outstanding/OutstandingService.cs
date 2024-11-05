@@ -3,10 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Features.AutoFollowBets;
     using Alpha.Reports.Features.AutoFollowBets.Models;
-    using Alpha.Reports.Models;
+    using AlphaPlus.PartialUM.Services;
     using Criteria.Outstanding;
     using Fanex.Data.Repository;
     using Models.Outstanding;
@@ -35,12 +34,7 @@
 
         public IEnumerable<OutstandingModel> GetMemberOutstanding(OutstandingParam param)
         {
-            if (param.CustId <= 0 || param.CustLevel.IsUplineOf(param.UserLevel))
-            {
-                return Enumerable.Empty<OutstandingModel>();
-            }
-
-            var criteria = new OutstandingCriteria(param.CustLevel, param.CustId, param.ProductIds);
+            var criteria = GetOutstandingCriteria(param);
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             return param.AutoFollowBetIsDummyAgent
@@ -70,8 +64,7 @@
         {
             var agentId = followBetAccount.Item1;
             var followBetAccountEntitys = followBetAccount.Item2;
-            var outstandingModels = repository.Fetch<OutstandingModel>
-                (new OutstandingCriteria(UserLevel.Agent, agentId, productIds));
+            var outstandingModels = repository.Fetch<OutstandingModel>(new OutstandingMemberCriteria(agentId, productIds));
 
             return outstandingModels.Join(
                 followBetAccountEntitys,
@@ -82,6 +75,21 @@
                     outstanding.CustName = account.DummyUsername;
                     return outstanding;
                 });
+        }
+
+        private static ICriteria GetOutstandingCriteria(OutstandingParam param)
+        {
+            if (param.CustLevel.IsAgentLevel())
+            {
+                return new OutstandingMemberCriteria(param.CustId, param.ProductIds);
+            }
+
+            if (param.CustLevel.IsMasterLevel())
+            {
+                return new OutstandingAgentCriteria(param.CustId, param.ProductIds, param.LevelType);
+            }
+
+            return new OutstandingMasterCriteria(param.CustId, param.ProductIds, param.LevelType);
         }
     }
 }

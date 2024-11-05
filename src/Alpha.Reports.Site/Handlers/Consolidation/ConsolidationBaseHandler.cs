@@ -130,7 +130,7 @@
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
                 FromDate = message.FromDate,
                 ToDate = message.ToDate,
-
+                LevelType = message.LevelType,
                 CustId = message.CustId,
                 CustName = message.CustName,
                 CustLevelId = message.CustLevelId,
@@ -162,6 +162,7 @@
                 query.IsHistoricReport,
                 productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds),
                 username: null,
+                levelType: query.LevelType,
                 isReward: false);
         }
 

@@ -1,6 +1,6 @@
 ﻿@using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewBag.Title = Resources.MoveStatementHistory;
 
     var userguideLink = Model.GetUserGuideLink(Session.IsCookieless, Request.Headers["Host"], Session.SessionID);
@@ -8,13 +8,13 @@
 
 @model MoveStatementHistoryViewModel
 @section Styles {
-    @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
-    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/BetCreditTracking/Bundles/movestatementhistory")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/betcredittracking")
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/BetCreditTracking/Bundles/movestatementhistory")
 }
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/BetCreditTracking/Bundles/movestatementhistory")
 }
-<div class="page-title tabs @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
+<div class="page-title tabs agent @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation">
             @Html.ActionLink(@Resources.BetCreditHistory, "Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}BetCreditHistory")
@@ -22,7 +22,7 @@
         <li role="presentation" class="active">
             <a href="#moveStatementHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.MoveStatementHistory</a>
         </li>
-        <li><a href="@userguideLink" target="_blank"><span class="icon icon-information-outline"></span></a></li>
+        <li><a href="@userguideLink" target="_blank"><span class="ic-information"></span></a></li>
     </ul>
 
     <div class="list-icon">
@@ -107,7 +107,7 @@
             }
             @if (Model.Data != null && Model.ErrMsg == string.Empty)
             {
-                <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-small-width">
+                <table id="tbl-report" class="tb tb-bordered tb-hover text-right">
                     <thead>
                         <tr>
                             <th>@Resources.MemberRefNo</th>
@@ -131,8 +131,7 @@
         </div>
     </div>
 </div>
-@Pager.Render(Model.PagerViewModel)
-
+@Pager.Render(Model.PagerViewModel) 
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MoveStatementHistory")">
     @Html.Hidden("Username", Model.Username)
@@ -147,7 +146,15 @@
     foreach (var member in dataSource)
     {
         <tr class="member-row">
-            <td class="text-left"> @member.MemberRow.Username</td>
+            <td class="text-left">
+                <div class="text-icon">
+                    @member.MemberRow.Username
+                    @if (member.MemberRow.IsDirectMember)
+                    {
+                        <span class="ic-directmember" title="@Resources.DirectMember"></span>
+                    }
+                </div>
+            </td>
             <td></td>
             <td></td>
             <td>@HtmlHelpers.FormatNumber(member.MemberRow.MemberWinLoss)</td>

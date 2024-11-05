@@ -901,10 +901,10 @@
     <value>In Member's view: the commission (without PT) that Agent can receive from upline on each Member.</value>
   </data>
   <data name="GrossCommNoteForAgent" xml:space="preserve">
-    <value>In Agent's view: the commission (without PT) that Master can receive from upline on each Agent.</value>
+    <value>In Agent's view: the commission (without PT) that Master can receive from upline on each Agent, Master Direct Member.</value>
   </data>
   <data name="GrossCommNoteForMaster" xml:space="preserve">
-    <value>In Master's view: the commission (without PT) that Super can receive from upline on each Master.</value>
+    <value>In Master's view: the commission (without PT) that Super can receive from upline on each Master, Super Direct Member.</value>
   </data>
   <data name="GrossCommNoteForConsolidationReportAgent" xml:space="preserve">
     <value>Viewing at Agent level: the commission (without PT) that Agent can receive from upline.</value>
@@ -1232,6 +1232,21 @@
   </data>
   <data name="Reward" xml:space="preserve">
     <value>Reward</value>
+  </data>
+  <data name="DirectMember" xml:space="preserve">
+    <value>Direct Member</value>
+  </data>
+  <data name="MasterAgent" xml:space="preserve">
+    <value>Master Agent</value>
+  </data>
+  <data name="AllLevels" xml:space="preserve">
+    <value>All Levels</value>
+  </data>
+  <data name="DownlineTotal" xml:space="preserve">
+    <value>Downline Total</value>
+  </data>
+  <data name="Guidelines_TransferAmt_DirectMember" xml:space="preserve">
+    <value>total transfer amount between Direct Upline and Member. Click to view Transfer Details.</value>
   </data>
   <data name="TotalFee" xml:space="preserve">
     <value>Total Fee</value>

@@ -16,7 +16,7 @@
         {
             // Arrange
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var criteria = new OutstandingCriteria(custLevel, 0, null);
+            var criteria = new OutstandingMemberCriteria(0, null);
 
             // Act
             var actualSettingKey = criteria.GetSettingKey();
@@ -33,7 +33,7 @@
         {
             // Arrange
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var criteria = new OutstandingCriteria(custLevel, 0, null);
+            var criteria = new OutstandingMemberCriteria(0, null);
 
             // Act
             var isValid = criteria.IsValid();
@@ -46,7 +46,7 @@
         public void Create_Always_SetsCorrectInitialValues()
         {
             // Act
-            var criteria = new OutstandingCriteria(UserLevel.Agent, 1, "1,2");
+            var criteria = new OutstandingMemberCriteria(1, "1,2");
 
             // Assert
             Assert.True(criteria.CustId == 1 && criteria.ProductIds == "1,2");

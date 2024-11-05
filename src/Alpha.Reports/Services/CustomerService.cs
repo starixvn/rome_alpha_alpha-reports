@@ -47,34 +47,52 @@
 
             if (custLevel.IsAgentLevel())
             {
-                return new CustInfo(customerLevel.MasterId, customerLevel.MasterName, UserLevel.Master.Value);
+                return new CustInfo(customerLevel.MasterId.Value, customerLevel.MasterName, UserLevel.Master.Value);
             }
 
-            return new CustInfo(customerLevel.AgentId.Value, customerLevel.AgentName, UserLevel.Agent.Value);
+            if (customerLevel.AgentId.HasValue)
+            {
+                return new CustInfo(customerLevel.AgentId.Value, customerLevel.AgentName, UserLevel.Agent.Value);
+            }
+
+            if (customerLevel.MasterId.HasValue)
+            {
+                return new CustInfo(customerLevel.MasterId.Value, customerLevel.MasterName, UserLevel.Master.Value);
+            }
+
+            return new CustInfo(customerLevel.SuperId, customerLevel.SuperName, UserLevel.Super.Value);
         }
 
         public IEnumerable<CustInfo> GetCustInfoList(CustomerLevel customerLevel, UserLevel viewerLevel)
         {
+            if (viewerLevel.IsAgentLevel())
+            {
+                return Enumerable.Empty<CustInfo>();
+            }
+
+            var custInfoList = new List<CustInfo>();
             var custLevel = Enumeration.FromValue<UserLevel>(customerLevel.RoleId);
 
-            if (viewerLevel.IsSuperLevel())
+            if (viewerLevel.IsMasterLevel())
             {
-                yield return new CustInfo(customerLevel.SuperId, customerLevel.SuperName, UserLevel.Super.Value);
+                custInfoList.Add(new CustInfo(customerLevel.MasterId.Value, customerLevel.MasterName, UserLevel.Master.Value));
+            }
+            else if (viewerLevel.IsSuperLevel())
+            {
+                custInfoList.Add(new CustInfo(customerLevel.SuperId, customerLevel.SuperName, UserLevel.Super.Value));
 
-                if (custLevel.IsMemberOrAgentLevel())
+                if (custLevel.IsMemberOrAgentLevel() && customerLevel.MasterId.HasValue)
                 {
-                    yield return new CustInfo(customerLevel.MasterId, customerLevel.MasterName, UserLevel.Master.Value);
+                    custInfoList.Add(new CustInfo(customerLevel.MasterId.Value, customerLevel.MasterName, UserLevel.Master.Value));
                 }
             }
-            else if (viewerLevel.IsMasterLevel())
+
+            if (custLevel.IsMemberLevel() && customerLevel.AgentId.HasValue)
             {
-                yield return new CustInfo(customerLevel.MasterId, customerLevel.MasterName, UserLevel.Master.Value);
+                custInfoList.Add(new CustInfo(customerLevel.AgentId.Value, customerLevel.AgentName, UserLevel.Agent.Value));
             }
 
-            if (custLevel.IsMemberLevel() && customerLevel.AgentId.HasValue && !string.IsNullOrWhiteSpace(customerLevel.AgentName))
-            {
-                yield return new CustInfo(customerLevel.AgentId.Value, customerLevel.AgentName, UserLevel.Agent.Value);
-            }
+            return custInfoList;
         }
 
         public void UpdateUserSearch(int userId, string search, string firstName, string lastName, string nickname)

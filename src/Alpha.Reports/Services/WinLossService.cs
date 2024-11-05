@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using AlphaPlus.PartialUM.Services;
     using Alpha.Reports.Utils;
+    using AlphaPlus.PartialUM.Services;
     using Criteria.WinLoss;
     using DataAccesses;
     using Extensions;
@@ -34,7 +34,6 @@
         private const string EnteredResultsCacheKey = "Alpha.Reports.Services.Impl.WinLossServiceImpl.EnteredResults";
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
-        private readonly ProductDetailService productDetailService;
         private readonly WinLossDataAccess dataAccess;
         private readonly IDynamicRepository dynamicRepository;
         private readonly CacheRefService cacheRefService;
@@ -44,7 +43,6 @@
         public WinLossServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
-            ProductDetailService productDetailService,
             WinLossDataAccess dataAccess,
             IDynamicRepository dynamicRepository,
             CacheRefService cacheRefService,
@@ -55,7 +53,6 @@
             this.cacheService = cacheService;
             this.reportDateService = reportDateService;
             this.productService = productService;
-            this.productDetailService = productDetailService;
             this.dataAccess = dataAccess;
             this.cacheRefService = cacheRefService;
             this.partialUMService = partialUMService;
@@ -81,21 +78,50 @@
 
             var validUserSelectedProductIds =
                 productService.FilterProductIds(param.Site, param.CurrencyId, param.UserSelectedProductIds);
-            var criteria = new WinLossCriteria(
-                param.CustId,
-                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
-                param.ToDate,
-                reportDateService.GetBalanceUpDay(),
-                reportDateService.GetMoveBetsDay(),
-                validUserSelectedProductIds == null ? string.Empty : validUserSelectedProductIds.JoinWithComma(),
-                param.ReportLevel,
-                param.ProductDetailsXML);
-
+            var criteria = GetWinLossCriteria(
+                param,
+                validUserSelectedProductIds == null ? string.Empty : validUserSelectedProductIds.JoinWithComma());
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
-            var winlossData = dataAccess.GetWinLoss(criteria);
+            return dataAccess.GetWinLoss(criteria);
+        }
 
-            return winlossData;
+        private WinLossMemberCriteria GetWinLossCriteria(WinLossParam param, string validUserSelectedProductIds)
+        {
+            if (param.ReportLevel.IsAgentLevel())
+            {
+                return new WinLossMemberCriteria(
+                    param.CustId,
+                    param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                    param.ToDate,
+                    reportDateService.GetBalanceUpDay(),
+                    reportDateService.GetMoveBetsDay(),
+                    validUserSelectedProductIds,
+                    param.ProductDetailsXML);
+            }
+
+            if (param.ReportLevel.IsMasterLevel())
+            {
+                return new WinLossAgentCriteria(
+                    param.CustId,
+                    param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                    param.ToDate,
+                    reportDateService.GetBalanceUpDay(),
+                    reportDateService.GetMoveBetsDay(),
+                    validUserSelectedProductIds,
+                    param.ProductDetailsXML,
+                    param.LevelType);
+            }
+
+            return new WinLossMasterCriteria(
+                    param.CustId,
+                    param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                    param.ToDate,
+                    reportDateService.GetBalanceUpDay(),
+                    reportDateService.GetMoveBetsDay(),
+                    validUserSelectedProductIds,
+                    param.ProductDetailsXML,
+                    param.LevelType);
         }
 
         internal IEnumerable<EnteredSportResult> GetDataEnteredSportResults()

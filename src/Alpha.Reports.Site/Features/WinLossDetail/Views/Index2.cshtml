@@ -1,11 +1,12 @@
 ﻿@model WinLossDetailNewViewModel
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewBag.Title = "Win Loss Detail Report";
     var jsonSettings = new JsonSerializerSettings { Formatting = Formatting.None, NullValueHandling = NullValueHandling.Ignore };
 }
 @section Styles {
-    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-reports/filter-new")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/winlossdetailnew")
+    @StaticResources.RenderStyles("~/assets/bundles-v2/winlossdetailnew")
 }
 @section Scripts {
     <script type="text/javascript">
@@ -49,6 +50,16 @@
                 @:4: '@Resources.MasterWinLossDetail'
             }
         };
+        var levelTypeText = {
+            @if (Model.ViewerLevel.IsMasterOrSuperLevel())
+            {
+                @:3: '@Resources.Agent',
+            }
+            @if (Model.ViewerLevel.IsSuperLevel())
+            {
+                @:4: '@Resources.MasterAgent'
+            }
+        };
     </script>
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-reports/winlossdetail-new")
     @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WinLossDetail/Bundles/winlossdetail-new")
@@ -59,6 +70,7 @@
         <div class="form-inline filter" id="report-form">
             @DateRangePickerJQuery.Render(Model.DateRangePickerViewModel)
             @ProductAndProductDetailDropdown.Render()
+            @LevelTypeDropdown.Render(Model.ViewerLevel, Model.CustLevel, Model.LevelType)
             @UsernameAutoSuggestion.Render(Model.Username)
             @VisibleColumnsDropdown.Render()
         </div>

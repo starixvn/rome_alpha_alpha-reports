@@ -118,7 +118,7 @@ class MatchWinLossDetailView extends BaseReport {
         this.$("#icon-excel").on("click", this.onExportExcel);
         this.$reportForm.submit(this.onSubmitReport);
         this.$(".icon-filter").on("click", this.onClickIconFilter);
-        this.$(".icon-switchmode").on("click", this.onSwitchMode);
+        this.$(".ic-switchmode").on("click", this.onSwitchMode);
         this.$buttonLoadLeague.on("click", this.loadLeagues);
     };
     onExportExcel = () => {

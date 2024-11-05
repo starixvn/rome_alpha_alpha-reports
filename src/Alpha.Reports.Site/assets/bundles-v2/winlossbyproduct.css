@@ -1,0 +1,13 @@
+:root, :root [data-theme='light'] {
+  --tb-sub-total-row-background: #DDEDEF; }
+
+:root [data-theme='dark'] {
+  --tb-sub-total-row-background: #3F4A4B; }
+
+.tb .product-row {
+  cursor: pointer; }
+  .tb .product-row td {
+    background: var(--tb-sub-total-row-background); }
+
+.tb .bet-type-row .col-username {
+  padding-left: 26px; }

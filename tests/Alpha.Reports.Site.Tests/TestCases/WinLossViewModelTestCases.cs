@@ -22,7 +22,8 @@
                 memberNetWinLoss: null,
                 agentNetWinLoss: null,
                 masterNetWinLoss: new NetWinLoss((decimal)-111173383.51),
-                superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54));
+                superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54),
+                isDirectMember: false);
 
         private static WinLossModel ExpectedMasterGrandTotal =>
             new WinLossModel(
@@ -33,7 +34,8 @@
                 memberNetWinLoss: null,
                 agentNetWinLoss: new NetWinLoss((decimal)-111173383.51),
                 masterNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54),
-                superNetWinLoss: null);
+                superNetWinLoss: null,
+                isDirectMember: false);
 
         private static WinLossModel ExpectedAgentGrandTotal =>
             new WinLossModel(
@@ -44,7 +46,8 @@
                 memberNetWinLoss: new NetWinLoss((decimal)-2576.25, (decimal)21.00),
                 agentNetWinLoss: new NetWinLoss((decimal)1267.88, (decimal)-3.38),
                 masterNetWinLoss: null,
-                superNetWinLoss: null);
+                superNetWinLoss: null,
+                isDirectMember: false);
 
         private static List<WinLossModel> BuildSuperDataTest()
         {
@@ -58,7 +61,8 @@
                  memberNetWinLoss: null,
                  agentNetWinLoss: null,
                  masterNetWinLoss: new NetWinLoss((decimal)-111173393.16),
-                 superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.69)));
+                 superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.69),
+                 isDirectMember: false));
 
             superWinLossData.Add(new WinLossModel(
                  custId: 18187823,
@@ -68,7 +72,8 @@
                  memberNetWinLoss: null,
                  agentNetWinLoss: null,
                  masterNetWinLoss: new NetWinLoss((decimal)9.65),
-                 superNetWinLoss: new NetWinLoss((decimal)0.00, (decimal)0.15)));
+                 superNetWinLoss: new NetWinLoss((decimal)0.00, (decimal)0.15),
+                 isDirectMember: false));
 
             return superWinLossData;
         }
@@ -85,7 +90,8 @@
                  memberNetWinLoss: null,
                  agentNetWinLoss: new NetWinLoss((decimal)-111173393.16),
                  masterNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.69),
-                 superNetWinLoss: null));
+                 superNetWinLoss: null,
+                 isDirectMember: false));
 
             masterWinLossData.Add(new WinLossModel(
                  custId: 18187823,
@@ -95,7 +101,8 @@
                  memberNetWinLoss: null,
                  agentNetWinLoss: new NetWinLoss((decimal)9.65),
                  masterNetWinLoss: new NetWinLoss((decimal)0.00, (decimal)0.15),
-                 superNetWinLoss: null));
+                 superNetWinLoss: null,
+                 isDirectMember: false));
 
             return masterWinLossData;
         }
@@ -112,7 +119,8 @@
                  memberNetWinLoss: new NetWinLoss((decimal)-2025.00, (decimal)21.00),
                  agentNetWinLoss: new NetWinLoss((decimal)992.25, (decimal)-10.29),
                  masterNetWinLoss: null,
-                 superNetWinLoss: null));
+                 superNetWinLoss: null,
+                 isDirectMember: false));
 
             agentWinLossData.Add(new WinLossModel(
                  custId: 18187823,
@@ -122,7 +130,8 @@
                  memberNetWinLoss: new NetWinLoss((decimal)-551.25, (decimal)0.00),
                  agentNetWinLoss: new NetWinLoss((decimal)275.63, (decimal)6.91),
                  masterNetWinLoss: null,
-                 superNetWinLoss: null));
+                 superNetWinLoss: null,
+                 isDirectMember: false));
 
             return agentWinLossData;
         }

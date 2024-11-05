@@ -68,6 +68,8 @@
 
         public EnteredSportResult TotalEnteredSport { get; }
 
+        public byte LevelType => message.LevelType;
+
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(WinLossDetailModel model)
             => new Dictionary<string, object>();
 

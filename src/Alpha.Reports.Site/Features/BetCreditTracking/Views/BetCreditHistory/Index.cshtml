@@ -1,20 +1,20 @@
 ﻿@using Alpha.Reports.Configurations
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewBag.Title = Resources.BetCreditHistory;
+   
 
 
     var userguideLink = Model.GetUserGuideLink(Session.IsCookieless, Request.Headers["Host"], Session.SessionID);
 }
 @model BetCreditHistoryViewModel
 @section Styles {
-    @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")
-    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/BetCreditTracking/Bundles/betcredithistory")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/betcredittracking")
 }
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/BetCreditTracking/Bundles/betcredithistory")
 }
-<div class="page-title tabs @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
+<div class="page-title tabs agent @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
             <a href="#betCreditHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.BetCreditHistory</a>
@@ -23,7 +23,7 @@
             @Html.ActionLink(Resources.MoveStatementHistory, "Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}MoveStatementHistory")
         </li>
         <li>
-            <a href="@userguideLink" target="_blank"><span class="icon icon-information-outline"></span></a>
+            <a href="@userguideLink" target="_blank"><span class="ic-information"></span></a>
         </li>
     </ul>
 
@@ -43,7 +43,7 @@
 
         @if (Model.Data != null && Model.ErrMsg == string.Empty)
         {
-            <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover">
+            <table id="tbl-report" class="tb tb-bordered tb-hover w-full tablesorter tblRpt-hover">
                 <thead>
                     <tr>
                         <th class="action-datetime-col">@Resources.ActionDateTime</th>

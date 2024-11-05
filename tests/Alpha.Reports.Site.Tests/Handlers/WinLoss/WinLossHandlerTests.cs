@@ -116,7 +116,8 @@
                 Enumerable.Empty<int>(),
                 message.CustLevel,
                 false,
-                string.Empty);
+                string.Empty,
+                0);
 
             reportService.GetWinLoss(Arg.Any<WinLossParam>()).Returns(reportData);
             var validUserSelectedProductIds = Enumerable.Empty<int>();

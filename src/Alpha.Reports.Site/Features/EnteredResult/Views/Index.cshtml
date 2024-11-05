@@ -1,6 +1,6 @@
 ﻿@model EnteredResultViewModel
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewBag.Title = "Entered Results";
 
     var yesterdayText = Model.TotalEnteredSport.EnteredSportYesterday.NonEntered > 0 ?
@@ -10,14 +10,14 @@
 }
 
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/EnteredResult/Bundles/enteredresult")
-}
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/enteredresult")
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/EnteredResult/bundles-v2/enteredresult")}
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty), hasEnterOrNonEnterNote: true, enteredSportResult: Model.TotalEnteredSport, isHistoricReport: Model.IsHistoricReport)
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, true, Enumerable.Empty<CustInfo>(), string.Empty), hasEnterOrNonEnterNote: true, enteredSportResult: Model.TotalEnteredSport, isHistoricReport: Model.IsHistoricReport)
 
 @Html.Partial("~/Features/EnteredResult/Views/Filter.cshtml", Model.FilterViewModel)
 
-<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tablesorter" id="tbl-enteredresult-report"
+<table class="tb tb-bordered tblRpt-hover tablesorter w-full" id="tbl-enteredresult-report"
        data-totalrecords="@Model.ReportData.Count()">
     <thead>
         <tr>

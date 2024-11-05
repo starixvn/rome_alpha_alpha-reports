@@ -261,6 +261,8 @@
     <Compile Include="Constants\ProductDetaiIdConstants.cs" />
     <Compile Include="Criteria\BetChoiceMatching\BetChoiceMatchingCriteria.cs" />
     <Compile Include="Criteria\BetChoiceMatching\BetChoiceUplinesCriteria.cs" />
+    <Compile Include="Criteria\CommissionByBettype\CommissionByBettypeAgentCriteria.cs" />
+    <Compile Include="Criteria\CommissionByBettype\CommissionByBettypeMasterCriteria.cs" />
     <Compile Include="Criteria\Consolidation\GetSMAPositionTakingCriteria.cs" />
     <Compile Include="Criteria\GetCustomerLevelCriteria.cs" />
     <Compile Include="Criteria\GetProductsDetailCriteria.cs" />
@@ -269,6 +271,10 @@
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
     <Compile Include="Criteria\Statement\GetStatementBetTrans14Criteria.cs" />
     <Compile Include="Criteria\UpdateUserSearchCriteria.cs" />
+    <Compile Include="Criteria\WinLossDetail\WinLossDetailAgentCriteria.cs" />
+    <Compile Include="Criteria\WinLossDetail\WinLossDetailMasterCriteria.cs" />
+    <Compile Include="Criteria\WinLoss\WinLossAgentCriteria.cs" />
+    <Compile Include="Criteria\WinLoss\WinLossMasterCriteria.cs" />
     <Compile Include="DataAccesses\WinLossAnalysisDataAccess.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailWeekDataCriteria.cs" />
     <Compile Include="Features\BetCreditTracking\BetCreditHistory\BetCreditHistoryService.cs" />
@@ -293,6 +299,8 @@
     <Compile Include="Features\AutoFollowBets\Criteria\GetFollowBetAccountsCriteria.cs" />
     <Compile Include="Features\AutoFollowBets\AutoFollowBetService.cs" />
     <Compile Include="Features\AutoFollowBets\Models\FollowBetAccount.cs" />
+    <Compile Include="Features\Outstanding\OutstandingAgentCriteria.cs" />
+    <Compile Include="Features\Outstanding\OutstandingMasterCriteria.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperPTCriteria.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperWinLossDetailByPTCriteria.cs" />
     <Compile Include="Enumerations\LeagueType.cs" />
@@ -300,7 +308,7 @@
     <Compile Include="Constants\ConsolidationReportTypeConstants.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\ProductIdConstants.cs" />
-    <Compile Include="Criteria\CommissionByBettype\CommissionByBettypeCriteria.cs" />
+    <Compile Include="Criteria\CommissionByBettype\CommissionByBettypeMemberCriteria.cs" />
     <Compile Include="Constants\StatusIdConstants.cs" />
     <Compile Include="Criteria\Consolidation\GetConsolidationCriteria.cs" />
     <Compile Include="Criteria\Consolidation\GetConsolidationReportProductsCriteria.cs" />
@@ -322,7 +330,7 @@
     <Compile Include="Features\BonusDetail\Models\GroupBonus.cs" />
     <Compile Include="Features\BonusDetail\Params\BonusDetailParam.cs" />
     <Compile Include="Features\BonusDetail\Params\ConfirmPaymentParam.cs" />
-    <Compile Include="Features\Outstanding\OutstandingCriteria.cs" />
+    <Compile Include="Features\Outstanding\OutstandingMemberCriteria.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\MatchWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\PagingReportProductCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
@@ -332,9 +340,9 @@
     <Compile Include="Criteria\WinLossAnalysis\WinLossAnalysisCriteria.cs" />
     <Compile Include="Criteria\Statement\GetStatementCriteria.cs" />
     <Compile Include="Criteria\Statement\TransferDetailsCriteria.cs" />
-    <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
+    <Compile Include="Criteria\WinLossDetail\WinLossDetailMemberCriteria.cs" />
     <Compile Include="Criteria\WinLoss\DailyEnteredSportCriteria.cs" />
-    <Compile Include="Criteria\WinLoss\WinLossCriteria.cs" />
+    <Compile Include="Criteria\WinLoss\WinLossMemberCriteria.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetailDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossByProductDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossDataAccess.cs" />

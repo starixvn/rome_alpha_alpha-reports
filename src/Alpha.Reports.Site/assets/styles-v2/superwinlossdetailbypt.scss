@@ -1,0 +1,20 @@
+﻿:root, :root [data-theme='light'] {
+    --tb-sub-total-row-background: #DDEDEF;
+}
+:root [data-theme='dark'] {
+    --tb-sub-total-row-background: #3F4A4B;
+}
+.tb {
+    .pt-row {
+        cursor: pointer;
+        td {
+            background: var(--tb-sub-total-row-background);
+        }
+    }
+
+    .pt-product-row {
+        .col-username{
+            padding-left: 26px;
+        }
+    }
+}

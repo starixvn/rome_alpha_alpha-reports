@@ -209,7 +209,6 @@ var BaseReport = /** @class */ (function () {
             _this.$reportLegend.modal({ show: true, backdrop: false });
             var iconHelpPosition = _this.$iconInformation.position();
             _this.$reportLegend.css({
-                bottom: "auto",
                 top: _this.$(".entered-non-entered").length > 0 ? iconHelpPosition.top + 90 : iconHelpPosition.top + 60
             });
         };
@@ -687,7 +686,7 @@ var MatchWinLossDetailView = /** @class */ (function (_super) {
             _this.$("#icon-excel").on("click", _this.onExportExcel);
             _this.$reportForm.submit(_this.onSubmitReport);
             _this.$(".icon-filter").on("click", _this.onClickIconFilter);
-            _this.$(".icon-switchmode").on("click", _this.onSwitchMode);
+            _this.$(".ic-switchmode").on("click", _this.onSwitchMode);
             _this.$buttonLoadLeague.on("click", _this.loadLeagues);
         };
         _this.onExportExcel = function () {

@@ -5,11 +5,12 @@ describe("WinLoss_", function () {
     var sortComponent = new SortComponent($, linkBuilderComponent);
     var monthPickerComponent = new MonthPickerComponent($);
     var dateRangePickerComponent = new DateRangePickerComponent($);
+    var levelComponent = new SingleSelectionDropdownComponent($);
     var reportTooltip = new ReportTooltip($);
     var winLossView;
     var cacheDOMElements, registerEvents, blockUI, unblockUI, renderProductMultiSelectionComponent, renderSortComponent, renderLinkBuilderComponent;
     beforeEach(function () {
-        winLossView = new WinLossView(jQueryFake, dateRangePickerComponent, productMultiSelectionComponent, sortComponent, reportTooltip, monthPickerComponent, linkBuilderComponent);
+        winLossView = new WinLossView(jQueryFake, dateRangePickerComponent, productMultiSelectionComponent, levelComponent, sortComponent, reportTooltip, monthPickerComponent, linkBuilderComponent);
         spyOn(winLossView, "loadLegend");
         cacheDOMElements = spyOn(winLossView, "cacheDOMElements");
         cacheDOMElements.and.callThrough();

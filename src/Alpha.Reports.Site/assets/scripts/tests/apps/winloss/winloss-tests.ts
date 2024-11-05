@@ -5,6 +5,7 @@
     const sortComponent = new SortComponent($, linkBuilderComponent);
     const monthPickerComponent = new MonthPickerComponent($);
     const dateRangePickerComponent = new DateRangePickerComponent($);
+    const levelComponent = new SingleSelectionDropdownComponent($);
     const reportTooltip = new ReportTooltip($);
     let winLossView: WinLossView;
 
@@ -21,6 +22,7 @@
             jQueryFake,
             dateRangePickerComponent,
             productMultiSelectionComponent,
+            levelComponent,
             sortComponent,
             reportTooltip,
             monthPickerComponent,

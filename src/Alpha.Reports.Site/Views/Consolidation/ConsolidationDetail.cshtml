@@ -2,8 +2,12 @@
 @{
     ViewBag.Title = "Consolidation Report";
     var filter = Model.FilterViewModel;
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
-
+@section Styles {
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/consolidation")
+    @StaticResources.RenderStyles("~/assets/bundles-v2/consolidation")
+}
 @ReportTitle.Render(
     new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, filter.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson),
     Request.Url.Query,
@@ -14,13 +18,14 @@
 <form class="form-inline filter  @(filter.Visible ? string.Empty : "hide")" role="form" id="report-form">
     @ProductMultiSelection.Render(filter.ProductMultiSelectionViewModel)
     @ProductDetailMultiSelection.Render(filter.ProductDetailMultiSelectionViewModel)
+    @LevelTypeDropdown.Render(Model.CustLevel, Model.LevelType)
     @DateRangePicker.Render(filter.DateRangePickerViewModel)
 
-    <div class="form-group">
-        <span id="icon-information" class="icon-information-outline"></span>
+    <div class="form-group form-group-short">
+        <span id="icon-information" class="ic-information"></span>
     </div>
     <div class="form-group">
-        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+        <span id="icon-excel" class="ic-excel" title="@Resources.ExportToExcel"></span>
     </div>
 
     @Html.Hidden("IsFilterVisible", filter.Visible ? "true" : "false")

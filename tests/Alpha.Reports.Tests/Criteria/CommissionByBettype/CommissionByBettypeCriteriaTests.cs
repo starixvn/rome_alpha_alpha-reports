@@ -17,7 +17,7 @@
         {
             // Arrange
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var criteria = new CommissionByBettypeCriteria(custLevel, 0, new DateTime(), new DateTime(), new DateTime());
+            var criteria = new CommissionByBettypeMemberCriteria(0, new DateTime(), new DateTime(), new DateTime());
 
             // Act
             var isValid = criteria.IsValid();
@@ -33,8 +33,7 @@
         public void With_ValidCustLevel_Returns_ValidSettingKey(byte custLevelId, string expectedSettingKey)
         {
             // Arrange
-            var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var criteria = new CommissionByBettypeCriteria(custLevel, 0, new DateTime(), new DateTime(), new DateTime());
+            var criteria = new CommissionByBettypeMemberCriteria(0, new DateTime(), new DateTime(), new DateTime());
 
             // Act
             var actualSettingKey = criteria.GetSettingKey();
@@ -47,7 +46,7 @@
         public void Create_Always_SetsCorrectInitialValues()
         {
             // Act
-            var criteria = new CommissionByBettypeCriteria(UserLevel.Agent, 1, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
+            var criteria = new CommissionByBettypeMemberCriteria(1, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
 
             // Assert
             Assert.True(

@@ -5,6 +5,7 @@
 "use strict";
 
 class CommissionByBettype extends BaseReport {
+    levelTypeDropdown: SingleSelectionDropdownComponent;
     dateRangePicker: DateRangePickerComponent;
     sorter: SortComponent;
 
@@ -19,11 +20,12 @@ class CommissionByBettype extends BaseReport {
 
     constructor(
         $: JQueryStatic,
+        levelTypeDropdown: SingleSelectionDropdownComponent,
         dateRangePicker: DateRangePickerComponent,
         sorter: SortComponent,
         linkBuilderComponent: LinkBuilderComponent) {
         super($, linkBuilderComponent);
-
+        this.levelTypeDropdown = levelTypeDropdown;
         this.dateRangePicker = dateRangePicker;
         this.sorter = sorter;
     }
@@ -32,6 +34,7 @@ class CommissionByBettype extends BaseReport {
         this.cacheDOMElements();
         this.registerEvents();
 
+        this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
         this.dateRangePicker.render();
 
         this.sorter.render(new SortOption(
@@ -88,6 +91,7 @@ $(function () {
     const linkBuilderComponent = new LinkBuilderComponent($);
     const commissionByBettype = new CommissionByBettype(
         $,
+        new SingleSelectionDropdownComponent($),
         new DateRangePickerComponent($),
         new SortComponent($, linkBuilderComponent),
         linkBuilderComponent);

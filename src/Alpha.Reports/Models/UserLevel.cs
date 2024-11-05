@@ -44,6 +44,8 @@
 
         public bool IsMemberLevel() => this == Member;
 
+        public bool IsNotMemberLevel() => !IsMemberLevel();
+
         public bool IsMemberOrAgentLevel() => IsMemberLevel() || IsAgentLevel();
 
         public bool IsDirectUplineOf(byte downlineLevelValue)

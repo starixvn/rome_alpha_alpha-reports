@@ -33,7 +33,7 @@
         public void GetData_NullCriteria_ThrowsArgumentNullException()
         {
             // Arrange
-            WinLossCriteria nullCriteria = null;
+            WinLossMemberCriteria nullCriteria = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossDataAccessImpl.GetWinLoss(nullCriteria));
@@ -43,7 +43,7 @@
         public void GetWinLoss_MasterWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(1, currentDate, currentDate, currentDate, currentDate, "1,2", UserLevel.Super, string.Empty);
+            var winLossCriteria = new WinLossMemberCriteria(1, currentDate, currentDate, currentDate, currentDate, "1,2", string.Empty);
 
             var dataSet = new List<WinLossEntity>
             {
@@ -68,12 +68,12 @@
                     Comm = 9
                 }
             };
-            repository.Fetch<WinLossEntity>(Arg.Any<WinLossCriteria>()).Returns(dataSet);
+            repository.Fetch<WinLossEntity>(Arg.Any<WinLossMemberCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossModel>()
             {
-                new WinLossModel(1, "Master01", 0, 1, null, null, new NetWinLoss(2), new NetWinLoss(3, 4)),
-                new WinLossModel(2, "Master02", 5, 6, null, null, new NetWinLoss(7), new NetWinLoss(8, 9))
+                new WinLossModel(1, "Master01", 0, 1, null, null, new NetWinLoss(2), new NetWinLoss(3, 4), false),
+                new WinLossModel(2, "Master02", 5, 6, null, null, new NetWinLoss(7), new NetWinLoss(8, 9), false)
             };
 
             // Act
@@ -88,7 +88,7 @@
         public void GetWinLoss_AgentWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(1, currentDate, currentDate, currentDate, currentDate, "1,2", UserLevel.Master, string.Empty);
+            var winLossCriteria = new WinLossMemberCriteria(1, currentDate, currentDate, currentDate, currentDate, "1,2", string.Empty);
 
             var dataSet = new List<WinLossEntity>
             {
@@ -113,12 +113,12 @@
                     Comm = 9
                 }
             };
-            repository.Fetch<WinLossEntity>(Arg.Any<WinLossCriteria>()).Returns(dataSet);
+            repository.Fetch<WinLossEntity>(Arg.Any<WinLossMemberCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossModel>()
             {
-                new WinLossModel(1, "Agent01", 0, 1, null, new NetWinLoss(2), new NetWinLoss(3, 4), null),
-                new WinLossModel(2, "Agent02", 5, 6, null, new NetWinLoss(7), new NetWinLoss(8, 9), null)
+                new WinLossModel(1, "Agent01", 0, 1, null, new NetWinLoss(2), new NetWinLoss(3, 4), null, false),
+                new WinLossModel(2, "Agent02", 5, 6, null, new NetWinLoss(7), new NetWinLoss(8, 9), null, false)
             };
 
             // Act
@@ -133,7 +133,7 @@
         public void GetWinLoss_MemberWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(1, currentDate, currentDate, currentDate, currentDate, "1,2", UserLevel.Agent, string.Empty);
+            var winLossCriteria = new WinLossMemberCriteria(1, currentDate, currentDate, currentDate, currentDate, "1,2", string.Empty);
 
             var dataSet = new List<WinLossEntity>
             {
@@ -160,12 +160,12 @@
                     Comm = 11
                 }
             };
-            repository.Fetch<WinLossEntity>(Arg.Any<WinLossCriteria>()).Returns(dataSet);
+            repository.Fetch<WinLossEntity>(Arg.Any<WinLossMemberCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossModel>()
             {
-                new WinLossModel(1, "Member01", 0, 1, new NetWinLoss(2, 3), new NetWinLoss(4, 5), null, null),
-                new WinLossModel(2, "Member02", 6, 7, new NetWinLoss(8, 9), new NetWinLoss(10, 11), null, null)
+                new WinLossModel(1, "Member01", 0, 1, new NetWinLoss(2, 3), new NetWinLoss(4, 5), null, null, false),
+                new WinLossModel(2, "Member02", 6, 7, new NetWinLoss(8, 9), new NetWinLoss(10, 11), null, null, false)
             };
 
             // Act
@@ -180,10 +180,10 @@
         public void GetWinLoss_NullDataReturnFromDb_ReturnsDefaultData()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, UserLevel.Agent, string.Empty);
+            var winLossCriteria = new WinLossMemberCriteria(0, currentDate, currentDate, currentDate, currentDate, null, string.Empty);
 
             var dataReader = Enumerable.Empty<WinLossEntity>();
-            repository.Fetch<WinLossEntity>(Arg.Any<WinLossCriteria>()).Returns(dataReader);
+            repository.Fetch<WinLossEntity>(Arg.Any<WinLossMemberCriteria>()).Returns(dataReader);
 
             var expectedData = new List<WinLossModel>();
 

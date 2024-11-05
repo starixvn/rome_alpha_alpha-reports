@@ -21,5 +21,7 @@
         public bool IsDescendingSort { get; set; }
 
         public bool IsFilterVisible { get; set; } = true;
+
+        public byte LevelType { get; set; }
     }
 }

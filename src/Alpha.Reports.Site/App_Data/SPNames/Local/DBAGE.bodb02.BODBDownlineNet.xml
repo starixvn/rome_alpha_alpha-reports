@@ -23,13 +23,13 @@
     <Setting Key="Age_CustomerStatusSel" SpName="Age_CustomerStatusSel" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
   </Function>
   <Function Name="Win Loss Detail">
-    <Setting Key="Age_Rpt_WinlossDetail_WeekDataSel" SpName="Age_Rpt_WinlossDetail_WeekDataSel" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
+    <Setting Key="Age_Rpt_WinlossDetail_WeekDataSel" SpName="Age_Rpt_WinlossDetail_WeekDataSel_uat2" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
     <Setting Key="Age_Rpt_WinlossDetail_WeekDataSel_DB052" SpName="Age_Rpt_WinlossDetail_WeekDataSel" DbName="DB052.bodb02.wsv_alp" Plain="0" />
     <Setting Key="Age_Rpt_WinlossDetail_WeekDataSel_DB053" SpName="Age_Rpt_WinlossDetail_WeekDataSel" DbName="DB053.bodb02.wsv_alp" Plain="0" />
     <!--Group 4-->
-    <Setting Key="Age_Rpt_WinLossDetail_Master" SpName="Age_Rpt_WinLossDetail_Master" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
-    <Setting Key="Age_Rpt_WinLossDetail_Agent" SpName="Age_Rpt_WinLossDetail_Agent" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
-    <Setting Key="Age_Rpt_WinLossDetail_Member" SpName="Age_Rpt_WinLossDetail_Member" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossDetail_Master" SpName="Age_Rpt_WinLossDetail_Master_uat2" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossDetail_Agent" SpName="Age_Rpt_WinLossDetail_Agent_uat2" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossDetail_Member" SpName="Age_Rpt_WinLossDetail_Member_uat2" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
     <!--Group 4-->
     <!--DB052-->
     <Setting Key="Age_Rpt_WinLossDetail_Master_DB052" SpName="Age_Rpt_WinLossDetail_Master" DbName="DB052.bodb02.wsv_alp" Plain="0" />
@@ -43,17 +43,17 @@
   </Function>
   <Function Name="Win Loss">
     <Setting Key="Age_Rpt_MatchSelResultEntered" SpName="Age_Rpt_MatchSelResultEntered" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
-    <Setting Key="Age_Rpt_WinLoss_Master" SpName="Age_Rpt_WinLoss_Master" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+    <Setting Key="Age_Rpt_WinLoss_Master" SpName="Age_Rpt_WinLoss_Master_uat2" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
       <Mapping DataField="MAgTotal" ObjectProperty="DownlineTotal" />
       <Mapping DataField="SAgWinLoss" ObjectProperty="WinLoss" />
       <Mapping DataField="SAgComm" ObjectProperty="Comm" />
     </Setting>
-    <Setting Key="Age_Rpt_WinLoss_Agent" SpName="Age_Rpt_WinLoss_Agent" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+    <Setting Key="Age_Rpt_WinLoss_Agent" SpName="Age_Rpt_WinLoss_Agent_uat2" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
       <Mapping DataField="AgTotal" ObjectProperty="DownlineTotal" />
       <Mapping DataField="MAgWinLoss" ObjectProperty="WinLoss" />
       <Mapping DataField="MAgComm" ObjectProperty="Comm" />
     </Setting>
-    <Setting Key="Age_Rpt_WinLoss_Member" SpName="Age_Rpt_WinLoss_Member" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
+    <Setting Key="Age_Rpt_WinLoss_Member" SpName="Age_Rpt_WinLoss_Member_uat2" DbName="DBAGE.bodb02.wsv_alp" Plain="0">
       <Mapping DataField="AgWinLoss" ObjectProperty="WinLoss" />
       <Mapping DataField="AgComm" ObjectProperty="Comm" />
     </Setting>
@@ -96,8 +96,8 @@
     <Setting Key="Age_Chart_WinlossAnalysis_Member" SpName="Age_Chart_WinlossAnalysis_Member" DbName="DBAGE.bodb02.wsv_alp" Plain="0" />
   </Function>
   <Function Name="Commission By Bet Type">
-    <Setting Key="Age_Rpt_CommByBettype_Master" SpName="Age_Rpt_CommByBettype_Master" DbName="DBAGE.bodb02.wsv_alp" Plain="0"></Setting>
-    <Setting Key="Age_Rpt_CommByBettype_Agent" SpName="Age_Rpt_CommByBettype_Agent" DbName="DBAGE.bodb02.wsv_alp" Plain="0"></Setting>
+    <Setting Key="Age_Rpt_CommByBettype_Master" SpName="Age_Rpt_CommByBettype_Master_uat2" DbName="DBAGE.bodb02.wsv_alp" Plain="0"></Setting>
+    <Setting Key="Age_Rpt_CommByBettype_Agent" SpName="Age_Rpt_CommByBettype_Agent_uat2" DbName="DBAGE.bodb02.wsv_alp" Plain="0"></Setting>
     <Setting Key="Age_Rpt_CommByBettype_Member" SpName="Age_Rpt_CommByBettype_Member" DbName="DBAGE.bodb02.wsv_alp" Plain="0"></Setting>
   </Function>
   <Function Name="Consolidation">

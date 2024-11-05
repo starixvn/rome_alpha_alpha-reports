@@ -80,6 +80,11 @@
                 ? Resources.AgentWinLossDetail
                 : Resources.MemberWinLossDetail;
 
+        public override string BuildDrillDownLink(WinLossDetailModel model, string currentLink)
+            => model.IsDirectMember || CustLevel.IsAgentLevel()
+            ? BuildBetListLink(model)
+            : BuildDownlineLink(model, currentLink);
+
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(WinLossDetailModel model)
             => new Dictionary<string, object>(base.GetDownlineLinkRouteValues(model))
             {

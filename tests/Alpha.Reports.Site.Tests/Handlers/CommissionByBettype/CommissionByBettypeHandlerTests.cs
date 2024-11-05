@@ -54,7 +54,7 @@
             query.FromDate = fromDate;
             query.ToDate = toDate;
             reportService.GetMoveBetsDay().Returns(moveBetsDay);
-            var expectedparam = new CommissionByBettypeParam(viewerLevel, custLevel, custId, fromDate, toDate, moveBetsDay);
+            var expectedparam = new CommissionByBettypeParam(viewerLevel, custLevel, custId, fromDate, toDate, moveBetsDay, query.LevelType);
 
             // Act
             handler.Handle(query);

@@ -371,18 +371,18 @@ var BaseReportView = /** @class */ (function () {
         var hideFilterText = $("#hiddenHideFilterText").val();
         var showFilterText = $("#hiddenShowFilterText").val();
         var iconFilter = $("#icon-filter").click(function () {
-            var isHideFilter = iconFilter.hasClass("icon-arrow-up-drop-circle");
+            var isHideFilter = iconFilter.hasClass("ic-arrow-up-circle");
             $('#report-form').toggle(!isHideFilter);
             if (isHideFilter) {
                 iconFilter
-                    .removeClass("icon-arrow-up-drop-circle")
-                    .addClass("icon-arrow-down-drop-circle")
+                    .removeClass("ic-arrow-up-circle")
+                    .addClass("ic-arrow-down-circle")
                     .attr("title", showFilterText);
             }
             else {
                 iconFilter
-                    .removeClass("icon-arrow-down-drop-circle")
-                    .addClass("icon-arrow-up-drop-circle")
+                    .removeClass("ic-arrow-down-circle")
+                    .addClass("ic-arrow-up-circle")
                     .attr("title", hideFilterText);
             }
             callback && callback(isHideFilter);

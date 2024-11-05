@@ -33,6 +33,7 @@ class WinLossView extends BaseReport {
 
     dateRangePickerComponent: DateRangePickerComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
+    levelTypeDropdown: SingleSelectionDropdownComponent;
     sortComponent: SortComponent;
     reportTooltip: ReportTooltip;
     monthPickerComponent: MonthPickerComponent;
@@ -42,6 +43,7 @@ class WinLossView extends BaseReport {
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
+        levelTypeDropdown: SingleSelectionDropdownComponent,
         sortComponent: SortComponent,
         reportTooltip: ReportTooltip,
         monthPickerComponent: MonthPickerComponent,
@@ -51,6 +53,7 @@ class WinLossView extends BaseReport {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
+        this.levelTypeDropdown = levelTypeDropdown;
         this.sortComponent = sortComponent;
         this.reportTooltip = reportTooltip;
         this.monthPickerComponent = monthPickerComponent;
@@ -89,7 +92,7 @@ class WinLossView extends BaseReport {
         this.$historicReport = this.$("#historic-report");
         this.$filterIcon = this.$(".icon-filter");
         this.$excelIcon = this.$("#icon-excel");
-        this.$switchModeIcon = this.$(".icon-switchmode");
+        this.$switchModeIcon = this.$(".ic-switchmode");
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
         this.$isDescendingSort = this.$("#IsDescendingSort");
@@ -105,6 +108,7 @@ class WinLossView extends BaseReport {
     bindFilter = () => {
         this.productMultiSelectionComponent.render();
         this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
+        this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
 
         if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
             && alphaReports.screenSmallThan768()) {
@@ -356,6 +360,7 @@ $(function () {
         $,
         new DateRangePickerComponent($),
         new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
+        new SingleSelectionDropdownComponent($),
         new SortComponent($, linkBuilderComponent),
         new ReportTooltip($),
         new MonthPickerComponent($),

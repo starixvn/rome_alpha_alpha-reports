@@ -51,49 +51,25 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
+            var reportDate = reportDateService.GetBalanceUpDayAndMoveBetsDay();
             var validUserSelectedProductIds =
                 productService.FilterProductIds(param.Site, param.CurrencyId, param.UserSelectedProductIds);
-            var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
-            var criteria = new WinLossDetailCriteria(
-                param.CustId,
-                param.PageIndex,
-                param.PageSize,
-                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
-                param.ToDate,
-                reportDateService.GetBalanceUpDay(),
-                reportDateService.GetMoveBetsDay(),
-                validUserSelectedProductIds == null ? string.Empty : validUserSelectedProductIds.JoinWithComma(),
-                param.ReportLevel,
-                param.ProductDetailsXML,
-                param.Username,
-                param.IsReward,
-                subfix);
-
+            var criteria = GetWinLossDetailCriteria(
+                param,
+                reportDate,
+                validUserSelectedProductIds == null ? string.Empty : validUserSelectedProductIds.JoinWithComma());
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
-            var winLossDetailData = dataAccess.GetData(criteria);
-
-            return winLossDetailData;
+            return dataAccess.GetData(criteria);
         }
 
         public async Task<PagedReportData<WinLossDetailModel>> GetWinLossDetailAsync(WinLossDetailParam param)
         {
-            var dayModel = await reportDateService.GetBalanceUpDayAndMoveBetsDayAsync();
-            var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
-            var criteria = new WinLossDetailCriteria(
-                param.CustId,
-                param.PageIndex,
-                param.PageSize,
-                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
-                param.ToDate,
-                dayModel.BalanceUpDay,
-                dayModel.MoveBetsDay,
-                param.UserSelectedProductIds == null ? string.Empty : param.UserSelectedProductIds.JoinWithComma(),
-                param.ReportLevel,
-                param.ProductDetailsXML,
-                param.Username,
-                param.IsReward,
-                subfix);
+            var reportDate = await reportDateService.GetBalanceUpDayAndMoveBetsDayAsync();
+            var criteria = GetWinLossDetailCriteria(
+                param,
+                reportDate,
+                param.UserSelectedProductIds == null ? string.Empty : param.UserSelectedProductIds.JoinWithComma());
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             return await dataAccess.GetDataAsync(criteria);
@@ -113,10 +89,71 @@
                 param.ProductDetailsXML,
                 param.Username,
                 param.IsReward,
+                param.LevelType,
                 subfix);
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
             return await repository.FetchAsync<WinLossDetailWeekData>(criteria);
+        }
+
+        private static WinLossDetailMemberCriteria GetWinLossDetailCriteria(
+            WinLossDetailParam param,
+            BalanceUpDayAndMoveBetsDay reportDate,
+            string validUserSelectedProductIds)
+        {
+            var subfix = FanexDataSettingKeyHelper.GetWinLossDetailSettingKeySubfix(param.Site);
+            if (param.ReportLevel.IsAgentLevel())
+            {
+                return new WinLossDetailMemberCriteria(
+                    param.CustId,
+                    param.PageIndex,
+                    param.PageSize,
+                    param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                    param.ToDate,
+                    reportDate.BalanceUpDay,
+                    reportDate.MoveBetsDay,
+                    validUserSelectedProductIds,
+                    param.ReportLevel,
+                    param.ProductDetailsXML,
+                    param.Username,
+                    param.IsReward,
+                    subfix);
+            }
+
+            if (param.ReportLevel.IsMasterLevel())
+            {
+                return new WinLossDetailAgentCriteria(
+                    param.CustId,
+                    param.PageIndex,
+                    param.PageSize,
+                    param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                    param.ToDate,
+                    reportDate.BalanceUpDay,
+                    reportDate.MoveBetsDay,
+                    validUserSelectedProductIds,
+                    param.ReportLevel,
+                    param.ProductDetailsXML,
+                    param.Username,
+                    param.IsReward,
+                    subfix,
+                    param.LevelType);
+            }
+
+            return new WinLossDetailMasterCriteria(
+                param.CustId,
+                param.PageIndex,
+                param.PageSize,
+                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                param.ToDate,
+                reportDate.BalanceUpDay,
+                reportDate.MoveBetsDay,
+                validUserSelectedProductIds,
+                param.ReportLevel,
+                param.ProductDetailsXML,
+                param.Username,
+                param.IsReward,
+                subfix,
+                param.LevelType);
         }
     }
 }

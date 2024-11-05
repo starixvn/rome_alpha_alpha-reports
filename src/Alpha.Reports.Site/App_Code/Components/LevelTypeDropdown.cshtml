@@ -1,0 +1,32 @@
+﻿@using Alpha.Reports.Models;
+@using Alpha.Reports.Site.App_GlobalResources
+
+@helper Render(UserLevel custLevel, byte selected)
+{
+    if (custLevel.IsMasterOrSuperLevel())
+    {
+        <div class="form-group level-multiselect-container">
+            @LevelTypeDropdown.BuildLevelTypeSelect(custLevel, selected)
+        </div>
+    }
+}
+
+@helper Render(UserLevel viewerLevel, UserLevel custLevel, byte selected)
+{
+    if (viewerLevel.IsMasterOrSuperLevel())
+    {
+        <div class="form-group level-multiselect-container" @(custLevel.IsAgentLevel() ? "style=display:none" : string.Empty)>
+            @LevelTypeDropdown.BuildLevelTypeSelect(custLevel, selected)
+        </div>
+    }
+}
+
+@helper BuildLevelTypeSelect(UserLevel custLevel, byte selected)
+{
+    <label class="label-form-control">@Resources.Level</label>
+    <select id="dropdown-level-type" name="LevelType">
+        <option value="0" @(selected == 0 ? "selected" : string.Empty)>@Resources.All</option>
+        <option value="1" @(selected == 1 ? "selected" : string.Empty)>@(custLevel.IsSuperLevel() ? Resources.MasterAgent : Resources.Agent)</option>
+        <option value="2" @(selected == 2 ? "selected" : string.Empty)>@Resources.DirectMember</option>
+    </select>
+}

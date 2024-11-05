@@ -1,6 +1,6 @@
 ﻿@model WinLossDetailViewModel
 
-<table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover
+<table class="tb tb-bordered tb-hover w-full text-right
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-totalrecords="@Model.ReportData.TotalRecords"
        data-custid="@Model.CustId"

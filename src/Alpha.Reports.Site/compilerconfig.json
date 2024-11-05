@@ -28,10 +28,6 @@
     "inputFile": "assets/styles/betchoicematching/betchoicematching.scss"
   },
   {
-    "outputFile": "Features/Outstanding/Styles/outstanding-mobile-calculate-07.css",
-    "inputFile": "Features/Outstanding/Styles/outstanding-mobile-calculate-07.scss"
-  },
-  {
     "outputFile": "assets/styles/report-mobile-calculate-07.css",
     "inputFile": "assets/styles/report-mobile-calculate-07.scss"
   },
@@ -150,6 +146,30 @@
   {
     "outputFile": "Features/Shared/Styles/report-legend.css",
     "inputFile": "Features/Shared/Styles/report-legend.scss"
+  },
+  {
+    "outputFile": "Features/Outstanding/Styles/outstanding.css",
+    "inputFile": "Features/Outstanding/Styles/outstanding.scss"
+  },
+  {
+    "outputFile": "assets/styles-v2/winlossdetailnew.css",
+    "inputFile": "assets/styles-v2/winlossdetailnew.scss"
+  },
+  {
+    "outputFile": "assets/styles-v2/winlossanalysischart.css",
+    "inputFile": "assets/styles-v2/winlossanalysischart.scss"
+  },
+  {
+    "outputFile": "assets/styles-v2/consolidation.css",
+    "inputFile": "assets/styles-v2/consolidation.scss"
+  },
+  {
+    "outputFile": "assets/styles-v2/superwinlossdetailbypt.css",
+    "inputFile": "assets/styles-v2/superwinlossdetailbypt.scss"
+  },
+  {
+    "outputFile": "assets/styles-v2/winlossbyproduct.css",
+    "inputFile": "assets/styles-v2/winlossbyproduct.scss"
   },
   {
     "outputFile": "Features/WhiteLabelReport/Styles/whitelabel-report.css",

@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
 }
-
+@model bool?
 <div class="modal fade message-modal" id="report-legend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -47,7 +47,7 @@
                     <div class="guideline-row">
                         <span class="statement-term">
                             @Resources.TransferAmt:
-                        </span> <span>@Resources.Guidelines_TransferAmt_Member</span>
+                        </span> <span>@(Model == true ? Resources.Guidelines_TransferAmt_DirectMember : Resources.Guidelines_TransferAmt_Member)</span>
                     </div>
                     <div class="guideline-row">
                         <span class="statement-term">

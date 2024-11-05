@@ -37,9 +37,9 @@
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(userLevelId);
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var param = new CommissionByBettypeParam(userLevel, custLevel, 1, default(DateTime), default(DateTime), default(DateTime));
+            var param = new CommissionByBettypeParam(userLevel, custLevel, 1, default(DateTime), default(DateTime), default(DateTime), 0);
             reportDateService.GetMoveBetsDay().Returns(new DateTime());
-            repository.Fetch<CommissionByBettypeModel>(Arg.Any<CommissionByBettypeCriteria>()).Returns(new List<CommissionByBettypeModel> { null });
+            repository.Fetch<CommissionByBettypeModel>(Arg.Any<CommissionByBettypeMemberCriteria>()).Returns(new List<CommissionByBettypeModel> { null });
 
             // Act
             var commissions = service.GetAllCommissionByBettypes(param);

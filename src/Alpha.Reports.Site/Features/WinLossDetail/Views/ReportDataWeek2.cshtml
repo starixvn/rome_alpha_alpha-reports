@@ -14,7 +14,7 @@
         Resources.Reward,
         string.IsNullOrWhiteSpace(rewardCurrency) ? string.Empty : $"<br/>({rewardCurrency})");
 }
-<table class="tblRpt tblRpt-bordered alternative-row-table-new width-100per tablesorter tblRpt-hover tblRpt-freeze-body tblRpt-freeze-header"
+<table class="tb tb-bordered tb-hover tb-freeze-header tb-freeze-body w-full tablesorter"
        id="tbl-report"
        data-cansort="@Model.WinLossDetail.MoreThanOne()"
        data-yesterday="@Model.TotalEnteredSport.EnteredSportYesterday.EventDate.ToMMDDWithSlash()"
@@ -108,7 +108,7 @@
                     else
                     {
                         <a href="javascript:;"
-                           class="@(custLevelIsAgentLevel ? "betlists-link" : "downline-link")"
+                           class="@(custLevelIsAgentLevel || data.IsDirectMember ? "betlists-link" : "downline-link")"
                            data-custid="@data.CustId"
                            data-custname="@data.CustName"
                            data-custlevelid="@custLevelDirectDownlineLevelValue">@data.CustName</a>

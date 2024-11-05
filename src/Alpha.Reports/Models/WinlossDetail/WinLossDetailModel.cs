@@ -23,7 +23,8 @@
             NetWinLoss masterNetWinLoss,
             NetWinLoss superNetWinLoss,
             decimal? rewardAmount,
-            string rewardCurrency)
+            string rewardCurrency,
+            bool isDirectMember)
         {
             CustId = custId;
             CustName = custName;
@@ -40,6 +41,7 @@
             SuperNetWinLoss = superNetWinLoss;
             RewardAmount = rewardAmount ?? 0;
             RewardCurrency = rewardCurrency;
+            IsDirectMember = isDirectMember;
         }
 
         public int CustId { get; }
@@ -97,5 +99,7 @@
         public decimal RewardAmount { get; }
 
         public string RewardCurrency { get; }
+
+        public bool IsDirectMember { get; }
     }
 }

@@ -16,7 +16,7 @@
 
         public ActionResult SMAReportLegend() => View();
 
-        public ActionResult MemberReportLegend() => View();
+        public ActionResult MemberReportLegend(bool? isDirectMember) => View(isDirectMember);
 
         public ActionResult StatementDetails(StatementDetailsQuery message) => View("_StatementDetails", message);
 

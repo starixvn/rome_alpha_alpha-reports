@@ -56,8 +56,9 @@
                     winLossDetailParam.UserSelectedProductIds,
                     winLossDetailParam.ProductDetailsXML,
                     string.IsNullOrWhiteSpace(winLossDetailParam.Username) ? message.CustName : winLossDetailParam.Username,
-                    isReward: true,
-                    site: message.Site);
+                    message.IsReward,
+                    message.LevelType,
+                    message.Site);
                 weekDataTask = BuildWeekSelectionViewModels(winLossDetailWeekDataParam, message.WeekFromDate, message.WeekToDate);
             }
             else
@@ -148,8 +149,9 @@
                 winLossDetailParam.UserSelectedProductIds,
                 winLossDetailParam.ProductDetailsXML,
                 string.IsNullOrWhiteSpace(winLossDetailParam.Username) ? message.CustName : winLossDetailParam.Username,
-                isReward: true,
-                site: message.Site);
+                message.IsReward,
+                message.LevelType,
+                message.Site);
 
             return await BuildWeekSelectionViewModels(winLossDetailWeekDataParam, message.WeekFromDate, message.WeekToDate);
         }

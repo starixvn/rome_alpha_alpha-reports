@@ -6,6 +6,7 @@
         viewLevel == 3 ? UserLevel.Agent : UserLevel.Member;
 }
 <form class="form-inline filter @(Model.Visible ? string.Empty:"hide")" role="form" id="report-form" action="@Url.Action($"{viewCustLevel.DisplayName}", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}CommissionByBettype")">
+    @LevelTypeDropdown.Render(Model.CustLevel, Model.LevelType)
     @DateRangePicker.Render(Model.DateRangePicker)
 
     <div class="form-group">

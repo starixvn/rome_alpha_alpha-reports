@@ -1,34 +1,30 @@
 ﻿@model SMAStatementViewModel
 @{
     ViewBag.Title = "Statement Report";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
-
 @section Styles {
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/statement")
     @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/statement/statement")
 }
-
 @ReportTitle.Render(new PageHeaderViewModel(Resources.Statement, false, true, false, Model.IsFilterVisible, null, null))
-
-<form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
+<form class="form-inline filter @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
     @DateRangePicker.Render(Model.DateRangePickerViewModel)
-
     <div class="form-group">
-        <span id="icon-information" class="icon-information-outline"></span>
+        <span id="icon-information" class="ic-information"></span>
     </div>
     <div class="form-group">
-        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+        <span id="icon-excel" class="ic-excel" title="@Resources.ExportToExcel"></span>
     </div>
     <div class="note">
         <span class="star">*</span>@Model.ViewDataInstructionMessage
     </div>
-
     @Html.Hidden("IsFilterVisible", Model.IsFilterVisible ? "true" : "false")
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
 </form>
-
-<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover" id="tbl-report">
+<table class="tb tb-bordered w-full tablesorter tb-hover" id="tbl-report">
     <thead>
         <tr>
             <th>@Resources.Date</th>

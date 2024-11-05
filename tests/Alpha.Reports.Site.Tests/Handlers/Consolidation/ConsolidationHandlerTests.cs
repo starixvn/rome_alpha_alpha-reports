@@ -391,6 +391,7 @@
                 winLossDetailQuery.IsHistoricReport,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
 
             var winLossDetailViewModel = new WinLossDetailViewModel(

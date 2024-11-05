@@ -19,5 +19,7 @@
         public decimal WinLoss { get; set; }
 
         public decimal Comm { get; set; }
+
+        public bool IsDirectMember { get; set; }
     }
 }

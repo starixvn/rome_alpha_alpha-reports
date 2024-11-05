@@ -67,10 +67,11 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
 
             var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
-            dataAccess.GetData(Arg.Any<WinLossDetailCriteria>()).Returns(reportData);
+            dataAccess.GetData(Arg.Any<WinLossDetailMemberCriteria>()).Returns(reportData);
 
             var expectedReportData = reportData;
 
@@ -104,13 +105,14 @@
                 false,
                 string.Empty,
                 username: null,
+                levelType: 0,
                 isReward: false);
 
             // Act
             winLossDetailServiceImpl.GetWinLossDetail(param);
 
             // Assert
-            dataAccess.Received().GetData(Arg.Is<WinLossDetailCriteria>(i => i.FromDate == limitedDate));
+            dataAccess.Received().GetData(Arg.Is<WinLossDetailMemberCriteria>(i => i.FromDate == limitedDate));
         }
     }
 }

@@ -27,6 +27,8 @@
 
         public string ConsolidationResourceIds { get; set; }
 
+        public byte LevelType { get; set; }
+
         public static bool CanViewReport(ReportDefaultDateRangeQuery query)
         {
             //// TODO: Side effect here

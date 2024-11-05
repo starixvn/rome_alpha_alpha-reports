@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Alpha.Reports.Models;
     using Constants;
     using Fixtures;
     using Newtonsoft.Json;
@@ -145,10 +146,10 @@
         public void GetRowMapper_BodyMapper_ReturnsCorrectMapper()
         {
             // Arrange
-            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5);
+            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5, false);
 
             // Act
-            var actualMapper = excelHandler.GetRowMapper(false);
+            var actualMapper = excelHandler.GetRowMapper(UserLevel.Agent, false);
 
             // Assert
             Assert.True(
@@ -164,10 +165,10 @@
         public void GetRowMapper_TotalMapper_ReturnsCorrectMapper()
         {
             // Arrange
-            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5);
+            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5, false);
 
             // Act
-            var actualMapper = excelHandler.GetRowMapper(true);
+            var actualMapper = excelHandler.GetRowMapper(UserLevel.Agent, true);
 
             // Assert
             Assert.True(

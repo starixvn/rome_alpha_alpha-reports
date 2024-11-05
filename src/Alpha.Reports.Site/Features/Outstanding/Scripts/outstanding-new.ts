@@ -15,27 +15,32 @@ class OutstandingViewNew extends BaseReportNew {
 	productMultiSelectionComponent: ProductMultiSelectionComponent;
 	linkBuilderComponent: LinkBuilderComponent;
 	$buttonProduct: JQuery;
-	displayOutstandingLevels: any;
+    displayOutstandingLevels: any;
+    levelTypeDropdown: SingleSelectionDropdownComponent
 
 	constructor(
 		$: JQueryStatic,
 		productMultiSelectionComponent: ProductMultiSelectionComponent,
 		linkBuilderComponent: LinkBuilderComponent,
-		displayOutstandingLevels: any) {
+        displayOutstandingLevels: any,
+        levelTypeDropdown: SingleSelectionDropdownComponent) {
 		super($, linkBuilderComponent);
 		this.productMultiSelectionComponent = productMultiSelectionComponent;
-		this.displayOutstandingLevels = displayOutstandingLevels;
+        this.displayOutstandingLevels = displayOutstandingLevels;
+        this.levelTypeDropdown = levelTypeDropdown;
 	}
 
 	init = () => {
 		super.init();
 		
 		this.productMultiSelectionComponent.render();
-		this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
+        this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
+        this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
 
 		this.linkBuilderComponent.render();
 		this.registerEvents();
-		this.initHelp();
+        this.initHelp();
+        this.$reportForm.show();
 		this.initDataTable();
 	};
 
@@ -120,7 +125,8 @@ $(function () {
 		$,
 		new ProductMultiSelectionComponent($),
 		linkBuilderComponent,
-		displayOutstandingLevels);
+        displayOutstandingLevels,
+        new SingleSelectionDropdownComponent($));
 
 	outstandingViewNew.init();
 });

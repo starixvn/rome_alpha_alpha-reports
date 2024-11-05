@@ -1,10 +1,13 @@
 ﻿@model SuperWinLossDetailByPTViewModel
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewBag.Title = "Super Win Loss Detail By PT";
 }
-
+@section Styles {
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/superwinlossdetailbypt")
+    @StaticResources.RenderStyles("~/assets/bundles-v2/superwinlossdetailbypt")
+}
 @ReportTitle.Render(
     new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty),
     Request.Url.Query)

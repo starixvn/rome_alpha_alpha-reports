@@ -4,9 +4,9 @@
     using Fanex.Data;
     using Models;
 
-    public class WinLossDetailCriteria : PagingReportProductCriteria
+    public class WinLossDetailMemberCriteria : PagingReportProductCriteria
     {
-        public WinLossDetailCriteria(
+        public WinLossDetailMemberCriteria(
             int custId,
             int pageIndex,
             int pageSize,
@@ -41,11 +41,6 @@
         [SpParam(Ignored = true)]
         public string Subfix { get; }
 
-        public override string GetSettingKey()
-            => ReportLevel.IsAgentLevel()
-            ? $"Age_Rpt_WinLossDetail_Member{Subfix}"
-            : ReportLevel.IsMasterLevel()
-            ? $"Age_Rpt_WinLossDetail_Agent{Subfix}"
-            : $"Age_Rpt_WinLossDetail_Master{Subfix}";
+        public override string GetSettingKey() => $"Age_Rpt_WinLossDetail_Member{Subfix}";
     }
 }

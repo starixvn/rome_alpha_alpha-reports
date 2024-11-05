@@ -11,6 +11,7 @@
 "use strict";
 class ConsolidationDetailView extends BaseReport {
     productMultiSelectionComponent: ProductMultiSelectionComponent;
+    levelTypeDropdown: SingleSelectionDropdownComponent;
     dateRangePickerComponent: DateRangePickerComponent;
     reportTooltip: ReportTooltip;
 
@@ -42,6 +43,7 @@ class ConsolidationDetailView extends BaseReport {
     constructor(
         $: JQueryStatic,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
+        levelTypeDropdown: SingleSelectionDropdownComponent,
         dateRangePickerComponent: DateRangePickerComponent,
         reportTooltip: ReportTooltip,
         linkBuilderComponent: LinkBuilderComponent,
@@ -50,6 +52,7 @@ class ConsolidationDetailView extends BaseReport {
         super($, linkBuilderComponent);
 
         this.productMultiSelectionComponent = productMultiSelectionComponent;
+        this.levelTypeDropdown = levelTypeDropdown;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.reportTooltip = reportTooltip;
 
@@ -70,7 +73,7 @@ class ConsolidationDetailView extends BaseReport {
         this.$productButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
         this.dateRangePickerComponent.render();
-
+        this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
         this.pagerComponent.render();
 
         this.hasAllDataOnClient = this.pagerComponent.hasAllDataOnClient();
@@ -115,7 +118,7 @@ class ConsolidationDetailView extends BaseReport {
     }
     public registerEvents() {
         this.$(".icon-filter").on("click", this.onClickIconFilter);
-        this.$(".icon-switchmode").on("click", this.onSwitchMode);
+        this.$(".ic-switchmode").on("click", this.onSwitchMode);
 
         this.$reportForm.submit(this.onSubmitReport);
 
@@ -289,6 +292,7 @@ $(() => {
     const consolidationDetailView = new ConsolidationDetailView(
         $,
         new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
+        new SingleSelectionDropdownComponent($),
         new DateRangePickerComponent($),
         new ReportTooltip($),
         linkBuilderComponent,

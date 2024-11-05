@@ -157,6 +157,63 @@ var alphaReports = new AlphaReports($, store);
 //# sourceMappingURL=core.js.map
 /// <reference path="../core.ts" />
 "use strict";
+var SingleSelectionDropdownOption = /** @class */ (function () {
+    function SingleSelectionDropdownOption(dropdownId, inputId, onChange) {
+        if (dropdownId === void 0) { dropdownId = "dropdown-single"; }
+        if (inputId === void 0) { inputId = "UserSelectedId"; }
+        if (onChange === void 0) { onChange = null; }
+        this.dropdownId = dropdownId;
+        this.inputId = inputId;
+        this.onChange = onChange;
+    }
+    return SingleSelectionDropdownOption;
+}());
+var SingleSelectionDropdownComponent = /** @class */ (function () {
+    function SingleSelectionDropdownComponent($) {
+        var _this = this;
+        this.options = new SingleSelectionDropdownOption();
+        this.render = function (options) {
+            if (options === void 0) { options = new SingleSelectionDropdownOption(); }
+            _this.options = _this.$.extend({}, _this.options, options);
+            var $dropdown = _this.$("#" + _this.options.dropdownId);
+            _this.$dropdown = $dropdown;
+            var $hiddenInput = _this.$("#" + _this.options.inputId);
+            _this.$hiddenInput = $hiddenInput;
+            var self = _this;
+            _this.selectedValue = self.getSelectedItem();
+            _this.$dropdown.multiselect({
+                multiple: false,
+                maxHeight: 300,
+                numberDisplayed: 1,
+                includeSelectAllOption: false,
+                onChange: _this.onchange
+            });
+        };
+        this.getSelectedItem = function () {
+            var selected = [];
+            var selectedOptions = _this.$dropdown.find("option:selected");
+            var this$ = _this.$;
+            selectedOptions.each(function () {
+                selected.push([this$(this).val()]);
+            });
+            return selected.length ? selected[0].toString() : "";
+        };
+        this.updateSelectedValue = function () {
+            _this.$hiddenInput.val(_this.selectedValue);
+        };
+        this.onchange = function () {
+            _this.selectedValue = _this.getSelectedItem();
+            if (_this.options.onChange) {
+                _this.options.onChange();
+            }
+        };
+        this.$ = $;
+    }
+    return SingleSelectionDropdownComponent;
+}());
+//# sourceMappingURL=single-selection-dropdown.js.map
+/// <reference path="../core.ts" />
+"use strict";
 var DateRangePickerOption = /** @class */ (function () {
     function DateRangePickerOption(selectorId, reportFormId, onChange, onBeforeQuickChooseChange) {
         if (selectorId === void 0) { selectorId = "daterange-picker"; }
@@ -471,7 +528,6 @@ var BaseReport = /** @class */ (function () {
             _this.$reportLegend.modal({ show: true, backdrop: false });
             var iconHelpPosition = _this.$iconInformation.position();
             _this.$reportLegend.css({
-                bottom: "auto",
                 top: _this.$(".entered-non-entered").length > 0 ? iconHelpPosition.top + 90 : iconHelpPosition.top + 60
             });
         };
@@ -510,11 +566,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var CommissionByBettype = /** @class */ (function (_super) {
     __extends(CommissionByBettype, _super);
-    function CommissionByBettype($, dateRangePicker, sorter, linkBuilderComponent) {
+    function CommissionByBettype($, levelTypeDropdown, dateRangePicker, sorter, linkBuilderComponent) {
         var _this = _super.call(this, $, linkBuilderComponent) || this;
         _this.init = function () {
             _this.cacheDOMElements();
             _this.registerEvents();
+            _this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
             _this.dateRangePicker.render();
             _this.sorter.render(new SortOption(_this.$tableReport, parseInt(_this.$tableReport.data("totalrecords"), 0) > 1, true, _this.sorter.afterSort, { 0: { sorter: "text" } }));
             _this.$tableReport.stickyTableHeaders();
@@ -545,6 +602,7 @@ var CommissionByBettype = /** @class */ (function (_super) {
                 IsFilterVisible: !_this.$reportForm.is(":hidden")
             };
         };
+        _this.levelTypeDropdown = levelTypeDropdown;
         _this.dateRangePicker = dateRangePicker;
         _this.sorter = sorter;
         return _this;
@@ -558,7 +616,7 @@ var CommissionByBettype = /** @class */ (function (_super) {
 }(BaseReport));
 $(function () {
     var linkBuilderComponent = new LinkBuilderComponent($);
-    var commissionByBettype = new CommissionByBettype($, new DateRangePickerComponent($), new SortComponent($, linkBuilderComponent), linkBuilderComponent);
+    var commissionByBettype = new CommissionByBettype($, new SingleSelectionDropdownComponent($), new DateRangePickerComponent($), new SortComponent($, linkBuilderComponent), linkBuilderComponent);
     commissionByBettype.init();
 });
 //# sourceMappingURL=commissionbybettype.js.map

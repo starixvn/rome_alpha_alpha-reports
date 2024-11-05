@@ -26,7 +26,8 @@
                 Enumerable.Empty<int>(),
                 UserLevel.Agent,
                 isHistoryReport,
-                string.Empty);
+                string.Empty,
+                0);
 
             // Assert
             Assert.Equal(isHistoryReport, model.IsHistoryReport);

@@ -17,11 +17,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var CommissionByBettype = /** @class */ (function (_super) {
     __extends(CommissionByBettype, _super);
-    function CommissionByBettype($, dateRangePicker, sorter, linkBuilderComponent) {
+    function CommissionByBettype($, levelTypeDropdown, dateRangePicker, sorter, linkBuilderComponent) {
         var _this = _super.call(this, $, linkBuilderComponent) || this;
         _this.init = function () {
             _this.cacheDOMElements();
             _this.registerEvents();
+            _this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
             _this.dateRangePicker.render();
             _this.sorter.render(new SortOption(_this.$tableReport, parseInt(_this.$tableReport.data("totalrecords"), 0) > 1, true, _this.sorter.afterSort, { 0: { sorter: "text" } }));
             _this.$tableReport.stickyTableHeaders();
@@ -52,6 +53,7 @@ var CommissionByBettype = /** @class */ (function (_super) {
                 IsFilterVisible: !_this.$reportForm.is(":hidden")
             };
         };
+        _this.levelTypeDropdown = levelTypeDropdown;
         _this.dateRangePicker = dateRangePicker;
         _this.sorter = sorter;
         return _this;
@@ -65,7 +67,7 @@ var CommissionByBettype = /** @class */ (function (_super) {
 }(BaseReport));
 $(function () {
     var linkBuilderComponent = new LinkBuilderComponent($);
-    var commissionByBettype = new CommissionByBettype($, new DateRangePickerComponent($), new SortComponent($, linkBuilderComponent), linkBuilderComponent);
+    var commissionByBettype = new CommissionByBettype($, new SingleSelectionDropdownComponent($), new DateRangePickerComponent($), new SortComponent($, linkBuilderComponent), linkBuilderComponent);
     commissionByBettype.init();
 });
 //# sourceMappingURL=commissionbybettype.js.map

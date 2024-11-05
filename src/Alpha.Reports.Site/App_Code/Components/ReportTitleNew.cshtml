@@ -5,11 +5,6 @@
 @helper Render(string title, bool showIconInfo = false, EnteredSportResult enteredSportResult = null)
 {
     <div class="page-title page-title-entered">
-        <div class="text-title pull-left" id="report-title">@title</div>
-        @if (showIconInfo)
-        {
-            <a href="javascript:;"><span class="icon icon-information-outline icon-report-legend" id="icon-report-legend"></span></a>
-        }
         @if (enteredSportResult != null)
         {
             var hasNonEnteredYerterday = enteredSportResult.EnteredSportYesterday.NonEntered > 0;
@@ -34,8 +29,13 @@
                 </div>
             </div>
         }
+        <div class="text-title pull-left" id="report-title">@title</div>
+        @if (showIconInfo)
+        {
+            <a href="javascript:;"><span class="ic-information icon icon-information-outline icon-report-legend" id="icon-report-legend"></span></a>    
+        }
         <div class="list-icon">
-            <ul><li><span class="icon-arrow-up-drop-circle icon-filter" id="icon-filter" title="@Resources.HideFilter"></span></li></ul>
+            <ul><li><span class="ic-arrow-up-circle" id="icon-filter" title="@Resources.HideFilter"></span></li></ul>
         </div>
     </div>
     <input type="hidden" id="hiddenHideFilterText" value="@Resources.HideFilter" />

@@ -15,11 +15,13 @@
             string productDetails,
             string username,
             bool isReward,
+            byte levelType,
             string subfix) : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
         {
             ProductDetails = productDetails;
             Username = username;
             IsReward = isReward;
+            LevelType = levelType;
             Subfix = subfix;
         }
 
@@ -28,6 +30,8 @@
         public string Username { get; }
 
         public bool IsReward { get; }
+
+        public byte LevelType { get; }
 
         [SpParam(Ignored = true)]
         public string Subfix { get; }

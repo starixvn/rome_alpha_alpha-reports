@@ -209,7 +209,6 @@ var BaseReport = /** @class */ (function () {
             _this.$reportLegend.modal({ show: true, backdrop: false });
             var iconHelpPosition = _this.$iconInformation.position();
             _this.$reportLegend.css({
-                bottom: "auto",
                 top: _this.$(".entered-non-entered").length > 0 ? iconHelpPosition.top + 90 : iconHelpPosition.top + 60
             });
         };
@@ -841,12 +840,12 @@ var ConsolidationView = /** @class */ (function (_super) {
         _this.collapseExpandRows = function ($usernameRow) {
             var custId = $usernameRow.data("custid");
             var $collapseExpandIcon = $usernameRow.find("#icon-" + custId);
-            if ($collapseExpandIcon.hasClass("icon-arrow-right")) {
-                $collapseExpandIcon.removeClass().addClass("icon-arrow-down");
+            if ($collapseExpandIcon.hasClass("ic-arrow-right")) {
+                $collapseExpandIcon.removeClass().addClass("ic-arrow-down");
                 _this.$tableReport.find(".child-row-" + custId).removeClass("hide");
             }
             else {
-                $collapseExpandIcon.removeClass().addClass("icon-arrow-right");
+                $collapseExpandIcon.removeClass().addClass("ic-arrow-right");
                 _this.$tableReport.find(".child-row-" + custId).addClass("hide");
             }
         };
@@ -898,7 +897,7 @@ var ConsolidationView = /** @class */ (function (_super) {
     };
     ConsolidationView.prototype.registerEvents = function () {
         this.$(".icon-filter").on("click", this.onClickIconFilter);
-        this.$(".icon-switchmode").on("click", this.onSwitchMode);
+        this.$(".ic-switchmode").on("click", this.onSwitchMode);
         this.$reportForm.submit(this.onSubmitReport);
         this.$("#icon-excel").on("click", this.onExportExcel);
         var self = this;

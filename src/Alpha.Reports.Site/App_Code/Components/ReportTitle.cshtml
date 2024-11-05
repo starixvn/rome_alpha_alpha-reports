@@ -40,7 +40,7 @@
                 </div>
             </div>
         }
-        <div class="text-title pull-left" style="clear: both">@model.Title</div>
+        <div class="text-title">@model.Title</div>
     }
 
     @if (!string.IsNullOrWhiteSpace(currentRequestQuery))
@@ -50,7 +50,7 @@
 
     @if (model.InfoIcon != null)
     {
-        <a href="@model.InfoIcon.Href" @(string.IsNullOrWhiteSpace(model.InfoIcon.Target) ? string.Empty : $"target={model.InfoIcon.Target}")><span class="icon icon-information-outline"></span></a>
+        <a href="@model.InfoIcon.Href" @(string.IsNullOrWhiteSpace(model.InfoIcon.Target) ? string.Empty : $"target={model.InfoIcon.Target}")><span class="ic-information icon icon-information-outline"></span></a>
     }
 
     @if (model.IsShowActionIcons)
@@ -59,14 +59,14 @@
             <ul>
                 @if (model.HasHideFilterIcon)
                 {
-                    <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
-                    <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+                    <li class="showfilter-element"><span class="ic-arrow-up-circle icon-filter" title="@Resources.HideFilter"></span></li>
+                    <li class="hidefilter-element"><span class="ic-arrow-down-circle icon-filter" title="@Resources.ShowFilter"></span></li>
                 }
 
                 @if (model.HasStackIcon)
                 {
-                    <li class="normalview-element"><span id="icon-stack-column" class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
-                    <li class="stackcolumnview-element"><span id="icon-normal-column" class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
+                    <li class="normalview-element"><span id="icon-stack-column" class="ic-stack-column ic-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
+                    <li class="stackcolumnview-element"><span id="icon-normal-column" class="ic-normal-column ic-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
                 }
             </ul>
         </div>

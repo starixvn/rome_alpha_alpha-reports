@@ -75,7 +75,8 @@
                 message.IsHistoricReport,
                 productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds),
                 message.Username,
-                isReward: true);
+                message.LevelType,
+                message.IsReward);
         }
 
         private static IEnumerable<int> GetValidUserSelectedProductIds(

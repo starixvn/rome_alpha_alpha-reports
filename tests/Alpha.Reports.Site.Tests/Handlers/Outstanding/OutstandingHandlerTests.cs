@@ -51,7 +51,7 @@
             query.CustId = custId;
             query.UserSelectedProductIds = userSelectedProductIds;
 
-            var expectedparam = new OutstandingParam(viewerLevel, custLevel, custId, userSelectedProductIds, false);
+            var expectedparam = new OutstandingParam(viewerLevel, custLevel, custId, userSelectedProductIds, false, 0);
 
             // Act
             handler.Handle(query);

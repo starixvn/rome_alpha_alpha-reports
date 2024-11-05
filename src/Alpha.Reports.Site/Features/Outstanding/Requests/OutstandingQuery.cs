@@ -13,6 +13,8 @@
 
         public string UserSelectedProductIds { get; set; }
 
+        public byte LevelType { get; set; }
+
         public string SortPropertyName { get; set; }
 
         public bool IsDescendingSort { get; set; }
