@@ -97,7 +97,6 @@
 <input type="hidden" id="hiddenMainDomain" value="@Model.MainDomain" />
 <input type="hidden" id="hiddenShowColumns" value="@Model.ShowColumns" />
 <input type="hidden" id="hiddenMemberInfoUrl" value="@MicroSites.MemberInfoUrl()" />
-@Html.Hidden("CurrentCustSubId", $"{AlphaPlus.User.Models.UserSession.Current.CustId}_{AlphaPlus.User.Models.UserSession.Current.SubAccId}")
 
 <div style="width: 474px; display: none" class="modal fade message-modal" id="ShutdownOldWinLossDetailReportMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-sm" role="document" style="margin: 0; min-width: 474px">

@@ -961,12 +961,6 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         _this.sortIndicator = 0; // asc: 0, desc: 1
         _this.isGettingReportData = false;
         _this.isWeekSelectionClicked = false;
-        _this.bindDonotShowAgain = function () {
-            $("#close-ShutdownOldWinLossDetailReportMessage").click(function () {
-                localStorage.setItem("ShutdownOldWinLossDetailReportMessage-Hide-" + _this.currentCustSubId, "5");
-                $("#ShutdownOldWinLossDetailReportMessage").hide();
-            });
-        };
         _this.totalEnteredNonEnteredComponent = totalEnteredNonEnteredComponent;
         _this.dateRangePickerComponent = dateRangePickerComponent;
         _this.productAndProductDetailDropdownComponent = productAndProductDetailDropdownComponent;
@@ -1003,17 +997,6 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
                 window.top.indexManager.initFeedbackFunction(2);
             }
         }, 1000);
-        this.currentCustSubId = $("#CurrentCustSubId").val();
-        var numberOfDisplayShutdownCount = !$.isNumeric(localStorage.getItem("ShutdownOldWinLossDetailReportMessage-Hide-" + this.currentCustSubId)) ? 0 :
-            parseInt(localStorage.getItem("ShutdownOldWinLossDetailReportMessage-Hide-" + this.currentCustSubId));
-        if (numberOfDisplayShutdownCount < 5) {
-            $("#ShutdownOldWinLossDetailReportMessage")
-                .modal({ show: true, backdrop: false })
-                .css({ bottom: "auto", top: 90, left: 0 });
-            ++numberOfDisplayShutdownCount;
-            localStorage.setItem("ShutdownOldWinLossDetailReportMessage-Hide-" + this.currentCustSubId, numberOfDisplayShutdownCount.toString());
-        }
-        this.bindDonotShowAgain();
     };
     WinLossDetailViewNew.prototype.renderComponents = function () {
         var _this = this;

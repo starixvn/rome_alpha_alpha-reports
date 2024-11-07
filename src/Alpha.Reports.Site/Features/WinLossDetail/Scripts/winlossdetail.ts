@@ -39,7 +39,6 @@ class WinLossDetailView extends BaseReport {
     isSwitchView = false;
     hasAllDataOnClient = false;
     levels = ["member", "agent", "master", "super"];
-    currentCustSubId: string;
 
     dateRangePickerComponent: DateRangePickerComponent;
     pagerComponent: PagerComponent;
@@ -121,28 +120,6 @@ class WinLossDetailView extends BaseReport {
 
         this.initHelp();
         this.$.unblockUI();
-
-        this.currentCustSubId = this.$("#CurrentCustSubId").val();
-        var numberOfDisplayShutdownCount = !this.$.isNumeric(localStorage.getItem("ShutdownOldWinLossDetailReportMessage-Hide-" + this.currentCustSubId)) ? 0 :
-            parseInt(localStorage.getItem("ShutdownOldWinLossDetailReportMessage-Hide-" + this.currentCustSubId));
-
-        if (numberOfDisplayShutdownCount < 5) {
-            this.$("#ShutdownOldWinLossDetailReportMessage")
-                .modal({ show: true, backdrop: false })
-                .css({ bottom: "auto", top: 90, left: 0 });
-
-            ++numberOfDisplayShutdownCount;
-            localStorage.setItem("ShutdownOldWinLossDetailReportMessage-Hide-" + this.currentCustSubId, numberOfDisplayShutdownCount.toString());
-        }
-
-        this.bindDonotShowAgain();
-    };
-
-    bindDonotShowAgain = () => {
-        this.$("#close-ShutdownOldWinLossDetailReportMessage").click(() => {
-            localStorage.setItem("ShutdownOldWinLossDetailReportMessage-Hide-" + this.currentCustSubId, "5");
-            this.$("#ShutdownOldWinLossDetailReportMessage").hide();
-        });
     };
 
     checkReady = () => {
