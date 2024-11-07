@@ -53,7 +53,6 @@
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
 @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}WinLossDetail", new { IsSupportHistoricReport = true, IsHistoricReport = Model.IsHistoricReport, MinDate = Model.MinDate, ShowDormantAccountsNote = true }))
 @Html.Hidden("SubAccId", Model.SubAccId)
-@Html.Hidden("CurrentCustSubId", $"{AlphaPlus.User.Models.UserSession.Current.CustId}_{AlphaPlus.User.Models.UserSession.Current.SubAccId}")
 
 <div style="width: 474px; display: none" class="modal fade message-modal" id="ShutdownOldWinLossDetailReportMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-sm" role="document" style="margin: 0; min-width: 474px">

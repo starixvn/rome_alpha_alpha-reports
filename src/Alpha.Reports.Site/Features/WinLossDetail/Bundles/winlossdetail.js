@@ -978,23 +978,6 @@ var WinLossDetailView = /** @class */ (function (_super) {
             _this.registerEvents();
             _this.initHelp();
             _this.$.unblockUI();
-            _this.currentCustSubId = _this.$("#CurrentCustSubId").val();
-            var numberOfDisplayShutdownCount = !_this.$.isNumeric(localStorage.getItem("ShutdownOldWinLossDetailReportMessage-Hide-" + _this.currentCustSubId)) ? 0 :
-                parseInt(localStorage.getItem("ShutdownOldWinLossDetailReportMessage-Hide-" + _this.currentCustSubId));
-            if (numberOfDisplayShutdownCount < 5) {
-                _this.$("#ShutdownOldWinLossDetailReportMessage")
-                    .modal({ show: true, backdrop: false })
-                    .css({ bottom: "auto", top: 90, left: 0 });
-                ++numberOfDisplayShutdownCount;
-                localStorage.setItem("ShutdownOldWinLossDetailReportMessage-Hide-" + _this.currentCustSubId, numberOfDisplayShutdownCount.toString());
-            }
-            _this.bindDonotShowAgain();
-        };
-        _this.bindDonotShowAgain = function () {
-            _this.$("#close-ShutdownOldWinLossDetailReportMessage").click(function () {
-                localStorage.setItem("ShutdownOldWinLossDetailReportMessage-Hide-" + _this.currentCustSubId, "5");
-                _this.$("#ShutdownOldWinLossDetailReportMessage").hide();
-            });
         };
         _this.checkReady = function () {
             return _this.$("#IsHistoricReport").length > 0;
