@@ -1,23 +1,11 @@
 ﻿@using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models
-@using Alpha.Reports.Configurations
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Resources.MoveStatementHistory;
 
-    var userguideLink = SiteSettings.IsSiteLabel789y ?
-        MicroSites.MessageUrl("~/StaticMessage/Guide?id=167296") :
-        MicroSites.HowToUseUrl("~/Index.aspx?linktomessagesite=167296");
-
-    if (Session.IsCookieless && SiteSettings.IsStandaloneReport)
-    {
-        var mainDomain = $"//{Request.Headers["Host"]}";
-        var mainSessionId = Session.SessionID;
-
-        userguideLink = SiteSettings.IsSiteLabel789y ?
-            $"{mainDomain}/site-messages/(S({mainSessionId}))/StaticMessage/Guide?id=167296" :
-            $"{mainDomain}/site-howtouse/(S({mainSessionId}))/Index.aspx?linktomessagesite=167296";
-    }
+    var userguideLink = Model.GetUserGuideLink(Session.IsCookieless, Request.Headers["Host"], Session.SessionID);
 }
+
 @model MoveStatementHistoryViewModel
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{Model.CustLevel.ToLowerInvariant()}")

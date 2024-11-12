@@ -3,12 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Configurations;
     using Alpha.Reports.Extensions;
     using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models;
     using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Features.BetCreditTracking.Requests;
     using Alpha.Reports.Site.Helpers;
     using Alpha.Reports.Site.ViewModels.Components;
+    using Alpha.Web.Helpers;
 
     public class MoveStatementHistoryViewModel
     {
@@ -75,6 +77,28 @@
             };
 
             return UrlHelper.AddQueryStringParamsFunc(BetListPath, routeValues);
+        }
+
+        public string GetUserGuideLink(bool isCookieless, string host, string sessionId)
+        {
+            if (SiteSettings.SupportedNewHandbook)
+            {
+                var handbookPath = "Default/GetBySlug?slug=bet-credit-tracking";
+                return isCookieless && SiteSettings.IsStandaloneReport
+                    ? $"//{host}/site-howtouse/(S({sessionId}))/{handbookPath}"
+                    : MicroSites.HowToUseUrl($"~/{handbookPath}");
+            }
+
+            if (isCookieless && SiteSettings.IsStandaloneReport)
+            {
+                return SiteSettings.IsSiteLabel789y
+                    ? $"//{host}/site-messages/(S({sessionId}))/StaticMessage/Guide?id=167296"
+                    : $"//{host}/site-howtouse/(S({sessionId}))/Index.aspx?linktomessagesite=167296";
+            }
+
+            return SiteSettings.IsSiteLabel789y
+                ? MicroSites.MessageUrl("~/StaticMessage/Guide?id=167296")
+                : MicroSites.HowToUseUrl("~/Index.aspx?linktomessagesite=167296");
         }
     }
 }
