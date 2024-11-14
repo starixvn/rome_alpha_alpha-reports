@@ -1239,4 +1239,19 @@
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="ToWin" xml:space="preserve">
+    <value>To Win</value>
+  </data>
+  <data name="MasterRisk" xml:space="preserve">
+    <value>Master Risk</value>
+  </data>
+  <data name="SuperRisk" xml:space="preserve">
+    <value>Super Risk</value>
+  </data>
+  <data name="AgentRisk" xml:space="preserve">
+    <value>Agent Risk</value>
+  </data>
+  <data name="SportsbookRiskAmount" xml:space="preserve">
+    <value>Sportsbook Risk Amount</value>
+  </data>
 </root>

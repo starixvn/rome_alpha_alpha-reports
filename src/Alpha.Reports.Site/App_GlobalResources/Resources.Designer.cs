@@ -249,6 +249,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Agent Risk.
+        /// </summary>
+        public static string AgentRisk {
+            get {
+                return ResourceManager.GetString("AgentRisk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Agent Total.
         /// </summary>
         public static string AgentTotal {
@@ -1698,6 +1707,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Master Risk.
+        /// </summary>
+        public static string MasterRisk {
+            get {
+                return ResourceManager.GetString("MasterRisk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Master Total.
         /// </summary>
         public static string MasterTotal {
@@ -2724,6 +2742,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sportsbook Risk Amount.
+        /// </summary>
+        public static string SportsbookRiskAmount {
+            get {
+                return ResourceManager.GetString("SportsbookRiskAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sport Win Loss Analysis.
         /// </summary>
         public static string SportWinLossAnalysis {
@@ -2839,7 +2866,14 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("SuperEarning", resourceCulture);
             }
         }
-        
+        /// <summary>
+        ///   Looks up a localized string similar to Super Risk.
+        /// </summary>
+        public static string SuperRisk {
+            get {
+                return ResourceManager.GetString("SuperRisk", resourceCulture);
+            }
+        }
         /// <summary>
         ///   Looks up a localized string similar to Super Total.
         /// </summary>
@@ -3107,6 +3141,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Tote {
             get {
                 return ResourceManager.GetString("Tote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To Win.
+        /// </summary>
+        public static string ToWin {
+            get {
+                return ResourceManager.GetString("ToWin", resourceCulture);
             }
         }
         

@@ -1155,4 +1155,19 @@
   <data name="Search" xml:space="preserve">
     <value>搜寻</value>
   </data>
+  <data name="ToWin" xml:space="preserve">
+    <value>赢取金额</value>
+  </data>
+  <data name="SuperRisk" xml:space="preserve">
+    <value>超级总代理风险</value>
+  </data>
+  <data name="MasterRisk" xml:space="preserve">
+    <value>总代理风险</value>
+  </data>
+  <data name="AgentRisk" xml:space="preserve">
+    <value>代理风险</value>
+  </data>
+  <data name="SportsbookRiskAmount" xml:space="preserve">
+    <value>体育博彩风险金额</value>
+  </data>
 </root>

@@ -1,16 +1,17 @@
 ﻿@using Alpha.Reports.Site.App_GlobalResources;
+@using Alpha.Reports.Constants;
 
 @{
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	ViewBag.Title = "Outstanding Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Outstanding Report";
 
-	var length = Model.DisplayOutstandingLevels.Count;
-	var existedData = Model.OutstandingDatasource.Any();
+    var length = Model.DisplayOutstandingLevels.Count;
+    var existedData = Model.OutstandingDatasource.Any();
 }
 
 @section Styles {
-	@StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/data-table")
-	@StaticResources.RenderStylesWithMedia(767, $"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-asset/data-table")
+    @StaticResources.RenderStylesWithMedia(767, $"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
 }
 
 @model OutstandingViewModel
@@ -18,106 +19,144 @@
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
 <form class="form-inline filter form-report @(Model.IsFilterVisible ? string.Empty:"hide")" role="form" id="report-form">
-	@ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
-	@Html.Hidden("SortPropertyName", Model.SortPropertyName)
-	@Html.Hidden("IsDescendingSort", Model.IsDescendingSort)
-	@Html.Hidden("IsFilterVisible", Model.IsFilterVisible)
-	@Html.Hidden("CustId", Model.Query.CustId)
-	@Html.Hidden("CustName", Model.Query.CustName)
-	@Html.Hidden("CustLevelId", Model.CustLevel.Value)
-	@Html.Hidden("BreadcrumbLevelJson", Model.BreadcrumbLevelJson)
-	@Html.Hidden("CanSort", Model.CanSort)
-	<div class="form-group last-group">
-		<input type="submit" value="@Resources.Submit" class="btn-submit" />
-	</div>
+    @Html.Hidden("SortPropertyName", Model.SortPropertyName)
+    @Html.Hidden("IsDescendingSort", Model.IsDescendingSort)
+    @Html.Hidden("IsFilterVisible", Model.IsFilterVisible)
+    @Html.Hidden("CustId", Model.Query.CustId)
+    @Html.Hidden("CustName", Model.Query.CustName)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    @Html.Hidden("BreadcrumbLevelJson", Model.BreadcrumbLevelJson)
+    @Html.Hidden("CanSort", Model.CanSort)
+    <div class="form-group last-group">
+        <input type="submit" value="@Resources.Submit" class="btn-submit" />
+    </div>
 </form>
 <div id="report-container" class="level-@Model.CustLevel.Value" style="width: @(Model.IsMobileView ? "100%" : "60%");">
-	<table id="tbl-report"
-		   data-totalrecords="@Model.OutstandingDatasource.Count()"
-		   data-sortedcolumn="@Model.SortPropertyName"
-		   data-descendingsort="@Model.IsDescendingSort"
-		   class="@(existedData ? "hidden" : string.Empty) tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
-		<thead>
-			<tr>
-				<th data-priority="0"></th>
-				@{
-					for (var i = 1; i <= length; i++)
-					{
-						<th data-priority="@(length - i)"></th>
-					}
-				}
-				<th></th>
-			</tr>
-			<tr>
-				<th rowspan="2" class="header" data-name="CustName">
-					@HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
-				</th>
-				<th colspan="@length" class="header">
-					@Resources.Outstanding
-				</th>
-				<th class="header" rowspan="2"></th>
-			</tr>
-			<tr class="thead-row2">
-				@{
-					for (var i = 0; i < length; i++)
-					{
-						var userLevel = Model.DisplayOutstandingLevels[i];
-						<th data-priority="@(length - i)">
-							@HtmlHelpers.DisplayUserLevelText(userLevel)
-						</th>
-					}
-				}
-			</tr>
-		</thead>
-		@if (existedData)
-		{
-			<tbody>
-				@foreach (var outstanding in Model.OutstandingDatasource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
-				{
-					<tr>
-						<td class="text-left" data-islink="true">
-							<a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)"
-							   class="downline-link">@outstanding.CustName</a>
-						</td>
-						@RenderOutstandingCells(outstanding)
-						<td></td>
-					</tr>
-				}
-				<tr class="tbl-footer">
-					<td class="text-left">@Resources.Total</td>
-					@for (var i = 0; i < length; i++)
-					{
-						<td>
-							@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
-						</td>
-					}
-					<td class="control"></td>
-				</tr>
-			</tbody>
-		}
-	</table>
+    <table id="tbl-report"
+           data-totalrecords="@Model.OutstandingDatasource.Count()"
+           data-sortedcolumn="@Model.SortPropertyName"
+           data-descendingsort="@Model.IsDescendingSort"
+           class="@(existedData ? "hidden" : string.Empty) tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th data-priority="0"></th>
+                @{
+                    for (var i = 1; i <= length + 2; i++)
+                    {
+                        <th data-priority="@(length - i)"></th>
+                    }
+                }
+                <th></th>
+            </tr>
+            <tr>
+                <th rowspan="2" class="header" data-name="CustName">
+                    @HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
+                </th>
+                <th colspan="@length" class="header">
+                    @Resources.Outstanding
+                </th>
+                <th colspan="2" class="header">
+                    @Resources.SportsbookRiskAmount
+                </th>
+                <th class="header" rowspan="2"></th>
+            </tr>
+            <tr class="thead-row2">
+                @{
+                    for (var i = 0; i < length; i++)
+                    {
+                        var userLevel = Model.DisplayOutstandingLevels[i];
+                        <th data-priority="@(length - i)">
+                            @HtmlHelpers.DisplayUserLevelText(userLevel)
+                        </th>
+                    }
+                }
 
-	@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Outstanding", new { MinDate = Model.Query.MinDate }))
-	@Html.Hidden("NoInformationIsAvailable", @Resources.NoInformationIsAvailable)
+                <th data-priority="@(length)">
+                    @Resources.ToWin
+                </th>
+
+                <th data-priority="@(length + 1)">
+                    @Model.GetSMARisk
+                </th>
+            </tr>
+        </thead>
+        @if (existedData)
+        {
+            <tbody>
+                @foreach (var outstanding in Model.OutstandingDatasource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                {
+                    <tr>
+                        <td class="text-left" data-islink="true">
+                            <a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)"
+                               class="downline-link">@outstanding.CustName</a>
+                        </td>
+                        @RenderOutstandingCells(outstanding)
+                        <td></td>
+                    </tr>
+                }
+                <tr class="tbl-footer">
+                    <td class="text-left">@Resources.Total</td>
+                    @for (var i = 0; i < length; i++)
+                    {
+                        <td>
+                            @HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
+                        </td>
+                    }
+                    <td>
+                        @if(Model.TotalHasToWinValue)
+                        {
+                            @HtmlHelpers.FormatNumber(Model.Total.ToWin)
+                        }
+                        else
+                        {
+                            @DefaultVariables.NA
+                        }
+                    </td>
+                    <td>
+                        @if (Model.TotalHasToWinValue)
+                        {
+                            @HtmlHelpers.FormatNumber(Model.Total.GetSMARiskValueByLevel(Model.Query.ViewerLevel))
+                        }
+                        else
+                        {
+                            @DefaultVariables.NA
+                        }
+                    </td>
+                    <td class="control"></td>
+                </tr>
+            </tbody>
+        }
+    </table>
+
+    @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Outstanding", new { MinDate = Model.Query.MinDate }))
+    @Html.Hidden("NoInformationIsAvailable", @Resources.NoInformationIsAvailable)
 </div>
 
 
 @section Scripts {
-	<script>
+    <script>
 		var displayOutstandingLevels = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.DisplayOutstandingLevels, Newtonsoft.Json.Formatting.Indented));
-	</script>
+    </script>
 
-	@StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
-	@StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/Outstanding/Bundles/outstanding-new")
+    @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
+    @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/Outstanding/Bundles/outstanding-new")
 }
 
 @helper RenderOutstandingCells(OutstandingModel data)
 {
-	foreach (var level in Model.DisplayOutstandingLevels)
-	{
-		<td>
-			@HtmlHelpers.FormatNumber(data.GetValueByLevel(level))
-		</td>
-	}
+    foreach (var level in Model.DisplayOutstandingLevels)
+    {
+        <td>
+            @HtmlHelpers.FormatNumber(data.GetValueByLevel(level))
+        </td>
+    }
+
+    <td>
+        @HtmlHelpers.FormatNumber(data.ToWin)
+    </td>
+    <td>
+        @HtmlHelpers.FormatNumber(data.GetSMARiskValueByLevel(Model.Query.ViewerLevel))
+    </td>
 }

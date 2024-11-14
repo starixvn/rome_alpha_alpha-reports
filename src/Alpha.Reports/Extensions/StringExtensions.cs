@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Extensions
 {
+    using Alpha.Reports.Constants;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -31,7 +32,7 @@
             if (string.IsNullOrWhiteSpace(delimitedString))
             {
                 return Enumerable.Empty<string>();
-            }           
+            }
 
             var ids = delimitedString
                 .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
@@ -41,7 +42,7 @@
         }
 
         public static bool IsNullOrBlank(this string input) => string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input);
-        
+
         public static string FormatNumber(this decimal numberValue)
         {
             var result = numberValue.ToString("#,##0.00");
@@ -50,6 +51,9 @@
                 ? $"-{result}"
                 : result;
         }
+
+        public static string FormatNumber(this decimal? numberValue)
+            => numberValue.HasValue ? FormatNumber(numberValue.Value) : DefaultVariables.NA;
 
         public static string ToShortMonthNameAndShortYear(this string value)
         {
@@ -94,7 +98,8 @@
                 delimitedString
                     .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                     .ToList()
-                    .ForEach(text => {
+                    .ForEach(text =>
+                    {
                         if (int.TryParse(text, out var number))
                         {
                             results[number] = true;

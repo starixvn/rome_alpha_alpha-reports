@@ -1155,4 +1155,19 @@
   <data name="Search" xml:space="preserve">
     <value>ค้นหา</value>
   </data>
+  <data name="ToWin" xml:space="preserve">
+    <value>จำนวนที่อาจชนะ</value>
+  </data>
+  <data name="SuperRisk" xml:space="preserve">
+    <value>ความเสี่ยงของซุปเปอร์</value>
+  </data>
+  <data name="MasterRisk" xml:space="preserve">
+    <value>ความเสี่ยงของมาสเตอร์</value>
+  </data>
+  <data name="AgentRisk" xml:space="preserve">
+    <value>ความเสี่ยงของเอเย่นท์</value>
+  </data>
+  <data name="SportsbookRiskAmount" xml:space="preserve">
+    <value>จำนวนความเสี่ยงของสปอร์ตบุ๊ค</value>
+  </data>
 </root>
