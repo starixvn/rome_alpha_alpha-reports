@@ -14,12 +14,12 @@
     {
         private readonly CommissionByBettypeService commissionService;
         private readonly ReportDateService reportDateService;
-        private readonly CommissionByBettypeWorkbook workbook;
+        private readonly Workbook<CommissionByBettypeModel> workbook;
 
         public CommissionByBettypeExcelHandler(
             CommissionByBettypeService commissionServiceImpl,
             ReportDateService reportDateServiceImpl,
-            CommissionByBettypeWorkbook workbookImpl)
+            Workbook<CommissionByBettypeModel> workbookImpl)
         {
             commissionService = commissionServiceImpl;
             reportDateService = reportDateServiceImpl;

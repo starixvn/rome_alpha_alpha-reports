@@ -149,7 +149,6 @@
             container.RegisterPerWebRequest<IBetListFactory<BetListExcelBuilder>, BetListExcelFactory>();
             container.RegisterPerWebRequest<IBetListExcelBuilder>(() => container.GetInstance<IBetListFactory<BetListExcelBuilder>>().CreateBuilder());
 
-            container.Register<CommissionByBettypeWorkbook, CommissionByBettypeWorkbookImpl>();
             container.RegisterSingleton<LeagueService, LeagueServiceImpl>();
             container.RegisterSingleton<WinLossByProductWorkbook, WinLossByProductWorkbookImpl>();
             container.Register<MatchWinLossDetailWorkbook, MatchWinLossDetailWorkbookImpl>();
