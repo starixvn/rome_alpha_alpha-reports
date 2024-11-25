@@ -148,6 +148,7 @@
                 ["BetType"] = betType.Id,
                 ["LiveIndicator"] = betType.IsLive ? 1 : 0,
                 ["LeagueId"] = match.LeagueId,
+                ["LeagueType"] = match.LeagueType,
                 ["FromDate"] = fromDate,
                 ["ToDate"] = toDate
             };

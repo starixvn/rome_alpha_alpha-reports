@@ -163,7 +163,8 @@
                         CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
                         new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, (byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
                         "Team 1",
-                        "Team 1")
+                        "Team 1",
+                        0)
                 },
                 CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
                 CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, 1),
@@ -273,7 +274,8 @@
                         CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
                         new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, (byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
                         "Team 1",
-                        "Team 1")
+                        "Team 1",
+                        0)
                 },
                 CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
                 CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, 1),

@@ -31,7 +31,7 @@
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>(),
                 anyValueCreatorFixture.Create<string>(),
-                anyValueCreatorFixture.Create<string>());
+                anyValueCreatorFixture.Create<string>(), 0);
 
             // Act
             var actualRenderSubTotal = model.RenderSubTotal;
@@ -54,7 +54,7 @@
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>(),
                 anyValueCreatorFixture.Create<string>(),
-                anyValueCreatorFixture.Create<string>());
+                anyValueCreatorFixture.Create<string>(), 0);
 
             // Act
             var actualRenderSubTotal = model.RenderSubTotal;
@@ -79,7 +79,7 @@
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>(),
                 anyValueCreatorFixture.Create<string>(),
-                anyValueCreatorFixture.Create<string>());
+                anyValueCreatorFixture.Create<string>(), 0);
 
             // Act
             var actualRenderSubTotal = model.RenderSubTotal;
@@ -231,6 +231,6 @@
                null,
                new MatchWinLossDetailModel(false, 1, 1, 1, betType, liveIndicator, 1, 1, (byte)LeagueType.Self, 1, "1", isNeutral, showTime, 1, 1, null, null, null, null),
                "Team 1",
-               "Team 1");
+               "Team 1", 0);
     }
 }

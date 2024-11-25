@@ -93,7 +93,7 @@
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, (byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
                 "Team 1",
-                "Team 1");
+                "Team 1", 0);
 
             // Act
             matchWinLossDetailWorkbookImpl.FillMatchTitle(sheet, rowIndex, data);

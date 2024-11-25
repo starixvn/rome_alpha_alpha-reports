@@ -20,7 +20,8 @@
             BetTypeWinLossViewModel total,
             MatchWinLossDetailModel firstWinLoss,
             string homeName,
-            string awayName)
+            string awayName,
+            byte leagueType)
         {
             MatchId = matchId;
             LeagueId = leagueId;
@@ -31,9 +32,12 @@
             AwayName = awayName;
             MatchName = GetMatchTitle(firstWinLoss);
             LeagueName = GetLeagueTitle(firstWinLoss, leagueName);
+            LeagueType = leagueType;
         }
 
         public int LeagueId { get; }
+
+        public byte LeagueType { get; }
 
         public string LeagueName { get; }
 

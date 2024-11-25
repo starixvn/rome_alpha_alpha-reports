@@ -193,7 +193,8 @@
                 total,
                 firstWinLoss,
                 GetTeamName(firstWinLoss.HomeId, firstWinLoss.LeagueType),
-                GetTeamName(firstWinLoss.AwayId, firstWinLoss.LeagueType));
+                GetTeamName(firstWinLoss.AwayId, firstWinLoss.LeagueType),
+                firstWinLoss.LeagueType);
         }
 
         internal BetTypeWinLossViewModel BuildWinLossTotal(IEnumerable<MatchWinLossDetailViewModel> matchWinLossDetail)
