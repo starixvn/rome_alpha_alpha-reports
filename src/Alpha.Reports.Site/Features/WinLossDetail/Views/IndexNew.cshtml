@@ -6,6 +6,7 @@
 }
 @section Styles {
     @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-reports/winlossdetail-new")
+    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/matchwinlossdetail/matchwinlossdetailnew")
 }
 @section Scripts {
     <script type="text/javascript">
@@ -66,7 +67,8 @@
     <div class="label-week-box" id="week-selection">
         @{ Html.RenderPartial("~/Features/WinLossDetail/Views/Weeks.cshtml", Model.Weeks); }
     </div>
-    <div id="report-week-selection" class="cover-week-selection">
+    <div class="msg msg-warning" id="msg-warning-note">@Html.Raw(string.Format(Resources.WinLossDetailNewNote, Url.Action("Index2", $"{SiteSettings.ReportRouting}WinLossDetail")))</div>
+    <div id="report-week-selection" class="cover-week-selection" style="visibility:hidden">
         @Html.Partial("~/Features/WinLossDetail/Views/ReportDataNew.cshtml", Model)
     </div>
 </div>
@@ -107,7 +109,7 @@
             </div>
             <div class="modal-body">
                 <div id="msg-content">
-					<ul class="list-msg">
+                    <ul class="list-msg">
                         <li>
                             @string.Format(Resources.ShutdownOldWinLossDetailReportMessage, SiteSettings.GetConfigValue("ShutdownOldWinLossDetailReportDate"))
                         </li>
@@ -115,7 +117,7 @@
                             <label style="margin-top: 15px; cursor: pointer" for="close-ShutdownOldWinLossDetailReportMessage"><input id="close-ShutdownOldWinLossDetailReportMessage" type="checkbox" /> @Resources.DoNotShowAgain</label>
                         </li>
                     </ul>
-                    
+
                 </div>
             </div>
         </div>

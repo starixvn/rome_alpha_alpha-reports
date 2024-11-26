@@ -14,16 +14,20 @@
             string productIds,
             string productDetails,
             string username,
+            bool isReward,
             string subfix) : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
         {
             ProductDetails = productDetails;
             Username = username;
+            IsReward = isReward;
             Subfix = subfix;
         }
 
         public string ProductDetails { get; }
 
         public string Username { get; }
+
+        public bool IsReward { get; }
 
         [SpParam(Ignored = true)]
         public string Subfix { get; }

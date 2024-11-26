@@ -74,7 +74,8 @@
                 false,
                 message.IsHistoricReport,
                 productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds),
-                message.Username);
+                message.Username,
+                message.IsReward);
         }
 
         private static IEnumerable<int> GetValidUserSelectedProductIds(
@@ -202,7 +203,7 @@
                 }
             }
 
-            if (!message.BreadcrumbLevel.Any())
+            if (message.BreadcrumbLevel == null || !message.BreadcrumbLevel.Any())
             {
                 message.BreadcrumbLevel = new[]
                 {

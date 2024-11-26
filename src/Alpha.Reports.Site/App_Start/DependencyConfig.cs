@@ -1,5 +1,8 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Web.Mvc;
     using Alpha.PartialUM.Helpers;
     using Alpha.Reports.Features.AutoFollowBets;
     using Alpha.Reports.Features.BetCreditTracking.BetCreditHistory;
@@ -42,9 +45,6 @@
     using SimpleInjector;
     using SimpleInjector.Integration.Web;
     using SimpleInjector.Integration.Web.Mvc;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Web.Mvc;
 
     public static class DependencyConfig
     {

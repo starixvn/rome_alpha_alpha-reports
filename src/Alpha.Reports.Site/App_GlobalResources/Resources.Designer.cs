@@ -19,7 +19,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -2455,6 +2455,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reward.
+        /// </summary>
+        public static string Reward {
+            get {
+                return ResourceManager.GetString("Reward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Round Count.
         /// </summary>
         public static string RoundCount {
@@ -3225,6 +3234,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string WinLossDetail {
             get {
                 return ResourceManager.GetString("WinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From &lt;b&gt;01/02/2025 (mm/dd/yyyy)&lt;/b&gt;, the report will include Reward information by default. Go back to &lt;a href=&quot;{0}&quot;&gt;the current report&lt;/a&gt;.
+        /// </summary>
+        public static string WinLossDetail2Note {
+            get {
+                return ResourceManager.GetString("WinLossDetail2Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click &lt;a href=&quot;{0}&quot;&gt;here&lt;/a&gt; to view the report with Reward information. From &lt;b&gt;01/02/2025 (mm/dd/yyyy)&lt;/b&gt;, this report will include Reward information by default..
+        /// </summary>
+        public static string WinLossDetailNewNote {
+            get {
+                return ResourceManager.GetString("WinLossDetailNewNote", resourceCulture);
             }
         }
         

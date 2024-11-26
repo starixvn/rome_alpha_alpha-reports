@@ -206,6 +206,7 @@
                 param.ReportLevel,
                 param.ProductDetailsXML,
                 param.Username,
+                param.IsReward,
                 subfix);
 
             var winLossDetailData = winLossDetailDataAccess.GetData(criteria);

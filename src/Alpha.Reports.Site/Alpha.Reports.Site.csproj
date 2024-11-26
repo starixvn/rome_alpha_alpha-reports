@@ -543,6 +543,9 @@
     <Content Include="App_Data\SPNames\Internal2\DBTXN.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Themes\error2-dark.png" />
     <Content Include="App_Themes\error2.png" />
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetailnew-dark.css" />
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetailnew.css" />
+    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetailnew-dark.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.min.css">
       <DependentUpon>enteredresult-dark.css</DependentUpon>
@@ -602,6 +605,12 @@
       <DependentUpon>securitycode.json</DependentUpon>
     </Content>
     <Content Include="App_Code\Components\BreadcrumbNew.cshtml" />
+    <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master2.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master2FullName.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent2.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent2FullName.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member2.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member2FullName.xls" />
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
@@ -883,11 +892,13 @@
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\WinLossByProductController.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailBaseNewHandler.cs" />
+    <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcel2Handler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcelNewHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailNewHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailBaseHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcelHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailHandler.cs" />
+    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcel2Query.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailWeeksQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcelNewQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailGetDataQuery.cs" />
@@ -1976,6 +1987,9 @@
     <Content Include="Features\WinLossDetail\Views\ReportDataNew.cshtml" />
     <Content Include="Features\WinLossDetail\Views\ReportDataWeek.cshtml" />
     <Content Include="Features\WinLossDetail\Views\Weeks.cshtml" />
+    <Content Include="Features\WinLossDetail\Views\Index2.cshtml" />
+    <Content Include="Features\WinLossDetail\Views\ReportDataWeek2.cshtml" />
+    <Content Include="Features\WinLossDetail\Views\ReportData2.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

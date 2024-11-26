@@ -53,6 +53,7 @@
                 UserLevel.Super,
                 string.Empty,
                 string.Empty,
+                false,
                 string.Empty);
 
             var dataSet = (
@@ -63,8 +64,8 @@
 
             var winLossDetails = new List<WinLossDetailModel>
             {
-                new WinLossDetailModel(1, "Master1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), new NetWinLoss(9, 10)),
-                new WinLossDetailModel(11, "Master2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), new NetWinLoss(19, 110))
+                new WinLossDetailModel(1, "Master1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), new NetWinLoss(9, 10), 0, string.Empty),
+                new WinLossDetailModel(11, "Master2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), new NetWinLoss(19, 110), 0, string.Empty)
             };
 
             var expectedData = new PagedReportData<WinLossDetailModel>(
@@ -72,7 +73,7 @@
                 1,
                 0,
                 0,
-                new WinLossDetailModel(0, "Total", null, null, false, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), new NetWinLoss(29, 210)));
+                new WinLossDetailModel(0, "Total", null, null, false, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), new NetWinLoss(29, 210), 0, string.Empty));
 
             // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
@@ -97,6 +98,7 @@
                 UserLevel.Master,
                 string.Empty,
                 string.Empty,
+                false,
                 string.Empty);
 
             var dataSet = (
@@ -107,8 +109,8 @@
 
             var winLossDetails = new List<WinLossDetailModel>()
             {
-                new WinLossDetailModel(1, "Agent1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), null),
-                new WinLossDetailModel(11, "Agent2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), null)
+                new WinLossDetailModel(1, "Agent1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), null, 0, string.Empty),
+                new WinLossDetailModel(11, "Agent2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), null, 0, string.Empty)
             };
 
             var expectedData = new PagedReportData<WinLossDetailModel>(
@@ -116,7 +118,7 @@
                 1,
                 0,
                 0,
-                new WinLossDetailModel(0, "Total", null, null, false, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), null));
+                new WinLossDetailModel(0, "Total", null, null, false, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), null, 0, string.Empty));
 
             // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
@@ -141,6 +143,7 @@
                 UserLevel.Agent,
                 string.Empty,
                 string.Empty,
+                false,
                 string.Empty);
 
             var dataSet = (
@@ -151,8 +154,8 @@
 
             var winLossDetails = new List<WinLossDetailModel>()
             {
-                new WinLossDetailModel(1, "Member1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), null, null),
-                new WinLossDetailModel(11, "Member2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), null, null)
+                new WinLossDetailModel(1, "Member1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), null, null, 0, string.Empty),
+                new WinLossDetailModel(11, "Member2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), null, null, 0, string.Empty)
             };
 
             var expectedData = new PagedReportData<WinLossDetailModel>(
@@ -160,7 +163,7 @@
                 1,
                 0,
                 0,
-                new WinLossDetailModel(0, "Total", null, null, false, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), null, null));
+                new WinLossDetailModel(0, "Total", null, null, false, 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), null, null, 0, string.Empty));
 
             // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
@@ -185,6 +188,7 @@
                 UserLevel.Super,
                 string.Empty,
                 string.Empty,
+                false,
                 string.Empty);
 
             var dataSet = (
@@ -223,6 +227,7 @@
                 UserLevel.Super,
                 string.Empty,
                 string.Empty,
+                false,
                 string.Empty);
 
             var dataSet = (
@@ -233,8 +238,8 @@
 
             var winLossDetails = new List<WinLossDetailModel>()
             {
-                new WinLossDetailModel(1, "Master1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), new NetWinLoss(9, 10)),
-                new WinLossDetailModel(11, "Master2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), new NetWinLoss(19, 110))
+                new WinLossDetailModel(1, "Master1", string.Empty, string.Empty, false, 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), new NetWinLoss(9, 10), 0, string.Empty),
+                new WinLossDetailModel(11, "Master2", string.Empty, string.Empty, false, 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), new NetWinLoss(19, 110), 0, string.Empty)
             };
 
             var expectedData = new PagedReportData<WinLossDetailModel>(

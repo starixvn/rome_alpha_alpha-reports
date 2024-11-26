@@ -150,5 +150,13 @@
   {
     "outputFile": "Features/Shared/Styles/report-legend.css",
     "inputFile": "Features/Shared/Styles/report-legend.scss"
+  },
+  {
+    "outputFile": "assets/styles/matchwinlossdetail/matchwinlossdetailnew.css",
+    "inputFile": "assets/styles/matchwinlossdetail/matchwinlossdetailnew.scss"
+  },
+  {
+    "outputFile": "assets/styles/matchwinlossdetail/matchwinlossdetailnew-dark.css",
+    "inputFile": "assets/styles/matchwinlossdetail/matchwinlossdetailnew.scss"
   }
 ]

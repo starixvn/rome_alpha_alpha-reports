@@ -18,12 +18,14 @@
             UserLevel reportLevel,
             string productDetails,
             string username,
+            bool isReward,
             string subfix)
             : base(custId, pageIndex, pageSize, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
         {
             ReportLevel = reportLevel;
             ProductDetails = productDetails;
             Username = username;
+            IsReward = isReward;
             Subfix = subfix;
         }
 
@@ -33,6 +35,8 @@
         public string ProductDetails { get; }
 
         public string Username { get; }
+
+        public bool IsReward { get; }
 
         [SpParam(Ignored = true)]
         public string Subfix { get; }

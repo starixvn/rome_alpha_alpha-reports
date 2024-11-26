@@ -24,7 +24,8 @@
             bool isDescendingSort,
             bool isHistoricReport,
             string productDetailsXML,
-            string username = null)
+            string username,
+            bool isReward)
             : base(custId, viewerId, site, currencyId, fromDate, toDate, limitedDate, userSelectedProductIds, userSelectedResourceIds, reportLevel, isHistoricReport, productDetailsXML)
         {
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
@@ -34,6 +35,7 @@
             IsDescendingSort = isDescendingSort;
 
             Username = username;
+            IsReward = isReward;
         }
 
         public int PageIndex { get; }
@@ -45,5 +47,7 @@
         public bool IsDescendingSort { get; }
 
         public string Username { get; }
+
+        public bool IsReward { get; }
     }
 }

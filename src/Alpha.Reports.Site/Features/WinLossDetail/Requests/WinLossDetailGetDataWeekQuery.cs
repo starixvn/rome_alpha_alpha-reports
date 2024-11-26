@@ -25,6 +25,8 @@
 
         public string Username { get; set; }
 
+        public bool IsReward { get; set; }
+
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }

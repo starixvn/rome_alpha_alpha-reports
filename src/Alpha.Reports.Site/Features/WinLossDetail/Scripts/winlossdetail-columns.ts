@@ -39,6 +39,7 @@ class WinLossDetailColumns {
         this._showHideGroupColumn(tableReport, visibleColumn, "m", "groupColumnMaster");
         this._showHideGroupColumn(tableReport, visibleColumn, "s", "groupColumnSuper");
         this._showHideSpecificColumn(tableReport, visibleColumn, "company");
+        this._showHideSpecificColumn(tableReport, visibleColumn, "reward");
     }
 
     private _showHideGroupColumn(tableReport: JQuery, visibleColumn, prefix: string, groupColumnId: string) {
