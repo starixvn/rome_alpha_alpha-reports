@@ -422,7 +422,7 @@
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>(),
                 anyValueCreatorFixture.Create<string>(),
-                anyValueCreatorFixture.Create<string>());
+                anyValueCreatorFixture.Create<string>(), 0);
 
             var betType = new BetTypeWinLossViewModel(
                 anyValueCreatorFixture.Create<int>(),
@@ -466,7 +466,7 @@
             var race = 0;
             var fromDate = anyValueCreatorFixture.Create<DateTime>();
             var toDate = anyValueCreatorFixture.Create<DateTime>();
-            var match = new MatchWinLossDetailViewModel(0, string.Empty, 0, race, null, null, null, null, null);
+            var match = new MatchWinLossDetailViewModel(0, string.Empty, 0, race, null, null, null, null, null, 0);
 
             var betType = new BetTypeWinLossViewModel(BetTypeIdConstants.Outright, string.Empty, 0, 0, liveIndicator, 0, null, null, null, null, null);
 
@@ -499,7 +499,7 @@
             var race = 0;
             var fromDate = anyValueCreatorFixture.Create<DateTime>();
             var toDate = anyValueCreatorFixture.Create<DateTime>();
-            var match = new MatchWinLossDetailViewModel(0, string.Empty, 0, race, null, null, null, null, null);
+            var match = new MatchWinLossDetailViewModel(0, string.Empty, 0, race, null, null, null, null, null, 0);
 
             var betType = new BetTypeWinLossViewModel(BetTypeIdConstants.MixParlay, string.Empty, 0, 0, liveIndicator, 0, null, null, null, null, null);
 

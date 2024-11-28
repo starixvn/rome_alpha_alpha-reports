@@ -62,7 +62,7 @@
         protected BetTypeWinLossViewModel GetMixParlay(IEnumerable<MatchWinLossDetailModel> reportData)
         {
             var mixParlayDatas = reportData.Where(data => data.IsParlay &&
-                (data.BetType == BetTypeIdConstants.MixParlay || data.BetType == BetTypeIdConstants.MixParlayBetRadarVirtualSports || data.BetType == BetTypeIdConstants.MixParlayEdgeGamingVirtualSports)).ToList();
+                (data.BetType == BetTypeIdConstants.MixParlay || data.BetType == BetTypeIdConstants.MixParlayBetRadarVirtualSports || data.BetType == BetTypeIdConstants.MixParlayEdgeGamingVirtualSports || data.BetType == BetTypeIdConstants.MixParlayVirtuallySports)).ToList();
             if(mixParlayDatas.Count == 0)
             {
                 return null;
@@ -193,7 +193,8 @@
                 total,
                 firstWinLoss,
                 GetTeamName(firstWinLoss.HomeId, firstWinLoss.LeagueType),
-                GetTeamName(firstWinLoss.AwayId, firstWinLoss.LeagueType));
+                GetTeamName(firstWinLoss.AwayId, firstWinLoss.LeagueType),
+                firstWinLoss.LeagueType);
         }
 
         internal BetTypeWinLossViewModel BuildWinLossTotal(IEnumerable<MatchWinLossDetailViewModel> matchWinLossDetail)
