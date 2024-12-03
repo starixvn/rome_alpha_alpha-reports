@@ -222,7 +222,8 @@ class WinLossDetailViewNew extends BaseReportView {
             "th-TH": "th",
             "vi-VN": "vi",
             "zh-CN": "cn",
-            "zh-TW": "tc"
+            "zh-TW": "tc",
+            "ja-JP": "ja"
         };
 
         return locale[language] || "default";

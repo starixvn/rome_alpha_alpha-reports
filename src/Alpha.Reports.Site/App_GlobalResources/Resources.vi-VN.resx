@@ -622,7 +622,7 @@
     <value>Tổng phí hoa hồng</value>
   </data>
   <data name="ThereIsNoSelectedProduct" xml:space="preserve">
-    <value>Không có chọn sản phản nào</value>
+    <value>Không có chọn sản phẩm nào</value>
   </data>
   <data name="Guidelines_OpeningBalance_Member" xml:space="preserve">
     <value>số dư được tính đến thời điểm bắt đầu của ngày được chọn. Nếu số dư này không trùng khớp với Tổng tiền tích luỹ của ngày hôm trước thì sẽ được tô màu Hồng.</value>

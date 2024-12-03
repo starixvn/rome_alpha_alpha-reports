@@ -329,7 +329,7 @@ var ClientPagerComponent = /** @class */ (function () {
                 pageNumber: _this.pageIndex,
                 showRefresh: false,
                 onSelectPage: _this.onSelectPage,
-                beforePageText: pager.data("lablepage"),
+                beforePageText: pager.data("labelpage"),
                 afterPageText: pager.data("labelof") + " {pages}",
                 displayMsg: pager.data("labeldisplayitems")
             });
