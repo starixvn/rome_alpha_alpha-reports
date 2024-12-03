@@ -984,9 +984,6 @@
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeHandler.cs" />
-    <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeWorkbook.cs">
-      <SonarQubeExclude>true</SonarQubeExclude>
-    </Compile>
     <Compile Include="Handlers\LeagueHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandler.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandler.cs" />

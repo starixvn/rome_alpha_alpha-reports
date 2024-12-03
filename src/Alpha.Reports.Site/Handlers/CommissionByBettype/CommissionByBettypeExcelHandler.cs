@@ -14,12 +14,12 @@
     {
         private readonly CommissionByBettypeService commissionService;
         private readonly ReportDateService reportDateService;
-        private readonly CommissionByBettypeWorkbook workbook;
+        private readonly Workbook<CommissionByBettypeModel> workbook;
 
         public CommissionByBettypeExcelHandler(
             CommissionByBettypeService commissionServiceImpl,
             ReportDateService reportDateServiceImpl,
-            CommissionByBettypeWorkbook workbookImpl)
+            Workbook<CommissionByBettypeModel> workbookImpl)
         {
             commissionService = commissionServiceImpl;
             reportDateService = reportDateServiceImpl;
@@ -61,8 +61,7 @@
                 .Map(Column.B, commission => commission.Comm1)
                 .Map(Column.C, commission => commission.Comm2)
                 .Map(Column.D, commission => commission.Comm3)
-                .Map(Column.E, commission => commission.MyanmarOddsComm)
-                .Map(Column.F, commission => commission.CasinoComm);
+                .Map(Column.E, commission => commission.CasinoComm);
 
             return mapper;
         }

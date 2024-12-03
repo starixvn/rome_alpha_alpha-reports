@@ -24,16 +24,13 @@
 
         private readonly CommissionByBettypeExcelHandler excelHandler;
         private readonly CommissionByBettypeService reportService;
-        private readonly CommissionByBettypeWorkbook commissionWorkbook;
         private readonly Workbook<CommissionByBettypeModel> workbook;
 
         public CommissionByBettypeExcelHandlerTests(UserFixture userFixture)
         {
             this.userFixture = userFixture;
 
-            commissionWorkbook = Substitute.For<CommissionByBettypeWorkbook>();
             workbook = Substitute.For<Workbook<CommissionByBettypeModel>>();
-            commissionWorkbook.UseTemplate(Arg.Any<TemplateInfo>()).Returns(workbook);
             workbook.Title(Arg.Any<string>()).Returns(workbook);
             workbook.Header(Arg.Any<Func<string, string>>()).Returns(workbook);
             workbook.Body(Arg.Any<IEnumerable<CommissionByBettypeModel>>(), Arg.Any<Mapper<CommissionByBettypeModel>>()).Returns(workbook);
@@ -41,7 +38,7 @@
             workbook.Sheet(Arg.Any<string>()).Returns(workbook);
 
             reportService = Substitute.For<CommissionByBettypeService>();
-            excelHandler = Substitute.For<CommissionByBettypeExcelHandler>(reportService, Substitute.For<ReportDateService>(), commissionWorkbook);
+            excelHandler = Substitute.For<CommissionByBettypeExcelHandler>(reportService, Substitute.For<ReportDateService>(), workbook);
         }
 
         [Fact]
@@ -54,7 +51,7 @@
             excelHandler.Handle(message);
 
             // Assert
-            commissionWorkbook.Received().UseTemplate(Arg.Any<TemplateInfo>());
+            workbook.Received().UseTemplate(Arg.Any<TemplateInfo>());
         }
 
         [Fact]
@@ -148,7 +145,7 @@
         public void GetRowMapper_BodyMapper_ReturnsCorrectMapper()
         {
             // Arrange
-            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5, 6);
+            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5);
 
             // Act
             var actualMapper = excelHandler.GetRowMapper(false);
@@ -167,7 +164,7 @@
         public void GetRowMapper_TotalMapper_ReturnsCorrectMapper()
         {
             // Arrange
-            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5, 6);
+            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5);
 
             // Act
             var actualMapper = excelHandler.GetRowMapper(true);

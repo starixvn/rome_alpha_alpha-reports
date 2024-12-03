@@ -2779,15 +2779,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Myanmar Odds.
-        /// </summary>
-        public static string SymbolMyanmarOdds {
-            get {
-                return ResourceManager.GetString("SymbolMyanmarOdds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gross Tax Comm.
         /// </summary>
         public static string TaxComm {

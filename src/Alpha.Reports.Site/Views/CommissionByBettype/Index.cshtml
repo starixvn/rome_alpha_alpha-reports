@@ -25,10 +25,6 @@
             <th class="sorting" data-colindex="1" data-sortedname="@CommissionByBettypeViewModel.SortByComm1">@Resources.Commission1</th>
             <th class="sorting" data-colindex="2" data-sortedname="@CommissionByBettypeViewModel.SortByComm2">@Resources.Commission2</th>
             <th class="sorting" data-colindex="3" data-sortedname="@CommissionByBettypeViewModel.SortByComm3">@Resources.Commission3</th>
-            @if (Model.ShowMyanmarOddsColumn)
-            {
-                <th class="sorting" data-colindex="@sortIndex++" data-sortedname="@CommissionByBettypeViewModel.SortByMyanmarOddsComm">@Resources.SymbolMyanmarOdds</th>
-            }
             <th class="sorting" data-colindex="@sortIndex" data-sortedname="@CommissionByBettypeViewModel.SortByCasinoComm">@Resources.Gaming</th>
         </tr>
     </thead>
@@ -81,10 +77,6 @@
     <td>@HtmlHelpers.FormatNumber(commission.Comm1)</td>
     <td>@HtmlHelpers.FormatNumber(commission.Comm2)</td>
     <td>@HtmlHelpers.FormatNumber(commission.Comm3)</td>
-    if (Model.ShowMyanmarOddsColumn)
-    {
-        <td>@HtmlHelpers.FormatNumber(commission.MyanmarOddsComm)</td>
-    }
     <td>@HtmlHelpers.FormatNumber(commission.CasinoComm)</td>
 }
 

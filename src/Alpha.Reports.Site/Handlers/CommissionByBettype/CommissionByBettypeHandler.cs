@@ -48,8 +48,7 @@
                 message,
                 commissions,
                 breadcrumbLevel,
-                reportDateService.GetBalanceUpDay(),
-                userPermissionService.IsShowMyanmarOdds());
+                reportDateService.GetBalanceUpDay());
         }
 
         public IEnumerable<string> Handle(CommissionByBetTypeGuideQuery message)
