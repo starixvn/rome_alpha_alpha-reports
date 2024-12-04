@@ -1146,4 +1146,7 @@
   <data name="Reward" xml:space="preserve">
     <value>獎金</value>
   </data>
+  <data name="GrossFee" xml:space="preserve">
+    <value>Gross Fee</value>
+  </data>
 </root>

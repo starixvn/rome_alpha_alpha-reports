@@ -20,10 +20,9 @@
             {
                 <th rowspan="2" class="sorting" data-colindex="@(thead1stIndex++)" data-colname="master" data-sorttype="text">@Resources.Master</th>
             }
-            <th rowspan="2" class="sorting" data-colindex="@(thead1stIndex++)" data-colname="losscarryforward">@Resources.LossCarryforward</th>
             <th colspan="2" id="groupMember">@Resources.Member</th>
             <th colspan="6" id="groupWhiteLabel">@Resources.WhiteLabel</th>
-            @{ thead2ndIndex = thead1stIndex + 8; }
+            @{ thead2ndIndex = thead1stIndex + 10; }
             @if (isMasterOrSuper)
             {
                 <th rowspan="2" class="sorting" data-colindex="@(thead2ndIndex++)" data-colname="masterearning">@Resources.MasterEarning</th>
@@ -37,11 +36,12 @@
         <tr class="thead-row2">
             <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="memberwinloss">@Resources.WinLossTitle</th>
             <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="memberpromotion">@Resources.Promotion</th>
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="losscarryforward">@Resources.LossCarryforward</th>
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlwinloss">@Resources.WinLossTitle</th>
             <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlnetwinloss">@Resources.NetWinLoss</th>
-            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlincome">@Resources.Income</th>
-            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlpromotionshare">@Resources.PromotionShare</th>
-            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlfee">@Resources.Fee</th>
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlgrossfee">@Resources.GrossFee</th>
             <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlpromotionsettlement">@Resources.PromotionSettlement</th>
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlpromotionshare">@Resources.PromotionShare</th>
             <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wltotal">@Resources.Total</th>
             <th class="sorting" data-colindex="@(thead2ndIndex++)" data-colname="companyincome">@Resources.Income</th>
             <th class="sorting" data-colindex="@(thead2ndIndex++)" data-colname="companypromotionshare">@Resources.PromotionShare</th>
@@ -83,14 +83,14 @@
                 <td class="text-left" data-colname="master">@data.Master</td>
             }
         }
-        <td data-colname="losscarryforward">@HtmlHelpers.FormatNumber(data.LossCarryforward)</td>
         <td data-colname="memberwinloss">@HtmlHelpers.FormatNumber(data.MemberWL)</td>
         <td data-colname="memberpromotion">@HtmlHelpers.FormatNumber(data.MemberPromotion)</td>
+        <td data-colname="losscarryforward">@HtmlHelpers.FormatNumber(data.LossCarryforward)</td>
+        <td data-colname="wlwinloss">@HtmlHelpers.FormatNumber(data.WhiteLabelWinLoss)</td>
         <td data-colname="wlnetwinloss">@HtmlHelpers.FormatNumber(data.WhiteLabelNetWinLoss)</td>
-        <td data-colname="wlincome">@HtmlHelpers.FormatNumber(data.WhiteLabelIncome)</td>
-        <td data-colname="wlpromotionshare">@HtmlHelpers.FormatNumber(data.WhiteLabelPromotionShare)</td>
-        <td data-colname="wlfee">@HtmlHelpers.FormatNumber(data.WhiteLabelFee)</td>
+        <td data-colname="wlgrossfee">@HtmlHelpers.FormatNumber(data.WhiteLabelFee)</td>
         <td data-colname="wlpromotionsettlement">@HtmlHelpers.FormatNumber(data.WhiteLabelPromotionSettlement)</td>
+        <td data-colname="wlpromotionshare">@HtmlHelpers.FormatNumber(data.WhiteLabelPromotionShare)</td>
         <td data-colname="wltotal" class="bold">@HtmlHelpers.FormatNumber(data.WhiteLabelTotal)</td>
         @if (isMasterOrSuper)
         {

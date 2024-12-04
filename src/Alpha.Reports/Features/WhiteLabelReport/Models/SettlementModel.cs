@@ -9,23 +9,23 @@
         public string Agent { get; set; }
 
         public string Master { get; set; }
-
-        public decimal LossCarryforward { get; set; }
-
+        
         public decimal MemberWL { get; set; }
 
         public decimal MemberPromotion { get; set; }
+        
+        public decimal LossCarryforward { get; set; }
 
+        public decimal WhiteLabelWinLoss { get; set; }
+        
         public decimal WhiteLabelNetWinLoss { get; set; }
-
-        public decimal WhiteLabelIncome { get; set; }
-
-        public decimal WhiteLabelPromotionShare { get; set; }
-
+        
         public decimal WhiteLabelFee { get; set; }
 
         public decimal WhiteLabelPromotionSettlement { get; set; }
-
+        
+        public decimal WhiteLabelPromotionShare { get; set; }
+        
         public decimal WhiteLabelTotal { get; set; }
 
         public decimal MasterEarning { get; set; }
@@ -40,15 +40,17 @@
 
         public static SettlementModel operator +(SettlementModel model1, SettlementModel model2)
         {
-            model1.LossCarryforward += model2.LossCarryforward;
             model1.MemberWL += model2.MemberWL;
             model1.MemberPromotion += model2.MemberPromotion;
+            
+            model1.LossCarryforward += model2.LossCarryforward;
+            model1.WhiteLabelWinLoss += model2.WhiteLabelWinLoss;
             model1.WhiteLabelNetWinLoss += model2.WhiteLabelNetWinLoss;
-            model1.WhiteLabelIncome += model2.WhiteLabelIncome;
-            model1.WhiteLabelPromotionShare += model2.WhiteLabelPromotionShare;
             model1.WhiteLabelFee += model2.WhiteLabelFee;
             model1.WhiteLabelPromotionSettlement += model2.WhiteLabelPromotionSettlement;
+            model1.WhiteLabelPromotionShare += model2.WhiteLabelPromotionShare;
             model1.WhiteLabelTotal += model2.WhiteLabelTotal;
+            
             model1.MasterEarning += model2.MasterEarning;
             model1.SuperEarning += model2.SuperEarning;
             model1.CompanyIncome += model2.CompanyIncome;

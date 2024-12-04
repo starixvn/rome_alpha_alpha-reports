@@ -527,9 +527,8 @@ var SettlementColumns = /** @class */ (function () {
         var $tblReport = $('#tbl-report');
         visibleColumn = visibleColumn || this.visibleColumnDropdown.getColumns();
         this.showHideGroupColumn($tblReport, visibleColumn, $tblReport.find('#groupTotal'), ['month', 'whitelabel', 'agent', 'master']);
-        this.showHideSpecificColumn($tblReport, visibleColumn, 'losscarryforward');
         this.showHideGroupColumn($tblReport, visibleColumn, $tblReport.find('#groupMember'), ['memberwinloss', 'memberpromotion']);
-        this.showHideGroupColumn($tblReport, visibleColumn, $tblReport.find('#groupWhiteLabel'), ['wlnetwinloss', 'wlincome', 'wlfee', 'wlpromotionshare', 'wlpromotionsettlement', 'wltotal']);
+        this.showHideGroupColumn($tblReport, visibleColumn, $tblReport.find('#groupWhiteLabel'), ['losscarryforward', 'wlwinloss', 'wlnetwinloss', 'wlgrossfee', 'wlpromotionsettlement', 'wlpromotionshare', 'wltotal']);
         this.showHideSpecificColumn($tblReport, visibleColumn, 'masterearning');
         this.showHideSpecificColumn($tblReport, visibleColumn, 'superearning');
         this.showHideSpecificColumn($tblReport, visibleColumn, 'headlineearning');

@@ -1200,4 +1200,7 @@
   <data name="SettlementReport" xml:space="preserve">
     <value>Báo Cáo Quyết Toán</value>
   </data>
+  <data name="GrossFee" xml:space="preserve">
+    <value>Gross Fee</value>
+  </data>
 </root>
