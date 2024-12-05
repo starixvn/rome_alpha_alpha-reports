@@ -75,11 +75,13 @@ class MoveStatementHistory {
 
     onClickBackLink() {
         $("#IsMainReport").val("true");
+        this.$("#PageIndex").val("1");
         this.$reportForm.submit();
     }
 
     onClickDetailLink() {
         $("#IsMainReport").val("false");
+        this.$("#PageIndex").val("1");
         this.$reportForm.submit();
     }
 
