@@ -8,7 +8,7 @@
 
         public ProgressiveContributionByBetTypeModel(
             int productId,
-            int bettypeId,
+            int bettype,
             string bettypeName,
             decimal turnover,
             decimal contributionAmount,
@@ -17,7 +17,7 @@
             decimal superContribution)
         {
             ProductId = productId;
-            BetTypeId = bettypeId;
+            BetType = bettype;
             BetTypeName = bettypeName;
             Turnover = turnover;
             ContributionAmount = contributionAmount;
@@ -28,7 +28,7 @@
 
         public int ProductId { get; set; }
 
-        public int BetTypeId { get; set; }
+        public int BetType { get; set; }
 
         public string BetTypeName { get; set; }
 

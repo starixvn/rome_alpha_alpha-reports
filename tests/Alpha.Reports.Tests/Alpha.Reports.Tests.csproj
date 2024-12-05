@@ -278,7 +278,6 @@
     <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteriaTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTestCases.cs" />
-    <Compile Include="DataAccesses\ProgressiveContributionDataAccessTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossAnalysisDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossByProductDataAccessImplTests.cs" />

@@ -29,7 +29,6 @@
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Fanex.RemotingRef;
-    using Handlers.CommissionByBettype;
     using Handlers.Consolidation;
     using Handlers.MatchWinLossDetail;
     using Handlers.ProgressiveContribution;
@@ -193,7 +192,6 @@
             container.RegisterSingleton<WinLossAnalysisDataAccess, WinLossAnalysisDataAccessImpl>();
             container.RegisterSingleton<MatchWinLossDetailDataAccess, MatchWinLossDetailDataAccessImpl>();
             container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
-            container.RegisterSingleton<ProgressiveContributionDataAccess, ProgressiveContributionDataAccessImpl>();
             container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Singleton);
             container.RegisterSingleton<IPartialUMDataAccess, PartialUMDataAccess>();
         }

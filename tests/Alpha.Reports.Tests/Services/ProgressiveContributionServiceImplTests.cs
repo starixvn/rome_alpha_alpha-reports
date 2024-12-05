@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using AlphaPlus.PartialUM.Services;
+    using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.ProgressiveContribution;
-    using Reports.DataAccesses;
     using Reports.Models;
     using Reports.Models.ProgressiveContribution;
     using Reports.Params;
@@ -20,7 +20,7 @@
         private readonly CompareLogic compareLogic;
         private readonly ReportDateService reportDateService;
         private readonly CacheRefService cacheRefService;
-        private readonly ProgressiveContributionDataAccess progressiveContributionDataAccess;
+        private readonly IDynamicRepository repository;
         private readonly IPartialUMService partialUMService;
         private readonly ProgressiveContributionServiceImpl progressiveContributionService;
 
@@ -30,14 +30,14 @@
 
             reportDateService = Substitute.For<ReportDateService>();
             cacheRefService = Substitute.For<CacheRefService>();
-            progressiveContributionDataAccess = Substitute.For<ProgressiveContributionDataAccess>();
+            repository = Substitute.For<IDynamicRepository>();
             partialUMService = Substitute.For<IPartialUMService>();
 
             progressiveContributionService = new ProgressiveContributionServiceImpl(
-                progressiveContributionDataAccess,
                 reportDateService,
                 cacheRefService,
-                partialUMService);
+                partialUMService,
+                repository);
         }
 
         [Fact]
@@ -63,7 +63,7 @@
                 UserLevel.Super);
 
             var progressiveContributions = Enumerable.Empty<ProgressiveContributionByBetTypeModel>();
-            progressiveContributionDataAccess.GetProgressiveContributions(Arg.Any<ProgressiveContributionCriteria>()).Returns(progressiveContributions);
+            repository.Fetch<ProgressiveContributionByBetTypeModel>(Arg.Any<ProgressiveContributionCriteria>()).Returns(progressiveContributions);
 
             var expectedData = new List<ProgressiveContributionByProductModel>();
 
@@ -92,7 +92,7 @@
                     new ProgressiveContributionByBetTypeModel(6, 2320, string.Empty, 3000, 150, -60, -45, -30),
                     new ProgressiveContributionByBetTypeModel(6, 2320, string.Empty, 5000, 550, -100, -75, -50) };
 
-            progressiveContributionDataAccess.GetProgressiveContributions(Arg.Any<ProgressiveContributionCriteria>()).Returns(progressiveContributions);
+            repository.Fetch<ProgressiveContributionByBetTypeModel>(Arg.Any<ProgressiveContributionCriteria>()).Returns(progressiveContributions);
             var expectedData = new List<ProgressiveContributionByProductModel>
             {
                 new ProgressiveContributionByProductModel(6,string.Empty,progressiveContributions)
@@ -122,9 +122,9 @@
             progressiveContributionService.GetProgressiveContributions(param);
 
             // Assert
-            progressiveContributionDataAccess
+            repository
                 .Received()
-                .GetProgressiveContributions(Arg.Is<ProgressiveContributionCriteria>(i => i.FromDate == limitedDate));
+                .Fetch<ProgressiveContributionByBetTypeModel>(Arg.Is<ProgressiveContributionCriteria>(i => i.FromDate == limitedDate));
         }
     }
 }

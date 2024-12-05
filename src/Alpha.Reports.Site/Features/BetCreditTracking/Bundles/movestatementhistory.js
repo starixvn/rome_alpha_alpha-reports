@@ -334,10 +334,12 @@ var MoveStatementHistory = /** @class */ (function () {
     };
     MoveStatementHistory.prototype.onClickBackLink = function () {
         $("#IsMainReport").val("true");
+        this.$("#PageIndex").val("1");
         this.$reportForm.submit();
     };
     MoveStatementHistory.prototype.onClickDetailLink = function () {
         $("#IsMainReport").val("false");
+        this.$("#PageIndex").val("1");
         this.$reportForm.submit();
     };
     return MoveStatementHistory;

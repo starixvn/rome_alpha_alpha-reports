@@ -295,7 +295,6 @@
     <Compile Include="Features\AutoFollowBets\Models\FollowBetAccount.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperPTCriteria.cs" />
     <Compile Include="Features\SuperWinLossDetailByPT\Criteria\SuperWinLossDetailByPTCriteria.cs" />
-    <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
     <Compile Include="Enumerations\LeagueType.cs" />
     <Compile Include="Constants\BetTypeIdConstants.cs" />
     <Compile Include="Constants\ConsolidationReportTypeConstants.cs" />
