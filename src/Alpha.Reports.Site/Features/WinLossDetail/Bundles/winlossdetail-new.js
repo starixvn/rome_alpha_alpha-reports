@@ -774,6 +774,7 @@ var BaseReportView = /** @class */ (function () {
             sortColumns.each(function () {
                 // sorttype is text or digit
                 var $this = $(this);
+                console.log("$this col", $this);
                 headers_1[$this.data('colindex')] = { sorter: $this.data('sorttype') || 'digit' };
             });
             var sortList = typeof this.sortColumnIndex === 'undefined'
@@ -845,6 +846,7 @@ var WinLossDetailColumns = /** @class */ (function () {
         this._showHideGroupColumn(tableReport, visibleColumn, "m", "groupColumnMaster");
         this._showHideGroupColumn(tableReport, visibleColumn, "s", "groupColumnSuper");
         this._showHideSpecificColumn(tableReport, visibleColumn, "company");
+        this._showHideSpecificColumn(tableReport, visibleColumn, "reward");
     };
     WinLossDetailColumns.prototype._showHideGroupColumn = function (tableReport, visibleColumn, prefix, groupColumnId) {
         var groupColumn = tableReport.find("#" + groupColumnId);
@@ -1007,7 +1009,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         this.bindEvents();
         // remove style="visibility:hidden"
         // TableSorter cannot run with style="display:none"
-        this.tableReportContainer.removeAttr("style");
+        this.reportWeekSelection.removeAttr("style");
         setTimeout(function () {
             var mainDomain = $("#hiddenMainDomain").val();
             if (mainDomain.length) {
@@ -1247,6 +1249,8 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         var _this = this;
         this.initReportLegend($("#hiddenLegendUrl").val());
         this.initShowHideFilter(function (isHideFilter) { return isHideFilter ? _this.weekSelectionComponent.hide() : _this.weekSelectionComponent.show(); });
+        $('#msg-warning-note').hide();
+        $('#msg-warning-note').show();
         this.bindCopyAndExcelEvents();
         this.bindTableReportEvents();
     };
@@ -1299,7 +1303,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         });
         this.tableReport.find(".icon-plus-box").off("click").click(function (e) {
             window.top["reloadMyWatchlistDataTable"] = function () { return _this.isWeekSelectionClicked ? _this.getWinLossDetailDataWeek() : _this.getWinLossDetailDataAndRenderWeekRange(true); };
-            var custName = $(e.target).prev(".betlists-link").data("custname");
+            var custName = $(e.target).data("custname");
             var url = $("#hiddenMemberInfoUrl").val() + "MyWatchlistAccounts/ManageWatchlistAccounts?usernames=" + custName;
             var width = 820;
             var height = 550;
