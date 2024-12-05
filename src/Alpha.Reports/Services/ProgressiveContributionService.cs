@@ -7,6 +7,7 @@
     using Criteria.ProgressiveContribution;
     using DataAccesses;
     using Extensions;
+    using Fanex.Data.Repository;
     using Models.ProgressiveContribution;
     using Params;
 
@@ -19,19 +20,19 @@
     {
         private readonly ReportDateService reportDateService;
         private readonly CacheRefService cacheRefService;
-        private readonly ProgressiveContributionDataAccess progressiveContributionDataAccess;
         private readonly IPartialUMService partialUMService;
+        private readonly IDynamicRepository repository;
 
         public ProgressiveContributionServiceImpl(
-            ProgressiveContributionDataAccess progressiveContributionDataAccess,
             ReportDateService reportDateService,
             CacheRefService cacheRefService,
-            IPartialUMService partialUMService)
+            IPartialUMService partialUMService,
+            IDynamicRepository repository)
         {
-            this.progressiveContributionDataAccess = progressiveContributionDataAccess;
             this.reportDateService = reportDateService;
             this.cacheRefService = cacheRefService;
             this.partialUMService = partialUMService;
+            this.repository = repository;
         }
 
         public IEnumerable<ProgressiveContributionByProductModel> GetProgressiveContributions(ProgressiveContributionParam param)
@@ -49,14 +50,14 @@
                 reportDateService.GetMoveBetsDay(),
                 param.UserSelectedProductIds == null ? string.Empty : param.UserSelectedProductIds.JoinWithComma(),
                 param.ReportLevel);
-
             partialUMService.ThrowIfUM(criteria.GetSettingKey());
 
-            var contributionByBetTypes = progressiveContributionDataAccess.GetProgressiveContributions(criteria);
+            var contributionByBetTypes = repository.Fetch<ProgressiveContributionByBetTypeModel>(criteria);
             var result = new List<ProgressiveContributionByProductModel>();
 
             if (contributionByBetTypes.Any())
             {
+                contributionByBetTypes = AssignBetTypeName(contributionByBetTypes);
                 var contributionByProducts = contributionByBetTypes.GroupBy(contribution => contribution.ProductId);
 
                 foreach (var contribution in contributionByProducts)
@@ -69,6 +70,16 @@
             }
 
             return result;
+        }
+
+        private IEnumerable<ProgressiveContributionByBetTypeModel> AssignBetTypeName(
+            IEnumerable<ProgressiveContributionByBetTypeModel> rawData)
+        {
+            foreach (var item in rawData)
+            {
+                item.BetTypeName = cacheRefService.GetBetTypeName(item.BetType);
+                yield return item;
+            }
         }
     }
 }
