@@ -627,4 +627,7 @@
   <data name="Statement_WinLoss" xml:space="preserve">
     <value>승/패</value>
   </data>
+  <data name="TotalFee" xml:space="preserve">
+    <value>Total Fee</value>
+  </data>
 </root>

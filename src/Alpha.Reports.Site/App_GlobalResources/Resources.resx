@@ -1233,4 +1233,7 @@
   <data name="Reward" xml:space="preserve">
     <value>Reward</value>
   </data>
+  <data name="TotalFee" xml:space="preserve">
+    <value>Total Fee</value>
+  </data>
 </root>

@@ -1203,4 +1203,7 @@
   <data name="GrossFee" xml:space="preserve">
     <value>Gross Fee</value>
   </data>
+  <data name="TotalFee" xml:space="preserve">
+    <value>Total Fee</value>
+  </data>
 </root>
