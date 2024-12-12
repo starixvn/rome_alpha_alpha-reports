@@ -1201,9 +1201,9 @@
     <value>Báo Cáo Quyết Toán</value>
   </data>
   <data name="GrossFee" xml:space="preserve">
-    <value>Gross Fee</value>
+    <value>Phí Gộp</value>
   </data>
   <data name="TotalFee" xml:space="preserve">
-    <value>Total Fee</value>
+    <value>Tổng Phí</value>
   </data>
 </root>

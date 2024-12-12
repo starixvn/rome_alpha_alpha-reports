@@ -1219,6 +1219,12 @@
     <value>(N)</value>
   </data>
   <data name="TotalFee" xml:space="preserve">
-    <value>Total Fee</value>
+    <value>合計料金</value>
+  </data>
+  <data name="LossCarryforward" xml:space="preserve">
+    <value>繰越欠損</value>
+  </data>
+  <data name="GrossFee" xml:space="preserve">
+    <value>総料金</value>
   </data>
 </root>

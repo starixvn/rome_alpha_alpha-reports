@@ -1147,9 +1147,9 @@
     <value>奖金</value>
   </data>
   <data name="GrossFee" xml:space="preserve">
-    <value>Gross Fee</value>
+    <value>总费用</value>
   </data>
   <data name="TotalFee" xml:space="preserve">
-    <value>Total Fee</value>
+    <value>总计费用</value>
   </data>
 </root>

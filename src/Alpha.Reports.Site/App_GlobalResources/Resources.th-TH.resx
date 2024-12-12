@@ -1087,7 +1087,7 @@
     <value>ไวท์เลเบล</value>
   </data>
   <data name="LossCarryforward" xml:space="preserve">
-    <value>ยอดเสียยกมา</value>
+    <value>ยอดเสีย C/f</value>
   </data>
   <data name="Promotion" xml:space="preserve">
     <value>โปรโมชั่น</value>
@@ -1138,7 +1138,7 @@
     <value>รายละเอียดการโอนเงิน</value>
   </data>
   <data name="GrossFee" xml:space="preserve">
-    <value>Gross Fee</value>
+    <value>ค่าธรรมเนียมรวม</value>
   </data>
   <data name="WinLossDetail2Note" xml:space="preserve">
     <value>ตั้งแต่วันที่ &lt;b&gt;1/02/2025 (mm/dd/yyyy)&lt;/b&gt; รายงานนี้จะรวมข้อมูลเงินรางวัลไว้ตามค่าเริ่มต้น &lt;a href="{0}"&gt;กลับไปที่รายงานปัจจุบัน&lt;/a&gt;</value>
@@ -1150,6 +1150,6 @@
     <value>เงินรางวัล</value>
   </data>
   <data name="TotalFee" xml:space="preserve">
-    <value>Total Fee</value>
+    <value>ยอดรวมค่าธรรมเนียม</value>
   </data>
 </root>

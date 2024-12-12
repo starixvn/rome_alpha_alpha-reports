@@ -398,7 +398,6 @@ var BaseReportView = /** @class */ (function () {
             sortColumns.each(function () {
                 // sorttype is text or digit
                 var $this = $(this);
-                console.log("$this col", $this);
                 headers_1[$this.data('colindex')] = { sorter: $this.data('sorttype') || 'digit' };
             });
             var sortList = typeof this.sortColumnIndex === 'undefined'
