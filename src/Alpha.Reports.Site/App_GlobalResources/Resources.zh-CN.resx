@@ -1152,4 +1152,7 @@
   <data name="TotalFee" xml:space="preserve">
     <value>总计费用</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜寻</value>
+  </data>
 </root>

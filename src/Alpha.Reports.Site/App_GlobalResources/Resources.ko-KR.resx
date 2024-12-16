@@ -630,4 +630,7 @@
   <data name="TotalFee" xml:space="preserve">
     <value>Total Fee</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
 </root>

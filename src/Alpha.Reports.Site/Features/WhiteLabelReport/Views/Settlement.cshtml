@@ -28,7 +28,7 @@
             { value: "memberwinloss", text: '@string.Format("{0} {1}", Resources.Member, Resources.WinLossTitle)' },
             { value: "memberpromotion", text: '@string.Format("{0} {1}", Resources.Member, Resources.Promotion)' },
             { value: "wllosscarryforward", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.LossCarryforward)' },
-            { value: "wlwinloss", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.WinLoss)' },
+            { value: "wlwinloss", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.WinLossTitle)' },
             { value: "wlnetwinloss", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.NetWinLoss)' },
             { value: "wlgrossfee", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.GrossFee)' },
             { value: "wlpromotionsettlement", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.PromotionSettlement)' },
@@ -77,7 +77,8 @@
                          data-label-selected="@Resources.Selected"
                          data-label-noneselected="@Resources.NoneSelected"
                          data-label-all="@Resources.All"
-                         data-label-nodatatext="@Resources.NoInformationIsAvailable"></div>
+                         data-label-nodatatext="@Resources.NoInformationIsAvailable"
+                         data-label-filterplaceholder="@Resources.Search"></div>
                 </div>
                 @UsernameAutoSuggestion.Render(Model.Username)
             }
