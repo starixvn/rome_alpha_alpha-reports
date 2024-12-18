@@ -66,7 +66,6 @@
     <div class="label-week-box" id="week-selection">
         @{ Html.RenderPartial("~/Features/WinLossDetail/Views/Weeks.cshtml", Model.Weeks); }
     </div>
-    <div class="msg msg-warning" id="msg-warning-note">@Html.Raw(string.Format(Resources.WinLossDetail2Note, Url.Action($"{Model.ViewerLevel.GetDirectDownLineLevel().DisplayName}New", $"{SiteSettings.ReportRouting}WinLossDetail")))</div>
     <div id="report-week-selection" class="cover-week-selection" style="visibility:hidden">
         @Html.Partial("~/Features/WinLossDetail/Views/ReportData2.cshtml", Model)
     </div>
