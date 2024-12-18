@@ -94,27 +94,3 @@
 <input type="hidden" id="hiddenMainDomain" value="@Model.MainDomain" />
 <input type="hidden" id="hiddenShowColumns" value="@Model.ShowColumns" />
 <input type="hidden" id="hiddenMemberInfoUrl" value="@MicroSites.MemberInfoUrl()" />
-
-<div style="width: 474px; display: none" class="modal fade message-modal" id="ShutdownOldWinLossDetailReportMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-sm" role="document" style="margin: 0; min-width: 474px">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="icon icon-close close" data-dismiss="modal" aria-label="@Resources.Close"><span aria-hidden="true"></span></button>
-                <h4 class="modal-title"><span class="icon-information-outline" style="color: #0000ff; font-size: 20px">&nbsp;</span>@Resources.SwitchToNewView</h4>
-            </div>
-            <div class="modal-body">
-                <div id="msg-content">
-                    <ul class="list-msg">
-                        <li>
-                            @string.Format(Resources.ShutdownOldWinLossDetailReportMessage, SiteSettings.GetConfigValue("ShutdownOldWinLossDetailReportDate"))
-                        </li>
-                        <li>
-                            <label style="margin-top: 15px; cursor: pointer" for="close-ShutdownOldWinLossDetailReportMessage"><input id="close-ShutdownOldWinLossDetailReportMessage" type="checkbox" /> @Resources.DoNotShowAgain</label>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

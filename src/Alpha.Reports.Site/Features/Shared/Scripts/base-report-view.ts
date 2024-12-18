@@ -24,12 +24,12 @@ class BaseReportView {
                 iconFilter
                     .removeClass("icon-arrow-up-drop-circle")
                     .addClass("icon-arrow-down-drop-circle")
-                    .attr("data-original-title", showFilterText);
+                    .attr("title", showFilterText);
             } else {
                 iconFilter
                     .removeClass("icon-arrow-down-drop-circle")
                     .addClass("icon-arrow-up-drop-circle")
-                    .attr("data-original-title", hideFilterText);
+                    .attr("title", hideFilterText);
             }
 
             callback && callback(isHideFilter);
