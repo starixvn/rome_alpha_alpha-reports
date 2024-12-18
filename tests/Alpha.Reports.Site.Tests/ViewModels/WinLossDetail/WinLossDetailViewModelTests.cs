@@ -51,7 +51,7 @@
             message.IsHistoricReport = false;
             message.CustLevelId = 2; // Agent Level
             var winLossDetailViewModel = CreateWinLossDetailViewModel(fromDate, toDate, message);
-            var winlossDetailModel = new WinLossDetailModel(1, "CustName", string.Empty, string.Empty, false, 0, 0, 0, 0, null, null, null, null, 0);
+            var winlossDetailModel = new WinLossDetailModel(1, "CustName", string.Empty, string.Empty, false, 0, 0, 0, 0, null, null, null, null, 0, string.Empty);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
             var expectedRouteValues = new Dictionary<string, object>
@@ -85,7 +85,7 @@
             var message = new WinLossDetailQuery(userFixture.User);
             message.CustLevelId = custLevelId; // Agent Level
             var winLossDetailViewModel = CreateWinLossDetailViewModel(fromDate, toDate, message);
-            var winlossDetailModel = new WinLossDetailModel(1, "CustName", string.Empty, string.Empty, false, 0, 0, 0, 0, null, null, null, null, 0);
+            var winlossDetailModel = new WinLossDetailModel(1, "CustName", string.Empty, string.Empty, false, 0, 0, 0, 0, null, null, null, null, 0, string.Empty);
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
             // Act
