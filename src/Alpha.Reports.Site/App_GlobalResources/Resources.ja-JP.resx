@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AgentWinLossDetail" xml:space="preserve">
-    <value>エージェント勝ち負け詳細</value>
+    <value>エージェントの勝ち負け詳細</value>
   </data>
   <data name="MemberWinLossDetail" xml:space="preserve">
-    <value>メンバー勝ち/負け詳細</value>
+    <value>メンバーの勝ち負け詳細</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>今日</value>
@@ -130,19 +130,19 @@
     <value>昨日</value>
   </data>
   <data name="Submit" xml:space="preserve">
-    <value>送信</value>
+    <value>確認</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>ページ</value>
   </data>
   <data name="of" xml:space="preserve">
-    <value>/</value>
+    <value>の</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>ユーザー名</value>
   </data>
   <data name="Turnover" xml:space="preserve">
-    <value>合計ベットポイント</value>
+    <value>賭金総額</value>
   </data>
   <data name="Master" xml:space="preserve">
     <value>マスター</value>
@@ -154,55 +154,55 @@
     <value>エージェント</value>
   </data>
   <data name="Comm" xml:space="preserve">
-    <value>手数料</value>
+    <value>コミッション</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>合計</value>
   </data>
   <data name="ExportToExcel" xml:space="preserve">
-    <value>輸出をExcelに</value>
+    <value>エクセルにエクスポート</value>
   </data>
   <data name="NoInformationIsAvailable" xml:space="preserve">
-    <value>情報がありません</value>
+    <value>情報はありません</value>
   </data>
   <data name="TurnoverAbbr" xml:space="preserve">
-    <value>合計ベットポイント</value>
+    <value>賭金総額</value>
   </data>
   <data name="CommAndTotal" xml:space="preserve">
-    <value>/手数料/合計</value>
+    <value>/コミッション/合計</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>日付</value>
   </data>
   <data name="Entered" xml:space="preserve">
-    <value>入力されています</value>
+    <value>入力済み</value>
   </data>
   <data name="NonEntered" xml:space="preserve">
-    <value>入力されていません</value>
+    <value>未入力</value>
   </data>
   <data name="Results" xml:space="preserve">
     <value>結果</value>
   </data>
   <data name="To" xml:space="preserve">
-    <value>から</value>
+    <value>まで</value>
   </data>
   <data name="From" xml:space="preserve">
-    <value>送金元</value>
+    <value>から</value>
   </data>
   <data name="WinLossTitle" xml:space="preserve">
     <value>勝ち負け</value>
   </data>
   <data name="CommissionByBettype" xml:space="preserve">
-    <value>Commission By Bet Type</value>
+    <value>ベットタイプ別コミッション</value>
   </data>
   <data name="Next" xml:space="preserve">
-    <value>次へ</value>
+    <value>次の</value>
   </data>
   <data name="Match" xml:space="preserve">
     <value>試合</value>
   </data>
   <data name="Outright" xml:space="preserve">
-    <value>即座</value>
+    <value>勝者予想</value>
   </data>
   <data name="MatchWinLossDetail" xml:space="preserve">
     <value>試合勝ち負け詳細</value>
@@ -223,10 +223,10 @@
     <value>状態</value>
   </data>
   <data name="Tote" xml:space="preserve">
-    <value>Tote</value>
+    <value>トート</value>
   </data>
   <data name="SelectLeague" xml:space="preserve">
-    <value>リーグ選択</value>
+    <value>リーグを選択</value>
   </data>
   <data name="AllLeagues" xml:space="preserve">
     <value>すべてのリーグ</value>
@@ -235,37 +235,37 @@
     <value>スポーツ</value>
   </data>
   <data name="MemberWinLoss" xml:space="preserve">
-    <value>メンバー勝ち負け</value>
+    <value>メンバー 勝ち負け</value>
   </data>
   <data name="Win" xml:space="preserve">
-    <value>Win</value>
+    <value>勝ち</value>
   </data>
   <data name="Place" xml:space="preserve">
-    <value>Place</value>
+    <value>場所</value>
   </data>
   <data name="WinPlace" xml:space="preserve">
-    <value>Win Place</value>
+    <value>勝ち場所</value>
   </data>
   <data name="Commission" xml:space="preserve">
-    <value>手数料</value>
+    <value>コミッション</value>
   </data>
   <data name="Gaming" xml:space="preserve">
-    <value>Gaming</value>
+    <value>ゲーム</value>
   </data>
   <data name="Others" xml:space="preserve">
-    <value>Others</value>
+    <value>他の</value>
   </data>
   <data name="Commission1" xml:space="preserve">
-    <value>手数料 1</value>
+    <value>コミッション 1</value>
   </data>
   <data name="Commission2" xml:space="preserve">
-    <value>手数料 2</value>
+    <value>コミッション 2</value>
   </data>
   <data name="Commission3" xml:space="preserve">
-    <value>手数料 3</value>
+    <value>コミッション 3</value>
   </data>
   <data name="Statement" xml:space="preserve">
-    <value>明細書</value>
+    <value>ステートメント</value>
   </data>
   <data name="Remark" xml:space="preserve">
     <value>備考</value>
@@ -274,43 +274,43 @@
     <value>金額</value>
   </data>
   <data name="DailyStatement" xml:space="preserve">
-    <value>日別明細書</value>
+    <value>毎日ステートメント</value>
   </data>
   <data name="Transfer" xml:space="preserve">
     <value>送金</value>
   </data>
   <data name="Month" xml:space="preserve">
-    <value>Month</value>
+    <value>月</value>
   </data>
   <data name="BetList" xml:space="preserve">
     <value>ベットリスト</value>
   </data>
   <data name="BetList_Running" xml:space="preserve">
-    <value>ベットリスト (実行中)</value>
+    <value>ベットリスト (進行中の)</value>
   </data>
   <data name="MemberCount" xml:space="preserve">
-    <value>Member Count</value>
+    <value>メンバー数</value>
   </data>
   <data name="SuperWinLoss" xml:space="preserve">
-    <value>Super Win Loss</value>
+    <value>スーパー 勝ち負け</value>
   </data>
   <data name="IPMatching" xml:space="preserve">
-    <value>IP Matching</value>
+    <value>IP マッチング</value>
   </data>
   <data name="IP" xml:space="preserve">
     <value>IP</value>
   </data>
   <data name="IPMatchingNote" xml:space="preserve">
-    <value>This report's data is used for statistics only, due to the resettlement process, the figure might not be totally exact.</value>
+    <value>このレポートのデータは統計目的のみで使用されており、再設定プロセスにより、数値が完全に正確でない可能性があります。</value>
   </data>
   <data name="MemberTurnOver" xml:space="preserve">
-    <value>Member Turnover</value>
+    <value>メンバー賭金総額</value>
   </data>
   <data name="Stake" xml:space="preserve">
-    <value>ベット</value>
+    <value>賭け金</value>
   </data>
   <data name="MatchingBets" xml:space="preserve">
-    <value>Matching Bets</value>
+    <value>マッチングベット</value>
   </data>
   <data name="odds" xml:space="preserve">
     <value>オッズ</value>
@@ -319,109 +319,903 @@
     <value>受付番号</value>
   </data>
   <data name="transtime" xml:space="preserve">
-    <value>取り引き時間
-</value>
+    <value>取引時間</value>
   </data>
   <data name="over" xml:space="preserve">
     <value>オーバー</value>
   </data>
   <data name="under" xml:space="preserve">
-    <value>アンダー</value>
+    <value>オーバー</value>
   </data>
   <data name="Upline" xml:space="preserve">
-    <value>Upline</value>
+    <value>上層ライン</value>
   </data>
   <data name="IP_used_by" xml:space="preserve">
-    <value>IP used by</value>
+    <value>〜によって使用されたIP</value>
   </data>
   <data name="eventdate" xml:space="preserve">
-    <value>イベント日付</value>
+    <value>イベント日付  </value>
   </data>
   <data name="BetMatching_IP_Title" xml:space="preserve">
-    <value>Click to view shared IP accounts</value>
+    <value>クリックしてこのアカウントと同じIPのアカウントを見る</value>
   </data>
   <data name="BetMatching_Username_Title" xml:space="preserve">
-    <value>Click to view uplines</value>
+    <value>アップラインを見るにはクリックしてください</value>
   </data>
   <data name="FilterByMemberWinLoss" xml:space="preserve">
-    <value>Filter By Member Win Loss</value>
+    <value>メンバー勝ち負けでフィルター </value>
   </data>
   <data name="FilterByStake" xml:space="preserve">
-    <value>Filter By Stake</value>
+    <value>賭け金でフィルター</value>
   </data>
   <data name="FilterByUsername" xml:space="preserve">
-    <value>Filter By Username</value>
+    <value>ユーザー名でフィルター </value>
   </data>
   <data name="Filter" xml:space="preserve">
-    <value>Filter</value>
+    <value>フィルター </value>
   </data>
   <data name="FilterByUsername_Placeholder" xml:space="preserve">
-    <value>Separate mulitple usernames by comma (,)</value>
+    <value>ユーザー名はカンマ（,）で区切ってください。</value>
   </data>
   <data name="TotalMemberWL" xml:space="preserve">
-    <value>Total Member WL</value>
+    <value>合計メンバー勝ち負け</value>
   </data>
   <data name="TotalStake" xml:space="preserve">
-    <value>Total Stake</value>
+    <value>合計賭け金</value>
   </data>
   <data name="HT" xml:space="preserve">
-    <value>HT</value>
+    <value>ハーフタイム</value>
   </data>
   <data name="Apply" xml:space="preserve">
-    <value>Apply</value>
+    <value>適用</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="AgentCommNew" xml:space="preserve">
-    <value>Agent Comm</value>
+    <value>エージェントコミッション</value>
   </data>
   <data name="AgentTotalNew" xml:space="preserve">
-    <value>Agent Total</value>
+    <value>エージェント合計</value>
   </data>
   <data name="AgentWinLossNew" xml:space="preserve">
-    <value>Agent Win/Loss</value>
+    <value>エージェント勝ち負け</value>
   </data>
   <data name="MasterCommNew" xml:space="preserve">
-    <value>Master Comm</value>
+    <value>マスターコミッション</value>
   </data>
   <data name="MasterTotalNew" xml:space="preserve">
-    <value>Master Total</value>
+    <value>マスター合計</value>
   </data>
   <data name="MasterWinLossNew" xml:space="preserve">
-    <value>Master Win/Loss</value>
+    <value>マスター勝ち負け</value>
   </data>
   <data name="MemberCommNew" xml:space="preserve">
-    <value>Member Comm</value>
+    <value>メンバーコミッション</value>
   </data>
   <data name="MemberTotalNew" xml:space="preserve">
-    <value>Member Total</value>
+    <value>メンバー合計</value>
   </data>
   <data name="MemberWinLossNew" xml:space="preserve">
-    <value>Member Win/Loss</value>
+    <value>メンバー勝ち負け</value>
   </data>
   <data name="SuperCommNew" xml:space="preserve">
-    <value>Super Comm</value>
+    <value>スーパーコミッション</value>
   </data>
   <data name="SuperTotalNew" xml:space="preserve">
-    <value>Super Total</value>
+    <value>スーパー合計</value>
   </data>
   <data name="SuperWinLossNew" xml:space="preserve">
-    <value>Super Win/Loss</value>
+    <value>スーパー 勝ち負け</value>
   </data>
   <data name="SuperWinLossDetailByPT" xml:space="preserve">
-    <value>Super Win Loss Detail By PT</value>
+    <value>保有ポジション別スーパー勝ち負け詳細</value>
   </data>
   <data name="PT" xml:space="preserve">
-    <value>PT</value>
+    <value>保有ポジション</value>
   </data>
   <data name="ViewProductPTList" xml:space="preserve">
-    <value>View Product/PT List</value>
+    <value>製品/保有ポジションリストを表示</value>
   </data>
   <data name="ViewProductPTListNoteMessage" xml:space="preserve">
-    <value>PT values shown in the report are the Super Max PT</value>
+    <value>報告書に表示されている保有ポジションの値は、スーパー最大保有ポジションです。</value>
   </data>
   <data name="HttpError_Default" xml:space="preserve">
-    <value>Sorry, there was an unexpected issue on the server. Please seek help from our customer support. [{0}]</value>
+    <value>すみません、サーバーに予想外の問題が発生しました。カスタマーサポートにご連絡ください。[{0}]</value>
+  </data>
+  <data name="MasterWinLossDetail" xml:space="preserve">
+    <value>マスターの勝ち負け詳細</value>
+  </data>
+  <data name="Tip_ShowReportInStackColumnView" xml:space="preserve">
+    <value>列をグループ化</value>
+  </data>
+  <data name="Tip_ShowReportInNormalView" xml:space="preserve">
+    <value>列のグループ化を解除</value>
+  </data>
+  <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
+    <value>{0}からレポートデータを表示できます。</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>先週</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>先月</value>
+  </data>
+  <data name="SinceLastMonth" xml:space="preserve">
+    <value>先月以降</value>
+  </data>
+  <data name="SpecificDate" xml:space="preserve">
+    <value>特定の日付</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>今週</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>今月</value>
+  </data>
+  <data name="January" xml:space="preserve">
+    <value>1月</value>
+  </data>
+  <data name="February" xml:space="preserve">
+    <value>2月</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>3月</value>
+  </data>
+  <data name="April" xml:space="preserve">
+    <value>4月</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>5月</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>6月</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>7月</value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>8月</value>
+  </data>
+  <data name="September" xml:space="preserve">
+    <value>9月</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>10月</value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>11月</value>
+  </data>
+  <data name="December" xml:space="preserve">
+    <value>12月</value>
+  </data>
+  <data name="CanOnlyViewDataAfterTimeHistoryReport" xml:space="preserve">
+    <value>{0}からレポートデータを表示できます。</value>
+  </data>
+  <data name="HideFilter" xml:space="preserve">
+    <value>フィルターを非表示</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>製品</value>
+  </data>
+  <data name="ThereIsNoSelectedProduct" xml:space="preserve">
+    <value>選択された製品がありません。</value>
+  </data>
+  <data name="SelectProducts" xml:space="preserve">
+    <value>製品を選択</value>
+  </data>
+  <data name="AllProducts" xml:space="preserve">
+    <value>すべての製品</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>選択済み</value>
+  </data>
+  <data name="ShowFilter" xml:space="preserve">
+    <value>フィルターを表示</value>
+  </data>
+  <data name="Pager_DisplayItems" xml:space="preserve">
+    <value>全 {total} 件中、{from} 件目から {to} 件目を表示</value>
+  </data>
+  <data name="NetTurnover" xml:space="preserve">
+    <value>純賭金総額</value>
+  </data>
+  <data name="GrossComm" xml:space="preserve">
+    <value>合計コミッション</value>
+  </data>
+  <data name="Super" xml:space="preserve">
+    <value>スーパー</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>カンパニー</value>
+  </data>
+  <data name="WinLoss" xml:space="preserve">
+    <value>勝ち負け</value>
+  </data>
+  <data name="Tooltip_NetTurnover" xml:space="preserve">
+    <value>スポーツブックにおいて、純賭金総額とは、引き分けのチケットおよび半勝半敗のチケットの賭金総額の半分を除いた賭金総額を指します。</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>再表示しない</value>
+  </data>
+  <data name="ThereIsNoProduct" xml:space="preserve">
+    <value>製品はありません。</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="NetTurnoverAndGrossComm" xml:space="preserve">
+    <value>/純賭金合計額/合計コミッション</value>
+  </data>
+  <data name="WinLossAbbr" xml:space="preserve">
+    <value>勝ち負け</value>
+  </data>
+  <data name="BackToCurrentReport" xml:space="preserve">
+    <value>現在のレポートに戻る</value>
+  </data>
+  <data name="ViewHistoryReport" xml:space="preserve">
+    <value>履歴レポートを見る</value>
+  </data>
+  <data name="of2" xml:space="preserve">
+    <value>の</value>
+  </data>
+  <data name="AgentWinLoss" xml:space="preserve">
+    <value>エージェント 勝ち負け</value>
+  </data>
+  <data name="MasterWinLoss" xml:space="preserve">
+    <value>マスター 勝ち負け</value>
+  </data>
+  <data name="AgentTotal" xml:space="preserve">
+    <value>エージェント合計</value>
+  </data>
+  <data name="MasterTotal" xml:space="preserve">
+    <value>マスター合計</value>
+  </data>
+  <data name="SuperTotal" xml:space="preserve">
+    <value>スーパー合計</value>
+  </data>
+  <data name="GrossComAndAgentTotal" xml:space="preserve">
+    <value>/合計コミッション/エージェント合計</value>
+  </data>
+  <data name="GrossComAndMasterTotal" xml:space="preserve">
+    <value>/合計コミッション/マスター合計</value>
+  </data>
+  <data name="MatchResultEntered" xml:space="preserve">
+    <value>試合結果入力済み</value>
+  </data>
+  <data name="DefaultSheetName" xml:space="preserve">
+    <value>シート1</value>
+  </data>
+  <data name="WinLossDetail" xml:space="preserve">
+    <value>勝ち負け詳細</value>
+  </data>
+  <data name="BetCount" xml:space="preserve">
+    <value>ベット数</value>
+  </data>
+  <data name="NumberGameNo" xml:space="preserve">
+    <value>ナンバーゲーム番号</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>フルタイム</value>
+  </data>
+  <data name="WinLossByBetType" xml:space="preserve">
+    <value>ベットタイプ別勝ち負け</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>有効</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>無効</value>
+  </data>
+  <data name="DelayIssueLegend" xml:space="preserve">
+    <value>{0} のデータは、ベットの処理完了後5分遅れます。</value>
+  </data>
+  <data name="vs" xml:space="preserve">
+    <value> - vs - </value>
+  </data>
+  <data name="MatchWinLoss" xml:space="preserve">
+    <value>試合 勝ち負け</value>
+  </data>
+  <data name="Daily" xml:space="preserve">
+    <value>毎日</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>毎月</value>
+  </data>
+  <data name="WinLossAnalysis" xml:space="preserve">
+    <value>勝ち負け分析</value>
+  </data>
+  <data name="PositionTaking" xml:space="preserve">
+    <value>保有ポジション</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>ベットタイプ</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>レース</value>
+  </data>
+  <data name="HorseRacing" xml:space="preserve">
+    <value>レーシング</value>
+  </data>
+  <data name="NumberGame" xml:space="preserve">
+    <value>ナンバーゲーム</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>小計</value>
+  </data>
+  <data name="ThereIsNoLeague" xml:space="preserve">
+    <value>リーグはありません。</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>合計金額</value>
+  </data>
+  <data name="Allbet" xml:space="preserve">
+    <value>Allbet</value>
+  </data>
+  <data name="GoldDeluxe" xml:space="preserve">
+    <value>Gold Deluxe</value>
+  </data>
+  <data name="LiveGame" xml:space="preserve">
+    <value>ライブゲーム</value>
+  </data>
+  <data name="ReportBy" xml:space="preserve">
+    <value>による報告</value>
+  </data>
+  <data name="DailyWinLossAnalysis" xml:space="preserve">
+    <value>毎日 勝ち負け分析</value>
+  </data>
+  <data name="MonthlyWinLossAnalysis" xml:space="preserve">
+    <value>毎月 勝ち負け分析</value>
+  </data>
+  <data name="SportWinLossAnalysis" xml:space="preserve">
+    <value>スポーツ 勝ち負け分析</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>開始時の残高</value>
+  </data>
+  <data name="TransferAmt" xml:space="preserve">
+    <value>転送額</value>
+  </data>
+  <data name="AccumulatedTotal" xml:space="preserve">
+    <value>累積合計</value>
+  </data>
+  <data name="StatementGuidelines" xml:space="preserve">
+    <value>ステートメントガイドライン </value>
+  </data>
+  <data name="PreGame" xml:space="preserve">
+    <value>試合前</value>
+  </data>
+  <data name="VirtualSports" xml:space="preserve">
+    <value>バーチャルスポーツ</value>
+  </data>
+  <data name="Voidbridge" xml:space="preserve">
+    <value>Macau Games</value>
+  </data>
+  <data name="CasinoWinLoss" xml:space="preserve">
+    <value>カジノ勝ち負け </value>
+  </data>
+  <data name="GameTypeName" xml:space="preserve">
+    <value>ゲームタイプ名</value>
+  </data>
+  <data name="WinLossByProduct" xml:space="preserve">
+    <value>製品別勝ち負け </value>
+  </data>
+  <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
+    <value>あなたの残高は「開始日」まで計算されます。もし開始時の残高が前日の累積合計と一致しない場合、開始時の残高はピンクでハイライトされます。</value>
+  </data>
+  <data name="Guidelines_Turnover" xml:space="preserve">
+    <value>すべてのチケットの合計賭け金額（無効/却下/未決/払い戻しチケットは除く）</value>
+  </data>
+  <data name="Guidelines_WinLoss_SMA" xml:space="preserve">
+    <value>賭けチケットの保有ポジション後の合計勝ち負け額（無効/却下/未決チケットは除く）</value>
+  </data>
+  <data name="Guidelines_Commission_SMA" xml:space="preserve">
+    <value>会員チケットに基づく合計コミッション。</value>
+  </data>
+  <data name="Guidelines_TransferAmt_SMA" xml:space="preserve">
+    <value>合計転送額。転送詳細を表示するにはクリックしてください</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_SMA" xml:space="preserve">
+    <value>選択した日付範囲内での各日の終了残高。</value>
+  </data>
+  <data name="Formular_Accumulated_Total" xml:space="preserve">
+    <value>累積合計 = 開始時の残高 + 勝ち/負け + コミッション + 転送額</value>
+  </data>
+  <data name="TransferDetails" xml:space="preserve">
+    <value>転送詳細</value>
+  </data>
+  <data name="Void" xml:space="preserve">
+    <value>無効</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>却下</value>
+  </data>
+  <data name="GrandPrize" xml:space="preserve">
+    <value>グランドプライズ</value>
+  </data>
+  <data name="Guidelines_OpeningBalance_Member" xml:space="preserve">
+    <value>メンバーの残高は「開始日」日まで計算されます。もし開始時の残高が前日の累積合計と一致しない場合、開始時の残高はピンクでハイライトされます。</value>
+  </data>
+  <data name="Guidelines_VoidRejected" xml:space="preserve">
+    <value>無効/却下チケットの合計賭け金額。無効/却下チケットの賭けリストを表示するにはクリックしてください。</value>
+  </data>
+  <data name="Guidelines_Outstanding" xml:space="preserve">
+    <value>進行中のチケットの合計賭け金額。進行中のチケットの賭けリストを表示するにはクリックしてください。</value>
+  </data>
+  <data name="Guidelines_WinLoss_Member" xml:space="preserve">
+    <value>賭けチケットの合計勝ち負け額（会員コミッションを除く、無効/却下/未決チケットは除く）。詳細な賭けリストを表示するにはクリックしてください。</value>
+  </data>
+  <data name="Guidelines_Commission_Member" xml:space="preserve">
+    <value>合計メンバーコミッション</value>
+  </data>
+  <data name="GrandPrize_Guidelines" xml:space="preserve">
+    <value>特別なイベントの勝ち金額は、メンバーの残高には含まれません。</value>
+  </data>
+  <data name="Guidelines_TransferAmt_Member" xml:space="preserve">
+    <value>エージェントとメンバー間の合計転送額。転送詳細を表示するにはクリックしてください。</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_Member" xml:space="preserve">
+    <value>選択した日付範囲内での各日のメンバー終了残高。</value>
+  </data>
+  <data name="OpeningBal" xml:space="preserve">
+    <value>開始残高</value>
+  </data>
+  <data name="AccumTotal" xml:space="preserve">
+    <value>累積合計 </value>
+  </data>
+  <data name="MonthlyWinLossChart" xml:space="preserve">
+    <value>毎月 勝ち負け チャート </value>
+  </data>
+  <data name="Least3MonthToChart" xml:space="preserve">
+    <value>チャートを表示するには、少なくとも3ヶ月の期間を選択してください。</value>
+  </data>
+  <data name="KoreanWon" xml:space="preserve">
+    <value>勝ち</value>
+  </data>
+  <data name="AllCurrencies" xml:space="preserve">
+    <value>すべての通貨</value>
+  </data>
+  <data name="Consolidation" xml:space="preserve">
+    <value>グループの勝敗</value>
+  </data>
+  <data name="ConsolidationReportByDate" xml:space="preserve">
+    <value>日次詳細レポート</value>
+  </data>
+  <data name="ConsolidationReportByProduct" xml:space="preserve">
+    <value>スポーツの総括レポート</value>
+  </data>
+  <data name="ConsolidationReportByUsername" xml:space="preserve">
+    <value>ユーザー名別総括レポート</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>通貨</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>等級</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>オーナー</value>
+  </data>
+  <data name="Tooltip_CommissionByBetType" xml:space="preserve">
+    <value>その他: {0} のベットタイプに適用されます。</value>
+  </data>
+  <data name="ProgressiveGamesContribution" xml:space="preserve">
+    <value>プログレッシブゲームの貢献 </value>
+  </data>
+  <data name="ContributionAmount" xml:space="preserve">
+    <value>累積合計</value>
+  </data>
+  <data name="ContributionShare" xml:space="preserve">
+    <value>累積金額</value>
+  </data>
+  <data name="ContributionAmountRoundNote" xml:space="preserve">
+    <value>累積金額は小数点以下4桁に丸められます。</value>
+  </data>
+  <data name="TaxComm" xml:space="preserve">
+    <value>合計税収コミッション</value>
+  </data>
+  <data name="RoundCount" xml:space="preserve">
+    <value>試合数</value>
+  </data>
+  <data name="Insurance_GemsWinLoss" xml:space="preserve">
+    <value>保険と宝石での勝敗</value>
+  </data>
+  <data name="NetTurnoverAndTaxComm" xml:space="preserve">
+    <value>/純賭金合計額/合計税収コミッション</value>
+  </data>
+  <data name="Insurance_GemsWinLossAbbr" xml:space="preserve">
+    <value>保険と宝石での勝敗</value>
+  </data>
+  <data name="Include" xml:space="preserve">
+    <value>含む</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>番</value>
+  </data>
+  <data name="Happy5" xml:space="preserve">
+    <value>Happy 5</value>
+  </data>
+  <data name="BetChoiceMatching" xml:space="preserve">
+    <value>重複ベット</value>
+  </data>
+  <data name="BetType1X2_FT" xml:space="preserve">
+    <value>フルタイム</value>
+  </data>
+  <data name="Tooltip_NetTurnover_livecasino" xml:space="preserve">
+    <value>{0} の場合、純賭金総額は、コミッション計算に使用される有効な賭け金の合計額です。</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>全て選択</value>
+  </data>
+  <data name="SelectNone" xml:space="preserve">
+    <value>何も選択しない</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>取消済み</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>完了済み</value>
+  </data>
+  <data name="NotReceived" xml:space="preserve">
+    <value>未受領</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>処理待ち</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>受領済み</value>
+  </data>
+  <data name="BonusDetail" xml:space="preserve">
+    <value>ボーナス詳細</value>
+  </data>
+  <data name="BonusDetailRefNo" xml:space="preserve">
+    <value>参照番号</value>
+  </data>
+  <data name="BonusStatus" xml:space="preserve">
+    <value>ボーナスの状態</value>
+  </data>
+  <data name="CreatedFrom" xml:space="preserve">
+    <value>〜から作成</value>
+  </data>
+  <data name="MemberFeedback" xml:space="preserve">
+    <value>メンバーのフィードバック</value>
+  </data>
+  <data name="PaymentDate" xml:space="preserve">
+    <value>支払日</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="ConfirmPayment" xml:space="preserve">
+    <value>支払いを確認</value>
+  </data>
+  <data name="ConfirmPaymentNote" xml:space="preserve">
+    <value>フォームを提出すると、支払日がシステムに登録されます。</value>
+  </data>
+  <data name="ToMember" xml:space="preserve">
+    <value>メンバーへ</value>
+  </data>
+  <data name="ConfirmPaymentSuccessfully" xml:space="preserve">
+    <value>支払日が無事に登録されました。</value>
+  </data>
+  <data name="NotAuthorized" xml:space="preserve">
+    <value>この機能を使用する権限がありません。</value>
+  </data>
+  <data name="GrossCommNoteForMember" xml:space="preserve">
+    <value>メンバーの視点では、エージェントが各メンバーごとに上層ラインから受け取れるコミッション（保有ポジションなし）。</value>
+  </data>
+  <data name="GrossCommNoteForAgent" xml:space="preserve">
+    <value>エージェントの視点では、マスターが各エージェントごとに上層ラインから受け取れるコミッション（保有ポジションなし）。</value>
+  </data>
+  <data name="GrossCommNoteForMaster" xml:space="preserve">
+    <value>マスターの視点では、スーパーが各マスターにおいて上層ラインから受け取れるコミッション（保有ポジションなし）。</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportAgent" xml:space="preserve">
+    <value>エージェント視点での表示：エージェントが上層ラインから受領可能なコミッション（保有ポジションを含まない）。</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportMaster" xml:space="preserve">
+    <value>マスター視点での表示：マスターが上層ラインから受領可能なコミッション（保有ポジションを含まない）。</value>
+  </data>
+  <data name="GrossCommNoteForConsolidationReportSuper" xml:space="preserve">
+    <value>スーパー視点での表示：スーパーが上層ラインから受領可能なコミッション（保有ポジションを含まない）。</value>
+  </data>
+  <data name="Tooltip_NetTurnover_RNGCasino" xml:space="preserve">
+    <value>{0}の場合、純賭金総額とは無効/拒否/払い戻しチケットを除外した賭金総額を指します。</value>
+  </data>
+  <data name="GrossCommNoteForCasino" xml:space="preserve">
+    <value>一部のカジノ製品では、ゲーム中または1日の間に保有ポジションやコミッション率が変更された場合、報告書に表示される総コミッションの値は、平均保有ポジションや平均コミッション率から計算された概算値になります。</value>
+  </data>
+  <data name="UsernamePTProduct" xml:space="preserve">
+    <value>ユーザー名/保有ポジション/製品</value>
+  </data>
+  <data name="ConsolidationPTNote" xml:space="preserve">
+    <value>報告書に表示されている保有ポジションの値は、{0}の最大保有ポジションです。</value>
+  </data>
+  <data name="PartialUMAnnouncement" xml:space="preserve">
+    <value>この機能をより良い体験のために更新しています。そのため、この機能は一時的に停止されています（{0} - {1} (GMT+8)）。後ほどお試しください。ご不便をおかけして申し訳ありません。</value>
+  </data>
+  <data name="BetCreditHistory" xml:space="preserve">
+    <value>ベット与信履歴</value>
+  </data>
+  <data name="MoveStatementHistory" xml:space="preserve">
+    <value>ステートメント履歴を移動</value>
+  </data>
+  <data name="EventDateFrom" xml:space="preserve">
+    <value>イベント日付自</value>
+  </data>
+  <data name="MemberRefNo" xml:space="preserve">
+    <value>メンバー/参照番号</value>
+  </data>
+  <data name="NewEventDate" xml:space="preserve">
+    <value>新イベント日付</value>
+  </data>
+  <data name="OldEventDate" xml:space="preserve">
+    <value>旧イベント日付</value>
+  </data>
+  <data name="MoveStatementHistoryNote" xml:space="preserve">
+    <value>この報告書には、検索した日付範囲に旧イベント日または新イベント日が該当するすべてのチケットが表示されます。</value>
+  </data>
+  <data name="MembersMovedEventDateReport" xml:space="preserve">
+    <value>メンバーの移動されたイベント日付報告書</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>行動</value>
+  </data>
+  <data name="ActionDateTime" xml:space="preserve">
+    <value>行動/日時</value>
+  </data>
+  <data name="ActualStake" xml:space="preserve">
+    <value>実際の賭け金</value>
+  </data>
+  <data name="BalanceChange" xml:space="preserve">
+    <value>残高変更</value>
+  </data>
+  <data name="BetCredit" xml:space="preserve">
+    <value>ベット与信</value>
+  </data>
+  <data name="GivenCredit" xml:space="preserve">
+    <value>付与済み与信</value>
+  </data>
+  <data name="NewBalance" xml:space="preserve">
+    <value>新残高</value>
+  </data>
+  <data name="PlayerComm" xml:space="preserve">
+    <value>プレイヤーコミッション</value>
+  </data>
+  <data name="WinLossDate" xml:space="preserve">
+    <value>勝ち負けの日付</value>
+  </data>
+  <data name="UsernameIsRequired" xml:space="preserve">
+    <value>ユーザー名が必要です。</value>
+  </data>
+  <data name="InvalidUsername" xml:space="preserve">
+    <value>無効なユーザー名です。</value>
+  </data>
+  <data name="DuplicatedTicketMessage" xml:space="preserve">
+    <value>イベント日付が複数回変更されたチケットは、重複して表示され、赤色でハイライトされます。</value>
+  </data>
+  <data name="InvalidRefNo" xml:space="preserve">
+    <value>無効な参照番号です。</value>
+  </data>
+  <data name="OlderThan3Months" xml:space="preserve">
+    <value>3か月以上前</value>
+  </data>
+  <data name="GrossCommNoteForRoundingProblem" xml:space="preserve">
+    <value>総コミッションの値は、小数点以下4桁への丸め処理のため、各レベルで異なる場合があります。</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="DateRange" xml:space="preserve">
+    <value>日付範囲</value>
+  </data>
+  <data name="NoneSelected" xml:space="preserve">
+    <value>選択なし</value>
+  </data>
+  <data name="NoProductFound" xml:space="preserve">
+    <value>製品が見つかりませんでした。</value>
+  </data>
+  <data name="SearchProduct" xml:space="preserve">
+    <value>製品検索</value>
+  </data>
+  <data name="FirstLastName" xml:space="preserve">
+    <value>名／姓</value>
+  </data>
+  <data name="ClassicView" xml:space="preserve">
+    <value>クラシック表示</value>
+  </data>
+  <data name="NewView" xml:space="preserve">
+    <value>新しい表示</value>
+  </data>
+  <data name="ProductDetails" xml:space="preserve">
+    <value>製品詳細</value>
+  </data>
+  <data name="SearchProductDetails" xml:space="preserve">
+    <value>製品詳細を検索</value>
+  </data>
+  <data name="NoProductDetailsFound" xml:space="preserve">
+    <value>製品詳細が見つかりませんでした。</value>
+  </data>
+  <data name="NoColumnsFound" xml:space="preserve">
+    <value>列が見つかりませんでした。</value>
+  </data>
+  <data name="SearchColumns" xml:space="preserve">
+    <value>列検索</value>
+  </data>
+  <data name="MaxDataRetrieveHistoryError" xml:space="preserve">
+    <value>{0}以前のデータは最大31日間まで閲覧可能です。日付範囲をご確認ください。</value>
+  </data>
+  <data name="HistoryDataCanViewNote" xml:space="preserve">
+    <value>{0}以前の日付に基づく履歴データは、最大31日間まで閲覧可能です。</value>
+  </data>
+  <data name="ReportDataCanViewNote" xml:space="preserve">
+    <value>{0}から開始する報告書データは、最大90日間まで閲覧できます。</value>
+  </data>
+  <data name="nSelected" xml:space="preserve">
+    <value># 選択済み</value>
+  </data>
+  <data name="UsernameOrFirstLastName" xml:space="preserve">
+    <value>ユーザー名または名/姓</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>複写した</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>複写</value>
+  </data>
+  <data name="GrossCommRoundingNote" xml:space="preserve">
+    <value>コミッションの値は、理論値（総コミッション * 保有ポジション）と若干異なる場合があります。これは、サブチケットのコミッション値（小数点以下4桁で丸められた値）の合計で計算されるためです。</value>
+  </data>
+  <data name="TotalMembers" xml:space="preserve">
+    <value>合計メンバー数</value>
+  </data>
+  <data name="TotalWinLoss" xml:space="preserve">
+    <value>合計勝ち負け</value>
+  </data>
+  <data name="TotalCommission" xml:space="preserve">
+    <value>合計コミッション</value>
+  </data>
+  <data name="SumOfMemberTotal" xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="VarianceFromSelectedDate" xml:space="preserve">
+    <value>選択日付との差異</value>
+  </data>
+  <data name="DataOutsideDateRange" xml:space="preserve">
+    <value>データが選択された日付範囲外に移動したため、報告書に差異が生じました。</value>
+  </data>
+  <data name="MainReport" xml:space="preserve">
+    <value>主要報告書</value>
+  </data>
+  <data name="NewViewTakesOver" xml:space="preserve">
+    <value>新しい表示が適用されます。</value>
+  </data>
+  <data name="NewViewTakesOverNote" xml:space="preserve">
+    <value>2024年2月21日 (dd/mm/yyyy)より、新しい表示がメイン表示となりますが、クラシック表示に戻すことができます。</value>
+  </data>
+  <data name="NewViewTakesOverPopup" xml:space="preserve">
+    <value>&lt;b&gt;2024年2月21日 (dd/mm/yyyy)&lt;/b&gt;より、&lt;b&gt;新しい表示&lt;/b&gt;が&lt;b&gt;主要表示&lt;/b&gt;として設定されます。ただし、クラシック表示に戻すこともできます。</value>
+  </data>
+  <data name="DormantAccounts" xml:space="preserve">
+    <value>休眠アカウント</value>
+  </data>
+  <data name="DormantAccountsNote" xml:space="preserve">
+    <value>休眠アカウントの情報は収集および要約されており、個々の休眠アカウントの詳細を閲覧することはできません。</value>
+  </data>
+  <data name="SummaryOfDormantAccounts" xml:space="preserve">
+    <value>休眠アカウントの概要</value>
+  </data>
+  <data name="_Apr" xml:space="preserve">
+    <value>4月</value>
+  </data>
+  <data name="_Aug" xml:space="preserve">
+    <value>8月</value>
+  </data>
+  <data name="_Dec" xml:space="preserve">
+    <value>12月</value>
+  </data>
+  <data name="_Feb" xml:space="preserve">
+    <value>2月</value>
+  </data>
+  <data name="_Jan" xml:space="preserve">
+    <value>1月</value>
+  </data>
+  <data name="_Jul" xml:space="preserve">
+    <value>7月</value>
+  </data>
+  <data name="_Jun" xml:space="preserve">
+    <value>6月</value>
+  </data>
+  <data name="_Mar" xml:space="preserve">
+    <value>3月</value>
+  </data>
+  <data name="_May" xml:space="preserve">
+    <value>5月</value>
+  </data>
+  <data name="_Nov" xml:space="preserve">
+    <value>11月</value>
+  </data>
+  <data name="_Oct" xml:space="preserve">
+    <value>10月</value>
+  </data>
+  <data name="_Sep" xml:space="preserve">
+    <value>9月</value>
+  </data>
+  <data name="Last3Months" xml:space="preserve">
+    <value>過去3か月</value>
+  </data>
+  <data name="SabaOtherSportsLegend" xml:space="preserve">
+    <value>{0}のデータは{1}に含まれます。</value>
+  </data>
+  <data name="MonitoredMember" xml:space="preserve">
+    <value>監視対象メンバー</value>
+  </data>
+  <data name="AddToMyWatchlist" xml:space="preserve">
+    <value>マイウォッチリストに追加する</value>
+  </data>
+  <data name="Statement_WinLoss" xml:space="preserve">
+    <value>勝ち負け</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>製品</value>
+  </data>
+  <data name="ShutdownOldWinLossDetailReportMessage" xml:space="preserve">
+    <value>{0}（dd/mm/yyyy）から、クラシック表示は終了し、新しい表示が提供されます。新しい表示で、より良いユーザー体験をお楽しみください。</value>
+  </data>
+  <data name="SwitchToNewView" xml:space="preserve">
+    <value>新しい表示に変更する</value>
+  </data>
+  <data name="ProductsWinLossAnalysis" xml:space="preserve">
+    <value>製品勝ち負け分析</value>
+  </data>
+  <data name="Columns_Duplicate[1]" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="DateRange_Duplicate[1]" xml:space="preserve">
+    <value>日付範囲</value>
+  </data>
+  <data name="NoProductDetailsFound_Duplicate[1]" xml:space="preserve">
+    <value>製品詳細が見つかりません</value>
+  </data>
+  <data name="NoProductFound_Duplicate[1]" xml:space="preserve">
+    <value>製品が見つかりません</value>
+  </data>
+  <data name="ProductDetails_Duplicate[1]" xml:space="preserve">
+    <value>製品詳細</value>
+  </data>
+  <data name="SearchColumns_Duplicate[1]" xml:space="preserve">
+    <value>列を探す</value>
+  </data>
+  <data name="SearchProduct_Duplicate[1]" xml:space="preserve">
+    <value>製品を探す</value>
+  </data>
+  <data name="SearchProductDetails_Duplicate[1]" xml:space="preserve">
+    <value>製品詳細を探す</value>
+  </data>
+  <data name="MaxDataRetrieveHistoryError_Duplicate[1]" xml:space="preserve">
+    <value>{0}以前のデータは最大31日間のみアクセス可能です。日付範囲を再確認してください。</value>
+  </data>
+  <data name="NoneSelected_Duplicate[1]" xml:space="preserve">
+    <value>まだ項目が選択されていません</value>
+  </data>
+  <data name="HistoryDataCanViewNote_Duplicate[1]" xml:space="preserve">
+    <value>{0}以前の報告データは、最大31日間までしか検索できません。</value>
+  </data>
+  <data name="ReportDataCanViewNote_Duplicate[1]" xml:space="preserve">
+    <value>{0}以降のレポートデータは、最大90日間またはそれ以上検索可能です。</value>
+  </data>
+  <data name="Reward" xml:space="preserve">
+    <value>報酬</value>
+  </data>
+  <data name="WinLossDetail2Note" xml:space="preserve">
+    <value>&lt;b&gt;2025年2月1日 (mm/dd/yyyy)&lt;/b&gt; より、このレポートにはデフォルトで報酬情報が含まれるようになります。&lt;a href="{0}"&gt;現在のレポート&lt;/a&gt; に戻る。</value>
+  </data>
+  <data name="WinLossDetailNewNote" xml:space="preserve">
+    <value>クリックして &lt;a href="{0}"&gt;こちら&lt;/a&gt; 報酬情報が含まれるレポートをご覧ください。&lt;b&gt;2025年2月1日 (mm/dd/yyyy)&lt;/b&gt; より、このレポートにはデフォルトで報酬情報が含まれるようになります。</value>
+  </data>
+  <data name="Neutral" xml:space="preserve">
+    <value>(N)</value>
   </data>
 </root>

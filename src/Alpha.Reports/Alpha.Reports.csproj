@@ -494,6 +494,7 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.8.22.0.31243\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Features\BetCreditTracking\BetCreditHistory\Resources\BetCreditHistoryResources.ja-JP.resx" />
     <EmbeddedResource Include="Features\BetCreditTracking\BetCreditHistory\Resources\BetCreditHistoryResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BetCreditHistoryResources.Designer.cs</LastGenOutput>

@@ -376,7 +376,7 @@
     <value>Number Game No</value>
   </data>
   <data name="Neutral" xml:space="preserve">
-    <value> (N)</value>
+    <value>(N)</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Next</value>
