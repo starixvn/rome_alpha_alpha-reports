@@ -11,7 +11,8 @@ class DateRangePickerJQueryComponent {
         "th-TH": "th",
         "vi-VN": "vi",
         "zh-CN": "cn",
-        "zh-TW": "tc"
+        "zh-TW": "tc",
+        "ja-JP": "ja"
     };
     private fromDate: string;
     private toDate: string;
