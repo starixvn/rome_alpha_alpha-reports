@@ -19,7 +19,7 @@
                 message.FromDate,
                 message.ToDate,
                 message.MinDate,
-                SystemTime.Today.AddDays(1),
+                SystemTime.Today,
                 message.Language);
             WhiteLabelJson = JsonConvert.SerializeObject(whiteLabels);
             Username = message.Username;

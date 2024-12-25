@@ -1248,9 +1248,16 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
     WinLossDetailViewNew.prototype.bindEvents = function () {
         var _this = this;
         this.initReportLegend($("#hiddenLegendUrl").val());
-        this.initShowHideFilter(function (isHideFilter) { return isHideFilter ? _this.weekSelectionComponent.hide() : _this.weekSelectionComponent.show(); });
-        $('#msg-warning-note').hide();
-        $('#msg-warning-note').show();
+        this.initShowHideFilter(function (isHideFilter) {
+            if (isHideFilter) {
+                _this.weekSelectionComponent.hide();
+                $('#msg-warning-note').hide();
+            }
+            else {
+                _this.weekSelectionComponent.show();
+                $('#msg-warning-note').show();
+            }
+        });
         this.bindCopyAndExcelEvents();
         this.bindTableReportEvents();
     };
