@@ -1,0 +1,107 @@
+﻿@using Alpha.Reports.Features.WhiteLabelReport.Models
+@{
+    Layout = null;
+    var isSuper = Model.ViewerLevel.IsSuperLevel();
+    var isMasterOrSuper = Model.ViewerLevel.IsMasterOrSuperLevel();
+    var thead1stIndex = 0;
+    var thead2ndIndex = 0;
+}
+@model SettlementGetDataViewModel
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tablesorter width-100per" id="tbl-report" data-cansort="@Model.ReportData.MoreThanOne()">
+    <thead>
+        <tr>
+            <th rowspan="2" class="sorting" data-colindex="@(thead1stIndex++)" data-colname="month" data-sorttype="text">@Resources.Month</th>
+            @if (isMasterOrSuper)
+            {
+                <th rowspan="2" class="sorting" data-colindex="@(thead1stIndex++)" data-colname="whitelabel" data-sorttype="text">@Resources.WhiteLabel</th>
+                <th rowspan="2" class="sorting" data-colindex="@(thead1stIndex++)" data-colname="agent" data-sorttype="text">@Resources.Agent</th>
+            }
+            @if (isSuper)
+            {
+                <th rowspan="2" class="sorting" data-colindex="@(thead1stIndex++)" data-colname="master" data-sorttype="text">@Resources.Master</th>
+            }
+            <th colspan="2" id="groupMember">@Resources.Member</th>
+            <th colspan="7" id="groupWhiteLabel">@Resources.WhiteLabel</th>
+            @{ thead2ndIndex = thead1stIndex + 9; }
+            @if (isMasterOrSuper)
+            {
+                <th rowspan="2" class="sorting" data-colindex="@(thead2ndIndex++)" data-colname="masterearning">@Resources.MasterEarning</th>
+            }
+            @if (isSuper)
+            {
+                <th rowspan="2" class="sorting" data-colindex="@(thead2ndIndex++)" data-colname="superearning">@Resources.SuperEarning</th>
+            }
+            <th colspan="3" id="groupCompany">@Resources.Company</th>
+        </tr>
+        <tr class="thead-row2">
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="memberwinloss">@Resources.WinLossTitle</th>
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="memberpromotion">@Resources.Promotion</th>
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wllosscarryforward">@Resources.LossCarryforward</th>
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlwinloss">@Resources.WinLossTitle</th>
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlnetwinloss">@Resources.NetWinLoss</th>
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlgrossfee">@Resources.GrossFee</th>
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlpromotionsettlement">@Resources.PromotionSettlement</th>
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wlpromotionshare">@Resources.PromotionShare</th>
+            <th class="sorting" data-colindex="@(thead1stIndex++)" data-colname="wltotal">@Resources.TotalFee</th>
+            <th class="sorting" data-colindex="@(thead2ndIndex++)" data-colname="companyincome">@Resources.Income</th>
+            <th class="sorting" data-colindex="@(thead2ndIndex++)" data-colname="companypromotionshare">@Resources.PromotionShare</th>
+            <th class="sorting" data-colindex="@(thead2ndIndex++)" data-colname="companytotal">@Resources.Total</th>
+        </tr>
+    </thead>
+    @if (Model.ReportData.Any())
+    {
+        <tbody>
+            @foreach (var item in Model.ReportData.DataSource)
+            {
+                @RenderRow(item, false, isMasterOrSuper, isSuper)
+            }
+        </tbody>
+        <tfoot>@RenderRow(Model.ReportData.TotalData, true, isMasterOrSuper, isSuper)</tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(isSuper ? 18 : isMasterOrSuper ? 16 : 13)
+    }
+</table>
+@helper RenderRow(SettlementModel data, bool isTotalRow, bool isMasterOrSuper, bool isSuper)
+{
+    <tr class="@(isTotalRow ? "tbl-footer" : string.Empty)">
+        @if (isTotalRow)
+        {
+            <td colspan="@(isSuper ? 4 : isMasterOrSuper ? 3 : 1)" id="groupTotal">@Resources.Total</td>
+        }
+        else
+        {
+            <td class="text-center" data-colname="month">@data.Month</td>
+            if (isMasterOrSuper)
+            {
+                <td class="text-left" data-colname="whitelabel">@data.WhiteLabel</td>
+                <td class="text-left" data-colname="agent">@data.Agent</td>
+            }
+            if (isSuper)
+            {
+                <td class="text-left" data-colname="master">@data.Master</td>
+            }
+        }
+        <td data-colname="memberwinloss">@HtmlHelpers.FormatNumber(data.MemberWL)</td>
+        <td data-colname="memberpromotion">@HtmlHelpers.FormatNumber(data.MemberPromotion)</td>
+        <td data-colname="wllosscarryforward">@HtmlHelpers.FormatNumber(data.LossCarryforward)</td>
+        <td data-colname="wlwinloss">@HtmlHelpers.FormatNumber(data.WhiteLabelWinLoss)</td>
+        <td data-colname="wlnetwinloss">@HtmlHelpers.FormatNumber(data.WhiteLabelNetWinLoss)</td>
+        <td data-colname="wlgrossfee">@HtmlHelpers.FormatNumber(data.WhiteLabelFee)</td>
+        <td data-colname="wlpromotionsettlement">@HtmlHelpers.FormatNumber(data.WhiteLabelPromotionSettlement)</td>
+        <td data-colname="wlpromotionshare">@HtmlHelpers.FormatNumber(data.WhiteLabelPromotionShare)</td>
+        <td data-colname="wltotal" class="bold">@HtmlHelpers.FormatNumber(data.WhiteLabelTotal)</td>
+        @if (isMasterOrSuper)
+        {
+            <td data-colname="masterearning">@HtmlHelpers.FormatNumber(data.MasterEarning)</td>
+        }
+        @if (isSuper)
+        {
+            <td data-colname="superearning">@HtmlHelpers.FormatNumber(data.SuperEarning)</td>
+        }
+        <td data-colname="companyincome">@HtmlHelpers.FormatNumber(data.CompanyIncome)</td>
+        <td data-colname="companypromotionshare">@HtmlHelpers.FormatNumber(data.CompanyPromotionShare)</td>
+        <td data-colname="companytotal" class="bold">@HtmlHelpers.FormatNumber(data.CompanyTotal)</td>
+    </tr>
+}

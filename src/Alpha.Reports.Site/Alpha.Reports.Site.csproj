@@ -608,6 +608,13 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent2FullName.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member2.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member2FullName.xls" />
+    <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\DailyWinLossAgent.xls" />
+    <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\DailyWinLossMaster.xls" />
+    <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\DailyWinLossMember.xls" />
+    <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\SettlementMember.xls" />
+    <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\SettlementAgent.xls" />
+    <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\SettlementMaster.xls" />
+    <Content Include="App_Code\Components\MonthRangePickerNew.cshtml" />
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
@@ -630,6 +637,24 @@
     </Content>
     <Content Include="Features\Shared\Styles\report-legend.min.css">
       <DependentUpon>report-legend.css</DependentUpon>
+    </Content>
+    <Content Include="Features\WhiteLabelReport\Bundles\daily-winloss.js" />
+    <Content Include="Features\WhiteLabelReport\Bundles\daily-winloss.min.js">
+      <DependentUpon>daily-winloss.js</DependentUpon>
+    </Content>
+    <Content Include="Features\WhiteLabelReport\Bundles\settlement.js" />
+    <Content Include="Features\WhiteLabelReport\Bundles\settlement.min.js">
+      <DependentUpon>settlement.js</DependentUpon>
+    </Content>
+    <Content Include="Features\WhiteLabelReport\Bundles\whitelabel-report.css" />
+    <Content Include="Features\WhiteLabelReport\Bundles\whitelabel-report.min.css">
+      <DependentUpon>whitelabel-report.css</DependentUpon>
+    </Content>
+    <Content Include="Features\WhiteLabelReport\Styles\whitelabel-report.css">
+      <DependentUpon>whitelabel-report.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\WhiteLabelReport\Styles\whitelabel-report.min.css">
+      <DependentUpon>whitelabel-report.css</DependentUpon>
     </Content>
     <Content Include="Features\WinLossDetail\Bundles\winlossdetail-new.js" />
     <Content Include="Features\WinLossDetail\Bundles\winlossdetail-new.min.js">
@@ -702,6 +727,7 @@
     <TypeScriptCompile Include="Features\Shared\Scripts\base-report-view.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\breadcrumb-level.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\daterangepicker-jquery.ts" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\components\multiple-dropdown.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\product-productdetail-dropdown.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\total-entered-nonentered.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\components\username-autosuggestion.ts" />
@@ -888,6 +914,22 @@
     <Compile Include="Controllers\StatementController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\WinLossByProductController.cs" />
+    <Compile Include="Features\WhiteLabelReport\Handlers\DailyWinLossExcelHandler.cs" />
+    <Compile Include="Features\WhiteLabelReport\Requests\DailyWinLossQuery.cs" />
+    <Compile Include="Features\WhiteLabelReport\Requests\SettlementExcelQuery.cs" />
+    <Compile Include="Features\WhiteLabelReport\Requests\SettlementGetDataQuery.cs" />
+    <Compile Include="Features\WhiteLabelReport\Requests\SettlementQuery.cs" />
+    <Compile Include="Features\WhiteLabelReport\ViewModels\SettlementGetDataViewModel.cs" />
+    <Compile Include="Features\WhiteLabelReport\ViewModels\SettlementViewModel.cs" />
+    <Compile Include="Features\WhiteLabelReport\WhiteLabelSettlementController.cs" />
+    <Compile Include="Features\WhiteLabelReport\Handlers\SettlementExcelHandler.cs" />
+    <Compile Include="Features\WhiteLabelReport\Handlers\SettlementHandler.cs" />
+    <Compile Include="Features\WhiteLabelReport\Requests\DailyWinLossExcelQuery.cs" />
+    <Compile Include="Features\WhiteLabelReport\Requests\DailyWinLossGetDataQuery.cs" />
+    <Compile Include="Features\WhiteLabelReport\ViewModels\DailyWinLossGetDataViewModel.cs" />
+    <Compile Include="Features\WhiteLabelReport\ViewModels\DailyWinLossViewModel.cs" />
+    <Compile Include="Features\WhiteLabelReport\WhiteLabelDailyWinLossController.cs" />
+    <Compile Include="Features\WhiteLabelReport\Handlers\DailyWinLossHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailBaseNewHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcel2Handler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcelNewHandler.cs" />
@@ -1984,6 +2026,14 @@
     <Content Include="Features\WinLossDetail\Views\Index2.cshtml" />
     <Content Include="Features\WinLossDetail\Views\ReportDataWeek2.cshtml" />
     <Content Include="Features\WinLossDetail\Views\ReportData2.cshtml" />
+    <Content Include="Features\WhiteLabelReport\Views\Settlement.cshtml" />
+    <Content Include="Features\WhiteLabelReport\Views\SettlementData.cshtml" />
+    <Content Include="Features\WhiteLabelReport\Styles\whitelabel-report.scss" />
+    <Content Include="Features\WhiteLabelReport\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Features\WhiteLabelReport\Views\DailyWinLossData.cshtml" />
+    <Content Include="Features\WhiteLabelReport\Views\DailyWinLoss.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -2150,6 +2200,9 @@
     <TypeScriptCompile Include="Features\EnteredResult\Scripts\enteredresult.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\base-historic-report.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\base-report-new.ts" />
+    <TypeScriptCompile Include="Features\WhiteLabelReport\Scripts\daily-winloss.ts" />
+    <TypeScriptCompile Include="Features\WhiteLabelReport\Scripts\settlement-columns.ts" />
+    <TypeScriptCompile Include="Features\WhiteLabelReport\Scripts\settlement.ts" />
     <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail-columns.ts" />
     <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail-copyhtml.ts" />
     <TypeScriptCompile Include="Features\WinLossDetail\Scripts\winlossdetail-new.ts" />

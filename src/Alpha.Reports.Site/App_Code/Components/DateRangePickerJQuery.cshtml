@@ -12,20 +12,20 @@
                    id="daterange-picker"
                    autocomplete="off"
                    readonly
+                   data-language="@model.Language"
                    data-mindate="@model.MinDate.ToShortDateWithSlash()"
                    data-maxdate="@model.MaxDate.ToShortDateWithSlash()"
                    data-fromdate="@model.FromDate.ToShortDateWithSlash()"
                    data-todate="@model.ToDate.ToShortDateWithSlash()"
-                   data-currentdate="@model.CurrentDate.ToShortDateWithSlash()"
-                   data-label-today="@Resources.Today"
-                   data-label-yesterday="@Resources.Yesterday"
-                   data-label-thisweek="@Resources.ThisWeek"
-                   data-label-lastweek="@Resources.LastWeek"
-                   data-label-thismonth="@Resources.ThisMonth"
-                   data-label-lastmonth="@Resources.LastMonth"
-                   data-label-sincelastmonth="@Resources.SinceLastMonth"
-                   data-label-last3months="@Resources.Last3Months"
-                   data-label-specificdate="@Resources.SpecificDate"/>
+                   data-today="@model.CurrentDate.ToShortDateWithSlash()"
+                   data-labeltoday="@Resources.Today"
+                   data-labelyesterday="@Resources.Yesterday"
+                   data-labelthisweek="@Resources.ThisWeek"
+                   data-labellastweek="@Resources.LastWeek"
+                   data-labelthismonth="@Resources.ThisMonth"
+                   data-labellastmonth="@Resources.LastMonth"
+                   data-labelsincelastmonth="@Resources.SinceLastMonth"
+                   data-labellast3months="@Resources.Last3Months" />
             <label class="input-group-addon" for="daterange-picker">
                 <span class="icon-calendar"></span>
             </label>

@@ -1,131 +1,113 @@
 ﻿"use strict";
 
-class DateRangePickerJQueryOption {
-    constructor(
-        public onClosed = Function(),
-        public language = "default",
-        public selectorId = "daterange-picker") {
-        this.onClosed = onClosed;
-        this.language = language;
-        this.selectorId = selectorId;
-    }
+interface DateRangePickerJQueryOption {
+    maxDays?: number,
+    onClosed: Function
 }
 
 class DateRangePickerJQueryComponent {
+    private dateFormat = "MM/DD/YYYY";
+    private locale = {
+        "th-TH": "th",
+        "vi-VN": "vi",
+        "zh-CN": "cn",
+        "zh-TW": "tc",
+        "ja-JP": "ja"
+    };
     private fromDate: string;
     private toDate: string;
 
     render(options: DateRangePickerJQueryOption) {
-        const dateRangePicker = $("#" + options.selectorId);
+        const dateRangePicker = $("#daterange-picker");
         this.fromDate = dateRangePicker.data("fromdate");
         this.toDate = dateRangePicker.data("todate");
-
+        const customShortcuts = this.buildCustomShortcuts(dateRangePicker);
+        let defaults = {
+            format: this.dateFormat,
+            separator: " - ",
+            language: this.locale[dateRangePicker.data("language")] || "default",
+            startDate: dateRangePicker.data("mindate"),
+            endDate: dateRangePicker.data("maxdate"),
+            showShortcuts: customShortcuts.length > 0,
+            shortcuts: null,
+            customShortcuts: customShortcuts,
+            duration: 0,
+            singleMonth: true,
+            monthSelect: true,
+            yearSelect: true
+        };
         dateRangePicker
-            .dateRangePicker({
-                format: alphaReports.format.shortDateWithSlash_DatePicker,
-                separator: " - ",
-                language: options.language,
-                startDate: dateRangePicker.data("mindate"),
-                endDate: dateRangePicker.data("maxdate"),
-                showShortcuts: true,
-                shortcuts: null,
-                customShortcuts: this.getPredefinedRanges(dateRangePicker),
-                duration: 0,
-                singleMonth: true,
-                monthSelect: true,
-                yearSelect: true,
-                maxDays: 92
-            }).bind("datepicker-change", (_, obj) => {
-                this.fromDate = moment(obj.date1).format(alphaReports.format.shortDateWithSlash_DatePicker);
-                this.toDate = moment(obj.date2).format(alphaReports.format.shortDateWithSlash_DatePicker);
+            .dateRangePicker($.extend({}, defaults, options)).bind("datepicker-change", (_, obj) => {
+                this.fromDate = moment(obj.date1).format(this.dateFormat);
+                this.toDate = moment(obj.date2).format(this.dateFormat);
             })
             .bind("datepicker-closed", () => options.onClosed(this.getDateRangeValues()))
             .data("dateRangePicker").setDateRange(this.fromDate, this.toDate, false);
     }
 
-    private getPredefinedRanges(dateRangePicker: JQuery) {
-        const minDate = moment(dateRangePicker.data("mindate"), alphaReports.format.shortDateWithSlash_DatePicker);
-        const today = moment(dateRangePicker.data("currentdate"), alphaReports.format.shortDateWithSlash_DatePicker);
+    private buildCustomShortcuts($dateRangePicker: JQuery) {
+        const minDate = moment($dateRangePicker.data("mindate"), this.dateFormat);
+        const today = moment($dateRangePicker.data("today"), this.dateFormat);
         const todayValue = today.toDate();
         const yesterday = moment(today).subtract(1, "d");
+        const yesterdayValue = yesterday.toDate();
         const thisWeekStartOfDay = moment(today).startOf("isoWeek");
-        const lastMonthStartOfDay = moment(today).subtract(1, "M").startOf("M")
-        const lastMonthEndOfDay = moment(lastMonthStartOfDay).endOf("M").toDate()
-        const last3MonthsStartOfDay = moment(today).subtract(3, "M").startOf("M")
+        const lastWeekStartOfDay = moment(thisWeekStartOfDay).subtract(1, "w");
+        const thisMonthStartOfDay = moment(today).startOf("M");
+        const lastMonthStartOfDay = moment(today).subtract(1, "M").startOf("M");
+        const lastMonthEndOfDay = moment(lastMonthStartOfDay).endOf("M").toDate();
+        const last3MonthsStartOfDay = moment(today).subtract(3, "M").startOf("M");
+        const realLastMonthStartOfDay =
+            lastMonthStartOfDay.diff(minDate) >= 0 ? lastMonthStartOfDay.toDate() : minDate.toDate();
+        const realLast3MonthsStartOfDay =
+            last3MonthsStartOfDay.diff(minDate) >= 0 ? last3MonthsStartOfDay.toDate() : minDate.toDate();
 
-        const realLastMonthStartOfDay = lastMonthStartOfDay.diff(minDate) >= 0 ? lastMonthStartOfDay.toDate() : minDate.toDate();
-        const realLast3MonthsStartOfDay = last3MonthsStartOfDay.diff(minDate) >= 0 ? last3MonthsStartOfDay.toDate() : minDate.toDate();
-
-        const shortcuts = [
-            {
-                name: dateRangePicker.data("label-today"),
-                dates: function () {
-                    return [todayValue, todayValue];
-                }
-            },
-            {
-                name: dateRangePicker.data("label-yesterday"),
-                dates: function () {
-                    const yesterdayValue = yesterday.toDate();
-                    return [yesterdayValue, yesterdayValue];
-                }
-            },
-            {
-                name: dateRangePicker.data("label-thisweek"),
-                dates: function () {
-                    return [
-                        thisWeekStartOfDay.diff(minDate) >= 0 ? thisWeekStartOfDay.toDate() : minDate.toDate(),
-                        todayValue
-                    ];
-                }
-            },
-            {
-                name: dateRangePicker.data("label-lastweek"),
-                dates: function () {
-                    const lastWeekStartOfDay = moment(thisWeekStartOfDay).subtract(1, "w");
-                    return [
-                        lastWeekStartOfDay.diff(minDate) >= 0 ? lastWeekStartOfDay.toDate() : minDate.toDate(),
-                        moment(thisWeekStartOfDay).subtract(1, "d").toDate()
-                    ];
-                }
-            },
-            {
-                name: dateRangePicker.data("label-thismonth"),
-                dates: function () {
-                    const thisMonthStartOfDay = moment(today).startOf("M");
-                    return [
-                        thisMonthStartOfDay.diff(minDate) >= 0 ? thisMonthStartOfDay.toDate() : minDate.toDate(),
-                        todayValue
-                    ];
-                }
-            },
-            {
-                name: dateRangePicker.data("label-lastmonth"),
-                dates: function () {
-                    return [realLastMonthStartOfDay, lastMonthEndOfDay];
-                }
-            },
-            {
-                name: dateRangePicker.data("label-sincelastmonth"),
-                dates: function () {
-                    return [
-                        lastMonthStartOfDay.diff(minDate) >= 0 ? lastMonthStartOfDay.toDate() : minDate.toDate(),
-                        todayValue
-                    ];
-                }
-            }
-        ];
-
-        if (realLastMonthStartOfDay !== realLast3MonthsStartOfDay) {
-            shortcuts.push({
-                name: dateRangePicker.data("label-last3months"),
-                dates: function () {
-                    return [realLast3MonthsStartOfDay, lastMonthEndOfDay];
-                }
-            });
-        }
+        const shortcuts = [];
+        this.addShortcut($dateRangePicker, shortcuts, "labeltoday", todayValue, todayValue);
+        this.addShortcut($dateRangePicker, shortcuts, "labelyesterday", yesterdayValue, yesterdayValue);
+        this.addShortcut(
+            $dateRangePicker,
+            shortcuts,
+            "labelthisweek",
+            thisWeekStartOfDay.diff(minDate) >= 0 ? thisWeekStartOfDay.toDate() : minDate.toDate(),
+            todayValue
+        );
+        this.addShortcut(
+            $dateRangePicker,
+            shortcuts,
+            "labellastweek",
+            lastWeekStartOfDay.diff(minDate) >= 0 ? lastWeekStartOfDay.toDate() : minDate.toDate(),
+            moment(thisWeekStartOfDay).subtract(1, "d").toDate()
+        );
+        this.addShortcut(
+            $dateRangePicker,
+            shortcuts,
+            "labelthismonth",
+            thisMonthStartOfDay.diff(minDate) >= 0 ? thisMonthStartOfDay.toDate() : minDate.toDate(),
+            todayValue
+        );
+        this.addShortcut($dateRangePicker, shortcuts, "labellastmonth", realLastMonthStartOfDay, lastMonthEndOfDay);
+        this.addShortcut(
+            $dateRangePicker,
+            shortcuts,
+            "labelsincelastmonth",
+            lastMonthStartOfDay.diff(minDate) >= 0 ? lastMonthStartOfDay.toDate() : minDate.toDate(),
+            todayValue
+        );
+        this.addShortcut($dateRangePicker, shortcuts, "labellast3months", realLast3MonthsStartOfDay, lastMonthEndOfDay);
 
         return shortcuts;
+    }
+
+    private addShortcut($dateRangePicker, shortcuts, labelName, startDate, endDate) {
+        const name = $dateRangePicker.data(labelName);
+        name &&
+            shortcuts.push({
+                name: name,
+                dates: function () {
+                    return [startDate, endDate];
+                }
+            });
     }
 
     getDateRangeValues() {

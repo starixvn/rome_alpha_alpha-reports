@@ -1,0 +1,70 @@
+﻿@using Alpha.Reports.Configurations
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Resources.DailyWinLossReport;
+    var level = Model.ViewerLevel.DisplayName.ToLowerInvariant();
+}
+@model DailyWinLossViewModel
+@section Styles {
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{level}")
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-reports/filter-new")
+    @StaticResources.RenderStyles($"~/{SiteSettings.ReportRouting}Features/WhiteLabelReport/Bundles/whitelabel-report")
+}
+@section Scripts {
+    <script type="text/javascript">
+        var whiteLabels = JSON.parse('@Html.Raw(Model.WhiteLabelJson)');
+    </script>
+    @StaticResources.AssetScripts.RenderCommon("/bundles/site-reports/filter-new")
+    @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WhiteLabelReport/Bundles/daily-winloss")
+}
+<div class="page-title tabs">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation">
+            @Html.ActionLink(Resources.SettlementReport, "Index", $"{SiteSettings.ReportRouting}WhiteLabelSettlement")
+        </li>
+        <li role="presentation" class="active">
+            <a href="#dailyWinLoss" aria-controls="home" role="tab" data-toggle="tab">@Resources.DailyWinLossReport</a>
+        </li>
+    </ul>
+    <div class="list-icon">
+        <ul><li><span class="icon-arrow-up-drop-circle icon-filter" id="icon-filter" title="@Resources.HideFilter"></span></li></ul>
+    </div>
+</div>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="dailyWinLoss">
+        <div class="form-inline filter" id="report-form">
+            @DateRangePickerJQuery.Render(Model.DateRangePicker)
+            @if (Model.ViewerLevel.IsMasterOrSuperLevel())
+            {
+                <div class="form-group">
+                    <label class="label-form-control">@Resources.WhiteLabel</label>
+                    <div class="select-multiple"
+                         id="dropdown-whitelabel"
+                         data-label-selectall="@Resources.SelectAll"
+                         data-label-selected="@Resources.Selected"
+                         data-label-noneselected="@Resources.NoneSelected"
+                         data-label-all="@Resources.All"
+                         data-label-nodatatext="@Resources.NoInformationIsAvailable"
+                         data-label-filterplaceholder="@Resources.Search"></div>
+                </div>
+                @UsernameAutoSuggestion.Render(Model.Username)
+            }
+            <div class="form-group">
+                <label class="label-form-control">&nbsp;</label>
+                <a href="@Url.Action("Excel", $"{SiteSettings.ReportRouting}WhiteLabelDailyWinLoss")"
+                   id="icon-excel"
+                   class="icon icon-excel icon-excel-new"
+                   data-toggle="tooltip"
+                   data-placement="top"
+                   title="@Resources.ExportToExcel"></a>
+            </div>
+        </div>
+        <div class="tblRpt-dailywinloss-container @level" id="tbl-report-container" style="visibility: hidden;">
+            @{ Html.RenderPartial("~/Features/WhiteLabelReport/Views/DailyWinLossData.cshtml", Model); }
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hiddenHideFilterText" value="@Resources.HideFilter" />
+<input type="hidden" id="hiddenShowFilterText" value="@Resources.ShowFilter" />
+<input type="hidden" id="hiddenGetDataUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WhiteLabelDailyWinLoss")" />
+<input type="hidden" id="hiddenUsernameAutoSuggestionUrl" value="@Url.Action("Get", $"{SiteSettings.ReportRouting}UsernameSuggestion")" />

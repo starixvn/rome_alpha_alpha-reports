@@ -1,20 +1,16 @@
 "use strict";
 var UsernameAutoSuggestionOption = /** @class */ (function () {
-    function UsernameAutoSuggestionOption(url, custId, directDownlines, isAccInfo, initialUsername, onBlur, selectorId) {
+    function UsernameAutoSuggestionOption(url, directDownlines, isAccInfo, onBlur, selectorId) {
         if (directDownlines === void 0) { directDownlines = false; }
         if (isAccInfo === void 0) { isAccInfo = true; }
-        if (initialUsername === void 0) { initialUsername = ""; }
         if (onBlur === void 0) { onBlur = Function(); }
         if (selectorId === void 0) { selectorId = "txt-username"; }
         this.url = url;
-        this.custId = custId;
         this.directDownlines = directDownlines;
         this.isAccInfo = isAccInfo;
-        this.initialUsername = initialUsername;
         this.onBlur = onBlur;
         this.selectorId = selectorId;
         this.url = url;
-        this.custId = custId;
         this.directDownlines = directDownlines;
         this.isAccInfo = isAccInfo;
         this.onBlur = onBlur;
@@ -28,6 +24,9 @@ var UsernameAutoSuggestionComponent = /** @class */ (function () {
     UsernameAutoSuggestionComponent.prototype.init = function (options) {
         var _this = this;
         this.usernameInput = $("#" + options.selectorId);
+        if (!this.usernameInput.length) {
+            return;
+        }
         var queryString = this.buildQueryString(options);
         var urlAndQueryString = options.url + "?" + queryString + (queryString.length ? "&" : "");
         var typeaheadOptions = {
@@ -48,19 +47,26 @@ var UsernameAutoSuggestionComponent = /** @class */ (function () {
             afterSelect: function (item) { return _this.usernameInput.val(item.Username); },
             delay: 200
         };
-        this.usernameInput
-            .typeahead(typeaheadOptions)
-            .blur(function () {
-            var visible = _this.usernameInput.next(".typeahead").is(":visible");
-            !visible && options.onBlur($.trim(_this.usernameInput.val()));
-        })
-            .val(options.initialUsername);
+        var hitEnterTextboxUsername = false;
+        this.usernameInput.typeahead(typeaheadOptions);
+        this.usernameInput.keypress(function (e) {
+            var key = e.which || e.keyCode;
+            if (key === 13) {
+                hitEnterTextboxUsername = true;
+                options.onBlur();
+            }
+        }).blur(function () {
+            if (hitEnterTextboxUsername) {
+                hitEnterTextboxUsername = false;
+            }
+            else {
+                var visible = _this.usernameInput.next(".typeahead").is(":visible");
+                !visible && options.onBlur();
+            }
+        });
     };
     UsernameAutoSuggestionComponent.prototype.buildQueryString = function (options) {
         var queryString = [];
-        if (options.custId) {
-            queryString.push("custid=" + options.custId);
-        }
         if (options.directDownlines) {
             queryString.push("directdownlines=" + options.directDownlines);
         }
@@ -70,7 +76,9 @@ var UsernameAutoSuggestionComponent = /** @class */ (function () {
         return queryString.join('&');
     };
     UsernameAutoSuggestionComponent.prototype.getUsername = function () {
-        return $.trim(this.usernameInput.val());
+        if (this.usernameInput.length) {
+            return $.trim(this.usernameInput.val());
+        }
     };
     UsernameAutoSuggestionComponent.prototype.resetUsername = function () {
         this.usernameInput.val("");

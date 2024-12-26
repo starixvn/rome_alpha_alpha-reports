@@ -1,0 +1,66 @@
+﻿@using Alpha.Reports.Features.WhiteLabelReport.Models
+@{
+    Layout = null;
+    var isSuper = Model.ViewerLevel.IsSuperLevel();
+    var isMasterOrSuper = Model.ViewerLevel.IsMasterOrSuperLevel();
+    var theadIndex = 0;
+}
+@model DailyWinLossGetDataViewModel
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tablesorter width-100per" id="tbl-report" data-cansort="@Model.ReportData.MoreThanOne()">
+    <thead>
+        <tr>
+            <th class="sorting" data-colindex="@(theadIndex++)" data-sorttype="text">@Resources.Date</th>
+            @if (isMasterOrSuper)
+            {
+                <th class="sorting" data-colindex="@(theadIndex++)" data-sorttype="text">@Resources.WhiteLabel</th>
+                <th class="sorting" data-colindex="@(theadIndex++)" data-sorttype="text">@Resources.Agent</th>
+            }
+            @if (isSuper)
+            {
+                <th class="sorting" data-colindex="@(theadIndex++)" data-sorttype="text">@Resources.Master</th>
+            }
+            <th class="sorting" data-colindex="@(theadIndex++)">@Resources.MemberWinLoss</th>
+            <th class="sorting" data-colindex="@(theadIndex++)">@Resources.Promotion</th>
+        </tr>
+    </thead>
+    @if (Model.ReportData.Any())
+    {
+        <tbody>
+            @foreach (var item in Model.ReportData.DataSource)
+            {
+                @RenderRow(item, false, isMasterOrSuper, isSuper)
+            }
+        </tbody>
+        <tfoot>
+            @RenderRow(Model.ReportData.TotalData, true, isMasterOrSuper, isSuper)
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(isSuper ? 6 : isMasterOrSuper ? 5 : 3)
+    }
+</table>
+@helper RenderRow(DailyWinLossModel data, bool isTotalRow, bool isMasterOrSuper, bool isSuper)
+{
+    <tr class="@(isTotalRow ? "tbl-footer" : string.Empty)">
+        @if (isTotalRow)
+        {
+            <td colspan="@(isSuper ? 4 : isMasterOrSuper ? 3 : 1)" id="groupTotal">@Resources.Total</td>
+        }
+        else
+        {
+            <td class="text-center">@data.WinLostDate.ToShortDateWithSlash()</td>
+            if (isMasterOrSuper)
+            {
+                <td class="text-left">@data.WhiteLabelName</td>
+                <td class="text-left">@data.Agent</td>
+            }
+            if (isSuper)
+            {
+                <td class="text-left">@data.Master</td>
+            }
+        }
+        <td>@HtmlHelpers.FormatNumber(data.MemberWinLoss)</td>
+        <td>@HtmlHelpers.FormatNumber(data.Promotion)</td>
+    </tr>
+}

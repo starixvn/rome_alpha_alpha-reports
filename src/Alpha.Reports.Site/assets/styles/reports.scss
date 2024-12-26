@@ -105,6 +105,20 @@ a {
     .icon-report-legend {
         margin: 10px 10px 0 10px;
     }
+
+    &.tabs {
+        border-bottom: none;
+
+        .nav.nav-tabs a {
+            text-transform: none;
+        }
+
+        .list-icon {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+        }
+    }
 }
 
 // Tables
@@ -150,17 +164,20 @@ a {
     }
 
     #msg-warning-note {
-        margin: 0 0 12px 0;
+        margin: 0 0 14px 0;
     }
 }
-
+.label-week-box, .msg {
+    position: relative;
+    z-index: 2;
+}
 .cover-week-selection {
     flex: 1;
     display: flex;
     flex-direction: column;
     overflow: auto;
     padding-top: 30px;
-    margin-top: -20px;
+    margin-top: -30px;
     @media only screen and (max-device-width : 767px) {
         padding-top: 39px;
         margin-top: -29px;
@@ -182,6 +199,7 @@ a {
             min-width: 17px;
             margin: 0;
             height: auto;
+
             &.icon-excel {
                 &:before {
                     top: 0;
@@ -696,6 +714,10 @@ a {
         }
     }
 
+    .icon-excel.icon-excel-new {
+        color: #2E9E60;
+    }
+
     .icon-back {
         margin-left: 20px;
         font-size: 20px;
@@ -976,6 +998,10 @@ a {
     .filter {
         padding-left: 6px;
         padding-right: 6px;
+
+        &.switch-new-view, &.switch-old-view {
+            padding-right: 6px;
+        }
 
         select, input[type='text'], [class^='btn-submit'], .input-group.date .form-control {
             height: 36px;

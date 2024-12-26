@@ -1,0 +1,107 @@
+﻿@using Alpha.Reports.Configurations
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Resources.SettlementReport;
+    var isSuper = Model.ViewerLevel.IsSuperLevel();
+    var isMasterOrSuper = Model.ViewerLevel.IsMasterOrSuperLevel();
+}
+@model SettlementViewModel
+@section Styles {
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{Model.ViewerLevel.DisplayName.ToLowerInvariant()}")
+    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-reports/filter-new")
+    @StaticResources.RenderStyles($"~/{SiteSettings.ReportRouting}Features/WhiteLabelReport/Bundles/whitelabel-report")
+}
+@section Scripts {
+    <script type="text/javascript">
+        var whiteLabels = JSON.parse('@Html.Raw(Model.WhiteLabelJson)');
+        var columnList = [
+            { value: "month", text: '@Resources.Month' },
+            @if (isMasterOrSuper)
+            {
+                @:{ value: "whitelabel", text: '@Resources.WhiteLabel' },
+                @:{ value: "agent", text: '@Resources.Agent' },
+            }
+            @if (isSuper)
+            {
+                @:{ value: "master", text: '@Resources.Master' },
+            }
+            { value: "memberwinloss", text: '@string.Format("{0} {1}", Resources.Member, Resources.WinLossTitle)' },
+            { value: "memberpromotion", text: '@string.Format("{0} {1}", Resources.Member, Resources.Promotion)' },
+            { value: "wllosscarryforward", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.LossCarryforward)' },
+            { value: "wlwinloss", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.WinLossTitle)' },
+            { value: "wlnetwinloss", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.NetWinLoss)' },
+            { value: "wlgrossfee", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.GrossFee)' },
+            { value: "wlpromotionsettlement", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.PromotionSettlement)' },
+            { value: "wlpromotionshare", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.PromotionShare)' },
+            { value: "wltotal", text: '@string.Format("{0} {1}", Resources.WhiteLabel, Resources.TotalFee)' },
+            @if (isMasterOrSuper)
+            {
+                @:{ value: "masterearning", text: '@Resources.MasterEarning' },
+            }
+            @if (isSuper)
+            {
+                @:{ value: "superearning", text: '@Resources.SuperEarning' },
+            }
+            { value: "companyincome", text: '@string.Format("{0} {1}", Resources.Company, Resources.Income)' },
+            { value: "companypromotionshare", text: '@string.Format("{0} {1}", Resources.Company, Resources.PromotionShare)' },
+            { value: "companytotal", text: '@string.Format("{0} {1}", Resources.Company, Resources.Total)' }
+        ];
+    </script>
+    @StaticResources.AssetScripts.RenderCommon("/bundles/site-reports/filter-new")
+    @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WhiteLabelReport/Bundles/settlement")
+}
+<div class="page-title tabs">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#settlement" aria-controls="home" role="tab" data-toggle="tab">@Resources.SettlementReport</a>
+        </li>
+        <li role="presentation">
+            @Html.ActionLink(Resources.DailyWinLossReport, "Index", $"{SiteSettings.ReportRouting}WhiteLabelDailyWinLoss")
+        </li>
+    </ul>
+    <div class="list-icon">
+        <ul><li><span class="icon-arrow-up-drop-circle icon-filter" id="icon-filter" title="@Resources.HideFilter"></span></li></ul>
+    </div>
+</div>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="settlement">
+        <div class="form-inline filter" id="report-form">
+            @MonthRangePickerNew.Render(Model.MonthPickerViewModel)
+            @if (isMasterOrSuper)
+            {
+                <div class="form-group">
+                    <label class="label-form-control">@Resources.WhiteLabel</label>
+                    <div class="select-multiple"
+                         id="dropdown-whitelabel"
+                         data-label-selectall="@Resources.SelectAll"
+                         data-label-selected="@Resources.Selected"
+                         data-label-noneselected="@Resources.NoneSelected"
+                         data-label-all="@Resources.All"
+                         data-label-nodatatext="@Resources.NoInformationIsAvailable"
+                         data-label-filterplaceholder="@Resources.Search"></div>
+                </div>
+                @UsernameAutoSuggestion.Render(Model.Username)
+            }
+            @VisibleColumnsDropdown.Render()
+            <div class="form-group">
+                <label class="label-form-control">&nbsp;</label>
+                <a href="@Url.Action("Excel", $"{SiteSettings.ReportRouting}WhiteLabelSettlement")"
+                   id="icon-excel"
+                   class="icon icon-excel icon-excel-new"
+                   data-toggle="tooltip"
+                   data-placement="top"
+                   title="@Resources.ExportToExcel"></a>
+            </div>
+        </div>
+        <div style="width: fit-content">
+            <div class="msg msg-warning" id="settlement-note">@Resources.WhiteLabelSettlementNote</div>
+            <div id="tbl-report-container" style="visibility: hidden;">
+                @{ Html.RenderPartial("~/Features/WhiteLabelReport/Views/SettlementData.cshtml", Model); }
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hiddenHideFilterText" value="@Resources.HideFilter" />
+<input type="hidden" id="hiddenShowFilterText" value="@Resources.ShowFilter" />
+<input type="hidden" id="hiddenGetDataUrl" value="@Url.Action("GetData", $"{SiteSettings.ReportRouting}WhiteLabelSettlement")" />
+<input type="hidden" id="hiddenUsernameAutoSuggestionUrl" value="@Url.Action("Get", $"{SiteSettings.ReportRouting}UsernameSuggestion")" />

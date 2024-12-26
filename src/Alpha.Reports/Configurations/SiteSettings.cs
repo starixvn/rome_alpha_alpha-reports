@@ -140,6 +140,14 @@
 
         public static string WLDetailSettingKeySites() => GetConfigValue("WLDetail.SettingKey:Sites");
 
+        public static bool IsOfferedWhiteLabel(string site)
+            => WhiteLabelOfferedSites.Contains("*") || WhiteLabelOfferedSites.Contains(site);
+
+        private static HashSet<string> WhiteLabelOfferedSites { get; } = new HashSet<string>(
+            (GetConfigValue("WhiteLabel:OfferedSites") ?? string.Empty)
+                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(site => site.Trim()), StringComparer.OrdinalIgnoreCase);
+                
         public static bool SupportedNewHandbook
         {
             get

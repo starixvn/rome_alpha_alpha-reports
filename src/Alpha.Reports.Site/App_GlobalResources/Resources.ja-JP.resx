@@ -1218,4 +1218,115 @@
   <data name="Neutral" xml:space="preserve">
     <value>(N)</value>
   </data>
+  <data name="TotalFee" xml:space="preserve">
+    <value>合計料金</value>
+  </data>
+  <data name="LossCarryforward" xml:space="preserve">
+    <value>繰越欠損</value>
+  </data>
+  <data name="GrossFee" xml:space="preserve">
+    <value>総料金</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>ホワイトラベル</value>
+  </data>
+  <data name="SettlementReport" xml:space="preserve">
+    <value>精算報告書</value>
+  </data>
+  <data name="DailyWinLossReport" xml:space="preserve">
+    <value>毎日勝ち負けレポート</value>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>プロモーション</value>
+  </data>
+  <data name="PromotionSettlement" xml:space="preserve">
+    <value>プロモーション精算</value>
+  </data>
+  <data name="PromotionShare" xml:space="preserve">
+    <value>プロモーションシェア</value>
+  </data>
+  <data name="MasterEarning" xml:space="preserve">
+    <value>マスター収益</value>
+  </data>
+  <data name="SuperEarning" xml:space="preserve">
+    <value>スーパー収益</value>
+  </data>
+  <data name="HeadlineEarning" xml:space="preserve">
+    <value>ヘッドライン収益</value>
+  </data>
+  <data name="NetWinLoss" xml:space="preserve">
+    <value>純勝敗</value>
+  </data>
+  <data name="Fee" xml:space="preserve">
+    <value>手数料</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>収益</value>
+  </data>
+  <data name="WhiteLabelSettlementNote" xml:space="preserve">
+    <value>データの正確性を確保するために、月末から5日後に精算報告書を作成してください。</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>すべて選択</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>会社</value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="January" xml:space="preserve">
+    <value>1月</value>
+  </data>
+  <data name="February" xml:space="preserve">
+    <value>2月</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>3月</value>
+  </data>
+  <data name="April" xml:space="preserve">
+    <value>4月</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>5月</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>6月</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>7月</value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>8月</value>
+  </data>
+  <data name="September" xml:space="preserve">
+    <value>9月</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>10月</value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>11月</value>
+  </data>
+  <data name="December" xml:space="preserve">
+    <value>12月</value>
+  </data>
+  <data name="UsernameOrFirstLastName" xml:space="preserve">
+    <value>ユーザー名または名/姓</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="SearchColumns" xml:space="preserve">
+    <value>列検索</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>選択済み</value>
+  </data>
+  <data name="NoneSelected" xml:space="preserve">
+    <value>選択なし</value>
+  </data>
 </root>

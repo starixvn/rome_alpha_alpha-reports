@@ -499,7 +499,7 @@
     <value>请选择至少3个月的数据以查看图表</value>
   </data>
   <data name="Month" xml:space="preserve">
-    <value>Month</value>
+    <value>月</value>
   </data>
   <data name="AccumulatedTotal" xml:space="preserve">
     <value>总累计余额</value>
@@ -1080,6 +1080,54 @@
   <data name="MonitoredMember" xml:space="preserve">
     <value>监控会员</value>
   </data>
+  <data name="DailyWinLossReport" xml:space="preserve">
+    <value>每日输赢报告</value>
+  </data>
+  <data name="SettlementReport" xml:space="preserve">
+    <value>结算报告</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>白牌</value>
+  </data>
+  <data name="LossCarryforward" xml:space="preserve">
+    <value>亏损结转</value>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>促销</value>
+  </data>
+  <data name="NetWinLoss" xml:space="preserve">
+    <value>净输赢</value>
+  </data>
+  <data name="Fee" xml:space="preserve">
+    <value>费用</value>
+  </data>
+  <data name="PromotionSettlement" xml:space="preserve">
+    <value>促销结算</value>
+  </data>
+  <data name="MasterEarning" xml:space="preserve">
+    <value>总代理盈利</value>
+  </data>
+  <data name="SuperEarning" xml:space="preserve">
+    <value>超级总代理盈利</value>
+  </data>
+  <data name="HeadlineEarning" xml:space="preserve">
+    <value>Headline Earning</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>营收</value>
+  </data>
+  <data name="PromotionShare" xml:space="preserve">
+    <value>促销分享</value>
+  </data>
+  <data name="WhiteLabelSettlementNote" xml:space="preserve">
+    <value>以确保数据的准确性，每月结束后5天生成结算报告。</value>
+  </data>
+  <data name="ShutdownOldWinLossDetailReportMessage" xml:space="preserve">
+    <value>从 {0} (日/月/年) 起，经典版不再使用，并将由新版本取代。通过新版本享受经过改进的新增账号体验。</value>
+  </data>
+  <data name="SwitchToNewView" xml:space="preserve">
+    <value>切换到新版本</value>
+  </data>
   <data name="Statement_WinLoss" xml:space="preserve">
     <value>輸贏</value>
   </data>
@@ -1089,12 +1137,6 @@
   <data name="TransferDetails" xml:space="preserve">
     <value>转账细节</value>
   </data>
-  <data name="ShutdownOldWinLossDetailReportMessage" xml:space="preserve">
-    <value>从 {0} (日/月/年) 起，经典版不再使用，并将由新版本取代。通过新版本享受经过改进的新增账号体验。</value>
-  </data>
-  <data name="SwitchToNewView" xml:space="preserve">
-    <value>切换到新版本</value>
-  </data>
   <data name="WinLossDetail2Note" xml:space="preserve">
     <value>从 &lt;b&gt;2025 年 1 月 2&lt;/b&gt; 日起 ，报告将默认包含奖金信息。返回&lt;a href="{0}"&gt;当前报告&lt;/a&gt;</value>
   </data>
@@ -1103,5 +1145,14 @@
   </data>
   <data name="Reward" xml:space="preserve">
     <value>奖金</value>
+  </data>
+  <data name="GrossFee" xml:space="preserve">
+    <value>总费用</value>
+  </data>
+  <data name="TotalFee" xml:space="preserve">
+    <value>总计费用</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜寻</value>
   </data>
 </root>

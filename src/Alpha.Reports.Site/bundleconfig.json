@@ -448,6 +448,36 @@
       "assets/styles/partial-um/partial-um.css"
     ]
   },
+  {
+    "outputFileName": "Features/WhiteLabelReport/Bundles/daily-winloss.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "Features/Shared/Scripts/components/daterangepicker-jquery.js",
+      "Features/Shared/Scripts/components/multiple-dropdown.js",
+      "Features/Shared/Scripts/components/username-autosuggestion.js",
+      "Features/Shared/Scripts/base-report-view.js",
+      "Features/WhiteLabelReport/Scripts/daily-winloss.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/WhiteLabelReport/Bundles/settlement.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/month-range-picker.js",
+      "Features/Shared/Scripts/components/multiple-dropdown.js",
+      "Features/Shared/Scripts/components/visible-columns-dropdown.js",
+      "Features/Shared/Scripts/components/username-autosuggestion.js",
+      "Features/Shared/Scripts/base-report-view.js",
+      "Features/WhiteLabelReport/Scripts/settlement-columns.js",
+      "Features/WhiteLabelReport/Scripts/settlement.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/WhiteLabelReport/Bundles/whitelabel-report.css",
+    "inputFiles": [
+      "Features/WhiteLabelReport/Styles/whitelabel-report.css"
+    ]
+  },
   /************************** Dark Mode ************************/
   {
     "outputFileName": "assets/bundles/super-dark.css",

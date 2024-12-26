@@ -151,6 +151,14 @@ a {
       content: ')'; }
   .page-title .icon-report-legend {
     margin: 10px 10px 0 10px; }
+  .page-title.tabs {
+    border-bottom: none; }
+    .page-title.tabs .nav.nav-tabs a {
+      text-transform: none; }
+    .page-title.tabs .list-icon {
+      position: absolute;
+      top: 0px;
+      right: 0px; }
 
 .tblRpt.alternative-row-table-new {
   background-color: #4C2511; }
@@ -176,7 +184,11 @@ a {
     -webkit-overflow-scrolling: touch;
     will-change: scroll-position; }
   .flex #msg-warning-note {
-    margin: 0 0 12px 0; }
+    margin: 0 0 14px 0; }
+
+.label-week-box, .msg {
+  position: relative;
+  z-index: 2; }
 
 .cover-week-selection {
   flex: 1;
@@ -184,7 +196,7 @@ a {
   flex-direction: column;
   overflow: auto;
   padding-top: 30px;
-  margin-top: -20px; }
+  margin-top: -30px; }
   @media only screen and (max-device-width: 767px) {
     .cover-week-selection {
       padding-top: 39px;
@@ -814,6 +826,8 @@ a {
   .filter {
     padding-left: 6px;
     padding-right: 6px; }
+    .filter.switch-new-view, .filter.switch-old-view {
+      padding-right: 6px; }
     .filter select, .filter input[type='text'], .filter [class^='btn-submit'], .filter .input-group.date .form-control {
       height: 36px;
       -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);

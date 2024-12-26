@@ -1,0 +1,22 @@
+﻿.monpickr-wrap-parent .monpickr-wrap .monpickr-dropdown {
+    margin-top: 4px;
+    margin-left: 0 !important;
+}
+
+.tblRpt-dailywinloss-container {
+    &.agent {
+        max-width: 600px;
+    }
+
+    &.master {
+        max-width: 800px;
+    }
+
+    &.super {
+        max-width: 960px;
+    }
+}
+
+.msg-warning {
+    margin: 0 0 12px 0;
+}

@@ -343,6 +343,13 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Features\WhiteLabelReport\Criteria\GetWhiteLabelsCriteria.cs" />
+    <Compile Include="Features\WhiteLabelReport\Models\DailyWinLossModel.cs" />
+    <Compile Include="Features\WhiteLabelReport\WhiteLabelReportService.cs" />
+    <Compile Include="Features\WhiteLabelReport\Criteria\GetSettlementCriteria.cs" />
+    <Compile Include="Features\WhiteLabelReport\Models\SettlementModel.cs" />
+    <Compile Include="Features\WhiteLabelReport\Criteria\GetDailyWinLossCriteria.cs" />
+    <Compile Include="Features\WhiteLabelReport\Params\ReportParam.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Helpers\BetTypeHelper.cs" />
@@ -407,7 +414,7 @@
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\IUser.cs" />
     <Compile Include="Models\RiskAnalysisIPMatching\RiskAnalysisIPMatchingModel.cs" />
-    <Compile Include="Models\StatusModel.cs" />
+    <Compile Include="Models\IdNameModel.cs" />
     <Compile Include="Models\Statement\StatementModel.cs" />
     <Compile Include="Models\Statement\StatementDetailModel.cs" />
     <Compile Include="Models\TimeRange.cs" />
@@ -504,6 +511,7 @@
     <EmbeddedResource Include="Features\BetCreditTracking\BetCreditHistory\Resources\BetCreditHistoryResources.zh-CN.resx" />
     <EmbeddedResource Include="Features\BetCreditTracking\BetCreditHistory\Resources\BetCreditHistoryResources.zh-TW.resx" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets" Condition="Exists('..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

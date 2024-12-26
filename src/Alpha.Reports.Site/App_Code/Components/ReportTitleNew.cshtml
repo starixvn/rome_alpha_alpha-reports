@@ -2,34 +2,42 @@
 @using Alpha.Reports.Models.Winloss;
 @using Alpha.Reports.Extensions;
 
-@helper Render(EnteredSportResult enteredSportResult, string title = "")
+@helper Render(string title, bool showIconInfo = false, EnteredSportResult enteredSportResult = null)
 {
-    var hasNonEnteredYerterday = enteredSportResult.EnteredSportYesterday.NonEntered > 0;
     <div class="page-title page-title-entered">
         <div class="text-title pull-left" id="report-title">@title</div>
-        <a href="javascript:;"><span class="icon icon-information-outline icon-report-legend" id="icon-report-legend"></span></a>
-        <div class="entered-non-entered">
-            <div class="icon-non-entered" id="total-non-entered-yesterday" @(hasNonEnteredYerterday ? string.Empty : "style=display:none")>
-                <div class="text">
-                    <span class="event-date-yesterday">@enteredSportResult.EnteredSportYesterday.EventDate.ToMMDDWithSlash()</span>: @Resources.NonEntered
+        @if (showIconInfo)
+        {
+            <a href="javascript:;"><span class="icon icon-information-outline icon-report-legend" id="icon-report-legend"></span></a>
+        }
+        @if (enteredSportResult != null)
+        {
+            var hasNonEnteredYerterday = enteredSportResult.EnteredSportYesterday.NonEntered > 0;
+            <div class="entered-non-entered">
+                <div class="icon-non-entered" id="total-non-entered-yesterday" @(hasNonEnteredYerterday ? string.Empty : "style=display:none")>
+                    <div class="text">
+                        <span class="event-date-yesterday">@enteredSportResult.EnteredSportYesterday.EventDate.ToMMDDWithSlash()</span>: @Resources.NonEntered
+                    </div>
+                    <div class="number" id="total-non-entered-yesterday-number">@enteredSportResult.EnteredSportYesterday.NonEntered</div>
+                    <div class="icon-clock"></div>
                 </div>
-                <div class="number" id="total-non-entered-yesterday-number">@enteredSportResult.EnteredSportYesterday.NonEntered</div>
-                <div class="icon-clock"></div>
-            </div>
-            <div class="icon-entered" id="total-entered-yesterday" @(hasNonEnteredYerterday ? "style=display:none" : string.Empty)>
-                <div class="text"><span class="event-date-yesterday">@enteredSportResult.EnteredSportYesterday.EventDate.ToMMDDWithSlash()</span>: @Resources.Entered</div>
-                <div class="icon-check-circle"></div>
-            </div>
-            <div class="icon-non-entered" id="total-non-entered-today">
-                <div class="text">
-                    <span id="total-non-entered-today-text">@enteredSportResult.EnteredSportToday.EventDate.ToMMDDWithSlash()</span>: @Resources.NonEntered
+                <div class="icon-entered" id="total-entered-yesterday" @(hasNonEnteredYerterday ? "style=display:none" : string.Empty)>
+                    <div class="text"><span class="event-date-yesterday">@enteredSportResult.EnteredSportYesterday.EventDate.ToMMDDWithSlash()</span>: @Resources.Entered</div>
+                    <div class="icon-check-circle"></div>
                 </div>
-                <div class="number" id="total-non-entered-today-number">@enteredSportResult.EnteredSportToday.NonEntered</div>
-                <div class="icon-clock"></div>
+                <div class="icon-non-entered" id="total-non-entered-today">
+                    <div class="text">
+                        <span id="total-non-entered-today-text">@enteredSportResult.EnteredSportToday.EventDate.ToMMDDWithSlash()</span>: @Resources.NonEntered
+                    </div>
+                    <div class="number" id="total-non-entered-today-number">@enteredSportResult.EnteredSportToday.NonEntered</div>
+                    <div class="icon-clock"></div>
+                </div>
             </div>
-        </div>
+        }
         <div class="list-icon">
             <ul><li><span class="icon-arrow-up-drop-circle icon-filter" id="icon-filter" title="@Resources.HideFilter"></span></li></ul>
         </div>
     </div>
+    <input type="hidden" id="hiddenHideFilterText" value="@Resources.HideFilter" />
+    <input type="hidden" id="hiddenShowFilterText" value="@Resources.ShowFilter" />
 }

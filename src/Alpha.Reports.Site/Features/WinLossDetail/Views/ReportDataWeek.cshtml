@@ -11,7 +11,7 @@
 }
 <table class="tblRpt tblRpt-bordered alternative-row-table-new width-100per tablesorter tblRpt-hover tblRpt-freeze-body tblRpt-freeze-header"
        id="tbl-report"
-       data-cansort="@(Model.WinLossDetail.MoreThanOne() ? 1 : 0)"
+       data-cansort="@Model.WinLossDetail.MoreThanOne()"
        data-yesterday="@Model.TotalEnteredSport.EnteredSportYesterday.EventDate.ToMMDDWithSlash()"
        data-non-entered-yesterday="@Model.TotalEnteredSport.EnteredSportYesterday.NonEntered"
        data-today="@Model.TotalEnteredSport.EnteredSportToday.EventDate.ToMMDDWithSlash()"
@@ -19,8 +19,8 @@
        data-breadcrumbleveljson="@Html.Raw(Model.BreadcrumbLevelJson)">
     <thead>
         <tr>
-            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="username">@Resources.Username</th>
-            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="fullname">@Resources.FirstLastName</th>
+            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="username" data-sorttype="text">@Resources.Username</th>
+            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="fullname" data-sorttype="text">@Resources.FirstLastName</th>
             <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="betcount">@Resources.BetCount</th>
             <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="turnover">@Resources.Turnover</th>
             <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="netturnover">@Resources.NetTurnover</th>

@@ -2,14 +2,11 @@
 class UsernameAutoSuggestionOption {
     constructor(
         public url: string,
-        public custId?: number,
         public directDownlines = false,
         public isAccInfo = true,
-        public initialUsername = "",
         public onBlur = Function(),
         public selectorId = "txt-username") {
         this.url = url;
-        this.custId = custId;
         this.directDownlines = directDownlines;
         this.isAccInfo = isAccInfo;
         this.onBlur = onBlur;
@@ -22,6 +19,10 @@ class UsernameAutoSuggestionComponent {
 
     init(options: UsernameAutoSuggestionOption) {
         this.usernameInput = $("#" + options.selectorId);
+        if (!this.usernameInput.length) {
+            return;
+        }
+
         const queryString = this.buildQueryString(options);
         const urlAndQueryString = `${options.url}?${queryString}${queryString.length ? "&" : ""}`;
 
@@ -44,20 +45,26 @@ class UsernameAutoSuggestionComponent {
             delay: 200
         };
 
-        this.usernameInput
-            .typeahead(typeaheadOptions)
-            .blur(() => {
+        let hitEnterTextboxUsername = false;
+        this.usernameInput.typeahead(typeaheadOptions);
+        this.usernameInput.keypress((e) => {
+            const key = e.which || e.keyCode;
+            if (key === 13) {
+                hitEnterTextboxUsername = true;
+                options.onBlur();
+            }
+        }).blur(() => {
+            if (hitEnterTextboxUsername) {
+                hitEnterTextboxUsername = false;
+            } else {
                 const visible = this.usernameInput.next(".typeahead").is(":visible");
-                !visible && options.onBlur($.trim(this.usernameInput.val()));
-            })
-            .val(options.initialUsername);
+                !visible && options.onBlur();
+            }
+        });
     }
 
     private buildQueryString(options: UsernameAutoSuggestionOption) {
         const queryString = [];
-        if (options.custId) {
-            queryString.push("custid=" + options.custId);
-        }
 
         if (options.directDownlines) {
             queryString.push("directdownlines=" + options.directDownlines);
@@ -71,7 +78,9 @@ class UsernameAutoSuggestionComponent {
     }
 
     getUsername() {
-        return $.trim(this.usernameInput.val());
+        if (this.usernameInput.length) {
+            return $.trim(this.usernameInput.val());
+        }
     }
 
     resetUsername() {

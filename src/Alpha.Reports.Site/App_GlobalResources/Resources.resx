@@ -1164,11 +1164,47 @@
   <data name="AddToMyWatchlist" xml:space="preserve">
     <value>Add to My Watchlist</value>
   </data>
-  <data name="Statement_WinLoss" xml:space="preserve">
-    <value>Win/Loss</value>
+  <data name="DailyWinLossReport" xml:space="preserve">
+    <value>Daily Win Loss Report</value>
   </data>
-  <data name="Products" xml:space="preserve">
-    <value>Products</value>
+  <data name="SettlementReport" xml:space="preserve">
+    <value>Settlement Report</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>White Label</value>
+  </data>
+  <data name="LossCarryforward" xml:space="preserve">
+    <value>Loss C/f</value>
+  </data>
+  <data name="Promotion" xml:space="preserve">
+    <value>Promotion</value>
+  </data>
+  <data name="NetWinLoss" xml:space="preserve">
+    <value>Net Win Loss</value>
+  </data>
+  <data name="Fee" xml:space="preserve">
+    <value>Fee</value>
+  </data>
+  <data name="PromotionSettlement" xml:space="preserve">
+    <value>Promotion Settlement</value>
+  </data>
+  <data name="MasterEarning" xml:space="preserve">
+    <value>Master Earning</value>
+  </data>
+  <data name="SuperEarning" xml:space="preserve">
+    <value>Super Earning</value>
+  </data>
+  <data name="HeadlineEarning" xml:space="preserve">
+    <value>Headline Earning</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>Income</value>
+  </data>
+  <data name="WhiteLabelSettlementNote" xml:space="preserve">
+    <value>Generate the Settlement Report 5 days after month-end for data accuracy.</value>
+  </data>
+  <data name="PromotionShare" xml:space="preserve">
+    <value>Promotion Share</value>
   </data>
   <data name="ShutdownOldWinLossDetailReportMessage" xml:space="preserve">
     <value>From {0} (dd/mm/yyyy), Classic View will no longer be available and will be replaced by the New View. Enjoy an improved user experience with the New View.</value>
@@ -1179,6 +1215,15 @@
   <data name="ProductsWinLossAnalysis" xml:space="preserve">
     <value>Product Win Loss Analysis</value>
   </data>
+  <data name="Statement_WinLoss" xml:space="preserve">
+    <value>Win/Loss</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="GrossFee" xml:space="preserve">
+    <value>Gross Fee</value>
+  </data>
   <data name="WinLossDetailNewNote" xml:space="preserve">
     <value>Click &lt;a href="{0}"&gt;here&lt;/a&gt; to view the report with Reward information. From &lt;b&gt;01/02/2025 (mm/dd/yyyy)&lt;/b&gt;, this report will include Reward information by default.</value>
   </data>
@@ -1187,5 +1232,11 @@
   </data>
   <data name="Reward" xml:space="preserve">
     <value>Reward</value>
+  </data>
+  <data name="TotalFee" xml:space="preserve">
+    <value>Total Fee</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
   </data>
 </root>
