@@ -1,13 +1,13 @@
 ﻿:root, :root [data-theme='light'] {
-  --tb-sub-total-row-background: #DDEDEF; }
+  --tb-sub-total-row-background: #DEE9F5; }
 
 :root [data-theme='dark'] {
-  --tb-sub-total-row-background: #3F4A4B; }
+  --tb-sub-total-row-background: #3E4C57; }
 
-.tb .product-row {
+.text-icon-left [class^="ic-"] {
+  font-size: 16px; }
+
+.tb .product-row, .tb .sport-row {
   cursor: pointer; }
-  .tb .product-row td {
+  .tb .product-row td, .tb .sport-row td {
     background: var(--tb-sub-total-row-background); }
-
-.tb .bet-type-row .col-username {
-  padding-left: 26px; }

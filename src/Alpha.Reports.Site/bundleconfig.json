@@ -610,5 +610,11 @@
     "inputFiles": [
       "assets/styles-v2/winlossbyproduct.css"
     ]
+  },
+  {
+    "outputFileName": "assets/bundles-v2/statement.css",
+    "inputFiles": [
+      "assets/styles-v2/statement.css"
+    ]
   }
 ]

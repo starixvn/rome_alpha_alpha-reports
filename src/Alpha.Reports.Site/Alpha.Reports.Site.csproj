@@ -547,6 +547,7 @@
     <Content Include="assets\bundles-v2\consolidation.min.css">
       <DependentUpon>consolidation.css</DependentUpon>
     </Content>
+    <Content Include="assets\bundles-v2\statement.css" />
     <Content Include="assets\bundles-v2\superwinlossdetailbypt.css" />
     <Content Include="assets\bundles-v2\superwinlossdetailbypt.min.css">
       <DependentUpon>superwinlossdetailbypt.css</DependentUpon>
@@ -569,22 +570,36 @@
     <Content Include="assets\styles-v2\consolidation.min.css">
       <DependentUpon>consolidation.css</DependentUpon>
     </Content>
+    <Content Include="assets\styles-v2\statement.css">
+      <DependentUpon>statement.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles-v2\statement.min.css">
+      <DependentUpon>statement.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles-v2\superwinlossdetailbypt.css">
       <DependentUpon>superwinlossdetailbypt.scss</DependentUpon>
     </Content>
     <Content Include="assets\styles-v2\superwinlossdetailbypt.min.css">
       <DependentUpon>superwinlossdetailbypt.css</DependentUpon>
     </Content>
-    <Content Include="assets\styles-v2\winlossanalysischart.css" />
-    <Content Include="assets\styles-v2\winlossanalysischart.min.css" />
+    <Content Include="assets\styles-v2\winlossanalysischart.css">
+      <DependentUpon>winlossanalysischart.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles-v2\winlossanalysischart.min.css">
+      <DependentUpon>winlossanalysischart.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles-v2\winlossbyproduct.css">
       <DependentUpon>winlossbyproduct.scss</DependentUpon>
     </Content>
     <Content Include="assets\styles-v2\winlossbyproduct.min.css">
       <DependentUpon>winlossbyproduct.css</DependentUpon>
     </Content>
-    <Content Include="assets\styles-v2\winlossdetailnew.css" />
-    <Content Include="assets\styles-v2\winlossdetailnew.min.css" />
+    <Content Include="assets\styles-v2\winlossdetailnew.css">
+      <DependentUpon>winlossdetailnew.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles-v2\winlossdetailnew.min.css">
+      <DependentUpon>winlossdetailnew.css</DependentUpon>
+    </Content>
     <Content Include="Features\EnteredResult\bundles-v2\enteredresult.css" />
     <Content Include="Features\EnteredResult\bundles-v2\enteredresult.min.css">
       <DependentUpon>enteredresult.css</DependentUpon>
@@ -664,6 +679,7 @@
     <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\SettlementAgent.xls" />
     <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\SettlementMaster.xls" />
     <Content Include="App_Code\Components\MonthRangePickerNew.cshtml" />
+    <Content Include="assets\styles-v2\statement.scss" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member.xls" />

@@ -5,12 +5,12 @@
 }
 @section Styles {
     @StaticResources.AssetStyles.Render("/bundles-v2/site-report/statement")
-    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/statement/statement")
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles-v2/statement")
 }
 @ReportTitle.Render(new PageHeaderViewModel(Resources.Statement, false, true, false, Model.IsFilterVisible, null, null))
 <form class="form-inline filter @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
     @DateRangePicker.Render(Model.DateRangePickerViewModel)
-    <div class="form-group">
+    <div class="form-group form-group-short">
         <span id="icon-information" class="ic-information"></span>
     </div>
     <div class="form-group">
@@ -24,7 +24,7 @@
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
 </form>
-<table class="tb tb-bordered w-full tablesorter tb-hover" id="tbl-report">
+<table class="tb tb-bordered w-full tablesorter tb-hover text-right" id="tbl-report">
     <thead>
         <tr>
             <th>@Resources.Date</th>

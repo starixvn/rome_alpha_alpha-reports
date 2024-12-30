@@ -7,68 +7,40 @@
 /*******************************************/
 /* Ripple Effect */
 /*******************************************/
+:root, :root [data-theme='light'] {
+  --bonus-detail-payment-color: #333; }
+
+:root [data-theme='dark'] {
+  --bonus-detail-payment-color: #ededed; }
+
 .text-danger {
   color: #e92819; }
 
-.icon-payment {
-  background: url("../Styles/Images/payment.svg") center center no-repeat;
+.ic-payment {
   cursor: pointer;
   display: inline-block;
-  width: 18px;
-  height: 16px;
-  vertical-align: middle; }
+  font-size: 14px;
+  position: relative;
+  top: 2px; }
 
-.filter .form-group .btn-group {
-  float: unset; }
+.popup-confirmPayment .msg {
+  margin-top: 0; }
 
-.filter .multiselect-container .radio {
-  display: block; }
-
-.icon-information-outline {
-  float: unset;
-  margin-bottom: 2px;
-  margin-left: 8px; }
-
-body {
-  padding-right: 0 !important; }
-
-.popup-confirmPayment {
-  position: fixed !important;
-  top: 5px;
-  z-index: 999;
-  padding-right: 0 !important;
-  -webkit-box-shadow: none;
-  -khtml-box-shadow: none;
-  -moz-box-shadow: none;
-  -o-box-shadow: none;
-  box-shadow: none;
-  width: 500px; }
-  .popup-confirmPayment .modal-dialog {
-    width: 500px; }
-  .popup-confirmPayment .msg {
-    margin: 10px 0 0; }
-  .popup-confirmPayment p {
-    margin: 10px 0 16px; }
-  .popup-confirmPayment .form-horizontal .form-group {
-    margin-right: 0; }
-  .popup-confirmPayment .form-horizontal .control-label {
+.popup-confirmPayment .form-popup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; }
+  .popup-confirmPayment .form-popup .control-label {
+    width: 30%;
+    padding-right: 10px; }
+  .popup-confirmPayment .form-popup .control-info {
+    flex: 1; }
+  .popup-confirmPayment .form-popup.list-button {
+    text-align: right;
     margin-bottom: 0;
-    padding-top: 0;
-    font-weight: normal;
-    text-align: left; }
-  .popup-confirmPayment .form-horizontal .list-button {
-    text-align: right; }
-  .popup-confirmPayment .form-horizontal .icon-calendar:hover {
-    cursor: pointer; }
-  .popup-confirmPayment .form-horizontal .control.date {
-    position: absolute;
-    top: -5px;
-    left: 5px; }
-  .popup-confirmPayment .form-horizontal .input-group.paymentdate {
-    position: fixed;
-    z-index: 2000;
-    width: 130px; }
+    justify-content: flex-end; }
 
-@media only screen and (max-device-width: 767px) {
-  .popup-confirmPayment .form-horizontal .input-group.paymentdate .form-control {
-    font-size: 14px; } }
+.modal-open .modal .modal-dialog {
+  transform: none;
+  top: 39px;
+  left: auto; }

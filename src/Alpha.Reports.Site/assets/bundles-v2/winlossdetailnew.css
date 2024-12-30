@@ -10,8 +10,12 @@
   --label-week-disabled-border: #D9D9D9;
   --label-week-disabled-shadow: none;
   --icon-dormant-account-color: #0b599c;
-  --tb-sub-total-row-background: #DDEDEF;
-  --tb-match-title-color: #CC0000; }
+  --tb-sub-total-row-background: #F1F1F1;
+  --tb-match-title-color: #F6731B;
+  --tb-match-title-background: #D3DAE2;
+  --tb-col-altercol: #F2F1EB;
+  --tb-col-altercol-footer: #546273;
+  --tb-sub-total-row-background: #DDEDEF; }
 
 :root [data-theme='dark'] {
   --label-week-color: #C5C5C5;
@@ -25,8 +29,12 @@
   --label-week-disabled-border: #292929;
   --label-week-disabled-shadow: none;
   --icon-dormant-account-color: #41a4ff;
-  --tb-sub-total-row-background: #3F4A4B;
-  --tb-match-title-color: #b29446; }
+  --tb-sub-total-row-background: #262626;
+  --tb-match-title-color: #D96518;
+  --tb-match-title-background: #323436;
+  --tb-col-altercol: #403E36;
+  --tb-col-altercol-footer: #263347;
+  --tb-sub-total-row-background: #3F4A4B; }
 
 .label-week-box {
   margin-bottom: 10px;
@@ -110,17 +118,28 @@
   font-size: 16px;
   color: #919191; }
 
+.tb tr.tbl-footer td.altercol {
+  background: var(--tb-col-altercol-footer); }
+
+.tb tr td a {
+  color: #118AF2 !important; }
+
+.tb tr td.altercol {
+  background: var(--tb-col-altercol); }
+
 .tb .match-title-row {
   text-align: left;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  font-family: 'Roboto bold'; }
   .tb .match-title-row .league-title {
-    color: #333;
     font-weight: bold;
     width: 300px;
     display: inline-block;
     text-overflow: ellipsis;
     overflow: hidden;
     vertical-align: middle; }
+  .tb .match-title-row .col-username {
+    background: var(--tb-match-title-background); }
   .tb .match-title-row .match-title {
     color: var(--tb-match-title-color);
     font-weight: bold; }
@@ -128,5 +147,41 @@
       content: '>>';
       padding: 0 10px 0 50px; }
 
-.tb .sub-total-row td {
-  background: var(--tb-sub-total-row-background); }
+.tb tr.sub-total-row td, .tb tr.product-row td, .tb tr.sport-row td, .tb tr.username-row td {
+  background: var(--tb-sub-total-row-background);
+  font-weight: bold;
+  font-family: 'Roboto bold'; }
+
+.tb .username-row .username-col {
+  cursor: pointer;
+  display: flex;
+  align-items: center; }
+  .tb .username-row .username-col [class^="ic-"], .tb .username-row .username-col [class*=" ic-"] {
+    font-size: 20px; }
+
+.tb td.Master, .tb td.Agent, .tb td.Member {
+  border-left: 0 !important; }
+
+.tb .ic-percent {
+  font-size: 14px; }
+
+.tb .pt-row {
+  cursor: pointer; }
+  .tb .pt-row td {
+    background: var(--tb-sub-total-row-background); }
+  .tb .pt-row .col-username {
+    width: 20%; }
+
+.tb .pt-product-row .col-username {
+  padding-left: 26px; }
+
+.tb .sport-row .col-username {
+  padding-left: 16px; }
+
+.tb .bet-type-row .col-username {
+  padding-left: 40px; }
+
+.tb .combinedcell li {
+  line-height: 20px; }
+  .tb .combinedcell li:last-child {
+    font-weight: bold; }

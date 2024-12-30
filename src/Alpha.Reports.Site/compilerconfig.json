@@ -174,5 +174,9 @@
   {
     "outputFile": "Features/WhiteLabelReport/Styles/whitelabel-report.css",
     "inputFile": "Features/WhiteLabelReport/Styles/whitelabel-report.scss"
+  },
+  {
+    "outputFile": "assets/styles-v2/statement.css",
+    "inputFile": "assets/styles-v2/statement.scss"
   }
 ]

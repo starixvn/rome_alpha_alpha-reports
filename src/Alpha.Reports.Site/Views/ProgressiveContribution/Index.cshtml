@@ -5,7 +5,7 @@
 }
 @section Styles {
     @StaticResources.AssetStyles.Render("/bundles-v2/site-report/progressivecontribution")
-    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/progressivecontribution/progressivecontribution")
+    @StaticResources.RenderStyles("~/assets/bundles-v2/winlossdetailnew")
 }
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, Model.CustLevel.IsMasterOrSuperLevel(), true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
 <form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
@@ -36,7 +36,7 @@
         <span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" data-is-historic-report="@Model.IsHistoricReport.ToString().ToLower()" href="#">@Model.ViewActionMessage</a>
     </div>
 </form>
-<table id="tbl-report" class="tb tb-bordered tablesorter tb-hover w-full
+<table id="tbl-report" class="tb tb-bordered tablesorter tb-hover w-full text-right
        @(Model.IsStackMode ? "stack-mode" : string.Empty)">
     <thead>
         <tr>

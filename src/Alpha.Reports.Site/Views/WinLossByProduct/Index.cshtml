@@ -5,7 +5,8 @@
 }
 @section Styles {
     @StaticResources.AssetStyles.Render("/bundles-v2/site-report/winlossbyproduct")
-    @StaticResources.RenderStyles("~/assets/bundles-v2/winlossbyproduct")
+    @StaticResources.RenderStyles("~/assets/bundles-v2/winlossdetailnew")
+    @*StaticResources.RenderStyles("~/assets/bundles-v2/winlossbyproduct")*@
 }
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty), Request.Url.Query)
 
@@ -176,8 +177,8 @@
         data-product-id="@productId"
         data-sport-id="@data.SportId"
         data-is-hide="@(isExpand? "false": "true")">
-        <td class="text-left col-username bold @(isExpand ? "active" : string.Empty)">
-            <span class="@(isExpand ?"icon-arrow-down":"icon-arrow-right")"></span>
+        <td class="text-icon-left col-username bold @(isExpand ? "active" : string.Empty)">
+            <span class="@(isExpand ?"ic-arrow-down":"ic-arrow-right")"></span>
             @data.SportName
         </td>
         @RenderWinLossInfo(data.Total)

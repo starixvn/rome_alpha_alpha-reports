@@ -1,11 +1,14 @@
 ﻿@using Alpha.Reports.Models
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewBag.Title = Resources.BonusDetail;
 }
 @model BonusDetailViewModel
+
+
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/BonusDetail/Bundles/bonusdetail")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/bonusdetail")  
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/BonusDetail/Bundles/bonusdetail")
 }
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/BonusDetail/Bundles/bonusdetail")
@@ -14,7 +17,7 @@
     @ReportTitle.Render(new PageHeaderViewModel(Resources.BonusDetail, false, true, false, Model.IsFilterVisible, null, null, new InfoIconWithTargetURLViewModel(Model.GuidelineURL(), "_blank")));
     Html.RenderPartial("~/Features/BonusDetail/Views/_Filter.cshtml", Model);
 }
-<table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover">
+<table id="tbl-report" class="tb tb-bordered tb-hover w-full tablesorter tblRpt-hover text-right">
     <thead>
         <tr>
             <th rowspan="2">@Resources.CreatedDate</th>
@@ -38,7 +41,7 @@
             <th rowspan="2">@Resources.BonusStatus</th>
             <th rowspan="2">@Resources.MemberFeedback</th>
         </tr>
-        <tr>
+        <tr class="thead-row2">
             <th>@Resources.Amount</th>
             @if (Model.ViewerLevel.IsSuperLevel())
             {
@@ -217,7 +220,7 @@
 {
     if (userLevel.IsAgentLevel() && bonus.CanConfirmPaymentDate)
     {
-        <span class="icon-payment"
+        <span class="icon-payment ic-payment"
               data-custid="@bonus.CustId"
               data-transid="@bonus.TransId"
               data-username="@bonus.Username"

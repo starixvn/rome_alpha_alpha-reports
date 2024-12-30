@@ -12,9 +12,9 @@
                 {
                     <input type="hidden" name="custId" id="hidden-custId" />
                     <input type="hidden" name="transId" id="hidden-transId" />
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">@Resources.PaymentDate</label>
-                        <div class="col-xs-9">
+                    <div class="form-popup">
+                        <label class="control-label">@Resources.PaymentDate</label>
+                        <div class="control-info">
                             <div class="control date">
                                 <div id="payment-date-container" class="input-group date paymentdate">
                                     <input type="text"
@@ -31,19 +31,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">@Resources.ToMember</label>
-                        <label class="col-xs-9 control-label" id="lbl-toMember"></label>
+                    <div class="form-popup">
+                        <label class="control-label">@Resources.ToMember</label>
+                        <label class="control-info" id="lbl-toMember"></label>
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">@Resources.Amount</label>
-                        <label class="col-xs-9 control-label" id="lbl-amount"></label>
+                    <div class="form-popup">
+                        <label class="control-label">@Resources.Amount</label>
+                        <label class="control-info" id="lbl-amount"></label>
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-3 control-label">@Resources.BonusDetailRefNo</label>
-                        <label class="col-xs-9 control-label" id="lbl-bonusDetailRefNo"></label>
+                    <div class="form-popup">
+                        <label class="control-label">@Resources.BonusDetailRefNo</label>
+                        <label class="control-info" id="lbl-bonusDetailRefNo"></label>
                     </div>
-                    <div class="form-group list-button">
+                    <div class="form-popup list-button">
                         <button type="submit" class="btn-submit" id="btn-confirmPayment">@Resources.Submit</button>
                     </div>
                 }

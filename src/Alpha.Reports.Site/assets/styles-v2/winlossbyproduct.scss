@@ -1,13 +1,15 @@
 ﻿:root, :root [data-theme='light'] {
-    --tb-sub-total-row-background: #DDEDEF;
+    --tb-sub-total-row-background: #DEE9F5;
 }
 
 :root [data-theme='dark'] {
-    --tb-sub-total-row-background: #3F4A4B;
+    --tb-sub-total-row-background: #3E4C57;
 }
-
+.text-icon-left [class^="ic-"]{
+    font-size: 16px;
+}
 .tb {
-    .product-row {
+    .product-row, .sport-row {
         cursor: pointer;
 
         td {
@@ -15,9 +17,5 @@
         }
     }
 
-    .bet-type-row {
-        .col-username {
-            padding-left: 26px;
-        }
-    }
+    
 }

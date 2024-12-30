@@ -7,13 +7,18 @@
 .tb {
     .pt-row {
         cursor: pointer;
+
         td {
             background: var(--tb-sub-total-row-background);
+        }
+
+        .col-username{
+            width: 20%;
         }
     }
 
     .pt-product-row {
-        .col-username{
+        .col-username {
             padding-left: 26px;
         }
     }

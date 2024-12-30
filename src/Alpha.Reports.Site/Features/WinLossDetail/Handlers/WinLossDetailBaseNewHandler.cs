@@ -76,7 +76,7 @@
                 productDetailService.BuildProductDetailsXML(validUserSelectedResourceIds),
                 message.Username,
                 message.LevelType,
-                message.IsReward);
+                isReward: true);
         }
 
         private static IEnumerable<int> GetValidUserSelectedProductIds(
