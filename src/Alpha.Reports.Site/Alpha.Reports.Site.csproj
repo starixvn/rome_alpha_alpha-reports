@@ -558,9 +558,6 @@
     <Content Include="App_Code\Components\VisibleColumnsDropdown.cshtml" />
     <Content Include="App_Code\Components\DateRangePickerJQuery.cshtml" />
     <Content Include="App_Code\Components\ReportTitleNew.cshtml" />
-    <Content Include="App_Data\ExcelTemplates\WinLossDetail\AgentNew.xls" />
-    <Content Include="App_Data\ExcelTemplates\WinLossDetail\MasterNew.xls" />
-    <Content Include="App_Data\ExcelTemplates\WinLossDetail\MemberNew.xls" />
     <Content Include="App_Code\Components\UsernameAutoSuggestion.cshtml" />
     <Content Include="App_Data\ProductSection.staging.config">
       <DependentUpon>ProductSection.config</DependentUpon>
@@ -615,6 +612,9 @@
     <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\SettlementAgent.xls" />
     <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\SettlementMaster.xls" />
     <Content Include="App_Code\Components\MonthRangePickerNew.cshtml" />
+    <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member.xls" />
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
@@ -932,14 +932,12 @@
     <Compile Include="Features\WhiteLabelReport\Handlers\DailyWinLossHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailBaseNewHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcel2Handler.cs" />
-    <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcelNewHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailNewHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailBaseHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailExcelHandler.cs" />
     <Compile Include="Features\WinLossDetail\Handlers\WinLossDetailHandler.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcel2Query.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailWeeksQuery.cs" />
-    <Compile Include="Features\WinLossDetail\Requests\WinLossDetailExcelNewQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailGetDataQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailGetDataWeekQuery.cs" />
     <Compile Include="Features\WinLossDetail\Requests\WinLossDetailNewQuery.cs" />
@@ -1852,9 +1850,6 @@
     <Content Include="App_Code\Components\MonthPicker.cshtml" />
     <Content Include="App_Code\Components\NoInformation.cshtml" />
     <Content Include="App_Code\Components\ProductMultiSelection.cshtml" />
-    <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member.xls" />
-    <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
-    <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
     <Content Include="App_Data\AuthorizationSection.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2013,19 +2008,16 @@
     <Content Include="Features\WinLossDetail\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Features\WinLossDetail\Views\IndexNew.cshtml" />
     <Content Include="Features\WinLossDetail\Views\Filter.cshtml" />
     <Content Include="Features\WinLossDetail\Views\Index.cshtml" />
-    <Content Include="Features\WinLossDetail\Views\ReportData.cshtml" />
     <Content Include="Features\WinLossDetail\Views\ReportLegend.cshtml" />
     <Content Include="Features\Shared\Styles\report-legend.scss" />
     <Content Include="Features\Shared\Styles\report-legend-dark.scss" />
-    <Content Include="Features\WinLossDetail\Views\ReportDataNew.cshtml" />
-    <Content Include="Features\WinLossDetail\Views\ReportDataWeek.cshtml" />
     <Content Include="Features\WinLossDetail\Views\Weeks.cshtml" />
     <Content Include="Features\WinLossDetail\Views\Index2.cshtml" />
     <Content Include="Features\WinLossDetail\Views\ReportDataWeek2.cshtml" />
     <Content Include="Features\WinLossDetail\Views\ReportData2.cshtml" />
+    <Content Include="Features\WinLossDetail\Views\ReportData.cshtml" />
     <Content Include="Features\WhiteLabelReport\Views\Settlement.cshtml" />
     <Content Include="Features\WhiteLabelReport\Views\SettlementData.cshtml" />
     <Content Include="Features\WhiteLabelReport\Styles\whitelabel-report.scss" />

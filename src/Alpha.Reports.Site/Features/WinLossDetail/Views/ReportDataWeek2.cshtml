@@ -24,8 +24,8 @@
        data-breadcrumbleveljson="@Html.Raw(Model.BreadcrumbLevelJson)">
     <thead>
         <tr>
-            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="username">@Resources.Username</th>
-            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="fullname">@Resources.FirstLastName</th>
+            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="username" data-sorttype="text">@Resources.Username</th>
+            <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="fullname" data-sorttype="text">@Resources.FirstLastName</th>
             <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="betcount">@Resources.BetCount</th>
             <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="turnover">@Resources.Turnover</th>
             <th rowspan="2" class="sorting" data-colindex="@(theadIndex++)" data-colname="netturnover">@Resources.NetTurnover</th>
