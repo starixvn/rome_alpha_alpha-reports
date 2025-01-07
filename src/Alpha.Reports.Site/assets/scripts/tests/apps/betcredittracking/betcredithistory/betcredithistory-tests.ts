@@ -84,7 +84,6 @@
             expect(betCreditHistory.$pageTitle).toBeDefined();
             expect(betCreditHistory.$exportExcelForm).toBeDefined();
             expect(betCreditHistory.$msgError).toBeDefined();
-            expect(betCreditHistory.$validationMsgError).toBeDefined();
             expect(betCreditHistory.$isFilterVisible).toBeDefined();
         });
     });

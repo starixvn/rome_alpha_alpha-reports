@@ -1,10 +1,6 @@
-﻿@using Alpha.Reports.Configurations
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewBag.Title = Resources.BetCreditHistory;
-   
-
-
     var userguideLink = Model.GetUserGuideLink(Session.IsCookieless, Request.Headers["Host"], Session.SessionID);
 }
 @model BetCreditHistoryViewModel
@@ -12,6 +8,7 @@
     @StaticResources.AssetStyles.Render("/bundles-v2/site-report/betcredittracking")
 }
 @section Scripts {
+    @StaticResources.AssetScripts.Render("/bundles-v2/site-report/betcredittracking")
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/BetCreditTracking/Bundles/betcredithistory")
 }
 <div class="page-title tabs agent @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
@@ -26,7 +23,6 @@
             <a href="@userguideLink" target="_blank"><span class="ic-information"></span></a>
         </li>
     </ul>
-
     <div class="list-icon">
         <ul>
             <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
@@ -34,13 +30,11 @@
         </ul>
     </div>
 </div>
-
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="betCreditHistory">
         @{
             Html.RenderPartial("~/Features/BetCreditTracking/Views/BetCreditHistory/_Filter.cshtml", Model);
         }
-
         @if (Model.Data != null && Model.ErrMsg == string.Empty)
         {
             <table id="tbl-report" class="tb tb-bordered tb-hover w-full tablesorter tblRpt-hover">
@@ -73,9 +67,7 @@
         }
     </div>
 </div>
-
 @Pager.Render(Model.PagerViewModel)
-
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}BetCreditHistory")">
     @Html.Hidden("Member", Model.Member)
@@ -87,7 +79,6 @@
 @helper BuildReport(IEnumerable<BetCreditHistoryModel> data)
 {
     var isEvenRow = false;
-
     foreach (var record in data)
     {
         <tr class="@(record.BetCredit == null ? "highlight-row" : (isEvenRow ? "even-row" : string.Empty))">
@@ -109,3 +100,7 @@
 
 @Html.Hidden("UsernameIsRequired", Resources.UsernameIsRequired)
 @Html.Hidden("InvalidRefNo", Resources.InvalidRefNo)
+@if (Model.ErrMsg != string.Empty)
+{
+    @Html.Hidden("ErrMsg", Model.ErrMsg)
+}

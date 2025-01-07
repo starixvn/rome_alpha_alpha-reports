@@ -1,4 +1,6 @@
 ﻿"use strict";
+declare var TipsyHelper;
+
 class BetCreditHistory {
     $: JQueryStatic;
     dateRangePickerComponent: DateRangePickerComponent;
@@ -8,7 +10,6 @@ class BetCreditHistory {
     $txtMember: JQuery;
     $txtRefNo: JQuery;
     $msgError: JQuery;
-    $validationMsgError: JQuery;
     $isFilterVisible: JQuery;
     $exportExcelForm: JQuery;
     resources: any;
@@ -30,6 +31,8 @@ class BetCreditHistory {
         this.cacheElements();
         this.initComponents();
         this.bindEvents();
+        const $errMsg = this.$("#ErrMsg");
+        $errMsg.length && TipsyHelper.showError(this.$txtMember, $errMsg.val(), "nw");
 
         this.$.unblockUI();
     }
@@ -42,7 +45,6 @@ class BetCreditHistory {
         this.$txtMember = this.$("#txt-member");
         this.$txtRefNo = this.$("#txt-refno");
         this.$msgError = this.$("#msg-error");
-        this.$validationMsgError = this.$("#validation-msg-error");
 
         this.resources = {
             usernameIsRequired: this.$('#UsernameIsRequired').val(),
@@ -62,6 +64,8 @@ class BetCreditHistory {
 
     public bindEvents() {
         this.$(".icon-filter").click(this.onClickIconFilter);
+        this.$txtMember.keyup(() => TipsyHelper.clear(this.$txtMember));
+        this.$txtRefNo.keyup(() => TipsyHelper.clear(this.$txtRefNo));
         this.$reportForm.submit(this.onSubmitReport);
         $('input[type="submit"]').click(() => {
             this.resetPaging();
@@ -95,7 +99,7 @@ class BetCreditHistory {
         this.$.blockUI();
 
         if (!this.validateUsername()) {
-            this.showValidationMsgError(this.resources.usernameIsRequired);
+            this.showValidationMsgError(this.resources.usernameIsRequired, this.$txtMember);
             this.$.unblockUI();
 
             return;
@@ -110,7 +114,7 @@ class BetCreditHistory {
         this.$.blockUI();
 
         if (!this.validateUsername()) {
-            this.showValidationMsgError(this.resources.usernameIsRequired);
+            this.showValidationMsgError(this.resources.usernameIsRequired, this.$txtMember);
             this.$.unblockUI();
             e.preventDefault();
 
@@ -118,7 +122,7 @@ class BetCreditHistory {
         }
 
         if (!this.validateRefNo()) {
-            this.showValidationMsgError(this.resources.invalidRefNo);
+            this.showValidationMsgError(this.resources.invalidRefNo, this.$txtRefNo);
             this.$.unblockUI();
             e.preventDefault();
 
@@ -133,17 +137,15 @@ class BetCreditHistory {
 
     validateRefNo = () => this.$txtRefNo.val().length <= this.MAX_LENGTH_REFNO && this.$txtRefNo.val().trim().match(/^[0-9]*$/);
 
-    showValidationMsgError = (msg) => {
-        this.$msgError.addClass("hide");
-        this.$validationMsgError.text(msg);
-        this.$validationMsgError.removeClass("hide");
+    showValidationMsgError = (msg: string, element: JQuery) => {
+        TipsyHelper.showError(element, msg, "nw");
         this.$("#tbl-report").remove();
         this.$("#report-pager").remove();
     }
 
     hideValidationMsgError = () => {
-        this.$validationMsgError.text("");
-        this.$validationMsgError.addClass("hide");
+        TipsyHelper.clear(this.$txtMember);
+        TipsyHelper.clear(this.$txtRefNo)
     }
 }
 

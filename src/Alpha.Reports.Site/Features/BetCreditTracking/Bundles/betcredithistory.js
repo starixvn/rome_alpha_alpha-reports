@@ -327,7 +327,7 @@ var BetCreditHistory = /** @class */ (function () {
         this.onExportExcel = function () {
             _this.$.blockUI();
             if (!_this.validateUsername()) {
-                _this.showValidationMsgError(_this.resources.usernameIsRequired);
+                _this.showValidationMsgError(_this.resources.usernameIsRequired, _this.$txtMember);
                 _this.$.unblockUI();
                 return;
             }
@@ -338,13 +338,13 @@ var BetCreditHistory = /** @class */ (function () {
         this.onSubmitReport = function (e) {
             _this.$.blockUI();
             if (!_this.validateUsername()) {
-                _this.showValidationMsgError(_this.resources.usernameIsRequired);
+                _this.showValidationMsgError(_this.resources.usernameIsRequired, _this.$txtMember);
                 _this.$.unblockUI();
                 e.preventDefault();
                 return;
             }
             if (!_this.validateRefNo()) {
-                _this.showValidationMsgError(_this.resources.invalidRefNo);
+                _this.showValidationMsgError(_this.resources.invalidRefNo, _this.$txtRefNo);
                 _this.$.unblockUI();
                 e.preventDefault();
                 return;
@@ -354,16 +354,14 @@ var BetCreditHistory = /** @class */ (function () {
         };
         this.validateUsername = function () { return _this.$txtMember.val() !== ""; };
         this.validateRefNo = function () { return _this.$txtRefNo.val().length <= _this.MAX_LENGTH_REFNO && _this.$txtRefNo.val().trim().match(/^[0-9]*$/); };
-        this.showValidationMsgError = function (msg) {
-            _this.$msgError.addClass("hide");
-            _this.$validationMsgError.text(msg);
-            _this.$validationMsgError.removeClass("hide");
+        this.showValidationMsgError = function (msg, element) {
+            TipsyHelper.showError(element, msg, "nw");
             _this.$("#tbl-report").remove();
             _this.$("#report-pager").remove();
         };
         this.hideValidationMsgError = function () {
-            _this.$validationMsgError.text("");
-            _this.$validationMsgError.addClass("hide");
+            TipsyHelper.clear(_this.$txtMember);
+            TipsyHelper.clear(_this.$txtRefNo);
         };
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
@@ -374,6 +372,8 @@ var BetCreditHistory = /** @class */ (function () {
         this.cacheElements();
         this.initComponents();
         this.bindEvents();
+        var $errMsg = this.$("#ErrMsg");
+        $errMsg.length && TipsyHelper.showError(this.$txtMember, $errMsg.val(), "nw");
         this.$.unblockUI();
     };
     BetCreditHistory.prototype.cacheElements = function () {
@@ -384,7 +384,6 @@ var BetCreditHistory = /** @class */ (function () {
         this.$txtMember = this.$("#txt-member");
         this.$txtRefNo = this.$("#txt-refno");
         this.$msgError = this.$("#msg-error");
-        this.$validationMsgError = this.$("#validation-msg-error");
         this.resources = {
             usernameIsRequired: this.$('#UsernameIsRequired').val(),
             invalidRefNo: this.$('#InvalidRefNo').val(),
@@ -399,6 +398,8 @@ var BetCreditHistory = /** @class */ (function () {
     BetCreditHistory.prototype.bindEvents = function () {
         var _this = this;
         this.$(".icon-filter").click(this.onClickIconFilter);
+        this.$txtMember.keyup(function () { return TipsyHelper.clear(_this.$txtMember); });
+        this.$txtRefNo.keyup(function () { return TipsyHelper.clear(_this.$txtRefNo); });
         this.$reportForm.submit(this.onSubmitReport);
         $('input[type="submit"]').click(function () {
             _this.resetPaging();
