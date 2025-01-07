@@ -616,5 +616,11 @@
     "inputFiles": [
       "assets/styles-v2/statement.css"
     ]
+  },
+  {
+    "outputFileName": "assets/bundles-v2/betchoicematching.css",
+    "inputFiles": [
+      "assets/styles-v2/betchoicematching.css"
+    ]
   }
 ]

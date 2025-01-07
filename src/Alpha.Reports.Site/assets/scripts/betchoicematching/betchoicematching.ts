@@ -796,7 +796,7 @@ interface UsernameFilterCriteria {
 }
 
 class UsernameFilterForm extends BaseFilterForm<UsernameFilterCriteria> {
-    static iconFilterClassname = "thead .col-username .icon-table-filter";
+    static iconFilterClassname = "thead .col-username .ic-filter";
     static tooltipOption = {
         title: betMatchingResources.FilterByUsername,
         tooltipClass: 'username-filter'
@@ -874,14 +874,14 @@ interface StakeFilterCriteria {
 }
 
 class StakeFilterForm extends BaseFilterForm<StakeFilterCriteria> {
-    static iconFilterClassname = "thead .col-stake .icon-table-filter";
+    static iconFilterClassname = "thead .col-stake .ic-filter";
     static tooltipOption = {
         title: betMatchingResources.FilterByStake,
         tooltipClass: 'stake-filter'
     }
     static tooltipContent = `
         <form class="form-inline">
-            <div>
+            <div class="filter-inline">
                 <span class="form-label">${betMatchingResources.TotalStake} &gt;=</span>
                 <input name="TotalStake" class="form-control input-sm" />
             </div>
@@ -937,14 +937,14 @@ interface MemberWinLossFilterCriteria {
 }
 
 class MemberWinLossFilterForm extends BaseFilterForm<MemberWinLossFilterCriteria> {
-    static iconFilterClassname = "thead .col-memberwinloss .icon-table-filter";
+    static iconFilterClassname = "thead .col-memberwinloss .ic-filter";
     static tooltipOption = {
         title: betMatchingResources.FilterByMemberWinLoss,
         tooltipClass: 'memberwinloss-filter'
     }
     static tooltipContent = `
         <form class="form-inline">
-            <div>
+            <div class="filter-inline">
                 <span class="form-label">${betMatchingResources.TotalMemberWL}</span>
                 <select name="Operator" class="form-control input-sm">
                     <option value="${MemberWinLossOperators.GreaterOrEqual}" selected>&gt;=</option>

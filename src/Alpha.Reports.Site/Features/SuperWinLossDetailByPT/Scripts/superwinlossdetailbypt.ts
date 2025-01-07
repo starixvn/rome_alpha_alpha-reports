@@ -197,7 +197,6 @@ class SuperWinLossDetailByPTView extends BaseReport {
 
         var position = this.$viewProductPTList.position();
         this.$viewProductPTListPopup.css({
-            bottom: "auto",
             top: position.top + 60
         });
     }

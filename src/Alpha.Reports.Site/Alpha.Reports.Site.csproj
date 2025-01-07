@@ -543,6 +543,10 @@
     <Content Include="App_Data\SPNames\Internal2\DBTXN.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Themes\error2-dark.png" />
     <Content Include="App_Themes\error2.png" />
+    <Content Include="assets\bundles-v2\betchoicematching.css" />
+    <Content Include="assets\bundles-v2\betchoicematching.min.css">
+      <DependentUpon>betchoicematching.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles-v2\consolidation.css" />
     <Content Include="assets\bundles-v2\consolidation.min.css">
       <DependentUpon>consolidation.css</DependentUpon>
@@ -567,11 +571,11 @@
     <Content Include="assets\bundles-v2\winlossdetailnew.min.css">
       <DependentUpon>winlossdetailnew.css</DependentUpon>
     </Content>
-    <Content Include="assets\styles-v2\consolidation.css">
-      <DependentUpon>consolidation.scss</DependentUpon>
+    <Content Include="assets\styles-v2\betchoicematching.css">
+      <DependentUpon>betchoicematching.scss</DependentUpon>
     </Content>
-    <Content Include="assets\styles-v2\consolidation.min.css">
-      <DependentUpon>consolidation.css</DependentUpon>
+    <Content Include="assets\styles-v2\betchoicematching.min.css">
+      <DependentUpon>betchoicematching.css</DependentUpon>
     </Content>
     <Content Include="assets\styles-v2\statement.css">
       <DependentUpon>statement.scss</DependentUpon>
@@ -678,7 +682,6 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent2FullName.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member2.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member2FullName.xls" />
-    <Content Include="assets\styles-v2\consolidation.scss" />
     <Content Include="assets\styles-v2\superwinlossdetailbypt.scss" />
     <Content Include="assets\styles-v2\winlossbyproduct.scss" />
     <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\DailyWinLossAgent.xls" />
@@ -693,6 +696,7 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member.xls" />
     <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.scss" />
+    <Content Include="assets\styles-v2\betchoicematching.scss" />
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
@@ -1582,30 +1586,6 @@
     <Content Include="assets\scripts\tests\libs\store.js" />
     <Content Include="assets\scripts\tests\libs\tablesorter.js" />
     <Content Include="assets\scripts\tests\libs\tiny-draggable.js" />
-    <Content Include="assets\styles\betchoicematching\betchoicematching-dark.css">
-      <DependentUpon>betchoicematching-dark.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\betchoicematching\betchoicematching-dark.min.css">
-      <DependentUpon>betchoicematching-dark.css</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\betchoicematching\betchoicematching.css">
-      <DependentUpon>betchoicematching.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\betchoicematching\betchoicematching.min.css">
-      <DependentUpon>betchoicematching.css</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\consolidation\consolidation-dark.css">
-      <DependentUpon>consolidation-dark.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\consolidation\consolidation-dark.min.css">
-      <DependentUpon>consolidation-dark.css</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\consolidation\consolidation.css">
-      <DependentUpon>consolidation.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\consolidation\consolidation.min.css">
-      <DependentUpon>consolidation.css</DependentUpon>
-    </Content>
     <Content Include="assets\styles\error\error-dark.css">
       <DependentUpon>error-dark.scss</DependentUpon>
     </Content>
@@ -1623,18 +1603,6 @@
     <Content Include="assets\styles\images\ajax-loader-small.gif" />
     <Content Include="assets\styles\images\percent-dark.svg" />
     <Content Include="assets\styles\images\percent.svg" />
-    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail-dark.css">
-      <DependentUpon>matchwinlossdetail-dark.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail-dark.min.css">
-      <DependentUpon>matchwinlossdetail-dark.css</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.css">
-      <DependentUpon>matchwinlossdetail.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.min.css">
-      <DependentUpon>matchwinlossdetail.css</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Features\BetCreditTracking\Scripts\move-statement-history.ts" />
     <Content Include="assets\styles\partial-um\partial-um.css">
       <DependentUpon>partial-um.scss</DependentUpon>
@@ -1671,12 +1639,6 @@
     </Content>
     <Content Include="Features\BetCreditTracking\Bundles\movestatementhistory.min.js">
       <DependentUpon>movestatementhistory.js</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\statement\statement-dark.css">
-      <DependentUpon>statement-dark.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\statement\statement-dark.min.css">
-      <DependentUpon>statement-dark.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\themes\page-title-agent-dark.css">
       <DependentUpon>page-title-agent-dark.scss</DependentUpon>
@@ -1748,20 +1710,12 @@
     <Content Include="Features\BonusDetail\Bundles\bonusdetail.min.js">
       <DependentUpon>bonusdetail.js</DependentUpon>
     </Content>
-    <Content Include="Features\BonusDetail\Styles\bonus-detail-dark.css">
-      <DependentUpon>bonus-detail-dark.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\BonusDetail\Styles\bonus-detail-dark.min.css">
-      <DependentUpon>bonus-detail-dark.css</DependentUpon>
-    </Content>
     <Content Include="Features\BonusDetail\Styles\bonus-detail.css">
       <DependentUpon>bonus-detail.scss</DependentUpon>
     </Content>
     <Content Include="Features\BonusDetail\Styles\bonus-detail.min.css">
       <DependentUpon>bonus-detail.css</DependentUpon>
     </Content>
-    <Content Include="Features\BonusDetail\Styles\Images\payment-dark.svg" />
-    <Content Include="Features\BonusDetail\Styles\Images\payment.svg" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-mobile-calculate-07.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult-mobile-calculate-07.min.css">
       <DependentUpon>enteredresult-mobile-calculate-07.css</DependentUpon>
@@ -1788,12 +1742,6 @@
     <Content Include="Features\Outstanding\Bundles\outstanding.min.js">
       <DependentUpon>outstanding.js</DependentUpon>
     </Content>
-    <Content Include="assets\styles\progressivecontribution\progressivecontribution.css">
-      <DependentUpon>progressivecontribution.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\progressivecontribution\progressivecontribution.min.css">
-      <DependentUpon>progressivecontribution.css</DependentUpon>
-    </Content>
     <Content Include="assets\styles\report-mobile-calculate-07.css">
       <DependentUpon>report-mobile-calculate-07.scss</DependentUpon>
     </Content>
@@ -1805,12 +1753,6 @@
     </Content>
     <Content Include="assets\styles\reports.min.css">
       <DependentUpon>reports.css</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\statement\statement.css">
-      <DependentUpon>statement.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\statement\statement.min.css">
-      <DependentUpon>statement.css</DependentUpon>
     </Content>
     <Content Include="bundleconfig.json" />
     <CodeAnalysisDictionary Include="CodeAnalysis\CustomDictionary.xml">
@@ -1828,16 +1770,12 @@
     <Content Include="assets\styles\partial-um\partial-um.scss" />
     <Content Include="assets\styles\_variables-dark.scss" />
     <Content Include="assets\styles\reports-dark.scss" />
-    <Content Include="assets\styles\betchoicematching\betchoicematching-dark.scss" />
-    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail-dark.scss" />
     <Content Include="assets\styles\themes\page-title-agent.scss" />
     <Content Include="assets\styles\themes\page-title-master.scss" />
     <Content Include="assets\styles\themes\page-title-super.scss" />
     <Content Include="assets\styles\themes\page-title-agent-dark.scss" />
     <Content Include="assets\styles\themes\page-title-master-dark.scss" />
     <Content Include="assets\styles\themes\page-title-super-dark.scss" />
-    <Content Include="assets\styles\consolidation\consolidation-dark.scss" />
-    <Content Include="assets\styles\statement\statement-dark.scss" />
     <Content Include="assets\styles\error\error-dark.scss" />
     <Content Include="App_Data\ProductSection.config" />
     <None Include="compilerconfig.json.defaults">
@@ -1880,18 +1818,6 @@
     </Content>
     <Content Include="Features\WinLoss\Bundles\winloss.min.js">
       <DependentUpon>winloss.js</DependentUpon>
-    </Content>
-    <Content Include="Features\WinLoss\Styles\winloss-mobile-calculate-07.css">
-      <DependentUpon>winloss-mobile-calculate-07.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\WinLoss\Styles\winloss-mobile-calculate-07.min.css">
-      <DependentUpon>winloss-mobile-calculate-07.css</DependentUpon>
-    </Content>
-    <Content Include="Features\WinLoss\Styles\winloss.css">
-      <DependentUpon>winloss.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\WinLoss\Styles\winloss.min.css">
-      <DependentUpon>winloss.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="packages.config">
@@ -1984,7 +1910,6 @@
     <Content Include="App_Code\Components\Breadcrumb.cshtml" />
     <Content Include="App_Code\Components\ReportLegend.cshtml" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLoss\Member.xls" />
-    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.scss" />
     <Content Include="App_Data\ExcelTemplates\WinLossAnalysis\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossAnalysis\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossAnalysis\Member.xls" />
@@ -2003,7 +1928,6 @@
     <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Master.xls" />
-    <Content Include="assets\styles\statement\statement.scss" />
     <Content Include="App_Data\ExcelTemplates\Statement\SMA.xls" />
     <Content Include="App_Code\Components\MonthRangePicker.cshtml" />
     <Content Include="App_Code\Components\DualAxisChart.cshtml" />
@@ -2015,13 +1939,10 @@
     <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByDate.xls" />
     <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByProduct.xls" />
     <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByUsername.xls" />
-    <Content Include="assets\styles\consolidation\consolidation.scss" />
-    <Content Include="assets\styles\progressivecontribution\progressivecontribution.scss" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
-    <Content Include="assets\styles\betchoicematching\betchoicematching.scss" />
     <Content Include="App_Data\ExcelTemplates\BetChoiceMatching\Master.xls" />
     <Content Include="Features\EnteredResult\Views\Index.cshtml" />
     <Content Include="Features\EnteredResult\Views\Filter.cshtml" />
@@ -2033,7 +1954,6 @@
     <Content Include="Features\WinLoss\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Features\WinLoss\Styles\winloss-mobile-calculate-07.scss" />
     <Content Include="Features\EnteredResult\Views\FilterNew.cshtml" />
     <Content Include="Features\WinLoss\Views\FilterNew.cshtml" />
     <Content Include="Features\WinLoss\Views\IndexNew.cshtml" />
@@ -2043,7 +1963,6 @@
     <Content Include="Features\Outstanding\Styles\outstanding.scss" />
     <Content Include="Features\Outstanding\Views\IndexNew.cshtml" />
     <Content Include="App_Code\Components\ProductDetailMultiSelection.cshtml" />
-    <Content Include="Features\WinLoss\Styles\winloss.scss" />
     <Content Include="Features\Shared\Styles\datepicker-mobile-07.scss" />
     <Content Include="Features\Shared\Styles\monthpicker-mobile-07.scss" />
     <Content Include="Features\Shared\Styles\result-winloss-mobile-07.scss" />
@@ -2056,7 +1975,6 @@
     <Content Include="Features\SuperWinLossDetailByPT\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Features\BonusDetail\Styles\bonus-detail-dark.scss" />
     <Content Include="Features\BetCreditTracking\Views\BetCreditHistory\Index.cshtml" />
     <Content Include="Features\BetCreditTracking\Views\MoveStatementHistory\Index.cshtml" />
     <Content Include="Features\BetCreditTracking\Views\web.config">

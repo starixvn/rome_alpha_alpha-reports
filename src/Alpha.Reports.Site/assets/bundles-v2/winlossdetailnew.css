@@ -186,3 +186,13 @@
   line-height: 20px; }
   .tb .combinedcell li:last-child {
     font-weight: bold; }
+
+ul.gross-comm {
+  list-style-type: circle; }
+  ul.gross-comm li {
+    margin-left: 30px; }
+
+.consolidation-modal .product-pt-list-content {
+  list-style: disc;
+  margin: 10px 0 15px 0;
+  padding-left: 15px; }

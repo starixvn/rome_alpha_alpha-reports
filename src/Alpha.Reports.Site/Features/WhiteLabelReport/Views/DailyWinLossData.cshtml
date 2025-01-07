@@ -6,7 +6,7 @@
     var theadIndex = 0;
 }
 @model DailyWinLossGetDataViewModel
-<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tablesorter width-100per" id="tbl-report" data-cansort="@Model.ReportData.MoreThanOne()">
+<table class="tb tb-bordered tb-hover tablesorter w-full" id="tbl-report" data-cansort="@Model.ReportData.MoreThanOne()">
     <thead>
         <tr>
             <th class="sorting" data-colindex="@(theadIndex++)" data-sorttype="text">@Resources.Date</th>

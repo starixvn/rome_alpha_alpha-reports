@@ -1,13 +1,12 @@
 ﻿@using Alpha.Reports.Configurations
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewBag.Title = Resources.DailyWinLossReport;
     var level = Model.ViewerLevel.DisplayName.ToLowerInvariant();
 }
 @model DailyWinLossViewModel
 @section Styles {
-    @StaticResources.AssetStyles.RenderCommonWithDarkMode($"/bundles/site-reports/tab-{level}")
-    @StaticResources.AssetStyles.RenderCommonWithDarkMode("/bundles/site-reports/filter-new")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/whitelabel")
     @StaticResources.RenderStyles($"~/{SiteSettings.ReportRouting}Features/WhiteLabelReport/Bundles/whitelabel-report")
 }
 @section Scripts {
@@ -17,7 +16,7 @@
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-reports/filter-new")
     @StaticResources.RenderScripts($"~/{SiteSettings.ReportRouting}Features/WhiteLabelReport/Bundles/daily-winloss")
 }
-<div class="page-title tabs">
+<div class="page-title tabs @level">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation">
             @Html.ActionLink(Resources.SettlementReport, "Index", $"{SiteSettings.ReportRouting}WhiteLabelSettlement")
@@ -53,7 +52,7 @@
                 <label class="label-form-control">&nbsp;</label>
                 <a href="@Url.Action("Excel", $"{SiteSettings.ReportRouting}WhiteLabelDailyWinLoss")"
                    id="icon-excel"
-                   class="icon icon-excel icon-excel-new"
+                   class="ic-excel"
                    data-toggle="tooltip"
                    data-placement="top"
                    title="@Resources.ExportToExcel"></a>

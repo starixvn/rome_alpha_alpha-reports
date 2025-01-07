@@ -2,10 +2,12 @@
 @model BetChoiceMatchingViewModel
 @{
     ViewBag.Title = "BET CHOICE MATCHING";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/betchoicematching/betchoicematching")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/betchoicematching")
+    @StaticResources.RenderStyles("~/assets/bundles-v2/betchoicematching")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.BetChoiceMatching, false, true, false, false, Enumerable.Empty<CustInfo>(), null), Request.Url.Query)
@@ -14,11 +16,11 @@
 @Html.Hidden("MinDate", Model.MinDate)
 <form class="form-inline filter" role="form" id="report-form" action="@Url.Action("Query", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}BetChoiceMatching")">
     @Html.AntiForgeryToken()
-    <div class="form-group">
+    <div class="form-group from-date-box">
         <label class="txt">@Resources.eventdate</label>
         <div class="control date">
             <div class="input-group date" id="dpkContainer">
-                @Html.EditorFor(model => model.WinlostDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.EditorFor(model => model.WinlostDate, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
                 <span class="input-group-addon">
                     <span class="icon-calendar"></span>
                 </span>
@@ -27,18 +29,18 @@
     </div>
     <div class="form-group">
         <label for="BetCount">@Resources.MatchingBets</label>
-        <select id="BetCount" name="BetCount">
+        <select id="BetCount" name="BetCount" class="original-select">
             @foreach (var betCount in Model.BetCounts)
             {
                 <option value="@betCount" @(betCount == Model.BetCount ? "selected=\"selected\"" : string.Empty)> >= @betCount</option>
             }
         </select>
     </div>
-    <div class="form-group">
+    <div class="form-group form-group-short">
         <input type="submit" value="@Resources.Submit" class="btn-submit" />
     </div>
     <div class="form-group">
-        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+        <span id="icon-excel" class="ic-excel" title="@Resources.ExportToExcel"></span>
     </div>
 </form>
 <form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}BetChoiceMatching")">
@@ -53,16 +55,16 @@
     @Html.AntiForgeryToken()
     @Html.Hidden("SearchAccountId")
 </form>
-<table class="tblRpt tblRpt-bordered tblRpt-hover width-100per hide" id="tbl-report">
+<table class="tb tb-bcm tb-bordered tb-hover text-right w-full" id="tbl-report">
     <thead class="tableFloatingHeaderOriginal">
         <tr>
-            <th class="col-username">@Resources.Username <span class="icon-table-filter"></span></th>
+            <th class="col-username">@Resources.Username <span class="ic-filter"></span></th>
             <th class="col-transtime">@Resources.transtime</th>
             <th class="col-refno">@Resources.refno</th>
             <th class="col-odds">@Resources.odds</th>
             <th class="col-ip">@Resources.IP</th>
-            <th class="col-stake">@Resources.Stake <span class="icon-table-filter"></span></th>
-            <th class="col-memberwinloss">@Resources.MemberWinLoss <span class="icon-table-filter"></span></th>
+            <th class="col-stake">@Resources.Stake <span class="ic-filter"></span></th>
+            <th class="col-memberwinloss">@Resources.MemberWinLoss <span class="ic-filter"></span></th>
             <th class="col-superwinloss">@Resources.SuperWinLoss</th>
             <th class="col-company">@Resources.Company</th>
         </tr>

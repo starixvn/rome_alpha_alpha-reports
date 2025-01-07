@@ -915,7 +915,6 @@ var SuperWinLossDetailByPTView = /** @class */ (function (_super) {
             _this.$viewProductPTListPopup.modal({ show: true, backdrop: false });
             var position = _this.$viewProductPTList.position();
             _this.$viewProductPTListPopup.css({
-                bottom: "auto",
                 top: position.top + 60
             });
         };

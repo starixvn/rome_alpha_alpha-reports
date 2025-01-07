@@ -2,6 +2,7 @@
     Layout = "~/Views/Shared/_Layout2.cshtml";
     ViewBag.Title = Resources.BetCreditHistory;
     var userguideLink = Model.GetUserGuideLink(Session.IsCookieless, Request.Headers["Host"], Session.SessionID);
+    var level = Model.CustLevel.ToLowerInvariant();
 }
 @model BetCreditHistoryViewModel
 @section Styles {
@@ -12,7 +13,7 @@
     @StaticResources.AssetScripts.Render("/bundles-v2/site-reports/betcredittracking")
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/BetCreditTracking/Bundles/betcredithistory")
 }
-<div class="page-title tabs agent @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
+<div class="page-title tabs @level @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
             <a href="#betCreditHistory" aria-controls="home" role="tab" data-toggle="tab">@Resources.BetCreditHistory</a>

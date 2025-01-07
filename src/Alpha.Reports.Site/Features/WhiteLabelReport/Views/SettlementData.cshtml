@@ -7,7 +7,7 @@
     var thead2ndIndex = 0;
 }
 @model SettlementGetDataViewModel
-<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tablesorter width-100per" id="tbl-report" data-cansort="@Model.ReportData.MoreThanOne()">
+<table class="tb tb-bordered tb-hover tablesorter w-full text-right" id="tbl-report" data-cansort="@Model.ReportData.MoreThanOne()">
     <thead>
         <tr>
             <th rowspan="2" class="sorting" data-colindex="@(thead1stIndex++)" data-colname="month" data-sorttype="text">@Resources.Month</th>

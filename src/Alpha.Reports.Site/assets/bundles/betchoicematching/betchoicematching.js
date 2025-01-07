@@ -849,7 +849,7 @@ var UsernameFilterForm = /** @class */ (function (_super) {
         });
         return filterUsers;
     };
-    UsernameFilterForm.iconFilterClassname = "thead .col-username .icon-table-filter";
+    UsernameFilterForm.iconFilterClassname = "thead .col-username .ic-filter";
     UsernameFilterForm.tooltipOption = {
         title: betMatchingResources.FilterByUsername,
         tooltipClass: 'username-filter'
@@ -891,12 +891,12 @@ var StakeFilterForm = /** @class */ (function (_super) {
         var totalStake = filterCriteria.TotalStake;
         return user.Stake >= totalStake;
     };
-    StakeFilterForm.iconFilterClassname = "thead .col-stake .icon-table-filter";
+    StakeFilterForm.iconFilterClassname = "thead .col-stake .ic-filter";
     StakeFilterForm.tooltipOption = {
         title: betMatchingResources.FilterByStake,
         tooltipClass: 'stake-filter'
     };
-    StakeFilterForm.tooltipContent = "\n        <form class=\"form-inline\">\n            <div>\n                <span class=\"form-label\">" + betMatchingResources.TotalStake + " &gt;=</span>\n                <input name=\"TotalStake\" class=\"form-control input-sm\" />\n            </div>\n            <div class=\"text-right\">\n                <button class=\"btn-submit btn-filter\">" + betMatchingResources.Filter + "</button>\n            </div>\n        </form>\n    ";
+    StakeFilterForm.tooltipContent = "\n        <form class=\"form-inline\">\n            <div class=\"filter-inline\">\n                <span class=\"form-label\">" + betMatchingResources.TotalStake + " &gt;=</span>\n                <input name=\"TotalStake\" class=\"form-control input-sm\" />\n            </div>\n            <div class=\"text-right\">\n                <button class=\"btn-submit btn-filter\">" + betMatchingResources.Filter + "</button>\n            </div>\n        </form>\n    ";
     return StakeFilterForm;
 }(BaseFilterForm));
 var MemberWinLossFilterForm = /** @class */ (function (_super) {
@@ -944,12 +944,12 @@ var MemberWinLossFilterForm = /** @class */ (function (_super) {
                 return !user.IsRunning && user.MemberWinLoss <= memberWinLoss;
         }
     };
-    MemberWinLossFilterForm.iconFilterClassname = "thead .col-memberwinloss .icon-table-filter";
+    MemberWinLossFilterForm.iconFilterClassname = "thead .col-memberwinloss .ic-filter";
     MemberWinLossFilterForm.tooltipOption = {
         title: betMatchingResources.FilterByMemberWinLoss,
         tooltipClass: 'memberwinloss-filter'
     };
-    MemberWinLossFilterForm.tooltipContent = "\n        <form class=\"form-inline\">\n            <div>\n                <span class=\"form-label\">" + betMatchingResources.TotalMemberWL + "</span>\n                <select name=\"Operator\" class=\"form-control input-sm\">\n                    <option value=\"" + MemberWinLossOperators.GreaterOrEqual + "\" selected>&gt;=</option>\n                    <option value=\"" + MemberWinLossOperators.Equal + "\">=</option>\n                    <option value=\"" + MemberWinLossOperators.LessOrEqual + "\">&lt;=</option>\n                </select>\n                <input name=\"MemberWinLoss\" class=\"form-control input-sm\" />\n            </div>\n            <div class=\"text-right\">\n                <button class=\"btn-submit btn-filter\">" + betMatchingResources.Filter + "</button>\n            </div>\n        </form>\n    ";
+    MemberWinLossFilterForm.tooltipContent = "\n        <form class=\"form-inline\">\n            <div class=\"filter-inline\">\n                <span class=\"form-label\">" + betMatchingResources.TotalMemberWL + "</span>\n                <select name=\"Operator\" class=\"form-control input-sm\">\n                    <option value=\"" + MemberWinLossOperators.GreaterOrEqual + "\" selected>&gt;=</option>\n                    <option value=\"" + MemberWinLossOperators.Equal + "\">=</option>\n                    <option value=\"" + MemberWinLossOperators.LessOrEqual + "\">&lt;=</option>\n                </select>\n                <input name=\"MemberWinLoss\" class=\"form-control input-sm\" />\n            </div>\n            <div class=\"text-right\">\n                <button class=\"btn-submit btn-filter\">" + betMatchingResources.Filter + "</button>\n            </div>\n        </form>\n    ";
     return MemberWinLossFilterForm;
 }(BaseFilterForm));
 $(function () {
