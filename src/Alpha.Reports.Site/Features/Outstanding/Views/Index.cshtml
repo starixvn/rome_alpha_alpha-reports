@@ -3,7 +3,10 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	ViewBag.Title = "Outstanding Report";
 }
-
+@section Styles {
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/outstanding")
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/Outstanding/bundles-v2/outstanding")
+}
 @model OutstandingViewModel
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
@@ -22,8 +25,8 @@
 		<input type="submit" value="@Resources.Submit" class="btn-submit" />
 	</div>
 </form>
-
-<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tbl-outstanding tablesorter" id="tbl-report"
+<div  class="level-@Model.CustLevel.Value" style="width: @(Model.IsMobileView ? "100%" : "65%");">
+<table class="tb tb-bordered tb-hover w-full tbl-outstanding tablesorter" id="tbl-report"
 	   data-totalrecords="@Model.OutstandingDatasource.Count()"
 	   data-sortedcolumn="@Model.SortPropertyName"
 	   data-descendingsort="@Model.IsDescendingSort">
@@ -78,7 +81,7 @@
 	}
 
 </table>
-
+</div>
 @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Outstanding"))
 
 @section Scripts {

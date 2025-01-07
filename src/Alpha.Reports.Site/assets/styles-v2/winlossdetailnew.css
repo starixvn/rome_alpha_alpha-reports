@@ -15,7 +15,10 @@
   --tb-match-title-background: #D3DAE2;
   --tb-col-altercol: #F2F1EB;
   --tb-col-altercol-footer: #546273;
-  --tb-total-row-background: #f1f1f1; }
+  --tb-total-row-background: #D3DAE2;
+  --table-footer-background: #65768A;
+  --tb-match-title-background: #D3DAE2;
+  --table-footer-color: #FFFFFF; }
 
 :root [data-theme='dark'] {
   --label-week-color: #C5C5C5;
@@ -29,12 +32,15 @@
   --label-week-disabled-border: #292929;
   --label-week-disabled-shadow: none;
   --icon-dormant-account-color: #41a4ff;
-  --tb-sub-total-row-background: #262626;
+  --tb-sub-total-row-background: #404040;
   --tb-match-title-color: #D96518;
   --tb-match-title-background: #323436;
   --tb-col-altercol: #403E36;
-  --tb-col-altercol-footer: #263347;
-  --tb-total-row-background: #404040; }
+  --tb-col-altercol-footer: #22334D;
+  --tb-total-row-background: #41474F;
+  --table-footer-background: #2E4466;
+  --tb-match-title-background: #41474F;
+  --table-footer-color: #fff; }
 
 .label-week-box {
   margin-bottom: 10px;
@@ -127,6 +133,9 @@
 .tb tr td.altercol {
   background: var(--tb-col-altercol); }
 
+.tb tr td.col-product {
+  padding-left: 20px; }
+
 .tb .match-title-row {
   text-align: left;
   text-transform: uppercase;
@@ -149,7 +158,7 @@
   background: var(--tb-total-row-background);
   font-weight: bold; }
 
-.tb tr.sub-total-row td {
+.tb tr.sub-total-row td, .tb tr.consolidation-pt-row td {
   background: var(--tb-sub-total-row-background);
   font-weight: bold; }
 

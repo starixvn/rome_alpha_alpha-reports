@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout2.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Resources.BetCreditHistory;
     var userguideLink = Model.GetUserGuideLink(Session.IsCookieless, Request.Headers["Host"], Session.SessionID);
     var level = Model.CustLevel.ToLowerInvariant();

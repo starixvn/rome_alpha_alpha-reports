@@ -18,3 +18,26 @@
 
 .tb tbody tr td .format-negative {
   color: #E54748; }
+
+.tb tbody tr td .col-win-loss, .tb tbody tr td .col-outstanding, .tb tbody tr td .column-transfer-amount {
+  cursor: pointer; }
+
+.formular-accumulated-total {
+  padding-left: 50px; }
+
+.guideline-row {
+  margin-bottom: 10px; }
+
+.filter .form-group.statement-detail-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-title);
+  margin: 0 0 10px 0; }
+  .filter .form-group.statement-detail-title .title-statement-details {
+    font-weight: bold;
+    color: var(--head-title-color);
+    line-height: 40px;
+    font-size: 13px;
+    width: 100%; }

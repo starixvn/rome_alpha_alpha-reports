@@ -583,12 +583,6 @@
     <Content Include="assets\styles-v2\statement.min.css">
       <DependentUpon>statement.css</DependentUpon>
     </Content>
-    <Content Include="assets\styles-v2\superwinlossdetailbypt.css">
-      <DependentUpon>superwinlossdetailbypt.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles-v2\superwinlossdetailbypt.min.css">
-      <DependentUpon>superwinlossdetailbypt.css</DependentUpon>
-    </Content>
     <Content Include="assets\styles-v2\winlossanalysischart.css">
       <DependentUpon>winlossanalysischart.scss</DependentUpon>
     </Content>
@@ -621,13 +615,6 @@
     <Content Include="Features\EnteredResult\Bundles\enteredresult-dark.min.css">
       <DependentUpon>enteredresult-dark.css</DependentUpon>
     </Content>
-    <Content Include="Features\EnteredResult\Styles\enteredresult-dark.css">
-      <DependentUpon>enteredresult-dark.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\EnteredResult\Styles\enteredresult-dark.min.css">
-      <DependentUpon>enteredresult-dark.css</DependentUpon>
-    </Content>
-    <Content Include="Features\EnteredResult\Styles\enteredresult-dark.scss" />
     <Content Include="App_Code\Components\ProductAndProductDetailDropdown.cshtml" />
     <Content Include="App_Code\Components\VisibleColumnsDropdown.cshtml" />
     <Content Include="App_Code\Components\DateRangePickerJQuery.cshtml" />
@@ -682,7 +669,6 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent2FullName.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member2.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member2FullName.xls" />
-    <Content Include="assets\styles-v2\superwinlossdetailbypt.scss" />
     <Content Include="assets\styles-v2\winlossbyproduct.scss" />
     <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\DailyWinLossAgent.xls" />
     <Content Include="App_Data\ExcelTemplates\WhiteLabelReport\DailyWinLossMaster.xls" />
@@ -1728,12 +1714,6 @@
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.js">
       <DependentUpon>enteredresult.js</DependentUpon>
     </Content>
-    <Content Include="Features\EnteredResult\Styles\enteredresult-mobile-calculate-07.css">
-      <DependentUpon>enteredresult-mobile-calculate-07.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\EnteredResult\Styles\enteredresult-mobile-calculate-07.min.css">
-      <DependentUpon>enteredresult-mobile-calculate-07.css</DependentUpon>
-    </Content>
     <Content Include="Features\Outstanding\Bundles\outstanding-new.js" />
     <Content Include="Features\Outstanding\Bundles\outstanding-new.min.js">
       <DependentUpon>outstanding-new.js</DependentUpon>
@@ -1949,7 +1929,6 @@
     <Content Include="Features\EnteredResult\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Features\EnteredResult\Styles\enteredresult-mobile-calculate-07.scss" />
     <Content Include="Features\EnteredResult\Views\IndexNew.cshtml" />
     <Content Include="Features\WinLoss\Views\web.config">
       <SubType>Designer</SubType>
@@ -2140,7 +2119,6 @@
     <Content Include="Web.AppSettings.uat_4.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
-    <Content Include="Views\Shared\_Layout2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

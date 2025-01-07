@@ -4,7 +4,7 @@
 
 @{
     ViewBag.Title = "Win Loss Analysis Chart Report";
-    Layout = "~/Views/Shared/_Layout2.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Styles {
     @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/winlossanalysischart")
@@ -22,12 +22,12 @@
 
     @MonthRangePicker.Render(Model.MonthPickerViewModel)
 
-    <div class="form-group">
+    <div class="form-group form-group-short">
         <input type="submit" value="@Resources.Submit" class="btn-submit" />
     </div>
 
     <div id="icon-information-container" class="form-group hide">
-        <span id="icon-information" class="icon-information-outline"></span>
+        <span id="icon-information" class="ic-information"></span>
     </div>
 
     <div class="note">

@@ -1,6 +1,6 @@
 ﻿@using Alpha.Reports.Features.BetCreditTracking.MoveStatementHistory.Models
 @{
-    Layout = "~/Views/Shared/_Layout2.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Resources.MoveStatementHistory;
 
     var userguideLink = Model.GetUserGuideLink(Session.IsCookieless, Request.Headers["Host"], Session.SessionID);

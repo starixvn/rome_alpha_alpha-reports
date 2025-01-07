@@ -1,14 +1,20 @@
 ﻿@model StatementDetailViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @section Styles {
-    @StaticResources.RenderStylesWithDarkMode($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles/statement/statement")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/statement")
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles-v2/statement")
 }
 <form class="form-inline filter statement-details-filter" role="form" id="report-form">
     <div class="form-group statement-detail-title">
-        @Resources.TransferDetails (@Model.CustName): @Model.TransferDate.ToShortDateWithSlash()
-        <span id="icon-excel" class="icon-excel statement-details-excel" title="@Resources.ExportToExcel"></span>
+        <div class="title-statement-details">
+            @Resources.TransferDetails (@Model.CustName): @Model.TransferDate.ToShortDateWithSlash()
+        </div>
+        <span id="icon-excel" class="ic-excel" title="@Resources.ExportToExcel"></span>
     </div>
 </form>
-<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-report-statement-detail" id="tbl-report">
+<table class="tb tb-bordered w-full tablesorter tb-hover text-right tbl-report-statement-detail" id="tbl-report">
     <thead>
         <tr>
             <th>@Resources.Date</th>

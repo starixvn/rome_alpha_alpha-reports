@@ -12,10 +12,6 @@
     "inputFile": "assets/styles/report-mobile-calculate-07.scss"
   },
   {
-    "outputFile": "Features/EnteredResult/Styles/enteredresult-mobile-calculate-07.css",
-    "inputFile": "Features/EnteredResult/Styles/enteredresult-mobile-calculate-07.scss"
-  },
-  {
     "outputFile": "Features/EnteredResult/Styles/enteredresult.css",
     "inputFile": "Features/EnteredResult/Styles/enteredresult.scss"
   },
@@ -84,10 +80,6 @@
     "inputFile": "assets/styles/error/error-dark.scss"
   },
   {
-    "outputFile": "Features/EnteredResult/Styles/enteredresult-dark.css",
-    "inputFile": "Features/EnteredResult/Styles/enteredresult-dark.scss"
-  },
-  {
     "outputFile": "Features/Shared/Styles/report-legend-dark.css",
     "inputFile": "Features/Shared/Styles/report-legend-dark.scss"
   },
@@ -106,10 +98,6 @@
   {
     "outputFile": "assets/styles-v2/winlossanalysischart.css",
     "inputFile": "assets/styles-v2/winlossanalysischart.scss"
-  },
-  {
-    "outputFile": "assets/styles-v2/superwinlossdetailbypt.css",
-    "inputFile": "assets/styles-v2/superwinlossdetailbypt.scss"
   },
   {
     "outputFile": "assets/styles-v2/winlossbyproduct.css",
