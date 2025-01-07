@@ -14,7 +14,7 @@
   --bonus-detail-payment-color: #ededed; }
 
 .text-danger {
-  color: #e92819; }
+  color: #E54748; }
 
 .ic-payment {
   cursor: pointer;
@@ -42,5 +42,15 @@
 
 .modal-open .modal .modal-dialog {
   transform: none;
-  top: 39px;
-  left: auto; }
+  top: 162px;
+  left: auto;
+  margin: 0 auto;
+  position: relative; }
+
+@media only screen and (max-width: 767px) {
+  .page-title {
+    border-bottom: 1px solid var(--border-title); }
+    .page-title .text-title {
+      width: auto;
+      border: 0;
+      margin-right: 10px; } }

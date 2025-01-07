@@ -7,7 +7,7 @@
     var colindex = 0;
 }
 @section Styles {
-    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/commissionbybettype")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/commissionbybettype")
 }
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.CommissionByBettypeFilter.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 

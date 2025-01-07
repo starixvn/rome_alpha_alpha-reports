@@ -113,7 +113,7 @@ class ProgressiveContributionView extends BaseReport {
         this.$toDate = this.$("#to-date");
 
         this.$excelIcon = this.$("#icon-excel");
-        this.$switchModeIcon = this.$(".icon-switchmode");
+        this.$switchModeIcon = this.$(".ic-switchmode");
     };
 
     public registerEvents() {

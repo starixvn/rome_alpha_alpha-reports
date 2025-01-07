@@ -4,8 +4,9 @@
     ViewBag.Title = "Win Loss Report";
 }
 @section Styles {
-    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/winloss")
-    
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/winloss")
+    @StaticResources.RenderStyles("~/assets/bundles-v2/winlossdetailnew")
+
 }
 @ReportTitle.Render(new PageHeaderViewModel(
     Model.Title,

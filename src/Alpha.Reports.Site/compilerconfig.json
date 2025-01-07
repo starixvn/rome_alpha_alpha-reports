@@ -8,14 +8,6 @@
     "inputFile": "assets/styles/matchwinlossdetail/matchwinlossdetail.scss"
   },
   {
-    "outputFile": "assets/styles/statement/statement.css",
-    "inputFile": "assets/styles/statement/statement.scss"
-  },
-  {
-    "outputFile": "assets/styles/statement/statement-dark.css",
-    "inputFile": "assets/styles/statement/statement-dark.scss"
-  },
-  {
     "outputFile": "assets/styles/consolidation/consolidation.css",
     "inputFile": "assets/styles/consolidation/consolidation.scss"
   },
@@ -120,18 +112,6 @@
     "inputFile": "Features/BetCreditTracking/Styles/move-statement-history.scss"
   },
   {
-    "outputFile": "Features/BetCreditTracking/Styles/bet-credit-history.css",
-    "inputFile": "Features/BetCreditTracking/Styles/bet-credit-history.scss"
-  },
-  {
-    "outputFile": "Features/BetCreditTracking/Styles/bet-credit-history-dark.css",
-    "inputFile": "Features/BetCreditTracking/Styles/bet-credit-history-dark.scss"
-  },
-  {
-    "outputFile": "Features/BetCreditTracking/Styles/move-statement-history-dark.css",
-    "inputFile": "Features/BetCreditTracking/Styles/move-statement-history-dark.scss"
-  },
-  {
     "outputFile": "assets/styles/error/error-dark.css",
     "inputFile": "assets/styles/error/error-dark.scss"
   },
@@ -178,5 +158,9 @@
   {
     "outputFile": "assets/styles-v2/statement.css",
     "inputFile": "assets/styles-v2/statement.scss"
+  },
+  {
+    "outputFile": "Features/BetCreditTracking/Styles/bet-credit-history.css",
+    "inputFile": "Features/BetCreditTracking/Styles/bet-credit-history.scss"
   }
 ]

@@ -15,7 +15,7 @@
   --tb-match-title-background: #D3DAE2;
   --tb-col-altercol: #F2F1EB;
   --tb-col-altercol-footer: #546273;
-  --tb-sub-total-row-background: #DDEDEF; }
+  --tb-total-row-background: #f1f1f1; }
 
 :root [data-theme='dark'] {
   --label-week-color: #C5C5C5;
@@ -34,7 +34,7 @@
   --tb-match-title-background: #323436;
   --tb-col-altercol: #403E36;
   --tb-col-altercol-footer: #263347;
-  --tb-sub-total-row-background: #3F4A4B; }
+  --tb-total-row-background: #404040; }
 
 .label-week-box {
   margin-bottom: 10px;
@@ -130,9 +130,8 @@
 .tb .match-title-row {
   text-align: left;
   text-transform: uppercase;
-  font-family: 'Roboto bold'; }
+  font-weight: bold; }
   .tb .match-title-row .league-title {
-    font-weight: bold;
     width: 300px;
     display: inline-block;
     text-overflow: ellipsis;
@@ -141,16 +140,18 @@
   .tb .match-title-row .col-username {
     background: var(--tb-match-title-background); }
   .tb .match-title-row .match-title {
-    color: var(--tb-match-title-color);
-    font-weight: bold; }
+    color: var(--tb-match-title-color); }
     .tb .match-title-row .match-title:before {
       content: '>>';
       padding: 0 10px 0 50px; }
 
-.tb tr.sub-total-row td, .tb tr.product-row td, .tb tr.sport-row td, .tb tr.username-row td {
+.tb tr.product-row td, .tb tr.sport-row td, .tb tr.username-row td {
+  background: var(--tb-total-row-background);
+  font-weight: bold; }
+
+.tb tr.sub-total-row td {
   background: var(--tb-sub-total-row-background);
-  font-weight: bold;
-  font-family: 'Roboto bold'; }
+  font-weight: bold; }
 
 .tb .username-row .username-col {
   cursor: pointer;

@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 @section Styles {
-    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/statement")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/statement")
     @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/assets/bundles-v2/statement")
 }
 @ReportTitle.Render(new PageHeaderViewModel(Resources.Statement, false, true, false, Model.IsFilterVisible, null, null))

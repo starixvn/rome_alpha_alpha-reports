@@ -548,6 +548,9 @@
       <DependentUpon>consolidation.css</DependentUpon>
     </Content>
     <Content Include="assets\bundles-v2\statement.css" />
+    <Content Include="assets\bundles-v2\statement.min.css">
+      <DependentUpon>statement.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles-v2\superwinlossdetailbypt.css" />
     <Content Include="assets\bundles-v2\superwinlossdetailbypt.min.css">
       <DependentUpon>superwinlossdetailbypt.css</DependentUpon>
@@ -599,6 +602,12 @@
     </Content>
     <Content Include="assets\styles-v2\winlossdetailnew.min.css">
       <DependentUpon>winlossdetailnew.css</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.css">
+      <DependentUpon>bet-credit-history.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.min.css">
+      <DependentUpon>bet-credit-history.css</DependentUpon>
     </Content>
     <Content Include="Features\EnteredResult\bundles-v2\enteredresult.css" />
     <Content Include="Features\EnteredResult\bundles-v2\enteredresult.min.css">
@@ -683,6 +692,7 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member.xls" />
+    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.scss" />
     <None Include="Features\EnteredResult\Styles\enteredresult.scss" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.css" />
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.css">
@@ -1668,32 +1678,11 @@
     <Content Include="assets\styles\statement\statement-dark.min.css">
       <DependentUpon>statement-dark.css</DependentUpon>
     </Content>
-    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history-dark.css">
-      <DependentUpon>bet-credit-history-dark.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history-dark.min.css">
-      <DependentUpon>bet-credit-history-dark.css</DependentUpon>
-    </Content>
-    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.css">
-      <DependentUpon>bet-credit-history.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.min.css">
-      <DependentUpon>bet-credit-history.css</DependentUpon>
-    </Content>
     <Content Include="assets\styles\themes\page-title-agent-dark.css">
       <DependentUpon>page-title-agent-dark.scss</DependentUpon>
     </Content>
-    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history.scss" />
     <Content Include="App_Data\ExcelTemplates\BetCreditTracking\BetCreditHistory.xls" />
     <Content Include="App_Data\ExcelTemplates\BetCreditTracking\MoveStatementHistory.xls" />
-    <Content Include="Features\BetCreditTracking\Styles\bet-credit-history-dark.scss" />
-    <Content Include="Features\BetCreditTracking\Styles\move-statement-history-dark.css">
-      <DependentUpon>move-statement-history-dark.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\BetCreditTracking\Styles\move-statement-history-dark.min.css">
-      <DependentUpon>move-statement-history-dark.css</DependentUpon>
-    </Content>
-    <Content Include="Features\BetCreditTracking\Styles\move-statement-history-dark.scss" />
     <Content Include="App_Data\ProductSection.napinternal.config">
       <DependentUpon>ProductSection.config</DependentUpon>
     </Content>

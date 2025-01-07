@@ -655,7 +655,7 @@ var ProgressiveContributionView = /** @class */ (function (_super) {
             _this.$fromDate = _this.$("#from-date");
             _this.$toDate = _this.$("#to-date");
             _this.$excelIcon = _this.$("#icon-excel");
-            _this.$switchModeIcon = _this.$(".icon-switchmode");
+            _this.$switchModeIcon = _this.$(".ic-switchmode");
         };
         _this.onExportExcel = function () {
             _this.$exportExcelForm.submit();

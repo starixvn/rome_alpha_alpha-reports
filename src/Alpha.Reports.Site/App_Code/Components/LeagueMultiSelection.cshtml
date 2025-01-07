@@ -4,7 +4,7 @@
 @helper Render(LeagueMultiSelectionViewModel model)
 {
 var isShowDropdown = !string.IsNullOrWhiteSpace(model.UserSelectedLeagueIds) || model.IsUserSelectsAllLeagues;
-    <div id="dropdown-league-container" class="form-group">
+    <div id="dropdown-league-container" class="form-group product-multiselect-container product-multiselect-long">
         <div class="btn-group btn-loadleague-container">
             <button id="btn-loadleague" type="button" class="multiselect dropdown-toggle btn btn-default @(isShowDropdown ? "hide":string.Empty)" data-toggle="dropdown">
                 <span class="multiselect-selected-text">@Resources.AllLeagues</span>

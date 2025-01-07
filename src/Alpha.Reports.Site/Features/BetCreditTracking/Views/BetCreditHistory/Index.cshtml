@@ -5,10 +5,11 @@
 }
 @model BetCreditHistoryViewModel
 @section Styles {
-    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/betcredittracking")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/betcredittracking")
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/BetCreditTracking/Bundles/betcredithistory")
 }
 @section Scripts {
-    @StaticResources.AssetScripts.Render("/bundles-v2/site-report/betcredittracking")
+    @StaticResources.AssetScripts.Render("/bundles-v2/site-reports/betcredittracking")
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/BetCreditTracking/Bundles/betcredithistory")
 }
 <div class="page-title tabs agent @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
@@ -37,7 +38,7 @@
         }
         @if (Model.Data != null && Model.ErrMsg == string.Empty)
         {
-            <table id="tbl-report" class="tb tb-bordered tb-hover w-full tablesorter tblRpt-hover">
+            <table id="tbl-report" class="tb tb-bordered tb-hover w-full tablesorter text-right">
                 <thead>
                     <tr>
                         <th class="action-datetime-col">@Resources.ActionDateTime</th>

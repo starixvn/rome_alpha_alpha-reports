@@ -1,13 +1,16 @@
 ﻿:root, :root [data-theme='light'] {
-    --note-opening-balance-bacoground: #f6a4a4;
-    --format-negative-color: #CC0000;
+    --note-opening-balance-background: #f6a4a4;
+    --statement-term-color: #b50000;
 }
 
 :root [data-theme='dark'] {
-    --note-opening-balance-bacoground: #573538;
-    --format-negative-color: #F23D3D;
+    --note-opening-balance-background: #573538;
+    --statement-term-color: #ff4f50;
 }
-
+.statement-term {
+    font-weight: bold;
+    color: var(--statement-term-color);
+}
 .tb {
     .short-title {
         display: none;
@@ -16,11 +19,11 @@
     tbody tr {
         td {
             &.note-opening-balance {
-                background-color: var(--note-opening-balance-bacoground);
+                background-color: var(--note-opening-balance-background);
             }
 
             .format-negative {
-                color: var(--format-negative-color);
+                color: #E54748;
             }
         }
     }

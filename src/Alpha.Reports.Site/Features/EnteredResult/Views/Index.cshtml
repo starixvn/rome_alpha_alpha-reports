@@ -10,7 +10,7 @@
 }
 
 @section Styles {
-    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/enteredresult")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/enteredresult")
     @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/EnteredResult/bundles-v2/enteredresult")}
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, true, Enumerable.Empty<CustInfo>(), string.Empty), hasEnterOrNonEnterNote: true, enteredSportResult: Model.TotalEnteredSport, isHistoricReport: Model.IsHistoricReport)

@@ -15,7 +15,7 @@
     --tb-match-title-background: #D3DAE2;
     --tb-col-altercol: #F2F1EB;
     --tb-col-altercol-footer: #546273;
-    --tb-sub-total-row-background: #DDEDEF;
+    --tb-total-row-background: #f1f1f1;
 }
 
 :root [data-theme='dark'] {
@@ -35,7 +35,7 @@
     --tb-match-title-background: #323436;
     --tb-col-altercol: #403E36;
     --tb-col-altercol-footer: #263347;
-    --tb-sub-total-row-background: #3F4A4B;
+    --tb-total-row-background: #404040;
 }
 
 
@@ -43,6 +43,7 @@
     margin-bottom: 10px;
     z-index: 2;
     position: relative;
+
     .label-week {
         display: inline-block;
         font-weight: 400;
@@ -63,7 +64,7 @@
             background: var(--label-week-disabled-background) !important;
             box-shadow: none;
             border-color: var(--label-week-disabled-border) !important;
-            cursor: not-allowed;          
+            cursor: not-allowed;
         }
 
         &.active, &:hover {
@@ -77,14 +78,17 @@
         }
     }
 }
+
 .flex {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
-.msg{
+
+.msg {
     margin-top: 0;
 }
+
 .cover-week-selection {
     flex: 1;
     z-index: 1;
@@ -99,21 +103,25 @@
         pointer-events: auto;
     }
 }
+
 .wrapper-table-scrollable {
     flex: 1;
     overflow: auto;
 }
-.tb{
+
+.tb {
     text-align: right;
 }
-.icon-stack-column , .icon-normal-column  {
+
+.icon-stack-column, .icon-normal-column {
     display: block;
     width: 30px;
     height: 30px;
-
 }
+
 .report-by {
     margin-bottom: 10px;
+
     span {
         padding-right: 10px;
         display: inline-flex;
@@ -127,6 +135,7 @@
         margin-right: 4px;
     }
 }
+
 .text-icon {
     .ic-infomartion {
         color: var(--icon-dormant-account-color);
@@ -137,6 +146,7 @@
         color: #919191;
     }
 }
+
 .tb {
     tr {
         &.tbl-footer {
@@ -161,10 +171,9 @@
     .match-title-row {
         text-align: left;
         text-transform: uppercase;
-        font-family: 'Roboto bold';
+        font-weight: bold;
 
         .league-title {
-            font-weight: bold;
             width: 300px;
             display: inline-block;
             text-overflow: ellipsis;
@@ -178,8 +187,6 @@
 
         .match-title {
             color: var(--tb-match-title-color);
-            font-weight: bold;
-
 
             &:before {
                 content: '>>';
@@ -189,11 +196,19 @@
     }
 
     tr {
-        &.sub-total-row, &.product-row, &.sport-row, &.username-row {
+        &.product-row, &.sport-row, &.username-row {
+            td {
+                background: var(--tb-total-row-background);
+                font-weight: bold;
+            }
+        }
+    }
+
+    tr {
+        &.sub-total-row {
             td {
                 background: var(--tb-sub-total-row-background);
                 font-weight: bold;
-                font-family: 'Roboto bold';
             }
         }
     }
@@ -253,6 +268,7 @@
     .combinedcell {
         li {
             line-height: 20px;
+
             &:last-child {
                 font-weight: bold;
             }

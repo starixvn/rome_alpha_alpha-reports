@@ -5,8 +5,9 @@
 }
 
 @section Styles {
-    @StaticResources.AssetStyles.Render("/bundles-v2/site-report/consolidation")
-    @StaticResources.RenderStyles("~/assets/bundles-v2/consolidation")
+    @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/consolidation")
+    @StaticResources.RenderStyles("~/assets/bundles-v2/winlossdetailnew")
+    @**StaticResources.RenderStyles("~/assets/bundles-v2/consolidation")*@
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query,
