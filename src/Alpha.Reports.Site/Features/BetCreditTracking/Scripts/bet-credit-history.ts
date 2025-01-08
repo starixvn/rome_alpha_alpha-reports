@@ -64,8 +64,8 @@ class BetCreditHistory {
 
     public bindEvents() {
         this.$(".icon-filter").click(this.onClickIconFilter);
-        this.$txtMember.keyup(() => TipsyHelper.clear(this.$txtMember));
-        this.$txtRefNo.keyup(() => TipsyHelper.clear(this.$txtRefNo));
+        this.$txtMember.on("input", () => TipsyHelper.clear(this.$txtMember));
+        this.$txtRefNo.on("input", () => TipsyHelper.clear(this.$txtRefNo));
         this.$reportForm.submit(this.onSubmitReport);
         $('input[type="submit"]').click(() => {
             this.resetPaging();

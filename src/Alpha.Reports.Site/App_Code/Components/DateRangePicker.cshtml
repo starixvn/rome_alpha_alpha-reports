@@ -10,10 +10,8 @@
          data-mindate="@model.MinDate.ToShortDateWithSlash()"
          data-maxdate="@model.MaxDate.ToShortDateWithSlash()">
     </div>
-
-    <div class="form-group  from-date-box">
-        <label>@(fromLabel ?? Resources.From)</label>
-
+    <div class="form-group from-date-box">
+        <label for="from-date">@(fromLabel ?? Resources.From)</label>
         <div class="control date">
             <div id="from-date-container"
                  class="input-group date fromdate">
@@ -31,8 +29,7 @@
         </div>
     </div>
     <div class="form-group to-date-box">
-        <label>@Resources.To</label>
-
+        <label for="to-date">@Resources.To</label>
         <div class="control date">
             <div id="to-date-container"
                  class="input-group date todate">
@@ -49,7 +46,6 @@
             </div>
         </div>
     </div>
-
     if (presubmitControls != null)
     {
         foreach (var presubmitControl in presubmitControls)
@@ -57,7 +53,6 @@
             @presubmitControl
         }
     }
-
     if (model.IsRenderSubmitButton)
     {
         <div class="form-group submit-container">
@@ -79,5 +74,4 @@
             </ul>
         </div>
     </div>
-
 }

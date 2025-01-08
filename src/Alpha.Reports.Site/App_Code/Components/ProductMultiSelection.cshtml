@@ -3,38 +3,38 @@
 
 @helper Render(ProductMultiSelectionViewModel model)
 {
-<div class="form-group product-multiselect-container product-multiselect-long">
-    <label class="label-form-control">@Resources.Product</label>
-    <select id="dropdown-product"
-            data-has-any-product="@model.GroupProducts.Any()"
-            data-label-select-products="@Resources.SelectProducts"
-            data-label-selected="@Resources.Selected"
-            data-label-all-products="@Resources.AllProducts"
-            data-label-select-all="@Resources.SelectAll"
-            data-label-there-is-no-product="@Resources.ThereIsNoProduct"
-            data-language="@model.Language"
-            multiple="multiple"
-            class="select-multiple">
-        @foreach (var group in model.GroupProducts)
-        {
-            if (group.HasGroupName)
+    <div class="form-group product-multiselect-container product-multiselect-long">
+        <label class="label-form-control">@Resources.Product</label>
+        <select id="dropdown-product"
+                data-has-any-product="@model.GroupProducts.Any()"
+                data-label-select-products="@Resources.SelectProducts"
+                data-label-selected="@Resources.Selected"
+                data-label-all-products="@Resources.AllProducts"
+                data-label-select-all="@Resources.SelectAll"
+                data-label-there-is-no-product="@Resources.ThereIsNoProduct"
+                data-language="@model.Language"
+                multiple="multiple"
+                class="select-multiple">
+            @foreach (var group in model.GroupProducts)
             {
-                <optgroup label="@group.Group.Name">
-                    @foreach (var product in group.Products)
-                    {
-                        <option value="@product.Value" @(product.Selected ? " selected=selected" : string.Empty) data-isnested="1">@product.Text</option>
-                    }
-                </optgroup>
-            }
-            else
-            {
-                foreach (var product in group.Products)
+                if (group.HasGroupName)
                 {
-                    <option value="@product.Value" @(product.Selected ? " selected=selected" : string.Empty)>@product.Text</option>
+                    <optgroup label="@group.Group.Name">
+                        @foreach (var product in group.Products)
+                        {
+                            <option value="@product.Value" @(product.Selected ? " selected=selected" : string.Empty) data-isnested="1">@product.Text</option>
+                        }
+                    </optgroup>
+                }
+                else
+                {
+                    foreach (var product in group.Products)
+                    {
+                        <option value="@product.Value" @(product.Selected ? " selected=selected" : string.Empty)>@product.Text</option>
+                    }
                 }
             }
-        }
-    </select>
-    <input type="hidden" name="UserSelectedProductIds" id="product-ids" value="@model.UserSelectedProductIds" />
-</div>
+        </select>
+        <input type="hidden" name="UserSelectedProductIds" id="product-ids" value="@model.UserSelectedProductIds" />
+    </div>
 }

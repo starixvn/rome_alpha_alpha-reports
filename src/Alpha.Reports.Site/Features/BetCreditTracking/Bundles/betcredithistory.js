@@ -398,8 +398,8 @@ var BetCreditHistory = /** @class */ (function () {
     BetCreditHistory.prototype.bindEvents = function () {
         var _this = this;
         this.$(".icon-filter").click(this.onClickIconFilter);
-        this.$txtMember.keyup(function () { return TipsyHelper.clear(_this.$txtMember); });
-        this.$txtRefNo.keyup(function () { return TipsyHelper.clear(_this.$txtRefNo); });
+        this.$txtMember.on("input", function () { return TipsyHelper.clear(_this.$txtMember); });
+        this.$txtRefNo.on("input", function () { return TipsyHelper.clear(_this.$txtRefNo); });
         this.$reportForm.submit(this.onSubmitReport);
         $('input[type="submit"]').click(function () {
             _this.resetPaging();
