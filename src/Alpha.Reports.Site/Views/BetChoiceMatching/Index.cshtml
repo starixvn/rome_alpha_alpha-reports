@@ -17,7 +17,7 @@
 <form class="form-inline filter" role="form" id="report-form" action="@Url.Action("Query", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}BetChoiceMatching")">
     @Html.AntiForgeryToken()
     <div class="form-group from-date-box">
-        <label class="txt">@Resources.eventdate</label>
+        <label class="txt" for="WinlostDate">@Resources.eventdate</label>
         <div class="control date">
             <div class="input-group date" id="dpkContainer">
                 @Html.EditorFor(model => model.WinlostDate, new { htmlAttributes = new { @class = "form-control ", @readonly = "readonly" } })
