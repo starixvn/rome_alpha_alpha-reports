@@ -37,12 +37,18 @@ class CommissionByBettype extends BaseReport {
         this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
         this.dateRangePicker.render();
 
+        const sortHeaders = {
+            0: { sorter: "text" }
+        };
+        if (this.levelTypeDropdown.$dropdown.length) {
+            sortHeaders[1] = { sorter: "text" }
+        }
         this.sorter.render(new SortOption(
             this.$tableReport,
             parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
             true,
             this.sorter.afterSort,
-            { 0: { sorter: "text" } }));
+            sortHeaders));
         this.$tableReport.stickyTableHeaders();
 
         this.initHelp();

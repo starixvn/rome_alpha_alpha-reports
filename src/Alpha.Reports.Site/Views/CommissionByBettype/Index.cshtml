@@ -84,6 +84,7 @@
     <input type="hidden" name="CustLevelId" value="@Model.Query.CustLevel.Value" />
     <input type="hidden" name="FromDate" value="@Model.Query.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.Query.ToDate" />
+    <input type="hidden" name="LevelType" value="@Model.Query.LevelType" />
 </form>
 @Html.Hidden("LoadLegendURL", Url.Action("Guidelines", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}CommissionByBettype", new { MinDate = Model.Query.MinDate }))
 

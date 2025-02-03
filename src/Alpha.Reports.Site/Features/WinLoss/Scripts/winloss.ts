@@ -136,12 +136,18 @@ class WinLossView extends BaseReport {
 
     bindSorting = () => {
         let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
+        const sortHeaders = {
+            0: { sorter: "text" }
+        };
+        if (this.levelTypeDropdown.$dropdown.length) {
+            sortHeaders[1] = { sorter: "text" }
+        }
         this.sortComponent.render(new SortOption(
             this.$tableReport,
             canSort,
             true,
             this.sortComponent.afterSort,
-            { 0: { sorter: "text" } }));
+            sortHeaders));
     };
 
     public registerEvents() {

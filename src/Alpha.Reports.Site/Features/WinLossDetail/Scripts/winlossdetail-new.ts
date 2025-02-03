@@ -172,6 +172,7 @@ class WinLossDetailViewNew extends BaseReportView {
 
                 this.usernameAutoSuggestionComponent.resetUsername();
                 delete this.globalFormData.username;
+                delete this.globalFormData.levelType;
 
                 const dateRange = this.dateRangePickerComponent.getDateRangeValues();
                 const activeWeek = this.weekSelectionComponent.getActiveWeek();
@@ -394,6 +395,7 @@ class WinLossDetailViewNew extends BaseReportView {
 
             this.usernameAutoSuggestionComponent.resetUsername();
             delete this.globalFormData.username;
+            delete this.globalFormData.levelType;
 
             const $this = $(e.target);
             const dateRange = this.dateRangePickerComponent.getDateRangeValues();
@@ -532,9 +534,9 @@ class WinLossDetailViewNew extends BaseReportView {
             levelTypeDropdownContainer.hide();
         } else if (custLevel === 3 || custLevel === 4) {
             const masterAgentText = window.levelTypeText[custLevel];
-            if (this.levelTypeDropdown.selectedValue === "1") {
-                // update button text
-                levelTypeDropdownContainer.find('.multiselect-selected-text').text(masterAgentText);
+            if (this.levelTypeDropdown.selectedValue !== "0") {
+                // update selected value to All
+                this.levelTypeDropdown.setSelectedValue("0");
             }
 
             // update option text

@@ -207,6 +207,14 @@ var SingleSelectionDropdownComponent = /** @class */ (function () {
                 _this.options.onChange();
             }
         };
+        this.setSelectedValue = function (value, triggerOnChange) {
+            if (triggerOnChange === void 0) { triggerOnChange = false; }
+            _this.$dropdown.multiselect("select", value, triggerOnChange);
+            _this.$dropdown.multiselect("refresh");
+            if (!triggerOnChange) {
+                _this.selectedValue = value;
+            }
+        };
         this.$ = $;
     }
     return SingleSelectionDropdownComponent;
@@ -573,7 +581,13 @@ var CommissionByBettype = /** @class */ (function (_super) {
             _this.registerEvents();
             _this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type"));
             _this.dateRangePicker.render();
-            _this.sorter.render(new SortOption(_this.$tableReport, parseInt(_this.$tableReport.data("totalrecords"), 0) > 1, true, _this.sorter.afterSort, { 0: { sorter: "text" } }));
+            var sortHeaders = {
+                0: { sorter: "text" }
+            };
+            if (_this.levelTypeDropdown.$dropdown.length) {
+                sortHeaders[1] = { sorter: "text" };
+            }
+            _this.sorter.render(new SortOption(_this.$tableReport, parseInt(_this.$tableReport.data("totalrecords"), 0) > 1, true, _this.sorter.afterSort, sortHeaders));
             _this.$tableReport.stickyTableHeaders();
             _this.initHelp();
         };

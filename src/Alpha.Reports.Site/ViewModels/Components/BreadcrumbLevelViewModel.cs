@@ -34,7 +34,8 @@
                     { "CustId", model.CustId },
                     { "CustName", model.CustName },
                     { "CustLevelId", model.CustLevelId },
-                    { "BreadcrumbLevelJson", BreadcrumbLevelJson }
+                    { "BreadcrumbLevelJson", BreadcrumbLevelJson },
+                    { "LevelType", 0 }
                 });
         }
     }

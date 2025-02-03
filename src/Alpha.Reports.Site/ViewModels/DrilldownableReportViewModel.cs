@@ -43,7 +43,8 @@
                 new Dictionary<string, object>(routeValues)
                 {
                     { "CustLevelId", CustLevel.GetDirectDownLineLevel().Value },
-                    { "BreadcrumbLevelJson", BreadcrumbLevelJson }
+                    { "BreadcrumbLevelJson", BreadcrumbLevelJson },
+                    { "LevelType", 0 }
                 });
         }
 

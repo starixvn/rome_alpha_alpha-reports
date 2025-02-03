@@ -708,6 +708,14 @@ var SingleSelectionDropdownComponent = /** @class */ (function () {
                 _this.options.onChange();
             }
         };
+        this.setSelectedValue = function (value, triggerOnChange) {
+            if (triggerOnChange === void 0) { triggerOnChange = false; }
+            _this.$dropdown.multiselect("select", value, triggerOnChange);
+            _this.$dropdown.multiselect("refresh");
+            if (!triggerOnChange) {
+                _this.selectedValue = value;
+            }
+        };
         this.$ = $;
     }
     return SingleSelectionDropdownComponent;
@@ -991,7 +999,13 @@ var WinLossView = /** @class */ (function (_super) {
         };
         _this.bindSorting = function () {
             var canSort = parseInt(_this.$tableReport.data("totalrecords"), 0) > 1;
-            _this.sortComponent.render(new SortOption(_this.$tableReport, canSort, true, _this.sortComponent.afterSort, { 0: { sorter: "text" } }));
+            var sortHeaders = {
+                0: { sorter: "text" }
+            };
+            if (_this.levelTypeDropdown.$dropdown.length) {
+                sortHeaders[1] = { sorter: "text" };
+            }
+            _this.sortComponent.render(new SortOption(_this.$tableReport, canSort, true, _this.sortComponent.afterSort, sortHeaders));
         };
         _this.onFilterEvent = function () {
             var currentHideState = _this.$reportForm.hasClass("hide");

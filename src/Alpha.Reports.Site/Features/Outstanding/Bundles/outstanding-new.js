@@ -594,6 +594,14 @@ var SingleSelectionDropdownComponent = /** @class */ (function () {
                 _this.options.onChange();
             }
         };
+        this.setSelectedValue = function (value, triggerOnChange) {
+            if (triggerOnChange === void 0) { triggerOnChange = false; }
+            _this.$dropdown.multiselect("select", value, triggerOnChange);
+            _this.$dropdown.multiselect("refresh");
+            if (!triggerOnChange) {
+                _this.selectedValue = value;
+            }
+        };
         this.$ = $;
     }
     return SingleSelectionDropdownComponent;

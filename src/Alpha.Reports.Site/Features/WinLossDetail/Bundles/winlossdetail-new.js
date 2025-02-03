@@ -207,6 +207,14 @@ var SingleSelectionDropdownComponent = /** @class */ (function () {
                 _this.options.onChange();
             }
         };
+        this.setSelectedValue = function (value, triggerOnChange) {
+            if (triggerOnChange === void 0) { triggerOnChange = false; }
+            _this.$dropdown.multiselect("select", value, triggerOnChange);
+            _this.$dropdown.multiselect("refresh");
+            if (!triggerOnChange) {
+                _this.selectedValue = value;
+            }
+        };
         this.$ = $;
     }
     return SingleSelectionDropdownComponent;
@@ -1147,6 +1155,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             }
             _this.usernameAutoSuggestionComponent.resetUsername();
             delete _this.globalFormData.username;
+            delete _this.globalFormData.levelType;
             var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
             var activeWeek = _this.weekSelectionComponent.getActiveWeek();
             $.extend(_this.globalFormData, dateRange, activeWeek, breadcrumbData);
@@ -1358,6 +1367,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             }
             _this.usernameAutoSuggestionComponent.resetUsername();
             delete _this.globalFormData.username;
+            delete _this.globalFormData.levelType;
             var $this = $(e.target);
             var dateRange = _this.dateRangePickerComponent.getDateRangeValues();
             var activeWeek = _this.weekSelectionComponent.getActiveWeek();
@@ -1483,9 +1493,9 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         }
         else if (custLevel === 3 || custLevel === 4) {
             var masterAgentText = window.levelTypeText[custLevel];
-            if (this.levelTypeDropdown.selectedValue === "1") {
-                // update button text
-                levelTypeDropdownContainer.find('.multiselect-selected-text').text(masterAgentText);
+            if (this.levelTypeDropdown.selectedValue !== "0") {
+                // update selected value to All
+                this.levelTypeDropdown.setSelectedValue("0");
             }
             // update option text
             this.levelTypeDropdown.$dropdown.find('option[value="1"]').text(masterAgentText);

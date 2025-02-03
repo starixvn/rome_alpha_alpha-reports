@@ -72,6 +72,7 @@
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
     @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
     @Html.Hidden("IsPostBack", "true")
+    @Html.Hidden("LevelType", Model.FilterViewModel.LevelType)
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)

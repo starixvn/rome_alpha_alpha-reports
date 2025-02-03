@@ -2,6 +2,7 @@
 "use strict";
 interface JQuery {
     multiselect(option: any): void;
+    multiselect(method: string, value: any, optionParam: any): void;
 }
 
 class SingleSelectionDropdownOption {
@@ -68,6 +69,14 @@ class SingleSelectionDropdownComponent {
 
         if (this.options.onChange) {
             this.options.onChange();
+        }
+    };
+
+    setSelectedValue = (value, triggerOnChange = false) => {
+        this.$dropdown.multiselect("select", value, triggerOnChange);
+        this.$dropdown.multiselect("refresh");
+        if (!triggerOnChange) {
+            this.selectedValue = value;
         }
     };
 }
