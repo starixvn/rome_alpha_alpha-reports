@@ -1209,4 +1209,13 @@
   <data name="Search" xml:space="preserve">
     <value>Tìm kiếm</value>
   </data>
+  <data name="DownlineTotal" xml:space="preserve">
+    <value>Tổng Giao Dịch Của Cấp Dưới</value>
+  </data>
+  <data name="DirectMember" xml:space="preserve">
+    <value>Member Trực Tiếp</value>
+  </data>
+  <data name="Guidelines_TransferAmt_DirectMember" xml:space="preserve">
+    <value>tổng số tiền chuyển khoản giữa Cấp Trên Trực Tiếp và Member. Nhấn vào để xem chi tiết chuyển khoản.</value>
+  </data>
 </root>

@@ -231,7 +231,6 @@ class WinLossDetailViewNew extends BaseReportView {
             if (isRebuildBreadcrumb) {
                 const breadcrumbs = this.buildBreadcrumbs();
                 this.breadcrumbLevelComponent.setBreadcrumbs(breadcrumbs);
-                breadcrumbs.length && this.showHideLevelTypeFilter(breadcrumbs[breadcrumbs.length - 1].custLevelId);
             } else {
                 this.breadcrumbLevelComponent.render();
             }

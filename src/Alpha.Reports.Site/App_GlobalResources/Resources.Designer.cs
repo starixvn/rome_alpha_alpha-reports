@@ -1213,7 +1213,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In Agent&apos;s view: the commission (without PT) that Master can receive from upline on each Agent, Master Direct Member..
+        ///   Looks up a localized string similar to In Agent list: the commission (without PT) that Master can receive from upline on each Agent or Master Direct Member..
         /// </summary>
         public static string GrossCommNoteForAgent {
             get {
@@ -1258,7 +1258,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In Master&apos;s view: the commission (without PT) that Super can receive from upline on each Master, Super Direct Member..
+        ///   Looks up a localized string similar to In Master list: the commission (without PT) that Super can receive from Company on each Master or Super Direct Member..
         /// </summary>
         public static string GrossCommNoteForMaster {
             get {
@@ -1267,7 +1267,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In Member&apos;s view: the commission (without PT) that Agent can receive from upline on each Member..
+        ///   Looks up a localized string similar to In Member list: the commission (without PT) that Agent can receive from upline on each Member..
         /// </summary>
         public static string GrossCommNoteForMember {
             get {

@@ -811,13 +811,13 @@
     <value>คุณไม่มีอำนาจในการเข้าใช้งานฟังก์ชันนี้</value>
   </data>
   <data name="GrossCommNoteForMember" xml:space="preserve">
-    <value>การดูรายงานในระดับสมาชิก: ค่าคอมมิชชั่นรวมคือจำนวนเงิน (โดยไม่มีค่าความเสี่ยง) ที่เอเย่นต์สามารถได้รับจากอัพไลน์ในสมาชิกแต่ละราย</value>
+    <value>ในรายชื่อสมาชิก: คอมมิชชั่น (ไม่รวมค่าความเสี่ยง) ที่เอเจ้นท์ได้รับจากอัพไลน์ในสมาชิกแต่ละราย</value>
   </data>
   <data name="GrossCommNoteForAgent" xml:space="preserve">
-    <value>การดูรายงานที่ระดับเอเจนต์ ค่าคอมมิชชั่นรวมคือจำนวนเงิน (โดยไม่มี PT) ที่มาสเตอร์สามารถได้รับจากอัพไลน์ในเอเจนต์แต่ละราย</value>
+    <value>ในรายชื่อเอเจ้นท์: คอมมิชชั่น (ไม่รวมค่าความเสี่ยง) ที่มาสเตอร์สามารถได้รับจากอัพไลน์ของตัวแทนระดับเอเจ้นท์แต่ละราย หรือสมาชิกโดยตรงของมาสเตอร์</value>
   </data>
   <data name="GrossCommNoteForMaster" xml:space="preserve">
-    <value>การดูรายงานในระดับ มาสเตอร์: ค่าคอมมิชชั่นรวมคือจำนวนเงิน (โดยไม่มี PT) ที่ ซุปเปอร์สามารถได้รับจากอัพไลน์ในมาสเตอร์แต่ละราย</value>
+    <value>ในรายชื่อมาสเตอร์: คอมมิชชั่น (ไม่รวมค่าความเสี่ยง) ที่ซุปเปอร์สามารถได้รับจากบริษัท ในตัวแทนระดับมาสเตอร์แต่ละราย หรือสมาชิกโดยตรงของซุปเปอร์</value>
   </data>
   <data name="GrossCommNoteForConsolidationReportAgent" xml:space="preserve">
     <value>ดูรายงานที่ระดับเอเจนต์: ค่าคอมมิชชั่น (โดยไม่มี PT) ที่เอเจนต์สามารถได้รับจากอัพไลน์</value>
@@ -1154,5 +1154,17 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>ค้นหา</value>
+  </data>
+  <data name="MasterAgent" xml:space="preserve">
+    <value>รายชื่อตัวแทนหลัก</value>
+  </data>
+  <data name="DownlineTotal" xml:space="preserve">
+    <value>ดาวน์ไลน์ทั้งหมด</value>
+  </data>
+  <data name="DirectMember" xml:space="preserve">
+    <value>สมาชิกโดยตรง</value>
+  </data>
+  <data name="Guidelines_TransferAmt_DirectMember" xml:space="preserve">
+    <value>จำนวนเงินโอนทั้งหมดระหว่างอัพไลน์และสมาชิกโดยตรง คลิ๊กเพื่อดูรายละเอียดการโอนเงิน</value>
   </data>
 </root>

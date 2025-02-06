@@ -814,13 +814,13 @@
     <value>您没有使用此功能的权限</value>
   </data>
   <data name="GrossCommNoteForMember" xml:space="preserve">
-    <value>在会员级别查看报告：总佣金是代理可以从上线获取的数额(不包括占成)予每一个会员</value>
+    <value>在会员名单：代理可以从上线收到佣金（不含占成）在于每个会员。</value>
   </data>
   <data name="GrossCommNoteForAgent" xml:space="preserve">
-    <value>在代理级别查看报告：总佣金是总代理可以从上线获取的数额(不包括占成)予每一个代理</value>
+    <value>在代理名单：总代理可以从上线收到佣金（不含占成）在于每个代理或是总代理直系会员。</value>
   </data>
   <data name="GrossCommNoteForMaster" xml:space="preserve">
-    <value>在总代理级别查看报告：总佣金是超级总代理可以从上线获取的数额(不包括占成)予每一个总代理</value>
+    <value>在总代理名单：超级总代理可以从公司收到佣金（不含占成）在于每个总代理或是超级总代理直系会员。</value>
   </data>
   <data name="GrossCommNoteForConsolidationReportAgent" xml:space="preserve">
     <value>在代理级别查看报告：总佣金是代理可以从上线获取的总额(不包括占成)</value>
@@ -1154,5 +1154,17 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>搜寻</value>
+  </data>
+  <data name="MasterAgent" xml:space="preserve">
+    <value>总代理</value>
+  </data>
+  <data name="DownlineTotal" xml:space="preserve">
+    <value>下线总数</value>
+  </data>
+  <data name="DirectMember" xml:space="preserve">
+    <value>直系会员</value>
+  </data>
+  <data name="Guidelines_TransferAmt_DirectMember" xml:space="preserve">
+    <value>直系上线与会员之间的转账总额。点击查看转账细节。</value>
   </data>
 </root>

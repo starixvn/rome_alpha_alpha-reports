@@ -898,13 +898,13 @@
     <value>You are not authorized on this function.</value>
   </data>
   <data name="GrossCommNoteForMember" xml:space="preserve">
-    <value>In Member's view: the commission (without PT) that Agent can receive from upline on each Member.</value>
+    <value>In Member list: the commission (without PT) that Agent can receive from upline on each Member.</value>
   </data>
   <data name="GrossCommNoteForAgent" xml:space="preserve">
-    <value>In Agent's view: the commission (without PT) that Master can receive from upline on each Agent, Master Direct Member.</value>
+    <value>In Agent list: the commission (without PT) that Master can receive from upline on each Agent or Master Direct Member.</value>
   </data>
   <data name="GrossCommNoteForMaster" xml:space="preserve">
-    <value>In Master's view: the commission (without PT) that Super can receive from upline on each Master, Super Direct Member.</value>
+    <value>In Master list: the commission (without PT) that Super can receive from Company on each Master or Super Direct Member.</value>
   </data>
   <data name="GrossCommNoteForConsolidationReportAgent" xml:space="preserve">
     <value>Viewing at Agent level: the commission (without PT) that Agent can receive from upline.</value>

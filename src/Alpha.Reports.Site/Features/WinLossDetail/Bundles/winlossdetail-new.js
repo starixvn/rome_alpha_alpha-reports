@@ -1211,7 +1211,6 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             if (isRebuildBreadcrumb) {
                 var breadcrumbs = _this.buildBreadcrumbs();
                 _this.breadcrumbLevelComponent.setBreadcrumbs(breadcrumbs);
-                breadcrumbs.length && _this.showHideLevelTypeFilter(breadcrumbs[breadcrumbs.length - 1].custLevelId);
             }
             else {
                 _this.breadcrumbLevelComponent.render();
