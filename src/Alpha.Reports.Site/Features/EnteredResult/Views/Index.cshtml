@@ -11,10 +11,11 @@
 
 @section Styles {
     @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/enteredresult")
-    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/EnteredResult/bundles-v2/enteredresult")}
-
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, true, Enumerable.Empty<CustInfo>(), string.Empty), hasEnterOrNonEnterNote: true, enteredSportResult: Model.TotalEnteredSport, isHistoricReport: Model.IsHistoricReport)
-
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}/Features/EnteredResult/bundles-v2/enteredresult")
+}
+<div class="title-has-entered">
+    @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, true, Enumerable.Empty<CustInfo>(), string.Empty), hasEnterOrNonEnterNote: true, enteredSportResult: Model.TotalEnteredSport, isHistoricReport: Model.IsHistoricReport)
+</div>
 @Html.Partial("~/Features/EnteredResult/Views/Filter.cshtml", Model.FilterViewModel)
 
 <table class="tb tb-bordered tb-hover tablesorter w-full" id="tbl-enteredresult-report"
@@ -26,7 +27,7 @@
             <th colspan="2">@DateTime.Now.ToShortDateWithSlash()</th>
         </tr>
         <tr class="thead-row2">
-            <th class="sorting" data-colindex="0">@Resources.Results</th>
+            <th class="sorting has-border" data-colindex="0">@Resources.Results</th>
             <th class="sorting width-17per" data-colindex="1">@Resources.Entered</th>
             <th class="sorting width-17per" data-colindex="2">@Resources.NonEntered</th>
             <th class="sorting width-17per" data-colindex="3">@Resources.Entered</th>

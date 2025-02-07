@@ -4,6 +4,7 @@
     ViewBag.Title = Resources.MoveStatementHistory;
 
     var userguideLink = Model.GetUserGuideLink(Session.IsCookieless, Request.Headers["Host"], Session.SessionID);
+    var level = Model.CustLevel.ToLowerInvariant();
 }
 
 @model MoveStatementHistoryViewModel
@@ -14,7 +15,7 @@
 @section Scripts {
     @StaticResources.RenderScripts($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Features/BetCreditTracking/Bundles/movestatementhistory")
 }
-<div class="page-title tabs agent @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
+<div class="page-title tabs @level @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation">
             @Html.ActionLink(@Resources.BetCreditHistory, "Index", $"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}BetCreditHistory")

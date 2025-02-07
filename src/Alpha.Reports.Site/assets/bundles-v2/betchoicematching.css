@@ -45,7 +45,7 @@
 .tb tbody .row-total {
   font-weight: bold; }
 
-.tb tbody tr td.col-superwinloss, .tb tbody tr td.altercol {
+.tb tbody tr td.col-superwinloss {
   background-color: var(--bcm-col-superwinloss-background); }
 
 .tb tbody tr.row-bet-choice {

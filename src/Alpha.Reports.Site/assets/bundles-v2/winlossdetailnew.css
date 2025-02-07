@@ -124,14 +124,8 @@
   font-size: 16px;
   color: #919191; }
 
-.tb tr.tbl-footer td.altercol {
-  background: var(--tb-col-altercol-footer); }
-
 .tb tr td a {
   color: #118AF2 !important; }
-
-.tb tr td.altercol {
-  background: var(--tb-col-altercol); }
 
 .tb tr td.col-product {
   padding-left: 20px; }
@@ -154,12 +148,16 @@
       content: '>>';
       padding: 0 10px 0 50px; }
 
-.tb tr.product-row td, .tb tr.sport-row td, .tb tr.username-row td {
+.tb tr.sport-row td {
   background: var(--tb-total-row-background);
   font-weight: bold; }
 
-.tb tr.sub-total-row td, .tb tr.consolidation-pt-row td {
+.tb tr.consolidation-pt-row td {
   background: var(--tb-sub-total-row-background);
+  font-weight: bold; }
+
+.tb tr.username-row td, .tb tr.sub-total-row td, .tb tr.product-row td, .tb tr.pt-row td {
+  background: var(--tb-total-row-background);
   font-weight: bold; }
 
 .tb .username-row .username-col {
@@ -177,8 +175,6 @@
 
 .tb .pt-row {
   cursor: pointer; }
-  .tb .pt-row td {
-    background: var(--tb-sub-total-row-background); }
   .tb .pt-row .col-username {
     width: 20%; }
 

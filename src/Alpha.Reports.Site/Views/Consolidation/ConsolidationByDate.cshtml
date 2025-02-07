@@ -8,11 +8,11 @@
     @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/consolidation")
     @StaticResources.RenderStyles("~/assets/bundles-v2/winlossdetailnew")
 }
-
+<div class="title-has-entered">
 @ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query,
     hasEnterOrNonEnterNote: true,
     enteredSportResult: Model.TotalEnteredSport)
-
+</div>
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
     {
