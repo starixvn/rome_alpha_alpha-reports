@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Alpha.Reports.Constants;
     using Alpha.Reports.Criteria;
     using Alpha.Reports.Enumerations;
     using Alpha.Reports.Models;
@@ -50,6 +51,19 @@
                 return new CustInfo(customerLevel.MasterId.Value, customerLevel.MasterName, UserLevel.Master.Value);
             }
 
+            if (custLevel.IsMemberLevel())
+            {
+                if (customerLevel.AgentId == DirectMemberAgentIds.Super)
+                {
+                    return new CustInfo(customerLevel.SuperId, customerLevel.SuperName, UserLevel.Super.Value);
+                }
+
+                if (customerLevel.AgentId == DirectMemberAgentIds.Master)
+                {
+                    return new CustInfo(customerLevel.MasterId.Value, customerLevel.MasterName, UserLevel.Master.Value);
+                }
+            }
+
             if (customerLevel.AgentId.HasValue)
             {
                 return new CustInfo(customerLevel.AgentId.Value, customerLevel.AgentName, UserLevel.Agent.Value);
@@ -87,7 +101,7 @@
                 }
             }
 
-            if (custLevel.IsMemberLevel() && customerLevel.AgentId.HasValue)
+            if (custLevel.IsMemberLevel() && customerLevel.AgentId > 0)
             {
                 custInfoList.Add(new CustInfo(customerLevel.AgentId.Value, customerLevel.AgentName, UserLevel.Agent.Value));
             }

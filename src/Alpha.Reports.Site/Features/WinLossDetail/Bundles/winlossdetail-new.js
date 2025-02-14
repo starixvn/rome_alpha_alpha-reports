@@ -1113,7 +1113,8 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         }));
         this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type", "LevelType", function () {
             if (_this.builGlobalFormData(undefined, undefined, _this.levelTypeDropdown.selectedValue)) {
-                _this.getWinLossDetailDataAndRenderWeekRange();
+                var isRebuildBreadcrumb = _this.globalFormData.username && _this.globalFormData.username.length > 0;
+                _this.getWinLossDetailDataAndRenderWeekRange(isRebuildBreadcrumb);
             }
         }));
         this.usernameAutoSuggestionComponent.init(new UsernameAutoSuggestionOption($("#hiddenUsernameAutoSuggestionUrl").val(), false, true, function () {
@@ -1162,7 +1163,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             _this.getWinLossDetailWeeks();
             _this.getWinLossDetailData(function () {
                 _this.breadcrumbLevelComponent.removeBreadcrumbLevel(breadcrumbData.custLevelId);
-                _this.showHideLevelTypeFilter(breadcrumbData.custLevelId);
+                _this.showHideLevelTypeFilterAndResetToAll(breadcrumbData.custLevelId);
                 _this.updateCurrentUrl();
             });
         }, window.reportTitle));
@@ -1210,7 +1211,12 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         this.getWinLossDetailData(function () {
             if (isRebuildBreadcrumb) {
                 var breadcrumbs = _this.buildBreadcrumbs();
-                _this.breadcrumbLevelComponent.setBreadcrumbs(breadcrumbs);
+                var breadcrumbsLength = breadcrumbs.length;
+                if (breadcrumbsLength) {
+                    var currentBreadcrumb = breadcrumbs[breadcrumbsLength - 1];
+                    _this.showHideLevelTypeFilter(currentBreadcrumb.custLevelId);
+                    _this.breadcrumbLevelComponent.setBreadcrumbs(breadcrumbs);
+                }
             }
             else {
                 _this.breadcrumbLevelComponent.render();
@@ -1373,14 +1379,13 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             var breadcrumbData = {
                 custId: $this.data("custid"),
                 custName: $this.data("custname"),
-                custLevelId: $this.data("custlevelid"),
-                breadcrumbLevelJson: JSON.stringify(_this.breadcrumbLevelComponent.getBreadcrumbs())
+                custLevelId: $this.data("custlevelid")
             };
-            $.extend(_this.globalFormData, dateRange, activeWeek, breadcrumbData);
+            $.extend(_this.globalFormData, dateRange, activeWeek, breadcrumbData, { breadcrumbLevelJson: JSON.stringify(_this.breadcrumbLevelComponent.getBreadcrumbs()) });
             _this.getWinLossDetailWeeks();
             _this.getWinLossDetailData(function () {
                 _this.breadcrumbLevelComponent.addBreadcrumbLevel(breadcrumbData);
-                _this.showHideLevelTypeFilter(breadcrumbData.custLevelId);
+                _this.showHideLevelTypeFilterAndResetToAll(breadcrumbData.custLevelId);
                 _this.updateCurrentUrl();
             });
             _this.tableReport.find(".ic-dormant-accounts").tooltip();
@@ -1486,6 +1491,27 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
         delete this.globalFormData.weekToDate;
     };
     WinLossDetailViewNew.prototype.showHideLevelTypeFilter = function (custLevel) {
+        var levelTypeDropdownContainer = this.levelTypeDropdown.$dropdown.closest('.level-multiselect-container');
+        if (custLevel === 2) {
+            levelTypeDropdownContainer.hide();
+        }
+        else if (custLevel === 3 || custLevel === 4) {
+            var masterAgentText = window.levelTypeText[custLevel];
+            //if (this.levelTypeDropdown.selectedValue !== "0") {
+            //    // update selected value to All
+            //    this.levelTypeDropdown.setSelectedValue("0");
+            //}
+            // update option text
+            this.levelTypeDropdown.$dropdown.find('option[value="1"]').text(masterAgentText);
+            // update dropdown text
+            var label = levelTypeDropdownContainer.find('.dropdown-menu').find('input[type="radio"][value="1"]').parent();
+            label.contents().filter(function () {
+                return this.nodeType === 3; /* Node type 3 is a text node */
+            }).first().replaceWith(masterAgentText);
+            levelTypeDropdownContainer.show();
+        }
+    };
+    WinLossDetailViewNew.prototype.showHideLevelTypeFilterAndResetToAll = function (custLevel) {
         var levelTypeDropdownContainer = this.levelTypeDropdown.$dropdown.closest('.level-multiselect-container');
         if (custLevel === 2) {
             levelTypeDropdownContainer.hide();

@@ -184,8 +184,6 @@
 
                 if (isValidUsername)
                 {
-                    var custInfo = customerService.GetCustInfo(customerLevel);
-
                     var nickname = message.ViewerLevel.IsDirectUplineOf(customerLevel.RoleId)
                         ? customerLevel.Username2
                         : string.Empty;
@@ -196,11 +194,21 @@
                         customerLevel.LastName,
                         nickname);
 
+                    CustInfo custInfo;
+                    if (message.LevelType == 0)
+                    {
+                        custInfo = customerService.GetCustInfo(customerLevel);
+                        message.BreadcrumbLevel = customerService.GetCustInfoList(customerLevel, message.ViewerLevel).ToList();
+                    }
+                    else
+                    {
+                        custInfo = new CustInfo(message.ViewerId, message.CustName, message.ViewerLevelId);
+                        message.BreadcrumbLevel = new[] { custInfo };
+                    }
+
                     message.CustId = custInfo.CustId;
                     message.CustName = custInfo.CustName;
                     message.CustLevelId = custInfo.CustLevelId;
-
-                    message.BreadcrumbLevel = customerService.GetCustInfoList(customerLevel, message.ViewerLevel).ToList();
                 }
             }
 

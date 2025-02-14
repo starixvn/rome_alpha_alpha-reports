@@ -257,6 +257,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\SiteSettings.cs" />
+    <Compile Include="Constants\DirectMemberAgentIds.cs" />
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Constants\ProductDetaiIdConstants.cs" />
     <Compile Include="Criteria\BetChoiceMatching\BetChoiceMatchingCriteria.cs" />

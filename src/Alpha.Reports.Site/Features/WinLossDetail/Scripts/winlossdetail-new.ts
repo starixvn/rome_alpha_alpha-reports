@@ -115,7 +115,8 @@ class WinLossDetailViewNew extends BaseReportView {
 
         this.levelTypeDropdown.render(new SingleSelectionDropdownOption("dropdown-level-type", "LevelType", () => {
             if (this.builGlobalFormData(undefined, undefined, this.levelTypeDropdown.selectedValue)) {
-                this.getWinLossDetailDataAndRenderWeekRange();
+                const isRebuildBreadcrumb = this.globalFormData.username && this.globalFormData.username.length > 0;
+                this.getWinLossDetailDataAndRenderWeekRange(isRebuildBreadcrumb);
             }
         }));
 
@@ -180,7 +181,7 @@ class WinLossDetailViewNew extends BaseReportView {
                 this.getWinLossDetailWeeks();
                 this.getWinLossDetailData(() => {
                     this.breadcrumbLevelComponent.removeBreadcrumbLevel(breadcrumbData.custLevelId);
-                    this.showHideLevelTypeFilter(breadcrumbData.custLevelId);
+                    this.showHideLevelTypeFilterAndResetToAll(breadcrumbData.custLevelId);
                     this.updateCurrentUrl();
                 });
             },
@@ -230,7 +231,12 @@ class WinLossDetailViewNew extends BaseReportView {
         this.getWinLossDetailData(() => {
             if (isRebuildBreadcrumb) {
                 const breadcrumbs = this.buildBreadcrumbs();
-                this.breadcrumbLevelComponent.setBreadcrumbs(breadcrumbs);
+                const breadcrumbsLength = breadcrumbs.length;
+                if (breadcrumbsLength) {
+                    const currentBreadcrumb = breadcrumbs[breadcrumbsLength - 1];
+                    this.showHideLevelTypeFilter(currentBreadcrumb.custLevelId);
+                    this.breadcrumbLevelComponent.setBreadcrumbs(breadcrumbs);
+                }
             } else {
                 this.breadcrumbLevelComponent.render();
             }
@@ -402,15 +408,14 @@ class WinLossDetailViewNew extends BaseReportView {
             const breadcrumbData = {
                 custId: $this.data("custid"),
                 custName: $this.data("custname"),
-                custLevelId: $this.data("custlevelid"),
-                breadcrumbLevelJson: JSON.stringify(this.breadcrumbLevelComponent.getBreadcrumbs())
+                custLevelId: $this.data("custlevelid")
             };
-            $.extend(this.globalFormData, dateRange, activeWeek, breadcrumbData);
+            $.extend(this.globalFormData, dateRange, activeWeek, breadcrumbData, { breadcrumbLevelJson: JSON.stringify(this.breadcrumbLevelComponent.getBreadcrumbs()) });
 
             this.getWinLossDetailWeeks();
             this.getWinLossDetailData(() => {
                 this.breadcrumbLevelComponent.addBreadcrumbLevel(breadcrumbData);
-                this.showHideLevelTypeFilter(breadcrumbData.custLevelId);
+                this.showHideLevelTypeFilterAndResetToAll(breadcrumbData.custLevelId);
                 this.updateCurrentUrl();
             });
 
@@ -527,6 +532,31 @@ class WinLossDetailViewNew extends BaseReportView {
     }
 
     private showHideLevelTypeFilter(custLevel: number) {
+        const levelTypeDropdownContainer = this.levelTypeDropdown.$dropdown.closest('.level-multiselect-container');
+
+        if (custLevel === 2) {
+            levelTypeDropdownContainer.hide();
+        } else if (custLevel === 3 || custLevel === 4) {
+            const masterAgentText = window.levelTypeText[custLevel];
+            //if (this.levelTypeDropdown.selectedValue !== "0") {
+            //    // update selected value to All
+            //    this.levelTypeDropdown.setSelectedValue("0");
+            //}
+
+            // update option text
+            this.levelTypeDropdown.$dropdown.find('option[value="1"]').text(masterAgentText);
+
+            // update dropdown text
+            const label = levelTypeDropdownContainer.find('.dropdown-menu').find('input[type="radio"][value="1"]').parent();
+            label.contents().filter(function () {
+                return this.nodeType === 3; /* Node type 3 is a text node */
+            }).first().replaceWith(masterAgentText);
+
+            levelTypeDropdownContainer.show();
+        }
+    }
+
+    private showHideLevelTypeFilterAndResetToAll(custLevel: number) {
         const levelTypeDropdownContainer = this.levelTypeDropdown.$dropdown.closest('.level-multiselect-container');
 
         if (custLevel === 2) {
