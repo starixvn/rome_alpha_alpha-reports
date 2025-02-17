@@ -12,7 +12,7 @@
         <input type="text" style="width: 200px;" autocomplete="off" name="Username" value="@Model.Username" placeholder="@Resources.Username" />
     </div>
     @MonthPicker.Render(Model.MonthPickerViewModel, true);
-    <div class="form-group form-group-short"><input type="submit" value="@Resources.Submit" class="btn-submit" id="btn-submit" /></div>
+    <div class="form-group"><input type="submit" value="@Resources.Submit" class="btn-submit" id="btn-submit" /></div>
     <div class="form-group"><span id="icon-excel" class="ic-excel" title="@Resources.ExportToExcel"></span></div>
     <div class="note-box">
         <p class="note"><span class="star">*</span>@Model.ViewDataInstructionMessage</p>

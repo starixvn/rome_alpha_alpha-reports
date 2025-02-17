@@ -12,6 +12,9 @@
   #tbl-enteredresult-report {
     width: 60%; } }
 
+.width-17per {
+  width: 17%; }
+
 .tb {
   text-align: right; }
   .tb thead .total-row {
