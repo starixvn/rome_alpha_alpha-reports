@@ -1125,6 +1125,7 @@ var WinLossDetailViewNew = /** @class */ (function (_super) {
             delete _this.globalFormData.custName;
             delete _this.globalFormData.custLevelId;
             delete _this.globalFormData.breadcrumbLevelJson;
+            _this.levelTypeDropdown.setSelectedValue("0");
             if (_this.builGlobalFormData(undefined, undefined, undefined, username)) {
                 _this.getWinLossDetailDataAndRenderWeekRange(true);
             }

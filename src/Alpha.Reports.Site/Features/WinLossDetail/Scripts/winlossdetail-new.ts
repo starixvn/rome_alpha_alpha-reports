@@ -132,6 +132,7 @@ class WinLossDetailViewNew extends BaseReportView {
                 delete this.globalFormData.custName;
                 delete this.globalFormData.custLevelId;
                 delete this.globalFormData.breadcrumbLevelJson;
+                this.levelTypeDropdown.setSelectedValue("0")
                 if (this.builGlobalFormData(undefined, undefined, undefined, username)) {
                     this.getWinLossDetailDataAndRenderWeekRange(true);
                 } else {

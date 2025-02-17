@@ -28,14 +28,9 @@
                   (Model.CustLevel.IsSuperLevel() ? Resources.TurnoverAbbr + Resources.GrossComAndMasterTotal : Resources.TurnoverAbbr + Resources.GrossComAndAgentTotal))
             </th>
 
-            @if (Model.CustLevel.IsSuperLevel())
+            @if (Model.CustLevel.IsMasterOrSuperLevel())
             {
-                <th rowspan="2" class="hidden-stack-mode">@Resources.MasterTotal</th>
-            }
-
-            @if (Model.CustLevel.IsMasterLevel())
-            {
-                <th rowspan="2" class="hidden-stack-mode">@Resources.AgentTotal</th>
+                <th rowspan="2" class="hidden-stack-mode">@Resources.DownlineTotal</th>
             }
 
             @if (Model.CustLevel.IsAgentLevel())
