@@ -13,8 +13,7 @@
   --tb-sub-total-row-background: #F1F1F1;
   --tb-match-title-color: #F6731B;
   --tb-match-title-background: #D3DAE2;
-  --tb-total-row-background: #D3DAE2;
-  --tb-match-title-background: #D3DAE2; }
+  --tb-total-row-background: #D3DAE2; }
 
 :root [data-theme='dark'] {
   --label-week-color: #C5C5C5;
@@ -30,7 +29,6 @@
   --icon-dormant-account-color: #41a4ff;
   --tb-sub-total-row-background: #404040;
   --tb-match-title-color: #D96518;
-  --tb-match-title-background: #323436;
   --tb-total-row-background: #41474F;
   --tb-match-title-background: #41474F; }
 
@@ -131,7 +129,8 @@
     display: inline-block;
     text-overflow: ellipsis;
     overflow: hidden;
-    vertical-align: middle; }
+    vertical-align: middle;
+    white-space: nowrap; }
   .tb .match-title-row .col-username {
     background: var(--tb-match-title-background); }
   .tb .match-title-row .match-title {
@@ -141,16 +140,18 @@
       padding: 0 10px 0 50px; }
 
 .tb tr.sport-row td {
-  background: var(--tb-total-row-background);
-  font-weight: bold; }
+  background: var(--tb-total-row-background); }
 
 .tb tr.consolidation-pt-row td {
-  background: var(--tb-sub-total-row-background);
-  font-weight: bold; }
+  background: var(--tb-sub-total-row-background); }
 
-.tb tr.username-row td, .tb tr.sub-total-row td, .tb tr.product-row td, .tb tr.pt-row td {
-  background: var(--tb-total-row-background);
+.tb tr.sub-total-row {
   font-weight: bold; }
+  .tb tr.sub-total-row td {
+    background: var(--tb-sub-total-row-background); }
+
+.tb tr.username-row td, .tb tr.product-row td, .tb tr.pt-row td {
+  background: var(--tb-total-row-background); }
 
 .tb .username-row .username-col {
   cursor: pointer;

@@ -14,7 +14,7 @@
     --tb-match-title-color: #F6731B;
     --tb-match-title-background: #D3DAE2;
     --tb-total-row-background: #D3DAE2;
-    --tb-match-title-background: #D3DAE2;
+  
 }
 
 :root [data-theme='dark'] {
@@ -31,7 +31,6 @@
     --icon-dormant-account-color: #41a4ff;
     --tb-sub-total-row-background: #404040;
     --tb-match-title-color: #D96518;
-    --tb-match-title-background: #323436;
     --tb-total-row-background: #41474F;
     --tb-match-title-background: #41474F;
 }
@@ -147,15 +146,10 @@
 
 .tb {
     tr {
-
-
         td {
             a {
                 color: #118AF2 !important;
             }
-
-
-
             &.col-product {
                 padding-left: 20px;
             }
@@ -173,6 +167,7 @@
             text-overflow: ellipsis;
             overflow: hidden;
             vertical-align: middle;
+            white-space: nowrap;
         }
 
         .col-username {
@@ -193,21 +188,29 @@
         &.sport-row {
             td {
                 background: var(--tb-total-row-background);
-                font-weight: bold;
+                 
             }
         }
 
         &.consolidation-pt-row {
             td {
                 background: var(--tb-sub-total-row-background);
-                font-weight: bold;
+                 
             }
         }
 
-        &.username-row, &.sub-total-row, &.product-row, &.pt-row {
+        &.sub-total-row {
+            font-weight: bold;
+            td {
+                background: var(--tb-sub-total-row-background);
+                
+            }
+        }
+
+        &.username-row, &.product-row, &.pt-row {
             td {
                 background: var(--tb-total-row-background);
-                font-weight: bold;
+                 
             }
         }
     }
