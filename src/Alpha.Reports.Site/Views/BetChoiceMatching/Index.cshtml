@@ -7,7 +7,7 @@
 
 @section Styles {
     @StaticResources.AssetStyles.Render("/bundles-v2/site-reports/betchoicematching")
-    @StaticResources.RenderStyles("~/assets/bundles-v2/betchoicematching")
+    @StaticResources.RenderStyles($"~/{Alpha.Reports.Configurations.SiteSettings.ReportRouting}assets/bundles-v2/betchoicematching")
 }
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.BetChoiceMatching, false, true, false, false, Enumerable.Empty<CustInfo>(), null), Request.Url.Query)
