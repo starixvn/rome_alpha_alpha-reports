@@ -150,6 +150,7 @@
             a {
                 color: #118AF2 !important;
             }
+
             &.col-product {
                 padding-left: 20px;
             }
@@ -188,29 +189,26 @@
         &.sport-row {
             td {
                 background: var(--tb-total-row-background);
-                 
             }
         }
 
         &.consolidation-pt-row {
             td {
                 background: var(--tb-sub-total-row-background);
-                 
             }
         }
 
         &.sub-total-row {
             font-weight: bold;
+
             td {
                 background: var(--tb-sub-total-row-background);
-                
             }
         }
 
         &.username-row, &.product-row, &.pt-row {
             td {
                 background: var(--tb-total-row-background);
-                 
             }
         }
     }
@@ -228,7 +226,7 @@
     }
 
     td {
-        &.Master, &.Agent, &.Member {
+        &.super, &.master, &.agent, &.member {
             border-left: 0 !important;
         }
     }

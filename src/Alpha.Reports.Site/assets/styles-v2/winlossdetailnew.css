@@ -1,4 +1,4 @@
-﻿:root, :root [data-theme='light'] {
+﻿:root, :root [data-theme=light] {
   --label-week-color: #727272;
   --label-week-background: #ffffff;
   --label-week-border: #ffffff;
@@ -13,9 +13,10 @@
   --tb-sub-total-row-background: #F1F1F1;
   --tb-match-title-color: #F6731B;
   --tb-match-title-background: #D3DAE2;
-  --tb-total-row-background: #D3DAE2; }
+  --tb-total-row-background: #D3DAE2;
+}
 
-:root [data-theme='dark'] {
+:root [data-theme=dark] {
   --label-week-color: #C5C5C5;
   --label-week-background: #373737;
   --label-week-border: #373737;
@@ -30,46 +31,54 @@
   --tb-sub-total-row-background: #404040;
   --tb-match-title-color: #D96518;
   --tb-total-row-background: #41474F;
-  --tb-match-title-background: #41474F; }
+  --tb-match-title-background: #41474F;
+}
 
 .label-week-box {
   margin-bottom: 10px;
   z-index: 2;
-  position: relative; }
-  .label-week-box .label-week {
-    display: inline-block;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 16px;
-    color: var(--label-week-color);
-    padding: 4px 10px;
-    margin: 0 10px 5px 0;
-    text-decoration: none;
-    border: 1px solid var(--label-week-border);
-    background: var(--label-week-background);
-    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
-    height: 24px; }
-    .label-week-box .label-week[disable], .label-week-box .label-week.disabled {
-      color: var(--label-week-disabled-color) !important;
-      background: var(--label-week-disabled-background) !important;
-      box-shadow: none;
-      border-color: var(--label-week-disabled-border) !important;
-      cursor: not-allowed; }
-    .label-week-box .label-week.active, .label-week-box .label-week:hover {
-      background: var(--label-week-active-background);
-      border: 1px solid var(--label-week-active-border);
-      color: var(--label-week-active-color); }
-    .label-week-box .label-week.active {
-      font-weight: bold; }
+  position: relative;
+}
+.label-week-box .label-week {
+  display: inline-block;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--label-week-color);
+  padding: 4px 10px;
+  margin: 0 10px 5px 0;
+  text-decoration: none;
+  border: 1px solid var(--label-week-border);
+  background: var(--label-week-background);
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  height: 24px;
+}
+.label-week-box .label-week[disable], .label-week-box .label-week.disabled {
+  color: var(--label-week-disabled-color) !important;
+  background: var(--label-week-disabled-background) !important;
+  box-shadow: none;
+  border-color: var(--label-week-disabled-border) !important;
+  cursor: not-allowed;
+}
+.label-week-box .label-week.active, .label-week-box .label-week:hover {
+  background: var(--label-week-active-background);
+  border: 1px solid var(--label-week-active-border);
+  color: var(--label-week-active-color);
+}
+.label-week-box .label-week.active {
+  font-weight: bold;
+}
 
 .flex {
   display: flex;
   flex-direction: column;
-  height: 100%; }
+  height: 100%;
+}
 
 .msg {
-  margin-top: 0; }
+  margin-top: 0;
+}
 
 .cover-week-selection {
   flex: 1;
@@ -79,118 +88,139 @@
   overflow: auto;
   padding-top: 32px;
   margin-top: -32px;
-  pointer-events: none; }
-  .cover-week-selection * {
-    pointer-events: auto; }
+  pointer-events: none;
+}
+.cover-week-selection * {
+  pointer-events: auto;
+}
 
 .wrapper-table-scrollable {
   flex: 1;
-  overflow: auto; }
+  overflow: auto;
+}
 
 .tb {
-  text-align: right; }
+  text-align: right;
+}
 
 .icon-stack-column, .icon-normal-column {
   display: block;
   width: 30px;
-  height: 30px; }
+  height: 30px;
+}
 
 .report-by {
-  margin-bottom: 10px; }
-  .report-by span {
-    padding-right: 10px;
-    display: inline-flex;
-    vertical-align: middle;
-    cursor: pointer; }
-  .report-by input[type="radio"] {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 4px; }
+  margin-bottom: 10px;
+}
+.report-by span {
+  padding-right: 10px;
+  display: inline-flex;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.report-by input[type=radio] {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 4px;
+}
 
 .text-icon .ic-infomartion {
-  color: var(--icon-dormant-account-color); }
-
+  color: var(--icon-dormant-account-color);
+}
 .text-icon .ic-plus-box, .text-icon .ic-mywatchlist {
   font-size: 16px;
-  color: #919191; }
+  color: #919191;
+}
 
 .tb tr td a {
-  color: #118AF2 !important; }
-
+  color: #118AF2 !important;
+}
 .tb tr td.col-product {
-  padding-left: 20px; }
-
+  padding-left: 20px;
+}
 .tb .match-title-row {
   text-align: left;
   text-transform: uppercase;
-  font-weight: bold; }
-  .tb .match-title-row .league-title {
-    width: 300px;
-    display: inline-block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    vertical-align: middle;
-    white-space: nowrap; }
-  .tb .match-title-row .col-username {
-    background: var(--tb-match-title-background); }
-  .tb .match-title-row .match-title {
-    color: var(--tb-match-title-color); }
-    .tb .match-title-row .match-title:before {
-      content: '>>';
-      padding: 0 10px 0 50px; }
-
+  font-weight: bold;
+}
+.tb .match-title-row .league-title {
+  width: 300px;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.tb .match-title-row .col-username {
+  background: var(--tb-match-title-background);
+}
+.tb .match-title-row .match-title {
+  color: var(--tb-match-title-color);
+}
+.tb .match-title-row .match-title:before {
+  content: ">>";
+  padding: 0 10px 0 50px;
+}
 .tb tr.sport-row td {
-  background: var(--tb-total-row-background); }
-
+  background: var(--tb-total-row-background);
+}
 .tb tr.consolidation-pt-row td {
-  background: var(--tb-sub-total-row-background); }
-
+  background: var(--tb-sub-total-row-background);
+}
 .tb tr.sub-total-row {
-  font-weight: bold; }
-  .tb tr.sub-total-row td {
-    background: var(--tb-sub-total-row-background); }
-
+  font-weight: bold;
+}
+.tb tr.sub-total-row td {
+  background: var(--tb-sub-total-row-background);
+}
 .tb tr.username-row td, .tb tr.product-row td, .tb tr.pt-row td {
-  background: var(--tb-total-row-background); }
-
+  background: var(--tb-total-row-background);
+}
 .tb .username-row .username-col {
   cursor: pointer;
   display: flex;
-  align-items: center; }
-  .tb .username-row .username-col [class^="ic-"], .tb .username-row .username-col [class*=" ic-"] {
-    font-size: 20px; }
-
-.tb td.Master, .tb td.Agent, .tb td.Member {
-  border-left: 0 !important; }
-
+  align-items: center;
+}
+.tb .username-row .username-col [class^=ic-], .tb .username-row .username-col [class*=" ic-"] {
+  font-size: 20px;
+}
+.tb td.super, .tb td.master, .tb td.agent, .tb td.member {
+  border-left: 0 !important;
+}
 .tb .ic-percent {
-  font-size: 14px; }
-
+  font-size: 14px;
+}
 .tb .pt-row {
-  cursor: pointer; }
-  .tb .pt-row .col-username {
-    width: 20%; }
-
+  cursor: pointer;
+}
+.tb .pt-row .col-username {
+  width: 20%;
+}
 .tb .pt-product-row .col-username {
-  padding-left: 26px; }
-
+  padding-left: 26px;
+}
 .tb .sport-row .col-username {
-  padding-left: 16px; }
-
+  padding-left: 16px;
+}
 .tb .bet-type-row .col-username {
-  padding-left: 40px; }
-
+  padding-left: 40px;
+}
 .tb .combinedcell li {
-  line-height: 20px; }
-  .tb .combinedcell li:last-child {
-    font-weight: bold; }
+  line-height: 20px;
+}
+.tb .combinedcell li:last-child {
+  font-weight: bold;
+}
 
 ul.gross-comm {
-  list-style-type: circle; }
-  ul.gross-comm li {
-    margin-left: 30px; }
+  list-style-type: circle;
+}
+ul.gross-comm li {
+  margin-left: 30px;
+}
 
 .consolidation-modal .product-pt-list-content {
   list-style: disc;
   margin: 10px 0 15px 0;
-  padding-left: 15px; }
+  padding-left: 15px;
+}

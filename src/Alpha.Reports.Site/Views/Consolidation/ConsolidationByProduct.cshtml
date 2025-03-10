@@ -25,7 +25,7 @@
     <thead>
         <tr>
             <th rowspan="2" class="hidden-stack-mode">@Resources.Product</th>
-            <th class="visible-stack-mode">@Resources.Product</th>
+            <th class="visible-stack-mode visible-stack-mode-first-col">@Resources.Product</th>
             <th rowspan="2" class="hidden-stack-mode">@Resources.Level</th>
             <th class="visible-stack-mode">@Resources.Level</th>
             <th rowspan="2" class="hidden-stack-mode">@Resources.Username</th>
@@ -76,7 +76,7 @@
                             isFirstRow = false;
                         }
 
-                        <td class="text-left @data.CustLevelName">@data.CustLevelName</td>
+                        <td class="text-left @data.CustLevelName.ToLowerInvariant()">@data.CustLevelName</td>
                         <td class="text-left">
                             <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail",$"{Alpha.Reports.Configurations.SiteSettings.ReportRouting}Consolidation"), "product", product.ProductId.ToString(), null, data)" class="downline-link">
                                 @data.Username

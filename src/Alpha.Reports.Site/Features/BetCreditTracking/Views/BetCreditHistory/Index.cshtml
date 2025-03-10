@@ -84,7 +84,7 @@
     foreach (var record in data)
     {
         <tr class="@(record.BetCredit == null ? "highlight-row" : (isEvenRow ? "even-row" : string.Empty))">
-            <td>@record.ActionDateString</td>
+            <td><div class="text-nowrap">@record.ActionDateString</div></td>
             <td class="text-center">@record.WinLostDateString</td>
             <td class="text-left">@record.RefNo</td>
             <td>@HtmlHelpers.FormatNullableNumber(record.ActualStake)</td>
