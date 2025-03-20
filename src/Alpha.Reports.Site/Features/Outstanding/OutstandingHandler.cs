@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.Outstanding
 {
+    using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Web.Helpers;
     using Extensions;
     using MediatR;
@@ -62,8 +63,9 @@
         }
 
         public IEnumerable<string> Handle(ReportLegendQuery message)
-        {
-            return Enumerable.Empty<string>();
-        }
+            => new List<string>
+            {
+                $"- {Resources.MemberWinNote}"
+            };
     }
 }

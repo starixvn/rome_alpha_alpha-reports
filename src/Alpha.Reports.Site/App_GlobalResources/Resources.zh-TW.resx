@@ -1170,4 +1170,7 @@
   <data name="SportsbookRiskAmount" xml:space="preserve">
     <value>體育博彩風險金額</value>
   </data>
+  <data name="MemberWinNote" xml:space="preserve">
+    <value>&lt;b&gt;贏取金額&lt;/b&gt;：會員從體育博彩注單中獲得的潛在淨贏金額。&lt;b&gt;您的風險金額&lt;/b&gt;：會員贏得注單時您需承擔的潛在風險，計算方式為：&lt;b&gt;您的風險金額 = 贏取金額 * 您的佔成&lt;/b&gt;。這些數值不適用於&lt;b&gt;體育博彩已結算注單或其他產品的注單&lt;/b&gt;（包括進行中和已結算的注單），並將顯示為“&lt;b&gt;N/A&lt;/b&gt;”（不適用）。</value>
+  </data>
 </root>
