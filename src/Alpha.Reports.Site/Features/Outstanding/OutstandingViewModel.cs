@@ -65,15 +65,22 @@
 
         public OutstandingModel Total => OutstandingModel.GetAccumulatedData(OutstandingDatasource);
 
+        public bool TotalHasToWinValue => OutstandingDatasource.Any(i => i.ToWin.HasValue);
+
         public List<UserLevel> DisplayOutstandingLevels => displayOutstandingLevels;
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel { get; }
 
-        public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count;
+        public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count + 2;
 
         public bool IsMobileView { get; }
 
         public bool CanSort { get; }
+
+        public string GetSMARisk
+            => Query.ViewerLevel.IsAgentLevel() ? Resources.AgentRisk :
+            Query.ViewerLevel.IsMasterLevel() ? Resources.MasterRisk :
+            Resources.SuperRisk;
 
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(OutstandingModel model) => new Dictionary<string, object>
         {

@@ -1,5 +1,18 @@
 ﻿@using Alpha.Reports.Models
 @using Alpha.Reports.Site.App_GlobalResources;
+@using Alpha.Reports.Constants;
+
+@helper FormatNumber(decimal? value)
+{
+    if (value.HasValue)
+    {
+        @value.Value.ToString("#,##0.00")
+    }
+    else
+    {
+        @DefaultVariables.NA
+    }
+}
 
 @helper FormatNumber(decimal value)
 {

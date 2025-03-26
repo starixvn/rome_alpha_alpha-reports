@@ -1155,4 +1155,22 @@
   <data name="Search" xml:space="preserve">
     <value>ค้นหา</value>
   </data>
+  <data name="ToWin" xml:space="preserve">
+    <value>จำนวนที่อาจชนะ</value>
+  </data>
+  <data name="SuperRisk" xml:space="preserve">
+    <value>ความเสี่ยงของซุปเปอร์</value>
+  </data>
+  <data name="MasterRisk" xml:space="preserve">
+    <value>ความเสี่ยงของมาสเตอร์</value>
+  </data>
+  <data name="AgentRisk" xml:space="preserve">
+    <value>ความเสี่ยงของเอเย่นท์</value>
+  </data>
+  <data name="SportsbookRiskAmount" xml:space="preserve">
+    <value>จำนวนความเสี่ยงของสปอร์ตบุ๊ค</value>
+  </data>
+  <data name="MemberWinNote" xml:space="preserve">
+    <value>&lt;b&gt;จำนวนความเสี่ยงของคุณ&lt;/b&gt;: ความเสี่ยงที่อาจเกิดขึ้นเมื่อสมาชิกชนะการเดิมพัน คำนวณจากสูตรคำนวณ: &lt;b&gt;จำนวนความเสี่ยงของคุณ = จำนวนเงินที่ชนะ * ค่าความเสี่ยงของคุณ&lt;/b&gt; ค่าเหล่านี้ไม่สามารถใช้ได้กับ&lt;b&gt;ตั๋วเดิมพันกีฬาที่ได้รับชำระแล้วหรือการเดิมพันในผลิตภัณฑ์อื่น ๆ&lt;/b&gt; (ทั้งตั๋วที่อยู่ระหว่างดำเนินการและที่ชำระแล้ว) และจะปรากฏเป็น "&lt;b&gt;N/A&lt;/b&gt;" (ไม่เกี่ยวข้อง)</value>
+  </data>
 </root>
